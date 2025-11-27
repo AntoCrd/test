@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EcoTrack - Ultimate Dashboard</title>
+    <title>EcoTrack - Low Energy Dashboard</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -13,337 +13,274 @@
                         sans: ['SF Pro Display', 'Inter', 'system-ui', 'sans-serif'],
                     },
                     colors: {
-                        'bg-main': '#030305',        /* Noir profond OLED */
-                        'card-surface': '#121214',   /* Surface carte */
-                        'card-hover': '#1A1A1E',     /* Hover léger */
-                        'accent-primary': '#2ECC71', /* Vert émeraude vibrant */
-                        'accent-glow': '#27ae60',
-                        'text-main': '#F5F5F7',
-                        'text-muted': '#86868B',
+                        'bg-main': '#000000',        /* NOIR PUR (Pixels éteints = 0 consommation) */
+                        'card-surface': '#050505',   /* Gris quasi-noir pour la distinction */
+                        'card-border': '#1A1A1A',    /* Bordures subtiles */
+                        'accent-primary': '#4ADE80', /* Vert naturel, visible mais doux */
+                        'accent-dim': '#14532d',     /* Vert sombre pour les fonds */
+                        'text-main': '#E5E5E5',      /* Gris clair (85% blanc) pour économiser l'énergie */
+                        'text-muted': '#737373',     /* Gris moyen */
                     },
                     boxShadow: {
-                        'glass': '0 8px 32px 0 rgba(0, 0, 0, 0.3)',
-                        'neon': '0 0 20px rgba(46, 204, 113, 0.3)',
-                        'inner-light': 'inset 0 1px 0 0 rgba(255, 255, 255, 0.05)',
+                        'subtle': '0 4px 6px -1px rgba(0, 0, 0, 0.5)',
+                        'glow': '0 0 15px rgba(74, 222, 128, 0.1)', /* Lueur très faible */
                     },
                     animation: {
-                        'breathe': 'breathe 4s ease-in-out infinite',
-                        'float': 'float 6s ease-in-out infinite',
-                    },
-                    keyframes: {
-                        breathe: {
-                            '0%, 100%': { transform: 'scale(1)', opacity: '0.5' },
-                            '50%': { transform: 'scale(1.05)', opacity: '0.8' },
-                        },
-                        float: {
-                            '0%, 100%': { transform: 'translateY(0)' },
-                            '50%': { transform: 'translateY(-10px)' },
-                        }
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
                     }
                 }
             }
         }
     </script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
         body {
-            background-color: #030305;
-            color: #F5F5F7;
-            /* Texture de bruit subtile pour le côté premium */
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.03'/%3E%3C/svg%3E");
+            background-color: #000000;
+            color: #E5E5E5;
         }
 
-        /* Classes utilitaires pour le Bento */
+        /* Bento Grid Layout */
         .bento-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            grid-auto-rows: minmax(180px, auto);
-            gap: 1.5rem;
+            grid-auto-rows: minmax(170px, auto);
+            gap: 1rem;
         }
 
         .bento-card {
-            background: rgba(18, 18, 20, 0.6);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 24px;
+            background-color: #050505; /* Très sombre */
+            border: 1px solid #1A1A1A;
+            border-radius: 20px;
             padding: 1.5rem;
             position: relative;
             overflow: hidden;
-            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06), inset 0 1px 0 0 rgba(255, 255, 255, 0.05);
+            transition: all 0.3s ease;
         }
 
         .bento-card:hover {
-            transform: translateY(-4px) scale(1.01);
-            background: rgba(26, 26, 30, 0.8);
-            border-color: rgba(255, 255, 255, 0.15);
-            box-shadow: 0 20px 40px -5px rgba(0,0,0,0.4), 0 0 15px rgba(46, 204, 113, 0.1);
+            border-color: #333333;
+            background-color: #0A0A0A;
         }
 
-        /* Gestion de la taille des cartes */
+        /* Grid Spans */
         .col-span-1 { grid-column: span 1; }
         .col-span-2 { grid-column: span 2; }
-        .col-span-3 { grid-column: span 3; }
         .col-span-4 { grid-column: span 4; }
         .row-span-1 { grid-row: span 1; }
         .row-span-2 { grid-row: span 2; }
 
-        /* Scrollbar invisible mais fonctionnelle */
+        /* Custom Scrollbar (Invisible) */
         ::-webkit-scrollbar { width: 0px; background: transparent; }
 
-        /* Typographie */
-        .text-gradient {
-            background: linear-gradient(135deg, #fff 0%, #a5a5a5 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        
-        .text-eco {
-            background: linear-gradient(135deg, #2ECC71 0%, #2BD6B4 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+        /* Indicateur Mode Eco */
+        .eco-badge {
+            font-size: 10px;
+            letter-spacing: 1px;
+            background: rgba(74, 222, 128, 0.1);
+            color: #4ADE80;
+            padding: 4px 8px;
+            border-radius: 4px;
+            border: 1px solid rgba(74, 222, 128, 0.2);
         }
     </style>
 </head>
 <body class="flex h-screen overflow-hidden selection:bg-accent-primary selection:text-black font-sans">
 
-    <!-- SIDEBAR MINIMALISTE (Dock Style) -->
-    <aside class="w-20 lg:w-24 flex flex-col items-center py-8 border-r border-white/5 bg-black/40 backdrop-blur-xl z-50">
+    <!-- SIDEBAR (Low Contrast) -->
+    <aside class="w-20 lg:w-24 flex flex-col items-center py-8 border-r border-[#1A1A1A] bg-black z-50">
         <!-- Logo -->
-        <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-green-400 to-emerald-600 flex items-center justify-center shadow-neon mb-12 cursor-pointer hover:scale-110 transition-transform">
-            <svg class="w-7 h-7 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" /></svg>
+        <div class="w-10 h-10 rounded-xl border border-[#333] bg-[#0A0A0A] flex items-center justify-center mb-12 group cursor-pointer">
+            <svg class="w-5 h-5 text-accent-primary opacity-80 group-hover:opacity-100 transition-opacity" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
         </div>
 
-        <!-- Navigation Icons -->
-        <nav class="flex-1 flex flex-col space-y-8 w-full items-center">
-            <button class="group relative w-12 h-12 rounded-xl flex items-center justify-center text-accent-primary bg-white/5 transition-all duration-300">
-                <div class="absolute inset-0 bg-accent-primary/20 blur-lg rounded-full opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                <svg class="w-6 h-6 relative z-10" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" /></svg>
-                <span class="absolute left-14 bg-white text-black text-xs font-bold px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">Dashboard</span>
+        <!-- Nav -->
+        <nav class="flex-1 flex flex-col space-y-6 w-full items-center">
+            <button class="w-10 h-10 rounded-lg flex items-center justify-center text-accent-primary bg-accent-primary/10 transition-all">
+                <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" /></svg>
             </button>
-
-            <button class="group w-12 h-12 rounded-xl flex items-center justify-center text-text-muted hover:text-white hover:bg-white/5 transition-all">
-                <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" /></svg>
+            <button class="w-10 h-10 rounded-lg flex items-center justify-center text-[#555] hover:text-[#999] transition-all">
+                <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" /></svg>
             </button>
-
-            <button class="group w-12 h-12 rounded-xl flex items-center justify-center text-text-muted hover:text-white hover:bg-white/5 transition-all">
-                <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" /></svg>
-            </button>
-
-            <div class="h-px w-8 bg-white/10 my-2"></div>
-
-            <button class="group w-12 h-12 rounded-xl flex items-center justify-center text-text-muted hover:text-white hover:bg-white/5 transition-all">
-                <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
+            <button class="w-10 h-10 rounded-lg flex items-center justify-center text-[#555] hover:text-[#999] transition-all">
+                <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" /></svg>
             </button>
         </nav>
-
-        <!-- Profile -->
-        <div class="w-10 h-10 rounded-full bg-gradient-to-tr from-gray-700 to-gray-600 border border-white/20"></div>
     </aside>
 
     <!-- MAIN CONTENT -->
-    <main class="flex-1 p-6 lg:p-10 overflow-y-auto relative">
+    <main class="flex-1 p-6 lg:p-10 overflow-y-auto">
         
-        <!-- Header Section -->
-        <header class="flex justify-between items-center mb-10">
+        <!-- Header minimaliste -->
+        <header class="flex justify-between items-end mb-8">
             <div>
-                <h1 class="text-4xl font-bold tracking-tight text-white mb-1">Bonjour, <span class="text-text-muted">Alex</span></h1>
-                <p class="text-text-muted text-sm font-medium tracking-wide">VOTRE SYSTÈME EST ACTUELLEMENT OPTIMISÉ À 84%</p>
+                <div class="flex items-center gap-3 mb-1">
+                    <h1 class="text-2xl font-semibold tracking-tight text-text-main">Dashboard</h1>
+                    <span class="eco-badge uppercase">Mode OLED Saver</span>
+                </div>
+                <p class="text-text-muted text-sm">Consommation d'écran réduite de 85%.</p>
             </div>
             
-            <div class="flex items-center gap-4">
-                <div class="px-4 py-2 rounded-full bg-white/5 border border-white/10 flex items-center gap-2">
-                    <div class="w-2 h-2 rounded-full bg-green-500 shadow-[0_0_10px_rgba(34,197,94,0.5)] animate-pulse"></div>
-                    <span class="text-xs font-semibold text-green-400">En ligne</span>
+            <div class="flex items-center gap-3">
+                <div class="text-right mr-2">
+                    <div class="text-xs text-text-muted uppercase tracking-wider">Impact Énergétique</div>
+                    <div class="text-sm text-accent-primary">Très Faible</div>
                 </div>
+                <div class="w-2 h-2 rounded-full bg-accent-primary animate-pulse-slow"></div>
             </div>
         </header>
 
-        <!-- BENTO GRID SYSTEM -->
+        <!-- BENTO GRID -->
         <div class="bento-grid pb-10">
 
-            <!-- CARD 1: MAIN SCANNER (The Centerpiece) -->
-            <div class="bento-card col-span-2 row-span-2 flex flex-col items-center justify-between group overflow-hidden border-accent-primary/20">
-                <!-- Background decorative mesh -->
-                <div class="absolute top-0 left-0 w-full h-full bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-accent-primary/10 via-transparent to-transparent opacity-50"></div>
-                
-                <div class="w-full flex justify-between items-start z-10">
-                    <span class="text-xs font-bold text-accent-primary tracking-widest uppercase border border-accent-primary/30 px-2 py-1 rounded">Smart Scan 2.0</span>
-                    <svg class="w-5 h-5 text-text-muted" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                </div>
-
-                <!-- Central Button/Orb -->
-                <div class="relative w-48 h-48 flex items-center justify-center my-4 cursor-pointer">
-                    <!-- Outer pulsating rings -->
-                    <div class="absolute w-full h-full rounded-full border border-accent-primary/20 animate-[spin_10s_linear_infinite]"></div>
-                    <div class="absolute w-[120%] h-[120%] rounded-full border border-white/5 animate-[spin_15s_linear_infinite_reverse]"></div>
+            <!-- CARD 1: MAIN SCANNER (Minimalist & Dark) -->
+            <div class="bento-card col-span-2 row-span-2 flex flex-col items-center justify-center group cursor-pointer border-accent-dim/30">
+                <!-- Cercle central très sombre -->
+                <div class="relative w-40 h-40 flex items-center justify-center">
+                    <!-- Anneau fin -->
+                    <div class="absolute inset-0 border border-[#333] rounded-full"></div>
+                    <!-- Anneau de progression -->
+                    <div class="absolute inset-0 border-t border-accent-primary rounded-full opacity-50 rotate-45"></div>
                     
-                    <!-- Main Button -->
-                    <div class="w-32 h-32 rounded-full bg-gradient-to-b from-[#2ECC71] to-[#27ae60] shadow-[0_0_60px_-10px_rgba(46,204,113,0.4)] flex items-center justify-center transform transition-transform duration-500 group-hover:scale-110 z-20">
-                        <span class="text-2xl font-bold text-black tracking-wider">SCAN</span>
+                    <!-- Bouton central -->
+                    <div class="w-28 h-28 rounded-full bg-[#0A0A0A] border border-[#222] flex items-center justify-center group-hover:border-accent-primary/50 transition-colors shadow-subtle">
+                        <span class="text-xl font-medium text-text-main tracking-widest group-hover:text-accent-primary transition-colors">SCAN</span>
                     </div>
-                    
-                    <!-- Glow underneath -->
-                    <div class="absolute inset-0 bg-accent-primary blur-[60px] opacity-20 group-hover:opacity-40 transition-opacity duration-500"></div>
                 </div>
 
-                <div class="text-center z-10">
-                    <h2 class="text-2xl font-semibold text-white">Prêt à optimiser</h2>
-                    <p class="text-sm text-text-muted mt-2">Dernière analyse : il y a 2 jours</p>
+                <div class="mt-6 text-center">
+                    <h2 class="text-lg font-medium text-text-main">Analyse Système</h2>
+                    <p class="text-xs text-text-muted mt-1">Recherche silencieuse des fichiers lourds</p>
                 </div>
             </div>
 
-            <!-- CARD 2: STORAGE VISUALIZER -->
-            <div class="bento-card col-span-1 row-span-2 flex flex-col">
-                <div class="flex items-center gap-3 mb-6">
-                    <div class="p-2 rounded-lg bg-blue-500/10 text-blue-400">
-                        <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4" /></svg>
-                    </div>
-                    <span class="font-medium text-white">Stockage</span>
+            <!-- CARD 2: STORAGE (Dark Bars) -->
+            <div class="bento-card col-span-1 row-span-2 flex flex-col justify-between">
+                <div class="flex items-center gap-2 mb-4">
+                    <svg class="w-4 h-4 text-[#555]" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4" /></svg>
+                    <span class="text-sm font-medium text-text-muted">Stockage Local</span>
                 </div>
 
-                <!-- Visualisation Barres empilées -->
-                <div class="flex-1 flex flex-col justify-center space-y-6">
+                <div class="space-y-6">
+                    <!-- Item -->
                     <div>
-                        <div class="flex justify-between text-xs mb-2">
-                            <span class="text-white">Système</span>
-                            <span class="text-text-muted">32 GB</span>
+                        <div class="flex justify-between text-[10px] text-[#555] mb-1 uppercase tracking-wider">
+                            <span>Docs</span>
+                            <span>120GB</span>
                         </div>
-                        <div class="h-2 w-full bg-white/5 rounded-full overflow-hidden">
-                            <div class="h-full bg-blue-500 w-[45%] rounded-full shadow-[0_0_10px_rgba(59,130,246,0.5)]"></div>
+                        <div class="h-1 w-full bg-[#111] rounded-full overflow-hidden">
+                            <div class="h-full bg-[#333] w-[45%]"></div>
                         </div>
                     </div>
-
+                    <!-- Item -->
                     <div>
-                        <div class="flex justify-between text-xs mb-2">
-                            <span class="text-white">Documents</span>
-                            <span class="text-text-muted">128 GB</span>
+                        <div class="flex justify-between text-[10px] text-[#555] mb-1 uppercase tracking-wider">
+                            <span>Système</span>
+                            <span>45GB</span>
                         </div>
-                        <div class="h-2 w-full bg-white/5 rounded-full overflow-hidden">
-                            <div class="h-full bg-purple-500 w-[65%] rounded-full shadow-[0_0_10px_rgba(168,85,247,0.5)]"></div>
+                        <div class="h-1 w-full bg-[#111] rounded-full overflow-hidden">
+                            <div class="h-full bg-[#444] w-[20%]"></div>
                         </div>
                     </div>
-                    
-                    <div>
-                        <div class="flex justify-between text-xs mb-2">
-                            <span class="text-white">Inutilisé</span>
-                            <span class="text-text-muted">340 GB</span>
+                     <!-- Item -->
+                     <div>
+                        <div class="flex justify-between text-[10px] text-[#555] mb-1 uppercase tracking-wider">
+                            <span>Libre</span>
+                            <span>335GB</span>
                         </div>
-                        <div class="h-2 w-full bg-white/5 rounded-full overflow-hidden">
-                            <div class="h-full bg-gray-700 w-[20%] rounded-full"></div>
+                        <div class="h-1 w-full bg-[#111] rounded-full overflow-hidden">
+                            <div class="h-full bg-accent-dim w-[60%]"></div>
                         </div>
                     </div>
                 </div>
                 
-                <div class="mt-4 pt-4 border-t border-white/5 flex justify-between items-center">
-                    <span class="text-2xl font-bold text-white">65%</span>
-                    <span class="text-xs text-text-muted">Espace utilisé</span>
+                <div class="mt-2 text-2xl font-semibold text-text-main">
+                    65<span class="text-sm text-text-muted">%</span>
                 </div>
             </div>
 
-            <!-- CARD 3: ECO IMPACT (Visual) -->
-            <div class="bento-card col-span-1 row-span-1 bg-gradient-to-br from-[#121214] to-green-900/20 border-green-500/20">
-                <div class="flex justify-between items-start">
-                    <div class="p-2 rounded-lg bg-green-500/10 text-green-400">
-                        <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-                    </div>
-                    <span class="text-xs font-bold text-green-500 bg-green-500/10 px-2 py-1 rounded">+12%</span>
+            <!-- CARD 3: ECO METRIC -->
+            <div class="bento-card col-span-1 row-span-1 flex flex-col justify-center items-center text-center">
+                <svg class="w-8 h-8 text-accent-primary mb-2 opacity-80" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                <div class="text-3xl font-bold text-text-main">4.2<span class="text-sm font-normal text-text-muted ml-1">kg</span></div>
+                <div class="text-[10px] text-[#555] uppercase mt-1 tracking-wider">CO₂ Évité</div>
+            </div>
+
+            <!-- CARD 4: RAM (Dark Mode) -->
+            <div class="bento-card col-span-1 row-span-1 flex flex-col justify-between">
+                <div class="text-xs text-text-muted uppercase">Mémoire</div>
+                <div class="flex items-baseline gap-1">
+                    <span class="text-2xl font-bold text-text-main">42</span>
+                    <span class="text-sm text-text-muted">%</span>
                 </div>
-                <div class="mt-4">
-                    <h3 class="text-3xl font-bold text-white tracking-tight">4.2 kg</h3>
-                    <p class="text-xs text-green-400 mt-1">CO₂ épargné ce mois</p>
+                <div class="flex gap-0.5 h-6 items-end opacity-40">
+                    <div class="w-1 bg-text-muted h-[30%]"></div>
+                    <div class="w-1 bg-text-muted h-[50%]"></div>
+                    <div class="w-1 bg-text-muted h-[40%]"></div>
+                    <div class="w-1 bg-text-main h-[70%]"></div> <!-- Spike -->
+                    <div class="w-1 bg-text-muted h-[40%]"></div>
                 </div>
             </div>
 
-            <!-- CARD 4: RAM USAGE (Speedometer style) -->
-            <div class="bento-card col-span-1 row-span-1">
-                <div class="flex justify-between items-start mb-2">
-                    <span class="text-sm font-medium text-text-muted">RAM</span>
-                    <svg class="w-5 h-5 text-yellow-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
-                </div>
-                <div class="flex items-end gap-2">
-                    <span class="text-3xl font-bold text-white">8.4</span>
-                    <span class="text-sm text-text-muted mb-1">GB / 16 GB</span>
-                </div>
-                <!-- Mini sparkline -->
-                <div class="mt-3 flex items-end h-8 gap-1 opacity-50">
-                    <div class="w-1 bg-yellow-500 h-[40%] rounded-t"></div>
-                    <div class="w-1 bg-yellow-500 h-[60%] rounded-t"></div>
-                    <div class="w-1 bg-yellow-500 h-[30%] rounded-t"></div>
-                    <div class="w-1 bg-yellow-500 h-[80%] rounded-t"></div>
-                    <div class="w-1 bg-yellow-500 h-[50%] rounded-t"></div>
-                    <div class="w-1 bg-yellow-500 h-[70%] rounded-t"></div>
-                    <div class="w-1 bg-yellow-500 h-[45%] rounded-t"></div>
-                </div>
-            </div>
-
-            <!-- CARD 5: JUNK PILE (Wide) -->
-            <div class="bento-card col-span-2 row-span-1 flex flex-row items-center justify-between hover:border-red-500/30 group">
-                <div class="flex flex-col">
-                    <div class="flex items-center gap-2 mb-2">
-                        <div class="w-2 h-2 bg-red-500 rounded-full"></div>
-                        <span class="text-sm font-bold text-white uppercase tracking-wider">Fichiers Inutiles</span>
-                    </div>
-                    <p class="text-text-muted text-xs max-w-[200px]">Caches, logs, et fichiers temporaires détectés.</p>
-                </div>
-                
-                <div class="flex items-center gap-6">
-                    <div class="text-right">
-                        <span class="block text-2xl font-bold text-white group-hover:text-red-400 transition-colors">2.1 GB</span>
-                        <span class="text-xs text-text-muted">À nettoyer</span>
-                    </div>
-                    <button class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-red-500 hover:text-black transition-all">
-                        <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg>
-                    </button>
-                </div>
-            </div>
-
-            <!-- CARD 6: QUICK ACTIONS (Grid of icons) -->
-            <div class="bento-card col-span-2 row-span-1">
-                <h3 class="text-sm font-medium text-text-muted mb-4 uppercase tracking-wider">Outils Rapides</h3>
-                <div class="grid grid-cols-4 gap-4">
-                    <!-- Tool 1 -->
-                    <div class="flex flex-col items-center gap-2 group cursor-pointer">
-                        <div class="w-12 h-12 rounded-xl bg-white/5 border border-white/5 flex items-center justify-center group-hover:bg-blue-500/20 group-hover:border-blue-500/50 transition-all">
-                            <svg class="w-6 h-6 text-gray-400 group-hover:text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
-                        </div>
-                        <span class="text-[10px] font-medium text-text-muted group-hover:text-white">Doublons</span>
-                    </div>
-                    <!-- Tool 2 -->
-                    <div class="flex flex-col items-center gap-2 group cursor-pointer">
-                        <div class="w-12 h-12 rounded-xl bg-white/5 border border-white/5 flex items-center justify-center group-hover:bg-purple-500/20 group-hover:border-purple-500/50 transition-all">
-                            <svg class="w-6 h-6 text-gray-400 group-hover:text-purple-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.384-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" /></svg>
-                        </div>
-                        <span class="text-[10px] font-medium text-text-muted group-hover:text-white">Maintenance</span>
-                    </div>
-                    <!-- Tool 3 -->
-                    <div class="flex flex-col items-center gap-2 group cursor-pointer">
-                        <div class="w-12 h-12 rounded-xl bg-white/5 border border-white/5 flex items-center justify-center group-hover:bg-pink-500/20 group-hover:border-pink-500/50 transition-all">
-                            <svg class="w-6 h-6 text-gray-400 group-hover:text-pink-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" /></svg>
-                        </div>
-                        <span class="text-[10px] font-medium text-text-muted group-hover:text-white">Privé</span>
-                    </div>
-                     <!-- Tool 4 -->
-                     <div class="flex flex-col items-center gap-2 group cursor-pointer">
-                        <div class="w-12 h-12 rounded-xl bg-white/5 border border-white/5 flex items-center justify-center group-hover:bg-yellow-500/20 group-hover:border-yellow-500/50 transition-all">
-                            <svg class="w-6 h-6 text-gray-400 group-hover:text-yellow-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
-                        </div>
-                        <span class="text-[10px] font-medium text-text-muted group-hover:text-white">Boost</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- CARD 7: PRO TIP (Banner) -->
-            <div class="bento-card col-span-4 row-span-1 bg-gradient-to-r from-blue-900/40 to-transparent border-blue-500/30 flex items-center justify-between p-8">
+            <!-- CARD 5: JUNK PILE (Dark Red) -->
+            <div class="bento-card col-span-2 row-span-1 flex items-center justify-between border-red-900/20 hover:border-red-900/50 group">
                 <div>
-                    <h3 class="text-xl font-bold text-white mb-2">Passez au niveau supérieur</h3>
-                    <p class="text-text-muted max-w-lg">Activez l'analyse en temps réel pour empêcher l'accumulation de déchets numériques avant qu'elle ne commence.</p>
+                    <div class="flex items-center gap-2 mb-1">
+                        <div class="w-1.5 h-1.5 bg-red-800 rounded-full"></div>
+                        <span class="text-sm font-medium text-text-main">Fichiers Inutiles</span>
+                    </div>
+                    <div class="text-xs text-[#666]">Cache système, logs obsolètes</div>
                 </div>
-                <button class="px-6 py-3 rounded-xl bg-white text-black font-bold text-sm hover:scale-105 transition-transform shadow-[0_0_20px_rgba(255,255,255,0.3)]">
-                    Activer la Protection
-                </button>
+                <div class="text-right">
+                    <div class="text-xl font-bold text-text-main group-hover:text-red-400 transition-colors">2.1 GB</div>
+                    <button class="text-[10px] text-red-500 hover:text-red-400 underline mt-1">Nettoyer</button>
+                </div>
+            </div>
+
+            <!-- CARD 6: QUICK TOOLS (Minimal Icons) -->
+            <div class="bento-card col-span-2 row-span-1">
+                <div class="grid grid-cols-4 gap-4 h-full items-center">
+                    <!-- Tool -->
+                    <div class="flex flex-col items-center gap-2 cursor-pointer group">
+                        <div class="w-10 h-10 rounded-full bg-[#0A0A0A] border border-[#222] flex items-center justify-center group-hover:border-[#444] transition-colors">
+                            <svg class="w-4 h-4 text-[#666] group-hover:text-text-main" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" /></svg>
+                        </div>
+                        <span class="text-[10px] text-[#555]">Doublons</span>
+                    </div>
+                    <!-- Tool -->
+                    <div class="flex flex-col items-center gap-2 cursor-pointer group">
+                         <div class="w-10 h-10 rounded-full bg-[#0A0A0A] border border-[#222] flex items-center justify-center group-hover:border-[#444] transition-colors">
+                            <svg class="w-4 h-4 text-[#666] group-hover:text-text-main" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" /></svg>
+                        </div>
+                        <span class="text-[10px] text-[#555]">Réglages</span>
+                    </div>
+                    <!-- Tool -->
+                    <div class="flex flex-col items-center gap-2 cursor-pointer group">
+                         <div class="w-10 h-10 rounded-full bg-[#0A0A0A] border border-[#222] flex items-center justify-center group-hover:border-[#444] transition-colors">
+                            <svg class="w-4 h-4 text-[#666] group-hover:text-text-main" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" /></svg>
+                        </div>
+                        <span class="text-[10px] text-[#555]">Privé</span>
+                    </div>
+                    <!-- Tool -->
+                    <div class="flex flex-col items-center gap-2 cursor-pointer group">
+                         <div class="w-10 h-10 rounded-full bg-[#0A0A0A] border border-[#222] flex items-center justify-center group-hover:border-[#444] transition-colors">
+                            <svg class="w-4 h-4 text-[#666] group-hover:text-text-main" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+                        </div>
+                        <span class="text-[10px] text-[#555]">Boost</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CARD 7: FOOTER (Dark Gradient) -->
+            <div class="bento-card col-span-4 row-span-1 bg-gradient-to-r from-[#0A0A0A] to-[#000] border-[#222] flex items-center justify-between">
+                <div>
+                    <h3 class="text-sm font-medium text-text-main">Monitoring Temps Réel</h3>
+                    <p class="text-xs text-[#555]">Activé • Faible impact CPU</p>
+                </div>
+                <div class="flex items-center gap-2">
+                    <span class="w-2 h-2 bg-accent-primary rounded-full"></span>
+                    <span class="text-xs text-accent-primary font-medium tracking-wide">PROTECTION ACTIVE</span>
+                </div>
             </div>
 
         </div>
