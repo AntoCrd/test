@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Connexion | EcoTrack</title>
+    <title>EcoTrack - Command Center</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -16,17 +16,35 @@
                     colors: {
                         black: '#000000',
                         zinc: {
-                            850: '#1f1f1f',
+                            800: '#27272a',
                             900: '#18181b',
                             950: '#09090b',
                         },
                         accent: {
-                            DEFAULT: '#4ADE80',
+                            DEFAULT: '#4ADE80', /* Vert Eco */
                             dim: 'rgba(74, 222, 128, 0.1)',
-                        }
+                            glow: 'rgba(74, 222, 128, 0.4)',
+                            text: '#86efac',
+                        },
+                        alert: '#ef4444',
+                        warning: '#f59e0b',
+                    },
+                    boxShadow: {
+                        'glass': '0 8px 32px 0 rgba(0, 0, 0, 0.37)',
                     },
                     animation: {
+                        'fade-in': 'fadeIn 0.6s ease-out forwards',
+                        'slide-up': 'slideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards',
                         'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'bar-fill': 'fillBar 1.5s ease-out forwards',
+                    },
+                    keyframes: {
+                        fadeIn: { '0%': { opacity: '0' }, '100%': { opacity: '1' } },
+                        slideUp: { '0%': { opacity: '0', transform: 'translateY(20px)' }, '100%': { opacity: '1', transform: 'translateY(0)' } },
+                        fillBar: { '0%': { width: '0%' }, '100%': { width: 'var(--w)' } }
+                    },
+                    backgroundImage: {
+                        'grid-bg': "linear-gradient(to right, #111 1px, transparent 1px), linear-gradient(to bottom, #111 1px, transparent 1px)",
                     }
                 }
             }
@@ -35,164 +53,326 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
         
-        body { background-color: #000000; color: #E5E5E5; }
-
-        /* Nouveau Glassmorphism plus premium */
-        .glass-panel-premium {
-            background: rgba(10, 10, 10, 0.7);
-            backdrop-filter: blur(20px); /* Flou plus important */
-            /* Bordure dégradée subtile pour un effet 3D */
-            border-top: 1px solid rgba(255, 255, 255, 0.15);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-            border-left: 1px solid rgba(255, 255, 255, 0.08);
-            border-right: 1px solid rgba(255, 255, 255, 0.08);
-            box-shadow: 0 30px 60px -15px rgba(0, 0, 0, 0.8);
+        body { 
+            background-color: #000000; 
+            color: #E5E5E5; 
+            overflow: hidden; 
         }
 
-        .input-field {
+        /* Bento Grid System */
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-template-rows: repeat(3, minmax(180px, auto));
+            gap: 1.25rem; /* 20px */
+            padding-bottom: 2rem;
+        }
+
+        .card {
             background-color: #09090b;
-            border: 1px solid #27272a;
-            transition: all 0.2s;
+            border: 1px solid #1f1f1f;
+            border-radius: 16px;
+            padding: 1.5rem;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            transition: all 0.3s ease;
         }
-        .input-field:focus {
-            border-color: #4ADE80;
-            box-shadow: 0 0 0 2px rgba(74, 222, 128, 0.1);
-            outline: none;
+        
+        .card:hover {
+            border-color: #3f3f46;
+            background-color: #0c0c0e;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px -10px rgba(0,0,0,0.5);
         }
 
-        /* Animation des nœuds du réseau */
-        .node-pulse { animation: pulse-node 3s infinite ease-in-out; }
-        @keyframes pulse-node {
-             0%, 100% { opacity: 0.3; transform: scale(1); }
-             50% { opacity: 0.8; transform: scale(1.2); }
-        }
+        /* Utilities */
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .text-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; color: #71717a; font-family: 'JetBrains Mono', monospace; }
+        .text-value { font-family: 'Inter', sans-serif; font-weight: 700; color: #fff; letter-spacing: -0.02em; }
+        
+        /* Micro-interactions */
+        .btn-icon { @apply p-2 rounded-lg text-zinc-400 hover:text-white hover:bg-zinc-800 transition-colors; }
     </style>
 </head>
-<body class="h-full flex items-center justify-center p-4">
+<body class="flex h-screen w-full font-sans antialiased selection:bg-accent selection:text-black">
 
-    <main class="w-full max-w-5xl h-[620px] bg-[#050505] border border-[#1A1A1A] rounded-2xl overflow-hidden flex shadow-2xl">
-        
-        <div class="hidden md:flex w-1/2 relative bg-[#020202] flex-col justify-center items-center p-12 overflow-hidden group">
-            
-            <div class="absolute inset-0 opacity-30 group-hover:opacity-40 transition-opacity duration-1000">
-                <svg viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg" class="w-full h-full">
-                    <g stroke="rgba(255,255,255,0.1)" stroke-width="0.5">
-                        <line x1="150" y1="100" x2="300" y2="200" />
-                        <line x1="300" y1="200" x2="500" y2="150" />
-                        <line x1="300" y1="200" x2="350" y2="350" />
-                        <line x1="500" y1="150" x2="650" y2="250" />
-                        <line x1="350" y1="350" x2="200" y2="450" />
-                        <line x1="350" y1="350" x2="550" y2="400" />
-                    </g>
-                    <g fill="#4ADE80">
-                        <circle cx="150" cy="100" r="2" class="node-pulse" style="animation-delay: 0s"/>
-                        <circle cx="300" cy="200" r="2.5" class="node-pulse" style="animation-delay: 0.5s"/>
-                        <circle cx="500" cy="150" r="2" class="node-pulse" style="animation-delay: 1s"/>
-                        <circle cx="350" cy="350" r="3" class="node-pulse" style="animation-delay: 1.5s"/>
-                        <circle cx="650" cy="250" r="2" class="node-pulse" style="animation-delay: 0.2s"/>
-                        <circle cx="200" cy="450" r="2" class="node-pulse" style="animation-delay: 0.7s"/>
-                        <circle cx="550" cy="400" r="2.5" class="node-pulse" style="animation-delay: 1.2s"/>
-                    </g>
-                </svg>
-            </div>
-
-            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] bg-accent/20 rounded-full blur-[100px] pointer-events-none mix-blend-screen"></div>
-            
-            <div class="absolute inset-0 bg-radial-gradient(circle at center, transparent 20%, #020202 100%) pointer-events-none"></div>
-
-            <div class="relative z-10 glass-panel-premium rounded-2xl p-8 text-center max-w-[340px] w-full transform transition hover:scale-[1.02] duration-500">
-                
-                <div class="flex items-center justify-center gap-2 mb-5">
-                    <div class="relative flex h-2.5 w-2.5">
-                      <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-50"></span>
-                      <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-accent box-shadow-[0_0_10px_rgba(74,222,128,0.5)]"></span>
-                    </div>
-                    <span class="text-[11px] font-mono text-accent uppercase tracking-widest">Impact Global Cumulé</span>
+    <aside class="w-64 border-r border-zinc-900 bg-black flex flex-col justify-between py-6 z-50">
+        <div class="px-6">
+            <div class="flex items-center gap-3 mb-10">
+                <div class="w-9 h-9 rounded-xl bg-white flex items-center justify-center shadow-[0_0_15px_rgba(255,255,255,0.2)]">
+                    <svg class="w-5 h-5 text-black" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
                 </div>
-
-                <div class="text-6xl font-bold text-white mb-1 tracking-tighter drop-shadow-lg">12,450<span class="text-accent text-3xl">t</span></div>
-                <p class="text-sm text-gray-300 font-medium mb-6">de CO₂ économisées cette année.</p>
-
-                <div class="w-full bg-zinc-800/50 h-2 rounded-full overflow-hidden relative mb-2">
-                    <div class="absolute left-0 top-0 h-full bg-accent w-[75%] shadow-[0_0_15px_rgba(74,222,128,0.6)] rounded-full"></div>
-                </div>
-                <div class="flex justify-between text-[10px] font-mono text-gray-500 mb-6">
-                    <span>Objectif actuel</span>
-                    <span class="text-accent">15,000t (75%)</span>
-                </div>
-                
-                <div class="h-px w-full bg-gradient-to-r from-transparent via-white/10 to-transparent my-4"></div>
-
-                <div class="flex justify-center gap-6 text-[10px] text-gray-400 font-mono uppercase tracking-wider">
-                    <div class="flex flex-col items-center gap-1">
-                         <svg class="w-4 h-4 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" /></svg>
-                        <span>+45k Membres</span>
-                    </div>
-                    <div class="flex flex-col items-center gap-1">
-                        <svg class="w-4 h-4 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-                        <span>Vérifié</span>
-                    </div>
+                <div>
+                    <span class="block text-lg font-bold text-white leading-none tracking-tight">EcoTrack</span>
+                    <span class="text-[10px] text-zinc-500 font-mono">v3.0.1 PRO</span>
                 </div>
             </div>
 
-            <p class="relative z-10 mt-10 text-zinc-500 text-xs text-center max-w-xs font-medium leading-relaxed">
-                Rejoignez la première communauté dédiée à la sobriété numérique.
-            </p>
+            <nav class="space-y-1">
+                <a href="#" class="flex items-center gap-3 px-4 py-3 bg-accent text-black rounded-xl font-medium shadow-[0_0_15px_rgba(74,222,128,0.2)] transition-all">
+                    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" /></svg>
+                    Tableau de bord
+                </a>
+                <a href="#" class="flex items-center gap-3 px-4 py-3 text-zinc-500 hover:text-white hover:bg-zinc-900 rounded-xl transition-all">
+                    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" /></svg>
+                    Analyse & Tri
+                </a>
+                <a href="#" class="flex items-center gap-3 px-4 py-3 text-zinc-500 hover:text-white hover:bg-zinc-900 rounded-xl transition-all">
+                    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" /></svg>
+                    Rapports RSE
+                </a>
+                <a href="#" class="flex items-center gap-3 px-4 py-3 text-zinc-500 hover:text-white hover:bg-zinc-900 rounded-xl transition-all">
+                    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" /></svg>
+                    Réglages
+                </a>
+            </nav>
         </div>
 
-        <div class="w-full md:w-1/2 bg-black flex flex-col justify-center px-8 sm:px-16 border-l border-[#1A1A1A]">
-             <div class="max-w-xs w-full mx-auto">
-                <div class="flex items-center gap-2 mb-6">
-                    <div class="w-8 h-8 rounded-lg bg-white flex items-center justify-center text-black font-bold">E</div>
-                    <span class="font-semibold text-white tracking-wide">EcoTrack</span>
+        <div class="px-6">
+            <div class="p-4 rounded-xl bg-zinc-900 border border-zinc-800">
+                <div class="flex justify-between items-center mb-2">
+                    <span class="text-label">CPU Load</span>
+                    <span class="text-xs font-mono text-accent">12%</span>
+                </div>
+                <div class="h-1 w-full bg-black rounded-full overflow-hidden">
+                    <div class="h-full bg-zinc-600 w-[12%]"></div>
+                </div>
+                <div class="flex justify-between items-center mt-3 mb-2">
+                    <span class="text-label">Memory</span>
+                    <span class="text-xs font-mono text-zinc-400">4.2GB</span>
+                </div>
+                <div class="h-1 w-full bg-black rounded-full overflow-hidden">
+                    <div class="h-full bg-zinc-600 w-[45%]"></div>
+                </div>
+            </div>
+        </div>
+    </aside>
+
+    <main class="flex-1 flex flex-col relative overflow-hidden bg-black">
+        
+        <div class="absolute inset-0 bg-grid-bg bg-[size:40px_40px] opacity-20 pointer-events-none"></div>
+
+        <header class="h-20 border-b border-zinc-900 flex items-center justify-between px-8 bg-black/80 backdrop-blur-md sticky top-0 z-40">
+            <div>
+                <h1 class="text-xl font-bold text-white tracking-tight">Vue d'ensemble</h1>
+                <div class="flex items-center gap-2 mt-0.5">
+                    <span class="w-1.5 h-1.5 rounded-full bg-accent animate-pulse"></span>
+                    <span class="text-xs text-zinc-500 font-medium">Système en ligne • Monitoring actif</span>
+                </div>
+            </div>
+            
+            <div class="flex items-center gap-4">
+                <div class="flex items-center gap-3 px-4 py-2 rounded-full border border-zinc-800 bg-zinc-900">
+                    <span class="text-[10px] font-mono uppercase text-accent">Eco Mode</span>
+                    <div class="w-8 h-4 bg-accent/20 rounded-full relative cursor-pointer">
+                        <div class="absolute right-0.5 top-0.5 w-3 h-3 bg-accent rounded-full shadow-sm"></div>
+                    </div>
+                </div>
+                
+                <div class="h-8 w-px bg-zinc-800"></div>
+
+                <div class="flex items-center gap-3">
+                    <div class="text-right hidden sm:block">
+                        <div class="text-sm font-medium text-white">Alexandre G.</div>
+                        <div class="text-[10px] text-zinc-500 uppercase">Admin</div>
+                    </div>
+                    <div class="w-9 h-9 rounded-full bg-gradient-to-tr from-zinc-700 to-zinc-600 border border-zinc-500"></div>
+                </div>
+            </div>
+        </header>
+
+        <div class="flex-1 overflow-y-auto no-scrollbar p-8">
+            <div class="max-w-[1600px] mx-auto bento-grid">
+
+                <div class="card col-span-2 row-span-2 items-center justify-center animate-slide-up" style="animation-delay: 0.1s;">
+                    <div class="absolute top-6 left-6 flex items-center gap-2">
+                        <span class="w-2 h-2 bg-accent rounded-full animate-pulse-slow"></span>
+                        <span class="text-label">État du système</span>
+                    </div>
+                    <div class="absolute top-6 right-6 text-label">Analyse en attente</div>
+
+                    <div class="relative w-64 h-64 flex items-center justify-center">
+                        <div class="absolute inset-0 border border-zinc-800 rounded-full opacity-50"></div>
+                        <div class="absolute inset-4 border border-zinc-800 rounded-full border-dashed opacity-30 animate-spin-slow" style="animation-duration: 20s;"></div>
+                        <div class="absolute inset-0 rounded-full shadow-[0_0_100px_rgba(74,222,128,0.05)]"></div>
+
+                        <button class="w-36 h-36 rounded-full bg-[#050505] border border-zinc-800 shadow-2xl flex flex-col items-center justify-center group hover:border-accent hover:shadow-[0_0_30px_rgba(74,222,128,0.15)] transition-all duration-500 z-10">
+                            <span class="text-3xl font-bold text-white tracking-tight group-hover:scale-105 transition-transform">SCAN</span>
+                            <span class="text-[10px] font-mono text-zinc-600 mt-1 uppercase group-hover:text-accent">Démarrer</span>
+                        </button>
+                    </div>
+
+                    <div class="mt-8 text-center px-10">
+                        <h2 class="text-lg font-semibold text-white">Prêt à optimiser</h2>
+                        <p class="text-sm text-zinc-500 mt-1">Dernière analyse complète effectuée il y a 3 jours. 2.4 Go de fichiers temporaires détectés.</p>
+                    </div>
                 </div>
 
-                <div class="mb-6">
-                    <h1 class="text-2xl font-bold text-white tracking-tight">Connexion</h1>
-                    <p class="text-sm text-zinc-500 mt-1">Accédez à votre tableau de bord.</p>
-                </div>
-
-                <form class="space-y-4">
-                    <div>
-                        <label class="block text-xs font-medium text-zinc-400 mb-1.5 ml-1">Adresse email</label>
-                        <input type="email" class="input-field w-full rounded-xl px-4 py-3 text-sm text-white placeholder-zinc-600 focus:ring-0" placeholder="exemple@domaine.com">
+                <div class="card col-span-1 row-span-1 justify-between animate-slide-up" style="animation-delay: 0.2s;">
+                    <div class="flex justify-between items-start">
+                        <span class="text-label">Stockage Local</span>
+                        <svg class="w-4 h-4 text-zinc-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4" /></svg>
                     </div>
                     
-                    <div>
-                        <div class="flex justify-between items-center mb-1.5 ml-1">
-                            <label class="block text-xs font-medium text-zinc-400">Mot de passe</label>
-                            <a href="#" class="text-[10px] text-zinc-500 hover:text-white transition-colors">Oublié ?</a>
+                    <div class="mt-4">
+                        <div class="flex items-baseline gap-1">
+                            <span class="text-value text-3xl">64</span>
+                            <span class="text-sm text-zinc-500">%</span>
                         </div>
-                        <input type="password" class="input-field w-full rounded-xl px-4 py-3 text-sm text-white placeholder-zinc-600 focus:ring-0" placeholder="••••••••">
+                        <span class="text-xs text-zinc-500">Utilisé sur 512 Go</span>
                     </div>
 
-                    <button class="w-full bg-white hover:bg-gray-200 text-black font-bold py-3.5 rounded-xl transition-all mt-2 text-sm shadow-[0_0_15px_rgba(255,255,255,0.05)]">
-                        Se connecter
-                    </button>
-                </form>
-
-                <div class="relative my-8">
-                    <div class="absolute inset-0 flex items-center"><div class="w-full border-t border-[#1A1A1A]"></div></div>
-                    <div class="relative flex justify-center"><span class="bg-black px-3 text-[10px] text-zinc-600 uppercase tracking-widest">Options de connexion</span></div>
+                    <div class="space-y-2 mt-4">
+                        <div class="flex h-1.5 w-full bg-zinc-900 rounded-full overflow-hidden gap-0.5">
+                            <div class="bg-zinc-500 h-full w-[40%]"></div> <div class="bg-zinc-700 h-full w-[15%]"></div> <div class="bg-accent h-full w-[9%]"></div> </div>
+                        <div class="flex justify-between text-[10px] text-zinc-500 font-mono">
+                            <div class="flex items-center gap-1"><span class="w-1.5 h-1.5 bg-zinc-500 rounded-full"></span>Docs</div>
+                            <div class="flex items-center gap-1"><span class="w-1.5 h-1.5 bg-zinc-700 rounded-full"></span>Apps</div>
+                            <div class="flex items-center gap-1"><span class="w-1.5 h-1.5 bg-accent rounded-full"></span>Libre</div>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="grid grid-cols-2 gap-3">
-                    <button class="flex items-center justify-center py-2.5 border border-[#27272a] rounded-xl hover:bg-[#111] transition-colors gap-2 group">
-                        <svg class="w-4 h-4 text-white" viewBox="0 0 24 24" fill="currentColor"><path d="M12.545,10.239v3.821h5.445c-0.712,2.315-2.647,3.972-5.445,3.972c-3.332,0-6.033-2.701-6.033-6.032s2.701-6.032,6.033-6.032c1.498,0,2.866,0.549,3.921,1.453l2.814-2.814C17.503,2.988,15.139,2,12.545,2C7.021,2,2.543,6.477,2.543,12s4.478,10,10.002,10c8.396,0,10.249-7.85,9.426-11.748L12.545,10.239z"/></svg>
-                        <span class="text-xs font-medium text-zinc-300 group-hover:text-white">Google</span>
-                    </button>
-                    <button class="flex items-center justify-center py-2.5 border border-[#27272a] rounded-xl hover:bg-[#111] transition-colors gap-2 group">
-                        <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M13.397 20.997v-8.196h2.765l.411-3.209h-3.176V7.548c0-.926.258-1.56 1.587-1.56h1.684V3.127A22.336 22.336 0 0 0 14.201 3c-2.444 0-4.122 1.492-4.122 4.231v2.355H7.332v3.209h2.753v8.202h3.312z"/></svg>
-                        <span class="text-xs font-medium text-zinc-300 group-hover:text-white">Apple</span>
-                    </button>
+                <div class="card col-span-1 row-span-1 justify-between animate-slide-up" style="animation-delay: 0.3s;">
+                    <div class="flex justify-between items-start">
+                        <span class="text-label">Impact Carbone</span>
+                        <span class="text-xs font-medium text-accent bg-accent/10 px-1.5 py-0.5 rounded">+12%</span>
+                    </div>
+
+                    <div class="mt-2">
+                        <div class="flex items-baseline gap-1">
+                            <span class="text-value text-3xl">4.2</span>
+                            <span class="text-lg text-accent font-medium">kg</span>
+                        </div>
+                        <span class="text-xs text-zinc-500">CO₂e économisé ce mois</span>
+                    </div>
+
+                    <div class="relative h-12 mt-2 flex items-end gap-1">
+                        <div class="w-1 bg-zinc-800 h-[40%] rounded-t-sm"></div>
+                        <div class="w-1 bg-zinc-800 h-[60%] rounded-t-sm"></div>
+                        <div class="w-1 bg-zinc-800 h-[30%] rounded-t-sm"></div>
+                        <div class="w-1 bg-accent h-[80%] rounded-t-sm shadow-[0_0_10px_rgba(74,222,128,0.4)] animate-pulse-slow"></div>
+                        <div class="w-1 bg-zinc-800 h-[50%] rounded-t-sm"></div>
+                         <div class="w-1 bg-zinc-800 h-[70%] rounded-t-sm"></div>
+                    </div>
+                    <p class="text-[10px] text-zinc-500 mt-2">Équivaut à 2 jours d'absorption d'un arbre.</p>
                 </div>
 
-                <div class="mt-8 text-center">
-                     <p class="text-[10px] text-zinc-600">Pas encore membre ? <a href="#" class="text-zinc-400 hover:text-white underline">Commencer gratuitement</a></p>
+                <div class="card col-span-2 row-span-1 flex-row items-center justify-between p-0 overflow-hidden animate-slide-up" style="animation-delay: 0.4s;">
+                    <div class="p-6 w-1/3 border-r border-zinc-900 bg-zinc-900/30 h-full flex flex-col justify-center">
+                        <h3 class="text-sm font-semibold text-white">Actions Rapides</h3>
+                        <p class="text-xs text-zinc-500 mt-1">Maintenance recommandée</p>
+                    </div>
+                    
+                    <div class="flex-1 flex justify-around items-center p-4">
+                        <div class="flex flex-col items-center gap-2 group cursor-pointer hover:-translate-y-1 transition-transform">
+                            <div class="w-10 h-10 rounded-full bg-zinc-900 border border-zinc-800 flex items-center justify-center text-zinc-400 group-hover:text-white group-hover:border-zinc-600 transition-colors">
+                                <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg>
+                            </div>
+                            <span class="text-[10px] text-zinc-500 font-medium">Vider Cache</span>
+                        </div>
+                         <div class="flex flex-col items-center gap-2 group cursor-pointer hover:-translate-y-1 transition-transform">
+                            <div class="w-10 h-10 rounded-full bg-zinc-900 border border-zinc-800 flex items-center justify-center text-zinc-400 group-hover:text-white group-hover:border-zinc-600 transition-colors">
+                                <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
+                            </div>
+                            <span class="text-[10px] text-zinc-500 font-medium">Photos (120)</span>
+                        </div>
+                         <div class="flex flex-col items-center gap-2 group cursor-pointer hover:-translate-y-1 transition-transform">
+                            <div class="w-10 h-10 rounded-full bg-zinc-900 border border-zinc-800 flex items-center justify-center text-zinc-400 group-hover:text-white group-hover:border-zinc-600 transition-colors">
+                                <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
+                            </div>
+                            <span class="text-[10px] text-zinc-500 font-medium">Spams</span>
+                        </div>
+                    </div>
                 </div>
+
+                <div class="card col-span-2 row-span-1 animate-slide-up" style="animation-delay: 0.5s;">
+                    <div class="flex justify-between items-center mb-4">
+                        <span class="text-label">Consommation Énergétique</span>
+                        <div class="flex gap-2">
+                            <span class="text-[10px] text-zinc-500 bg-zinc-900 px-2 py-1 rounded">Semaine</span>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-end justify-between h-28 w-full gap-2">
+                        <div class="w-full bg-zinc-800/40 hover:bg-zinc-700 transition-all rounded-t-sm relative group" style="height: 30%">
+                            <div class="opacity-0 group-hover:opacity-100 absolute -top-8 left-1/2 -translate-x-1/2 text-xs bg-zinc-800 text-white px-2 py-1 rounded">30%</div>
+                        </div>
+                        <div class="w-full bg-zinc-800/40 hover:bg-zinc-700 transition-all rounded-t-sm" style="height: 45%"></div>
+                        <div class="w-full bg-zinc-800/40 hover:bg-zinc-700 transition-all rounded-t-sm" style="height: 25%"></div>
+                        <div class="w-full bg-zinc-800/40 hover:bg-zinc-700 transition-all rounded-t-sm" style="height: 60%"></div>
+                        <div class="w-full bg-zinc-800/40 hover:bg-zinc-700 transition-all rounded-t-sm" style="height: 40%"></div>
+                        <div class="w-full bg-zinc-800/40 hover:bg-zinc-700 transition-all rounded-t-sm" style="height: 55%"></div>
+                        <div class="w-full bg-gradient-to-t from-accent/20 to-accent rounded-t-sm shadow-[0_0_15px_rgba(74,222,128,0.2)] animate-bar-fill" style="--w: 100%; height: 35%"></div>
+                    </div>
+                    
+                    <div class="flex justify-between text-[10px] text-zinc-600 mt-2 font-mono uppercase">
+                        <span>L</span><span>M</span><span>M</span><span>J</span><span>V</span><span>S</span><span class="text-accent">D</span>
+                    </div>
+                </div>
+
+                <div class="card col-span-1 row-span-1 bg-gradient-to-br from-zinc-900 to-black animate-slide-up" style="animation-delay: 0.6s;">
+                    <span class="text-label mb-3">Le saviez-vous ?</span>
+                    <p class="text-sm text-zinc-300 leading-relaxed">
+                        Supprimer 30 emails permet d'économiser l'énergie d'une ampoule allumée pendant 24h.
+                    </p>
+                    <div class="mt-auto pt-4 flex items-center gap-2 cursor-pointer group">
+                        <span class="text-xs font-medium text-accent group-hover:underline">Voir les conseils</span>
+                        <svg class="w-3 h-3 text-accent group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
+                    </div>
+                </div>
+
+                <div class="card col-span-1 row-span-1 animate-slide-up" style="animation-delay: 0.7s;">
+                    <div class="flex justify-between items-center mb-4">
+                        <span class="text-label">Appareils</span>
+                        <span class="w-2 h-2 rounded-full bg-accent"></span>
+                    </div>
+                    
+                    <div class="space-y-3">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center gap-3">
+                                <div class="w-8 h-8 rounded bg-zinc-800 flex items-center justify-center text-zinc-400">
+                                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
+                                </div>
+                                <div>
+                                    <div class="text-xs font-medium text-white">MacBook Pro</div>
+                                    <div class="text-[10px] text-zinc-500">Ce poste</div>
+                                </div>
+                            </div>
+                            <span class="text-[10px] text-accent border border-accent/20 px-1.5 rounded">Actif</span>
+                        </div>
+
+                        <div class="flex items-center justify-between opacity-60">
+                            <div class="flex items-center gap-3">
+                                <div class="w-8 h-8 rounded bg-zinc-800 flex items-center justify-center text-zinc-400">
+                                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" /></svg>
+                                </div>
+                                <div>
+                                    <div class="text-xs font-medium text-white">iPhone 13</div>
+                                    <div class="text-[10px] text-zinc-500">Veille</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
-        </div>
+            
+            <div class="max-w-[1600px] mx-auto border-t border-zinc-900 pt-6 flex justify-between items-center text-zinc-600 text-[10px] font-mono uppercase">
+                <span>EcoTrack Systems v3.0.1</span>
+                <span>Encrypted Connection • Server EU-WEST</span>
+            </div>
 
+        </div>
     </main>
+
+    <script>
+        // Simple Counter Animation
+        document.querySelectorAll('.text-value').forEach(el => {
+            // Logic to simulate counting up numbers would go here
+            // For pure HTML demo, we leave static
+        });
+    </script>
 </body>
 </html>
