@@ -3,443 +3,457 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>TWITCH COMPLETE BRUTAL</title>
+    <title>TWITCH INDUSTRIAL</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,900;1,900&family=Chivo+Mono:ital,wght@0,300;0,700;1,700&display=swap" rel="stylesheet">
 
     <style>
         :root {
-            /* PALETTE NÉO-BRUTALISTE */
-            --bg-color: #e0e0e0;
-            --surface: #ffffff;
+            /* --- PALETTE INDUSTRIELLE --- */
+            --bg-grid: #e8e8e8;
+            --surface-light: #ffffff;
+            --surface-dark: #121212;
             --ink: #000000;
             
-            /* ACCENTS */
+            /* --- ACCENTS --- */
             --twitch-purple: #9146FF;
-            --acid-green: #ccff00;
-            --alert-red: #ff2a00;
-            --cyan-pop: #00f0ff;
+            --acid-green: #D4FF00;
+            --alert-red: #FF2E00;
+            --cyan: #00F0FF;
             
-            /* UI KIT PARAMETERS */
-            --border-thick: 3px solid var(--ink);
-            --border-thin: 2px solid var(--ink);
-            --shadow-hard: 5px 5px 0px var(--ink);
-            --shadow-pressed: 2px 2px 0px var(--ink);
-            --shadow-float: 8px 8px 0px rgba(0,0,0,0.2);
-            
-            --spacing-unit: 16px;
+            /* --- PHYSIQUE --- */
+            --border-h: 3px solid var(--ink);
+            --border-l: 2px solid var(--ink);
+            --shadow-block: 6px 6px 0px var(--ink);
+            --shadow-btn: 3px 3px 0px var(--ink);
+            --radius-lg: 16px;
+            --radius-sm: 8px;
         }
 
-        /* --- RESET --- */
+        /* RESET */
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
         
         body {
-            background-color: var(--bg-color);
-            /* Motif de fond "Dot Grid" technique */
-            background-image: radial-gradient(var(--ink) 1px, transparent 1px);
-            background-size: 20px 20px;
+            background-color: var(--bg-grid);
+            /* Motif Grille Technique */
+            background-image: 
+                linear-gradient(var(--ink) 1px, transparent 1px),
+                linear-gradient(90deg, var(--ink) 1px, transparent 1px);
+            background-size: 40px 40px;
+            background-position: -1px -1px;
+            /* On atténue la grille */
+            background-blend-mode: overlay;
             
-            font-family: 'Space Mono', monospace;
+            font-family: 'Chivo Mono', monospace;
             color: var(--ink);
-            padding-bottom: 110px; /* Espace pour la bottom nav */
+            padding-bottom: 120px;
             overflow-x: hidden;
         }
+        
+        /* Masque blanc partiel sur la grille pour lisibilité */
+        body::before {
+            content:''; position: fixed; top:0; left:0; width:100%; height:100%;
+            background: rgba(255,255,255,0.85); z-index: -1;
+        }
 
-        h1, h2, h3, .title-font { font-family: 'Archivo Black', sans-serif; text-transform: uppercase; line-height: 0.9; }
-        img { display: block; max-width: 100%; }
-        button { font-family: inherit; border: none; background: none; cursor: pointer; }
+        h1, h2, h3, .heading { font-family: 'Archivo', sans-serif; text-transform: uppercase; font-style: italic; line-height: 0.9; }
+        img { width: 100%; display: block; }
 
-        /* --- 1. HEADER INDUSTRIEL --- */
-        .header-main {
+        /* --- 1. HEADER TECH --- */
+        .top-bar {
             position: sticky; top: 0; z-index: 999;
-            background: var(--surface);
-            border-bottom: var(--border-thick);
-            padding: 15px;
+            background: var(--surface-light);
+            border-bottom: var(--border-h);
+            padding: 15px 20px;
             display: flex; justify-content: space-between; align-items: center;
         }
 
-        .brand-box {
-            background: var(--ink);
-            color: var(--surface);
-            padding: 5px 10px;
-            transform: skew(-10deg);
-        }
-        
-        .brand-box h1 { font-size: 1.4rem; transform: skew(10deg); letter-spacing: -1px; }
-
-        .header-icons { display: flex; gap: 15px; }
-        
-        .icon-btn {
-            width: 40px; height: 40px;
-            border: var(--border-thin);
-            display: flex; align-items: center; justify-content: center;
-            background: var(--surface);
-            box-shadow: 3px 3px 0 var(--ink);
-            transition: 0.1s;
-        }
-        .icon-btn:active { transform: translate(2px, 2px); box-shadow: 1px 1px 0 var(--ink); }
-
-        /* --- 2. MARQUEE (TICKER) --- */
-        .marquee-strip {
-            background: var(--acid-green);
-            border-bottom: var(--border-thick);
-            overflow: hidden;
-            white-space: nowrap;
-            padding: 8px 0;
-            font-weight: 700;
-            font-size: 0.9rem;
-        }
-        
-        .marquee-content {
-            display: inline-block;
-            animation: scroll-left 15s linear infinite;
-        }
-        
-        @keyframes scroll-left { 0% { transform: translateX(0); } 100% { transform: translateX(-100%); } }
-
-        /* --- 3. STORIES "CARTOUCHES" --- */
-        .stories-section {
-            padding: 20px 0 20px 15px;
-            background: var(--surface);
-            border-bottom: var(--border-thick);
-            display: flex; gap: 15px;
-            overflow-x: auto;
-            scrollbar-width: none;
-        }
-        .stories-section::-webkit-scrollbar { display: none; }
-
-        .story-cartridge {
-            min-width: 80px;
-            display: flex; flex-direction: column; align-items: center; gap: 8px;
-            cursor: pointer;
+        .brand-pill {
+            background: var(--ink); color: var(--surface-light);
+            padding: 5px 12px;
+            border-radius: 50px;
+            font-size: 1.2rem; letter-spacing: -1px;
+            transform: rotate(-2deg);
         }
 
-        .avatar-box {
-            width: 70px; height: 70px;
-            background: #ddd;
-            border: var(--border-thick);
-            position: relative;
-            /* Forme carrée arrondie brutale */
-            border-radius: 12px;
-            transition: 0.1s;
-        }
-        .story-cartridge:active .avatar-box { transform: scale(0.95); }
-
-        .avatar-box img { width: 100%; height: 100%; object-fit: cover; border-radius: 9px; }
-
-        .status-dot {
-            position: absolute; bottom: -5px; right: -5px;
-            width: 20px; height: 20px;
-            background: var(--alert-red);
-            border: var(--border-thin);
+        .action-cluster { display: flex; gap: 12px; }
+        .icon-box {
+            width: 42px; height: 42px;
+            background: var(--surface-light);
+            border: var(--border-l);
             border-radius: 50%;
+            display: flex; justify-content: center; align-items: center;
+            box-shadow: 2px 2px 0 var(--ink);
+            transition: 0.1s; cursor: pointer;
         }
+        .icon-box:active { transform: translate(2px, 2px); box-shadow: none; }
 
-        .story-name { font-size: 0.7rem; font-weight: bold; text-align: center; line-height: 1.1; }
-
-        /* --- 4. HERO : FEATURED STREAM --- */
-        .section-label {
-            display: inline-block;
-            background: var(--ink); color: var(--surface);
-            padding: 5px 15px;
-            font-size: 1.2rem;
-            margin: 25px 0 10px 15px;
-            box-shadow: 4px 4px 0 var(--twitch-purple);
+        /* --- 2. MARQUEE --- */
+        .ticker-tape {
+            background: var(--acid-green);
+            border-bottom: var(--border-h);
+            padding: 8px 0; overflow: hidden; white-space: nowrap;
+            font-weight: 700; letter-spacing: -0.5px;
         }
+        .ticker-content { display: inline-block; animation: scroll 20s linear infinite; }
+        @keyframes scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-100%); } }
 
-        .hero-container { padding: 0 15px; margin-bottom: 20px; }
+        /* --- 3. STORIES (STATUS) --- */
+        .status-rail {
+            padding: 20px 0 20px 20px;
+            display: flex; gap: 18px;
+            overflow-x: auto; scrollbar-width: none;
+        }
+        .status-rail::-webkit-scrollbar { display: none; }
+
+        .status-item { display: flex; flex-direction: column; align-items: center; gap: 8px; min-width: 72px; }
+        
+        .avatar-ring {
+            width: 72px; height: 72px;
+            background: var(--surface-light);
+            border: var(--border-h);
+            border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; /* Forme organique "blob" */
+            padding: 4px; position: relative;
+            transition: 0.2s;
+        }
+        .status-item:active .avatar-ring { transform: scale(0.9) rotate(5deg); }
+        
+        .avatar-ring img { width: 100%; height: 100%; object-fit: cover; border-radius:inherit; border: 1px solid var(--ink); }
+        
+        .live-dot {
+            position: absolute; bottom: -2px; right: -2px;
+            background: var(--alert-red); color: white;
+            font-size: 0.6rem; font-weight: 900; padding: 2px 6px;
+            border: 2px solid var(--ink); border-radius: 4px;
+        }
+        .user-name { font-size: 0.75rem; font-weight: 700; }
+
+        /* --- 4. HERO SECTION (CARD STACK) --- */
+        .hero-section { padding: 10px 20px 30px; }
+        
+        .section-header { 
+            font-size: 1.8rem; margin-bottom: 15px; 
+            text-shadow: 2px 2px 0 var(--acid-green);
+        }
 
         .hero-card {
-            background: var(--surface);
-            border: var(--border-thick);
-            box-shadow: var(--shadow-hard);
             position: relative;
+            background: var(--surface-light);
+            border: var(--border-h);
+            border-radius: var(--radius-lg);
+            /* Effet de stack (cartes empilées) avec box-shadow */
+            box-shadow: 
+                6px 6px 0 var(--twitch-purple),
+                12px 12px 0 var(--ink);
+            margin-right: 12px; margin-bottom: 12px; /* Espace pour l'ombre */
         }
 
-        .hero-video {
-            position: relative;
-            height: 220px;
-            border-bottom: var(--border-thick);
-            background: #000;
+        .video-container {
+            height: 220px; position: relative;
+            border-bottom: var(--border-h);
+            border-radius: 14px 14px 0 0; overflow: hidden;
         }
-        .hero-video img { width: 100%; height: 100%; object-fit: cover; opacity: 0.9; }
-
-        .live-tag-big {
-            position: absolute; top: 10px; left: 10px;
-            background: var(--alert-red); color: white;
-            padding: 5px 10px; font-weight: 900;
-            border: var(--border-thin);
-            box-shadow: 3px 3px 0 var(--ink);
-            animation: pulse 2s infinite;
-        }
-        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
-
-        .viewers-counter {
-            position: absolute; bottom: 10px; right: 10px;
-            background: var(--ink); color: var(--acid-green);
-            font-family: 'Space Mono', monospace; font-weight: bold; font-size: 0.8rem;
-            padding: 4px 8px; border: 1px solid var(--surface);
-        }
-
-        .hero-details { padding: 15px; }
-
-        .streamer-lockup { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
-        .mini-avatar { width: 40px; height: 40px; background: #ccc; border: var(--border-thin); border-radius: 50%; }
+        .video-container img { height: 100%; object-fit: cover; }
         
-        .tags-row { display: flex; gap: 5px; flex-wrap: wrap; margin-top: 10px; }
-        .tag {
-            font-size: 0.7rem; font-weight: bold;
-            padding: 3px 8px;
-            background: #eee; border: 1px solid var(--ink);
-            text-transform: uppercase;
+        .overlay-ui { position: absolute; inset: 0; padding: 12px; display: flex; flex-direction: column; justify-content: space-between; }
+        .live-badge { align-self: flex-start; background: var(--alert-red); color: white; padding: 4px 8px; font-weight: 900; border: 2px solid var(--ink); box-shadow: 2px 2px 0 var(--ink); }
+        
+        .stats-pill { 
+            align-self: flex-end; background: rgba(0,0,0,0.8); color: var(--acid-green); 
+            padding: 4px 10px; border-radius: 20px; font-weight: 700; font-size: 0.8rem;
+            backdrop-filter: blur(4px);
         }
 
-        /* --- 5. CATEGORIES "KEYBOARD" STYLE --- */
-        .categories-scroll {
-            display: flex; gap: 10px;
-            padding: 0 15px;
-            overflow-x: auto;
-            margin-bottom: 30px;
-            scrollbar-width: none;
+        .hero-meta { padding: 16px; }
+        .hero-title { font-size: 1.1rem; line-height: 1.2; margin-bottom: 8px; }
+        
+        .streamer-row { display: flex; justify-content: space-between; align-items: center; margin-top: 12px; }
+        .profile-lockup { display: flex; align-items: center; gap: 10px; }
+        .mini-pfp { width: 36px; height: 36px; border-radius: 50%; border: var(--border-l); }
+        
+        .tag-row { display: flex; gap: 6px; margin-top: 12px; flex-wrap: wrap; }
+        .tag { 
+            font-size: 0.7rem; font-weight: 700; background: #eee; 
+            padding: 4px 8px; border: 1px solid var(--ink); border-radius: 4px; 
         }
-        .categories-scroll::-webkit-scrollbar { display: none; }
 
-        .cat-key {
-            background: var(--surface);
-            border: var(--border-thin);
-            border-radius: 6px;
-            padding: 10px 15px;
-            font-weight: bold;
-            white-space: nowrap;
-            box-shadow: 0 4px 0 var(--ink); /* Effet touche clavier */
-            margin-bottom: 5px; /* Pour l'ombre */
+        /* --- 5. DISCOVERY KEYBOARD --- */
+        .cat-scroll { 
+            display: flex; gap: 10px; padding: 0 20px 30px; 
+            overflow-x: auto; scrollbar-width: none; 
+        }
+        .cat-scroll::-webkit-scrollbar { display: none; }
+
+        .key-cap {
+            background: var(--surface-light);
+            border: var(--border-l); border-radius: 6px; border-bottom-width: 4px;
+            padding: 10px 16px; min-width: max-content;
+            font-weight: 700; display: flex; align-items: center; gap: 8px;
             transition: 0.1s;
-            display: flex; align-items: center; gap: 8px;
         }
-        
-        .cat-key:active { transform: translateY(4px); box-shadow: 0 0 0 var(--ink); }
-        .cat-icon { width: 15px; height: 15px; background: var(--twitch-purple); border-radius: 50%; display: inline-block; }
+        .key-cap:active { border-bottom-width: 2px; transform: translateY(2px); }
+        .dot { width: 10px; height: 10px; background: var(--ink); border-radius: 50%; }
 
-        /* --- 6. FEED "DATA GRID" --- */
-        .feed-container { padding: 0 15px; display: grid; gap: 20px; }
-
-        .feed-card {
-            background: var(--surface);
-            border: var(--border-thick);
-            display: grid;
-            grid-template-columns: 110px 1fr;
-            /* Un coin cassé pour le style */
-            clip-path: polygon(0 0, 100% 0, 100% 100%, 10px 100%, 0 calc(100% - 10px));
-            /* On ne peut pas mettre de bordure et de clip-path facilement, donc on simule une ombre */
-            filter: drop-shadow(5px 5px 0px var(--ink));
-            margin-bottom: 5px;
+        /* --- 6. DARK SECTION (CLIPS) --- */
+        .dark-zone {
+            background: var(--surface-dark);
+            color: var(--surface-light);
+            padding: 30px 0;
+            border-top: var(--border-h);
+            border-bottom: var(--border-h);
+            position: relative;
         }
-
-        .feed-thumb { position: relative; border-right: var(--border-thick); }
-        .feed-thumb img { width: 100%; height: 100%; object-fit: cover; }
-        
-        .feed-info { padding: 12px; display: flex; flex-direction: column; justify-content: space-between; }
-        
-        .feed-title {
-            font-weight: 700; font-size: 0.95rem; margin-bottom: 5px; line-height: 1.2;
-            display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
-        }
-        
-        .meta-line { font-size: 0.75rem; color: #555; display: flex; justify-content: space-between; }
-        .game-highlight { background: var(--acid-green); padding: 0 4px; color: var(--ink); font-weight: bold; }
-
-        /* --- 7. CLIPS SECTION (DARK MODE BLOCK) --- */
-        .clips-block {
-            margin-top: 40px;
-            background: var(--ink);
-            color: var(--surface);
-            padding: 20px 0;
-            border-top: var(--border-thick);
-            border-bottom: var(--border-thick);
+        /* Pattern hachuré CSS */
+        .dark-zone::before {
+            content:''; position: absolute; top:0; left:0; width:100%; height:10px;
+            background: repeating-linear-gradient(45deg, var(--ink), var(--ink) 10px, var(--acid-green) 10px, var(--acid-green) 20px);
+            border-bottom: var(--border-h);
         }
 
-        .clips-header { padding: 0 15px 15px; color: var(--acid-green); }
+        .zone-title { padding: 0 20px 15px; color: var(--acid-green); font-size: 1.5rem; }
         
-        .clips-rail {
-            display: flex; gap: 15px; padding: 0 15px; overflow-x: auto;
-            scrollbar-width: none;
-        }
+        .clips-rail { display: flex; gap: 15px; padding: 0 20px; overflow-x: auto; scrollbar-width: none; }
         .clips-rail::-webkit-scrollbar { display: none; }
 
         .clip-card {
-            min-width: 140px;
-            border: 2px solid var(--surface);
-            background: #222;
+            min-width: 140px; position: relative;
+            border: 2px solid var(--surface-light);
         }
-        .clip-img { height: 200px; width: 100%; object-fit: cover; filter: grayscale(100%); transition: 0.2s; }
-        .clip-card:hover .clip-img { filter: grayscale(0%); }
-        .clip-title { padding: 8px; font-size: 0.7rem; font-weight: bold; color: var(--acid-green); }
-
-        /* --- 8. BOTTOM DOCK (NAVIGATION) --- */
-        .nav-wrapper {
-            position: fixed; bottom: 20px; left: 0; right: 0;
-            display: flex; justify-content: center;
-            z-index: 1000;
-            pointer-events: none;
+        .clip-poster { height: 220px; width: 100%; object-fit: cover; filter: grayscale(1); transition: 0.3s; }
+        .clip-card:hover .clip-poster { filter: grayscale(0); }
+        .clip-play { 
+            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            font-size: 2rem; color: var(--surface-light); text-shadow: 0 4px 0 var(--ink);
         }
 
-        .nav-bar {
+        /* --- 7. FEED (LIST VIEW) --- */
+        .feed-section { padding: 30px 20px; }
+        
+        .feed-item {
+            background: var(--surface-light);
+            border: var(--border-h);
+            border-radius: var(--radius-sm);
+            margin-bottom: 16px;
+            display: flex; overflow: hidden;
+            box-shadow: 4px 4px 0 rgba(0,0,0,0.1);
+        }
+        
+        .feed-thumb { width: 130px; position: relative; border-right: var(--border-h); }
+        .feed-thumb img { width: 100%; height: 100%; object-fit: cover; }
+        
+        .feed-content { padding: 12px; flex: 1; display: flex; flex-direction: column; justify-content: space-between; }
+        .feed-h { font-weight: 700; font-size: 0.95rem; line-height: 1.2; margin-bottom: 6px; }
+        .feed-sub { font-size: 0.8rem; color: #555; }
+        
+        /* Simulation de chat */
+        .chat-preview {
+            margin-top: 8px; background: #f4f4f4; padding: 4px 8px; border-radius: 4px;
+            font-size: 0.7rem; color: #666; border-left: 3px solid var(--twitch-purple);
+            white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 180px;
+        }
+
+        /* --- 8. DOCK (NAV) --- */
+        .dock-wrapper {
+            position: fixed; bottom: 20px; left: 0; width: 100%;
+            display: flex; justify-content: center; z-index: 1000; pointer-events: none;
+        }
+        
+        .control-deck {
             pointer-events: auto;
-            background: var(--surface);
-            border: var(--border-thick);
-            padding: 8px 12px;
-            display: flex; align-items: center; gap: 15px;
-            box-shadow: 0 10px 0 rgba(0,0,0,0.3);
-            border-radius: 12px;
+            background: var(--ink);
+            padding: 10px 20px;
+            border-radius: 20px;
+            border: 3px solid var(--surface-light);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+            display: flex; gap: 24px; align-items: center;
+        }
+        
+        .nav-btn {
+            color: #666; font-size: 1.5rem; transition: 0.2s; position: relative;
+        }
+        .nav-btn.active { color: var(--acid-green); transform: translateY(-3px); }
+        .nav-btn.active::after {
+            content:''; position: absolute; bottom: -6px; left: 50%; transform: translateX(-50%);
+            width: 4px; height: 4px; background: var(--acid-green); border-radius: 50%;
         }
 
-        .nav-item {
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
-            width: 45px; height: 45px;
-            border-radius: 8px;
-            transition: 0.2s;
-        }
-        
-        .nav-item svg { width: 24px; height: 24px; fill: var(--ink); }
-        
-        .nav-item.active { background: var(--acid-green); border: var(--border-thin); box-shadow: 2px 2px 0 var(--ink); }
-        
-        /* Bouton central "GLITCH" */
-        .nav-fab {
-            width: 55px; height: 55px;
-            background: var(--twitch-purple);
-            border: var(--border-thick);
+        .btn-create {
+            width: 50px; height: 50px; margin-top: -30px;
+            background: var(--twitch-purple); border: 3px solid var(--surface-light);
+            border-radius: 12px; transform: rotate(45deg);
             display: flex; justify-content: center; align-items: center;
-            margin: 0 10px;
-            position: relative; top: -15px;
-            box-shadow: 4px 4px 0 var(--ink);
-            transition: 0.1s;
+            box-shadow: 0 5px 0 var(--ink);
         }
-        .nav-fab:active { transform: translate(4px, 4px); box-shadow: 0 0 0 var(--ink); top: -11px; }
-        .nav-fab svg { fill: var(--surface); width: 28px; height: 28px; }
+        .btn-create span { transform: rotate(-45deg); color: white; font-size: 1.8rem; font-weight: 300;}
 
     </style>
 </head>
 <body>
 
-    <header class="header-main">
-        <div class="brand-box">
-            <h1 class="title-font">TWITCH</h1>
-        </div>
-        <div class="header-icons">
-            <div class="icon-btn">
-                <svg width="20" height="20" viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg>
-            </div>
-            <div class="icon-btn" style="background: var(--bg-color);">
-                <svg width="20" height="20" viewBox="0 0 24 24"><path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.63-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.64 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/></svg>
-            </div>
+    <header class="top-bar">
+        <div class="brand-pill">TWITCH_OS</div>
+        <div class="action-cluster">
+            <div class="icon-box">📡</div>
+            <div class="icon-box">💬</div>
+            <div class="icon-box" style="background: var(--acid-green);">👤</div>
         </div>
     </header>
 
-    <div class="marquee-strip">
-        <div class="marquee-content">
-            ⚠️ NOUVEAUX DROPS DISPONIBLES /// FINALE RLCS CE SOIR 20H /// MAINTENANCE PRÉVUE MARDI /// ZERATOR EST EN LIVE /// SQUEEZIE HORROR THREAD ///
+    <div class="ticker-tape">
+        <div class="ticker-content">
+            /// MAINTENANCE PRÉVUE 03:00 AM /// NOUVEAUX DROPS DISPONIBLES /// FINALE RLCS : VITALITY WIN /// SQUEEZIE EST EN LIVE ///
         </div>
     </div>
 
-    <section class="stories-section">
-        <div class="story-cartridge">
-            <div class="avatar-box" style="border-color: var(--twitch-purple);">
-                <img src="https://picsum.photos/100/100?1" alt="User">
-                <div class="status-dot"></div>
+    <div class="status-rail">
+        <div class="status-item">
+            <div class="avatar-ring" style="background: var(--twitch-purple);">
+                <img src="https://picsum.photos/100/100?1">
+                <div class="live-dot">LIVE</div>
             </div>
-            <span class="story-name">GOTAGA</span>
+            <span class="user-name">Gotaga</span>
         </div>
-        <div class="story-cartridge">
-            <div class="avatar-box" style="border-color: var(--acid-green);">
-                <img src="https://picsum.photos/100/100?2" alt="User">
-                <div class="status-dot"></div>
+        <div class="status-item">
+            <div class="avatar-ring" style="background: var(--acid-green);">
+                <img src="https://picsum.photos/100/100?2">
+                <div class="live-dot">LIVE</div>
             </div>
-            <span class="story-name">SQUEEZIE</span>
+            <span class="user-name">Kamet0</span>
         </div>
-        <div class="story-cartridge">
-            <div class="avatar-box">
-                <img src="https://picsum.photos/100/100?3" alt="User">
-                <div class="status-dot"></div>
+        <div class="status-item">
+            <div class="avatar-ring">
+                <img src="https://picsum.photos/100/100?3">
+                <div class="live-dot">LIVE</div>
             </div>
-            <span class="story-name">KAMET0</span>
+            <span class="user-name">ZeratoR</span>
         </div>
-        <div class="story-cartridge">
-            <div class="avatar-box" style="filter: grayscale(100%); opacity: 0.6;">
-                <img src="https://picsum.photos/100/100?4" alt="User">
+        <div class="status-item">
+            <div class="avatar-ring" style="border-style: dashed;">
+                <img src="https://picsum.photos/100/100?4" style="filter: grayscale(1); opacity: 0.7;">
             </div>
-            <span class="story-name">ANTOINE</span>
+            <span class="user-name">Squeezie</span>
         </div>
-        <div class="story-cartridge">
-            <div class="avatar-box">
-                <img src="https://picsum.photos/100/100?5" alt="User">
-                <div class="status-dot"></div>
+        <div class="status-item">
+            <div class="avatar-ring" style="border-style: dashed;">
+                <img src="https://picsum.photos/100/100?5" style="filter: grayscale(1); opacity: 0.7;">
             </div>
-            <span class="story-name">ETOLES</span>
+            <span class="user-name">Etoiles</span>
+        </div>
+    </div>
+
+    <section class="hero-section">
+        <h2 class="heading section-header">À la une</h2>
+        
+        <div class="hero-card">
+            <div class="video-container">
+                <img src="https://picsum.photos/800/450" alt="Stream">
+                <div class="overlay-ui">
+                    <div class="live-badge">EN DIRECT</div>
+                    <div class="stats-pill">● 214K SPECTATEURS</div>
+                </div>
+            </div>
+            <div class="hero-meta">
+                <h3 class="heading hero-title">POPCORN : L'ÉMISSION DU MARDI AVEC ZENDAYA ET TOM HOLLAND 🍿</h3>
+                <div class="streamer-row">
+                    <div class="profile-lockup">
+                        <img src="https://picsum.photos/50/50?6" class="mini-pfp">
+                        <div>
+                            <div style="font-weight: 900;">DOMINGO</div>
+                            <div style="font-size: 0.8rem; color: var(--twitch-purple); font-weight: bold;">JUST CHATTING</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tag-row">
+                    <span class="tag">FRANÇAIS</span>
+                    <span class="tag" style="background: var(--acid-green);">TALK SHOW</span>
+                    <span class="tag">EXCLU</span>
+                </div>
+            </div>
         </div>
     </section>
 
-    <div class="section-label title-font">À LA UNE</div>
-    
-    <div class="hero-container">
-        <div class="hero-card">
-            <div class="hero-video">
-                <img src="https://picsum.photos/600/350" alt="Stream">
-                <div class="live-tag-big">LIVE</div>
-                <div class="viewers-counter">124,592_VIEWERS</div>
+    <div class="cat-scroll">
+        <button class="key-cap"><div class="dot" style="background: var(--twitch-purple);"></div>JUST CHATTING</button>
+        <button class="key-cap" style="background: var(--ink); color: white;"><div class="dot" style="background: var(--acid-green);"></div>LEAGUE</button>
+        <button class="key-cap"><div class="dot" style="background: var(--alert-red);"></div>VALORANT</button>
+        <button class="key-cap"><div class="dot" style="background: orange;"></div>MINECRAFT</button>
+    </div>
+
+    <section class="dark-zone">
+        <h2 class="heading zone-title">CLIPS TENDANCE</h2>
+        <div class="clips-rail">
+            <div class="clip-card">
+                <img src="https://picsum.photos/200/350?7" class="clip-poster">
+                <div class="clip-play">▶</div>
             </div>
-            <div class="hero-details">
-                <div class="streamer-lockup">
-                    <div class="mini-avatar"><img src="https://picsum.photos/50/50?6" style="width:100%;height:100%;border-radius:50%"></div>
-                    <div>
-                        <h2 style="font-size: 1.1rem; margin-bottom: 2px;">OTTERWORLDLY</h2>
-                        <span style="font-weight: bold; color: var(--twitch-purple);">ELDEN RING</span>
-                    </div>
-                </div>
-                <h3 style="font-size: 0.95rem; line-height: 1.3;">NO HIT RUN ATTEMPT #429 // JE VAIS MOURIR (ENCORE) 💀</h3>
-                <div class="tags-row">
-                    <span class="tag">FRANÇAIS</span>
-                    <span class="tag" style="background:var(--cyan-pop)">TRYHARD</span>
-                </div>
+            <div class="clip-card">
+                <img src="https://picsum.photos/200/350?8" class="clip-poster">
+                <div class="clip-play">▶</div>
+            </div>
+            <div class="clip-card">
+                <img src="https://picsum.photos/200/350?9" class="clip-poster">
+                <div class="clip-play">▶</div>
             </div>
         </div>
-    </div>
+    </section>
 
-    <div class="categories-scroll">
-        <button class="cat-key"><span class="cat-icon"></span>JUST CHATTING</button>
-        <button class="cat-key" style="background: var(--ink); color: white;"><span class="cat-icon" style="background:var(--acid-green)"></span>LEAGUE</button>
-        <button class="cat-key"><span class="cat-icon" style="background:var(--alert-red)"></span>VALORANT</button>
-        <button class="cat-key"><span class="cat-icon" style="background:orange"></span>MINECRAFT</button>
-    </div>
-
-    <div class="section-label title-font" style="background: var(--twitch-purple);">RECOMMANDÉS</div>
-
-    <div class="feed-container">
+    <section class="feed-section">
+        <h2 class="heading section-header" style="font-size: 1.4rem;">RECOMMANDÉS</h2>
         
-        <div class="feed-card">
+        <div class="feed-item">
             <div class="feed-thumb">
-                <img src="https://picsum.photos/200/150?7" alt="Thumb">
+                <img src="https://picsum.photos/300/200?10">
+                <div style="position: absolute; bottom: 4px; right: 4px; background: black; color: white; font-size: 0.6rem; padding: 2px 4px; font-weight: bold;">45K</div>
             </div>
-            <div class="feed-info">
+            <div class="feed-content">
                 <div>
-                    <div class="feed-title title-font">FINALE MONDIALE RLCS : VITALITY VS BDS</div>
-                    <div class="meta-line">
-                        <span style="font-weight:900;">RocketBaguette</span>
-                    </div>
+                    <div class="feed-h">RLCS FINALS : VITALITY VS BDS</div>
+                    <div class="feed-sub">RocketBaguette • ROCKET LEAGUE</div>
                 </div>
-                <div class="meta-line" style="margin-top:auto;">
-                    <span class="game-highlight">ROCKET LEAGUE</span>
-                    <span>🔴 45K</span>
-                </div>
+                <div class="chat-preview">Kev92: INCROYABLE CE BUT !!!</div>
             </div>
         </div>
 
-        <div class="feed-card">
+        <div class="feed-item">
             <div class="feed-thumb">
-                <img src="https://picsum.photos/200/150?8" alt="Thumb">
+                <img src="https://picsum.photos/300/200?11">
+                <div style="position: absolute; bottom: 4px; right: 4px; background: black; color: white; font-size: 0.6rem; padding: 2px 4px; font-weight: bold;">12K</div>
             </div>
-            <div class="feed-info">
+            <div class="feed-content">
                 <div>
-                    <div class="feed-title title-font">MASTERCLASS GEOGUESSR NO MOVE</div>
-                    <div class="meta-line">
+                    <div class="feed-h">ON TESTE LE DLC ELDEN RING</div>
+                    <div class="feed-sub">Altair • ELDEN RING</div>
+                </div>
+                <div class="chat-preview">Modo: Pas de spoil svp</div>
+            </div>
+        </div>
+        
+        <div class="feed-item">
+            <div class="feed-thumb">
+                <img src="https://picsum.photos/300/200?12">
+                <div style="position: absolute; bottom: 4px; right: 4px; background: black; color: white; font-size: 0.6rem; padding: 2px 4px; font-weight: bold;">8K</div>
+            </div>
+            <div class="feed-content">
+                <div>
+                    <div class="feed-h">GEO WIZARD MODE : HARDCORE</div>
+                    <div class="feed-sub">AntoineDaniel • GEOGUESSR</div>
+                </div>
+                <div class="chat-preview">User123: C'est en Bolivie sûr</div>
+            </div>
+        </div>
+
+    </section>
+
+    <div class="dock-wrapper">
+        <div class="control-deck">
+            <div class="nav-btn active">🏠</div>
+            <div class="nav-btn">🧭</div>
+            <div class="btn-create"><span>＋</span></div>
+            <div class="nav-btn">❤️</div>
+            <div class="nav-btn">🔍</div>
+        </div>
+    </div>
+
+</body>
+</html>
