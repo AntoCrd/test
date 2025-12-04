@@ -3,326 +3,302 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>EcoTrack Mobile - RSE Champions Green</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Inter', 'system-ui', 'sans-serif'],
-                        mono: ['JetBrains Mono', 'monospace'],
-                    },
-                    colors: {
-                        black: '#000000',
-                        card: '#09090b',
-                        border: '#1f1f1f',
-                        zinc: { 850: '#1f1f1f', 900: '#18181b' },
-                        accent: {
-                            DEFAULT: '#4ADE80',
-                            dim: 'rgba(74, 222, 128, 0.1)',
-                            glow: 'rgba(74, 222, 128, 0.4)',
-                        }
-                    },
-                    boxShadow: {
-                        'glow': '0 0 20px -5px rgba(74, 222, 128, 0.15)',
-                    },
-                    animation: {
-                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-                        'grow-bar': 'grow 1.5s cubic-bezier(0.4, 0, 0.2, 1) forwards',
-                    },
-                    keyframes: {
-                        grow: { '0%': { height: '0%' }, '100%': { height: 'var(--h)' } }
-                    }
-                }
-            }
-        }
-    </script>
+    <title>Twitch Home Acid</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@500;700;900&display=swap" rel="stylesheet">
+    
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+        :root {
+            /* PALETTE */
+            --acid: #ccff00;
+            --purple: #9146ff;
+            --dark: #000000;
+            --white: #ffffff;
+            --gray: #f4f4f4;
+            
+            /* UI */
+            --border-thick: 3px solid var(--dark);
+            --border-thin: 2px solid var(--dark);
+            --shadow-hard: 5px 5px 0px var(--dark);
+            --shadow-acid: 5px 5px 0px var(--acid);
+            --radius: 12px;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+        body {
+            background-color: var(--gray);
+            font-family: 'Inter', sans-serif;
+            color: var(--dark);
+            padding-bottom: 100px; /* Espace pour le dock */
+            overflow-x: hidden;
+        }
+
+        /* TYPO */
+        h1, h2, h3, .heavy-font { font-family: 'Archivo Black', sans-serif; text-transform: uppercase; line-height: 1; }
+
+        /* --- 1. HEADER --- */
+        .app-header {
+            position: sticky; top: 0; z-index: 100;
+            background: var(--white);
+            border-bottom: var(--border-thick);
+            padding: 15px 20px;
+            display: flex; justify-content: space-between; align-items: center;
+        }
+
+        .logo { font-size: 1.5rem; color: var(--purple); text-shadow: 2px 2px 0px var(--acid); }
+        .user-pic { width: 40px; height: 40px; background: var(--acid); border-radius: 50%; border: var(--border-thin); }
+
+        /* --- 2. STORIES (Horizontal) --- */
+        .stories-container {
+            padding: 20px 0 20px 20px;
+            display: flex; gap: 15px;
+            overflow-x: auto;
+            scrollbar-width: none; /* Firefox */
+        }
+        .stories-container::-webkit-scrollbar { display: none; }
+
+        .story {
+            display: flex; flex-direction: column; align-items: center; gap: 5px;
+            min-width: 75px; cursor: pointer;
+        }
+
+        .story-ring {
+            width: 70px; height: 70px;
+            border-radius: 50%;
+            border: var(--border-thick);
+            padding: 3px;
+            background: var(--white);
+            position: relative;
+            transition: transform 0.1s;
+        }
+        .story:active .story-ring { transform: scale(0.95); }
+
+        .story-ring img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; border: 1px solid #000; }
         
-        body { background-color: #000000; color: #E5E5E5; overflow: hidden; -webkit-tap-highlight-color: transparent; }
-        .no-scrollbar::-webkit-scrollbar { display: none; }
-
-        /* Grille Layout */
-        .grid-container {
-            display: grid;
-            grid-template-columns: repeat(12, 1fr);
-            gap: 1.5rem;
-            padding-bottom: 2rem;
+        .live-badge-sm {
+            position: absolute; bottom: -5px; left: 50%; transform: translateX(-50%);
+            background: #ff0000; color: white; font-size: 0.6rem; font-weight: 900;
+            padding: 2px 6px; border: 2px solid var(--dark);
         }
+        
+        .story-name { font-size: 0.75rem; font-weight: 700; }
 
-        .bento-card {
-            background-color: #09090b;
-            border: 1px solid #1f1f1f;
-            border-radius: 20px;
+        /* --- 3. HERO (A LA UNE) --- */
+        .section-title { padding: 0 20px; font-size: 1.2rem; margin-bottom: 15px; display: flex; align-items: center; gap: 10px; }
+        .section-title::after { content:''; flex-grow: 1; height: 3px; background: var(--dark); }
+
+        .hero-wrapper { padding: 0 20px 30px; }
+
+        .hero-card {
+            background: var(--dark);
+            border: var(--border-thick);
+            border-radius: var(--radius);
             overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            transition: border-color 0.2s;
+            box-shadow: var(--shadow-acid); /* Ombre acide distinctive */
+            position: relative;
+            transition: all 0.1s ease;
         }
-        .bento-card:hover { border-color: #3f3f46; }
+        
+        .hero-card:active { transform: translate(3px, 3px); box-shadow: 2px 2px 0 var(--acid); }
 
-        /* Fond Graphique */
-        .chart-bg {
-            background-image: repeating-linear-gradient(0deg, #1f1f1f 0px, #1f1f1f 1px, transparent 1px, transparent 40px);
-            background-size: 100% 40px;
+        .hero-img-box { position: relative; height: 220px; }
+        .hero-img-box img { width: 100%; height: 100%; object-fit: cover; opacity: 0.9; }
+
+        .hero-overlay {
+            position: absolute; top: 10px; left: 10px; right: 10px; display: flex; justify-content: space-between;
         }
+        .badge-live { background: #ff0000; color: white; padding: 5px 10px; border: 2px solid black; font-weight: 900; font-size: 0.8rem; }
+        .badge-viewers { background: rgba(0,0,0,0.8); color: var(--acid); padding: 5px 10px; border-radius: 6px; font-weight: 700; font-size: 0.8rem; }
+
+        .hero-content { background: var(--white); padding: 15px; border-top: var(--border-thick); }
+        .hero-header { display: flex; gap: 10px; align-items: center; margin-bottom: 5px; }
+        .hero-avatar { width: 30px; height: 30px; border-radius: 50%; border: 2px solid black; }
+        
+        .tag-pill {
+            display: inline-block; background: var(--gray); border: 1px solid black;
+            padding: 3px 8px; font-size: 0.7rem; font-weight: 700; margin-right: 5px; margin-top: 5px;
+        }
+
+        /* --- 4. FEED (LIST) --- */
+        .feed-wrapper { padding: 0 20px; }
+
+        .feed-item {
+            background: var(--white);
+            border: var(--border-thick);
+            border-radius: var(--radius);
+            margin-bottom: 15px;
+            display: flex;
+            overflow: hidden;
+            box-shadow: var(--shadow-hard);
+            transition: all 0.1s;
+        }
+        .feed-item:active { transform: translate(3px, 3px); box-shadow: 2px 2px 0 black; }
+
+        .feed-img {
+            width: 120px; height: auto;
+            border-right: var(--border-thick);
+            position: relative;
+        }
+        .feed-img img { width: 100%; height: 100%; object-fit: cover; }
+        
+        .feed-info { padding: 12px; flex: 1; display: flex; flex-direction: column; justify-content: center; }
+        .feed-title { font-weight: 800; font-size: 0.95rem; line-height: 1.2; margin-bottom: 5px; 
+            display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+        }
+        .feed-meta { font-size: 0.8rem; color: #555; font-weight: 600; }
+        .feed-cat { color: var(--purple); font-weight: 800; text-transform: uppercase; font-size: 0.75rem; }
+
+        /* --- 5. BOTTOM DOCK --- */
+        .dock-container {
+            position: fixed; bottom: 20px; left: 0; width: 100%;
+            display: flex; justify-content: center; z-index: 200; pointer-events: none;
+        }
+        
+        .dock {
+            pointer-events: auto;
+            background: var(--dark);
+            padding: 10px 25px;
+            border-radius: 50px;
+            border: 3px solid var(--white);
+            box-shadow: 0px 8px 20px rgba(0,0,0,0.4);
+            display: flex; gap: 30px; align-items: center;
+        }
+
+        .dock-icon { font-size: 1.5rem; opacity: 0.5; transition: 0.2s; cursor: pointer; }
+        .dock-icon.active { opacity: 1; transform: scale(1.2); }
+        
+        /* Bouton central qui dépasse */
+        .create-btn {
+            background: var(--acid); width: 50px; height: 50px;
+            border-radius: 50%; border: 3px solid var(--dark);
+            display: flex; justify-content: center; align-items: center;
+            font-size: 1.5rem; font-weight: 900; margin-top: -30px;
+            box-shadow: 0 4px 0 var(--white);
+        }
+
     </style>
 </head>
-<body class="flex h-screen w-full font-sans antialiased text-gray-300 bg-black">
+<body>
 
-    <aside class="w-20 lg:w-24 border-r border-border bg-black flex flex-col items-center py-8 z-50 flex-shrink-0">
-        <button class="w-10 h-10 rounded-xl border border-zinc-800 bg-zinc-900 flex items-center justify-center mb-12 text-white font-bold">E</button>
+    <header class="app-header">
+        <div class="user-pic"></div> <div class="logo heavy-font">TWITCH_</div>
+        <div style="font-size: 1.5rem;">💎</div>
+    </header>
 
-        <nav class="flex flex-col gap-8 w-full items-center">
-            <button class="w-10 h-10 rounded-lg flex items-center justify-center text-zinc-500 hover:text-white transition-all group">
-                <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012-2h2a2 2 0 01-2 2h-2a2 2 0 01-2-2z" /></svg>
-            </button>
-            <button class="w-10 h-10 rounded-lg flex items-center justify-center text-zinc-500 hover:text-white transition-all group">
-                <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" /></svg>
-            </button>
-            <button class="w-10 h-10 rounded-lg flex items-center justify-center bg-accent text-black shadow-glow transition-all">
-                <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" /></svg>
-            </button>
-        </nav>
-        
-        <div class="mt-auto w-8 h-8 rounded-full bg-blue-600 border-2 border-black" title="Profil Admin"></div>
-    </aside>
+    <nav class="stories-container">
+        <div class="story">
+            <div class="story-ring">
+                <img src="https://picsum.photos/100/100?1">
+                <div class="live-badge-sm">LIVE</div>
+            </div>
+            <span class="story-name">Gotaga</span>
+        </div>
+        <div class="story">
+            <div class="story-ring">
+                <img src="https://picsum.photos/100/100?2">
+                <div class="live-badge-sm">LIVE</div>
+            </div>
+            <span class="story-name">Kamet0</span>
+        </div>
+        <div class="story">
+            <div class="story-ring" style="background:var(--acid);">
+                <img src="https://picsum.photos/100/100?3">
+                <div class="live-badge-sm">LIVE</div>
+            </div>
+            <span class="story-name">Squeezie</span>
+        </div>
+        <div class="story">
+            <div class="story-ring" style="border-style: dashed;">
+                <img src="https://picsum.photos/100/100?4" style="filter: grayscale(100%);">
+            </div>
+            <span class="story-name">ZeratoR</span>
+        </div>
+        <div class="story">
+            <div class="story-ring" style="border-style: dashed;">
+                <img src="https://picsum.photos/100/100?5" style="filter: grayscale(100%);">
+            </div>
+            <span class="story-name">Etoiles</span>
+        </div>
+    </nav>
 
-    <main class="flex-1 flex flex-col h-full overflow-hidden p-8 gap-6">
-        
-        <header class="flex justify-between items-end flex-shrink-0">
-            <div>
-                <div class="flex items-center gap-3 mb-1">
-                    <h1 class="text-2xl font-bold text-white tracking-tight">Rapport RSE</h1>
-                    <span class="px-2 py-0.5 rounded border border-accent/20 bg-accent/5 text-[10px] text-accent font-mono font-bold uppercase flex items-center gap-2">
-                        <span class="w-1.5 h-1.5 rounded-full bg-accent animate-pulse"></span>
-                        842 Actifs
-                    </span>
-                </div>
-                <div class="flex items-center gap-2 text-xs text-zinc-500 uppercase tracking-wide">
-                    <span>Données consolidées J-1</span>
-                    <span>•</span>
-                    <span class="text-zinc-400">Score Impact: A+</span>
+    <h2 class="section-title heavy-font">À la une</h2>
+    
+    <div class="hero-wrapper">
+        <div class="hero-card">
+            <div class="hero-img-box">
+                <img src="https://picsum.photos/800/450?hero">
+                <div class="hero-overlay">
+                    <span class="badge-live">EN DIRECT</span>
+                    <span class="badge-viewers">● 240K</span>
                 </div>
             </div>
-            
-            <div class="flex items-center gap-4">
-                <button class="flex items-center gap-2 px-5 py-2.5 bg-white text-black text-xs font-bold rounded-full hover:bg-zinc-200 transition-colors shadow-[0_0_15px_rgba(255,255,255,0.1)] active:scale-95">
-                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" /></svg>
-                    Exporter DPEF
-                </button>
+            <div class="hero-content">
+                <div class="hero-header">
+                    <img src="https://picsum.photos/50/50?h-av" class="hero-avatar">
+                    <span style="font-weight: 900; font-size: 1.1rem;">DOMINGO</span>
+                </div>
+                <div style="font-weight: 800; font-size: 1rem; line-height: 1.2; margin-bottom: 8px;">
+                    POPCORN : L'ÉMISSION DU MARDI SOIR AVEC ZENDAYA 🍿
+                </div>
+                <div class="feed-cat">JUST CHATTING</div>
+                <div>
+                    <span class="tag-pill">FRANÇAIS</span>
+                    <span class="tag-pill" style="background: var(--acid);">TALK</span>
+                </div>
             </div>
-        </header>
+        </div>
+    </div>
 
-        <div class="flex-1 overflow-y-auto no-scrollbar min-h-0">
-            <div class="grid-container">
+    <h2 class="section-title heavy-font">Recommandés</h2>
 
-                <div class="col-span-12 lg:col-span-4 bento-card p-8 justify-between relative group">
-                    <div>
-                        <div class="flex justify-between items-start mb-2">
-                            <span class="text-[10px] font-mono text-zinc-500 uppercase tracking-widest">Bilan Carbone Numérique</span>
-                            <span class="text-[10px] bg-accent/10 text-accent px-2 py-0.5 rounded border border-accent/20 font-bold">+12% vs N-1</span>
-                        </div>
-                        <div class="text-6xl font-bold text-white tracking-tighter mt-4">12.4<span class="text-2xl text-zinc-600 font-medium ml-1">T</span></div>
-                        <p class="text-xs text-zinc-400 mt-2">de CO₂e évitées depuis le 1er Janvier.</p>
-                    </div>
-
-                    <div class="mt-8">
-                        <div class="h-2 w-full bg-zinc-900 rounded-full overflow-hidden mb-2">
-                            <div class="h-full bg-gradient-to-r from-accent to-emerald-600 w-[82%]"></div>
-                        </div>
-                        <div class="flex justify-between text-[10px] text-zinc-500 font-mono">
-                            <span>Réalisé: 12.4T</span>
-                            <span>Obj: 15T</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-span-12 lg:col-span-8 bento-card p-6">
-                    <div class="flex justify-between items-center mb-6">
-                        <h3 class="text-sm font-bold text-white">Évolution de l'Empreinte (Tonne)</h3>
-                        <div class="flex gap-2">
-                            <span class="px-2 py-1 bg-zinc-900 rounded text-[10px] text-zinc-400 cursor-pointer">Mensuel</span>
-                            <span class="px-2 py-1 bg-white text-black rounded text-[10px] font-bold cursor-pointer">Cumulé</span>
-                        </div>
-                    </div>
-                    
-                    <div class="flex-1 chart-bg flex items-end justify-between px-2 gap-3 relative pb-6">
-                        <div class="w-full flex flex-col items-center gap-2 group"><div class="w-full bg-zinc-800 rounded-t-sm relative animate-grow-bar" style="--h: 40%"></div><span class="text-[9px] text-zinc-600 font-mono">JAN</span></div>
-                        <div class="w-full flex flex-col items-center gap-2 group"><div class="w-full bg-zinc-800 rounded-t-sm relative animate-grow-bar" style="--h: 55%"></div><span class="text-[9px] text-zinc-600 font-mono">FÉV</span></div>
-                        <div class="w-full flex flex-col items-center gap-2 group"><div class="w-full bg-zinc-800 rounded-t-sm relative animate-grow-bar" style="--h: 48%"></div><span class="text-[9px] text-zinc-600 font-mono">MAR</span></div>
-                        <div class="w-full flex flex-col items-center gap-2 group"><div class="w-full bg-zinc-800 rounded-t-sm relative animate-grow-bar" style="--h: 62%"></div><span class="text-[9px] text-zinc-600 font-mono">AVR</span></div>
-                        <div class="w-full flex flex-col items-center gap-2 group"><div class="w-full bg-zinc-800 rounded-t-sm relative animate-grow-bar" style="--h: 35%"></div><span class="text-[9px] text-zinc-600 font-mono">MAI</span></div>
-                        <div class="w-full flex flex-col items-center gap-2 group"><div class="w-full bg-zinc-800 rounded-t-sm relative animate-grow-bar" style="--h: 45%"></div><span class="text-[9px] text-zinc-600 font-mono">JUIN</span></div>
-                        <div class="w-full flex flex-col items-center gap-2 group"><div class="w-full bg-zinc-800 rounded-t-sm relative animate-grow-bar" style="--h: 30%"></div><span class="text-[9px] text-zinc-600 font-mono">JUIL</span></div>
-                        <div class="w-full flex flex-col items-center gap-2 group"><div class="w-full bg-zinc-800 rounded-t-sm relative animate-grow-bar" style="--h: 25%"></div><span class="text-[9px] text-zinc-600 font-mono">AOÛT</span></div>
-                        <div class="w-full flex flex-col items-center gap-2 group">
-                            <div class="w-full bg-gradient-to-t from-accent/20 to-accent rounded-t-sm relative shadow-[0_0_15px_rgba(74,222,128,0.3)] animate-grow-bar" style="--h: 75%">
-                                <div class="absolute -top-8 left-1/2 -translate-x-1/2 text-[10px] text-black bg-accent px-2 py-0.5 font-bold rounded whitespace-nowrap">Nettoyage T3</div>
-                            </div>
-                            <span class="text-[9px] text-accent font-bold font-mono">SEP</span>
-                        </div>
-                        <div class="w-full flex flex-col items-center gap-2 group opacity-30 border-l border-dashed border-zinc-700 pl-2">
-                            <div class="w-full bg-zinc-800 rounded-t-sm h-[60%] relative"></div>
-                            <span class="text-[9px] text-zinc-600 font-mono">OCT</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-span-12 md:col-span-6 lg:col-span-4 bento-card p-0 flex flex-col">
-                    <div class="p-6 border-b border-zinc-800 flex justify-between items-center">
-                        <h3 class="text-sm font-bold text-white">Classement Départements</h3>
-                    </div>
-                    <div class="flex-1 overflow-y-auto no-scrollbar p-2">
-                        <div class="flex items-center gap-4 p-3 hover:bg-zinc-900 rounded-xl transition-colors cursor-pointer group">
-                            <div class="flex flex-col items-center w-6">
-                                <div class="text-lg font-bold text-yellow-500">1</div>
-                                <span class="text-[8px] text-accent">▲</span>
-                            </div>
-                            <div class="w-8 h-8 rounded-full bg-yellow-500/10 text-yellow-500 border border-yellow-500/20 flex items-center justify-center text-xs font-bold">MK</div>
-                            <div class="flex-1">
-                                <div class="flex justify-between text-xs mb-1">
-                                    <span class="text-white font-medium">Marketing</span>
-                                    <span class="text-accent font-mono">-420kg</span>
-                                </div>
-                                <div class="w-full bg-zinc-900 h-1.5 rounded-full overflow-hidden">
-                                    <div class="bg-yellow-500 h-full w-[92%]"></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="flex items-center gap-4 p-3 hover:bg-zinc-900 rounded-xl transition-colors cursor-pointer group">
-                            <div class="flex flex-col items-center w-6">
-                                <div class="text-lg font-bold text-zinc-400">2</div>
-                                <span class="text-[8px] text-zinc-600">=</span>
-                            </div>
-                            <div class="w-8 h-8 rounded-full bg-zinc-800 text-white flex items-center justify-center text-xs">IT</div>
-                            <div class="flex-1">
-                                <div class="flex justify-between text-xs mb-1">
-                                    <span class="text-white font-medium">Tech / Dev</span>
-                                    <span class="text-zinc-400 font-mono">-380kg</span>
-                                </div>
-                                <div class="w-full bg-zinc-900 h-1.5 rounded-full overflow-hidden">
-                                    <div class="bg-zinc-600 h-full w-[84%]"></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="flex items-center gap-4 p-3 hover:bg-zinc-900 rounded-xl transition-colors cursor-pointer group">
-                            <div class="flex flex-col items-center w-6">
-                                <div class="text-lg font-bold text-zinc-600">3</div>
-                                <span class="text-[8px] text-red-500">▼</span>
-                            </div>
-                            <div class="w-8 h-8 rounded-full bg-zinc-800 text-white flex items-center justify-center text-xs">RH</div>
-                            <div class="flex-1">
-                                <div class="flex justify-between text-xs mb-1">
-                                    <span class="text-white font-medium">Ressources H.</span>
-                                    <span class="text-zinc-500 font-mono">-120kg</span>
-                                </div>
-                                <div class="w-full bg-zinc-900 h-1.5 rounded-full overflow-hidden">
-                                    <div class="bg-zinc-700 h-full w-[35%]"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-span-12 md:col-span-6 lg:col-span-4 bento-card p-6">
-                    <h3 class="text-sm font-bold text-white mb-4 flex items-center gap-2">
-                        <span class="relative flex h-2 w-2">
-                          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-75"></span>
-                          <span class="relative inline-flex rounded-full h-2 w-2 bg-accent"></span>
-                        </span>
-                        Activité en direct
-                    </h3>
-                    <div class="space-y-4">
-                        <div class="flex items-start gap-3">
-                            <div class="w-8 h-8 rounded-full bg-purple-500/20 text-purple-400 flex items-center justify-center text-xs font-bold border border-purple-500/30">JD</div>
-                            <div>
-                                <p class="text-xs text-zinc-300"><span class="font-bold text-white">Julien D.</span> a supprimé 2.4Go de doublons.</p>
-                                <span class="text-[10px] text-zinc-600">Il y a 2 min • Équipe Tech</span>
-                            </div>
-                        </div>
-                        <div class="flex items-start gap-3">
-                            <div class="w-8 h-8 rounded-full bg-blue-500/20 text-blue-400 flex items-center justify-center text-xs font-bold border border-blue-500/30">AL</div>
-                            <div>
-                                <p class="text-xs text-zinc-300"><span class="font-bold text-white">Alice L.</span> a activé le mode Eco.</p>
-                                <span class="text-[10px] text-zinc-600">Il y a 12 min • Équipe Marketing</span>
-                            </div>
-                        </div>
-                        <div class="flex items-start gap-3 opacity-50">
-                            <div class="w-8 h-8 rounded-full bg-zinc-800 flex items-center justify-center text-xs text-zinc-500 border border-zinc-700">Sys</div>
-                            <div>
-                                <p class="text-xs text-zinc-400">Nettoyage automatique cache serveur.</p>
-                                <span class="text-[10px] text-zinc-600">Il y a 45 min • Automatique</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-span-12 lg:col-span-4 bento-card p-6 flex flex-col relative overflow-hidden">
-                    <div class="absolute top-0 right-0 p-4 opacity-10 pointer-events-none">
-                        <svg class="w-24 h-24 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" /></svg>
-                    </div>
-
-                    <div class="flex justify-between items-center mb-6 relative z-10">
-                        <h3 class="text-sm font-bold text-white">Champions de la Semaine</h3>
-                        <span class="text-[10px] text-zinc-500">Top 3 sur 428</span>
-                    </div>
-                    
-                    <div class="flex-1 space-y-4 relative z-10">
-                        <div class="flex items-center gap-4 bg-accent/10 border border-accent/20 p-3 rounded-xl">
-                            <div class="relative">
-                                <div class="w-10 h-10 rounded-full bg-zinc-800 border-2 border-accent flex items-center justify-center text-xs text-white font-bold">SL</div>
-                                <span class="absolute -top-1 -right-1 text-base">🥇</span>
-                            </div>
-                            <div class="flex-1">
-                                <div class="flex justify-between items-center">
-                                    <span class="text-sm font-bold text-white">Sarah L.</span>
-                                    <span class="text-xs font-mono text-accent font-bold">-15.2 Go</span>
-                                </div>
-                                <p class="text-[10px] text-zinc-400">Marketing • "Super Nettoyeuse"</p>
-                            </div>
-                        </div>
-
-                        <div class="flex items-center gap-4 p-2">
-                            <div class="relative">
-                                <div class="w-8 h-8 rounded-full bg-zinc-800 border border-zinc-600 flex items-center justify-center text-[10px] text-zinc-300">TM</div>
-                                <span class="absolute -top-1 -right-1 text-xs">🥈</span>
-                            </div>
-                            <div class="flex-1">
-                                <div class="flex justify-between items-center">
-                                    <span class="text-xs font-bold text-zinc-300">Thomas M.</span>
-                                    <span class="text-xs font-mono text-white">-12.8 Go</span>
-                                </div>
-                                <p class="text-[9px] text-zinc-500">Développement</p>
-                            </div>
-                        </div>
-
-                        <div class="flex items-center gap-4 p-2">
-                            <div class="relative">
-                                <div class="w-8 h-8 rounded-full bg-zinc-800 border border-zinc-600 flex items-center justify-center text-[10px] text-zinc-300">KB</div>
-                                <span class="absolute -top-1 -right-1 text-xs">🥉</span>
-                            </div>
-                            <div class="flex-1">
-                                <div class="flex justify-between items-center">
-                                    <span class="text-xs font-bold text-zinc-300">Karim B.</span>
-                                    <span class="text-xs font-mono text-white">-9.4 Go</span>
-                                </div>
-                                <p class="text-[9px] text-zinc-500">Data Science</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="mt-4 pt-3 border-t border-zinc-800 text-center">
-                        <p class="text-[10px] text-zinc-400">Vous êtes <span class="text-white font-bold">12ème</span> (Top 5%) - Continuez ! 🚀</p>
-                    </div>
-                </div>
-
+    <div class="feed-wrapper">
+        <div class="feed-item">
+            <div class="feed-img">
+                <img src="https://picsum.photos/300/200?f1">
+                <div style="position: absolute; bottom: 5px; left: 5px; font-size: 0.6rem; background: black; color: white; padding: 2px 4px; font-weight: bold;">45K</div>
+            </div>
+            <div class="feed-info">
+                <div class="feed-title">RLCS FINALS: VITALITY VS G2 [BO7]</div>
+                <div class="feed-meta">RocketBaguette</div>
+                <div class="feed-cat">ROCKET LEAGUE</div>
             </div>
         </div>
 
-    </main>
+        <div class="feed-item">
+            <div class="feed-img">
+                <img src="https://picsum.photos/300/200?f2">
+                <div style="position: absolute; bottom: 5px; left: 5px; font-size: 0.6rem; background: black; color: white; padding: 2px 4px; font-weight: bold;">12K</div>
+            </div>
+            <div class="feed-info">
+                <div class="feed-title">ON TESTE LE DLC ELDEN RING ENFIN !</div>
+                <div class="feed-meta">Altair</div>
+                <div class="feed-cat">ELDEN RING</div>
+            </div>
+        </div>
+
+        <div class="feed-item">
+            <div class="feed-img">
+                <img src="https://picsum.photos/300/200?f3">
+                 <div style="position: absolute; bottom: 5px; left: 5px; font-size: 0.6rem; background: black; color: white; padding: 2px 4px; font-weight: bold;">8.5K</div>
+            </div>
+            <div class="feed-info">
+                <div class="feed-title">MASTERCLASS GEOGUESSR NO MOVE</div>
+                <div class="feed-meta">AntoineDaniel</div>
+                <div class="feed-cat">GEOGUESSR</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="dock-container">
+        <div class="dock">
+            <div class="dock-icon active">🏠</div>
+            <div class="dock-icon" style="color: white;">🧭</div>
+            <div class="create-btn">＋</div>
+            <div class="dock-icon" style="color: white;">❤️</div>
+            <div class="dock-icon" style="color: white;">👤</div>
+        </div>
+    </div>
 
 </body>
 </html>
