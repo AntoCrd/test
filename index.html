@@ -3,302 +3,443 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Twitch Home Acid</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@500;700;900&display=swap" rel="stylesheet">
+    <title>TWITCH COMPLETE BRUTAL</title>
     
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+
     <style>
         :root {
-            /* PALETTE */
-            --acid: #ccff00;
-            --purple: #9146ff;
-            --dark: #000000;
-            --white: #ffffff;
-            --gray: #f4f4f4;
+            /* PALETTE NÉO-BRUTALISTE */
+            --bg-color: #e0e0e0;
+            --surface: #ffffff;
+            --ink: #000000;
             
-            /* UI */
-            --border-thick: 3px solid var(--dark);
-            --border-thin: 2px solid var(--dark);
-            --shadow-hard: 5px 5px 0px var(--dark);
-            --shadow-acid: 5px 5px 0px var(--acid);
-            --radius: 12px;
+            /* ACCENTS */
+            --twitch-purple: #9146FF;
+            --acid-green: #ccff00;
+            --alert-red: #ff2a00;
+            --cyan-pop: #00f0ff;
+            
+            /* UI KIT PARAMETERS */
+            --border-thick: 3px solid var(--ink);
+            --border-thin: 2px solid var(--ink);
+            --shadow-hard: 5px 5px 0px var(--ink);
+            --shadow-pressed: 2px 2px 0px var(--ink);
+            --shadow-float: 8px 8px 0px rgba(0,0,0,0.2);
+            
+            --spacing-unit: 16px;
         }
 
+        /* --- RESET --- */
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-
+        
         body {
-            background-color: var(--gray);
-            font-family: 'Inter', sans-serif;
-            color: var(--dark);
-            padding-bottom: 100px; /* Espace pour le dock */
+            background-color: var(--bg-color);
+            /* Motif de fond "Dot Grid" technique */
+            background-image: radial-gradient(var(--ink) 1px, transparent 1px);
+            background-size: 20px 20px;
+            
+            font-family: 'Space Mono', monospace;
+            color: var(--ink);
+            padding-bottom: 110px; /* Espace pour la bottom nav */
             overflow-x: hidden;
         }
 
-        /* TYPO */
-        h1, h2, h3, .heavy-font { font-family: 'Archivo Black', sans-serif; text-transform: uppercase; line-height: 1; }
+        h1, h2, h3, .title-font { font-family: 'Archivo Black', sans-serif; text-transform: uppercase; line-height: 0.9; }
+        img { display: block; max-width: 100%; }
+        button { font-family: inherit; border: none; background: none; cursor: pointer; }
 
-        /* --- 1. HEADER --- */
-        .app-header {
-            position: sticky; top: 0; z-index: 100;
-            background: var(--white);
+        /* --- 1. HEADER INDUSTRIEL --- */
+        .header-main {
+            position: sticky; top: 0; z-index: 999;
+            background: var(--surface);
             border-bottom: var(--border-thick);
-            padding: 15px 20px;
+            padding: 15px;
             display: flex; justify-content: space-between; align-items: center;
         }
 
-        .logo { font-size: 1.5rem; color: var(--purple); text-shadow: 2px 2px 0px var(--acid); }
-        .user-pic { width: 40px; height: 40px; background: var(--acid); border-radius: 50%; border: var(--border-thin); }
+        .brand-box {
+            background: var(--ink);
+            color: var(--surface);
+            padding: 5px 10px;
+            transform: skew(-10deg);
+        }
+        
+        .brand-box h1 { font-size: 1.4rem; transform: skew(10deg); letter-spacing: -1px; }
 
-        /* --- 2. STORIES (Horizontal) --- */
-        .stories-container {
-            padding: 20px 0 20px 20px;
+        .header-icons { display: flex; gap: 15px; }
+        
+        .icon-btn {
+            width: 40px; height: 40px;
+            border: var(--border-thin);
+            display: flex; align-items: center; justify-content: center;
+            background: var(--surface);
+            box-shadow: 3px 3px 0 var(--ink);
+            transition: 0.1s;
+        }
+        .icon-btn:active { transform: translate(2px, 2px); box-shadow: 1px 1px 0 var(--ink); }
+
+        /* --- 2. MARQUEE (TICKER) --- */
+        .marquee-strip {
+            background: var(--acid-green);
+            border-bottom: var(--border-thick);
+            overflow: hidden;
+            white-space: nowrap;
+            padding: 8px 0;
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+        
+        .marquee-content {
+            display: inline-block;
+            animation: scroll-left 15s linear infinite;
+        }
+        
+        @keyframes scroll-left { 0% { transform: translateX(0); } 100% { transform: translateX(-100%); } }
+
+        /* --- 3. STORIES "CARTOUCHES" --- */
+        .stories-section {
+            padding: 20px 0 20px 15px;
+            background: var(--surface);
+            border-bottom: var(--border-thick);
             display: flex; gap: 15px;
             overflow-x: auto;
-            scrollbar-width: none; /* Firefox */
+            scrollbar-width: none;
         }
-        .stories-container::-webkit-scrollbar { display: none; }
+        .stories-section::-webkit-scrollbar { display: none; }
 
-        .story {
-            display: flex; flex-direction: column; align-items: center; gap: 5px;
-            min-width: 75px; cursor: pointer;
+        .story-cartridge {
+            min-width: 80px;
+            display: flex; flex-direction: column; align-items: center; gap: 8px;
+            cursor: pointer;
         }
 
-        .story-ring {
+        .avatar-box {
             width: 70px; height: 70px;
-            border-radius: 50%;
+            background: #ddd;
             border: var(--border-thick);
-            padding: 3px;
-            background: var(--white);
             position: relative;
-            transition: transform 0.1s;
+            /* Forme carrée arrondie brutale */
+            border-radius: 12px;
+            transition: 0.1s;
         }
-        .story:active .story-ring { transform: scale(0.95); }
+        .story-cartridge:active .avatar-box { transform: scale(0.95); }
 
-        .story-ring img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; border: 1px solid #000; }
-        
-        .live-badge-sm {
-            position: absolute; bottom: -5px; left: 50%; transform: translateX(-50%);
-            background: #ff0000; color: white; font-size: 0.6rem; font-weight: 900;
-            padding: 2px 6px; border: 2px solid var(--dark);
+        .avatar-box img { width: 100%; height: 100%; object-fit: cover; border-radius: 9px; }
+
+        .status-dot {
+            position: absolute; bottom: -5px; right: -5px;
+            width: 20px; height: 20px;
+            background: var(--alert-red);
+            border: var(--border-thin);
+            border-radius: 50%;
         }
-        
-        .story-name { font-size: 0.75rem; font-weight: 700; }
 
-        /* --- 3. HERO (A LA UNE) --- */
-        .section-title { padding: 0 20px; font-size: 1.2rem; margin-bottom: 15px; display: flex; align-items: center; gap: 10px; }
-        .section-title::after { content:''; flex-grow: 1; height: 3px; background: var(--dark); }
+        .story-name { font-size: 0.7rem; font-weight: bold; text-align: center; line-height: 1.1; }
 
-        .hero-wrapper { padding: 0 20px 30px; }
+        /* --- 4. HERO : FEATURED STREAM --- */
+        .section-label {
+            display: inline-block;
+            background: var(--ink); color: var(--surface);
+            padding: 5px 15px;
+            font-size: 1.2rem;
+            margin: 25px 0 10px 15px;
+            box-shadow: 4px 4px 0 var(--twitch-purple);
+        }
+
+        .hero-container { padding: 0 15px; margin-bottom: 20px; }
 
         .hero-card {
-            background: var(--dark);
+            background: var(--surface);
             border: var(--border-thick);
-            border-radius: var(--radius);
-            overflow: hidden;
-            box-shadow: var(--shadow-acid); /* Ombre acide distinctive */
-            position: relative;
-            transition: all 0.1s ease;
-        }
-        
-        .hero-card:active { transform: translate(3px, 3px); box-shadow: 2px 2px 0 var(--acid); }
-
-        .hero-img-box { position: relative; height: 220px; }
-        .hero-img-box img { width: 100%; height: 100%; object-fit: cover; opacity: 0.9; }
-
-        .hero-overlay {
-            position: absolute; top: 10px; left: 10px; right: 10px; display: flex; justify-content: space-between;
-        }
-        .badge-live { background: #ff0000; color: white; padding: 5px 10px; border: 2px solid black; font-weight: 900; font-size: 0.8rem; }
-        .badge-viewers { background: rgba(0,0,0,0.8); color: var(--acid); padding: 5px 10px; border-radius: 6px; font-weight: 700; font-size: 0.8rem; }
-
-        .hero-content { background: var(--white); padding: 15px; border-top: var(--border-thick); }
-        .hero-header { display: flex; gap: 10px; align-items: center; margin-bottom: 5px; }
-        .hero-avatar { width: 30px; height: 30px; border-radius: 50%; border: 2px solid black; }
-        
-        .tag-pill {
-            display: inline-block; background: var(--gray); border: 1px solid black;
-            padding: 3px 8px; font-size: 0.7rem; font-weight: 700; margin-right: 5px; margin-top: 5px;
-        }
-
-        /* --- 4. FEED (LIST) --- */
-        .feed-wrapper { padding: 0 20px; }
-
-        .feed-item {
-            background: var(--white);
-            border: var(--border-thick);
-            border-radius: var(--radius);
-            margin-bottom: 15px;
-            display: flex;
-            overflow: hidden;
             box-shadow: var(--shadow-hard);
-            transition: all 0.1s;
-        }
-        .feed-item:active { transform: translate(3px, 3px); box-shadow: 2px 2px 0 black; }
-
-        .feed-img {
-            width: 120px; height: auto;
-            border-right: var(--border-thick);
             position: relative;
         }
-        .feed-img img { width: 100%; height: 100%; object-fit: cover; }
+
+        .hero-video {
+            position: relative;
+            height: 220px;
+            border-bottom: var(--border-thick);
+            background: #000;
+        }
+        .hero-video img { width: 100%; height: 100%; object-fit: cover; opacity: 0.9; }
+
+        .live-tag-big {
+            position: absolute; top: 10px; left: 10px;
+            background: var(--alert-red); color: white;
+            padding: 5px 10px; font-weight: 900;
+            border: var(--border-thin);
+            box-shadow: 3px 3px 0 var(--ink);
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
+
+        .viewers-counter {
+            position: absolute; bottom: 10px; right: 10px;
+            background: var(--ink); color: var(--acid-green);
+            font-family: 'Space Mono', monospace; font-weight: bold; font-size: 0.8rem;
+            padding: 4px 8px; border: 1px solid var(--surface);
+        }
+
+        .hero-details { padding: 15px; }
+
+        .streamer-lockup { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+        .mini-avatar { width: 40px; height: 40px; background: #ccc; border: var(--border-thin); border-radius: 50%; }
         
-        .feed-info { padding: 12px; flex: 1; display: flex; flex-direction: column; justify-content: center; }
-        .feed-title { font-weight: 800; font-size: 0.95rem; line-height: 1.2; margin-bottom: 5px; 
+        .tags-row { display: flex; gap: 5px; flex-wrap: wrap; margin-top: 10px; }
+        .tag {
+            font-size: 0.7rem; font-weight: bold;
+            padding: 3px 8px;
+            background: #eee; border: 1px solid var(--ink);
+            text-transform: uppercase;
+        }
+
+        /* --- 5. CATEGORIES "KEYBOARD" STYLE --- */
+        .categories-scroll {
+            display: flex; gap: 10px;
+            padding: 0 15px;
+            overflow-x: auto;
+            margin-bottom: 30px;
+            scrollbar-width: none;
+        }
+        .categories-scroll::-webkit-scrollbar { display: none; }
+
+        .cat-key {
+            background: var(--surface);
+            border: var(--border-thin);
+            border-radius: 6px;
+            padding: 10px 15px;
+            font-weight: bold;
+            white-space: nowrap;
+            box-shadow: 0 4px 0 var(--ink); /* Effet touche clavier */
+            margin-bottom: 5px; /* Pour l'ombre */
+            transition: 0.1s;
+            display: flex; align-items: center; gap: 8px;
+        }
+        
+        .cat-key:active { transform: translateY(4px); box-shadow: 0 0 0 var(--ink); }
+        .cat-icon { width: 15px; height: 15px; background: var(--twitch-purple); border-radius: 50%; display: inline-block; }
+
+        /* --- 6. FEED "DATA GRID" --- */
+        .feed-container { padding: 0 15px; display: grid; gap: 20px; }
+
+        .feed-card {
+            background: var(--surface);
+            border: var(--border-thick);
+            display: grid;
+            grid-template-columns: 110px 1fr;
+            /* Un coin cassé pour le style */
+            clip-path: polygon(0 0, 100% 0, 100% 100%, 10px 100%, 0 calc(100% - 10px));
+            /* On ne peut pas mettre de bordure et de clip-path facilement, donc on simule une ombre */
+            filter: drop-shadow(5px 5px 0px var(--ink));
+            margin-bottom: 5px;
+        }
+
+        .feed-thumb { position: relative; border-right: var(--border-thick); }
+        .feed-thumb img { width: 100%; height: 100%; object-fit: cover; }
+        
+        .feed-info { padding: 12px; display: flex; flex-direction: column; justify-content: space-between; }
+        
+        .feed-title {
+            font-weight: 700; font-size: 0.95rem; margin-bottom: 5px; line-height: 1.2;
             display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
         }
-        .feed-meta { font-size: 0.8rem; color: #555; font-weight: 600; }
-        .feed-cat { color: var(--purple); font-weight: 800; text-transform: uppercase; font-size: 0.75rem; }
-
-        /* --- 5. BOTTOM DOCK --- */
-        .dock-container {
-            position: fixed; bottom: 20px; left: 0; width: 100%;
-            display: flex; justify-content: center; z-index: 200; pointer-events: none;
-        }
         
-        .dock {
+        .meta-line { font-size: 0.75rem; color: #555; display: flex; justify-content: space-between; }
+        .game-highlight { background: var(--acid-green); padding: 0 4px; color: var(--ink); font-weight: bold; }
+
+        /* --- 7. CLIPS SECTION (DARK MODE BLOCK) --- */
+        .clips-block {
+            margin-top: 40px;
+            background: var(--ink);
+            color: var(--surface);
+            padding: 20px 0;
+            border-top: var(--border-thick);
+            border-bottom: var(--border-thick);
+        }
+
+        .clips-header { padding: 0 15px 15px; color: var(--acid-green); }
+        
+        .clips-rail {
+            display: flex; gap: 15px; padding: 0 15px; overflow-x: auto;
+            scrollbar-width: none;
+        }
+        .clips-rail::-webkit-scrollbar { display: none; }
+
+        .clip-card {
+            min-width: 140px;
+            border: 2px solid var(--surface);
+            background: #222;
+        }
+        .clip-img { height: 200px; width: 100%; object-fit: cover; filter: grayscale(100%); transition: 0.2s; }
+        .clip-card:hover .clip-img { filter: grayscale(0%); }
+        .clip-title { padding: 8px; font-size: 0.7rem; font-weight: bold; color: var(--acid-green); }
+
+        /* --- 8. BOTTOM DOCK (NAVIGATION) --- */
+        .nav-wrapper {
+            position: fixed; bottom: 20px; left: 0; right: 0;
+            display: flex; justify-content: center;
+            z-index: 1000;
+            pointer-events: none;
+        }
+
+        .nav-bar {
             pointer-events: auto;
-            background: var(--dark);
-            padding: 10px 25px;
-            border-radius: 50px;
-            border: 3px solid var(--white);
-            box-shadow: 0px 8px 20px rgba(0,0,0,0.4);
-            display: flex; gap: 30px; align-items: center;
+            background: var(--surface);
+            border: var(--border-thick);
+            padding: 8px 12px;
+            display: flex; align-items: center; gap: 15px;
+            box-shadow: 0 10px 0 rgba(0,0,0,0.3);
+            border-radius: 12px;
         }
 
-        .dock-icon { font-size: 1.5rem; opacity: 0.5; transition: 0.2s; cursor: pointer; }
-        .dock-icon.active { opacity: 1; transform: scale(1.2); }
-        
-        /* Bouton central qui dépasse */
-        .create-btn {
-            background: var(--acid); width: 50px; height: 50px;
-            border-radius: 50%; border: 3px solid var(--dark);
-            display: flex; justify-content: center; align-items: center;
-            font-size: 1.5rem; font-weight: 900; margin-top: -30px;
-            box-shadow: 0 4px 0 var(--white);
+        .nav-item {
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            width: 45px; height: 45px;
+            border-radius: 8px;
+            transition: 0.2s;
         }
+        
+        .nav-item svg { width: 24px; height: 24px; fill: var(--ink); }
+        
+        .nav-item.active { background: var(--acid-green); border: var(--border-thin); box-shadow: 2px 2px 0 var(--ink); }
+        
+        /* Bouton central "GLITCH" */
+        .nav-fab {
+            width: 55px; height: 55px;
+            background: var(--twitch-purple);
+            border: var(--border-thick);
+            display: flex; justify-content: center; align-items: center;
+            margin: 0 10px;
+            position: relative; top: -15px;
+            box-shadow: 4px 4px 0 var(--ink);
+            transition: 0.1s;
+        }
+        .nav-fab:active { transform: translate(4px, 4px); box-shadow: 0 0 0 var(--ink); top: -11px; }
+        .nav-fab svg { fill: var(--surface); width: 28px; height: 28px; }
 
     </style>
 </head>
 <body>
 
-    <header class="app-header">
-        <div class="user-pic"></div> <div class="logo heavy-font">TWITCH_</div>
-        <div style="font-size: 1.5rem;">💎</div>
+    <header class="header-main">
+        <div class="brand-box">
+            <h1 class="title-font">TWITCH</h1>
+        </div>
+        <div class="header-icons">
+            <div class="icon-btn">
+                <svg width="20" height="20" viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg>
+            </div>
+            <div class="icon-btn" style="background: var(--bg-color);">
+                <svg width="20" height="20" viewBox="0 0 24 24"><path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.63-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.64 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/></svg>
+            </div>
+        </div>
     </header>
 
-    <nav class="stories-container">
-        <div class="story">
-            <div class="story-ring">
-                <img src="https://picsum.photos/100/100?1">
-                <div class="live-badge-sm">LIVE</div>
-            </div>
-            <span class="story-name">Gotaga</span>
+    <div class="marquee-strip">
+        <div class="marquee-content">
+            ⚠️ NOUVEAUX DROPS DISPONIBLES /// FINALE RLCS CE SOIR 20H /// MAINTENANCE PRÉVUE MARDI /// ZERATOR EST EN LIVE /// SQUEEZIE HORROR THREAD ///
         </div>
-        <div class="story">
-            <div class="story-ring">
-                <img src="https://picsum.photos/100/100?2">
-                <div class="live-badge-sm">LIVE</div>
-            </div>
-            <span class="story-name">Kamet0</span>
-        </div>
-        <div class="story">
-            <div class="story-ring" style="background:var(--acid);">
-                <img src="https://picsum.photos/100/100?3">
-                <div class="live-badge-sm">LIVE</div>
-            </div>
-            <span class="story-name">Squeezie</span>
-        </div>
-        <div class="story">
-            <div class="story-ring" style="border-style: dashed;">
-                <img src="https://picsum.photos/100/100?4" style="filter: grayscale(100%);">
-            </div>
-            <span class="story-name">ZeratoR</span>
-        </div>
-        <div class="story">
-            <div class="story-ring" style="border-style: dashed;">
-                <img src="https://picsum.photos/100/100?5" style="filter: grayscale(100%);">
-            </div>
-            <span class="story-name">Etoiles</span>
-        </div>
-    </nav>
+    </div>
 
-    <h2 class="section-title heavy-font">À la une</h2>
+    <section class="stories-section">
+        <div class="story-cartridge">
+            <div class="avatar-box" style="border-color: var(--twitch-purple);">
+                <img src="https://picsum.photos/100/100?1" alt="User">
+                <div class="status-dot"></div>
+            </div>
+            <span class="story-name">GOTAGA</span>
+        </div>
+        <div class="story-cartridge">
+            <div class="avatar-box" style="border-color: var(--acid-green);">
+                <img src="https://picsum.photos/100/100?2" alt="User">
+                <div class="status-dot"></div>
+            </div>
+            <span class="story-name">SQUEEZIE</span>
+        </div>
+        <div class="story-cartridge">
+            <div class="avatar-box">
+                <img src="https://picsum.photos/100/100?3" alt="User">
+                <div class="status-dot"></div>
+            </div>
+            <span class="story-name">KAMET0</span>
+        </div>
+        <div class="story-cartridge">
+            <div class="avatar-box" style="filter: grayscale(100%); opacity: 0.6;">
+                <img src="https://picsum.photos/100/100?4" alt="User">
+            </div>
+            <span class="story-name">ANTOINE</span>
+        </div>
+        <div class="story-cartridge">
+            <div class="avatar-box">
+                <img src="https://picsum.photos/100/100?5" alt="User">
+                <div class="status-dot"></div>
+            </div>
+            <span class="story-name">ETOLES</span>
+        </div>
+    </section>
+
+    <div class="section-label title-font">À LA UNE</div>
     
-    <div class="hero-wrapper">
+    <div class="hero-container">
         <div class="hero-card">
-            <div class="hero-img-box">
-                <img src="https://picsum.photos/800/450?hero">
-                <div class="hero-overlay">
-                    <span class="badge-live">EN DIRECT</span>
-                    <span class="badge-viewers">● 240K</span>
+            <div class="hero-video">
+                <img src="https://picsum.photos/600/350" alt="Stream">
+                <div class="live-tag-big">LIVE</div>
+                <div class="viewers-counter">124,592_VIEWERS</div>
+            </div>
+            <div class="hero-details">
+                <div class="streamer-lockup">
+                    <div class="mini-avatar"><img src="https://picsum.photos/50/50?6" style="width:100%;height:100%;border-radius:50%"></div>
+                    <div>
+                        <h2 style="font-size: 1.1rem; margin-bottom: 2px;">OTTERWORLDLY</h2>
+                        <span style="font-weight: bold; color: var(--twitch-purple);">ELDEN RING</span>
+                    </div>
+                </div>
+                <h3 style="font-size: 0.95rem; line-height: 1.3;">NO HIT RUN ATTEMPT #429 // JE VAIS MOURIR (ENCORE) 💀</h3>
+                <div class="tags-row">
+                    <span class="tag">FRANÇAIS</span>
+                    <span class="tag" style="background:var(--cyan-pop)">TRYHARD</span>
                 </div>
             </div>
-            <div class="hero-content">
-                <div class="hero-header">
-                    <img src="https://picsum.photos/50/50?h-av" class="hero-avatar">
-                    <span style="font-weight: 900; font-size: 1.1rem;">DOMINGO</span>
-                </div>
-                <div style="font-weight: 800; font-size: 1rem; line-height: 1.2; margin-bottom: 8px;">
-                    POPCORN : L'ÉMISSION DU MARDI SOIR AVEC ZENDAYA 🍿
-                </div>
-                <div class="feed-cat">JUST CHATTING</div>
+        </div>
+    </div>
+
+    <div class="categories-scroll">
+        <button class="cat-key"><span class="cat-icon"></span>JUST CHATTING</button>
+        <button class="cat-key" style="background: var(--ink); color: white;"><span class="cat-icon" style="background:var(--acid-green)"></span>LEAGUE</button>
+        <button class="cat-key"><span class="cat-icon" style="background:var(--alert-red)"></span>VALORANT</button>
+        <button class="cat-key"><span class="cat-icon" style="background:orange"></span>MINECRAFT</button>
+    </div>
+
+    <div class="section-label title-font" style="background: var(--twitch-purple);">RECOMMANDÉS</div>
+
+    <div class="feed-container">
+        
+        <div class="feed-card">
+            <div class="feed-thumb">
+                <img src="https://picsum.photos/200/150?7" alt="Thumb">
+            </div>
+            <div class="feed-info">
                 <div>
-                    <span class="tag-pill">FRANÇAIS</span>
-                    <span class="tag-pill" style="background: var(--acid);">TALK</span>
+                    <div class="feed-title title-font">FINALE MONDIALE RLCS : VITALITY VS BDS</div>
+                    <div class="meta-line">
+                        <span style="font-weight:900;">RocketBaguette</span>
+                    </div>
+                </div>
+                <div class="meta-line" style="margin-top:auto;">
+                    <span class="game-highlight">ROCKET LEAGUE</span>
+                    <span>🔴 45K</span>
                 </div>
             </div>
         </div>
-    </div>
 
-    <h2 class="section-title heavy-font">Recommandés</h2>
-
-    <div class="feed-wrapper">
-        <div class="feed-item">
-            <div class="feed-img">
-                <img src="https://picsum.photos/300/200?f1">
-                <div style="position: absolute; bottom: 5px; left: 5px; font-size: 0.6rem; background: black; color: white; padding: 2px 4px; font-weight: bold;">45K</div>
+        <div class="feed-card">
+            <div class="feed-thumb">
+                <img src="https://picsum.photos/200/150?8" alt="Thumb">
             </div>
             <div class="feed-info">
-                <div class="feed-title">RLCS FINALS: VITALITY VS G2 [BO7]</div>
-                <div class="feed-meta">RocketBaguette</div>
-                <div class="feed-cat">ROCKET LEAGUE</div>
-            </div>
-        </div>
-
-        <div class="feed-item">
-            <div class="feed-img">
-                <img src="https://picsum.photos/300/200?f2">
-                <div style="position: absolute; bottom: 5px; left: 5px; font-size: 0.6rem; background: black; color: white; padding: 2px 4px; font-weight: bold;">12K</div>
-            </div>
-            <div class="feed-info">
-                <div class="feed-title">ON TESTE LE DLC ELDEN RING ENFIN !</div>
-                <div class="feed-meta">Altair</div>
-                <div class="feed-cat">ELDEN RING</div>
-            </div>
-        </div>
-
-        <div class="feed-item">
-            <div class="feed-img">
-                <img src="https://picsum.photos/300/200?f3">
-                 <div style="position: absolute; bottom: 5px; left: 5px; font-size: 0.6rem; background: black; color: white; padding: 2px 4px; font-weight: bold;">8.5K</div>
-            </div>
-            <div class="feed-info">
-                <div class="feed-title">MASTERCLASS GEOGUESSR NO MOVE</div>
-                <div class="feed-meta">AntoineDaniel</div>
-                <div class="feed-cat">GEOGUESSR</div>
-            </div>
-        </div>
-    </div>
-
-    <div class="dock-container">
-        <div class="dock">
-            <div class="dock-icon active">🏠</div>
-            <div class="dock-icon" style="color: white;">🧭</div>
-            <div class="create-btn">＋</div>
-            <div class="dock-icon" style="color: white;">❤️</div>
-            <div class="dock-icon" style="color: white;">👤</div>
-        </div>
-    </div>
-
-</body>
-</html>
+                <div>
+                    <div class="feed-title title-font">MASTERCLASS GEOGUESSR NO MOVE</div>
+                    <div class="meta-line">
