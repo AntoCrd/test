@@ -1,527 +1,323 @@
 <!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TON NOM | Développeur & Designer Créatif</title>
-    <meta name="description" content="Portfolio de [Ton Nom], étudiant webdesigner et développeur créatif. Disponible pour alternance.">
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-
-    <style>
-        /* =========================================
-           1. VARIABLES & RESET
-           ========================================= */
-        :root {
-            --bg-color: #080808;      
-            --card-bg: #111111;       
-            --text-color: #ededed;    
-            --text-muted: #888888;    
-            --accent-color: #d1f828;  /* Vert Acide */
-            
-            --border-light: rgba(255, 255, 255, 0.1);
-            --surface-hover: rgba(255, 255, 255, 0.05);
-            
-            --font-head: 'Syne', sans-serif;
-            --font-body: 'Inter', sans-serif;
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Twitch Neobrutalist V2</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Spline+Sans:wght@300;400;500;600;700;800&amp;family=Noto+Sans:wght@400;500;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#8c52ff", // Revisited Twitch Purple
+                        "primary-dark": "#6b2cf5",
+                        "secondary": "#ccff00", // Neon Lime
+                        "accent": "#ff0099", // Neon Pink
+                        "surface": "#f2f0ea", // Off-white
+                        "surface-dark": "#090909", // Deep Black
+                    },
+                    fontFamily: {
+                        "display": ["Spline Sans", "sans-serif"],
+                        "body": ["Noto Sans", "sans-serif"]
+                    },
+                    boxShadow: {
+                        'brutal': '5px 5px 0px 0px #000000',
+                        'brutal-hover': '2px 2px 0px 0px #000000',
+                        'brutal-dark': '5px 5px 0px 0px #ffffff',
+                        'brutal-dark-hover': '2px 2px 0px 0px #ffffff',
+                        'hard': '3px 3px 0px 0px #000',
+                    },
+                    borderWidth: {
+                        '3': '3px',
+                        '4': '4px',
+                    },
+                    backgroundImage: {
+                        'grain': "url('data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noiseFilter%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.65%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noiseFilter)%22 opacity=%220.07%22/%3E%3C/svg%3E')",
+                    }
+                },
+            },
         }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; }
-
-        html { scroll-behavior: smooth; font-size: 16px; }
-
-        body {
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            font-family: var(--font-body);
-            width: 100%;
-            overflow-x: hidden;
-            -webkit-font-smoothing: antialiased;
+    </script>
+<style>
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 700, 'GRAD' 0, 'opsz' 48; }
+        .material-symbols-outlined.filled { font-variation-settings: 'FILL' 1, 'wght' 700, 'GRAD' 0, 'opsz' 48; }.bg-dots {
+            background-image: radial-gradient(#cbd5e1 2px, transparent 2px);
+            background-size: 24px 24px;
         }
-
-        a { text-decoration: none; color: inherit; transition: 0.3s; }
-        ul { list-style: none; }
-        img { width: 100%; height: 100%; object-fit: cover; display: block; }
-
-        /* Layout Utils */
-        .container { width: 90%; max-width: 1400px; margin: 0 auto; }
-        .section-padding { padding: 8rem 0; }
-        .sec-head { margin-bottom: 4rem; border-bottom: 1px solid var(--border-light); padding-bottom: 1rem; }
-        .sec-head h2 { font-family: var(--font-head); font-size: 2rem; color: #fff; text-transform: uppercase; letter-spacing: 1px; }
-
-        /* =========================================
-           2. GLOBAL FX (GRAIN & CURSEUR)
-           ========================================= */
-        .noise {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            pointer-events: none; z-index: 9000; opacity: 0.05;
-            background-image: url('https://upload.wikimedia.org/wikipedia/commons/7/76/Noise.png');
-        }
-
-        .cursor-magic {
-            position: fixed; top: 0; left: 0; width: 20px; height: 20px;
-            background: #fff; border-radius: 50%; z-index: 9999;
-            pointer-events: none; mix-blend-mode: difference;
-            transform: translate(-50%, -50%);
-            transition: width 0.3s ease, height 0.3s ease;
-        }
-        body.hovered .cursor-magic { width: 80px; height: 80px; }
-
-        /* =========================================
-           3. NAVIGATION
-           ========================================= */
-        .navbar {
-            display: flex; justify-content: space-between; align-items: center;
-            padding: 2rem 5%; position: fixed; top: 0; width: 100%;
-            z-index: 100; mix-blend-mode: difference;
-        }
-        .brand { font-family: var(--font-head); font-weight: 800; font-size: 1.5rem; letter-spacing: -1px; }
-        .nav-right { display: flex; gap: 2rem; align-items: center; }
-        .avail-badge {
-            color: var(--accent-color); font-size: 0.75rem; font-weight: 700;
-            border: 1px solid var(--accent-color); padding: 6px 14px; border-radius: 50px;
-            text-transform: uppercase;
-        }
-        .menu-trigger {
-            font-weight: 700; cursor: pointer; border: 1px solid #fff;
-            padding: 6px 18px; border-radius: 50px; text-transform: uppercase; font-size: 0.9rem;
-        }
-
-        /* Menu Overlay */
-        .menu-overlay {
-            position: fixed; inset: 0; background: var(--bg-color); z-index: 200;
-            display: flex; flex-direction: column; justify-content: center; align-items: center;
-            opacity: 0; pointer-events: none; transition: 0.5s cubic-bezier(0.7, 0, 0.3, 1);
-        }
-        .menu-overlay.active { opacity: 1; pointer-events: all; }
-        .menu-close { position: absolute; top: 2rem; right: 5%; font-weight: 700; cursor: pointer; mix-blend-mode: difference; }
-        .menu-links { display: flex; flex-direction: column; align-items: center; gap: 1.5rem; }
-        .m-link {
-            font-family: var(--font-head); font-size: clamp(2.5rem, 6vw, 5rem);
-            font-weight: 800; color: transparent; -webkit-text-stroke: 1px #fff;
-            transition: 0.3s; text-transform: uppercase;
-        }
-        .m-link:hover { color: var(--accent-color); -webkit-text-stroke: 1px var(--accent-color); transform: translateX(20px); }
-        .menu-footer {
-            position: absolute; bottom: 2rem; width: 100%; display: flex;
-            justify-content: space-between; padding: 0 5%; font-size: 0.8rem; color: #666;
-        }
-
-        /* =========================================
-           4. HERO SECTION
-           ========================================= */
-        .hero-section {
-            min-height: 100vh; display: flex; align-items: center; justify-content: center;
-            perspective: 1000px; padding-top: 60px;
-        }
-        .hero-content {
-            text-align: center; transform-style: preserve-3d;
-            max-width: 1100px; margin: 0 auto; padding: 0 20px;
-        }
-        .hero-tags { display: flex; justify-content: center; gap: 15px; margin-bottom: 2rem; }
-        .tag-pill {
-            font-family: monospace; color: var(--accent-color);
-            border: 1px solid rgba(255, 255, 255, 0.2); padding: 6px 16px;
-            border-radius: 50px; font-size: 0.8rem; letter-spacing: 1px; transition: 0.3s;
-        }
-        .tag-pill:hover { border-color: var(--accent-color); background: rgba(209, 248, 40, 0.1); }
-
-        .hero-title {
-            font-family: var(--font-head);
-            font-size: clamp(3rem, 8vw, 7.5rem); 
-            line-height: 1.1; font-weight: 800; margin-bottom: 2.5rem;
-            letter-spacing: -2px;
-        }
-        .hollow { color: transparent; -webkit-text-stroke: 1px #fff; font-style: italic; }
-        .hero-inf p { font-size: 1.1rem; color: var(--text-muted); line-height: 1.6; max-width: 500px; margin: 0 auto 3rem; }
-
-        /* Scroll Icon */
-        .scroll-wrapper { display: flex; flex-direction: column; align-items: center; gap: 10px; opacity: 0.7; }
-        .mouse-icon { width: 26px; height: 40px; border: 2px solid #fff; border-radius: 20px; position: relative; }
-        .wheel {
-            width: 4px; height: 6px; background: var(--accent-color); border-radius: 2px;
-            position: absolute; top: 6px; left: 50%; transform: translateX(-50%);
-            animation: scrollWheel 2s infinite;
-        }
-        .scroll-wrapper span { font-size: 0.75rem; letter-spacing: 2px; font-weight: 600; color: var(--accent-color); }
-
-        /* =========================================
-           5. MARQUEE
-           ========================================= */
-        .marquee {
-            padding: 2rem 0; border-top: 1px solid #333; border-bottom: 1px solid #333;
-            overflow: hidden; white-space: nowrap; background: var(--bg-color);
-            transform: rotate(-1deg); margin: 2rem 0 6rem;
-        }
-        .track {
-            font-family: var(--font-head); font-size: 3rem; font-weight: 800;
-            -webkit-text-stroke: 1px #fff; color: transparent;
-            display: inline-block; animation: scroll 20s linear infinite;
-        }
-
-        /* =========================================
-           6. STICKY PROJECTS
-           ========================================= */
-        .stack-section { padding-bottom: 10vh; }
-        .stack-intro { padding: 4rem 0; display: flex; justify-content: space-between; align-items: flex-end; }
-        .outline-title { font-family: var(--font-head); font-size: 3rem; -webkit-text-stroke: 1px #fff; color: transparent; opacity: 0.7; }
-        .stack-hint { font-family: monospace; color: var(--accent-color); }
-
-        .stack-card {
-            position: sticky; top: 0; height: 100vh; width: 100%;
-            border-top: 1px solid var(--border-light); background: var(--card-bg);
-            display: flex; align-items: center; justify-content: center;
-            overflow: hidden; top: calc(var(--i) * 30px);
-        }
-        .stack-card:nth-child(2) { background: #0e0e0e; }
-        .stack-card:nth-child(3) { background: #111; }
-        .stack-card:nth-child(4) { background: #141414; }
-
-        .card-body {
-            width: 90%; max-width: 1400px; height: 70%;
-            display: grid; grid-template-columns: 1fr 1.2fr; gap: 4rem; align-items: center;
-        }
-        .card-meta { font-family: monospace; color: var(--accent-color); margin-bottom: 2rem; display: flex; gap: 1rem; }
-        .c-title { font-family: var(--font-head); font-size: clamp(3rem, 6vw, 6rem); line-height: 0.9; font-weight: 800; margin-bottom: 2rem; text-transform: uppercase; }
-        .c-desc { font-size: 1.1rem; color: #aaa; margin-bottom: 2rem; max-width: 500px; line-height: 1.5; }
-        .c-tags { display: flex; gap: 10px; margin-bottom: 3rem; flex-wrap: wrap; }
-        .c-tags span { border: 1px solid #333; padding: 5px 15px; border-radius: 50px; font-size: 0.85rem; color: #888; }
-        .btn-underline { border-bottom: 1px solid var(--accent-color); padding-bottom: 5px; font-weight: 600; font-size: 1.1rem; display: inline-block; }
-        .btn-underline:hover { color: var(--accent-color); }
-
-        .card-visual { height: 100%; width: 100%; border-radius: 12px; overflow: hidden; border: 1px solid #333; }
-        .card-visual img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.7s cubic-bezier(0.2, 1, 0.3, 1); filter: grayscale(100%); }
-        .stack-card:hover .card-visual img { transform: scale(1.05); filter: grayscale(0%); }
-
-        /* =========================================
-           7. BENTO GRID (ABOUT V20)
-           ========================================= */
-        .bento-wrapper-5 {
-            display: grid; grid-template-columns: 1fr 1.2fr 0.8fr;
-            grid-auto-rows: minmax(200px, auto); gap: 1.5rem;
-        }
-        .bento-box {
-            background: var(--surface-hover); border: 1px solid var(--border-light);
-            border-radius: 12px; padding: 2rem; position: relative; overflow: hidden;
-            transition: 0.3s; display: flex; flex-direction: column;
-        }
-        .bento-box:hover { border-color: var(--accent-color); background: rgba(255,255,255,0.08); }
-        .box-header { display: flex; align-items: center; gap: 10px; margin-bottom: 1.5rem; border-bottom: 1px solid var(--border-light); padding-bottom: 1rem; }
-        .box-header h3 { font-family: var(--font-head); font-size: 1.2rem; color: #fff; margin: 0; }
-        .box-header .icon { font-size: 1.2rem; }
-
-        /* Blocs Bento */
-        .box-photo { grid-column: span 1; grid-row: span 2; padding: 0; }
-        .img-wrapper { width: 100%; height: 100%; }
-        .img-wrapper img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(100%); transition: 0.5s; }
-        .box-photo:hover img { filter: grayscale(0%); transform: scale(1.05); }
-        .photo-overlay { position: absolute; bottom: 1.5rem; left: 1.5rem; }
-        .status-badge { background: var(--accent-color); color: #000; padding: 5px 12px; border-radius: 50px; font-weight: 700; font-size: 0.8rem; }
-
-        .box-exp { grid-column: span 2; grid-row: span 1; }
-        .timeline-list { list-style: none; display: flex; flex-direction: column; gap: 1.5rem; }
-        .timeline-list li { display: flex; gap: 2rem; align-items: flex-start; }
-        .timeline-list .date { font-family: monospace; color: var(--accent-color); font-size: 0.85rem; min-width: 120px; padding-top: 3px; }
-        .timeline-list .details { display: flex; flex-direction: column; }
-        .timeline-list strong { color: #fff; font-size: 1rem; margin-bottom: 3px; }
-        .timeline-list span { color: #888; font-size: 0.9rem; }
-
-        .box-edu { grid-column: span 1; grid-row: span 1; }
-        .edu-content { display: flex; flex-direction: column; gap: 1.5rem; height: 100%; justify-content: center; }
-        .edu-item { display: flex; flex-direction: column; }
-        .edu-item strong { color: #fff; font-size: 1rem; margin-bottom: 5px; }
-        .edu-item span { color: #666; font-size: 0.85rem; }
-
-        .box-cv {
-            grid-column: span 1; grid-row: span 1; background: var(--accent-color); color: #000; border: none;
-            text-decoration: none; align-items: center; justify-content: center; text-align: center;
-        }
-        .cv-inner { display: flex; flex-direction: column; align-items: center; gap: 10px; }
-        .box-cv .label { font-weight: 700; letter-spacing: 1px; }
-        .box-cv .big-icon { font-size: 3rem; line-height: 1; transition: 0.3s; }
-        .box-cv .sub-label { font-size: 0.7rem; opacity: 0.7; }
-        .box-cv:hover .big-icon { transform: translateY(5px); }
-
-        .box-social {
-            grid-column: span 3; grid-row: span 1; flex-direction: row; align-items: center; justify-content: space-around; padding: 0;
-        }
-        .social-link {
-            flex: 1; height: 100%; display: flex; align-items: center; justify-content: center;
-            gap: 10px; border-right: 1px solid var(--border-light);
-            color: #aaa; font-weight: 600; font-size: 0.9rem; transition: 0.3s;
-        }
-        .social-link:last-child { border-right: none; }
-        .social-link:hover { background: #fff; color: #000; }
-        .social-link .arr { font-size: 1.2rem; }
-
-        /* =========================================
-           8. SERVICES & FOOTER
-           ========================================= */
-        .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
-        .srv-card { border: 1px solid var(--border-light); padding: 2rem; transition: 0.3s; }
-        .srv-card:hover { border-color: var(--accent-color); }
-        .srv-card h3 { font-family: var(--font-head); font-size: 1.5rem; margin-bottom: 1rem; color: #fff; }
-        .srv-card p { color: #888; line-height: 1.5; }
-
-        .manifesto-short { padding: 8rem 0; text-align: center; }
-        .big-statement { font-family: var(--font-head); font-size: clamp(2rem, 6vw, 4rem); line-height: 1.2; }
-        .highlight { color: var(--accent-color); }
-
-        .footer-big { padding: 8rem 0 2rem; background: #000; text-align: center; border-top: 1px solid var(--border-light); }
-        .footer-label { color: #666; letter-spacing: 2px; margin-bottom: 2rem; font-size: 0.9rem; }
-        .magnetic-link { display: inline-block; padding: 3rem; }
-        .mail-txt { font-family: var(--font-head); font-size: clamp(3rem, 10vw, 8rem); font-weight: 800; color: #fff; transition: 0.3s; }
-        .magnetic-link:hover .mail-txt { color: var(--accent-color); }
-        .footer-bot { display: flex; justify-content: space-between; margin-top: 6rem; color: #666; font-size: 0.8rem; }
-        .f-links a { margin-left: 20px; transition: 0.3s; }
-        .f-links a:hover { color: #fff; }
-
-        /* Anim & Responsive */
-        @keyframes scroll { to { transform: translateX(-50%); } }
-        @keyframes scrollWheel { 0% { top: 6px; opacity: 1; } 100% { top: 20px; opacity: 0; } }
-
-        @media (max-width: 1024px) {
-            .bento-wrapper-5 { grid-template-columns: 1fr; grid-template-rows: auto; }
-            .box-photo, .box-exp, .box-edu, .box-cv, .box-social { grid-column: span 1; grid-row: span 1; }
-            .box-photo { height: 350px; }
-            .card-body { grid-template-columns: 1fr; padding: 4rem 0; gap: 3rem; }
-            .card-visual { height: 300px; order: -1; }
-            .stack-card { height: auto; min-height: 100vh; position: relative; top: 0 !important; }
-            .services-grid { grid-template-columns: 1fr; }
-        }
-        @media (max-width: 768px) {
-            .hero-title { font-size: 13vw; }
-            .timeline-list li { flex-direction: column; gap: 0.5rem; padding-left: 1rem; border-left: 1px solid var(--border-light); }
-            .box-social { flex-direction: column; padding: 0; }
-            .social-link { width: 100%; border-right: none; border-bottom: 1px solid var(--border-light); padding: 1.5rem; }
+        .dark .bg-dots {
+            background-image: radial-gradient(#333 2px, transparent 2px);
         }
     </style>
-</head>
-<body>
-
-    <div class="noise"></div>
-    <div class="cursor-magic"></div>
-
-    <div class="menu-overlay">
-        <div class="menu-close">FERMER ×</div>
-        <div class="menu-links">
-            <a href="#work" class="m-link">01. PROJETS</a>
-            <a href="#about" class="m-link">02. PARCOURS</a>
-            <a href="#services" class="m-link">03. EXPERTISE</a>
-            <a href="#contact" class="m-link">04. CONTACT</a>
-        </div>
-        <div class="menu-footer">
-            <span>BASÉ À PARIS</span>
-            <span>DISPONIBLE 2025</span>
-        </div>
-    </div>
-
-    <nav class="navbar">
-        <a href="#" class="brand">TON NOM.</a>
-        <div class="nav-right">
-            <span class="avail-badge">● DISPONIBLE</span>
-            <div class="menu-trigger">MENU +</div>
-        </div>
-    </nav>
-
-    <main>
-        
-        <header class="hero-section" id="hero-tilt">
-            <div class="hero-content tilt-element">
-                <div class="hero-tags">
-                    <span class="tag-pill">UI/UX DESIGN</span>
-                    <span class="tag-pill">CREATIVE DEV</span>
-                </div>
-                <h1 class="hero-title">
-                    FAÇONNEUR<br>
-                    <span class="hollow">DE RÉALITÉ</span><br>
-                    DIGITALE
-                </h1>
-                <div class="hero-inf">
-                    <p>Je conçois des écosystèmes digitaux interactifs <br>pour des marques qui veulent se démarquer.</p>
-                    <div class="scroll-wrapper">
-                        <div class="mouse-icon"><div class="wheel"></div></div>
-                        <span>SCROLL</span>
-                    </div>
-                </div>
-            </div>
-        </header>
-
-        <div class="marquee">
-            <div class="track">
-                DESIGN INTERACTIF — WEBGL — DÉVELOPPEMENT CRÉATIF — UI/UX — MOTION — IDENTITÉ DE MARQUE —
-            </div>
-        </div>
-
-        <section id="work" class="stack-section">
-            <div class="container stack-intro">
-                <h2 class="outline-title">SÉLECTION PROJETS</h2>
-                <span class="scroll-hint">(03 PROJETS)</span>
-            </div>
-
-            <div class="stack-card" style="--i:1;">
-                <div class="card-body">
-                    <div class="card-content">
-                        <div class="card-meta"><span class="c-num">01/</span><span class="c-cat">UI & INTERACTION</span></div>
-                        <h3 class="c-title">CYBER<br>INTERFACE</h3>
-                        <p class="c-desc">Dashboard futuriste pour la gestion de données.</p>
-                        <div class="c-tags"><span>Figma</span><span>React</span><span>D3.js</span></div>
-                        <a href="#" class="btn-underline">Voir le Projet ↗</a>
-                    </div>
-                    <div class="card-visual"><img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1200" alt="Cyber"></div>
-                </div>
-            </div>
-
-            <div class="stack-card" style="--i:2;">
-                <div class="card-body">
-                    <div class="card-content">
-                        <div class="card-meta"><span class="c-num">02/</span><span class="c-cat">BRANDING</span></div>
-                        <h3 class="c-title">MAISON<br>ARCHI</h3>
-                        <p class="c-desc">Refonte minimaliste d'identité digitale.</p>
-                        <div class="c-tags"><span>DA</span><span>WordPress</span></div>
-                        <a href="#" class="btn-underline">Voir le Projet ↗</a>
-                    </div>
-                    <div class="card-visual"><img src="https://images.unsplash.com/photo-1600607686527-6fb886090705?q=80&w=1200" alt="Archi"></div>
-                </div>
-            </div>
-
-            <div class="stack-card" style="--i:3;">
-                <div class="card-body">
-                    <div class="card-content">
-                        <div class="card-meta"><span class="c-num">03/</span><span class="c-cat">E-COMMERCE</span></div>
-                        <h3 class="c-title">NEON<br>SHOP</h3>
-                        <p class="c-desc">Expérience d'achat immersive pour streetwear.</p>
-                        <div class="c-tags"><span>UX</span><span>Next.js</span></div>
-                        <a href="#" class="btn-underline">Voir le Projet ↗</a>
-                    </div>
-                    <div class="card-visual"><img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=1200" alt="Neon"></div>
-                </div>
-            </div>
-        </section>
-
-        <section id="about" class="section-padding">
-            <div class="container">
-                <div class="sec-head"><h2>MON PARCOURS</h2></div>
-                <div class="bento-wrapper-5">
-                    <div class="bento-box box-photo">
-                        <div class="img-wrapper"><img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1000" alt="Portrait"></div>
-                        <div class="photo-overlay"><span class="status-badge">● OPEN TO WORK</span></div>
-                    </div>
-                    <div class="bento-box box-exp">
-                        <div class="box-header"><span class="icon">💼</span><h3>EXPÉRIENCES</h3></div>
-                        <ul class="timeline-list">
-                            <li><span class="date">2024 - Présent</span><div class="details"><strong>Freelance</strong><span>Création de sites</span></div></li>
-                            <li><span class="date">2023 (6 mois)</span><div class="details"><strong>Stage</strong><span>Agence Créative</span></div></li>
-                        </ul>
-                    </div>
-                    <div class="bento-box box-edu">
-                        <div class="box-header"><span class="icon">🎓</span><h3>FORMATION</h3></div>
-                        <div class="edu-content">
-                            <div class="edu-item"><strong>Bachelor Digital</strong><span>Ton École</span></div>
-                            <div class="edu-item"><strong>Bac STD2A</strong><span>Arts Appliqués</span></div>
-                        </div>
-                    </div>
-                    <a href="./cv.pdf" target="_blank" class="bento-box box-cv">
-                        <div class="cv-inner"><span class="label">CV</span><span class="big-icon">↓</span><span class="sub-label">PDF</span></div>
-                    </a>
-                    <div class="bento-box box-social">
-                        <a href="#" class="social-link"><span>LINKEDIN</span><span class="arr">↗</span></a>
-                        <a href="#" class="social-link"><span>GITHUB</span><span class="arr">↗</span></a>
-                        <a href="#" class="social-link"><span>INSTAGRAM</span><span class="arr">↗</span></a>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="services" class="section-services">
-            <div class="container">
-                <div class="sec-head"><h2>EXPERTISE</h2></div>
-                <div class="services-grid">
-                    <div class="srv-card"><h3>01. Design UI/UX</h3><p>Figma, Prototypage, Design Systems.</p></div>
-                    <div class="srv-card"><h3>02. Développement</h3><p>HTML/CSS, JS, Animations WebGL.</p></div>
-                    <div class="srv-card"><h3>03. Branding</h3><p>Identité visuelle, Logotype.</p></div>
-                </div>
-            </div>
-        </section>
-
-        <section class="manifesto-short">
-            <div class="container">
-               <p class="big-statement">Le web est ennuyeux quand il est statique. <br><span class="highlight">Rendons-le vivant.</span></p>
-            </div>
-        </section>
-
-        <footer class="footer-big" id="contact">
-            <div class="container">
-                <p class="footer-label">UN PROJET EN TÊTE ?</p>
-                <a href="mailto:me@mail.com" class="magnetic-link"><span class="mail-txt">PARLONS-EN</span></a>
-                <div class="footer-bot"><span>© 2025 TON NOM</span><div class="f-links"><a href="#">LINKEDIN</a></div></div>
-            </div>
-        </footer>
-
-    </main>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const isDesktop = window.matchMedia("(min-width: 768px)").matches;
-
-            // 1. MENU
-            const menuTrigger = document.querySelector('.menu-trigger');
-            const menuClose = document.querySelector('.menu-close');
-            const menuOverlay = document.querySelector('.menu-overlay');
-            const menuLinks = document.querySelectorAll('.m-link');
-
-            function toggleMenu() { menuOverlay.classList.toggle('active'); }
-            menuTrigger.addEventListener('click', toggleMenu);
-            menuClose.addEventListener('click', toggleMenu);
-            menuLinks.forEach(link => link.addEventListener('click', toggleMenu));
-
-            // 2. CURSEUR
-            const cursor = document.querySelector('.cursor-magic');
-            if (isDesktop) {
-                document.addEventListener('mousemove', (e) => {
-                    cursor.animate({ left: `${e.clientX}px`, top: `${e.clientY}px` }, { duration: 300, fill: "forwards" });
-                });
-                document.querySelectorAll('a, .menu-trigger, .stack-card, .bento-box').forEach(el => {
-                    el.addEventListener('mouseenter', () => document.body.classList.add('hovered'));
-                    el.addEventListener('mouseleave', () => document.body.classList.remove('hovered'));
-                });
-            } else { cursor.style.display = 'none'; }
-
-            // 3. HERO TILT
-            const heroSection = document.getElementById('hero-tilt');
-            const tiltElement = document.querySelector('.tilt-element');
-            if (isDesktop && heroSection && tiltElement) {
-                heroSection.addEventListener('mousemove', (e) => {
-                    const rect = heroSection.getBoundingClientRect();
-                    const x = e.clientX - rect.left;
-                    const y = e.clientY - rect.top;
-                    const rotateX = ((x - rect.width/2) / rect.width/2) * 15;
-                    const rotateY = ((rect.height/2 - y) / rect.height/2) * 15;
-                    tiltElement.style.setProperty('--rotateX', `${rotateX}deg`);
-                    tiltElement.style.setProperty('--rotateY', `${rotateY}deg`);
-                });
-                heroSection.addEventListener('mouseleave', () => {
-                    tiltElement.style.setProperty('--rotateX', `0deg`);
-                    tiltElement.style.setProperty('--rotateY', `0deg`);
-                });
-            }
-
-            // 4. PARALLAX
-            if (isDesktop) {
-                const cards = document.querySelectorAll('.stack-card');
-                window.addEventListener('scroll', () => {
-                    cards.forEach(card => {
-                        const img = card.querySelector('img');
-                        const rect = card.getBoundingClientRect();
-                        if (rect.top < window.innerHeight && rect.bottom > 0) {
-                            const yPos = (window.innerHeight - rect.top) * 0.1;
-                            img.style.transform = `translateY(${yPos}px) scale(1.05)`;
-                        }
-                    });
-                });
-            }
-        });
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface dark:bg-surface-dark font-display text-black dark:text-white overflow-x-hidden antialiased bg-grain selection:bg-secondary selection:text-black">
+<header class="sticky top-0 z-50 w-full bg-surface dark:bg-surface-dark border-b-4 border-black dark:border-white px-4 py-3">
+<div class="flex items-center justify-between">
+<div class="relative group cursor-pointer">
+<div class="w-11 h-11 border-3 border-black dark:border-white bg-secondary shadow-brutal-hover dark:shadow-brutal-dark-hover overflow-hidden transition-transform active:scale-95">
+<img alt="User profile avatar" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDFx-vfFv5Mfp_oPq4NzpkhhVY932eoCBjPNjNn8x7HNaE5uuqArpvvApraMsrkxnPBkuEUHha4Bw5MstZQSM11EcyUhYi7Knnc07Wu2djlyfnhyxS9dKNDY8-vbc3kCpy5v8bAPdJIivOv_PedRAhkvLGVTMK-e7TxkjjNY9UKMIY9Mn7uWMMgzfVUmgfJMXEJjJpJ4VFtWZospeskAQQljQzSe3ehwOJkdqnCvy_OBr1D1TJCXATcPFr_pUgddCwOyp8OxeXvI3g"/>
+</div>
+<div class="absolute -top-1 -right-1 w-4 h-4 bg-red-600 border-2 border-black dark:border-white"></div>
+</div>
+<h1 class="text-4xl font-black tracking-tighter uppercase italic select-none text-primary dark:text-primary drop-shadow-[3px_3px_0_rgba(0,0,0,1)] dark:drop-shadow-[3px_3px_0_rgba(255,255,255,1)]">Twitch</h1>
+<div class="flex items-center gap-2">
+<button class="w-10 h-10 bg-white dark:bg-black border-3 border-black dark:border-white shadow-brutal-hover dark:shadow-brutal-dark-hover active:translate-y-1 active:translate-x-1 active:shadow-none transition-all flex items-center justify-center group hover:bg-secondary dark:hover:bg-secondary">
+<span class="material-symbols-outlined text-black dark:text-white group-hover:text-black">notifications</span>
+</button>
+<button class="w-10 h-10 bg-white dark:bg-black border-3 border-black dark:border-white shadow-brutal-hover dark:shadow-brutal-dark-hover active:translate-y-1 active:translate-x-1 active:shadow-none transition-all flex items-center justify-center group hover:bg-accent dark:hover:bg-accent">
+<span class="material-symbols-outlined text-black dark:text-white group-hover:text-black">chat_bubble</span>
+</button>
+<button class="w-10 h-10 bg-primary border-3 border-black dark:border-white shadow-brutal-hover dark:shadow-brutal-dark-hover active:translate-y-1 active:translate-x-1 active:shadow-none transition-all flex items-center justify-center">
+<span class="material-symbols-outlined text-white">search</span>
+</button>
+</div>
+</div>
+</header>
+<main class="flex flex-col w-full pb-28 bg-dots">
+<section class="mt-8 pl-4">
+<div class="flex items-center justify-between pr-4 mb-6">
+<h2 class="text-3xl font-black uppercase tracking-tight italic bg-black text-white px-2 py-1 transform -rotate-1 dark:bg-white dark:text-black inline-block border-2 border-transparent">
+                    En Direct
+                </h2>
+<a class="font-black text-sm uppercase border-b-4 border-primary hover:text-primary hover:border-black transition-all" href="#">Voir tout</a>
+</div>
+<div class="flex overflow-x-auto gap-5 no-scrollbar pb-8 pr-4">
+<div class="flex-shrink-0 w-[85vw] md:w-[400px] flex flex-col group cursor-pointer relative">
+<div class="relative w-full aspect-video border-4 border-black dark:border-white bg-black shadow-brutal dark:shadow-brutal-dark group-hover:shadow-none group-hover:translate-x-[5px] group-hover:translate-y-[5px] transition-all duration-200 z-10">
+<div class="absolute top-0 left-0 bg-red-600 text-white text-sm font-black px-3 py-1 border-r-4 border-b-4 border-black z-20 uppercase">Live</div>
+<div class="absolute bottom-2 right-2 bg-secondary text-black text-xs font-black px-2 py-1 border-2 border-black z-20 uppercase tracking-widest">150k viewers</div>
+<div class="w-full h-full bg-cover bg-center grayscale group-hover:grayscale-0 transition-all duration-300" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCiS8Yec2cJJ3lFOXK5eid-EfTtXu7LPusHKWNk9O63Wm4Ney-X3jPcjKg9NX4xKVNMuLas7HquFCFMkbkKkpcOvWi-MqSSEP6gDugyUDljqr1BMfmuedcoCsRQTg1JErIUW2nu9N83QNy0M5wFqebAnbEx4GoMmrQd0cmycgFmie_fQLPeFM1waBQqWBdJc4et9ISZao9vTxlUR7rXzg_sINd-HPxdiaOZjlU4c84QBOiQjaBvLgBtwPnwyVECwQIf4-tXS7A3Uhw');"></div>
+</div>
+<div class="relative -mt-4 ml-4 mr-2 bg-white dark:bg-[#1a1a1a] border-3 border-black dark:border-white p-3 pt-6 shadow-hard z-0">
+<div class="flex justify-between items-start gap-2">
+<div>
+<h3 class="font-black text-xl leading-5 uppercase break-words decoration-4 underline-offset-2 group-hover:underline decoration-primary">ZEvent 2024: The Grand Finale</h3>
+<p class="text-sm font-bold mt-1 text-gray-500">ZeratoR</p>
+</div>
+<div class="w-10 h-10 border-2 border-black dark:border-white flex-shrink-0 bg-primary overflow-hidden">
+<img alt="Streamer avatar" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCQxyW1s8Y-GQhC9HDq-8FA7PLX9hvK0y0_uyx1A2gOTEmp5kNx7eEhyO5_2LDZhcc1cbW0n-rzWERkvTgyv8KHVybrvkq_oj6Y-JQOXZdHreffDzBkaY1VNgDRFSQty99sKSV_CWMvE8figGMqnmQbQFO6NIFpwYmgTMmlneIGyEGc8ysVGYO9B8xAzTC_-CuHBPGR40lGkLuE1o8VaBrbMJUACl0tGrvm3KJ5n0Dr1s8spivzm1q-iC7RPfHwnLq8ibYr3ZoXO0g"/>
+</div>
+</div>
+<div class="mt-2 flex gap-2">
+<span class="bg-black text-white text-[10px] font-bold px-2 py-0.5 uppercase">Charity</span>
+<span class="bg-gray-200 text-black text-[10px] font-bold px-2 py-0.5 uppercase border border-black">Event</span>
+</div>
+</div>
+</div>
+<div class="flex-shrink-0 w-[85vw] md:w-[400px] flex flex-col group cursor-pointer relative">
+<div class="relative w-full aspect-video border-4 border-black dark:border-white bg-black shadow-brutal dark:shadow-brutal-dark group-hover:shadow-none group-hover:translate-x-[5px] group-hover:translate-y-[5px] transition-all duration-200 z-10">
+<div class="absolute top-0 left-0 bg-red-600 text-white text-sm font-black px-3 py-1 border-r-4 border-b-4 border-black z-20 uppercase">Live</div>
+<div class="absolute bottom-2 right-2 bg-accent text-white text-xs font-black px-2 py-1 border-2 border-black z-20 uppercase tracking-widest">45k viewers</div>
+<div class="w-full h-full bg-cover bg-center grayscale group-hover:grayscale-0 transition-all duration-300" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDQ9uRN0ILZA9sUqUWfUOqR6o0b7AsJnTKSCn-0810ZaFsiqdgRzyaZGry5zqZyQG_btjkjRETF-TafVZM8QP6nIiHF5juhkIanusAAfE9KOuGia72I4_KH8Zxcwf17UCCrn7l6N6BHfYodQf_2LZaqG1Q7H1P7PMTfrF0sOee7c8q_eBQiDBxqy4J-bCxHO0XYEAx5BJWvHc0jrYcl8R2UKywGlOUJOQ-sV_jcbDdxf2IdBvwut5DhHKMvcKndNhFKn02CFU76JFo');"></div>
+</div>
+<div class="relative -mt-4 ml-4 mr-2 bg-white dark:bg-[#1a1a1a] border-3 border-black dark:border-white p-3 pt-6 shadow-hard z-0">
+<div class="flex justify-between items-start gap-2">
+<div>
+<h3 class="font-black text-xl leading-5 uppercase break-words decoration-4 underline-offset-2 group-hover:underline decoration-accent">Warzone Ranked Grind Top 250</h3>
+<p class="text-sm font-bold mt-1 text-gray-500">Gotaga</p>
+</div>
+<div class="w-10 h-10 border-2 border-black dark:border-white flex-shrink-0 bg-white overflow-hidden">
+<img alt="Streamer avatar" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC9DDqExKdpt9eGImRt4ffWDF93UOQhN9Cqla3kWTYHCxw24SIS5E_Qe8kS03SYvjRxgg96e4pXcWzVw5yDzoGsm0eIDt_P2sxTGrsZUphbD02x7XdjTR8q3py2zBv20wesdVvKw51P1CyBFwjBIG2GeWn9mk1zbKbLFVnjeoBoqc6MnfCvWuYBAe3N5RyJdzGJiIfr9nDw-wPLbpKvcR2QqE9bqioP1JJxiRZNGNs-zxsxs1nvhNcSW6V2_DnWdD_UzuEcrNhPeb8"/>
+</div>
+</div>
+<div class="mt-2 flex gap-2">
+<span class="bg-black text-white text-[10px] font-bold px-2 py-0.5 uppercase">FPS</span>
+<span class="bg-gray-200 text-black text-[10px] font-bold px-2 py-0.5 uppercase border border-black">Ranked</span>
+</div>
+</div>
+</div>
+<div class="flex-shrink-0 w-[85vw] md:w-[400px] flex flex-col group cursor-pointer relative">
+<div class="relative w-full aspect-video border-4 border-black dark:border-white bg-black shadow-brutal dark:shadow-brutal-dark group-hover:shadow-none group-hover:translate-x-[5px] group-hover:translate-y-[5px] transition-all duration-200 z-10">
+<div class="absolute top-0 left-0 bg-red-600 text-white text-sm font-black px-3 py-1 border-r-4 border-b-4 border-black z-20 uppercase">Live</div>
+<div class="absolute bottom-2 right-2 bg-secondary text-black text-xs font-black px-2 py-1 border-2 border-black z-20 uppercase tracking-widest">12k viewers</div>
+<div class="w-full h-full bg-cover bg-center grayscale group-hover:grayscale-0 transition-all duration-300" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBZeCG7cTu2UtkwaEWe7oX_QpOQBGHy00O6rzG9JL1TIZGQ1UGLKnzLLCbty1GWxNO9eCXsQFmKAco87hgFvxEV_be2iWzKOjrnbmzYG2xincnOSYuhjd15vCyDVv6w3lfRtwOkFE5hDB94UmBDvc8jPdNlKsDXeAyLIQgJ6VDR6nBJeG1IQLhVIBuvF2rwHCCR-4H61EYRtj8oNTb7sJ5I29zlYV2Bvws8-9rgMli19foSoPKtHTwXlFkTs1I90D59wlSOgagIa_I');"></div>
+</div>
+<div class="relative -mt-4 ml-4 mr-2 bg-white dark:bg-[#1a1a1a] border-3 border-black dark:border-white p-3 pt-6 shadow-hard z-0">
+<div class="flex justify-between items-start gap-2">
+<div>
+<h3 class="font-black text-xl leading-5 uppercase break-words decoration-4 underline-offset-2 group-hover:underline decoration-primary">Just Chatting &amp; Updates</h3>
+<p class="text-sm font-bold mt-1 text-gray-500">BagheraJones</p>
+</div>
+<div class="w-10 h-10 border-2 border-black dark:border-white flex-shrink-0 bg-pink-400 overflow-hidden">
+<img alt="Streamer avatar" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDE4RxrX4h-eGeK4m2sblx9k_6-A-fshk4euJY16oe0od2lNAZz-DklLXlJJgdbVSb6KzTawv8hRlSTDk2gR0BByA3nYRx1y2cw5cnPKsVavoQp9IbDyciZVYmesv0WTS56KXZutbhPhj59JUaH_9SK4m4ARmTWwYjiGtR8LXz2cYM4gvH2wqjZpDxpu06X7RX4X36V40q1stOwixLXNs-yGbmHu3VZx1kJ8DUGb4GmBuoVSvMokxxzMOvWXLlKNKpcEwqsO1Xd4xo"/>
+</div>
+</div>
+<div class="mt-2 flex gap-2">
+<span class="bg-black text-white text-[10px] font-bold px-2 py-0.5 uppercase">Talk</span>
+<span class="bg-gray-200 text-black text-[10px] font-bold px-2 py-0.5 uppercase border border-black">Chill</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="mt-8 px-4">
+<h2 class="text-2xl font-black uppercase tracking-tight mb-4 flex items-center gap-2">
+<span class="w-4 h-4 bg-primary border-2 border-black dark:border-white block transform rotate-45"></span>
+                Catégories
+            </h2>
+<div class="grid grid-cols-2 gap-4">
+<div class="group cursor-pointer">
+<div class="bg-white dark:bg-[#222] border-3 border-black dark:border-white h-28 flex flex-col justify-between p-3 shadow-brutal dark:shadow-brutal-dark group-hover:shadow-none group-hover:translate-x-[4px] group-hover:translate-y-[4px] transition-all relative overflow-hidden">
+<div class="absolute -right-4 -top-4 bg-primary w-16 h-16 rounded-full blur-xl opacity-50 group-hover:opacity-100 transition-opacity"></div>
+<div class="flex justify-between items-start relative z-10">
+<span class="font-black text-xl uppercase leading-none italic">Just<br/>Chatting</span>
+<span class="material-symbols-outlined text-black dark:text-white scale-150">forum</span>
+</div>
+<div class="text-xs font-black bg-black text-white dark:bg-white dark:text-black w-fit px-2 py-1 uppercase border border-transparent dark:border-black">300K <span class="text-[8px] opacity-70">VIEWERS</span></div>
+</div>
+</div>
+<div class="group cursor-pointer">
+<div class="bg-primary border-3 border-black dark:border-white h-28 flex flex-col justify-between p-3 shadow-brutal dark:shadow-brutal-dark group-hover:shadow-none group-hover:translate-x-[4px] group-hover:translate-y-[4px] transition-all relative overflow-hidden">
+<div class="absolute -right-4 -top-4 bg-white w-16 h-16 rounded-full blur-xl opacity-20 group-hover:opacity-40 transition-opacity"></div>
+<div class="flex justify-between items-start relative z-10">
+<span class="font-black text-xl uppercase leading-none italic text-white">League of<br/>Legends</span>
+<span class="material-symbols-outlined text-white scale-150">sports_esports</span>
+</div>
+<div class="text-xs font-black bg-white text-black w-fit px-2 py-1 uppercase border-2 border-black">120K <span class="text-[8px] opacity-70">VIEWERS</span></div>
+</div>
+</div>
+<div class="group cursor-pointer">
+<div class="bg-secondary border-3 border-black dark:border-white h-28 flex flex-col justify-between p-3 shadow-brutal dark:shadow-brutal-dark group-hover:shadow-none group-hover:translate-x-[4px] group-hover:translate-y-[4px] transition-all relative overflow-hidden">
+<div class="flex justify-between items-start relative z-10">
+<span class="font-black text-xl uppercase leading-none italic text-black">Valorant</span>
+<span class="material-symbols-outlined text-black scale-150">gps_fixed</span>
+</div>
+<div class="text-xs font-black bg-black text-white w-fit px-2 py-1 uppercase">90K <span class="text-[8px] opacity-70">VIEWERS</span></div>
+</div>
+</div>
+<div class="group cursor-pointer">
+<div class="bg-white dark:bg-[#222] border-3 border-black dark:border-white h-28 flex flex-col justify-between p-3 shadow-brutal dark:shadow-brutal-dark group-hover:shadow-none group-hover:translate-x-[4px] group-hover:translate-y-[4px] transition-all relative overflow-hidden">
+<div class="absolute -right-4 -top-4 bg-secondary w-16 h-16 rounded-full blur-xl opacity-50 group-hover:opacity-100 transition-opacity"></div>
+<div class="flex justify-between items-start relative z-10">
+<span class="font-black text-xl uppercase leading-none italic">GTA V</span>
+<span class="material-symbols-outlined text-black dark:text-white scale-150">directions_car</span>
+</div>
+<div class="text-xs font-black bg-black text-white dark:bg-white dark:text-black w-fit px-2 py-1 uppercase border border-transparent dark:border-black">85K <span class="text-[8px] opacity-70">VIEWERS</span></div>
+</div>
+</div>
+</div>
+</section>
+<section class="mt-10 px-4 flex flex-col gap-8">
+<h2 class="text-2xl font-black uppercase tracking-tight flex items-center gap-2">
+<span class="w-4 h-4 bg-accent border-2 border-black dark:border-white block transform rotate-12"></span>
+                Recommandés
+            </h2>
+<div class="flex flex-col group cursor-pointer">
+<div class="flex items-center gap-3 mb-[-2px] ml-1 z-10">
+<div class="w-12 h-12 bg-blue-300 border-3 border-black dark:border-white overflow-hidden shadow-sm">
+<img alt="Streamer avatar" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuADYIrVjiOgIHa64R_S4_Tgh-wjvDXtr1Td7IttH29QsP13Ht5l9-wyvPa7ZpFG43cQ5-C0bG4_cyg-QQGt4mYoY0RgMykLy-VSgI_3B_NZyF2HKiuKhp9I9iN_fEfF5_kyXtbH8_zGY3yvkKwgWRj8DoohijnS2wM13amHLbLl-6looHCd_KQsTHkFAWxyqITi1Q_CGNviPwRlrcwB-3ctDl-TKKf9mHMIxwRK79WEpCghUfxEOV6rFaQ150ffQDMGVrPg2spjnog"/>
+</div>
+<div class="bg-white dark:bg-black border-3 border-black dark:border-white border-b-0 px-3 py-1.5 flex flex-col">
+<span class="font-black text-sm uppercase leading-none">Etoiles</span>
+<span class="text-[10px] font-bold text-gray-500">Minecraft</span>
+</div>
+</div>
+<div class="relative w-full border-4 border-black dark:border-white bg-white dark:bg-[#1a1a1a] shadow-brutal dark:shadow-brutal-dark group-hover:shadow-none group-hover:translate-x-[4px] group-hover:translate-y-[4px] transition-all">
+<div class="w-full aspect-video border-b-4 border-black dark:border-white bg-gray-200 relative">
+<div class="absolute top-3 left-3 bg-red-600 text-white font-black text-xs px-2 py-1 border-2 border-black uppercase z-10">Live</div>
+<div class="w-full h-full bg-cover bg-center" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAJi3KIzO5BFeSTbdG3NS7KP6xiLZ2vc0156SKuxfxkH-4bm4HYVfyj5JEKqaFKh1chU4d67deilfgld-xGgzA9dqFqaoJnYUTxQgJGji4jLhX223l5oub6ZVQqBh-i638nTb61lpop-BBSm_U83i1a6nmKfncku7wFALBLBZAauhb3RFaUUVGPHNYdJMbCowTpH08IPjTmHZ6jaeQnjRtU5chmEvGlYNNpjj-XCqx5Ue4WQ_PPvnMS2ZcokcOtOa7oyi2bHEIwZ-4');"></div>
+</div>
+<div class="p-4 bg-surface dark:bg-[#111]">
+<h3 class="font-black text-lg md:text-xl uppercase leading-tight mb-3">Building the MEGA base! Hardcore #42</h3>
+<div class="flex flex-wrap gap-2">
+<span class="text-[10px] font-black uppercase px-2 py-1 bg-secondary text-black border-2 border-black">Minecraft</span>
+<span class="text-[10px] font-black uppercase px-2 py-1 bg-white text-black border-2 border-black">Français</span>
+<button class="ml-auto text-black dark:text-white hover:text-primary transition-colors">
+<span class="material-symbols-outlined">more_horiz</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<div class="flex flex-col group cursor-pointer">
+<div class="flex items-center gap-3 mb-[-2px] ml-1 z-10">
+<div class="w-12 h-12 bg-purple-500 border-3 border-black dark:border-white overflow-hidden shadow-sm">
+<img alt="Streamer avatar" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBfpKiu9KZucAjhII8a3o98_u3EWI6dJizAozgTjd8b0q3DLBynV1VYtQdM_SPIhJbBuRHhtlUpaQaGFgYBPOFpTgZ2ss5uwMz_Y5nG6rq4ZxPInXxErN0O4SqRPJ7PhcfgaY_5RbVu3VhvbvzDebIyRFliNqTvQNq0f7V7wZBvK0yOIOT2-ZM9RW5IJpB43qP0Q7HldUIaXW7_vPfQDUmpUTIIYmFIAeGLxAH90bl1nXR6u7rnzeguoRwyRT7b-k-6y9WLNNit-_4"/>
+</div>
+<div class="bg-white dark:bg-black border-3 border-black dark:border-white border-b-0 px-3 py-1.5 flex flex-col">
+<span class="font-black text-sm uppercase leading-none">Ponce</span>
+<span class="text-[10px] font-bold text-gray-500">Elden Ring</span>
+</div>
+</div>
+<div class="relative w-full border-4 border-black dark:border-white bg-white dark:bg-[#1a1a1a] shadow-brutal dark:shadow-brutal-dark group-hover:shadow-none group-hover:translate-x-[4px] group-hover:translate-y-[4px] transition-all">
+<div class="w-full aspect-video border-b-4 border-black dark:border-white bg-gray-200 relative">
+<div class="absolute top-3 left-3 bg-red-600 text-white font-black text-xs px-2 py-1 border-2 border-black uppercase z-10">Live</div>
+<div class="w-full h-full bg-cover bg-center" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBCj7YGtR6E8P6PGdSNHZilj8RM87TJ92CA8EwVUY7SQvjhuDam-AJ-3cDwFxHbTNAv84ibpgztZnhHnhB2IfpT2VStjRQC-ev5E8KMmL7t9SAZS76Sq3Gkj5jYuV3qeauruo-3Gk4bYRCOxsPCBk0fiTmn4Ej-lJtkU2711vH0MxaQpSt3dgceg8X8Zjjr_fLUcWlXEvX1AZFPa1qmIFl5xUDuKvkuK0k5Vajq0daTLWJ5iR1ZLVKODebUdUu8yLYEVubZzuf_e5w');"></div>
+</div>
+<div class="p-4 bg-surface dark:bg-[#111]">
+<h3 class="font-black text-lg md:text-xl uppercase leading-tight mb-3">ELDEN RING DLC MARATHON !deaths</h3>
+<div class="flex flex-wrap gap-2">
+<span class="text-[10px] font-black uppercase px-2 py-1 bg-accent text-white border-2 border-black">Souls</span>
+<span class="text-[10px] font-black uppercase px-2 py-1 bg-white text-black border-2 border-black">Speedrun</span>
+<button class="ml-auto text-black dark:text-white hover:text-primary transition-colors">
+<span class="material-symbols-outlined">more_horiz</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<div class="flex flex-col group cursor-pointer">
+<div class="flex items-center gap-3 mb-[-2px] ml-1 z-10">
+<div class="w-12 h-12 bg-red-600 border-3 border-black dark:border-white overflow-hidden shadow-sm">
+<img alt="Streamer avatar" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDl98APIwDEOYbDpZDoWRAzzzaHFJy8EGVUkKgL4_e9nmfdKSsN86ZST6ZK14QBXmCOv3L1YMWgi53t0xAyBBQf2LxiyIgi8fMMXwAze4owVysQN7cwbeSYUH7joAHejR9KcgmtpGO3U1CClN2WG3qe5rL6dDLm9JBUn78neqTCC0VLXRR5aU-XuCodqel3YlB8vHldFHNpcNCPN3gSRMFDRkQbQs7sHidQwECTT6sHN8SX8eci9YR8NILNqJPnLY7ySmJnFegUgb8"/>
+</div>
+<div class="bg-white dark:bg-black border-3 border-black dark:border-white border-b-0 px-3 py-1.5 flex flex-col">
+<span class="font-black text-sm uppercase leading-none">Rivenzi</span>
+<span class="text-[10px] font-bold text-gray-500">Sports</span>
+</div>
+</div>
+<div class="relative w-full border-4 border-black dark:border-white bg-white dark:bg-[#1a1a1a] shadow-brutal dark:shadow-brutal-dark group-hover:shadow-none group-hover:translate-x-[4px] group-hover:translate-y-[4px] transition-all">
+<div class="w-full aspect-video border-b-4 border-black dark:border-white bg-gray-200 relative">
+<div class="absolute top-3 left-3 bg-red-600 text-white font-black text-xs px-2 py-1 border-2 border-black uppercase z-10">Live</div>
+<div class="w-full h-full bg-cover bg-center" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAQeQm5C0l1DLaxiM-impLr8x8RCFI8XcTu38ujqbOYB3LchQHJt4hobTIJTOv4VmfQMwEqQNVxMjfRMISmq_6LyX8XgGHOtcoSuMCsxocttE00Shlggo5cphk95OiXg5m10EAi2-fTnPledrjBFbkog_UJCQ7HkJWTHFyNvLwcNNUNckACQhPR3FOP4CItrb2plfxMTSbQVp5Sq39AGLUfnNLFsR43OpPc1VYEzZ2iEscTPduXA7FuPCmSWHcdtXLfMYZnFmzOD_A');"></div>
+</div>
+<div class="p-4 bg-surface dark:bg-[#111]">
+<h3 class="font-black text-lg md:text-xl uppercase leading-tight mb-3">Grand Prix Watchalong 🏎️</h3>
+<div class="flex flex-wrap gap-2">
+<span class="text-[10px] font-black uppercase px-2 py-1 bg-primary text-white border-2 border-black">F1</span>
+<span class="text-[10px] font-black uppercase px-2 py-1 bg-white text-black border-2 border-black">Talk</span>
+<button class="ml-auto text-black dark:text-white hover:text-primary transition-colors">
+<span class="material-symbols-outlined">more_horiz</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<button class="fixed bottom-24 right-4 z-40 bg-secondary text-black border-4 border-black w-16 h-16 shadow-brutal flex items-center justify-center hover:translate-y-[4px] hover:translate-x-[4px] hover:shadow-none transition-all active:bg-white group">
+<span class="material-symbols-outlined text-4xl font-black group-hover:rotate-180 transition-transform duration-300">add</span>
+</button>
+<nav class="fixed bottom-0 z-50 w-full bg-surface dark:bg-black border-t-4 border-black dark:border-white pb-safe">
+<div class="flex justify-around items-center h-20">
+<a class="flex flex-col items-center justify-center w-full h-full group active:bg-gray-200 dark:active:bg-gray-900 transition-colors" href="#">
+<span class="material-symbols-outlined text-black dark:text-white text-3xl group-hover:scale-110 transition-transform filled group-hover:text-primary">favorite</span>
+<span class="text-[10px] font-black uppercase mt-1 border-b-2 border-transparent group-hover:border-black dark:group-hover:border-white transition-all">Suivis</span>
+</a>
+<a class="flex flex-col items-center justify-center w-full h-full group relative active:bg-gray-200 dark:active:bg-gray-900 transition-colors" href="#">
+<div class="absolute top-0 w-2/3 h-2 bg-primary border-b-2 border-x-2 border-black dark:border-white"></div>
+<span class="material-symbols-outlined text-3xl group-hover:scale-110 transition-transform filled text-primary drop-shadow-[2px_2px_0_rgba(0,0,0,1)] dark:drop-shadow-[2px_2px_0_rgba(255,255,255,1)]" style="font-variation-settings: 'FILL' 1;">explore</span>
+<span class="text-[10px] font-black uppercase mt-1 text-primary">Découvrir</span>
+</a>
+<a class="flex flex-col items-center justify-center w-full h-full group active:bg-gray-200 dark:active:bg-gray-900 transition-colors" href="#">
+<span class="material-symbols-outlined text-black dark:text-white text-3xl group-hover:scale-110 transition-transform group-hover:text-accent">content_copy</span>
+<span class="text-[10px] font-black uppercase mt-1 border-b-2 border-transparent group-hover:border-black dark:group-hover:border-white transition-all">Parcourir</span>
+</a>
+</div>
+</nav>
+<div class="h-safe-area-bottom bg-surface dark:bg-black w-full fixed bottom-0 z-[60]"></div>
+<script>
+        // Placeholder for safe area script
+        const nav = document.querySelector('nav');
     </script>
-</body>
-</html>
+
+</body></html>
