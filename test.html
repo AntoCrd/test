@@ -1,323 +1,1350 @@
 <!DOCTYPE html>
-<html class="light" lang="en"><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Twitch Neobrutalist V2</title>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Spline+Sans:wght@300;400;500;600;700;800&amp;family=Noto+Sans:wght@400;500;700;900&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<script>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ULTRA - TITAN OS Design System</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script>
         tailwind.config = {
-            darkMode: "class",
             theme: {
                 extend: {
                     colors: {
-                        "primary": "#8c52ff", // Revisited Twitch Purple
-                        "primary-dark": "#6b2cf5",
-                        "secondary": "#ccff00", // Neon Lime
-                        "accent": "#ff0099", // Neon Pink
-                        "surface": "#f2f0ea", // Off-white
-                        "surface-dark": "#090909", // Deep Black
+                        app: '#050505',
+                        card: '#121212',
+                        elevated: '#1A1A1A',
+                        hover: '#1F1F1F',
+                        active: '#252525',
+                        volt: {
+                            DEFAULT: '#CEFF00',
+                            hover: '#E0FF33',
+                            pressed: '#B8E600',
+                        },
+                        border: {
+                            subtle: '#27272A',
+                            default: '#3F3F46',
+                            strong: '#52525B',
+                        },
+                        text: {
+                            primary: '#FFFFFF',
+                            secondary: '#A1A1AA',
+                            tertiary: '#71717A',
+                            disabled: '#52525B',
+                        },
+                        data: {
+                            hr: '#EF4444',
+                            watts: '#EAB308',
+                            pace: '#3B82F6',
+                            elevation: '#8B5CF6',
+                            cadence: '#EC4899',
+                            temp: '#F97316',
+                        },
+                        zone: {
+                            1: '#22C55E',
+                            2: '#3B82F6',
+                            3: '#EAB308',
+                            4: '#F97316',
+                            5: '#EF4444',
+                            6: '#DC2626',
+                        },
+                        semantic: {
+                            error: '#FF3B30',
+                            warning: '#FF9500',
+                            success: '#34C759',
+                            info: '#007AFF',
+                        }
                     },
                     fontFamily: {
-                        "display": ["Spline Sans", "sans-serif"],
-                        "body": ["Noto Sans", "sans-serif"]
+                        impact: ['Oswald', 'sans-serif'],
+                        body: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
                     },
                     boxShadow: {
-                        'brutal': '5px 5px 0px 0px #000000',
-                        'brutal-hover': '2px 2px 0px 0px #000000',
-                        'brutal-dark': '5px 5px 0px 0px #ffffff',
-                        'brutal-dark-hover': '2px 2px 0px 0px #ffffff',
-                        'hard': '3px 3px 0px 0px #000',
+                        'glow-volt': '0 0 20px rgba(206, 255, 0, 0.3), 0 0 40px rgba(206, 255, 0, 0.1)',
+                        'glow-error': '0 0 20px rgba(255, 59, 48, 0.3)',
+                        'glow-success': '0 0 20px rgba(52, 199, 89, 0.3)',
+                        'glow-info': '0 0 20px rgba(0, 122, 255, 0.3)',
+                        'glow-data': '0 0 15px rgba(59, 130, 246, 0.25)',
                     },
-                    borderWidth: {
-                        '3': '3px',
-                        '4': '4px',
-                    },
-                    backgroundImage: {
-                        'grain': "url('data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noiseFilter%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.65%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noiseFilter)%22 opacity=%220.07%22/%3E%3C/svg%3E')",
-                    }
-                },
-            },
+                }
+            }
         }
-    </script>
-<style>
-        .no-scrollbar::-webkit-scrollbar { display: none; }
-        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 700, 'GRAD' 0, 'opsz' 48; }
-        .material-symbols-outlined.filled { font-variation-settings: 'FILL' 1, 'wght' 700, 'GRAD' 0, 'opsz' 48; }.bg-dots {
-            background-image: radial-gradient(#cbd5e1 2px, transparent 2px);
-            background-size: 24px 24px;
-        }
-        .dark .bg-dots {
-            background-image: radial-gradient(#333 2px, transparent 2px);
-        }
-    </style>
-<style>
-    body {
-      min-height: max(884px, 100dvh);
-    }
-  </style>
-  </head>
-<body class="bg-surface dark:bg-surface-dark font-display text-black dark:text-white overflow-x-hidden antialiased bg-grain selection:bg-secondary selection:text-black">
-<header class="sticky top-0 z-50 w-full bg-surface dark:bg-surface-dark border-b-4 border-black dark:border-white px-4 py-3">
-<div class="flex items-center justify-between">
-<div class="relative group cursor-pointer">
-<div class="w-11 h-11 border-3 border-black dark:border-white bg-secondary shadow-brutal-hover dark:shadow-brutal-dark-hover overflow-hidden transition-transform active:scale-95">
-<img alt="User profile avatar" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDFx-vfFv5Mfp_oPq4NzpkhhVY932eoCBjPNjNn8x7HNaE5uuqArpvvApraMsrkxnPBkuEUHha4Bw5MstZQSM11EcyUhYi7Knnc07Wu2djlyfnhyxS9dKNDY8-vbc3kCpy5v8bAPdJIivOv_PedRAhkvLGVTMK-e7TxkjjNY9UKMIY9Mn7uWMMgzfVUmgfJMXEJjJpJ4VFtWZospeskAQQljQzSe3ehwOJkdqnCvy_OBr1D1TJCXATcPFr_pUgddCwOyp8OxeXvI3g"/>
-</div>
-<div class="absolute -top-1 -right-1 w-4 h-4 bg-red-600 border-2 border-black dark:border-white"></div>
-</div>
-<h1 class="text-4xl font-black tracking-tighter uppercase italic select-none text-primary dark:text-primary drop-shadow-[3px_3px_0_rgba(0,0,0,1)] dark:drop-shadow-[3px_3px_0_rgba(255,255,255,1)]">Twitch</h1>
-<div class="flex items-center gap-2">
-<button class="w-10 h-10 bg-white dark:bg-black border-3 border-black dark:border-white shadow-brutal-hover dark:shadow-brutal-dark-hover active:translate-y-1 active:translate-x-1 active:shadow-none transition-all flex items-center justify-center group hover:bg-secondary dark:hover:bg-secondary">
-<span class="material-symbols-outlined text-black dark:text-white group-hover:text-black">notifications</span>
-</button>
-<button class="w-10 h-10 bg-white dark:bg-black border-3 border-black dark:border-white shadow-brutal-hover dark:shadow-brutal-dark-hover active:translate-y-1 active:translate-x-1 active:shadow-none transition-all flex items-center justify-center group hover:bg-accent dark:hover:bg-accent">
-<span class="material-symbols-outlined text-black dark:text-white group-hover:text-black">chat_bubble</span>
-</button>
-<button class="w-10 h-10 bg-primary border-3 border-black dark:border-white shadow-brutal-hover dark:shadow-brutal-dark-hover active:translate-y-1 active:translate-x-1 active:shadow-none transition-all flex items-center justify-center">
-<span class="material-symbols-outlined text-white">search</span>
-</button>
-</div>
-</div>
-</header>
-<main class="flex flex-col w-full pb-28 bg-dots">
-<section class="mt-8 pl-4">
-<div class="flex items-center justify-between pr-4 mb-6">
-<h2 class="text-3xl font-black uppercase tracking-tight italic bg-black text-white px-2 py-1 transform -rotate-1 dark:bg-white dark:text-black inline-block border-2 border-transparent">
-                    En Direct
-                </h2>
-<a class="font-black text-sm uppercase border-b-4 border-primary hover:text-primary hover:border-black transition-all" href="#">Voir tout</a>
-</div>
-<div class="flex overflow-x-auto gap-5 no-scrollbar pb-8 pr-4">
-<div class="flex-shrink-0 w-[85vw] md:w-[400px] flex flex-col group cursor-pointer relative">
-<div class="relative w-full aspect-video border-4 border-black dark:border-white bg-black shadow-brutal dark:shadow-brutal-dark group-hover:shadow-none group-hover:translate-x-[5px] group-hover:translate-y-[5px] transition-all duration-200 z-10">
-<div class="absolute top-0 left-0 bg-red-600 text-white text-sm font-black px-3 py-1 border-r-4 border-b-4 border-black z-20 uppercase">Live</div>
-<div class="absolute bottom-2 right-2 bg-secondary text-black text-xs font-black px-2 py-1 border-2 border-black z-20 uppercase tracking-widest">150k viewers</div>
-<div class="w-full h-full bg-cover bg-center grayscale group-hover:grayscale-0 transition-all duration-300" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCiS8Yec2cJJ3lFOXK5eid-EfTtXu7LPusHKWNk9O63Wm4Ney-X3jPcjKg9NX4xKVNMuLas7HquFCFMkbkKkpcOvWi-MqSSEP6gDugyUDljqr1BMfmuedcoCsRQTg1JErIUW2nu9N83QNy0M5wFqebAnbEx4GoMmrQd0cmycgFmie_fQLPeFM1waBQqWBdJc4et9ISZao9vTxlUR7rXzg_sINd-HPxdiaOZjlU4c84QBOiQjaBvLgBtwPnwyVECwQIf4-tXS7A3Uhw');"></div>
-</div>
-<div class="relative -mt-4 ml-4 mr-2 bg-white dark:bg-[#1a1a1a] border-3 border-black dark:border-white p-3 pt-6 shadow-hard z-0">
-<div class="flex justify-between items-start gap-2">
-<div>
-<h3 class="font-black text-xl leading-5 uppercase break-words decoration-4 underline-offset-2 group-hover:underline decoration-primary">ZEvent 2024: The Grand Finale</h3>
-<p class="text-sm font-bold mt-1 text-gray-500">ZeratoR</p>
-</div>
-<div class="w-10 h-10 border-2 border-black dark:border-white flex-shrink-0 bg-primary overflow-hidden">
-<img alt="Streamer avatar" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCQxyW1s8Y-GQhC9HDq-8FA7PLX9hvK0y0_uyx1A2gOTEmp5kNx7eEhyO5_2LDZhcc1cbW0n-rzWERkvTgyv8KHVybrvkq_oj6Y-JQOXZdHreffDzBkaY1VNgDRFSQty99sKSV_CWMvE8figGMqnmQbQFO6NIFpwYmgTMmlneIGyEGc8ysVGYO9B8xAzTC_-CuHBPGR40lGkLuE1o8VaBrbMJUACl0tGrvm3KJ5n0Dr1s8spivzm1q-iC7RPfHwnLq8ibYr3ZoXO0g"/>
-</div>
-</div>
-<div class="mt-2 flex gap-2">
-<span class="bg-black text-white text-[10px] font-bold px-2 py-0.5 uppercase">Charity</span>
-<span class="bg-gray-200 text-black text-[10px] font-bold px-2 py-0.5 uppercase border border-black">Event</span>
-</div>
-</div>
-</div>
-<div class="flex-shrink-0 w-[85vw] md:w-[400px] flex flex-col group cursor-pointer relative">
-<div class="relative w-full aspect-video border-4 border-black dark:border-white bg-black shadow-brutal dark:shadow-brutal-dark group-hover:shadow-none group-hover:translate-x-[5px] group-hover:translate-y-[5px] transition-all duration-200 z-10">
-<div class="absolute top-0 left-0 bg-red-600 text-white text-sm font-black px-3 py-1 border-r-4 border-b-4 border-black z-20 uppercase">Live</div>
-<div class="absolute bottom-2 right-2 bg-accent text-white text-xs font-black px-2 py-1 border-2 border-black z-20 uppercase tracking-widest">45k viewers</div>
-<div class="w-full h-full bg-cover bg-center grayscale group-hover:grayscale-0 transition-all duration-300" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDQ9uRN0ILZA9sUqUWfUOqR6o0b7AsJnTKSCn-0810ZaFsiqdgRzyaZGry5zqZyQG_btjkjRETF-TafVZM8QP6nIiHF5juhkIanusAAfE9KOuGia72I4_KH8Zxcwf17UCCrn7l6N6BHfYodQf_2LZaqG1Q7H1P7PMTfrF0sOee7c8q_eBQiDBxqy4J-bCxHO0XYEAx5BJWvHc0jrYcl8R2UKywGlOUJOQ-sV_jcbDdxf2IdBvwut5DhHKMvcKndNhFKn02CFU76JFo');"></div>
-</div>
-<div class="relative -mt-4 ml-4 mr-2 bg-white dark:bg-[#1a1a1a] border-3 border-black dark:border-white p-3 pt-6 shadow-hard z-0">
-<div class="flex justify-between items-start gap-2">
-<div>
-<h3 class="font-black text-xl leading-5 uppercase break-words decoration-4 underline-offset-2 group-hover:underline decoration-accent">Warzone Ranked Grind Top 250</h3>
-<p class="text-sm font-bold mt-1 text-gray-500">Gotaga</p>
-</div>
-<div class="w-10 h-10 border-2 border-black dark:border-white flex-shrink-0 bg-white overflow-hidden">
-<img alt="Streamer avatar" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC9DDqExKdpt9eGImRt4ffWDF93UOQhN9Cqla3kWTYHCxw24SIS5E_Qe8kS03SYvjRxgg96e4pXcWzVw5yDzoGsm0eIDt_P2sxTGrsZUphbD02x7XdjTR8q3py2zBv20wesdVvKw51P1CyBFwjBIG2GeWn9mk1zbKbLFVnjeoBoqc6MnfCvWuYBAe3N5RyJdzGJiIfr9nDw-wPLbpKvcR2QqE9bqioP1JJxiRZNGNs-zxsxs1nvhNcSW6V2_DnWdD_UzuEcrNhPeb8"/>
-</div>
-</div>
-<div class="mt-2 flex gap-2">
-<span class="bg-black text-white text-[10px] font-bold px-2 py-0.5 uppercase">FPS</span>
-<span class="bg-gray-200 text-black text-[10px] font-bold px-2 py-0.5 uppercase border border-black">Ranked</span>
-</div>
-</div>
-</div>
-<div class="flex-shrink-0 w-[85vw] md:w-[400px] flex flex-col group cursor-pointer relative">
-<div class="relative w-full aspect-video border-4 border-black dark:border-white bg-black shadow-brutal dark:shadow-brutal-dark group-hover:shadow-none group-hover:translate-x-[5px] group-hover:translate-y-[5px] transition-all duration-200 z-10">
-<div class="absolute top-0 left-0 bg-red-600 text-white text-sm font-black px-3 py-1 border-r-4 border-b-4 border-black z-20 uppercase">Live</div>
-<div class="absolute bottom-2 right-2 bg-secondary text-black text-xs font-black px-2 py-1 border-2 border-black z-20 uppercase tracking-widest">12k viewers</div>
-<div class="w-full h-full bg-cover bg-center grayscale group-hover:grayscale-0 transition-all duration-300" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBZeCG7cTu2UtkwaEWe7oX_QpOQBGHy00O6rzG9JL1TIZGQ1UGLKnzLLCbty1GWxNO9eCXsQFmKAco87hgFvxEV_be2iWzKOjrnbmzYG2xincnOSYuhjd15vCyDVv6w3lfRtwOkFE5hDB94UmBDvc8jPdNlKsDXeAyLIQgJ6VDR6nBJeG1IQLhVIBuvF2rwHCCR-4H61EYRtj8oNTb7sJ5I29zlYV2Bvws8-9rgMli19foSoPKtHTwXlFkTs1I90D59wlSOgagIa_I');"></div>
-</div>
-<div class="relative -mt-4 ml-4 mr-2 bg-white dark:bg-[#1a1a1a] border-3 border-black dark:border-white p-3 pt-6 shadow-hard z-0">
-<div class="flex justify-between items-start gap-2">
-<div>
-<h3 class="font-black text-xl leading-5 uppercase break-words decoration-4 underline-offset-2 group-hover:underline decoration-primary">Just Chatting &amp; Updates</h3>
-<p class="text-sm font-bold mt-1 text-gray-500">BagheraJones</p>
-</div>
-<div class="w-10 h-10 border-2 border-black dark:border-white flex-shrink-0 bg-pink-400 overflow-hidden">
-<img alt="Streamer avatar" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDE4RxrX4h-eGeK4m2sblx9k_6-A-fshk4euJY16oe0od2lNAZz-DklLXlJJgdbVSb6KzTawv8hRlSTDk2gR0BByA3nYRx1y2cw5cnPKsVavoQp9IbDyciZVYmesv0WTS56KXZutbhPhj59JUaH_9SK4m4ARmTWwYjiGtR8LXz2cYM4gvH2wqjZpDxpu06X7RX4X36V40q1stOwixLXNs-yGbmHu3VZx1kJ8DUGb4GmBuoVSvMokxxzMOvWXLlKNKpcEwqsO1Xd4xo"/>
-</div>
-</div>
-<div class="mt-2 flex gap-2">
-<span class="bg-black text-white text-[10px] font-bold px-2 py-0.5 uppercase">Talk</span>
-<span class="bg-gray-200 text-black text-[10px] font-bold px-2 py-0.5 uppercase border border-black">Chill</span>
-</div>
-</div>
-</div>
-</div>
-</section>
-<section class="mt-8 px-4">
-<h2 class="text-2xl font-black uppercase tracking-tight mb-4 flex items-center gap-2">
-<span class="w-4 h-4 bg-primary border-2 border-black dark:border-white block transform rotate-45"></span>
-                Catégories
-            </h2>
-<div class="grid grid-cols-2 gap-4">
-<div class="group cursor-pointer">
-<div class="bg-white dark:bg-[#222] border-3 border-black dark:border-white h-28 flex flex-col justify-between p-3 shadow-brutal dark:shadow-brutal-dark group-hover:shadow-none group-hover:translate-x-[4px] group-hover:translate-y-[4px] transition-all relative overflow-hidden">
-<div class="absolute -right-4 -top-4 bg-primary w-16 h-16 rounded-full blur-xl opacity-50 group-hover:opacity-100 transition-opacity"></div>
-<div class="flex justify-between items-start relative z-10">
-<span class="font-black text-xl uppercase leading-none italic">Just<br/>Chatting</span>
-<span class="material-symbols-outlined text-black dark:text-white scale-150">forum</span>
-</div>
-<div class="text-xs font-black bg-black text-white dark:bg-white dark:text-black w-fit px-2 py-1 uppercase border border-transparent dark:border-black">300K <span class="text-[8px] opacity-70">VIEWERS</span></div>
-</div>
-</div>
-<div class="group cursor-pointer">
-<div class="bg-primary border-3 border-black dark:border-white h-28 flex flex-col justify-between p-3 shadow-brutal dark:shadow-brutal-dark group-hover:shadow-none group-hover:translate-x-[4px] group-hover:translate-y-[4px] transition-all relative overflow-hidden">
-<div class="absolute -right-4 -top-4 bg-white w-16 h-16 rounded-full blur-xl opacity-20 group-hover:opacity-40 transition-opacity"></div>
-<div class="flex justify-between items-start relative z-10">
-<span class="font-black text-xl uppercase leading-none italic text-white">League of<br/>Legends</span>
-<span class="material-symbols-outlined text-white scale-150">sports_esports</span>
-</div>
-<div class="text-xs font-black bg-white text-black w-fit px-2 py-1 uppercase border-2 border-black">120K <span class="text-[8px] opacity-70">VIEWERS</span></div>
-</div>
-</div>
-<div class="group cursor-pointer">
-<div class="bg-secondary border-3 border-black dark:border-white h-28 flex flex-col justify-between p-3 shadow-brutal dark:shadow-brutal-dark group-hover:shadow-none group-hover:translate-x-[4px] group-hover:translate-y-[4px] transition-all relative overflow-hidden">
-<div class="flex justify-between items-start relative z-10">
-<span class="font-black text-xl uppercase leading-none italic text-black">Valorant</span>
-<span class="material-symbols-outlined text-black scale-150">gps_fixed</span>
-</div>
-<div class="text-xs font-black bg-black text-white w-fit px-2 py-1 uppercase">90K <span class="text-[8px] opacity-70">VIEWERS</span></div>
-</div>
-</div>
-<div class="group cursor-pointer">
-<div class="bg-white dark:bg-[#222] border-3 border-black dark:border-white h-28 flex flex-col justify-between p-3 shadow-brutal dark:shadow-brutal-dark group-hover:shadow-none group-hover:translate-x-[4px] group-hover:translate-y-[4px] transition-all relative overflow-hidden">
-<div class="absolute -right-4 -top-4 bg-secondary w-16 h-16 rounded-full blur-xl opacity-50 group-hover:opacity-100 transition-opacity"></div>
-<div class="flex justify-between items-start relative z-10">
-<span class="font-black text-xl uppercase leading-none italic">GTA V</span>
-<span class="material-symbols-outlined text-black dark:text-white scale-150">directions_car</span>
-</div>
-<div class="text-xs font-black bg-black text-white dark:bg-white dark:text-black w-fit px-2 py-1 uppercase border border-transparent dark:border-black">85K <span class="text-[8px] opacity-70">VIEWERS</span></div>
-</div>
-</div>
-</div>
-</section>
-<section class="mt-10 px-4 flex flex-col gap-8">
-<h2 class="text-2xl font-black uppercase tracking-tight flex items-center gap-2">
-<span class="w-4 h-4 bg-accent border-2 border-black dark:border-white block transform rotate-12"></span>
-                Recommandés
-            </h2>
-<div class="flex flex-col group cursor-pointer">
-<div class="flex items-center gap-3 mb-[-2px] ml-1 z-10">
-<div class="w-12 h-12 bg-blue-300 border-3 border-black dark:border-white overflow-hidden shadow-sm">
-<img alt="Streamer avatar" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuADYIrVjiOgIHa64R_S4_Tgh-wjvDXtr1Td7IttH29QsP13Ht5l9-wyvPa7ZpFG43cQ5-C0bG4_cyg-QQGt4mYoY0RgMykLy-VSgI_3B_NZyF2HKiuKhp9I9iN_fEfF5_kyXtbH8_zGY3yvkKwgWRj8DoohijnS2wM13amHLbLl-6looHCd_KQsTHkFAWxyqITi1Q_CGNviPwRlrcwB-3ctDl-TKKf9mHMIxwRK79WEpCghUfxEOV6rFaQ150ffQDMGVrPg2spjnog"/>
-</div>
-<div class="bg-white dark:bg-black border-3 border-black dark:border-white border-b-0 px-3 py-1.5 flex flex-col">
-<span class="font-black text-sm uppercase leading-none">Etoiles</span>
-<span class="text-[10px] font-bold text-gray-500">Minecraft</span>
-</div>
-</div>
-<div class="relative w-full border-4 border-black dark:border-white bg-white dark:bg-[#1a1a1a] shadow-brutal dark:shadow-brutal-dark group-hover:shadow-none group-hover:translate-x-[4px] group-hover:translate-y-[4px] transition-all">
-<div class="w-full aspect-video border-b-4 border-black dark:border-white bg-gray-200 relative">
-<div class="absolute top-3 left-3 bg-red-600 text-white font-black text-xs px-2 py-1 border-2 border-black uppercase z-10">Live</div>
-<div class="w-full h-full bg-cover bg-center" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAJi3KIzO5BFeSTbdG3NS7KP6xiLZ2vc0156SKuxfxkH-4bm4HYVfyj5JEKqaFKh1chU4d67deilfgld-xGgzA9dqFqaoJnYUTxQgJGji4jLhX223l5oub6ZVQqBh-i638nTb61lpop-BBSm_U83i1a6nmKfncku7wFALBLBZAauhb3RFaUUVGPHNYdJMbCowTpH08IPjTmHZ6jaeQnjRtU5chmEvGlYNNpjj-XCqx5Ue4WQ_PPvnMS2ZcokcOtOa7oyi2bHEIwZ-4');"></div>
-</div>
-<div class="p-4 bg-surface dark:bg-[#111]">
-<h3 class="font-black text-lg md:text-xl uppercase leading-tight mb-3">Building the MEGA base! Hardcore #42</h3>
-<div class="flex flex-wrap gap-2">
-<span class="text-[10px] font-black uppercase px-2 py-1 bg-secondary text-black border-2 border-black">Minecraft</span>
-<span class="text-[10px] font-black uppercase px-2 py-1 bg-white text-black border-2 border-black">Français</span>
-<button class="ml-auto text-black dark:text-white hover:text-primary transition-colors">
-<span class="material-symbols-outlined">more_horiz</span>
-</button>
-</div>
-</div>
-</div>
-</div>
-<div class="flex flex-col group cursor-pointer">
-<div class="flex items-center gap-3 mb-[-2px] ml-1 z-10">
-<div class="w-12 h-12 bg-purple-500 border-3 border-black dark:border-white overflow-hidden shadow-sm">
-<img alt="Streamer avatar" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBfpKiu9KZucAjhII8a3o98_u3EWI6dJizAozgTjd8b0q3DLBynV1VYtQdM_SPIhJbBuRHhtlUpaQaGFgYBPOFpTgZ2ss5uwMz_Y5nG6rq4ZxPInXxErN0O4SqRPJ7PhcfgaY_5RbVu3VhvbvzDebIyRFliNqTvQNq0f7V7wZBvK0yOIOT2-ZM9RW5IJpB43qP0Q7HldUIaXW7_vPfQDUmpUTIIYmFIAeGLxAH90bl1nXR6u7rnzeguoRwyRT7b-k-6y9WLNNit-_4"/>
-</div>
-<div class="bg-white dark:bg-black border-3 border-black dark:border-white border-b-0 px-3 py-1.5 flex flex-col">
-<span class="font-black text-sm uppercase leading-none">Ponce</span>
-<span class="text-[10px] font-bold text-gray-500">Elden Ring</span>
-</div>
-</div>
-<div class="relative w-full border-4 border-black dark:border-white bg-white dark:bg-[#1a1a1a] shadow-brutal dark:shadow-brutal-dark group-hover:shadow-none group-hover:translate-x-[4px] group-hover:translate-y-[4px] transition-all">
-<div class="w-full aspect-video border-b-4 border-black dark:border-white bg-gray-200 relative">
-<div class="absolute top-3 left-3 bg-red-600 text-white font-black text-xs px-2 py-1 border-2 border-black uppercase z-10">Live</div>
-<div class="w-full h-full bg-cover bg-center" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBCj7YGtR6E8P6PGdSNHZilj8RM87TJ92CA8EwVUY7SQvjhuDam-AJ-3cDwFxHbTNAv84ibpgztZnhHnhB2IfpT2VStjRQC-ev5E8KMmL7t9SAZS76Sq3Gkj5jYuV3qeauruo-3Gk4bYRCOxsPCBk0fiTmn4Ej-lJtkU2711vH0MxaQpSt3dgceg8X8Zjjr_fLUcWlXEvX1AZFPa1qmIFl5xUDuKvkuK0k5Vajq0daTLWJ5iR1ZLVKODebUdUu8yLYEVubZzuf_e5w');"></div>
-</div>
-<div class="p-4 bg-surface dark:bg-[#111]">
-<h3 class="font-black text-lg md:text-xl uppercase leading-tight mb-3">ELDEN RING DLC MARATHON !deaths</h3>
-<div class="flex flex-wrap gap-2">
-<span class="text-[10px] font-black uppercase px-2 py-1 bg-accent text-white border-2 border-black">Souls</span>
-<span class="text-[10px] font-black uppercase px-2 py-1 bg-white text-black border-2 border-black">Speedrun</span>
-<button class="ml-auto text-black dark:text-white hover:text-primary transition-colors">
-<span class="material-symbols-outlined">more_horiz</span>
-</button>
-</div>
-</div>
-</div>
-</div>
-<div class="flex flex-col group cursor-pointer">
-<div class="flex items-center gap-3 mb-[-2px] ml-1 z-10">
-<div class="w-12 h-12 bg-red-600 border-3 border-black dark:border-white overflow-hidden shadow-sm">
-<img alt="Streamer avatar" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDl98APIwDEOYbDpZDoWRAzzzaHFJy8EGVUkKgL4_e9nmfdKSsN86ZST6ZK14QBXmCOv3L1YMWgi53t0xAyBBQf2LxiyIgi8fMMXwAze4owVysQN7cwbeSYUH7joAHejR9KcgmtpGO3U1CClN2WG3qe5rL6dDLm9JBUn78neqTCC0VLXRR5aU-XuCodqel3YlB8vHldFHNpcNCPN3gSRMFDRkQbQs7sHidQwECTT6sHN8SX8eci9YR8NILNqJPnLY7ySmJnFegUgb8"/>
-</div>
-<div class="bg-white dark:bg-black border-3 border-black dark:border-white border-b-0 px-3 py-1.5 flex flex-col">
-<span class="font-black text-sm uppercase leading-none">Rivenzi</span>
-<span class="text-[10px] font-bold text-gray-500">Sports</span>
-</div>
-</div>
-<div class="relative w-full border-4 border-black dark:border-white bg-white dark:bg-[#1a1a1a] shadow-brutal dark:shadow-brutal-dark group-hover:shadow-none group-hover:translate-x-[4px] group-hover:translate-y-[4px] transition-all">
-<div class="w-full aspect-video border-b-4 border-black dark:border-white bg-gray-200 relative">
-<div class="absolute top-3 left-3 bg-red-600 text-white font-black text-xs px-2 py-1 border-2 border-black uppercase z-10">Live</div>
-<div class="w-full h-full bg-cover bg-center" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAQeQm5C0l1DLaxiM-impLr8x8RCFI8XcTu38ujqbOYB3LchQHJt4hobTIJTOv4VmfQMwEqQNVxMjfRMISmq_6LyX8XgGHOtcoSuMCsxocttE00Shlggo5cphk95OiXg5m10EAi2-fTnPledrjBFbkog_UJCQ7HkJWTHFyNvLwcNNUNckACQhPR3FOP4CItrb2plfxMTSbQVp5Sq39AGLUfnNLFsR43OpPc1VYEzZ2iEscTPduXA7FuPCmSWHcdtXLfMYZnFmzOD_A');"></div>
-</div>
-<div class="p-4 bg-surface dark:bg-[#111]">
-<h3 class="font-black text-lg md:text-xl uppercase leading-tight mb-3">Grand Prix Watchalong 🏎️</h3>
-<div class="flex flex-wrap gap-2">
-<span class="text-[10px] font-black uppercase px-2 py-1 bg-primary text-white border-2 border-black">F1</span>
-<span class="text-[10px] font-black uppercase px-2 py-1 bg-white text-black border-2 border-black">Talk</span>
-<button class="ml-auto text-black dark:text-white hover:text-primary transition-colors">
-<span class="material-symbols-outlined">more_horiz</span>
-</button>
-</div>
-</div>
-</div>
-</div>
-</section>
-</main>
-<button class="fixed bottom-24 right-4 z-40 bg-secondary text-black border-4 border-black w-16 h-16 shadow-brutal flex items-center justify-center hover:translate-y-[4px] hover:translate-x-[4px] hover:shadow-none transition-all active:bg-white group">
-<span class="material-symbols-outlined text-4xl font-black group-hover:rotate-180 transition-transform duration-300">add</span>
-</button>
-<nav class="fixed bottom-0 z-50 w-full bg-surface dark:bg-black border-t-4 border-black dark:border-white pb-safe">
-<div class="flex justify-around items-center h-20">
-<a class="flex flex-col items-center justify-center w-full h-full group active:bg-gray-200 dark:active:bg-gray-900 transition-colors" href="#">
-<span class="material-symbols-outlined text-black dark:text-white text-3xl group-hover:scale-110 transition-transform filled group-hover:text-primary">favorite</span>
-<span class="text-[10px] font-black uppercase mt-1 border-b-2 border-transparent group-hover:border-black dark:group-hover:border-white transition-all">Suivis</span>
-</a>
-<a class="flex flex-col items-center justify-center w-full h-full group relative active:bg-gray-200 dark:active:bg-gray-900 transition-colors" href="#">
-<div class="absolute top-0 w-2/3 h-2 bg-primary border-b-2 border-x-2 border-black dark:border-white"></div>
-<span class="material-symbols-outlined text-3xl group-hover:scale-110 transition-transform filled text-primary drop-shadow-[2px_2px_0_rgba(0,0,0,1)] dark:drop-shadow-[2px_2px_0_rgba(255,255,255,1)]" style="font-variation-settings: 'FILL' 1;">explore</span>
-<span class="text-[10px] font-black uppercase mt-1 text-primary">Découvrir</span>
-</a>
-<a class="flex flex-col items-center justify-center w-full h-full group active:bg-gray-200 dark:active:bg-gray-900 transition-colors" href="#">
-<span class="material-symbols-outlined text-black dark:text-white text-3xl group-hover:scale-110 transition-transform group-hover:text-accent">content_copy</span>
-<span class="text-[10px] font-black uppercase mt-1 border-b-2 border-transparent group-hover:border-black dark:group-hover:border-white transition-all">Parcourir</span>
-</a>
-</div>
-</nav>
-<div class="h-safe-area-bottom bg-surface dark:bg-black w-full fixed bottom-0 z-[60]"></div>
-<script>
-        // Placeholder for safe area script
-        const nav = document.querySelector('nav');
     </script>
 
-</body></html>
+    <style>
+        * {
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        .glass {
+            background: rgba(30, 30, 30, 0.6);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .glass-strong {
+            background: rgba(24, 24, 24, 0.8);
+            backdrop-filter: blur(30px) saturate(200%);
+            -webkit-backdrop-filter: blur(30px) saturate(200%);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+        }
+
+        @keyframes pulse-glow {
+
+            0%,
+            100% {
+                box-shadow: 0 0 20px rgba(206, 255, 0, 0.2);
+            }
+
+            50% {
+                box-shadow: 0 0 30px rgba(206, 255, 0, 0.4);
+            }
+        }
+
+        .animate-pulse-glow {
+            animation: pulse-glow 2s ease-in-out infinite;
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #050505;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #27272A;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #3F3F46;
+        }
+
+        .progress-ring-circle {
+            transition: stroke-dashoffset 0.35s;
+            transform: rotate(-90deg);
+            transform-origin: 50% 50%;
+        }
+
+        /* Code syntax highlighting */
+        .code-block {
+            background: #0D0D0D;
+            border: 1px solid #27272A;
+            border-radius: 12px;
+            padding: 1rem;
+            overflow-x: auto;
+        }
+
+        .code-block code {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 13px;
+            line-height: 1.6;
+            color: #A1A1AA;
+        }
+
+        .token-key {
+            color: #CEFF00;
+        }
+
+        .token-value {
+            color: #3B82F6;
+        }
+
+        .token-comment {
+            color: #52525B;
+            font-style: italic;
+        }
+    </style>
+</head>
+
+<body class="bg-app text-text-primary">
+
+    <!-- Main Container -->
+    <div class="min-h-screen">
+
+        <!-- Header Navigation -->
+        <header class="sticky top-0 z-50 glass border-b border-white border-opacity-5">
+            <div class="max-w-7xl mx-auto px-6 py-4">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center gap-4">
+                        <div class="w-12 h-12 bg-volt rounded-2xl flex items-center justify-center">
+                            <span class="font-impact text-2xl text-black">U</span>
+                        </div>
+                        <div>
+                            <h1 class="font-impact text-2xl uppercase tracking-tight">TITAN OS</h1>
+                            <p class="text-text-tertiary text-xs font-mono uppercase">Design System v1.0</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <span
+                            class="px-4 py-2 bg-volt bg-opacity-10 border border-volt border-opacity-30 text-volt text-xs font-mono font-bold rounded-full uppercase">
+                            Production Ready
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Content -->
+        <main class="max-w-7xl mx-auto px-6 py-12">
+
+            <!-- Introduction -->
+            <section class="mb-20">
+                <div class="grid lg:grid-cols-2 gap-8 items-center">
+                    <div>
+                        <h2 class="font-impact text-6xl uppercase tracking-tight mb-4">
+                            BRUTALISME<br />
+                            <span class="text-volt">FONCTIONNEL</span>
+                        </h2>
+                        <p class="text-text-secondary text-lg font-body leading-relaxed mb-6">
+                            Design System pour applications de sport extrême. Inspiré des cockpits d'avions de chasse,
+                            des terminaux Linux et de l'esthétique Cyberpunk épurée.
+                        </p>
+                        <div class="flex gap-3">
+                            <a href="#colors"
+                                class="px-6 py-3 bg-volt text-black font-impact text-sm uppercase rounded-lg hover:bg-volt-hover transition-all duration-150">
+                                Explorer
+                            </a>
+                            <button
+                                class="px-6 py-3 bg-elevated border border-border-default text-text-primary font-impact text-sm uppercase rounded-lg hover:bg-hover transition-all duration-150">
+                                Documentation
+                            </button>
+                        </div>
+                    </div>
+                    <div class="bg-card border border-border-subtle rounded-3xl p-8">
+                        <div class="space-y-4">
+                            <div class="flex items-center justify-between">
+                                <span class="text-text-tertiary text-xs font-mono uppercase">Philosophie</span>
+                                <span class="text-volt text-xs font-mono font-bold">DATA-FIRST</span>
+                            </div>
+                            <div class="h-px bg-border-subtle"></div>
+                            <div class="grid grid-cols-2 gap-4">
+                                <div>
+                                    <p class="text-text-tertiary text-xs font-mono uppercase mb-2">Public</p>
+                                    <p class="text-sm font-body">Athlètes d'élite</p>
+                                </div>
+                                <div>
+                                    <p class="text-text-tertiary text-xs font-mono uppercase mb-2">Approche</p>
+                                    <p class="text-sm font-body">Form Follows Function</p>
+                                </div>
+                                <div>
+                                    <p class="text-text-tertiary text-xs font-mono uppercase mb-2">Inspirations</p>
+                                    <p class="text-sm font-body">Aviation, Terminal, Cyberpunk</p>
+                                </div>
+                                <div>
+                                    <p class="text-text-tertiary text-xs font-mono uppercase mb-2">Tonalité</p>
+                                    <p class="text-sm font-body">Agressive & Précise</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ============================================ -->
+            <!-- 1. COLOR SYSTEM -->
+            <!-- ============================================ -->
+            <section id="colors" class="mb-20">
+                <div class="mb-8">
+                    <h2 class="font-impact text-4xl uppercase tracking-tight mb-2">Palette de Couleurs</h2>
+                    <p class="text-text-secondary font-body">Système chromatique complet pour ULTRA</p>
+                </div>
+
+                <div class="grid lg:grid-cols-2 gap-8">
+
+                    <!-- Foundations -->
+                    <div class="bg-card border border-border-subtle rounded-3xl p-8">
+                        <h3 class="font-impact text-xl uppercase mb-6">FONDATIONS</h3>
+                        <div class="space-y-4">
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-16 h-16 bg-app rounded-xl border border-border-subtle"></div>
+                                    <div>
+                                        <p class="font-mono text-sm font-semibold">bg-app</p>
+                                        <p class="text-text-tertiary text-xs font-mono">#050505</p>
+                                    </div>
+                                </div>
+                                <span class="text-xs text-text-tertiary font-body">Background principal</span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-16 h-16 bg-card rounded-xl border border-border-subtle"></div>
+                                    <div>
+                                        <p class="font-mono text-sm font-semibold">bg-card</p>
+                                        <p class="text-text-tertiary text-xs font-mono">#121212</p>
+                                    </div>
+                                </div>
+                                <span class="text-xs text-text-tertiary font-body">Surface des cartes</span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-16 h-16 bg-elevated rounded-xl border border-border-subtle"></div>
+                                    <div>
+                                        <p class="font-mono text-sm font-semibold">bg-elevated</p>
+                                        <p class="text-text-tertiary text-xs font-mono">#1A1A1A</p>
+                                    </div>
+                                </div>
+                                <span class="text-xs text-text-tertiary font-body">Éléments surélevés</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Brand Volt -->
+                    <div class="bg-card border border-border-subtle rounded-3xl p-8">
+                        <h3 class="font-impact text-xl uppercase mb-6">BRAND VOLT</h3>
+                        <div class="space-y-4">
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-16 h-16 bg-volt rounded-xl shadow-glow-volt"></div>
+                                    <div>
+                                        <p class="font-mono text-sm font-semibold">volt</p>
+                                        <p class="text-text-tertiary text-xs font-mono">#CEFF00</p>
+                                    </div>
+                                </div>
+                                <span class="text-xs text-text-tertiary font-body">Action principale</span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-16 h-16 bg-volt-hover rounded-xl"></div>
+                                    <div>
+                                        <p class="font-mono text-sm font-semibold">volt-hover</p>
+                                        <p class="text-text-tertiary text-xs font-mono">#E0FF33</p>
+                                    </div>
+                                </div>
+                                <span class="text-xs text-text-tertiary font-body">Hover state</span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-16 h-16 bg-volt-pressed rounded-xl"></div>
+                                    <div>
+                                        <p class="font-mono text-sm font-semibold">volt-pressed</p>
+                                        <p class="text-text-tertiary text-xs font-mono">#B8E600</p>
+                                    </div>
+                                </div>
+                                <span class="text-xs text-text-tertiary font-body">Pressed state</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Data Colors -->
+                    <div class="bg-card border border-border-subtle rounded-3xl p-8">
+                        <h3 class="font-impact text-xl uppercase mb-6">DATA METRICS</h3>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="space-y-2">
+                                <div class="h-20 bg-data-hr rounded-xl"></div>
+                                <p class="font-mono text-sm">HR</p>
+                                <p class="text-text-tertiary text-xs font-mono">#EF4444</p>
+                            </div>
+                            <div class="space-y-2">
+                                <div class="h-20 bg-data-watts rounded-xl"></div>
+                                <p class="font-mono text-sm">Watts</p>
+                                <p class="text-text-tertiary text-xs font-mono">#EAB308</p>
+                            </div>
+                            <div class="space-y-2">
+                                <div class="h-20 bg-data-pace rounded-xl"></div>
+                                <p class="font-mono text-sm">Pace</p>
+                                <p class="text-text-tertiary text-xs font-mono">#3B82F6</p>
+                            </div>
+                            <div class="space-y-2">
+                                <div class="h-20 bg-data-elevation rounded-xl"></div>
+                                <p class="font-mono text-sm">Elevation</p>
+                                <p class="text-text-tertiary text-xs font-mono">#8B5CF6</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Training Zones -->
+                    <div class="bg-card border border-border-subtle rounded-3xl p-8">
+                        <h3 class="font-impact text-xl uppercase mb-6">TRAINING ZONES</h3>
+                        <div class="space-y-3">
+                            <div class="flex items-center gap-3 p-3 bg-elevated rounded-xl">
+                                <div class="w-10 h-10 bg-zone-1 rounded-lg"></div>
+                                <div class="flex-1">
+                                    <p class="text-sm font-body font-semibold">Zone 1 - Récupération</p>
+                                    <p class="text-xs text-text-tertiary font-mono">#22C55E</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-3 p-3 bg-elevated rounded-xl">
+                                <div class="w-10 h-10 bg-zone-2 rounded-lg"></div>
+                                <div class="flex-1">
+                                    <p class="text-sm font-body font-semibold">Zone 2 - Endurance</p>
+                                    <p class="text-xs text-text-tertiary font-mono">#3B82F6</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-3 p-3 bg-elevated rounded-xl">
+                                <div class="w-10 h-10 bg-zone-3 rounded-lg"></div>
+                                <div class="flex-1">
+                                    <p class="text-sm font-body font-semibold">Zone 3 - Tempo</p>
+                                    <p class="text-xs text-text-tertiary font-mono">#EAB308</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-3 p-3 bg-elevated rounded-xl">
+                                <div class="w-10 h-10 bg-zone-4 rounded-lg"></div>
+                                <div class="flex-1">
+                                    <p class="text-sm font-body font-semibold">Zone 4 - Seuil</p>
+                                    <p class="text-xs text-text-tertiary font-mono">#F97316</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-3 p-3 bg-elevated rounded-xl">
+                                <div class="w-10 h-10 bg-zone-5 rounded-lg"></div>
+                                <div class="flex-1">
+                                    <p class="text-sm font-body font-semibold">Zone 5 - VO2 Max</p>
+                                    <p class="text-xs text-text-tertiary font-mono">#EF4444</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-3 p-3 bg-elevated rounded-xl">
+                                <div class="w-10 h-10 bg-zone-6 rounded-lg"></div>
+                                <div class="flex-1">
+                                    <p class="text-sm font-body font-semibold">Zone 6 - Anaérobie</p>
+                                    <p class="text-xs text-text-tertiary font-mono">#DC2626</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- ============================================ -->
+            <!-- 2. TYPOGRAPHY -->
+            <!-- ============================================ -->
+            <section id="typography" class="mb-20">
+                <div class="mb-8">
+                    <h2 class="font-impact text-4xl uppercase tracking-tight mb-2">Typographie</h2>
+                    <p class="text-text-secondary font-body">Trois familles de polices pour trois usages distincts</p>
+                </div>
+
+                <div class="grid lg:grid-cols-3 gap-8 mb-8">
+                    <div class="bg-card border border-border-subtle rounded-3xl p-8">
+                        <div class="mb-6">
+                            <h3 class="font-impact text-xl uppercase mb-2">IMPACT</h3>
+                            <p class="text-text-tertiary text-sm font-mono">Oswald</p>
+                        </div>
+                        <p class="text-text-secondary text-sm font-body mb-4">Utilisé pour tous les titres et headers.
+                            Uppercase obligatoire.</p>
+                        <div class="space-y-3">
+                            <div class="font-impact text-5xl uppercase">HERO</div>
+                            <div class="font-impact text-3xl uppercase">HEADING 1</div>
+                            <div class="font-impact text-2xl uppercase">HEADING 2</div>
+                            <div class="font-impact text-xl uppercase">HEADING 3</div>
+                        </div>
+                    </div>
+
+                    <div class="bg-card border border-border-subtle rounded-3xl p-8">
+                        <div class="mb-6">
+                            <h3 class="font-impact text-xl uppercase mb-2">BODY</h3>
+                            <p class="text-text-tertiary text-sm font-mono">Inter</p>
+                        </div>
+                        <p class="text-text-secondary text-sm font-body mb-4">Corps de texte, interfaces et
+                            descriptions.</p>
+                        <div class="space-y-3">
+                            <p class="font-body text-xl">Text XL - 20px</p>
+                            <p class="font-body text-lg">Text LG - 18px</p>
+                            <p class="font-body text-base">Text Base - 16px</p>
+                            <p class="font-body text-sm text-text-secondary">Text SM - 14px</p>
+                            <p class="font-body text-xs text-text-tertiary">Text XS - 12px</p>
+                        </div>
+                    </div>
+
+                    <div class="bg-card border border-border-subtle rounded-3xl p-8">
+                        <div class="mb-6">
+                            <h3 class="font-impact text-xl uppercase mb-2">MONO</h3>
+                            <p class="text-text-tertiary text-sm font-mono">JetBrains Mono</p>
+                        </div>
+                        <p class="text-text-secondary text-sm font-body mb-4">Données numériques et métriques.</p>
+                        <div class="space-y-3">
+                            <p class="font-mono text-5xl font-bold">194</p>
+                            <p class="font-mono text-3xl font-semibold">94.2%</p>
+                            <p class="font-mono text-xl">285 W</p>
+                            <p class="font-mono text-base text-text-tertiary">12:45:33</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Type Scale Code -->
+                <div class="bg-card border border-border-subtle rounded-3xl p-8">
+                    <h3 class="font-impact text-xl uppercase mb-4">ÉCHELLE TYPOGRAPHIQUE</h3>
+                    <div class="code-block">
+                        <code>
+<span class="token-comment">/* IMPACT (Oswald) - Headers */</span><br/>
+<span class="token-key">--text-hero:</span> <span class="token-value">56px / 100% / 700 / uppercase / -0.02em</span><br/>
+<span class="token-key">--text-h1:</span> <span class="token-value">40px / 110% / 700 / uppercase / -0.01em</span><br/>
+<span class="token-key">--text-h2:</span> <span class="token-value">32px / 120% / 600 / uppercase / 0em</span><br/>
+<span class="token-key">--text-h3:</span> <span class="token-value">24px / 130% / 600 / uppercase / 0em</span><br/>
+<br/>
+<span class="token-comment">/* BODY (Inter) - Text */</span><br/>
+<span class="token-key">--text-xl:</span> <span class="token-value">20px / 150% / 500</span><br/>
+<span class="token-key">--text-lg:</span> <span class="token-value">18px / 155% / 500</span><br/>
+<span class="token-key">--text-base:</span> <span class="token-value">16px / 160% / 400</span><br/>
+<span class="token-key">--text-sm:</span> <span class="token-value">14px / 165% / 400</span><br/>
+<br/>
+<span class="token-comment">/* MONO (JetBrains) - Data */</span><br/>
+<span class="token-key">--data-xxl:</span> <span class="token-value">72px / 100% / 700</span><br/>
+<span class="token-key">--data-xl:</span> <span class="token-value">48px / 100% / 700</span><br/>
+<span class="token-key">--data-lg:</span> <span class="token-value">32px / 110% / 600</span>
+                    </code>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ============================================ -->
+            <!-- 3. BUTTONS -->
+            <!-- ============================================ -->
+            <section id="buttons" class="mb-20">
+                <div class="mb-8">
+                    <h2 class="font-impact text-4xl uppercase tracking-tight mb-2">Boutons</h2>
+                    <p class="text-text-secondary font-body">Système de boutons complet avec états et variantes</p>
+                </div>
+
+                <div class="grid lg:grid-cols-2 gap-8">
+
+                    <!-- Primary Buttons -->
+                    <div class="bg-card border border-border-subtle rounded-3xl p-8 space-y-5">
+                        <h3 class="font-impact text-xl uppercase">PRIMARY</h3>
+
+                        <div class="space-y-3">
+                            <p class="text-text-tertiary text-xs font-mono uppercase">Default</p>
+                            <button
+                                class="w-full bg-volt text-black font-impact text-sm uppercase tracking-wide py-4 rounded-lg hover:bg-volt-hover active:bg-volt-pressed transition-all duration-150 hover:scale-[1.02] active:scale-[0.98]">
+                                DÉMARRER L'ENTRAÎNEMENT
+                            </button>
+                        </div>
+
+                        <div class="space-y-3">
+                            <p class="text-text-tertiary text-xs font-mono uppercase">With Glow</p>
+                            <button
+                                class="w-full bg-volt text-black font-impact text-sm uppercase tracking-wide py-4 rounded-lg shadow-glow-volt hover:bg-volt-hover transition-all duration-200 animate-pulse-glow">
+                                ACTION CRITIQUE
+                            </button>
+                        </div>
+
+                        <div class="space-y-3">
+                            <p class="text-text-tertiary text-xs font-mono uppercase">Large</p>
+                            <button
+                                class="w-full bg-volt text-black font-impact text-base uppercase tracking-wide py-5 rounded-xl hover:bg-volt-hover transition-all duration-150">
+                                GO HARD
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Secondary & Ghost -->
+                    <div class="bg-card border border-border-subtle rounded-3xl p-8 space-y-5">
+                        <h3 class="font-impact text-xl uppercase">SECONDARY & GHOST</h3>
+
+                        <div class="space-y-3">
+                            <p class="text-text-tertiary text-xs font-mono uppercase">Secondary</p>
+                            <button
+                                class="w-full bg-elevated border border-border-default text-text-primary font-impact text-sm uppercase tracking-wide py-4 rounded-lg hover:bg-hover hover:border-border-strong transition-all duration-150">
+                                ANNULER
+                            </button>
+                        </div>
+
+                        <div class="space-y-3">
+                            <p class="text-text-tertiary text-xs font-mono uppercase">Ghost</p>
+                            <button
+                                class="w-full text-text-secondary font-body text-sm py-3 rounded-lg hover:bg-hover hover:text-text-primary transition-all duration-150">
+                                Voir les détails
+                            </button>
+                        </div>
+
+                        <div class="space-y-3">
+                            <p class="text-text-tertiary text-xs font-mono uppercase">Icon Buttons</p>
+                            <div class="flex gap-3">
+                                <button
+                                    class="flex-1 h-14 bg-elevated border border-border-default rounded-lg flex items-center justify-center hover:bg-hover hover:border-border-strong transition-all duration-150">
+                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                                    </svg>
+                                </button>
+                                <button
+                                    class="flex-1 h-14 bg-volt rounded-lg flex items-center justify-center hover:bg-volt-hover transition-all duration-150">
+                                    <svg class="w-6 h-6 text-black" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M12 4v16m8-8H4" />
+                                    </svg>
+                                </button>
+                                <button
+                                    class="flex-1 h-14 glass rounded-lg flex items-center justify-center hover:bg-opacity-80 transition-all duration-150">
+                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Button Code -->
+                    <div class="lg:col-span-2 bg-card border border-border-subtle rounded-3xl p-8">
+                        <h3 class="font-impact text-xl uppercase mb-4">CODE EXAMPLES</h3>
+                        <div class="code-block">
+                            <code>
+<span class="token-comment">/* Primary Button */</span><br/>
+<span class="token-key">&lt;button</span> <span class="token-value">class="bg-volt text-black font-impact text-sm uppercase py-4 px-6 rounded-lg hover:bg-volt-hover active:bg-volt-pressed transition-all"</span><span class="token-key">&gt;</span><br/>
+  DÉMARRER<br/>
+<span class="token-key">&lt;/button&gt;</span><br/>
+<br/>
+<span class="token-comment">/* Primary with Glow */</span><br/>
+<span class="token-key">&lt;button</span> <span class="token-value">class="bg-volt text-black font-impact py-4 rounded-lg shadow-glow-volt animate-pulse-glow"</span><span class="token-key">&gt;</span><br/>
+  ACTION CRITIQUE<br/>
+<span class="token-key">&lt;/button&gt;</span><br/>
+<br/>
+<span class="token-comment">/* Secondary Button */</span><br/>
+<span class="token-key">&lt;button</span> <span class="token-value">class="bg-elevated border border-border-default text-text-primary font-impact py-4 rounded-lg hover:bg-hover"</span><span class="token-key">&gt;</span><br/>
+  ANNULER<br/>
+<span class="token-key">&lt;/button&gt;</span>
+                        </code>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- ============================================ -->
+            <!-- 4. CARDS -->
+            <!-- ============================================ -->
+            <section id="cards" class="mb-20">
+                <div class="mb-8">
+                    <h2 class="font-impact text-4xl uppercase tracking-tight mb-2">Cartes & Conteneurs</h2>
+                    <p class="text-text-secondary font-body">Composants de cartes avec différents niveaux d'élévation
+                    </p>
+                </div>
+
+                <div class="grid lg:grid-cols-2 gap-8">
+
+                    <!-- Standard Card -->
+                    <div class="space-y-3">
+                        <p class="text-text-tertiary text-xs font-mono uppercase">STANDARD CARD</p>
+                        <div
+                            class="bg-elevated border border-border-subtle rounded-2xl p-6 hover:border-border-default transition-all duration-200 cursor-pointer">
+                            <div class="flex items-center gap-3 mb-4">
+                                <div
+                                    class="w-12 h-12 bg-data-hr bg-opacity-20 rounded-xl flex items-center justify-center">
+                                    <svg class="w-6 h-6 text-data-hr" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd"
+                                            d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z"
+                                            clip-rule="evenodd" />
+                                    </svg>
+                                </div>
+                                <div>
+                                    <h3 class="font-impact text-sm uppercase">HEART RATE</h3>
+                                    <p class="text-text-tertiary text-xs font-body">Avg resting</p>
+                                </div>
+                            </div>
+                            <p class="font-mono text-4xl font-bold">52 <span
+                                    class="text-lg text-text-secondary">bpm</span></p>
+                        </div>
+                    </div>
+
+                    <!-- Glass Card -->
+                    <div class="space-y-3">
+                        <p class="text-text-tertiary text-xs font-mono uppercase">GLASSMORPHISM</p>
+                        <div class="glass rounded-2xl p-6">
+                            <div class="flex items-start gap-3">
+                                <div
+                                    class="w-10 h-10 bg-data-pace bg-opacity-20 rounded-xl flex items-center justify-center flex-shrink-0">
+                                    <svg class="w-5 h-5 text-data-pace" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M13 10V3L4 14h7v7l9-11h-7z" />
+                                    </svg>
+                                </div>
+                                <div>
+                                    <h3 class="font-impact text-sm uppercase mb-2">AI INSIGHT</h3>
+                                    <p class="text-sm font-body text-text-secondary leading-relaxed">
+                                        Ton système nerveux a bien récupéré. Prêt pour une séance de haute intensité.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Elevated with Shadow -->
+                    <div class="space-y-3">
+                        <p class="text-text-tertiary text-xs font-mono uppercase">ELEVATED + SHADOW</p>
+                        <div
+                            class="bg-card border border-border-default rounded-2xl p-6 shadow-xl hover:shadow-2xl hover:scale-[1.02] transition-all duration-200 cursor-pointer">
+                            <div class="flex items-center justify-between mb-4">
+                                <h3 class="font-impact text-base uppercase">WORKOUT READY</h3>
+                                <span
+                                    class="px-3 py-1.5 bg-zone-1 bg-opacity-20 text-zone-1 text-xs font-mono font-semibold rounded-full border border-zone-1 border-opacity-30">ACTIVE</span>
+                            </div>
+                            <p class="text-text-secondary text-sm font-body">Tous les systèmes sont opérationnels</p>
+                        </div>
+                    </div>
+
+                    <!-- Accent Border -->
+                    <div class="space-y-3">
+                        <p class="text-text-tertiary text-xs font-mono uppercase">ACCENT BORDER</p>
+                        <div class="bg-elevated border-2 border-volt rounded-2xl p-6">
+                            <h3 class="font-impact text-base uppercase text-volt mb-2">OBJECTIF DU JOUR</h3>
+                            <p class="text-text-primary text-base font-body mb-4">Zone 2 - 90 minutes d'endurance</p>
+                            <div class="h-2 bg-card rounded-full overflow-hidden">
+                                <div class="h-full bg-volt rounded-full" style="width: 65%"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- ============================================ -->
+            <!-- 5. BADGES & TAGS -->
+            <!-- ============================================ -->
+            <section id="badges" class="mb-20">
+                <div class="mb-8">
+                    <h2 class="font-impact text-4xl uppercase tracking-tight mb-2">Badges & Tags</h2>
+                    <p class="text-text-secondary font-body">Indicateurs d'état et catégorisation</p>
+                </div>
+
+                <div class="grid lg:grid-cols-3 gap-8">
+
+                    <!-- Status Badges -->
+                    <div class="bg-card border border-border-subtle rounded-3xl p-8">
+                        <h3 class="font-impact text-xl uppercase mb-6">STATUS</h3>
+                        <div class="flex flex-wrap gap-2">
+                            <span
+                                class="px-4 py-2 bg-volt text-black text-xs font-mono font-bold rounded-full uppercase">Actif</span>
+                            <span
+                                class="px-4 py-2 bg-zone-1 bg-opacity-20 text-zone-1 text-xs font-mono font-semibold rounded-full border border-zone-1 border-opacity-30 uppercase">Récupération</span>
+                            <span
+                                class="px-4 py-2 bg-data-hr bg-opacity-20 text-data-hr text-xs font-mono font-semibold rounded-full border border-data-hr border-opacity-30 uppercase">Haute
+                                Intensité</span>
+                            <span
+                                class="px-4 py-2 bg-elevated border border-border-default text-text-secondary text-xs font-mono rounded-full uppercase">Repos</span>
+                        </div>
+                    </div>
+
+                    <!-- Sport Tags -->
+                    <div class="bg-card border border-border-subtle rounded-3xl p-8">
+                        <h3 class="font-impact text-xl uppercase mb-6">SPORTS</h3>
+                        <div class="flex flex-wrap gap-2">
+                            <span
+                                class="px-4 py-2 bg-elevated text-text-primary text-sm font-body font-medium rounded-lg hover:bg-hover transition-all cursor-pointer">🏃
+                                Running</span>
+                            <span
+                                class="px-4 py-2 bg-elevated text-text-primary text-sm font-body font-medium rounded-lg hover:bg-hover transition-all cursor-pointer">🚴
+                                Vélo</span>
+                            <span
+                                class="px-4 py-2 bg-elevated text-text-primary text-sm font-body font-medium rounded-lg hover:bg-hover transition-all cursor-pointer">🏊
+                                Natation</span>
+                            <span
+                                class="px-4 py-2 bg-elevated text-text-primary text-sm font-body font-medium rounded-lg hover:bg-hover transition-all cursor-pointer">💪
+                                Force</span>
+                        </div>
+                    </div>
+
+                    <!-- Metric Tags -->
+                    <div class="bg-card border border-border-subtle rounded-3xl p-8">
+                        <h3 class="font-impact text-xl uppercase mb-6">METRICS</h3>
+                        <div class="flex flex-wrap gap-2">
+                            <span
+                                class="inline-flex items-center gap-2 px-3 py-2 bg-data-hr bg-opacity-10 text-data-hr text-xs font-mono font-semibold rounded-lg">
+                                <div class="w-2 h-2 bg-data-hr rounded-full"></div>
+                                HR
+                            </span>
+                            <span
+                                class="inline-flex items-center gap-2 px-3 py-2 bg-data-watts bg-opacity-10 text-data-watts text-xs font-mono font-semibold rounded-lg">
+                                <div class="w-2 h-2 bg-data-watts rounded-full"></div>
+                                WATTS
+                            </span>
+                            <span
+                                class="inline-flex items-center gap-2 px-3 py-2 bg-data-pace bg-opacity-10 text-data-pace text-xs font-mono font-semibold rounded-lg">
+                                <div class="w-2 h-2 bg-data-pace rounded-full"></div>
+                                PACE
+                            </span>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- ============================================ -->
+            <!-- 6. FORMS & INPUTS -->
+            <!-- ============================================ -->
+            <section id="forms" class="mb-20">
+                <div class="mb-8">
+                    <h2 class="font-impact text-4xl uppercase tracking-tight mb-2">Formulaires</h2>
+                    <p class="text-text-secondary font-body">Inputs, selects et contrôles interactifs</p>
+                </div>
+
+                <div class="grid lg:grid-cols-2 gap-8">
+
+                    <!-- Text Inputs -->
+                    <div class="bg-card border border-border-subtle rounded-3xl p-8 space-y-6">
+                        <h3 class="font-impact text-xl uppercase">TEXT INPUTS</h3>
+
+                        <div class="space-y-2">
+                            <label class="text-text-tertiary text-xs font-mono uppercase block">Input Standard</label>
+                            <input type="text" placeholder="Entrez votre objectif"
+                                class="w-full bg-elevated border border-border-subtle text-text-primary placeholder:text-text-tertiary font-body text-sm px-4 py-3 rounded-lg focus:outline-none focus:border-volt focus:ring-1 focus:ring-volt transition-all duration-150">
+                        </div>
+
+                        <div class="space-y-2">
+                            <label class="text-text-tertiary text-xs font-mono uppercase block">Textarea</label>
+                            <textarea placeholder="Notes d'entraînement..." rows="4"
+                                class="w-full bg-elevated border border-border-subtle text-text-primary placeholder:text-text-tertiary font-body text-sm px-4 py-3 rounded-lg focus:outline-none focus:border-volt focus:ring-1 focus:ring-volt transition-all duration-150 resize-none"></textarea>
+                        </div>
+
+                        <div class="space-y-2">
+                            <label class="text-text-tertiary text-xs font-mono uppercase block">Select</label>
+                            <select
+                                class="w-full bg-elevated border border-border-subtle text-text-primary font-body text-sm px-4 py-3 rounded-lg focus:outline-none focus:border-volt focus:ring-1 focus:ring-volt transition-all duration-150 appearance-none cursor-pointer">
+                                <option>Zone 1 - Récupération</option>
+                                <option>Zone 2 - Endurance</option>
+                                <option>Zone 3 - Tempo</option>
+                                <option>Zone 4 - Seuil</option>
+                                <option>Zone 5 - VO2 Max</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Controls -->
+                    <div class="bg-card border border-border-subtle rounded-3xl p-8 space-y-6">
+                        <h3 class="font-impact text-xl uppercase">CONTROLS</h3>
+
+                        <div class="space-y-4">
+                            <label class="text-text-tertiary text-xs font-mono uppercase block mb-3">Toggle
+                                Switch</label>
+                            <label
+                                class="flex items-center justify-between cursor-pointer p-4 bg-elevated rounded-xl hover:bg-hover transition-all">
+                                <span class="text-sm font-body">Notifications push</span>
+                                <div class="relative">
+                                    <input type="checkbox" class="sr-only peer" checked>
+                                    <div
+                                        class="w-14 h-7 bg-card border border-border-subtle rounded-full peer-checked:bg-volt transition-all duration-200">
+                                    </div>
+                                    <div
+                                        class="absolute left-1 top-1 w-5 h-5 bg-text-tertiary rounded-full peer-checked:translate-x-7 peer-checked:bg-black transition-all duration-200">
+                                    </div>
+                                </div>
+                            </label>
+                            <label
+                                class="flex items-center justify-between cursor-pointer p-4 bg-elevated rounded-xl hover:bg-hover transition-all">
+                                <span class="text-sm font-body">Mode sombre</span>
+                                <div class="relative">
+                                    <input type="checkbox" class="sr-only peer">
+                                    <div
+                                        class="w-14 h-7 bg-card border border-border-subtle rounded-full peer-checked:bg-volt transition-all duration-200">
+                                    </div>
+                                    <div
+                                        class="absolute left-1 top-1 w-5 h-5 bg-text-tertiary rounded-full peer-checked:translate-x-7 peer-checked:bg-black transition-all duration-200">
+                                    </div>
+                                </div>
+                            </label>
+                        </div>
+
+                        <div class="space-y-3">
+                            <label class="text-text-tertiary text-xs font-mono uppercase block">Checkboxes</label>
+                            <label
+                                class="flex items-center gap-3 cursor-pointer p-3 bg-elevated rounded-xl hover:bg-hover transition-all">
+                                <input type="checkbox"
+                                    class="w-5 h-5 bg-card border-2 border-border-subtle rounded checked:bg-volt checked:border-volt transition-all duration-150 cursor-pointer"
+                                    checked>
+                                <span class="text-sm font-body">J'accepte les conditions</span>
+                            </label>
+                            <label
+                                class="flex items-center gap-3 cursor-pointer p-3 bg-elevated rounded-xl hover:bg-hover transition-all">
+                                <input type="checkbox"
+                                    class="w-5 h-5 bg-card border-2 border-border-subtle rounded checked:bg-volt checked:border-volt transition-all duration-150 cursor-pointer">
+                                <span class="text-sm font-body">Recevoir les newsletters</span>
+                            </label>
+                        </div>
+
+                        <div class="space-y-3">
+                            <label class="text-text-tertiary text-xs font-mono uppercase block">Radio Buttons</label>
+                            <label
+                                class="flex items-center gap-3 cursor-pointer p-3 bg-elevated rounded-xl hover:bg-hover transition-all">
+                                <input type="radio" name="plan"
+                                    class="w-5 h-5 bg-card border-2 border-border-subtle rounded-full checked:bg-volt checked:border-volt transition-all duration-150 cursor-pointer"
+                                    checked>
+                                <span class="text-sm font-body">Plan Débutant</span>
+                            </label>
+                            <label
+                                class="flex items-center gap-3 cursor-pointer p-3 bg-elevated rounded-xl hover:bg-hover transition-all">
+                                <input type="radio" name="plan"
+                                    class="w-5 h-5 bg-card border-2 border-border-subtle rounded-full checked:bg-volt checked:border-volt transition-all duration-150 cursor-pointer">
+                                <span class="text-sm font-body">Plan Intermédiaire</span>
+                            </label>
+                            <label
+                                class="flex items-center gap-3 cursor-pointer p-3 bg-elevated rounded-xl hover:bg-hover transition-all">
+                                <input type="radio" name="plan"
+                                    class="w-5 h-5 bg-card border-2 border-border-subtle rounded-full checked:bg-volt checked:border-volt transition-all duration-150 cursor-pointer">
+                                <span class="text-sm font-body">Plan Expert</span>
+                            </label>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- ============================================ -->
+            <!-- 7. PROGRESS INDICATORS -->
+            <!-- ============================================ -->
+            <section id="progress" class="mb-20">
+                <div class="mb-8">
+                    <h2 class="font-impact text-4xl uppercase tracking-tight mb-2">Indicateurs de Progression</h2>
+                    <p class="text-text-secondary font-body">Barres de progression, jauges et visualisations</p>
+                </div>
+
+                <div class="grid lg:grid-cols-2 gap-8">
+
+                    <!-- Linear Progress -->
+                    <div class="bg-card border border-border-subtle rounded-3xl p-8 space-y-6">
+                        <h3 class="font-impact text-xl uppercase">LINEAR</h3>
+
+                        <div class="space-y-3">
+                            <div class="flex items-center justify-between">
+                                <span class="text-text-tertiary text-xs font-mono uppercase">Progress Standard</span>
+                                <span class="text-volt text-xs font-mono font-bold">75%</span>
+                            </div>
+                            <div class="h-2 bg-elevated rounded-full overflow-hidden">
+                                <div class="h-full bg-volt rounded-full transition-all duration-500" style="width: 75%">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="space-y-3">
+                            <div class="flex items-center justify-between">
+                                <span class="text-text-tertiary text-xs font-mono uppercase">Thick Progress</span>
+                                <span class="text-zone-4 text-xs font-mono font-bold">92%</span>
+                            </div>
+                            <div class="h-3 bg-elevated rounded-full overflow-hidden">
+                                <div class="h-full bg-zone-4 rounded-full transition-all duration-500"
+                                    style="width: 92%"></div>
+                            </div>
+                        </div>
+
+                        <div class="space-y-3">
+                            <span class="text-text-tertiary text-xs font-mono uppercase block">Segmented</span>
+                            <div class="flex gap-1.5">
+                                <div class="flex-1 h-2 bg-volt rounded-full"></div>
+                                <div class="flex-1 h-2 bg-volt rounded-full"></div>
+                                <div class="flex-1 h-2 bg-volt rounded-full"></div>
+                                <div class="flex-1 h-2 bg-volt opacity-30 rounded-full"></div>
+                                <div class="flex-1 h-2 bg-volt opacity-30 rounded-full"></div>
+                            </div>
+                        </div>
+
+                        <div class="space-y-3">
+                            <span class="text-text-tertiary text-xs font-mono uppercase block">Multi-Color Zones</span>
+                            <div class="space-y-2">
+                                <div class="flex items-center gap-3">
+                                    <span class="text-xs font-mono text-text-tertiary w-12">Z1</span>
+                                    <div class="flex-1 h-1.5 bg-elevated rounded-full overflow-hidden">
+                                        <div class="h-full bg-zone-1 rounded-full" style="width: 20%"></div>
+                                    </div>
+                                    <span class="text-xs font-mono text-text-secondary w-12 text-right">20%</span>
+                                </div>
+                                <div class="flex items-center gap-3">
+                                    <span class="text-xs font-mono text-text-tertiary w-12">Z2</span>
+                                    <div class="flex-1 h-1.5 bg-elevated rounded-full overflow-hidden">
+                                        <div class="h-full bg-zone-2 rounded-full" style="width: 45%"></div>
+                                    </div>
+                                    <span class="text-xs font-mono text-text-secondary w-12 text-right">45%</span>
+                                </div>
+                                <div class="flex items-center gap-3">
+                                    <span class="text-xs font-mono text-text-tertiary w-12">Z3</span>
+                                    <div class="flex-1 h-1.5 bg-elevated rounded-full overflow-hidden">
+                                        <div class="h-full bg-zone-3 rounded-full" style="width: 25%"></div>
+                                    </div>
+                                    <span class="text-xs font-mono text-text-secondary w-12 text-right">25%</span>
+                                </div>
+                                <div class="flex items-center gap-3">
+                                    <span class="text-xs font-mono text-text-tertiary w-12">Z4</span>
+                                    <div class="flex-1 h-1.5 bg-elevated rounded-full overflow-hidden">
+                                        <div class="h-full bg-zone-4 rounded-full" style="width: 8%"></div>
+                                    </div>
+                                    <span class="text-xs font-mono text-text-secondary w-12 text-right">8%</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Circular Progress -->
+                    <div class="bg-card border border-border-subtle rounded-3xl p-8">
+                        <h3 class="font-impact text-xl uppercase mb-6">CIRCULAR</h3>
+
+                        <div class="flex items-center justify-center mb-8">
+                            <div class="relative w-56 h-56">
+                                <svg class="w-full h-full" viewBox="0 0 100 100">
+                                    <circle cx="50" cy="50" r="42" fill="none" stroke="#1A1A1A" stroke-width="8" />
+                                    <circle class="progress-ring-circle" cx="50" cy="50" r="42" fill="none"
+                                        stroke="#CEFF00" stroke-width="8" stroke-linecap="round" stroke-dasharray="264"
+                                        stroke-dashoffset="66" />
+                                </svg>
+                                <div class="absolute inset-0 flex items-center justify-center">
+                                    <div class="text-center">
+                                        <p class="font-mono text-5xl font-bold text-volt mb-1">75%</p>
+                                        <p class="text-text-tertiary text-sm font-body">Complete</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center justify-center gap-6">
+                            <div class="relative w-24 h-24">
+                                <svg class="w-full h-full" viewBox="0 0 100 100">
+                                    <circle cx="50" cy="50" r="42" fill="none" stroke="#1A1A1A" stroke-width="10" />
+                                    <circle class="progress-ring-circle" cx="50" cy="50" r="42" fill="none"
+                                        stroke="#EF4444" stroke-width="10" stroke-linecap="round" stroke-dasharray="264"
+                                        stroke-dashoffset="92.4" />
+                                </svg>
+                                <div class="absolute inset-0 flex items-center justify-center">
+                                    <p class="font-mono text-xl font-bold">65%</p>
+                                </div>
+                            </div>
+                            <div class="relative w-24 h-24">
+                                <svg class="w-full h-full" viewBox="0 0 100 100">
+                                    <circle cx="50" cy="50" r="42" fill="none" stroke="#1A1A1A" stroke-width="10" />
+                                    <circle class="progress-ring-circle" cx="50" cy="50" r="42" fill="none"
+                                        stroke="#3B82F6" stroke-width="10" stroke-linecap="round" stroke-dasharray="264"
+                                        stroke-dashoffset="26.4" />
+                                </svg>
+                                <div class="absolute inset-0 flex items-center justify-center">
+                                    <p class="font-mono text-xl font-bold">90%</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- ============================================ -->
+            <!-- 8. DATA VISUALIZATION -->
+            <!-- ============================================ -->
+            <section id="data-viz" class="mb-20">
+                <div class="mb-8">
+                    <h2 class="font-impact text-4xl uppercase tracking-tight mb-2">Visualisation de Données</h2>
+                    <p class="text-text-secondary font-body">Cartes statistiques et graphiques simplifiés</p>
+                </div>
+
+                <div class="grid lg:grid-cols-3 gap-6">
+
+                    <!-- Stat Card 1 -->
+                    <div
+                        class="bg-card border border-border-subtle rounded-2xl p-6 hover:border-border-default transition-all cursor-pointer">
+                        <div class="flex items-start justify-between mb-4">
+                            <div>
+                                <p class="text-text-tertiary text-xs font-mono uppercase mb-1">HEART RATE AVG</p>
+                                <p class="font-mono text-4xl font-bold text-data-hr">142</p>
+                            </div>
+                            <div class="w-12 h-12 bg-data-hr bg-opacity-10 rounded-xl flex items-center justify-center">
+                                <svg class="w-6 h-6 text-data-hr" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd"
+                                        d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z"
+                                        clip-rule="evenodd" />
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span class="text-zone-1 text-xs font-mono">↑ 3.2%</span>
+                            <span class="text-text-tertiary text-xs font-body">vs last week</span>
+                        </div>
+                    </div>
+
+                    <!-- Stat Card 2 -->
+                    <div
+                        class="bg-card border border-border-subtle rounded-2xl p-6 hover:border-border-default transition-all cursor-pointer">
+                        <div class="flex items-start justify-between mb-4">
+                            <div>
+                                <p class="text-text-tertiary text-xs font-mono uppercase mb-1">FTP POWER</p>
+                                <p class="font-mono text-4xl font-bold text-data-watts">285</p>
+                            </div>
+                            <div
+                                class="w-12 h-12 bg-data-watts bg-opacity-10 rounded-xl flex items-center justify-center">
+                                <svg class="w-6 h-6 text-data-watts" fill="currentColor" viewBox="0 0 20 20">
+                                    <path
+                                        d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z" />
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span class="text-zone-1 text-xs font-mono">↑ 5.1%</span>
+                            <span class="text-text-tertiary text-xs font-body">vs last month</span>
+                        </div>
+                    </div>
+
+                    <!-- Stat Card 3 -->
+                    <div
+                        class="bg-card border border-border-subtle rounded-2xl p-6 hover:border-border-default transition-all cursor-pointer">
+                        <div class="flex items-start justify-between mb-4">
+                            <div>
+                                <p class="text-text-tertiary text-xs font-mono uppercase mb-1">PACE 10K</p>
+                                <p class="font-mono text-4xl font-bold text-data-pace">4:12</p>
+                            </div>
+                            <div
+                                class="w-12 h-12 bg-data-pace bg-opacity-10 rounded-xl flex items-center justify-center">
+                                <svg class="w-6 h-6 text-data-pace" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span class="text-zone-1 text-xs font-mono">↑ 0:15</span>
+                            <span class="text-text-tertiary text-xs font-body">faster/km</span>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Sparkline Chart -->
+                <div class="grid lg:grid-cols-2 gap-8 mt-8">
+                    <div class="bg-card border border-border-subtle rounded-2xl p-6">
+                        <p class="text-text-tertiary text-xs font-mono uppercase mb-4">WEEKLY TREND</p>
+                        <div class="flex items-end justify-between gap-1 h-32">
+                            <div class="w-full bg-volt bg-opacity-30 rounded-t-lg transition-all hover:bg-opacity-50 cursor-pointer"
+                                style="height: 45%"></div>
+                            <div class="w-full bg-volt bg-opacity-30 rounded-t-lg transition-all hover:bg-opacity-50 cursor-pointer"
+                                style="height: 60%"></div>
+                            <div class="w-full bg-volt bg-opacity-30 rounded-t-lg transition-all hover:bg-opacity-50 cursor-pointer"
+                                style="height: 75%"></div>
+                            <div class="w-full bg-volt bg-opacity-30 rounded-t-lg transition-all hover:bg-opacity-50 cursor-pointer"
+                                style="height: 55%"></div>
+                            <div class="w-full bg-volt bg-opacity-30 rounded-t-lg transition-all hover:bg-opacity-50 cursor-pointer"
+                                style="height: 85%"></div>
+                            <div class="w-full bg-volt bg-opacity-30 rounded-t-lg transition-all hover:bg-opacity-50 cursor-pointer"
+                                style="height: 70%"></div>
+                            <div class="w-full bg-volt rounded-t-lg shadow-glow-volt" style="height: 100%"></div>
+                        </div>
+                        <div class="flex justify-between mt-3 text-xs font-mono text-text-tertiary">
+                            <span>L</span>
+                            <span>M</span>
+                            <span>M</span>
+                            <span>J</span>
+                            <span>V</span>
+                            <span>S</span>
+                            <span class="text-volt">D</span>
+                        </div>
+                    </div>
+
+                    <!-- Metric Grid -->
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="bg-card border border-border-subtle rounded-xl p-5">
+                            <p class="text-text-tertiary text-xs font-mono uppercase mb-2">Distance</p>
+                            <p class="font-mono text-3xl font-bold">42.8 <span
+                                    class="text-sm text-text-secondary">km</span></p>
+                        </div>
+                        <div class="bg-card border border-border-subtle rounded-xl p-5">
+                            <p class="text-text-tertiary text-xs font-mono uppercase mb-2">Durée</p>
+                            <p class="font-mono text-3xl font-bold">2:15 <span
+                                    class="text-sm text-text-secondary">h</span></p>
+                        </div>
+                        <div class="bg-card border border-border-subtle rounded-xl p-5">
+                            <p class="text-text-tertiary text-xs font-mono uppercase mb-2">Elevation</p>
+                            <p class="font-mono text-3xl font-bold">850 <span
+                                    class="text-sm text-text-secondary">m</span></p>
+                        </div>
+                        <div class="bg-card border border-border-subtle rounded-xl p-5">
+                            <p class="text-text-tertiary text-xs font-mono uppercase mb-2">Calories</p>
+                            <p class="font-mono text-3xl font-bold">1840 <span
+                                    class="text-sm text-text-secondary">kcal</span></p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ============================================ -->
+            <!-- 9. SPACING & LAYOUT -->
+            <!-- ============================================ -->
+            <section id="spacing" class="mb-20">
+                <div class="mb-8">
+                    <h2 class="font-impact text-4xl uppercase tracking-tight mb-2">Système d'Espacement</h2>
+                    <p class="text-text-secondary font-body">Échelle d'espacement basée sur 4px</p>
+                </div>
+
+                <div class="bg-card border border-border-subtle rounded-3xl p-8">
+                    <div class="space-y-4">
+                        <div class="space-y-2">
+                            <div class="bg-volt bg-opacity-10 p-1 rounded-lg">
+                                <div class="bg-volt h-6 rounded"></div>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <p class="text-sm font-mono">space-1</p>
+                                <p class="text-xs text-text-tertiary font-mono">4px - Micro spacing</p>
+                            </div>
+                        </div>
+                        <div class="space-y-2">
+                            <div class="bg-volt bg-opacity-10 p-2 rounded-lg">
+                                <div class="bg-volt h-6 rounded"></div>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <p class="text-sm font-mono">space-2</p>
+                                <p class="text-xs text-text-tertiary font-mono">8px - Tight spacing</p>
+                            </div>
+                        </div>
+                        <div class="space-y-2">
+                            <div class="bg-volt bg-opacity-10 p-4 rounded-lg">
+                                <div class="bg-volt h-6 rounded"></div>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <p class="text-sm font-mono">space-4</p>
+                                <p class="text-xs text-text-tertiary font-mono">16px - Default spacing</p>
+                            </div>
+                        </div>
+                        <div class="space-y-2">
+                            <div class="bg-volt bg-opacity-10 p-6 rounded-lg">
+                                <div class="bg-volt h-6 rounded"></div>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <p class="text-sm font-mono">space-6</p>
+                                <p class="text-xs text-text-tertiary font-mono">24px - Spacious</p>
+                            </div>
+                        </div>
+                        <div class="space-y-2">
+                            <div class="bg-volt bg-opacity-10 p-8 rounded-lg">
+                                <div class="bg-volt h-6 rounded"></div>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <p class="text-sm font-mono">space-8</p>
+                                <p class="text-xs text-text-tertiary font-mono">32px - Section spacing</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ============================================ -->
+            <!-- 10. ICONOGRAPHY -->
+            <!-- ============================================ -->
+            <section id="icons" class="mb-20">
+                <div class="mb-8">
+                    <h2 class="font-impact text-4xl uppercase tracking-tight mb-2">Iconographie</h2>
+                    <p class="text-text-secondary font-body">Bibliothèque d'icônes essentielles</p>
+                </div>
+
+                <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-6">
+
+                    <!-- Home -->
+                    <div
+                        class="flex flex-col items-center gap-3 p-6 bg-card border border-border-subtle rounded-2xl hover:border-volt transition-all cursor-pointer group">
+                        <div
+                            class="w-16 h-16 bg-elevated rounded-xl flex items-center justify-center group-hover:bg-volt transition-all">
+                            <svg class="w-8 h-8 group-hover:text-black transition-all" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                            </svg>
+                        </div>
+                        <p class="text-xs font-mono text-text-tertiary">Home</p>
+                    </div>
+
+                    <!-- Activity -->
+                    <div
+                        class="flex flex-col items-center gap-3 p-6 bg-card border border-border-subtle rounded-2xl hover:border-volt transition-all cursor-pointer group">
+                        <div
+                            class="w-16 h-16 bg-elevated rounded-xl flex items-center justify-center group-hover:bg-volt transition-all">
+                            <svg class="w-8 h-8 group-hover:text-black transition-all" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M13 10V3L4 14h7v7l9-11h-7z" />
+                            </svg>
+                        </div>
+                        <p class="text-xs font-mono text-text-tertiary">Activity</p>
+                    </div>
+
+                    <!-- Stats -->
+                    <div
+                        class="flex flex-col items-center gap-3 p-6 bg-card border border-border-subtle rounded-2xl hover:border-volt transition-all cursor-pointer group">
+                        <div
+                            class="w-16 h-16 bg-elevated rounded-xl flex items-center justify-center group-hover:bg-volt transition-all">
+                            <svg class="w-8 h-8 group-hover:text-black transition-all" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                            </svg>
+                        </div>
+                        <p class="text-xs font-mono text-text-tertiary">Stats</p>
+                    </div>
+
+                    <!-- Profile -->
+                    <div
+                        class="flex flex-col items-center gap-3 p-6 bg-card border border-border-subtle rounded-2xl hover:border-volt transition-all cursor-pointer group">
+                        <div
+                            class="w-16 h-16 bg-elevated rounded-xl flex items-center justify-center group-hover:bg-volt transition-all">
+                            <svg class="w-8 h-8 group-hover:text-black transition-all" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                            </svg>
+                        </div>
+                        <p class="text-xs font-mono text-text-tertiary">Profile</p>
+                    </div>
+
+                    <!-- Heart -->
+                    <div
+                        class="flex flex-col items-center gap-3 p-6 bg-card border border-border-subtle rounded-2xl hover:border-data-hr transition-all cursor-pointer group">
+                        <div
+                            class="w-16 h-16 bg-elevated rounded-xl flex items-center justify-center group-hover:bg-data-hr transition-all">
+                            <svg class="w-8 h-8 text-data-hr group-hover:text-black transition-all" fill="currentColor"
+                                viewBox="0 0 20 20">
+                                <path fill-rule="evenodd"
+                                    d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z"
+                                    clip-rule="evenodd" />
+                            </svg>
+                        </div>
+                        <p class="text-xs font-mono text-text-tertiary">Heart</p>
+                    </div>
+
+                    <!-- Settings -->
+                    <div
+                        class="flex flex-col items-center gap-3 p-6 bg-card border border-border-subtle rounded-2xl hover:border-volt transition-all cursor-pointer group">
+                        <div
+                            class="w-16 h-16 bg-elevated rounded-xl flex items-center justify-center group-hover:bg-volt transition-all">
+                            <svg class="w-8 h-8 group-hover:text-black transition-all" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                            </svg>
+                        </div>
+                        <p class="text-xs font-mono text-text-tertiary">Settings</p>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- Footer -->
+            <footer class="text-center py-12">
+                <div class="inline-block bg-volt text-black rounded-3xl px-8 py-6">
+                    <h3 class="font-impact text-3xl uppercase mb-2">TITAN OS</h3>
+                    <p class="font-body text-sm">Design System v1.0 - Production Ready</p>
+                </div>
+                <p class="text-text-tertiary text-sm font-body mt-6">Created for ULTRA - Extreme Sports Training</p>
+            </footer>
+
+        </main>
+
+    </div>
+
+</body>
+
+</html>
