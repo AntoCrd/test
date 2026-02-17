@@ -1,364 +1,78 @@
-<!DOCTYPE html>
-<html lang="fr">
+<script>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NOMAD ELITE // [CONFIDENTIEL]</title>
+/* ===========================================================
+   === CONTENU COMPLET DE app.js (FUSIONNÉ)
+   =========================================================== */
 
-    <link href="https://api.fontshare.com/v2/css?f[]=clash-display@200,400,600,700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500&display=swap" rel="stylesheet">
+(function () {
+'use strict';
 
-    <script src="https://cdn.tailwindcss.com"></script>
+const $ = (sel, root = document) => root.querySelector(sel);
+const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollToPlugin.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
+function initHeader(){
+ const header = $('#header');
+ if(!header) return;
+ const onScroll = ()=>header.classList.toggle('scrolled', window.scrollY>50);
+ window.addEventListener('scroll', onScroll,{passive:true});
+ onScroll();
+}
 
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        'void': '#030303',
-                        'acid': '#D1FF00',
-                        'concrete': '#878787'
-                    },
-                    fontFamily: {
-                        'display': ['Clash Display', 'sans-serif'],
-                        'mono': ['Space Grotesk', 'monospace'],
-                    },
-                    fontSize: {
-                        'giant': '14vw', /* Légèrement réduit pour le français qui est plus long */
-                    }
-                }
-            }
-        }
-    </script>
+function initMobileNav(){
+ const toggle = $('.nav-toggle');
+ const nav = document.getElementById('main-nav');
+ if(!toggle||!nav) return;
 
-    <style>
-        /* CORE SETTINGS */
-        body {
-            background-color: #030303;
-            color: #F2F2F2;
-            overflow-x: hidden;
-            cursor: none;
-            /* Custom cursor only */
-        }
+ const close=()=>{
+   toggle.setAttribute('aria-expanded','false');
+   nav.classList.remove('is-open');
+ }
 
-        /* GRAIN OVERLAY */
-        .grain {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
-            pointer-events: none;
-            z-index: 9999;
-        }
+ toggle.addEventListener('click',()=>{
+   const open = toggle.getAttribute('aria-expanded')==='true';
+   toggle.setAttribute('aria-expanded',String(!open));
+   nav.classList.toggle('is-open',!open);
+ });
 
-        /* CUSTOM CURSOR SYSTEM */
-        .cursor {
-            position: fixed;
-            width: 20px;
-            height: 20px;
-            background: #D1FF00;
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 10000;
-            mix-blend-mode: difference;
-            transition: width 0.3s, height 0.3s, transform 0.1s;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
+ $$('a',nav).forEach(a=>a.addEventListener('click',close));
+ document.addEventListener('click',e=>{
+   if(!toggle.contains(e.target)&&!nav.contains(e.target))close();
+ });
+ document.addEventListener('keydown',e=>{
+   if(e.key==='Escape'){close();toggle.focus();}
+ });
+}
 
-        .cursor-text {
-            font-family: 'Space Grotesk';
-            font-size: 10px;
-            color: black;
-            opacity: 0;
-            font-weight: bold;
-            text-transform: uppercase;
-        }
+function initAccordions(){
+ $$('[data-accordion]').forEach(btn=>{
+   const panelId=btn.dataset.accordion;
+   const panel=document.getElementById(panelId);
+   if(!panel)return;
 
-        /* UTILITIES */
-        .blend-diff {
-            mix-blend-mode: difference;
-        }
+   panel.hidden=true;
+   btn.setAttribute('aria-expanded','false');
 
-        /* SCROLL SECTION HORIZONTAL */
-        .horizontal-wrapper {
-            width: 500%;
-            /* 5 sections de large */
-            height: 100%;
-            display: flex;
-            flex-wrap: nowrap;
-        }
+   btn.addEventListener('click',()=>{
+     const expanded=btn.getAttribute('aria-expanded')==='true';
+     panel.hidden=expanded;
+     btn.setAttribute('aria-expanded',String(!expanded));
+   });
+ });
+}
 
-        .h-item {
-            width: 100vw;
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-right: 1px solid rgba(255, 255, 255, 0.1);
-            position: relative;
-        }
-    </style>
-</head>
+function init(){
+ initHeader();
+ initMobileNav();
+ initAccordions();
+}
 
-<body>
+document.readyState==='loading'
+ ?document.addEventListener('DOMContentLoaded',init)
+ :init();
 
-    <div class="grain"></div>
-    <div class="cursor"><span class="cursor-text">VOIR</span></div>
+})();
 
-    <nav class="fixed top-0 left-0 w-full p-8 flex justify-between items-start z-50 blend-diff">
-        <div class="flex flex-col">
-            <span class="font-display font-semibold text-2xl tracking-tight">NOMAD<span
-                    class="text-acid">ELITE</span></span>
-            <span class="font-mono text-[10px] text-acid mt-1">STATUT OPÉRATIONNEL : ACTIF</span>
-        </div>
-        <button class="magnet-btn group relative px-6 py-2 border border-white/20 overflow-hidden rounded-full">
-            <div
-                class="absolute inset-0 w-full h-full bg-acid transform translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-in-out">
-            </div>
-            <span class="relative font-mono text-xs uppercase group-hover:text-black transition-colors z-10">Lancer le
-                Protocole</span>
-        </button>
-    </nav>
+</script>
 
-    <main class="w-full">
-
-        <section class="h-screen w-full relative flex flex-col justify-center items-center overflow-hidden" id="hero">
-            <div class="absolute inset-0 opacity-40">
-                <video autoplay muted loop playsinline class="w-full h-full object-cover filter grayscale contrast-125">
-                    <source src="https://videos.pexels.com/video-files/3195650/3195650-hd_1920_1080_25fps.mp4"
-                        type="video/mp4">
-                </video>
-            </div>
-
-            <div class="z-10 text-center mix-blend-difference px-4">
-                <h1 class="font-display text-giant leading-[0.85] font-semibold tracking-tighter uppercase reveal-hero">
-                    La Douleur<br><span class="text-acid stroke-text">Est un luxe</span>
-                </h1>
-            </div>
-
-            <div class="absolute bottom-10 left-8 hidden md:block">
-                <div class="w-[1px] h-24 bg-acid animate-pulse"></div>
-            </div>
-
-            <div class="absolute bottom-10 right-8 font-mono text-xs text-right opacity-60">
-                VITESSE DE DÉFILEMENT<br>
-                [NOMINALE]
-            </div>
-        </section>
-
-        <section class="min-h-screen flex items-center justify-center py-24 px-6 md:px-24 bg-void relative z-20">
-            <div class="max-w-5xl">
-                <p class="font-display text-3xl md:text-5xl leading-tight text-concrete reveal-text">
-                    La plupart des agences vendent du repos. <span class="text-white">Nous vendons de la
-                        reconstruction.</span>
-                    Nos stages sont calibrés par des données biométriques pour briser vos limites.
-                    <span class="text-acid">Ceci n'est pas pour tout le monde.</span> C'est probablement pas pour vous.
-                </p>
-                <div class="mt-12 flex items-center gap-4">
-                    <div class="h-[1px] w-12 bg-acid"></div>
-                    <span class="font-mono text-xs uppercase tracking-widest text-acid">Mission Statement</span>
-                </div>
-            </div>
-        </section>
-
-        <section id="horizontal-scroll" class="h-screen overflow-hidden bg-void relative">
-            <div class="horizontal-wrapper">
-
-                <div class="h-item bg-void w-[50vw] flex-col !items-start pl-24 border-r border-white/10">
-                    <span class="font-mono text-acid text-sm mb-4">/// ZONES CIBLES</span>
-                    <h2 class="font-display text-7xl md:text-8xl uppercase text-white leading-none">
-                        Choisir<br>La<br>Douleur
-                    </h2>
-                </div>
-
-                <div class="h-item group relative cursor-hover" data-text="VOIR TEIDE">
-                    <div
-                        class="absolute inset-0 bg-black/40 group-hover:bg-transparent transition-all duration-500 z-10">
-                    </div>
-                    <img src="https://images.unsplash.com/photo-1541625602330-2277a4c46182?q=80&w=2070&auto=format&fit=crop"
-                        class="absolute inset-0 w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 transform group-hover:scale-105">
-                    <div class="relative z-20 text-center mix-blend-difference pointer-events-none">
-                        <h3 class="font-display text-9xl text-white uppercase">Teide</h3>
-                        <p class="font-mono text-sm bg-acid text-black inline-block px-2">CYCLISME // TENERIFE</p>
-                    </div>
-                </div>
-
-                <div class="h-item group relative cursor-hover" data-text="VOIR ATLAS">
-                    <div
-                        class="absolute inset-0 bg-black/40 group-hover:bg-transparent transition-all duration-500 z-10">
-                    </div>
-                    <img src="https://images.unsplash.com/photo-1531168516093-1d9047b85646?q=80&w=2070&auto=format&fit=crop"
-                        class="absolute inset-0 w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 transform group-hover:scale-105">
-                    <div class="relative z-20 text-center mix-blend-difference pointer-events-none">
-                        <h3 class="font-display text-9xl text-white uppercase">Atlas</h3>
-                        <p class="font-mono text-sm bg-acid text-black inline-block px-2">ULTRA TRAIL // MAROC</p>
-                    </div>
-                </div>
-
-                <div class="h-item group relative cursor-hover" data-text="VOIR ALPES">
-                    <div
-                        class="absolute inset-0 bg-black/40 group-hover:bg-transparent transition-all duration-500 z-10">
-                    </div>
-                    <img src="https://images.unsplash.com/photo-1483728642387-6c3bdd6c93e5?q=80&w=2076&auto=format&fit=crop"
-                        class="absolute inset-0 w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 transform group-hover:scale-105">
-                    <div class="relative z-20 text-center mix-blend-difference pointer-events-none">
-                        <h3 class="font-display text-9xl text-white uppercase">Alpes</h3>
-                        <p class="font-mono text-sm bg-acid text-black inline-block px-2">COMMANDO // CHAMONIX</p>
-                    </div>
-                </div>
-
-                <div class="h-item bg-acid w-[50vw] flex-col text-void">
-                    <h2 class="font-display text-5xl md:text-6xl uppercase mb-8 text-center leading-tight">
-                        Avez-vous<br>Le niveau ?
-                    </h2>
-                    <button
-                        class="border-2 border-black px-12 py-4 font-mono uppercase hover:bg-black hover:text-acid transition-colors font-bold tracking-widest">
-                        Candidater
-                    </button>
-                </div>
-
-            </div>
-        </section>
-
-        <section class="py-32 bg-void border-t border-white/10">
-            <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-16">
-                <div>
-                    <h3 class="font-mono text-acid text-xs mb-4">/// QUANTIFIED SELF</h3>
-                    <h2 class="font-display text-4xl md:text-5xl uppercase mb-6">Nous ne croyons pas<br>aux sentiments.
-                    </h2>
-                    <p class="font-mono text-gray-400 text-sm leading-relaxed max-w-sm">
-                        Chaque expédition inclut un tracking complet : VFC, Charge glycémique, Cortisol.
-                        Vous repartez avec un rapport de 40 pages sur votre physiologie.
-                    </p>
-                </div>
-                <div class="grid grid-cols-2 gap-4">
-                    <div
-                        class="border border-white/10 p-6 flex flex-col justify-between hover:border-acid transition-colors group">
-                        <span class="font-mono text-gray-500 text-xs">GAIN MOYEN VO2 MAX</span>
-                        <span
-                            class="font-display text-6xl text-white group-hover:text-acid transition-colors">+12%</span>
-                    </div>
-                    <div
-                        class="border border-white/10 p-6 flex flex-col justify-between hover:border-acid transition-colors group">
-                        <span class="font-mono text-gray-500 text-xs">RÉSILIENCE MENTALE</span>
-                        <span
-                            class="font-display text-4xl md:text-6xl text-white group-hover:text-acid transition-colors">ÉLEVÉE</span>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <footer class="bg-void pt-32 pb-12 px-6 border-t border-white/10">
-            <div class="flex flex-col md:flex-row justify-between items-end">
-                <h1 class="font-display text-[12vw] leading-none text-white/10 select-none">NOMAD</h1>
-                <div class="flex gap-8 font-mono text-xs text-gray-500 mb-4 md:mb-10">
-                    <a href="#" class="hover:text-acid">MENTIONS LÉGALES</a>
-                    <a href="#" class="hover:text-acid">INSTAGRAM</a>
-                    <a href="#" class="hover:text-acid">EMAIL CHIFFRÉ</a>
-                </div>
-            </div>
-        </footer>
-
-    </main>
-
-    <script>
-        // 1. INIT SMOOTH SCROLL (LENIS)
-        const lenis = new Lenis({
-            lerp: 0.08, // Très fluide, un peu lourd comme les sites de luxe
-            smooth: true
-        });
-        function raf(time) {
-            lenis.raf(time);
-            requestAnimationFrame(raf);
-        }
-        requestAnimationFrame(raf);
-
-        // 2. INIT GSAP
-        gsap.registerPlugin(ScrollTrigger);
-
-        // A. Hero Reveal
-        const tl = gsap.timeline();
-        tl.from(".reveal-hero", { y: 150, opacity: 0, duration: 1.5, ease: "power4.out", skewY: 5 });
-
-        // B. Text Highlight Scroll (Manifesto)
-        // On split les mots (simulation simple sans SplitText payant)
-        // Cette section a été simplifiée pour éviter les bugs de caractères spéciaux en JS pur sans plugin
-        gsap.from(".reveal-text", {
-            scrollTrigger: {
-                trigger: ".reveal-text",
-                start: "top 80%",
-                end: "bottom 20%",
-                scrub: 1,
-            },
-            opacity: 0.2,
-            duration: 1
-        });
-
-        // C. HORIZONTAL SCROLL LOGIC
-        // C'est ici que la magie opère : on transforme le scroll vertical en translation horizontale
-        let sections = gsap.utils.toArray(".h-item");
-
-        gsap.to(sections, {
-            xPercent: -100 * (sections.length - 1),
-            ease: "none",
-            scrollTrigger: {
-                trigger: "#horizontal-scroll",
-                pin: true, // On épingle la section
-                scrub: 1, // Le mouvement est lié au scrollbar (avec 1s de lag pour la douceur)
-                snap: 1 / (sections.length - 1), // Optionnel : ça "clippe" sur les cartes
-                end: () => "+=" + document.querySelector("#horizontal-scroll").offsetWidth // La durée du scroll
-            }
-        });
-
-        // 3. CURSOR INTERACTION
-        const cursor = document.querySelector('.cursor');
-        const cursorText = document.querySelector('.cursor-text');
-
-        // Mouvement de base
-        window.addEventListener('mousemove', (e) => {
-            gsap.to(cursor, {
-                x: e.clientX - 10,
-                y: e.clientY - 10,
-                duration: 0.1 // Très rapide
-            });
-        });
-
-        // Interaction Hover (Boutons & Images)
-        const hoverables = document.querySelectorAll('.cursor-hover, a, button');
-
-        hoverables.forEach(el => {
-            el.addEventListener('mouseenter', () => {
-                const text = el.getAttribute('data-text');
-
-                // Si l'élément a un texte custom (comme les images du slider)
-                if (text) {
-                    cursorText.innerText = text;
-                    gsap.to(cursor, { width: 80, height: 80, backgroundColor: '#D1FF00', mixBlendMode: 'normal' });
-                    gsap.to(cursorText, { opacity: 1 });
-                } else {
-                    // Hover simple (lien)
-                    gsap.to(cursor, { width: 40, height: 40, mixBlendMode: 'difference' });
-                }
-            });
-
-            el.addEventListener('mouseleave', () => {
-                cursorText.innerText = "";
-                gsap.to(cursorText, { opacity: 0 });
-                gsap.to(cursor, { width: 20, height: 20, backgroundColor: '#D1FF00', mixBlendMode: 'difference' });
-            });
-        });
-
-    </script>
 </body>
-
 </html>
