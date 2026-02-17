@@ -1,4 +1,941 @@
-<script>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="Tout comprendre sur les toilettes écologiques : fonctionnement, avantages, et solutions adaptées à chaque usage." />
+<title>ToilettEco — Guide pédagogique des toilettes écologiques</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet" />
+
+<style>
+
+/* ===========================================================
+   === CONTENU COMPLET DE styles.css (FUSIONNÉ)
+   =========================================================== */
+
+/* ----- RESET ----- */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Plus Jakarta Sans',sans-serif;
+  line-height:1.65;
+  background:#FDFCF9;
+  color:#18201C;
+}
+
+/* ---- Variables simplifiées (identiques à ton fichier) ---- */
+:root{
+ --c-forest:#1A6B3C;
+ --c-sage:#3A9A5C;
+ --c-sage-pale:#E4F3E8;
+ --c-sage-mid:#C0E0CC;
+ --c-water:#3B9ABF;
+ --c-amber:#D4850A;
+ --c-white:#FDFCF9;
+ --c-cream:#F5F2EC;
+ --c-text:#18201C;
+ --c-text-2:#3A4A3E;
+ --radius:18px;
+}
+
+/* ---- HEADER ---- */
+.header{
+ position:sticky;
+ top:0;
+ z-index:100;
+ background:rgba(253,252,249,.95);
+ backdrop-filter:blur(12px);
+ border-bottom:1px solid #eee;
+ transition:box-shadow .3s ease;
+}
+.header.scrolled{box-shadow:0 8px 24px rgba(0,0,0,.08)}
+
+.header__inner{
+ display:flex;
+ align-items:center;
+ justify-content:space-between;
+ padding:16px 40px;
+}
+
+.nav__list{display:flex;gap:10px;list-style:none}
+.nav__link{
+ text-decoration:none;
+ padding:8px 12px;
+ border-radius:12px;
+ color:var(--c-text-2);
+ font-size:.9rem;
+}
+.nav__link:hover,
+.nav__link.is-active{
+ background:var(--c-sage-pale);
+ color:var(--c-forest);
+}
+
+/* ---- HERO ---- */
+.hero{
+ padding:120px 40px 80px;
+ display:grid;
+ grid-template-columns:1fr 420px;
+ gap:80px;
+ align-items:center;
+}
+.hero__title{
+ font-family:'Syne',sans-serif;
+ font-size:3.5rem;
+ font-weight:800;
+ line-height:1.05;
+ margin-bottom:24px;
+}
+.hero__title em{
+ color:var(--c-forest);
+ font-style:normal;
+}
+.hero__subtitle{
+ font-size:1.15rem;
+ color:var(--c-text-2);
+ margin-bottom:32px;
+}
+
+/* ---- BOUTONS ---- */
+.btn{
+ display:inline-flex;
+ align-items:center;
+ justify-content:center;
+ border-radius:999px;
+ padding:12px 24px;
+ font-weight:600;
+ text-decoration:none;
+ border:2px solid transparent;
+ cursor:pointer;
+}
+.btn--primary{
+ background:var(--c-forest);
+ color:white;
+}
+.btn--primary:hover{
+ background:var(--c-sage);
+}
+.btn--outline{
+ border-color:#ccc;
+ color:var(--c-text);
+}
+.btn--outline:hover{
+ background:var(--c-cream);
+}
+
+/* ---- PARCOURS ---- */
+.parcours{
+ padding:100px 40px;
+ background:var(--c-cream);
+}
+.flow{
+ max-width:900px;
+ margin:auto;
+ list-style:none;
+}
+.flow__item{
+ margin-bottom:40px;
+}
+.flow__card{
+ background:white;
+ padding:24px;
+ border-radius:var(--radius);
+ border:1px solid #eee;
+}
+.flow__title{
+ font-family:'Syne',sans-serif;
+ font-size:1.3rem;
+ margin-bottom:8px;
+}
+
+/* ---- ACCORDÉON ---- */
+.flow__sub{
+ margin-top:20px;
+ padding-top:20px;
+ border-top:1px solid #eee;
+}
+
+/* ---- SECTIONS ---- */
+section{
+ padding:120px 40px;
+}
+h2{
+ font-family:'Syne',sans-serif;
+ font-size:2.5rem;
+ margin-bottom:24px;
+}
+p{margin-bottom:16px;color:var(--c-text-2)}
+
+/* ---- RESPONSIVE ---- */
+@media(max-width:1000px){
+ .hero{
+  grid-template-columns:1fr;
+ }
+ .header__inner{
+  padding:16px 20px;
+ }
+}
+
+</style>
+</head>
+<body>
+
+<!-- =================== CONTENU HTML ORIGINAL =================== -->
+<header class="header" id="header">
+    <div class="header__inner container">
+
+      <a href="#" class="logo" aria-label="ToilettEco — retour accueil">
+        <div class="logo__icon" aria-hidden="true">
+          <svg width="34" height="34" viewBox="0 0 34 34" fill="none">
+            <circle cx="17" cy="17" r="16" fill="#1A6B3C"/>
+            <path d="M17 7 C17 7 11 14.5 11 19.5 A6 6 0 0 0 23 19.5 C23 14.5 17 7 17 7Z" fill="white" opacity="0.95"/>
+            <path d="M12 19 Q14.5 21.5 17 19 Q19.5 16.5 22 19" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <span class="logo__name">Toilett<strong>Eco</strong></span>
+      </a>
+
+      <button class="nav-toggle" aria-expanded="false" aria-controls="main-nav" aria-label="Menu de navigation">
+        <span></span><span></span><span></span>
+      </button>
+
+      <nav class="nav" id="main-nav" aria-label="Navigation principale">
+        <ul class="nav__list">
+          <li><a href="#" class="nav__link is-active">Accueil</a></li>
+          <li><a href="#section-definition" class="nav__link">C'est quoi ?</a></li>
+          <li><a href="#section-pourquoi" class="nav__link">Pourquoi ?</a></li>
+          <li><a href="#section-usages" class="nav__link">Usages</a></li>
+          <li><a href="#" class="nav__link">Outils</a></li>
+        </ul>
+      </nav>
+
+      <a href="#section-usages" class="btn btn--pill btn--dark header__cta">Trouver ma solution</a>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ═══════════════════════════════ HERO ═══════════════════════════════ -->
+    <section class="hero">
+      <div class="hero__inner container">
+        <div class="hero__left">
+          <div class="hero__tag" aria-label="Catégorie">
+            <span class="hero__dot" aria-hidden="true"></span>
+            Guide citoyen &middot; 2025
+          </div>
+
+          <h1 class="hero__title">
+            Des toilettes qui<br/>
+            <em>respectent</em><br/>
+            la planète.
+          </h1>
+
+          <p class="hero__subtitle">
+            6 litres d'eau potable s'évaporent à chaque chasse d'eau &mdash; sans aucune valeur ajoutée.
+            Il existe mieux. Et c'est accessible.
+          </p>
+
+          <div class="hero__ctas">
+            <a href="#parcours" class="btn btn--pill btn--primary">Commencer le guide</a>
+            <a href="#section-usages" class="btn btn--pill btn--outline">Choisir mon type</a>
+          </div>
+
+          <div class="hero__stats" role="list" aria-label="Chiffres clés">
+            <div class="hero-stat" role="listitem">
+              <span class="hero-stat__num">−90%</span>
+              <span class="hero-stat__label">d'eau<br/>consommée</span>
+            </div>
+            <div class="hero-stat__sep" aria-hidden="true"></div>
+            <div class="hero-stat" role="listitem">
+              <span class="hero-stat__num">300&thinsp;€</span>
+              <span class="hero-stat__label">économisés<br/>par an</span>
+            </div>
+            <div class="hero-stat__sep" aria-hidden="true"></div>
+            <div class="hero-stat" role="listitem">
+              <span class="hero-stat__num">&times;3</span>
+              <span class="hero-stat__label">moins<br/>d'empreinte CO&#x2082;</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero__right" aria-hidden="true">
+          <svg class="hero__illo" viewBox="0 0 420 500" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- Sol -->
+            <ellipse cx="210" cy="468" rx="155" ry="22" fill="#B8D9C2" opacity="0.4"/>
+
+            <!-- Plante gauche grande -->
+            <line x1="72" y1="440" x2="72" y2="468" stroke="#1A6B3C" stroke-width="3" stroke-linecap="round"/>
+            <path d="M72 430 Q58 400 62 375 Q72 355 84 370 Q90 385 78 415 Z" fill="#3A9A5C" opacity="0.65"/>
+            <path d="M68 420 Q48 395 42 372 Q36 350 56 356 Q70 362 74 395 Z" fill="#1A6B3C" opacity="0.5"/>
+            <path d="M76 408 Q92 382 98 360 Q104 342 90 352 Q80 362 74 390 Z" fill="#5CB87A" opacity="0.45"/>
+
+            <!-- Plante droite grande -->
+            <line x1="358" y1="440" x2="358" y2="468" stroke="#1A6B3C" stroke-width="3" stroke-linecap="round"/>
+            <path d="M358 428 Q374 398 378 373 Q382 352 368 360 Q358 370 356 400 Z" fill="#3A9A5C" opacity="0.6"/>
+            <path d="M362 418 Q382 390 390 366 Q398 344 380 352 Q366 360 360 392 Z" fill="#1A6B3C" opacity="0.45"/>
+            <path d="M354 410 Q338 384 334 360 Q330 340 346 350 Q358 360 360 390 Z" fill="#5CB87A" opacity="0.4"/>
+
+            <!-- Petite plante gauche -->
+            <line x1="130" y1="458" x2="130" y2="468" stroke="#1A6B3C" stroke-width="2"/>
+            <path d="M130 452 Q118 434 124 422 Q132 415 138 426 Q140 440 130 452 Z" fill="#3A9A5C" opacity="0.55"/>
+
+            <!-- Petite plante droite -->
+            <line x1="298" y1="455" x2="298" y2="468" stroke="#1A6B3C" stroke-width="2"/>
+            <path d="M298 448 Q310 430 316 420 Q322 412 312 418 Q304 426 298 442 Z" fill="#5CB87A" opacity="0.5"/>
+
+            <!-- Corps WC principal -->
+            <rect x="148" y="282" width="124" height="148" rx="28" fill="#F4FBF6" stroke="#C0E0CC" stroke-width="2"/>
+            <ellipse cx="210" cy="434" rx="72" ry="18" fill="#D8EEE0"/>
+            <ellipse cx="210" cy="284" rx="62" ry="18" fill="#E4F3E8"/>
+
+            <!-- Cuvette -->
+            <ellipse cx="210" cy="344" rx="42" ry="34" fill="#D0EAD8"/>
+            <ellipse cx="210" cy="346" rx="34" ry="26" fill="#E8F5ED"/>
+
+            <!-- Siège -->
+            <path d="M148 284 Q152 260 210 254 Q268 260 272 284 Q268 306 210 312 Q152 306 148 284Z" fill="#E4F3E8" stroke="#C0E0CC" stroke-width="1.5"/>
+
+            <!-- Réservoir -->
+            <rect x="174" y="222" width="72" height="58" rx="14" fill="#EEF9F2" stroke="#C0E0CC" stroke-width="1.5"/>
+            <rect x="183" y="215" width="54" height="12" rx="6" fill="#D8EEE0" stroke="#C0E0CC" stroke-width="1"/>
+
+            <!-- Badge ECO sur réservoir -->
+            <rect x="184" y="234" width="52" height="28" rx="8" fill="#1A6B3C"/>
+            <text x="210" y="252" text-anchor="middle" font-size="11" font-weight="700" fill="white" font-family="'Syne',sans-serif" letter-spacing="1">ECO</text>
+
+            <!-- Gouttes économisées (à gauche, barrées) -->
+            <path d="M100 272 Q97.5 264 102 261 Q106.5 264 104 272 Q102 277 100 272Z" fill="#7BBFD6"/>
+            <line x1="95.5" y1="265" x2="108" y2="279" stroke="#D44B4B" stroke-width="1.8" stroke-linecap="round"/>
+            <path d="M113 254 Q110.5 247 115 244 Q119.5 247 117 254 Q115 259 113 254Z" fill="#7BBFD6" opacity="0.7"/>
+            <line x1="108.5" y1="247" x2="121" y2="261" stroke="#D44B4B" stroke-width="1.8" stroke-linecap="round"/>
+            <path d="M88 256 Q85.5 250 90 247 Q94 250 92 256 Q90 260 88 256Z" fill="#7BBFD6" opacity="0.5"/>
+            <line x1="84" y1="250" x2="96" y2="262" stroke="#D44B4B" stroke-width="1.5" stroke-linecap="round"/>
+
+            <!-- Étiquette eau économisée -->
+            <rect x="54" y="232" width="80" height="22" rx="6" fill="white" stroke="#F0C0C0" stroke-width="1"/>
+            <text x="94" y="247" text-anchor="middle" font-size="9" fill="#D44B4B" font-weight="600" font-family="system-ui">Eau économisée</text>
+
+            <!-- Flèche cycle retour compost -->
+            <path d="M280 315 Q330 280 330 248 Q330 218 305 208 Q282 200 268 213" stroke="#3A9A5C" stroke-width="2" stroke-dasharray="6 4" fill="none" stroke-linecap="round"/>
+            <polygon points="266,207 272,217 262,219" fill="#3A9A5C"/>
+
+            <!-- Badge cycle -->
+            <rect x="298" y="224" width="86" height="36" rx="10" fill="white" stroke="#C0E0CC" stroke-width="1.5"/>
+            <text x="341" y="238" text-anchor="middle" font-size="9.5" fill="#1A6B3C" font-weight="600" font-family="system-ui">Cycle fermé</text>
+            <text x="341" y="252" text-anchor="middle" font-size="8.5" fill="#3A9A5C" font-family="system-ui">0 L d'eau potable</text>
+
+            <!-- Badge compost bas gauche -->
+            <rect x="42" y="370" width="84" height="50" rx="12" fill="white" stroke="#C0E0CC" stroke-width="1.5"/>
+            <text x="84" y="388" text-anchor="middle" font-size="9" fill="#1A6B3C" font-weight="600" font-family="system-ui">Compost</text>
+            <text x="84" y="402" text-anchor="middle" font-size="8" fill="#5A9A6A" font-family="system-ui">valorisé</text>
+            <circle cx="72" cy="412" r="3" fill="#3A9A5C" opacity="0.6"/>
+            <circle cx="84" cy="413" r="2.5" fill="#5CB87A" opacity="0.5"/>
+            <circle cx="96" cy="412" r="3" fill="#1A6B3C" opacity="0.5"/>
+          </svg>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════ PARCOURS ═══════════════════════════════ -->
+    <section class="parcours" id="parcours" aria-labelledby="parcours-h2">
+      <div class="container">
+        <div class="parcours__head">
+          <span class="chip chip--green">Parcours pédagogique</span>
+          <h2 class="parcours__title" id="parcours-h2">Trois questions,<br/>un chemin.</h2>
+          <p class="parcours__sub">Suivez les étapes pour comprendre, vous projeter, et choisir en confiance.</p>
+        </div>
+
+        <ol class="flow" aria-label="Étapes du parcours pédagogique">
+
+          <!-- Étape 1 -->
+          <li class="flow__item" data-step="1">
+            <div class="flow__spine" aria-hidden="true">
+              <div class="flow__num">01</div>
+              <div class="flow__line"></div>
+            </div>
+            <div class="flow__card">
+              <div class="flow__illo" aria-hidden="true">
+                <svg width="60" height="60" viewBox="0 0 60 60" fill="none">
+                  <circle cx="30" cy="30" r="29" fill="#E4F3E8" stroke="#C0E0CC" stroke-width="1"/>
+                  <rect x="20" y="24" width="20" height="18" rx="6" fill="#C0E0CC"/>
+                  <rect x="24" y="20" width="12" height="6" rx="3" fill="#A8D4B8"/>
+                  <circle cx="37" cy="36" r="7" fill="none" stroke="#1A6B3C" stroke-width="2"/>
+                  <line x1="42.5" y1="41" x2="47" y2="45.5" stroke="#1A6B3C" stroke-width="2.5" stroke-linecap="round"/>
+                </svg>
+              </div>
+              <div class="flow__body">
+                <span class="flow__tag">Définition</span>
+                <h3 class="flow__title">Qu'est-ce qu'une toilette écologique ?</h3>
+                <p class="flow__desc">Une alternative concrète aux WC à chasse d'eau, conçue pour économiser l'eau et valoriser les matières organiques.</p>
+              </div>
+              <a href="#section-definition" class="btn btn--pill btn--ghost flow__cta">Lire la section</a>
+            </div>
+          </li>
+
+          <!-- Étape 2 avec accordéon -->
+          <li class="flow__item" data-step="2">
+            <div class="flow__spine" aria-hidden="true">
+              <div class="flow__num">02</div>
+              <div class="flow__line"></div>
+            </div>
+            <div class="flow__card">
+              <div class="flow__illo" aria-hidden="true">
+                <svg width="60" height="60" viewBox="0 0 60 60" fill="none">
+                  <circle cx="30" cy="30" r="29" fill="#E4F3E8" stroke="#C0E0CC" stroke-width="1"/>
+                  <path d="M30 16 L43 22 L43 33 C43 41 30 48 30 48 C30 48 17 41 17 33 L17 22 Z" fill="#C0E0CC" stroke="#3A9A5C" stroke-width="1.5"/>
+                  <path d="M25 31 L28.5 35 L37 26" stroke="#1A6B3C" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+              <div class="flow__body">
+                <span class="flow__tag">Motivations</span>
+                <h3 class="flow__title">Pourquoi passer aux toilettes écologiques ?</h3>
+                <p class="flow__desc">Eau, budget, environnement &mdash; trois raisons concrètes qui se renforcent mutuellement.</p>
+              </div>
+              <button class="btn btn--pill btn--ghost flow__cta accordion-trigger"
+                      aria-expanded="false"
+                      aria-controls="acc-step2"
+                      data-accordion="acc-step2">
+                Voir les 3 raisons
+                <svg class="toggle-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+              </button>
+
+              <div class="flow__sub" id="acc-step2" hidden>
+                <div class="sub-trio">
+
+                  <article class="sub-card" aria-labelledby="sc-eau-h">
+                    <div class="sub-card__top">
+                      <svg width="40" height="40" viewBox="0 0 40 40" fill="none" aria-hidden="true">
+                        <circle cx="20" cy="20" r="19" fill="#DCF0FA"/>
+                        <path d="M20 8 C20 8 13 17 13 22 A7 7 0 0 0 27 22 C27 17 20 8 20 8Z" fill="#5AAEC8"/>
+                        <path d="M16 21 Q18.5 23.5 21 21 Q23.5 18.5 26 21" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+                      </svg>
+                      <div class="sub-card__stat sub-card__stat--blue">30&thinsp;000&thinsp;L<small>/an</small></div>
+                    </div>
+                    <h4 class="sub-card__title" id="sc-eau-h">Gestion de l'eau</h4>
+                    <ul class="sub-card__list">
+                      <li>6–9 L par chasse classique</li>
+                      <li>0 L pour une toilette sèche</li>
+                      <li>5 usages/jour/personne</li>
+                    </ul>
+                    <a href="#section-pourquoi" class="sub-card__more">En savoir plus &rarr;</a>
+                  </article>
+
+                  <article class="sub-card" aria-labelledby="sc-eco-h">
+                    <div class="sub-card__top">
+                      <svg width="40" height="40" viewBox="0 0 40 40" fill="none" aria-hidden="true">
+                        <circle cx="20" cy="20" r="19" fill="#FEF3E2"/>
+                        <rect x="12" y="24" width="5" height="9" rx="1.5" fill="#D4850A" opacity="0.6"/>
+                        <rect x="19" y="19" width="5" height="14" rx="1.5" fill="#D4850A"/>
+                        <rect x="26" y="14" width="5" height="19" rx="1.5" fill="#F0A32E"/>
+                        <path d="M14 14 L22 10 L34 16" stroke="#D4850A" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+                      </svg>
+                      <div class="sub-card__stat sub-card__stat--amber">300&thinsp;€<small>/an</small></div>
+                    </div>
+                    <h4 class="sub-card__title" id="sc-eco-h">Économies</h4>
+                    <ul class="sub-card__list">
+                      <li>Facture d'eau réduite dès J+1</li>
+                      <li>Moins de maintenance</li>
+                      <li>Aides locales disponibles</li>
+                    </ul>
+                    <a href="#section-pourquoi" class="sub-card__more">En savoir plus &rarr;</a>
+                  </article>
+
+                  <article class="sub-card" aria-labelledby="sc-env-h">
+                    <div class="sub-card__top">
+                      <svg width="40" height="40" viewBox="0 0 40 40" fill="none" aria-hidden="true">
+                        <circle cx="20" cy="20" r="19" fill="#E4F3E8"/>
+                        <circle cx="20" cy="20" r="11" stroke="#3A9A5C" stroke-width="1.8" fill="none"/>
+                        <path d="M20 9 C17 13 17 17 17 20 C17 23 17 27 20 31" stroke="#1A6B3C" stroke-width="1.3" fill="none"/>
+                        <path d="M20 9 C23 13 23 17 23 20 C23 23 23 27 20 31" stroke="#3A9A5C" stroke-width="1.3" fill="none"/>
+                        <line x1="9" y1="20" x2="31" y2="20" stroke="#3A9A5C" stroke-width="1.3"/>
+                      </svg>
+                      <div class="sub-card__stat sub-card__stat--green">&times;3<small>CO&#x2082;</small></div>
+                    </div>
+                    <h4 class="sub-card__title" id="sc-env-h">Environnement</h4>
+                    <ul class="sub-card__list">
+                      <li>Nappes phréatiques préservées</li>
+                      <li>Compost pour jardins</li>
+                      <li>Stations d'épuration soulagées</li>
+                    </ul>
+                    <a href="#section-pourquoi" class="sub-card__more">En savoir plus &rarr;</a>
+                  </article>
+
+                </div>
+              </div>
+            </div>
+          </li>
+
+          <!-- Étape 3 -->
+          <li class="flow__item" data-step="3">
+            <div class="flow__spine" aria-hidden="true">
+              <div class="flow__num flow__num--last">03</div>
+            </div>
+            <div class="flow__card flow__card--last">
+              <div class="flow__illo" aria-hidden="true">
+                <svg width="60" height="60" viewBox="0 0 60 60" fill="none">
+                  <circle cx="30" cy="30" r="29" fill="#E4F3E8" stroke="#C0E0CC" stroke-width="1"/>
+                  <path d="M12 30 L21 20 L30 30 L30 44 L12 44 Z" fill="#C0E0CC"/>
+                  <rect x="16" y="33" width="8" height="11" rx="1.5" fill="#A8D4B8"/>
+                  <rect x="25" y="31" width="8" height="7" rx="1.5" fill="#A8D4B8"/>
+                  <path d="M32 28 L41 21 L50 28" fill="none" stroke="#3A9A5C" stroke-width="2" stroke-linejoin="round"/>
+                  <rect x="34" y="28" width="14" height="16" rx="2" fill="#D4EDE0"/>
+                  <rect x="37" y="31" width="5" height="7" rx="0.5" fill="#A8D4B8"/>
+                </svg>
+              </div>
+              <div class="flow__body">
+                <span class="flow__tag">Application</span>
+                <h3 class="flow__title">Pour quels usages ?</h3>
+                <p class="flow__desc">Maison, bureau, événementiel &mdash; chaque contexte a ses contraintes et ses solutions sur mesure.</p>
+              </div>
+              <a href="#section-usages" class="btn btn--pill btn--primary flow__cta">Voir les solutions</a>
+            </div>
+          </li>
+
+        </ol>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════ SECTION DÉFINITION ═══════════════════════════════ -->
+    <section class="s-def" id="section-definition" aria-labelledby="def-h2">
+      <div class="container">
+        <div class="s-def__grid">
+          <div class="s-def__left">
+            <span class="chip chip--step">Étape 01</span>
+            <h2 class="s-def__title" id="def-h2">Qu'est-ce qu'une toilette écologique&nbsp;?</h2>
+            <p class="s-def__lead">Une toilette écologique est un système sanitaire qui rompt avec le gaspillage de l'eau potable en s'appuyant sur des processus naturels : séchage, compostage, ou séparation des flux.</p>
+            <p class="s-def__body">Il n'existe pas un modèle unique, mais plusieurs technologies : toilette sèche, toilette à séparation, WC à compostage intégré, ou WC à faible débit. Chacune répond à des contextes différents.</p>
+
+            <div class="callout" role="note">
+              <div class="callout__icon" aria-hidden="true">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+              </div>
+              <div>
+                <strong>À retenir</strong>
+                <p>Ce qui unit toutes ces technologies&nbsp;: zéro ou quasi-zéro consommation d'eau potable, et une valorisation possible des matières organiques en compost.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="s-def__right">
+            <!-- Illustration types -->
+            <div class="s-def__illo-wrap" aria-hidden="true">
+              <svg viewBox="0 0 300 330" fill="none" xmlns="http://www.w3.org/2000/svg" class="s-def__illo">
+                <rect width="300" height="330" rx="20" fill="#F0FAF3"/>
+                <text x="150" y="32" text-anchor="middle" font-size="10.5" font-weight="700" fill="#1A6B3C" font-family="system-ui" letter-spacing="0.8">3 GRANDES FAMILLES</text>
+
+                <!-- Toilette sèche -->
+                <rect x="16" y="48" width="124" height="118" rx="14" fill="white" stroke="#C0E0CC" stroke-width="1.5"/>
+                <rect x="50" y="94" width="56" height="44" rx="10" fill="#E4F3E8"/>
+                <path d="M45 94 Q78 86 111 94 Q111 101 78 107 Q45 101 45 94Z" fill="#D4EDE0" stroke="#C0E0CC" stroke-width="1"/>
+                <rect x="57" y="72" width="42" height="26" rx="8" fill="#E4F3E8" stroke="#C0E0CC" stroke-width="1"/>
+                <path d="M52 131 Q78 138 104 131" stroke="#A8C898" stroke-width="2" stroke-linecap="round" fill="none"/>
+                <rect x="22" y="55" width="36" height="17" rx="8.5" fill="#1A6B3C"/>
+                <text x="40" y="67" text-anchor="middle" font-size="8.5" font-weight="700" fill="white" font-family="system-ui">0 L eau</text>
+                <text x="78" y="156" text-anchor="middle" font-size="9.5" font-weight="600" fill="#1A6B3C" font-family="system-ui">Toilette sèche</text>
+                <text x="78" y="170" text-anchor="middle" font-size="8" fill="#3A7A52" font-family="system-ui">Litière + compostage</text>
+
+                <!-- WC séparation -->
+                <rect x="160" y="48" width="124" height="118" rx="14" fill="white" stroke="#C0E0CC" stroke-width="1.5"/>
+                <rect x="194" y="94" width="56" height="44" rx="10" fill="#E4F3E8"/>
+                <path d="M189 94 Q222 86 255 94 Q255 101 222 107 Q189 101 189 94Z" fill="#D4EDE0" stroke="#C0E0CC" stroke-width="1"/>
+                <rect x="201" y="72" width="42" height="26" rx="8" fill="#E4F3E8" stroke="#C0E0CC" stroke-width="1"/>
+                <path d="M202 138 L202 148 L192 148" stroke="#7BBFD6" stroke-width="2" stroke-linecap="round" fill="none"/>
+                <circle cx="188" cy="148" r="5" fill="#7BBFD6" opacity="0.8"/>
+                <path d="M242 138 L242 148 L252 148" stroke="#A8C898" stroke-width="2" stroke-linecap="round" fill="none"/>
+                <circle cx="256" cy="148" r="5" fill="#A8C898" opacity="0.8"/>
+                <rect x="166" y="55" width="48" height="17" rx="8.5" fill="#3A9A5C"/>
+                <text x="190" y="67" text-anchor="middle" font-size="8.5" font-weight="700" fill="white" font-family="system-ui">Séparation</text>
+                <text x="222" y="168" text-anchor="middle" font-size="9.5" font-weight="600" fill="#1A6B3C" font-family="system-ui">WC séparation</text>
+                <text x="222" y="182" text-anchor="middle" font-size="8" fill="#3A7A52" font-family="system-ui">Urines / solides</text>
+
+                <!-- Faible débit -->
+                <rect x="88" y="188" width="124" height="118" rx="14" fill="white" stroke="#C0E0CC" stroke-width="1.5"/>
+                <rect x="122" y="234" width="56" height="44" rx="10" fill="#E4F3E8"/>
+                <path d="M117 234 Q150 226 183 234 Q183 241 150 247 Q117 241 117 234Z" fill="#D4EDE0" stroke="#C0E0CC" stroke-width="1"/>
+                <rect x="129" y="212" width="42" height="26" rx="8" fill="#E4F3E8" stroke="#C0E0CC" stroke-width="1"/>
+                <circle cx="143" cy="221" r="5" fill="#7BBFD6" stroke="#C0E0CC" stroke-width="1"/>
+                <text x="143" y="224.5" text-anchor="middle" font-size="6" fill="white" font-family="system-ui">3L</text>
+                <circle cx="157" cy="221" r="7" fill="#3A9A5C" stroke="#C0E0CC" stroke-width="1"/>
+                <text x="157" y="224.5" text-anchor="middle" font-size="6" fill="white" font-family="system-ui">6L</text>
+                <rect x="94" y="195" width="56" height="17" rx="8.5" fill="#D4850A"/>
+                <text x="122" y="207" text-anchor="middle" font-size="8.5" font-weight="700" fill="white" font-family="system-ui">−60% eau</text>
+                <text x="150" y="298" text-anchor="middle" font-size="9.5" font-weight="600" fill="#1A6B3C" font-family="system-ui">WC faible débit</text>
+                <text x="150" y="312" text-anchor="middle" font-size="8" fill="#3A7A52" font-family="system-ui">Dual-flush 3 / 6 L</text>
+              </svg>
+            </div>
+
+            <!-- Comparatif -->
+            <div class="comparatif" role="region" aria-labelledby="comp-h3">
+              <h3 id="comp-h3">WC classique vs WC éco</h3>
+              <div class="comp-table">
+                <div class="comp-table__head">
+                  <div>Critère</div>
+                  <div>Classique</div>
+                  <div class="comp-table__eco">Éco</div>
+                </div>
+                <div class="comp-row"><div>Eau par usage</div><div class="v-bad">6–9 L</div><div class="v-good">0–1 L</div></div>
+                <div class="comp-row"><div>Réseau requis</div><div class="v-bad">Oui</div><div class="v-good">Non</div></div>
+                <div class="comp-row"><div>Coût eau/an</div><div class="v-bad">~150 €</div><div class="v-good">~10 €</div></div>
+                <div class="comp-row"><div>Valorisation</div><div class="v-bad">Aucune</div><div class="v-good">Compost</div></div>
+                <div class="comp-row comp-row--last"><div>Empreinte CO₂</div><div class="v-bad">Élevée</div><div class="v-good">Faible</div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════ SECTION POURQUOI ═══════════════════════════════ -->
+    <section class="s-why" id="section-pourquoi" aria-labelledby="why-h2">
+      <div class="s-why__band" aria-hidden="true"></div>
+      <div class="container">
+        <div class="s-why__intro">
+          <span class="chip chip--step chip--white">Étape 02</span>
+          <h2 class="s-why__title" id="why-h2">Trois raisons de changer.</h2>
+          <p class="s-why__sub">Concrètes, chiffrées, complémentaires.</p>
+        </div>
+
+        <div class="why-cards" role="list">
+
+          <article class="why-card" id="section-eau" role="listitem" aria-labelledby="why-eau-h">
+            <div class="why-card__illo" aria-hidden="true">
+              <svg viewBox="0 0 220 148" fill="none">
+                <rect width="220" height="148" rx="14" fill="#DCF0FA"/>
+                <text x="110" y="22" text-anchor="middle" font-size="10" font-weight="600" fill="#3B7A9A" font-family="system-ui">Comparaison de volume</text>
+                <!-- WC classique : 5 grosses gouttes -->
+                <path d="M38 80 Q34 66 42 60 Q50 66 46 80 Q43 88 38 80Z" fill="#3B9ABF"/>
+                <path d="M58 80 Q54 66 62 60 Q70 66 66 80 Q63 88 58 80Z" fill="#3B9ABF" opacity="0.85"/>
+                <path d="M78 80 Q74 66 82 60 Q90 66 86 80 Q83 88 78 80Z" fill="#3B9ABF" opacity="0.7"/>
+                <path d="M98 80 Q94 66 102 60 Q110 66 106 80 Q103 88 98 80Z" fill="#3B9ABF" opacity="0.5"/>
+                <path d="M118 80 Q114 66 122 60 Q130 66 126 80 Q123 88 118 80Z" fill="#3B9ABF" opacity="0.3"/>
+                <text x="80" y="104" text-anchor="middle" font-size="8.5" fill="#3B7A9A" font-family="system-ui">WC classique : 6–9 L</text>
+                <!-- WC éco : 1 toute petite -->
+                <path d="M181 74 Q179 68 183 65 Q187 68 185 74 Q183 77 181 74Z" fill="#1A6B3C"/>
+                <text x="183" y="90" text-anchor="middle" font-size="8.5" fill="#1A6B3C" font-weight="600" font-family="system-ui">WC éco : 0 L</text>
+                <!-- Légende bas -->
+                <rect x="20" y="118" width="80" height="20" rx="6" fill="#3B9ABF" opacity="0.2"/>
+                <text x="60" y="132" text-anchor="middle" font-size="8" fill="#3B7A9A" font-family="system-ui">Consommé</text>
+                <rect x="120" y="118" width="80" height="20" rx="6" fill="#1A6B3C" opacity="0.15"/>
+                <text x="160" y="132" text-anchor="middle" font-size="8" fill="#1A6B3C" font-weight="600" font-family="system-ui">Économisé ✓</text>
+              </svg>
+            </div>
+            <div class="why-card__body">
+              <div class="why-card__header">
+                <div class="why-card__icon why-card__icon--blue" aria-hidden="true">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C12 2 5 10 5 15 A7 7 0 0 0 19 15 C19 10 12 2 12 2Z"/></svg>
+                </div>
+                <h3 class="why-card__title" id="why-eau-h">Gestion de l'eau</h3>
+              </div>
+              <div class="why-card__stat">
+                <span class="big-num">30&thinsp;000 L</span>
+                <span class="big-label">économisés<br/>par foyer et par an</span>
+              </div>
+              <ul class="why-card__list">
+                <li>Une chasse classique gaspille 6 à 9 L d'eau potable traitée</li>
+                <li>5 usages par jour et par personne : jusqu'à 45 L quotidiens</li>
+                <li>La toilette sèche descend ce chiffre à zéro</li>
+              </ul>
+            </div>
+          </article>
+
+          <article class="why-card" id="section-economies" role="listitem" aria-labelledby="why-eco-h">
+            <div class="why-card__illo" aria-hidden="true">
+              <svg viewBox="0 0 220 148" fill="none">
+                <rect width="220" height="148" rx="14" fill="#FEF3E2"/>
+                <text x="110" y="22" text-anchor="middle" font-size="10" font-weight="600" fill="#B86A00" font-family="system-ui">Économies cumulées</text>
+                <line x1="28" y1="120" x2="200" y2="120" stroke="#D4A060" stroke-width="1"/>
+                <line x1="28" y1="120" x2="28" y2="36" stroke="#D4A060" stroke-width="1"/>
+                <rect x="44" y="100" width="28" height="20" rx="3" fill="#F0C070" opacity="0.8"/>
+                <rect x="86" y="82" width="28" height="38" rx="3" fill="#E8A030"/>
+                <rect x="128" y="62" width="28" height="58" rx="3" fill="#D4850A"/>
+                <rect x="170" y="40" width="28" height="80" rx="3" fill="#B86A00"/>
+                <text x="58" y="96" text-anchor="middle" font-size="7.5" fill="#B86A00" font-family="system-ui">100€</text>
+                <text x="100" y="78" text-anchor="middle" font-size="7.5" fill="#B86A00" font-family="system-ui">200€</text>
+                <text x="142" y="58" text-anchor="middle" font-size="7.5" fill="#B86A00" font-family="system-ui">500€</text>
+                <text x="184" y="36" text-anchor="middle" font-size="8" fill="#B86A00" font-weight="700" font-family="system-ui">1500€</text>
+                <text x="58" y="133" text-anchor="middle" font-size="7.5" fill="#9A7A50" font-family="system-ui">An 1</text>
+                <text x="100" y="133" text-anchor="middle" font-size="7.5" fill="#9A7A50" font-family="system-ui">An 2</text>
+                <text x="142" y="133" text-anchor="middle" font-size="7.5" fill="#9A7A50" font-family="system-ui">An 3</text>
+                <text x="184" y="133" text-anchor="middle" font-size="7.5" fill="#9A7A50" font-family="system-ui">An 5</text>
+                <path d="M44 108 Q90 85 130 68 Q170 50 196 42" stroke="#D4850A" stroke-width="1.5" stroke-dasharray="5 3" fill="none"/>
+              </svg>
+            </div>
+            <div class="why-card__body">
+              <div class="why-card__header">
+                <div class="why-card__icon why-card__icon--amber" aria-hidden="true">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                </div>
+                <h3 class="why-card__title" id="why-eco-h">Économies financières</h3>
+              </div>
+              <div class="why-card__stat">
+                <span class="big-num big-num--amber">300 €</span>
+                <span class="big-label">économisés<br/>par an estimés</span>
+              </div>
+              <ul class="why-card__list">
+                <li>Facture d'eau réduite dès la première année d'installation</li>
+                <li>Moins de maintenance et de pannes qu'un WC classique</li>
+                <li>Des subventions locales existent dans de nombreuses communes</li>
+              </ul>
+            </div>
+          </article>
+
+          <article class="why-card" id="section-impact" role="listitem" aria-labelledby="why-env-h">
+            <div class="why-card__illo" aria-hidden="true">
+              <svg viewBox="0 0 220 148" fill="none">
+                <rect width="220" height="148" rx="14" fill="#E4F3E8"/>
+                <text x="110" y="22" text-anchor="middle" font-size="10" font-weight="600" fill="#1A6B3C" font-family="system-ui">Impact écologique</text>
+                <!-- Globe simplifié -->
+                <circle cx="110" cy="80" r="50" fill="#C0E0CC" stroke="#3A9A5C" stroke-width="2"/>
+                <path d="M110 30 C104 40 104 50 104 60 C104 70 104 80 104 90 C104 100 104 110 110 120 C116 110 116 100 116 90 C116 80 116 70 116 60 C116 50 116 40 110 30Z" fill="#3A9A5C" opacity="0.4"/>
+                <path d="M60 80 C70 76 86 78 104 80 C122 82 138 80 160 80" stroke="#3A9A5C" stroke-width="1.5" fill="none"/>
+                <!-- Feuilles -->
+                <path d="M74 108 Q65 93 79 87 Q93 93 84 108 Z" fill="#1A6B3C" opacity="0.55"/>
+                <path d="M140 108 Q131 93 145 87 Q159 93 150 108 Z" fill="#3A9A5C" opacity="0.5"/>
+                <!-- Badge -->
+                <rect x="68" y="116" width="84" height="24" rx="8" fill="#1A6B3C"/>
+                <text x="110" y="132" text-anchor="middle" font-size="10" font-weight="700" fill="white" font-family="system-ui">CO&#x2082; &#xd7;3 réduit</text>
+              </svg>
+            </div>
+            <div class="why-card__body">
+              <div class="why-card__header">
+                <div class="why-card__icon why-card__icon--green" aria-hidden="true">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 22c1.25-1.25 2.5-2.5 3.75-2.5 1.25 0 1.75.5 3 .5s1.75-.5 3-.5 1.75.5 3 .5 1.75-.5 3-.5"/><path d="M14 10c0 4.418-3.582 8-8 8"/><path d="M6 2c0 4.418 3.582 8 8 8"/></svg>
+                </div>
+                <h3 class="why-card__title" id="why-env-h">Impact environnemental</h3>
+              </div>
+              <div class="why-card__stat">
+                <span class="big-num big-num--green">&times;3</span>
+                <span class="big-label">moins<br/>d'impact CO₂</span>
+              </div>
+              <ul class="why-card__list">
+                <li>Protection des nappes phréatiques et des zones humides</li>
+                <li>Compost utilisable au jardin : la boucle naturelle se referme</li>
+                <li>Soulagement des stations d'épuration saturées en zones rurales</li>
+              </ul>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════ SECTION USAGES ═══════════════════════════════ -->
+    <section class="s-usages" id="section-usages" aria-labelledby="usages-h2">
+      <div class="container">
+        <div class="s-usages__intro">
+          <span class="chip chip--step">Étape 03</span>
+          <h2 class="s-usages__title" id="usages-h2">Pour quels usages ?</h2>
+          <p class="s-usages__sub">Chaque contexte a ses exigences &mdash; et ses solutions adaptées.</p>
+        </div>
+
+        <div class="usage-cards" role="list">
+
+          <!-- Maison -->
+          <article class="usage-card" role="listitem" aria-labelledby="u-maison-h">
+            <div class="usage-card__illo" aria-hidden="true">
+              <svg viewBox="0 0 300 172" fill="none">
+                <rect width="300" height="172" rx="16" fill="#E4F3E8"/>
+                <!-- Maison -->
+                <path d="M54 100 L90 66 L126 100 L126 152 L54 152 Z" fill="#C0E0CC" stroke="#3A9A5C" stroke-width="2"/>
+                <rect x="72" y="118" width="22" height="34" rx="3" fill="#A8D4B8"/>
+                <rect x="96" y="114" width="20" height="18" rx="2" fill="#E4F3E8" stroke="#A8D4B8" stroke-width="1"/>
+                <line x1="106" y1="114" x2="106" y2="132" stroke="#A8D4B8" stroke-width="0.8"/>
+                <!-- Jardin -->
+                <ellipse cx="90" cy="152" rx="52" ry="9" fill="#B8D9C2" opacity="0.5"/>
+                <path d="M36 148 Q32 134 40 126 Q48 134 42 148 Z" fill="#3A9A5C" opacity="0.55"/>
+                <path d="M152 145 Q160 131 168 136 Q164 148 152 145 Z" fill="#3A9A5C" opacity="0.5"/>
+                <!-- WC mobile à droite -->
+                <rect x="190" y="60" width="80" height="98" rx="14" fill="white" stroke="#C0E0CC" stroke-width="1.5"/>
+                <rect x="206" y="92" width="48" height="42" rx="9" fill="#E4F3E8"/>
+                <path d="M202 92 Q230 84 254 92 Q254 99 230 104 Q202 99 202 92Z" fill="#D4EDE0"/>
+                <rect x="212" y="70" width="36" height="26" rx="7" fill="#E4F3E8" stroke="#C0E0CC" stroke-width="1"/>
+                <rect x="216" y="63" width="28" height="10" rx="5" fill="#D4EDE0"/>
+                <rect x="206" y="76" width="44" height="20" rx="5" fill="#1A6B3C"/>
+                <text x="228" y="90" text-anchor="middle" font-size="9" font-weight="700" fill="white" font-family="system-ui">ECO</text>
+                <!-- Flèche -->
+                <path d="M130 118 Q158 112 185 108" stroke="#3A9A5C" stroke-width="1.5" stroke-dasharray="5 3" fill="none"/>
+                <polygon points="184,104 190,109 183,113" fill="#3A9A5C"/>
+              </svg>
+            </div>
+            <div class="usage-card__content">
+              <div class="usage-card__header">
+                <h3 class="usage-card__title" id="u-maison-h">Maison individuelle</h3>
+                <span class="chip chip--green chip--sm">Résidentiel</span>
+              </div>
+              <div class="usage-card__block">
+                <h4>Contraintes</h4>
+                <ul>
+                  <li>Surface disponible pour compostage ou stockage (jardin)</li>
+                  <li>Réglementation locale et urbanisme à vérifier</li>
+                  <li>Acceptation de tous les occupants du foyer</li>
+                </ul>
+              </div>
+              <div class="usage-card__reco">
+                <span class="reco-label">Recommandé</span>
+                <p>Toilette sèche à compostage ou à séparation &mdash; idéal avec un extérieur pour valoriser le compost au jardin.</p>
+              </div>
+              <a href="#" class="btn btn--pill btn--outline-green">Voir les solutions maison &rarr;</a>
+            </div>
+          </article>
+
+          <!-- Bureau -->
+          <article class="usage-card" role="listitem" aria-labelledby="u-bureau-h">
+            <div class="usage-card__illo" aria-hidden="true">
+              <svg viewBox="0 0 300 172" fill="none">
+                <rect width="300" height="172" rx="16" fill="#E4F3E8"/>
+                <!-- Immeuble -->
+                <rect x="44" y="44" width="108" height="122" rx="8" fill="#C0E0CC" stroke="#3A9A5C" stroke-width="1.5"/>
+                <!-- Fenêtres -->
+                <rect x="58" y="56" width="24" height="20" rx="3" fill="#E4F3E8" stroke="#A8D4B8" stroke-width="1"/>
+                <rect x="90" y="56" width="24" height="20" rx="3" fill="#E4F3E8" stroke="#A8D4B8" stroke-width="1"/>
+                <rect x="122" y="56" width="24" height="20" rx="3" fill="#E4F3E8" stroke="#A8D4B8" stroke-width="1"/>
+                <rect x="58" y="86" width="24" height="20" rx="3" fill="#A8D4B8"/>
+                <rect x="90" y="86" width="24" height="20" rx="3" fill="#E4F3E8" stroke="#A8D4B8" stroke-width="1"/>
+                <rect x="122" y="86" width="24" height="20" rx="3" fill="#E4F3E8" stroke="#A8D4B8" stroke-width="1"/>
+                <rect x="58" y="116" width="24" height="20" rx="3" fill="#E4F3E8" stroke="#A8D4B8" stroke-width="1"/>
+                <rect x="90" y="116" width="24" height="20" rx="3" fill="#A8D4B8"/>
+                <rect x="122" y="116" width="24" height="20" rx="3" fill="#E4F3E8" stroke="#A8D4B8" stroke-width="1"/>
+                <!-- Entrée -->
+                <rect x="80" y="140" width="36" height="26" rx="3" fill="#A8D4B8"/>
+                <!-- WC pro à droite -->
+                <rect x="182" y="52" width="80" height="96" rx="12" fill="white" stroke="#C0E0CC" stroke-width="1.5"/>
+                <rect x="196" y="82" width="52" height="40" rx="8" fill="#E4F3E8"/>
+                <path d="M193 82 Q222 75 246 82 Q246 88 222 93 Q193 88 193 82Z" fill="#D4EDE0"/>
+                <rect x="204" y="62" width="36" height="24" rx="6" fill="#E4F3E8" stroke="#C0E0CC" stroke-width="1"/>
+                <rect x="199" y="70" width="46" height="18" rx="5" fill="#1A6B3C"/>
+                <text x="222" y="83" text-anchor="middle" font-size="8.5" font-weight="700" fill="white" font-family="system-ui">DUAL-FLUSH</text>
+                <!-- Personnes -->
+                <circle cx="196" cy="54" r="5" fill="#3A9A5C"/>
+                <circle cx="210" cy="54" r="5" fill="#3A9A5C"/>
+                <circle cx="224" cy="54" r="5" fill="#7BC99A"/>
+                <text x="236" y="58" font-size="9" fill="#3A7A52" font-family="system-ui" font-weight="600">+</text>
+              </svg>
+            </div>
+            <div class="usage-card__content">
+              <div class="usage-card__header">
+                <h3 class="usage-card__title" id="u-bureau-h">Bureau &amp; locaux pro</h3>
+                <span class="chip chip--amber chip--sm">Tertiaire</span>
+              </div>
+              <div class="usage-card__block">
+                <h4>Contraintes</h4>
+                <ul>
+                  <li>Fort volume de passage et fréquence d'usage élevée</li>
+                  <li>Normes ERP et réglementation du travail à respecter</li>
+                  <li>Maintenance régulière par prestataire</li>
+                </ul>
+              </div>
+              <div class="usage-card__reco">
+                <span class="reco-label">Recommandé</span>
+                <p>WC à double chasse (dual-flush) ou urinoirs secs &mdash; solutions certifiées ERP disponibles chez plusieurs fabricants.</p>
+              </div>
+              <a href="#" class="btn btn--pill btn--outline-green">Voir les solutions bureau &rarr;</a>
+            </div>
+          </article>
+
+          <!-- Événementiel -->
+          <article class="usage-card" role="listitem" aria-labelledby="u-event-h">
+            <div class="usage-card__illo" aria-hidden="true">
+              <svg viewBox="0 0 300 172" fill="none">
+                <rect width="300" height="172" rx="16" fill="#E4F3E8"/>
+                <!-- Scène festival -->
+                <path d="M36 152 L78 86 L138 86 L180 152 Z" fill="#C0E0CC" stroke="#3A9A5C" stroke-width="1.5"/>
+                <line x1="108" y1="86" x2="108" y2="152" stroke="#A8D4B8" stroke-width="1"/>
+                <!-- Guirlande -->
+                <line x1="56" y1="76" x2="166" y2="66" stroke="#3A9A5C" stroke-width="1" stroke-dasharray="14 6"/>
+                <path d="M62 76 L72 71 L68 81 Z" fill="#7BC99A"/>
+                <path d="M98 72 L108 67 L104 77 Z" fill="#3A9A5C"/>
+                <path d="M134 69 L144 64 L140 74 Z" fill="#1A6B3C"/>
+                <!-- WC mobile roulant -->
+                <rect x="196" y="58" width="72" height="96" rx="12" fill="white" stroke="#C0E0CC" stroke-width="1.5"/>
+                <rect x="210" y="88" width="44" height="40" rx="8" fill="#E4F3E8"/>
+                <path d="M206 88 Q232 81 254 88 Q254 94 232 99 Q206 94 206 88Z" fill="#D4EDE0"/>
+                <rect x="216" y="68" width="36" height="24" rx="6" fill="#E4F3E8" stroke="#C0E0CC" stroke-width="1"/>
+                <rect x="213" y="62" width="42" height="14" rx="7" fill="#1A6B3C"/>
+                <text x="234" y="72" text-anchor="middle" font-size="8.5" font-weight="700" fill="white" font-family="system-ui">AUTONOME</text>
+                <!-- Roues -->
+                <circle cx="210" cy="154" r="8" fill="#D4EDE0" stroke="#3A9A5C" stroke-width="1.5"/>
+                <circle cx="258" cy="154" r="8" fill="#D4EDE0" stroke="#3A9A5C" stroke-width="1.5"/>
+                <!-- Silhouettes festival -->
+                <circle cx="80" cy="140" r="6" fill="#1A6B3C"/>
+                <line x1="80" y1="146" x2="80" y2="160" stroke="#1A6B3C" stroke-width="2.5"/>
+                <circle cx="110" cy="137" r="6" fill="#3A9A5C"/>
+                <line x1="110" y1="143" x2="110" y2="160" stroke="#3A9A5C" stroke-width="2.5"/>
+                <circle cx="140" cy="141" r="6" fill="#5CB87A"/>
+                <line x1="140" y1="147" x2="140" y2="160" stroke="#5CB87A" stroke-width="2.5"/>
+              </svg>
+            </div>
+            <div class="usage-card__content">
+              <div class="usage-card__header">
+                <h3 class="usage-card__title" id="u-event-h">Événementiel &amp; outdoor</h3>
+                <span class="chip chip--teal chip--sm">Temporaire</span>
+              </div>
+              <div class="usage-card__block">
+                <h4>Contraintes</h4>
+                <ul>
+                  <li>Pic d'utilisation intense sur une durée courte</li>
+                  <li>Autonomie totale : aucun raccordement réseau possible</li>
+                  <li>Facilité de montage, transport et démontage rapide</li>
+                </ul>
+              </div>
+              <div class="usage-card__reco">
+                <span class="reco-label">Recommandé</span>
+                <p>Toilettes sèches mobiles ou cabines autonomes &mdash; des prestataires proposent un service clés en main pour les festivals et mariages.</p>
+              </div>
+              <a href="#" class="btn btn--pill btn--outline-green">Voir les solutions événement &rarr;</a>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ═══════════════════════════════ FOOTER ═══════════════════════════════ -->
+  <footer class="footer">
+    <div class="footer__top container">
+      <div class="footer__brand">
+        <a href="#" class="logo" aria-label="ToilettEco — accueil">
+          <div class="logo__icon" aria-hidden="true">
+            <svg width="28" height="28" viewBox="0 0 34 34" fill="none">
+              <circle cx="17" cy="17" r="16" fill="#3A9A5C"/>
+              <path d="M17 7 C17 7 11 14.5 11 19.5 A6 6 0 0 0 23 19.5 C23 14.5 17 7 17 7Z" fill="white" opacity="0.9"/>
+            </svg>
+          </div>
+          <span class="logo__name">Toilett<strong>Eco</strong></span>
+        </a>
+        <p>Un guide citoyen, libre et pédagogique sur les toilettes écologiques.</p>
+      </div>
+      <nav aria-label="Liens du pied de page">
+        <div class="footer__nav-col">
+          <h3>Contenus</h3>
+          <ul><li><a href="#section-definition">C'est quoi ?</a></li><li><a href="#section-pourquoi">Pourquoi changer ?</a></li><li><a href="#section-usages">Usages</a></li><li><a href="#">WC à séparation</a></li><li><a href="#">Toilette sèche</a></li></ul>
+        </div>
+        <div class="footer__nav-col">
+          <h3>Outils</h3>
+          <ul><li><a href="#">Simulateur d'économies</a></li><li><a href="#">Guide de choix</a></li><li><a href="#">Réglementation</a></li><li><a href="#">Actualités</a></li></ul>
+        </div>
+        <div class="footer__nav-col">
+          <h3>À propos</h3>
+          <ul><li><a href="#">Qui sommes-nous ?</a></li><li><a href="#">Contribuer</a></li><li><a href="#">Contact</a></li><li><a href="#">Mentions légales</a></li></ul>
+        </div>
+      </nav>
+    </div>
+    <div class="footer__bottom">
+      <div class="container">
+        <p class="footer__eco">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M2 22c1.25-1.25 2.5-2.5 3.75-2.5 1.25 0 1.75.5 3 .5s1.75-.5 3-.5 1.75.5 3 .5 1.75-.5 3-.5"/><path d="M14 10c0 4.418-3.582 8-8 8"/><path d="M6 2c0 4.418 3.582 8 8 8"/></svg>
+          Site éco-conçu &middot; Accessible RGAA &middot; Zéro dépendance JS
+        </p>
+        <p>&copy; 2025 ToilettEco &mdash; Licence ouverte</p>
+      </div>
+    </div>
+  </footer>
+
+   <script>
 
 /* ===========================================================
    === CONTENU COMPLET DE app.js (FUSIONNÉ)
@@ -76,3 +1013,5 @@ document.readyState==='loading'
 
 </body>
 </html>
+
+</body>
