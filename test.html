@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>WC Sèches — Wireframe 1440</title>
+  <title>Comparer — Wireframe 1440</title>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -21,16 +21,7 @@
       padding: 0 60px;
     }
 
-    .box  { background: #D8D8D8; border-radius: 10px; }
-
-    .ln        { height: 13px; border-radius: 5px; background: #CECECE; margin-bottom: 10px; }
-    .ln-dark   { background: #BBBBBB; }
-    .ln-xs     { height: 10px; }
-    .ln-w100   { width: 100%; }
-    .ln-w85    { width: 85%; }
-    .ln-w70    { width: 70%; }
-    .ln-w55    { width: 55%; }
-    .ln-w40    { width: 40%; }
+    .box { background: #D8D8D8; border-radius: 10px; }
 
     .lbl {
       font-size: 11px; font-weight: 700;
@@ -67,18 +58,12 @@
     .section-gray  { background: #E4E4E4; }
     .section-dark  { background: #484848; }
     .section-white { background: #FFFFFF; }
-    .section-cream { background: #EBEBEB; }
 
-    .s-head { text-align: center; max-width: 580px; margin: 0 auto 60px; }
+    .s-head { text-align: center; max-width: 620px; margin: 0 auto 60px; }
 
     /* ══ HEADER ══ */
-    .header {
-      background: #FFF; border-bottom: 2px solid #DDDDDD;
-      position: sticky; top: 0; z-index: 50;
-    }
-    .header-inner {
-      display: flex; align-items: center; gap: 24px; height: 72px;
-    }
+    .header { background: #FFF; border-bottom: 2px solid #DDDDDD; position: sticky; top: 0; z-index: 50; }
+    .header-inner { display: flex; align-items: center; gap: 24px; height: 72px; }
     .logo { display: flex; align-items: center; gap: 12px; flex-shrink: 0; }
     .logo-icon { width: 38px; height: 38px; border-radius: 50%; background: #CCCCCC; }
     .logo-name { font-size: 20px; font-weight: 700; color: #252525; }
@@ -87,24 +72,13 @@
     .nav-item.active { background: #EEEEEE; color: #444; }
 
     /* Breadcrumb */
-    .breadcrumb {
-      display: flex; align-items: center; gap: 8px;
-      font-size: 12px; color: #BBBBBB;
-      padding: 14px 0; border-bottom: 1px solid #E4E4E4;
-    }
+    .breadcrumb { display: flex; align-items: center; gap: 8px; font-size: 12px; color: #BBBBBB; padding: 14px 0; border-bottom: 1px solid #E4E4E4; }
     .breadcrumb span { color: #888; }
     .breadcrumb-sep { color: #D0D0D0; }
 
     /* ══ HERO ══ */
-    .hero-inner {
-      display: grid; grid-template-columns: 1fr 480px;
-      gap: 80px; align-items: center;
-    }
-    .hero-tag {
-      display: flex; align-items: center; gap: 9px;
-      font-size: 12px; font-weight: 700; letter-spacing: .1em;
-      text-transform: uppercase; color: #AAAAAA; margin-bottom: 20px;
-    }
+    .hero-inner { display: grid; grid-template-columns: 1fr 480px; gap: 80px; align-items: center; }
+    .hero-tag { display: flex; align-items: center; gap: 9px; font-size: 12px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: #AAAAAA; margin-bottom: 20px; }
     .hero-dot { width: 9px; height: 9px; border-radius: 50%; background: #C8C8C8; }
     .hero-ctas { display: flex; gap: 12px; margin: 28px 0 44px; }
     .hero-stats { display: flex; align-items: center; gap: 32px; }
@@ -112,192 +86,278 @@
     .stat-lbl { font-size: 13px; color: #AAAAAA; line-height: 1.4; }
     .stat-sep { width: 1px; height: 44px; background: #D8D8D8; flex-shrink: 0; }
 
-    /* ══ FONCTIONNEMENT ══ */
-    .fonct-grid {
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: 80px; align-items: center;
+    /* ══ COMPARATIF INTRO — 2 colonnes produits ══ */
+    .vs-grid {
+      display: grid;
+      grid-template-columns: 1fr 64px 1fr;
+      gap: 0;
+      align-items: start;
+      margin-bottom: 60px;
     }
 
-    /* Steps inline */
-    .steps { display: flex; flex-direction: column; gap: 20px; }
-    .step {
-      display: flex; align-items: flex-start; gap: 18px;
-      background: #FFF; border: 2px solid #DDDDDD;
-      border-radius: 16px; padding: 22px;
-    }
-    .step-num {
-      width: 44px; height: 44px; border-radius: 50%;
-      background: #E2E2E2; border: 2px solid #CCCCCC;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 13px; font-weight: 700; color: #666; flex-shrink: 0;
-    }
-    .step-body { flex: 1; }
-
-    /* ══ AVANTAGES & LIMITES ══ */
-    .avlim-grid {
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: 24px;
-    }
-    .avlim-card {
-      border-radius: 18px; padding: 32px;
-    }
-    .avlim-card-avantages { background: #E2E2E2; }
-    .avlim-card-limites   { background: #D8D8D8; }
-
-    .avlim-header {
-      display: flex; align-items: center; gap: 14px; margin-bottom: 24px;
-    }
-    .avlim-icon {
-      width: 48px; height: 48px; border-radius: 12px;
-      background: #CCCCCC; flex-shrink: 0;
-    }
-    .avlim-title { font-size: 20px; font-weight: 700; color: #333; }
-
-    .avlim-list { list-style: none; display: flex; flex-direction: column; gap: 12px; }
-    .avlim-list li {
-      display: flex; align-items: flex-start; gap: 12px;
-      font-size: 14px; color: #666; line-height: 1.55;
-    }
-    .avlim-bullet {
-      width: 22px; height: 22px; border-radius: 50%;
-      background: #C0C0C0; flex-shrink: 0; margin-top: 1px;
+    .vs-col {
+      background: #FFF;
+      border: 2px solid #DDDDDD;
+      border-radius: 20px;
+      overflow: hidden;
     }
 
-    /* ══ USAGES ══ */
-    .usage-tabs {
-      display: flex; gap: 10px; justify-content: center; margin-bottom: 40px;
-    }
-    .usage-tab {
-      padding: 10px 24px; border-radius: 999px; font-size: 14px;
-      font-weight: 600; border: 2px solid #D0D0D0;
-      color: #AAAAAA; background: white; cursor: pointer;
-    }
-    .usage-tab.active { background: #5A5A5A; color: white; border-color: #5A5A5A; }
-
-    .usage-cards {
-      display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px;
-    }
-    .usage-card {
-      background: #FFF; border: 2px solid #DDDDDD;
-      border-radius: 18px; overflow: hidden;
-    }
-    .usage-illo {
-      height: 160px; background: #D8D8D8;
-      display: flex; align-items: center; justify-content: center;
-    }
-    .usage-body { padding: 26px; }
-    .usage-header {
-      display: flex; align-items: center;
-      justify-content: space-between; margin-bottom: 18px;
-    }
-    .blk-lbl {
-      font-size: 11px; font-weight: 700; letter-spacing: .09em;
-      text-transform: uppercase; color: #AAAAAA; margin-bottom: 10px;
-    }
-    .blk-list { list-style: none; display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px; }
-    .blk-list li {
-      font-size: 13px; color: #AAAAAA;
-      padding-left: 14px; position: relative;
-    }
-    .blk-list li::before {
-      content: '·'; position: absolute; left: 4px; top: -2px;
-      font-size: 1.4em; color: #C8C8C8;
-    }
-    .reco {
-      background: #EEEEEE; border: 1px solid #D4D4D4;
-      border-radius: 10px; padding: 14px 16px; margin-bottom: 18px;
+    .vs-col-header {
+      padding: 28px 28px 22px;
+      border-bottom: 1px solid #EEEEEE;
     }
 
-    /* ══ INSTALLER ══ */
-    .install-grid {
-      display: grid; grid-template-columns: 1fr 1.1fr;
-      gap: 80px; align-items: start;
+    .vs-col-badge {
+      display: inline-block;
+      border-radius: 999px;
+      padding: 5px 14px;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: .09em;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+    .badge-green { background: #E4E4E4; color: #666; border: 1px solid #CCCCCC; }
+    .badge-blue  { background: #E0E8F0; color: #6080A0; border: 1px solid #C0D0E0; }
+
+    .vs-col-illo {
+      height: 200px;
+      background: #E8E8E8;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
-    .install-steps { display: flex; flex-direction: column; gap: 0; }
+    .vs-col-body { padding: 24px 28px; }
 
-    .install-step {
-      display: grid; grid-template-columns: 60px 1fr;
-      gap: 20px; position: relative;
-    }
-
-    .install-spine { display: flex; flex-direction: column; align-items: center; }
-
-    .install-num {
-      width: 50px; height: 50px; border-radius: 50%;
-      background: #FFF; border: 2px solid #CCCCCC;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 13px; font-weight: 700; color: #666; flex-shrink: 0;
-      z-index: 1;
-    }
-    .install-line {
-      flex: 1; width: 2px; background: #CCCCCC;
-      margin-top: 8px; min-height: 36px;
-    }
-    .install-body { padding-bottom: 28px; }
-
-    .install-aside {
-      position: sticky; top: 100px;
+    .vs-col-stat {
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+      padding: 14px 16px;
+      background: #F4F4F4;
+      border-radius: 10px;
+      border: 1px solid #E0E0E0;
+      margin-bottom: 16px;
     }
 
-    .callout {
-      display: flex; gap: 14px;
-      background: #EEEEEE; border-left: 4px solid #C0C0C0;
-      border-radius: 12px; padding: 20px 22px; margin-top: 24px;
+    .vs-big-num { font-size: 26px; font-weight: 700; color: #555; }
+    .vs-big-lbl { font-size: 11px; color: #AAAAAA; line-height: 1.4; }
+
+    .vs-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+    .vs-list li {
+      font-size: 13px; color: #777;
+      padding-left: 16px; position: relative; line-height: 1.55;
     }
-    .callout-dot {
-      width: 22px; height: 22px; border-radius: 50%;
-      background: #C8C8C8; flex-shrink: 0; margin-top: 2px;
+    .vs-list li::before { content: '·'; position: absolute; left: 4px; top: -2px; font-size: 1.5em; color: #CCCCCC; }
+
+    .vs-sep {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding-top: 60px;
     }
 
-    /* ══ ENTRETIEN ══ */
-    .entretien-grid {
-      display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px;
+    .vs-vs {
+      width: 48px; height: 48px;
+      border-radius: 50%;
+      background: #5A5A5A;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-weight: 700;
     }
-    .entretien-card {
-      background: #FFF; border: 2px solid #DDDDDD;
-      border-radius: 18px; padding: 30px;
+
+    /* ══ TABLEAU COMPARATIF DÉTAILLÉ ══ */
+    .big-table {
+      border: 2px solid #DDDDDD;
+      border-radius: 18px;
+      overflow: hidden;
+      background: #FFF;
     }
-    .entretien-icon {
-      width: 56px; height: 56px; border-radius: 14px;
-      background: #E2E2E2; margin-bottom: 18px;
+
+    .big-table-head {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr 1fr;
+      background: #EBEBEB;
+      border-bottom: 2px solid #DDDDDD;
     }
-    .entretien-freq {
-      display: inline-block; border: 2px solid #CCCCCC;
-      border-radius: 999px; padding: 4px 14px;
-      font-size: 11px; font-weight: 700;
-      letter-spacing: .08em; text-transform: uppercase;
-      color: #AAAAAA; margin-bottom: 14px;
+
+    .big-table-head > div {
+      padding: 16px 20px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: .07em;
+      text-transform: uppercase;
+      color: #AAAAAA;
+    }
+
+    .th-seche  { background: #E4E4E4; color: #666 !important; }
+    .th-sep    { background: #DCE8F0; color: #6080A0 !important; }
+
+    .big-table-group-label {
+      padding: 10px 20px;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: #BBBBBB;
+      background: #F6F6F6;
+      border-bottom: 1px solid #EEEEEE;
+    }
+
+    .big-row {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr 1fr;
+      border-bottom: 1px solid #EEEEEE;
+    }
+
+    .big-row:last-child { border-bottom: none; }
+
+    .big-row > div {
+      padding: 12px 20px;
+      font-size: 13px;
+      color: #777;
+      display: flex;
+      align-items: center;
+    }
+
+    .big-row .criterion { font-weight: 600; color: #555; }
+    .big-row .good  { color: #555; font-weight: 600; background: #F0F0F0; }
+    .big-row .best  { color: #444; font-weight: 700; background: #E8EEF4; }
+    .big-row .bad   { color: #AAAAAA; }
+
+    /* ══ GUIDE DE CHOIX ══ */
+    .guide-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 22px;
+    }
+
+    .guide-card {
+      background: #FFF;
+      border: 2px solid #DDDDDD;
+      border-radius: 18px;
+      padding: 30px;
+    }
+
+    .guide-card-top {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 20px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid #EEEEEE;
+    }
+
+    .guide-icon {
+      width: 52px; height: 52px;
+      border-radius: 14px;
+      background: #E4E4E4;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .guide-card-q {
+      font-size: 14px;
+      font-weight: 600;
+      color: #444;
+      line-height: 1.4;
+    }
+
+    .guide-answer {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .guide-option {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 12px;
+      border-radius: 10px;
+      border: 1px solid #E4E4E4;
+      background: #F8F8F8;
+    }
+
+    .guide-opt-dot {
+      width: 26px; height: 26px;
+      border-radius: 50%;
+      background: #DDDDDD;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      font-weight: 700;
+      color: #888;
+    }
+
+    .guide-opt-label { font-size: 12px; font-weight: 700; color: #555; margin-bottom: 3px; }
+    .guide-opt-sub   { font-size: 11px; color: #AAAAAA; line-height: 1.4; }
+
+    /* ══ ERREURS FRÉQUENTES ══ */
+    .erreurs-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 22px;
+    }
+
+    .erreur-card {
+      background: #FFF;
+      border: 2px solid #DDDDDD;
+      border-radius: 18px;
+      padding: 28px;
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+    }
+
+    .erreur-num {
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      background: #E4E4E4;
+      border: 2px solid #CCCCCC;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      font-weight: 700;
+      color: #888;
+      flex-shrink: 0;
+    }
+
+    .erreur-tag {
+      display: inline-block;
+      background: #EBEBEB;
+      border-radius: 999px;
+      padding: 3px 10px;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: .07em;
+      text-transform: uppercase;
+      color: #AAAAAA;
+      margin-bottom: 8px;
     }
 
     /* ══ CTA FINAL ══ */
-    .cta-band {
-      background: #383838; padding: 72px 0; text-align: center;
-    }
+    .cta-band { background: #383838; padding: 72px 0; text-align: center; }
     .cta-band h2 { font-size: 36px; font-weight: 700; color: #EEE; margin-bottom: 14px; }
-    .cta-band-sub { margin: 0 auto 36px; max-width: 460px; }
-    .cta-btns { display: flex; gap: 14px; justify-content: center; }
+    .cta-btns { display: flex; gap: 14px; justify-content: center; margin-top: 32px; }
 
     /* ══ FOOTER ══ */
     .footer { background: #363636; }
-    .footer-top {
-      display: grid; grid-template-columns: 240px 1fr;
-      gap: 80px; padding: 72px 0; align-items: start;
-    }
-    .footer-brand-name {
-      display: flex; align-items: center; gap: 10px;
-      font-size: 18px; font-weight: 700; color: #EEE; margin-bottom: 12px;
-    }
-    .footer-brand-icon {
-      width: 30px; height: 30px; border-radius: 50%;
-      background: #555; display: inline-block; flex-shrink: 0;
-    }
+    .footer-top { display: grid; grid-template-columns: 240px 1fr; gap: 80px; padding: 72px 0; align-items: start; }
+    .footer-brand-name { display: flex; align-items: center; gap: 10px; font-size: 18px; font-weight: 700; color: #EEE; margin-bottom: 12px; }
+    .footer-brand-icon { width: 30px; height: 30px; border-radius: 50%; background: #555; display: inline-block; flex-shrink: 0; }
     .footer-brand p { font-size: 13px; color: rgba(255,255,255,.28); line-height: 1.7; }
     .footer-nav { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
-    .footer-col h3 {
-      font-size: 11px; font-weight: 700; letter-spacing: .1em;
-      text-transform: uppercase; color: rgba(255,255,255,.28); margin-bottom: 16px;
-    }
+    .footer-col h3 { font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: rgba(255,255,255,.28); margin-bottom: 16px; }
     .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 11px; }
     .footer-col ul li { height: 11px; border-radius: 4px; background: rgba(255,255,255,.13); }
     .footer-col ul li:nth-child(odd)  { width: 74%; }
@@ -332,11 +392,10 @@
     <!-- ══ HERO ══ -->
     <section class="section-white" style="padding: 24px 0 0;">
       <div class="wrap">
-        <!-- Breadcrumb -->
         <div class="breadcrumb">
           Accueil <span class="breadcrumb-sep">›</span>
           Guides <span class="breadcrumb-sep">›</span>
-          <span>WC Sèches</span>
+          <span>Comparer</span>
         </div>
       </div>
       <div class="wrap" style="padding-top: 72px; padding-bottom: 88px;">
@@ -344,28 +403,28 @@
           <div>
             <div class="hero-tag">
               <span class="hero-dot"></span>
-              Guide complet · WC Sèches
+              Guide comparatif · Toilettes écologiques
             </div>
-            <h1 class="t-hero">Installer un<br/>WC Sèches.</h1>
-            <p style="font-size:17px; color:#777; line-height:1.7; max-width:480px; margin-bottom:0;">Une solution sanitaire autonome qui élimine toute consommation d'eau potable et transforme les matières en compost valorisable.</p>
+            <h1 class="t-hero">Comparer les<br/>toilettes écologiques.</h1>
+            <p style="font-size:17px; color:#777; line-height:1.7; max-width:500px; margin-bottom:0;">WC sèches ou WC à séparation ? Deux technologies proches mais aux usages très différents. Ce guide vous aide à choisir en toute objectivité.</p>
             <div class="hero-ctas">
-              <button class="btn">Voir le fonctionnement</button>
-              <button class="btn btn-outline">Choisir mon modèle</button>
+              <button class="btn">Voir le comparatif</button>
+              <button class="btn btn-outline">Outil de choix guidé</button>
             </div>
             <div class="hero-stats">
               <div>
-                <span class="stat-num">0 L</span>
-                <span class="stat-lbl">d'eau<br/>consommée</span>
+                <span class="stat-num">2 types</span>
+                <span class="stat-lbl">de technologies<br/>comparées</span>
               </div>
               <div class="stat-sep"></div>
               <div>
-                <span class="stat-num">3 types</span>
-                <span class="stat-lbl">de solutions<br/>disponibles</span>
+                <span class="stat-num">12 critères</span>
+                <span class="stat-lbl">analysés<br/>en détail</span>
               </div>
               <div class="stat-sep"></div>
               <div>
-                <span class="stat-num">−90%</span>
-                <span class="stat-lbl">d'empreinte<br/>carbone</span>
+                <span class="stat-num">3 profils</span>
+                <span class="stat-lbl">d'usage<br/>couverts</span>
               </div>
             </div>
           </div>
@@ -381,256 +440,69 @@
       </div>
     </section>
 
-    <!-- ══ FONCTIONNEMENT ══ -->
-    <section class="section section-gray" id="fonctionnement">
+    <!-- ══ WC SÈCHES OU WC À SÉPARATION : COMPARATIF INTRO ══ -->
+    <section class="section section-gray" id="comparatif-intro">
       <div class="wrap">
         <div class="s-head">
-          <span class="chip">Fonctionnement</span>
-          <h2 class="t-section">Comment ça marche ?</h2>
-          <p style="font-size:15px; color:#888; line-height:1.7;">Le WC sec repose sur un principe simple : remplacer l'eau par un matériau carboné absorbant qui enclenche la décomposition naturelle sans odeur.</p>
+          <span class="chip">Comparatif</span>
+          <h2 class="t-section">WC sèches ou WC à séparation ?</h2>
+          <p style="font-size:15px; color:#888; line-height:1.7;">Ces deux systèmes n'utilisent pas d'eau, mais leur approche technique, leur coût et leur entretien sont très différents. Voici l'essentiel en un coup d'œil.</p>
         </div>
 
-        <div class="fonct-grid">
-          <!-- Illustration schéma -->
-          <div class="box" style="height: 480px; display:flex; align-items:center; justify-content:center;">
-            <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#AAA" stroke-width="1.2">
-              <rect x="3" y="3" width="18" height="18" rx="3"/>
-              <circle cx="8.5" cy="8.5" r="1.5"/>
-              <polyline points="21 15 16 10 5 21"/>
-            </svg>
-          </div>
+        <div class="vs-grid">
 
-          <!-- Steps -->
-          <div class="steps">
-              <div class="step">
-              <div class="step-num">01</div>
-              <div class="step-body">
-                <div class="t-sm">Dépôt & séparation</div>
-                <p style="font-size:13px; color:#888; line-height:1.6;">Les matières solides et liquides sont séparées dès le dépôt, ce qui réduit les odeurs et facilite la gestion ultérieure du compost.</p>
+          <!-- WC Sèche -->
+          <div class="vs-col">
+            <div class="vs-col-header">
+              <span class="vs-col-badge badge-green">WC Sèche</span>
+              <div class="t-card" style="margin-bottom:6px;">Toilette sèche à litière</div>
+              <p style="font-size:13px; color:#888; line-height:1.6; margin:0;">Système à bac collecteur unique : les matières solides et liquides sont mélangées avec de la litière carbonée, puis compostées ensemble.</p>
+            </div>
+            <div class="vs-col-illo">
+              <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#AAA" stroke-width="1.2"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+            </div>
+            <div class="vs-col-body">
+              <div class="vs-col-stat">
+                <span class="vs-big-num">0 L</span>
+                <span class="vs-big-lbl">eau consommée<br/>par usage</span>
               </div>
-            </div>
-            <div class="step">
-              <div class="step-num">02</div>
-              <div class="step-body">
-                <div class="t-sm">Ajout de litière carbonée</div>
-                <p style="font-size:13px; color:#888; line-height:1.6;">Après chaque usage, on ajoute une poignée de copeaux de bois, sciure ou paille pour absorber l'humidité et équilibrer le ratio carbone/azote.</p>
-              </div>
-            </div>
-            <div class="step">
-              <div class="step-num">03</div>
-              <div class="step-body">
-                <div class="t-sm">Déshydratation naturelle</div>
-                <p style="font-size:13px; color:#888; line-height:1.6;">Une ventilation passive ou active évacue l'humidité résiduelle, accélérant le séchage et supprimant toute nuisance olfactive à l'intérieur.</p>
-              </div>
-            </div>
-            <div class="step">
-              <div class="step-num">04</div>
-              <div class="step-body">
-                <div class="t-sm">Compostage & valorisation</div>
-                <p style="font-size:13px; color:#888; line-height:1.6;">Le bac se vide dans un composteur extérieur après plusieurs semaines. En 6 à 12 mois, les matières deviennent un amendement riche utilisable au jardin.</p>
-              </div>
-            </div>
-
-            <!-- Callout -->
-            <div class="callout" style="margin-top: 8px;">
-              <div class="callout-dot"></div>
-              <div style="flex:1;">
-                <span class="lbl" style="margin-bottom:6px;">Bon à savoir</span>
-                <p style="font-size:13px; color:#777; line-height:1.6; margin:0;">Un WC sec bien entretenu ne dégage aucune odeur désagréable — contrairement aux idées reçues. La litière carbonée est la clé.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ══ AVANTAGES & LIMITES ══ -->
-    <section class="section section-white" id="avantages">
-      <div class="wrap">
-        <div class="s-head">
-          <span class="chip">Analyse</span>
-          <h2 class="t-section">Avantages &amp; limites des WC sèches</h2>
-          <p style="font-size:15px; color:#888; line-height:1.7;">Une technologie mature, mais qui demande une adaptation des habitudes. Voici un état des lieux objectif avant de franchir le pas.</p>
-        </div>
-
-        <div class="avlim-grid">
-          <!-- Avantages -->
-          <div class="avlim-card avlim-card-avantages">
-            <div class="avlim-header">
-              <div class="avlim-icon"></div>
-              <div class="avlim-title">Avantages</div>
-            </div>
-            <ul class="avlim-list">
-              <li>
-                <div class="avlim-bullet"></div>
-                <div>
-                  <div class="t-sm" style="margin-bottom:4px;">Zéro consommation d'eau</div>
-                  <p style="font-size:13px; color:#777; line-height:1.6; margin:0;">Aucun raccordement au réseau d'eau potable requis — idéal pour les zones isolées ou en situation de sécheresse.</p>
-                </div>
-              </li>
-              <li>
-                <div class="avlim-bullet"></div>
-                <div>
-                  <div class="t-sm" style="margin-bottom:4px;">Production de compost</div>
-                  <p style="font-size:13px; color:#777; line-height:1.6; margin:0;">Les matières organiques sont valorisées en amendement naturel pour le jardin, bouclant ainsi le cycle des nutriments.</p>
-                </div>
-              </li>
-              <li>
-                <div class="avlim-bullet"></div>
-                <div>
-                  <div class="t-sm" style="margin-bottom:4px;">Autonomie totale</div>
-                  <p style="font-size:13px; color:#777; line-height:1.6; margin:0;">Fonctionne sans réseau d'assainissement ni fosse septique — une liberté totale pour les tiny houses, cabanes et habitats alternatifs.</p>
-                </div>
-              </li>
-              <li>
-                <div class="avlim-bullet"></div>
-                <div>
-                  <div class="t-sm" style="margin-bottom:4px;">Économies sur la facture</div>
-                  <p style="font-size:13px; color:#777; line-height:1.6; margin:0;">Jusqu'à 30 % de la consommation d'eau domestique supprimée, soit 150 à 300 € d'économies annuelles selon le foyer.</p>
-                </div>
-              </li>
-            </ul>
-          </div>
-
-          <!-- Limites -->
-          <div class="avlim-card avlim-card-limites">
-            <div class="avlim-header">
-              <div class="avlim-icon"></div>
-              <div class="avlim-title">Limites</div>
-            </div>
-            <ul class="avlim-list">
-              <li>
-                <div class="avlim-bullet"></div>
-                <div>
-                  <div class="t-sm" style="margin-bottom:4px;">Entretien régulier requis</div>
-                  <p style="font-size:13px; color:#777; line-height:1.6; margin:0;">Le bac de collecte doit être vidé toutes les 2 à 4 semaines selon l'usage. Une contrainte à anticiper dès l'installation.</p>
-                </div>
-              </li>
-              <li>
-                <div class="avlim-bullet"></div>
-                <div>
-                  <div class="t-sm" style="margin-bottom:4px;">Espace extérieur nécessaire</div>
-                  <p style="font-size:13px; color:#777; line-height:1.6; margin:0;">Le composteur doit être placé à l'extérieur, à distance raisonnable de l'habitation — un frein en milieu urbain dense.</p>
-                </div>
-              </li>
-              <li>
-                <div class="avlim-bullet"></div>
-                <div>
-                  <div class="t-sm" style="margin-bottom:4px;">Réglementation à vérifier</div>
-                  <p style="font-size:13px; color:#777; line-height:1.6; margin:0;">Dans certaines communes, les WC sèches ne peuvent pas remplacer seuls l'installation sanitaire obligatoire. Renseignez-vous en mairie.</p>
-                </div>
-              </li>
-              <li>
-                <div class="avlim-bullet"></div>
-                <div>
-                  <div class="t-sm" style="margin-bottom:4px;">Acceptation des utilisateurs</div>
-                  <p style="font-size:13px; color:#777; line-height:1.6; margin:0;">Le changement d'habitude peut susciter des réticences, notamment pour les invités ou dans un contexte professionnel.</p>
-                </div>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ══ POUR QUELS USAGES ══ -->
-    <section class="section section-gray" id="usages">
-      <div class="wrap">
-        <div class="s-head">
-          <span class="chip">Usages</span>
-          <h2 class="t-section">WC sèches : pour quels usages ?</h2>
-          <p style="font-size:15px; color:#888; line-height:1.7; margin-bottom:24px;">Maison individuelle, bureau ou équipement collectif — chaque contexte a ses exigences et ses modèles adaptés.</p>
-          <!-- Tabs -->
-          <div class="usage-tabs">
-            <div class="usage-tab active">Maison</div>
-            <div class="usage-tab">Petite / Grande entreprise</div>
-            <div class="usage-tab">Collectivité</div>
-          </div>
-        </div>
-
-        <div class="usage-cards">
-
-          <!-- Maison -->
-          <div class="usage-card">
-            <div class="usage-illo">
-              <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="#AAA" stroke-width="1.3">
-                <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/>
-                <polyline points="9 22 9 12 15 12 15 22"/>
-              </svg>
-            </div>
-            <div class="usage-body">
-              <div class="usage-header">
-                <div class="t-sm" style="margin:0;">Maison individuelle</div>
-                <span class="chip" style="font-size:10px; padding:4px 11px; margin:0;">Résidentiel</span>
-              </div>
-              <div class="blk-lbl">Contraintes spécifiques</div>
-              <ul class="blk-list">
-                <li>Surface disponible pour le composteur (jardin)</li>
-                <li>Accord de tous les occupants du foyer</li>
-                <li>Réglementation locale à vérifier en mairie</li>
+              <ul class="vs-list">
+                <li>Aucun raccordement réseau requis</li>
+                <li>Installation simple, sans plombier</li>
+                <li>Compost valorisable au jardin</li>
+                <li>Entretien : vidange toutes les 2–4 semaines</li>
+                <li>Prix d'entrée : à partir de 300 €</li>
               </ul>
-              <div class="reco">
-                <div class="blk-lbl" style="margin-bottom:8px;">Modèle recommandé</div>
-                <p style="font-size:12px; color:#888; line-height:1.6; margin:0;">Toilette sèche à compostage intégré ou à séparation — idéale avec un espace extérieur pour valoriser le compost au jardin.</p>
-              </div>
-              <button class="btn btn-outline btn-sm">Voir les modèles →</button>
             </div>
           </div>
 
-          <!-- Entreprise -->
-          <div class="usage-card">
-            <div class="usage-illo">
-              <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="#AAA" stroke-width="1.3">
-                <rect x="2" y="3" width="20" height="14" rx="2"/>
-                <line x1="8" y1="21" x2="16" y2="21"/>
-                <line x1="12" y1="17" x2="12" y2="21"/>
-              </svg>
-            </div>
-            <div class="usage-body">
-              <div class="usage-header">
-                <div class="t-sm" style="margin:0;">Petite / Grande entreprise</div>
-                <span class="chip" style="font-size:10px; padding:4px 11px; margin:0;">Pro</span>
-              </div>
-              <div class="blk-lbl">Contraintes spécifiques</div>
-              <ul class="blk-list">
-                <li>Volume de passage élevé et usage intensif</li>
-                <li>Conformité aux normes ERP et code du travail</li>
-                <li>Contrat de maintenance avec un prestataire</li>
-              </ul>
-              <div class="reco">
-                <div class="blk-lbl" style="margin-bottom:8px;">Modèle recommandé</div>
-                <p style="font-size:12px; color:#888; line-height:1.6; margin:0;">Urinoirs secs et WC sèches semi-professionnels avec bac de grande capacité — plusieurs fabricants proposent des solutions certifiées.</p>
-              </div>
-              <button class="btn btn-outline btn-sm">Voir les modèles →</button>
-            </div>
+          <!-- Séparateur VS -->
+          <div class="vs-sep">
+            <div class="vs-vs">VS</div>
           </div>
 
-          <!-- Collectivité -->
-          <div class="usage-card">
-            <div class="usage-illo">
-              <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="#AAA" stroke-width="1.3">
-                <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/>
-                <circle cx="9" cy="7" r="4"/>
-                <path d="M23 21v-2a4 4 0 00-3-3.87"/>
-                <path d="M16 3.13a4 4 0 010 7.75"/>
-              </svg>
+          <!-- WC à séparation -->
+          <div class="vs-col">
+            <div class="vs-col-header">
+              <span class="vs-col-badge badge-blue">WC à Séparation</span>
+              <div class="t-card" style="margin-bottom:6px;">Toilette à séparation urine/fèces</div>
+              <p style="font-size:13px; color:#888; line-height:1.6; margin:0;">Système à deux flux distincts : les urines sont collectées séparément (stockage ou épandage), les fèces déshydratées dans un bac ventilé.</p>
             </div>
-            <div class="usage-body">
-              <div class="usage-header">
-                <div class="t-sm" style="margin:0;">Collectivité</div>
-                <span class="chip" style="font-size:10px; padding:4px 11px; margin:0;">Public</span>
+            <div class="vs-col-illo">
+              <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#AAA" stroke-width="1.2"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+            </div>
+            <div class="vs-col-body">
+              <div class="vs-col-stat">
+                <span class="vs-big-num">0 L</span>
+                <span class="vs-big-lbl">eau consommée<br/>par usage</span>
               </div>
-              <div class="blk-lbl">Contraintes spécifiques</div>
-              <ul class="blk-list">
-                <li>Accessibilité PMR obligatoire</li>
-                <li>Appels d'offres et marchés publics à respecter</li>
-                <li>Formation du personnel d'entretien requise</li>
+              <ul class="vs-list">
+                <li>Séparation des flux = moins d'odeurs</li>
+                <li>Urines valorisables comme fertilisant</li>
+                <li>Installation plus technique (2 sorties)</li>
+                <li>Entretien : bac à vider tous les 1–3 mois</li>
+                <li>Prix d'entrée : à partir de 800 €</li>
               </ul>
-              <div class="reco">
-                <div class="blk-lbl" style="margin-bottom:8px;">Modèle recommandé</div>
-                <p style="font-size:12px; color:#888; line-height:1.6; margin:0;">Cabines autonomes modulaires adaptées aux parcs, écoles et équipements sportifs — solutions clés en main avec service inclus.</p>
-              </div>
-              <button class="btn btn-outline btn-sm">Voir les modèles →</button>
             </div>
           </div>
 
@@ -638,143 +510,188 @@
       </div>
     </section>
 
-    <!-- ══ INSTALLER ══ -->
-    <section class="section section-white" id="installer">
-      <div class="wrap">
-        <div class="install-grid">
-
-          <!-- Steps installation -->
-          <div>
-            <span class="chip">Installation</span>
-            <h2 class="t-left">Installer des WC sèches</h2>
-            <p style="font-size:15px; color:#777; line-height:1.7; margin-bottom: 36px;">Une installation simple que vous pouvez réaliser vous-même en une demi-journée, sans plombier ni raccordement au réseau.</p>
-
-            <div class="install-steps">
-
-              <div class="install-step">
-                <div class="install-spine">
-                  <div class="install-num">01</div>
-                  <div class="install-line"></div>
-                </div>
-                <div class="install-body">
-                  <div class="t-card">Choisir l'emplacement</div>
-                  <p style="font-size:13px; color:#888; line-height:1.6; margin:0;">Privilégiez une pièce ventilée proche d'un mur extérieur pour faciliter l'évacuation de l'air. Prévoyez un accès facile au bac de collecte.</p>
-                </div>
-              </div>
-
-              <div class="install-step">
-                <div class="install-spine">
-                  <div class="install-num">02</div>
-                  <div class="install-line"></div>
-                </div>
-                <div class="install-body">
-                  <div class="t-card">Préparer le sol & les fixations</div>
-                  <p style="font-size:13px; color:#888; line-height:1.6; margin:0;">Vérifiez la planéité du sol et fixez le socle selon les instructions du fabricant. Aucune évacuation d'eau n'est nécessaire.</p>
-                </div>
-              </div>
-
-              <div class="install-step">
-                <div class="install-spine">
-                  <div class="install-num">03</div>
-                  <div class="install-line"></div>
-                </div>
-                <div class="install-body">
-                  <div class="t-card">Installer le système de ventilation</div>
-                  <p style="font-size:13px; color:#888; line-height:1.6; margin:0;">Percez un trou de 100 mm dans le mur ou le plafond pour raccorder le tuyau de ventilation. Un petit ventilateur 12V suffit à éliminer toute odeur.</p>
-                </div>
-              </div>
-
-              <div class="install-step">
-                <div class="install-spine">
-                  <div class="install-num">04</div>
-                  <div class="install-line"></div>
-                </div>
-                <div class="install-body">
-                  <div class="t-card">Raccorder le composteur</div>
-                  <p style="font-size:13px; color:#888; line-height:1.6; margin:0;">Positionnez le composteur extérieur à moins de 10 mètres. Si le modèle est à chute directe, vérifiez la pente du conduit (minimum 45°).</p>
-                </div>
-              </div>
-
-              <div class="install-step">
-                <div class="install-spine">
-                  <div class="install-num" style="background:#5A5A5A; color:white; border-color:#5A5A5A;">05</div>
-                </div>
-                <div class="install-body">
-                  <div class="t-card">Mise en service & premiers tests</div>
-                  <p style="font-size:13px; color:#888; line-height:1.6; margin:0;">Ajoutez une première couche de litière carbonée, testez la ventilation et effectuez un premier usage pour vérifier l'absence d'odeur et la bonne évacuation.</p>
-                </div>
-              </div>
-
-            </div>
-          </div>
-
-          <!-- Aside illustration + callout -->
-          <div class="install-aside">
-            <div class="box" style="height: 360px; display:flex; align-items:center; justify-content:center; margin-bottom: 24px;">
-              <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#AAA" stroke-width="1.2">
-                <rect x="3" y="3" width="18" height="18" rx="3"/>
-                <circle cx="8.5" cy="8.5" r="1.5"/>
-                <polyline points="21 15 16 10 5 21"/>
-              </svg>
-            </div>
-            <div class="callout">
-              <div class="callout-dot"></div>
-              <div style="flex:1;">
-                <span class="lbl" style="margin-bottom:6px;">Réglementation</span>
-                <p style="font-size:13px; color:#777; line-height:1.6; margin:0;">En France, les WC sèches sont autorisées mais ne peuvent pas toujours remplacer seuls un dispositif d'assainissement homologué. Consultez votre mairie ou le SPANC avant travaux.</p>
-              </div>
-            </div>
-          </div>
-
-        </div>
-      </div>
-    </section>
-
-    <!-- ══ UTILISER & ENTRETENIR ══ -->
-    <section class="section section-gray" id="entretien">
+    <!-- ══ TABLEAU COMPARATIF DÉTAILLÉ ══ -->
+    <section class="section section-white" id="tableau-comparatif">
       <div class="wrap">
         <div class="s-head">
-          <span class="chip">Entretien</span>
-          <h2 class="t-section">Utiliser &amp; entretenir</h2>
-          <p style="font-size:15px; color:#888; line-height:1.7;">Un rythme simple à adopter pour que votre WC sec fonctionne sans accroc, sans odeur, et sans contrainte au quotidien.</p>
+          <span class="chip">Tableau détaillé</span>
+          <h2 class="t-section">Tableau comparatif détaillé</h2>
+          <p style="font-size:15px; color:#888; line-height:1.7;">12 critères passés au crible pour vous aider à choisir sans vous tromper.</p>
         </div>
 
-        <div class="entretien-grid">
-
-          <div class="entretien-card">
-            <div class="entretien-icon"></div>
-            <span class="entretien-freq">Quotidien</span>
-            <div class="t-card">Usage au quotidien</div>
-            <p style="font-size:13px; color:#888; line-height:1.6; margin-bottom:18px;">Après chaque usage, ajoutez une poignée de litière carbonée. Le geste prend 5 secondes et prévient toute odeur.</p>
-            <ul class="blk-list">
-              <li>Ajouter de la sciure ou copeaux après usage</li>
-              <li>Vérifier que le couvercle est bien fermé</li>
-              <li>Ne pas utiliser de produits chimiques</li>
-            </ul>
+        <div class="big-table">
+          <!-- En-tête -->
+          <div class="big-table-head">
+            <div>Critère</div>
+            <div class="th-seche">WC Sèche</div>
+            <div class="th-sep">WC à Séparation</div>
           </div>
 
-          <div class="entretien-card">
-            <div class="entretien-icon"></div>
-            <span class="entretien-freq">Hebdomadaire</span>
-            <div class="t-card">Nettoyage & vérification</div>
-            <p style="font-size:13px; color:#888; line-height:1.6; margin-bottom:18px;">Un nettoyage rapide de la cuvette à l'eau savonneuse et une vérification visuelle du niveau du bac suffisent.</p>
-            <ul class="blk-list">
-              <li>Nettoyer la cuvette à l'eau + savon noir</li>
-              <li>Contrôler le niveau de remplissage du bac</li>
-              <li>Vérifier la ventilation (absence d'obstruction)</li>
-            </ul>
+          <!-- Groupe Installation -->
+          <div class="big-table-group-label">Installation & coût</div>
+          <div class="big-row"><div class="criterion">Prix d'achat</div><div class="good">300 – 700 €</div><div>800 – 2 500 €</div></div>
+          <div class="big-row"><div class="criterion">Installation</div><div class="good">Sans plombier</div><div>Plombier recommandé</div></div>
+          <div class="big-row"><div class="criterion">Raccordement eau</div><div class="good">Aucun</div><div class="good">Aucun</div></div>
+
+          <!-- Groupe Usage -->
+          <div class="big-table-group-label">Usage au quotidien</div>
+          <div class="big-row"><div class="criterion">Odeurs</div><div>Gérées par la litière</div><div class="best">Minimes (séparation)</div></div>
+          <div class="big-row"><div class="criterion">Litière requise</div><div>Oui, après chaque usage</div><div class="good">Non</div></div>
+          <div class="big-row"><div class="criterion">Confort d'usage</div><div>Standard</div><div class="best">Proche WC classique</div></div>
+
+          <!-- Groupe Entretien -->
+          <div class="big-table-group-label">Entretien & valorisation</div>
+          <div class="big-row"><div class="criterion">Fréquence de vidange</div><div>Toutes les 2–4 semaines</div><div class="best">Tous les 1–3 mois</div></div>
+          <div class="big-row"><div class="criterion">Valorisation des urines</div><div class="bad">Non (mélangées)</div><div class="best">Oui (fertilisant)</div></div>
+          <div class="big-row"><div class="criterion">Compost des fèces</div><div class="good">Oui (6–12 mois)</div><div class="good">Oui (déshydratation)</div></div>
+
+          <!-- Groupe Contexte -->
+          <div class="big-table-group-label">Contexte d'usage</div>
+          <div class="big-row"><div class="criterion">Espace extérieur requis</div><div>Oui (composteur)</div><div>Optionnel</div></div>
+          <div class="big-row"><div class="criterion">Usage nomade / festival</div><div class="best">Idéal</div><div>Peu adapté</div></div>
+          <div class="big-row"><div class="criterion">Usage résidentiel permanent</div><div class="good">Adapté</div><div class="best">Très adapté</div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ QUELLE TOILETTE SELON MON USAGE ══ -->
+    <section class="section section-gray" id="guide-choix">
+      <div class="wrap">
+        <div class="s-head">
+          <span class="chip">Guide de choix</span>
+          <h2 class="t-section">Quelle toilette choisir selon mon usage précis ?</h2>
+          <p style="font-size:15px; color:#888; line-height:1.7;">Trois questions clés pour trouver votre solution en moins de deux minutes.</p>
+        </div>
+
+        <div class="guide-grid">
+
+          <!-- Carte 1 -->
+          <div class="guide-card">
+            <div class="guide-card-top">
+              <div class="guide-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#AAA" stroke-width="1.5"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>
+              </div>
+              <div class="guide-card-q">Avez-vous un jardin ou un espace extérieur pour composter ?</div>
+            </div>
+            <div class="guide-answer">
+              <div class="guide-option">
+                <div class="guide-opt-dot">A</div>
+                <div>
+                  <div class="guide-opt-label">Oui, j'ai un jardin ou un extérieur</div>
+                  <div class="guide-opt-sub">La toilette sèche à compostage est idéale. Valorisation complète, coût d'entrée faible, installation simple.</div>
+                </div>
+              </div>
+              <div class="guide-option">
+                <div class="guide-opt-dot">B</div>
+                <div>
+                  <div class="guide-opt-label">Non, je n'ai pas d'espace extérieur</div>
+                  <div class="guide-opt-sub">Optez pour le WC à séparation : le bac à fèces est compact et les urines peuvent être stockées en bidon pour épandage.</div>
+                </div>
+              </div>
+            </div>
           </div>
 
-          <div class="entretien-card">
-            <div class="entretien-icon"></div>
-            <span class="entretien-freq">Mensuel / Annuel</span>
-            <div class="t-card">Vidange & compostage</div>
-            <p style="font-size:13px; color:#888; line-height:1.6; margin-bottom:18px;">Videz le bac dans le composteur extérieur toutes les 2 à 4 semaines. Comptez 6 à 12 mois pour obtenir un compost mûr.</p>
-            <ul class="blk-list">
-              <li>Vider le bac dans le composteur extérieur</li>
-              <li>Rincer et sécher le bac avant remise en place</li>
-              <li>Retourner le compost une fois par trimestre</li>
-            </ul>
+          <!-- Carte 2 -->
+          <div class="guide-card">
+            <div class="guide-card-top">
+              <div class="guide-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#AAA" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              </div>
+              <div class="guide-card-q">Quelle est la fréquence d'utilisation prévue ?</div>
+            </div>
+            <div class="guide-answer">
+              <div class="guide-option">
+                <div class="guide-opt-dot">A</div>
+                <div>
+                  <div class="guide-opt-label">Usage ponctuel ou saisonnier</div>
+                  <div class="guide-opt-sub">La toilette sèche mobile est parfaite : légère, autonome, sans installation fixe. Idéal pour les événements, cabanes et résidences secondaires.</div>
+                </div>
+              </div>
+              <div class="guide-option">
+                <div class="guide-opt-dot">B</div>
+                <div>
+                  <div class="guide-opt-label">Usage quotidien et permanent</div>
+                  <div class="guide-opt-sub">Préférez un WC à séparation fixe ou une toilette sèche de grande capacité — confort supérieur et vidange moins fréquente.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Carte 3 -->
+          <div class="guide-card">
+            <div class="guide-card-top">
+              <div class="guide-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#AAA" stroke-width="1.5"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+              </div>
+              <div class="guide-card-q">Quel est votre budget d'installation ?</div>
+            </div>
+            <div class="guide-answer">
+              <div class="guide-option">
+                <div class="guide-opt-dot">A</div>
+                <div>
+                  <div class="guide-opt-label">Budget serré (moins de 600 €)</div>
+                  <div class="guide-opt-sub">La toilette sèche classique répond à tous vos besoins pour 300 à 600 €. Installation en DIY possible en une demi-journée.</div>
+                </div>
+              </div>
+              <div class="guide-option">
+                <div class="guide-opt-dot">B</div>
+                <div>
+                  <div class="guide-opt-label">Budget confort (800 € et plus)</div>
+                  <div class="guide-opt-sub">Le WC à séparation offre un confort proche du WC classique, moins d'odeurs et une valorisation optimale des urines en fertilisant.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ ERREURS FRÉQUENTES ══ -->
+    <section class="section section-white" id="erreurs">
+      <div class="wrap">
+        <div class="s-head">
+          <span class="chip">À éviter</span>
+          <h2 class="t-section">Erreurs fréquentes de choix</h2>
+          <p style="font-size:15px; color:#888; line-height:1.7;">Les pièges dans lesquels tombent la plupart des acheteurs — et comment les éviter facilement.</p>
+        </div>
+
+        <div class="erreurs-grid">
+
+          <div class="erreur-card">
+            <div class="erreur-num">01</div>
+            <div>
+              <span class="erreur-tag">Installation</span>
+              <div class="t-card">Choisir un modèle trop petit pour son foyer</div>
+              <p style="font-size:13px; color:#888; line-height:1.6; margin:0;">Un bac sous-dimensionné impose des vidanges trop fréquentes et décourage l'utilisation. Comptez 20 L de capacité minimum par personne utilisant le WC quotidiennement.</p>
+            </div>
+          </div>
+
+          <div class="erreur-card">
+            <div class="erreur-num">02</div>
+            <div>
+              <span class="erreur-tag">Entretien</span>
+              <div class="t-card">Oublier la ventilation dans les calculs</div>
+              <p style="font-size:13px; color:#888; line-height:1.6; margin:0;">Sans ventilation adaptée, même le meilleur WC sec devient malodorant. Prévoyez le perçage du mur et l'alimentation électrique du ventilateur dès la phase de conception.</p>
+            </div>
+          </div>
+
+          <div class="erreur-card">
+            <div class="erreur-num">03</div>
+            <div>
+              <span class="erreur-tag">Réglementation</span>
+              <div class="t-card">Ne pas vérifier la réglementation locale</div>
+              <p style="font-size:13px; color:#888; line-height:1.6; margin:0;">Dans certaines communes, un WC sec ne peut pas remplacer seul le dispositif d'assainissement homologué. Un appel au SPANC (Service Public d'Assainissement Non Collectif) évite les mauvaises surprises.</p>
+            </div>
+          </div>
+
+          <div class="erreur-card">
+            <div class="erreur-num">04</div>
+            <div>
+              <span class="erreur-tag">Litière</span>
+              <div class="t-card">Utiliser la mauvaise litière carbonée</div>
+              <p style="font-size:13px; color:#888; line-height:1.6; margin:0;">Tous les matériaux carbonés ne se valent pas. La sciure de bois non traité et les copeaux fins sont idéaux. Évitez les sciures de bois exotiques traités ou les matériaux trop fins qui colmatent.</p>
+            </div>
           </div>
 
         </div>
@@ -784,14 +701,11 @@
     <!-- ══ CTA FINAL ══ -->
     <section class="cta-band">
       <div class="wrap">
-        <h2>Prêt à passer aux WC sèches ?</h2>
-        <div class="cta-band-sub">
-          <div class="ln ln-w100" style="background:rgba(255,255,255,.15); margin:0 auto 8px;"></div>
-          <div class="ln ln-w70" style="background:rgba(255,255,255,.15); margin:0 auto 0;"></div>
-        </div>
+        <h2>Vous savez maintenant lequel choisir.</h2>
+        <p style="font-size:16px; color:rgba(255,255,255,.5); line-height:1.7; max-width:460px; margin:14px auto 0;">Utilisez notre simulateur pour affiner votre choix selon votre budget, votre logement et vos habitudes.</p>
         <div class="cta-btns">
-          <button class="btn">Trouver ma solution</button>
-          <button class="btn btn-outline" style="color:#CCC; border-color:rgba(255,255,255,.3);">Voir le simulateur</button>
+          <button class="btn">Lancer le simulateur</button>
+          <button class="btn btn-outline" style="color:#CCC; border-color:rgba(255,255,255,.3);">Voir tous les guides</button>
         </div>
       </div>
     </section>
