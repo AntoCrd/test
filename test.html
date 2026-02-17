@@ -3,147 +3,178 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>ToilettEco — Wireframe v2</title>
+  <title>ToilettEco — Wireframe</title>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
       font-family: Arial, sans-serif;
-      background: #F0F0F0;
+      background: #F2F2F2;
       color: #555;
-      font-size: 12px;
+      font-size: 14px;
     }
 
     .wrap {
-      max-width: 900px;
+      max-width: 1100px;
       margin: 0 auto;
-      padding: 0 24px;
+      padding: 0 40px;
     }
 
-    /* ── Blocs génériques ── */
-    .box {
-      background: #D8D8D8;
-      border-radius: 6px;
-    }
+    /* Blocs gris */
+    .box { background: #DADADA; border-radius: 8px; }
 
-    .card {
-      background: #FFF;
-      border: 1.5px solid #CCCCCC;
-      border-radius: 10px;
+    /* Lignes squelettes */
+    .ln {
+      height: 11px;
+      border-radius: 4px;
+      background: #CFCFCF;
+      margin-bottom: 8px;
     }
+    .ln-sm { height: 9px; }
+    .ln-xs { height: 8px; }
+    .ln-dark { background: #BDBDBD; }
+    .ln-w100 { width: 100%; }
+    .ln-w85  { width: 85%; }
+    .ln-w70  { width: 70%; }
+    .ln-w55  { width: 55%; }
+    .ln-w40  { width: 40%; }
 
-    .line {
-      height: 9px;
-      background: #D0D0D0;
-      border-radius: 3px;
-      margin-bottom: 6px;
-    }
-    .line--dark { background: #BBBBBB; }
-    .line--w100 { width: 100%; }
-    .line--w80  { width: 80%; }
-    .line--w65  { width: 65%; }
-    .line--w50  { width: 50%; }
-
-    .label {
-      font-size: 9px;
+    /* Texte réel */
+    .lbl {
+      font-size: 10px;
       font-weight: 700;
       letter-spacing: .1em;
       text-transform: uppercase;
-      color: #AAAAAA;
+      color: #ABABAB;
       display: block;
-      margin-bottom: 6px;
-    }
-
-    .title-lg {
-      font-size: 28px;
-      font-weight: 700;
-      color: #333;
-      line-height: 1.2;
-      margin-bottom: 10px;
-    }
-
-    .title-md {
-      font-size: 20px;
-      font-weight: 700;
-      color: #333;
-      line-height: 1.2;
       margin-bottom: 8px;
     }
 
-    .title-sm {
+    .t-xl {
+      font-size: 36px;
+      font-weight: 700;
+      color: #2E2E2E;
+      line-height: 1.15;
+      margin-bottom: 14px;
+    }
+
+    .t-lg {
+      font-size: 26px;
+      font-weight: 700;
+      color: #2E2E2E;
+      line-height: 1.2;
+      margin-bottom: 12px;
+      text-align: center;
+    }
+
+    .t-md {
+      font-size: 15px;
+      font-weight: 700;
+      color: #3A3A3A;
+      margin-bottom: 8px;
+    }
+
+    .t-sm {
       font-size: 13px;
       font-weight: 700;
       color: #444;
       margin-bottom: 6px;
     }
 
+    /* Chip */
     .chip {
       display: inline-block;
-      border: 1.5px solid #CCCCCC;
+      border: 1.5px solid #C8C8C8;
       border-radius: 999px;
-      padding: 3px 10px;
-      font-size: 9px;
+      padding: 4px 13px;
+      font-size: 10px;
       font-weight: 700;
       letter-spacing: .08em;
       text-transform: uppercase;
-      color: #AAAAAA;
+      color: #ABABAB;
       background: white;
-      margin-bottom: 10px;
+      margin-bottom: 12px;
+    }
+    .chip-dark {
+      border-color: rgba(255,255,255,.2);
+      background: rgba(255,255,255,.07);
+      color: #BBB;
     }
 
+    /* Boutons */
     .btn {
-      display: inline-block;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
       border-radius: 999px;
-      font-size: 11px;
+      font-size: 13px;
       font-weight: 600;
-      padding: 8px 18px;
-      border: 2px solid #BBBBBB;
-      background: #BBBBBB;
+      padding: 11px 24px;
+      border: 2px solid #AEAEAE;
+      background: #AEAEAE;
       color: #fff;
+      cursor: pointer;
+      white-space: nowrap;
     }
-    .btn--outline {
+    .btn-outline {
       background: transparent;
       color: #888;
-      border-color: #CCCCCC;
+      border-color: #C8C8C8;
     }
-    .btn--dark {
-      background: #777;
-      border-color: #777;
+    .btn-dark {
+      background: #666;
+      border-color: #666;
+    }
+    .btn-sm {
+      font-size: 11px;
+      padding: 8px 16px;
+    }
+
+    /* Section */
+    .section { padding: 72px 0; }
+    .section-gray { background: #E6E6E6; }
+    .section-dark { background: #4A4A4A; }
+
+    /* Head centré */
+    .s-head {
+      text-align: center;
+      max-width: 500px;
+      margin: 0 auto 48px;
     }
 
     /* ══ HEADER ══ */
     .header {
       background: #FFF;
-      border-bottom: 1.5px solid #CCCCCC;
-      padding: 14px 0;
+      border-bottom: 1.5px solid #D0D0D0;
+      padding: 16px 0;
       position: sticky;
       top: 0;
-      z-index: 10;
+      z-index: 50;
     }
 
-    .header__inner {
+    .header-inner {
       display: flex;
       align-items: center;
-      gap: 16px;
+      gap: 20px;
     }
 
     .logo {
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 10px;
       flex-shrink: 0;
     }
 
-    .logo__icon {
-      width: 28px; height: 28px;
+    .logo-icon {
+      width: 32px; height: 32px;
       border-radius: 50%;
-      background: #CCCCCC;
+      background: #C8C8C8;
     }
 
-    .logo__name {
-      font-size: 14px;
+    .logo-name {
+      font-size: 16px;
       font-weight: 700;
-      color: #333;
+      color: #2E2E2E;
     }
 
     .nav {
@@ -152,329 +183,342 @@
       flex: 1;
     }
 
-    .nav__item {
-      padding: 5px 10px;
-      border-radius: 5px;
-      font-size: 11px;
-      color: #AAAAAA;
+    .nav-item {
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 13px;
+      color: #ABABAB;
     }
 
-    .nav__item--active {
+    .nav-item.active {
       background: #EEEEEE;
-      color: #555;
+      color: #444;
     }
 
     /* ══ HERO ══ */
     .hero {
       background: #FFF;
-      padding: 52px 0 44px;
+      padding: 72px 0 60px;
     }
 
-    .hero__inner {
+    .hero-inner {
       display: grid;
-      grid-template-columns: 1fr 340px;
-      gap: 48px;
+      grid-template-columns: 1fr 380px;
+      gap: 64px;
       align-items: center;
     }
 
-    .hero__tag {
+    .hero-tag {
       display: flex;
       align-items: center;
-      gap: 6px;
-      font-size: 9px;
-      font-weight: 700;
-      letter-spacing: .1em;
-      text-transform: uppercase;
-      color: #AAAAAA;
-      margin-bottom: 12px;
-    }
-
-    .hero__dot {
-      width: 7px; height: 7px;
-      border-radius: 50%;
-      background: #CCCCCC;
-    }
-
-    .hero__ctas {
-      display: flex;
       gap: 8px;
-      margin: 18px 0 28px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .09em;
+      text-transform: uppercase;
+      color: #ABABAB;
+      margin-bottom: 16px;
     }
 
-    .hero__stats {
+    .hero-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: #C8C8C8;
+    }
+
+    .hero-ctas {
+      display: flex;
+      gap: 10px;
+      margin: 22px 0 36px;
+    }
+
+    .hero-stats {
       display: flex;
       align-items: center;
-      gap: 20px;
+      gap: 24px;
     }
 
-    .stat__num {
+    .stat-num {
       display: block;
-      font-size: 19px;
+      font-size: 22px;
       font-weight: 700;
       color: #555;
     }
 
-    .stat__label {
-      font-size: 10px;
-      color: #AAAAAA;
+    .stat-lbl {
+      font-size: 11px;
+      color: #ABABAB;
+      line-height: 1.4;
     }
 
-    .stat__sep {
-      width: 1px; height: 28px;
-      background: #DDDDDD;
-    }
-
-    /* ══ SECTION ══ */
-    .section {
-      padding: 52px 0;
-    }
-
-    .section--gray {
-      background: #E8E8E8;
-    }
-
-    .section--dark {
-      background: #555;
-    }
-
-    .section__head {
-      text-align: center;
-      max-width: 440px;
-      margin: 0 auto 36px;
+    .stat-sep {
+      width: 1px; height: 36px;
+      background: #D8D8D8;
+      flex-shrink: 0;
     }
 
     /* ══ FLOW ══ */
-    .flow { max-width: 720px; margin: 0 auto; }
+    .flow { max-width: 800px; margin: 0 auto; list-style: none; }
 
-    .flow__item {
+    .flow-item {
       display: grid;
-      grid-template-columns: 44px 1fr;
-      gap: 12px;
-      margin-bottom: 0;
+      grid-template-columns: 52px 1fr;
+      gap: 16px;
     }
 
-    .flow__spine {
+    .flow-spine {
       display: flex;
       flex-direction: column;
       align-items: center;
     }
 
-    .flow__num {
-      width: 36px; height: 36px;
+    .flow-num {
+      width: 42px; height: 42px;
       border-radius: 50%;
       background: #FFF;
-      border: 2px solid #CCCCCC;
+      border: 2px solid #C8C8C8;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 11px;
+      font-size: 12px;
       font-weight: 700;
       color: #666;
       flex-shrink: 0;
     }
 
-    .flow__num--last {
-      background: #777;
+    .flow-num-last {
+      background: #666;
       color: white;
-      border-color: #777;
+      border-color: #666;
     }
 
-    .flow__line {
+    .flow-line {
       flex: 1;
       width: 2px;
       background: #CCCCCC;
-      margin-top: 5px;
-      min-height: 24px;
+      margin-top: 6px;
+      min-height: 28px;
     }
 
-    .flow__card {
+    .flow-card {
       background: #FFF;
-      border: 1.5px solid #CCCCCC;
-      border-radius: 12px;
-      padding: 18px;
-      margin-bottom: 18px;
+      border: 1.5px solid #D0D0D0;
+      border-radius: 16px;
+      padding: 22px;
+      margin-bottom: 20px;
       display: flex;
       align-items: flex-start;
-      gap: 14px;
+      gap: 18px;
     }
 
-    .flow__card--last { border-color: #AAAAAA; }
+    .flow-card-last { border-color: #AAAAAA; }
 
-    .flow__illo {
-      width: 46px; height: 46px;
+    .flow-illo {
+      width: 54px; height: 54px;
       border-radius: 50%;
-      background: #E4E4E4;
+      background: #E0E0E0;
       flex-shrink: 0;
     }
 
-    .flow__body { flex: 1; }
+    .flow-body { flex: 1; }
 
-    /* Sub trio */
+    /* Sous-trio */
     .sub {
       flex-basis: 100%;
-      border-top: 1px solid #E0E0E0;
-      padding-top: 14px;
-      margin-top: 14px;
+      border-top: 1px solid #E4E4E4;
+      padding-top: 18px;
+      margin-top: 18px;
     }
 
     .sub-trio {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 10px;
+      gap: 12px;
     }
 
     .sub-card {
-      background: #EEEEEE;
-      border: 1px solid #CCCCCC;
-      border-radius: 10px;
-      padding: 12px;
+      background: #EBEBEB;
+      border: 1px solid #D0D0D0;
+      border-radius: 12px;
+      padding: 16px;
     }
 
-    .sub-card__top {
+    .sub-card-top {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 8px;
+      margin-bottom: 10px;
     }
 
-    .sub-card__icon {
-      width: 32px; height: 32px;
+    .sub-icon {
+      width: 36px; height: 36px;
       border-radius: 50%;
-      background: #D8D8D8;
+      background: #D0D0D0;
     }
 
-    .sub-card__num {
-      font-size: 15px;
+    .sub-num {
+      font-size: 17px;
       font-weight: 700;
       color: #666;
       text-align: right;
     }
 
-    .sub-card__num small {
+    .sub-num small {
       display: block;
-      font-size: 8px;
-      color: #AAAAAA;
+      font-size: 9px;
+      color: #ABABAB;
       font-weight: 400;
     }
 
     /* ══ DÉFINITION ══ */
-    .def__grid {
+    .def-grid {
       display: grid;
       grid-template-columns: 1fr 1.1fr;
-      gap: 48px;
+      gap: 60px;
       align-items: start;
     }
 
     .callout {
       display: flex;
-      gap: 10px;
+      gap: 12px;
       background: #EEEEEE;
-      border-left: 3px solid #BBBBBB;
-      border-radius: 8px;
-      padding: 12px 14px;
-      margin-top: 16px;
+      border-left: 3px solid #C0C0C0;
+      border-radius: 10px;
+      padding: 16px 18px;
+      margin-top: 22px;
     }
 
-    .callout__dot {
-      width: 18px; height: 18px;
+    .callout-dot {
+      width: 20px; height: 20px;
       border-radius: 50%;
-      background: #CCCCCC;
+      background: #C8C8C8;
       flex-shrink: 0;
       margin-top: 1px;
     }
 
+    /* Illustration familles */
+    .fam-illo {
+      background: #DCDCDC;
+      border-radius: 14px;
+      padding: 24px;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      gap: 20px;
+      height: 200px;
+      margin-bottom: 16px;
+    }
+
+    .fam-block {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .fam-shape {
+      width: 64px;
+      border-radius: 8px;
+      background: #C4C4C4;
+    }
+
+    /* Tableau comparatif */
+    .comp {
+      background: #FFF;
+      border: 1.5px solid #D0D0D0;
+      border-radius: 14px;
+      padding: 20px;
+    }
+
     .comp-table {
-      border: 1px solid #CCCCCC;
+      border: 1px solid #D0D0D0;
       border-radius: 8px;
       overflow: hidden;
-      font-size: 11px;
-      margin-top: 12px;
+      font-size: 12px;
+      margin-top: 14px;
     }
 
     .comp-head {
       display: grid;
       grid-template-columns: 1.2fr 1fr 1fr;
-      background: #EBEBEB;
+      background: #ECECEC;
     }
 
     .comp-head > div {
-      padding: 7px 10px;
-      font-size: 9px;
+      padding: 9px 12px;
+      font-size: 10px;
       font-weight: 700;
       letter-spacing: .06em;
       text-transform: uppercase;
-      color: #AAAAAA;
-      border-bottom: 1px solid #CCCCCC;
+      color: #ABABAB;
+      border-bottom: 1px solid #D8D8D8;
     }
 
-    .comp-head__eco { background: #E0E0E0; color: #777 !important; }
+    .comp-head-eco { background: #E0E0E0; color: #777 !important; }
 
     .comp-row {
       display: grid;
       grid-template-columns: 1.2fr 1fr 1fr;
-      border-bottom: 1px solid #E4E4E4;
+      border-bottom: 1px solid #E8E8E8;
     }
 
     .comp-row:last-child { border-bottom: none; }
 
     .comp-row > div {
-      padding: 7px 10px;
-      color: #AAAAAA;
+      padding: 8px 12px;
+      color: #ABABAB;
       display: flex;
       align-items: center;
+      font-size: 12px;
     }
 
-    .comp-row .good {
-      color: #666;
-      font-weight: 600;
-      background: #EAEAEA;
-    }
+    .good { color: #555; font-weight: 600; background: #EBEBEB; }
 
-    /* ══ POURQUOI (DARK) ══ */
-    .why__band {
-      height: 4px;
-      background: linear-gradient(90deg, #888, #AAA, #999, #BBB);
+    /* ══ POURQUOI ══ */
+    .why-band {
+      height: 5px;
+      background: linear-gradient(90deg, #888, #AAA, #999, #C0C0C0);
     }
 
     .why-cards {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 14px;
+      gap: 18px;
     }
 
     .why-card {
       background: rgba(255,255,255,.08);
       border: 1px solid rgba(255,255,255,.14);
-      border-radius: 12px;
+      border-radius: 14px;
       overflow: hidden;
     }
 
-    .why-card__illo {
-      height: 90px;
+    .why-card-illo {
+      height: 120px;
       background: rgba(255,255,255,.05);
       display: flex;
       align-items: center;
       justify-content: center;
     }
 
-    .why-card__body { padding: 16px; }
+    .why-card-body { padding: 20px; }
 
-    .why-card__header {
+    .why-card-header {
       display: flex;
       align-items: center;
-      gap: 8px;
-      margin-bottom: 10px;
+      gap: 10px;
+      margin-bottom: 14px;
     }
 
-    .why-card__icon {
-      width: 30px; height: 30px;
-      border-radius: 6px;
+    .why-icon {
+      width: 34px; height: 34px;
+      border-radius: 8px;
       background: rgba(255,255,255,.14);
       flex-shrink: 0;
     }
 
-    .why-card__title {
-      font-size: 13px;
+    .why-title {
+      font-size: 15px;
       font-weight: 600;
       color: #EEE;
     }
@@ -482,23 +526,23 @@
     .why-stat {
       display: flex;
       align-items: baseline;
-      gap: 8px;
-      padding: 10px;
+      gap: 10px;
+      padding: 12px;
       background: rgba(255,255,255,.05);
-      border-radius: 7px;
+      border-radius: 8px;
       border: 1px solid rgba(255,255,255,.08);
-      margin-bottom: 10px;
+      margin-bottom: 14px;
     }
 
-    .big-num {
-      font-size: 22px;
+    .big-n {
+      font-size: 26px;
       font-weight: 700;
       color: #DDD;
     }
 
-    .big-label {
-      font-size: 10px;
-      color: rgba(255,255,255,.4);
+    .big-lbl {
+      font-size: 11px;
+      color: rgba(255,255,255,.38);
       line-height: 1.4;
     }
 
@@ -506,14 +550,15 @@
       list-style: none;
       display: flex;
       flex-direction: column;
-      gap: 5px;
+      gap: 7px;
     }
 
     .why-list li {
-      font-size: 11px;
-      color: rgba(255,255,255,.45);
-      padding-left: 12px;
+      font-size: 12px;
+      color: rgba(255,255,255,.42);
+      padding-left: 14px;
       position: relative;
+      line-height: 1.5;
     }
 
     .why-list li::before {
@@ -521,218 +566,222 @@
       position: absolute;
       left: 0;
       font-size: .65em;
-      top: 3px;
-      color: #AAA;
+      top: 4px;
+      color: #999;
     }
 
     /* ══ USAGES ══ */
     .usage-cards {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 14px;
+      gap: 18px;
     }
 
     .usage-card {
       background: #FFF;
-      border: 1.5px solid #CCCCCC;
-      border-radius: 12px;
+      border: 1.5px solid #D0D0D0;
+      border-radius: 14px;
       overflow: hidden;
     }
 
-    .usage-card__illo {
-      height: 110px;
+    .usage-illo {
+      height: 140px;
       background: #D8D8D8;
       display: flex;
       align-items: center;
       justify-content: center;
     }
 
-    .usage-card__body { padding: 16px; }
+    .usage-body { padding: 20px; }
 
-    .usage-card__header {
+    .usage-header {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin-bottom: 12px;
+      margin-bottom: 16px;
     }
 
-    .block-label {
-      font-size: 9px;
+    .blk-lbl {
+      font-size: 10px;
       font-weight: 700;
       letter-spacing: .08em;
       text-transform: uppercase;
-      color: #AAAAAA;
-      margin-bottom: 6px;
+      color: #ABABAB;
+      margin-bottom: 8px;
     }
 
-    .block-list {
+    .blk-list {
       list-style: none;
       display: flex;
       flex-direction: column;
-      gap: 4px;
-      margin-bottom: 10px;
+      gap: 5px;
+      margin-bottom: 12px;
     }
 
-    .block-list li {
-      font-size: 10px;
-      color: #AAAAAA;
-      padding-left: 10px;
+    .blk-list li {
+      font-size: 12px;
+      color: #ABABAB;
+      padding-left: 12px;
       position: relative;
     }
 
-    .block-list li::before {
+    .blk-list li::before {
       content: '·';
       position: absolute;
       left: 3px;
-      top: -1px;
-      font-size: 1.3em;
-      color: #CCCCCC;
+      top: -2px;
+      font-size: 1.4em;
+      color: #C8C8C8;
     }
 
     .reco {
       background: #EEEEEE;
-      border: 1px solid #CCCCCC;
-      border-radius: 6px;
-      padding: 9px 11px;
-      margin-bottom: 10px;
+      border: 1px solid #D0D0D0;
+      border-radius: 8px;
+      padding: 11px 13px;
+      margin-bottom: 14px;
     }
 
     /* ══ FOOTER ══ */
-    .footer { background: #444; }
+    .footer { background: #383838; }
 
-    .footer__top {
+    .footer-top {
       display: grid;
-      grid-template-columns: 190px 1fr;
-      gap: 48px;
-      padding: 44px 0;
+      grid-template-columns: 210px 1fr;
+      gap: 60px;
+      padding: 56px 0;
       align-items: start;
     }
 
-    .footer__brand-name {
-      font-size: 14px;
-      font-weight: 700;
-      color: #EEE;
+    .footer-brand-name {
       display: flex;
       align-items: center;
-      gap: 7px;
-      margin-bottom: 8px;
-    }
-
-    .footer__brand-name span {
-      width: 24px; height: 24px;
-      border-radius: 50%;
-      background: #666;
-      display: inline-block;
-    }
-
-    .footer__brand p {
-      font-size: 10px;
-      color: rgba(255,255,255,.3);
-      line-height: 1.6;
-    }
-
-    .footer__nav {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 24px;
-    }
-
-    .footer__col h3 {
-      font-size: 9px;
+      gap: 8px;
+      font-size: 15px;
       font-weight: 700;
-      letter-spacing: .1em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,.3);
+      color: #EEE;
       margin-bottom: 10px;
     }
 
-    .footer__col ul {
+    .footer-brand-name span {
+      width: 26px; height: 26px;
+      border-radius: 50%;
+      background: #555;
+      display: inline-block;
+      flex-shrink: 0;
+    }
+
+    .footer-brand p {
+      font-size: 11px;
+      color: rgba(255,255,255,.28);
+      line-height: 1.7;
+    }
+
+    .footer-nav {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+    }
+
+    .footer-col h3 {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.28);
+      margin-bottom: 14px;
+    }
+
+    .footer-col ul {
       list-style: none;
       display: flex;
       flex-direction: column;
-      gap: 7px;
+      gap: 9px;
     }
 
-    .footer__col ul li {
-      height: 8px;
-      border-radius: 2px;
-      background: rgba(255,255,255,.14);
+    .footer-col ul li {
+      height: 9px;
+      border-radius: 3px;
+      background: rgba(255,255,255,.13);
     }
 
-    .footer__col ul li:nth-child(odd)  { width: 72%; }
-    .footer__col ul li:nth-child(even) { width: 55%; }
+    .footer-col ul li:nth-child(odd)  { width: 74%; }
+    .footer-col ul li:nth-child(even) { width: 56%; }
 
-    .footer__bottom {
+    .footer-bottom {
       border-top: 1px solid rgba(255,255,255,.08);
-      padding: 14px 0;
+      padding: 18px 0;
     }
 
-    .footer__bottom .wrap {
+    .footer-bottom .wrap {
       display: flex;
       align-items: center;
       justify-content: space-between;
     }
 
-    .footer__bottom p {
-      font-size: 10px;
-      color: rgba(255,255,255,.25);
+    .footer-bottom p {
+      font-size: 11px;
+      color: rgba(255,255,255,.22);
     }
   </style>
 </head>
 <body>
 
-  <!-- HEADER -->
+  <!-- ══ HEADER ══ -->
   <header class="header">
-    <div class="header__inner wrap">
+    <div class="header-inner wrap">
       <div class="logo">
-        <div class="logo__icon"></div>
-        <span class="logo__name">ToilettEco</span>
+        <div class="logo-icon"></div>
+        <span class="logo-name">ToilettEco</span>
       </div>
       <nav class="nav">
-        <div class="nav__item nav__item--active">Accueil</div>
-        <div class="nav__item">C'est quoi ?</div>
-        <div class="nav__item">Pourquoi ?</div>
-        <div class="nav__item">Usages</div>
-        <div class="nav__item">Outils</div>
+        <div class="nav-item active">Accueil</div>
+        <div class="nav-item">C'est quoi ?</div>
+        <div class="nav-item">Pourquoi ?</div>
+        <div class="nav-item">Usages</div>
+        <div class="nav-item">Outils</div>
       </nav>
-      <button class="btn btn--dark">Trouver ma solution</button>
+      <button class="btn btn-dark">Trouver ma solution</button>
     </div>
   </header>
 
   <main>
 
-    <!-- HERO -->
+    <!-- ══ HERO ══ -->
     <section class="hero">
-      <div class="hero__inner wrap">
+      <div class="hero-inner wrap">
         <div>
-          <div class="hero__tag"><span class="hero__dot"></span> Guide citoyen · 2025</div>
-          <h1 class="title-lg">Des toilettes qui<br/>respectent<br/>la planète.</h1>
-          <div class="line line--w100 line--dark"></div>
-          <div class="line line--w80 line--dark"></div>
-          <div class="hero__ctas">
-            <button class="btn">Commencer le guide</button>
-            <button class="btn btn--outline">Choisir mon type</button>
+          <div class="hero-tag">
+            <span class="hero-dot"></span>
+            Guide citoyen · 2025
           </div>
-          <div class="hero__stats">
+          <h1 class="t-xl">Des toilettes qui<br/>respectent<br/>la planète.</h1>
+          <div class="ln ln-dark ln-w100"></div>
+          <div class="ln ln-dark ln-w85"></div>
+          <div class="hero-ctas">
+            <button class="btn">Commencer le guide</button>
+            <button class="btn btn-outline">Choisir mon type</button>
+          </div>
+          <div class="hero-stats">
             <div>
-              <span class="stat__num">−90%</span>
-              <span class="stat__label">d'eau consommée</span>
+              <span class="stat-num">−90%</span>
+              <span class="stat-lbl">d'eau<br/>consommée</span>
             </div>
-            <div class="stat__sep"></div>
+            <div class="stat-sep"></div>
             <div>
-              <span class="stat__num">300 €</span>
-              <span class="stat__label">économisés/an</span>
+              <span class="stat-num">300 €</span>
+              <span class="stat-lbl">économisés<br/>par an</span>
             </div>
-            <div class="stat__sep"></div>
+            <div class="stat-sep"></div>
             <div>
-              <span class="stat__num">×3</span>
-              <span class="stat__label">moins CO₂</span>
+              <span class="stat-num">×3</span>
+              <span class="stat-lbl">moins<br/>d'empreinte CO₂</span>
             </div>
           </div>
         </div>
         <!-- Illustration placeholder -->
-        <div class="box" style="height:300px;display:flex;align-items:center;justify-content:center;">
-          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#AAA" stroke-width="1.5">
+        <div class="box" style="height: 380px; display:flex; align-items:center; justify-content:center;">
+          <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="#AAA" stroke-width="1.5">
             <rect x="3" y="3" width="18" height="18" rx="3"/>
             <circle cx="8.5" cy="8.5" r="1.5"/>
             <polyline points="21 15 16 10 5 21"/>
@@ -741,83 +790,87 @@
       </div>
     </section>
 
-    <!-- PARCOURS -->
-    <section class="section section--gray">
+    <!-- ══ PARCOURS ══ -->
+    <section class="section section-gray">
       <div class="wrap">
-        <div class="section__head">
+        <div class="s-head">
           <span class="chip">Parcours pédagogique</span>
-          <h2 class="title-md">Trois questions, un chemin.</h2>
-          <div class="line line--w80" style="margin:0 auto 4px;"></div>
-          <div class="line line--w65" style="margin:0 auto;"></div>
+          <h2 class="t-lg">Trois questions, un chemin.</h2>
+          <div class="ln ln-w70" style="margin: 0 auto 6px;"></div>
+          <div class="ln ln-w55" style="margin: 0 auto;"></div>
         </div>
 
         <ol class="flow">
 
           <!-- Étape 1 -->
-          <li class="flow__item">
-            <div class="flow__spine">
-              <div class="flow__num">01</div>
-              <div class="flow__line"></div>
+          <li class="flow-item">
+            <div class="flow-spine">
+              <div class="flow-num">01</div>
+              <div class="flow-line"></div>
             </div>
-            <div class="flow__card">
-              <div class="flow__illo"></div>
-              <div class="flow__body">
-                <span class="label">Définition</span>
-                <div class="title-sm">Qu'est-ce qu'une toilette écologique ?</div>
-                <div class="line line--w100"></div>
-                <div class="line line--w65"></div>
+            <div class="flow-card">
+              <div class="flow-illo"></div>
+              <div class="flow-body">
+                <span class="lbl">Définition</span>
+                <div class="t-md">Qu'est-ce qu'une toilette écologique ?</div>
+                <div class="ln ln-w100"></div>
+                <div class="ln ln-w70" style="margin:0;"></div>
               </div>
-              <button class="btn btn--outline" style="flex-shrink:0;align-self:center;">Lire la section</button>
+              <button class="btn btn-outline btn-sm" style="flex-shrink:0; align-self:center;">Lire la section</button>
             </div>
           </li>
 
           <!-- Étape 2 -->
-          <li class="flow__item">
-            <div class="flow__spine">
-              <div class="flow__num">02</div>
-              <div class="flow__line"></div>
+          <li class="flow-item">
+            <div class="flow-spine">
+              <div class="flow-num">02</div>
+              <div class="flow-line"></div>
             </div>
-            <div class="flow__card" style="flex-wrap:wrap;">
-              <div class="flow__illo"></div>
-              <div class="flow__body">
-                <span class="label">Motivations</span>
-                <div class="title-sm">Pourquoi passer aux toilettes écologiques ?</div>
-                <div class="line line--w100"></div>
-                <div class="line line--w65"></div>
+            <div class="flow-card" style="flex-wrap:wrap;">
+              <div class="flow-illo"></div>
+              <div class="flow-body">
+                <span class="lbl">Motivations</span>
+                <div class="t-md">Pourquoi passer aux toilettes écologiques ?</div>
+                <div class="ln ln-w100"></div>
+                <div class="ln ln-w70" style="margin:0;"></div>
               </div>
-              <button class="btn btn--outline" style="flex-shrink:0;align-self:center;">Voir les 3 raisons ▾</button>
+              <button class="btn btn-outline btn-sm" style="flex-shrink:0; align-self:center;">Voir les 3 raisons ▾</button>
+
               <!-- Sous-cartes -->
               <div class="sub">
                 <div class="sub-trio">
                   <div class="sub-card">
-                    <div class="sub-card__top">
-                      <div class="sub-card__icon"></div>
-                      <div class="sub-card__num">30 000 L<small>/an</small></div>
+                    <div class="sub-card-top">
+                      <div class="sub-icon"></div>
+                      <div class="sub-num">30 000 L<small>/an</small></div>
                     </div>
-                    <div class="title-sm">Gestion de l'eau</div>
-                    <div class="line line--w100"></div>
-                    <div class="line line--w80"></div>
-                    <div class="line line--w65"></div>
+                    <div class="t-sm">Gestion de l'eau</div>
+                    <div class="ln ln-xs ln-w100"></div>
+                    <div class="ln ln-xs ln-w85"></div>
+                    <div class="ln ln-xs ln-w70" style="margin:0 0 8px;"></div>
+                    <div style="font-size:11px; color:#999; font-weight:600;">En savoir plus →</div>
                   </div>
                   <div class="sub-card">
-                    <div class="sub-card__top">
-                      <div class="sub-card__icon"></div>
-                      <div class="sub-card__num">300 €<small>/an</small></div>
+                    <div class="sub-card-top">
+                      <div class="sub-icon"></div>
+                      <div class="sub-num">300 €<small>/an</small></div>
                     </div>
-                    <div class="title-sm">Économies</div>
-                    <div class="line line--w100"></div>
-                    <div class="line line--w80"></div>
-                    <div class="line line--w65"></div>
+                    <div class="t-sm">Économies</div>
+                    <div class="ln ln-xs ln-w100"></div>
+                    <div class="ln ln-xs ln-w85"></div>
+                    <div class="ln ln-xs ln-w70" style="margin:0 0 8px;"></div>
+                    <div style="font-size:11px; color:#999; font-weight:600;">En savoir plus →</div>
                   </div>
                   <div class="sub-card">
-                    <div class="sub-card__top">
-                      <div class="sub-card__icon"></div>
-                      <div class="sub-card__num">×3<small>CO₂</small></div>
+                    <div class="sub-card-top">
+                      <div class="sub-icon"></div>
+                      <div class="sub-num">×3<small>CO₂</small></div>
                     </div>
-                    <div class="title-sm">Environnement</div>
-                    <div class="line line--w100"></div>
-                    <div class="line line--w80"></div>
-                    <div class="line line--w65"></div>
+                    <div class="t-sm">Environnement</div>
+                    <div class="ln ln-xs ln-w100"></div>
+                    <div class="ln ln-xs ln-w85"></div>
+                    <div class="ln ln-xs ln-w70" style="margin:0 0 8px;"></div>
+                    <div style="font-size:11px; color:#999; font-weight:600;">En savoir plus →</div>
                   </div>
                 </div>
               </div>
@@ -825,19 +878,19 @@
           </li>
 
           <!-- Étape 3 -->
-          <li class="flow__item">
-            <div class="flow__spine">
-              <div class="flow__num flow__num--last">03</div>
+          <li class="flow-item">
+            <div class="flow-spine">
+              <div class="flow-num flow-num-last">03</div>
             </div>
-            <div class="flow__card flow__card--last">
-              <div class="flow__illo"></div>
-              <div class="flow__body">
-                <span class="label">Application</span>
-                <div class="title-sm">Pour quels usages ?</div>
-                <div class="line line--w100"></div>
-                <div class="line line--w65"></div>
+            <div class="flow-card flow-card-last">
+              <div class="flow-illo"></div>
+              <div class="flow-body">
+                <span class="lbl">Application</span>
+                <div class="t-md">Pour quels usages ?</div>
+                <div class="ln ln-w100"></div>
+                <div class="ln ln-w70" style="margin:0;"></div>
               </div>
-              <button class="btn" style="flex-shrink:0;align-self:center;">Voir les solutions</button>
+              <button class="btn btn-sm" style="flex-shrink:0; align-self:center;">Voir les solutions</button>
             </div>
           </li>
 
@@ -845,47 +898,54 @@
       </div>
     </section>
 
-    <!-- DÉFINITION -->
+    <!-- ══ DÉFINITION ══ -->
     <section class="section">
-      <div class="def__grid wrap">
+      <div class="def-grid wrap">
+
         <div>
           <span class="chip">Étape 01</span>
-          <h2 class="title-md">Qu'est-ce qu'une toilette écologique ?</h2>
-          <div class="line line--w100 line--dark"></div>
-          <div class="line line--w80 line--dark"></div>
-          <div class="line line--w100"></div>
-          <div class="line line--w65"></div>
+          <h2 class="t-lg" style="text-align:left;">Qu'est-ce qu'une toilette écologique ?</h2>
+          <div class="ln ln-dark ln-w100"></div>
+          <div class="ln ln-dark ln-w85"></div>
+          <div class="ln ln-dark ln-w70" style="margin-bottom: 14px;"></div>
+          <div class="ln ln-w100"></div>
+          <div class="ln ln-w85"></div>
+          <div class="ln ln-w55"></div>
           <div class="callout">
-            <div class="callout__dot"></div>
-            <div>
-              <span class="label" style="margin-bottom:4px;">À retenir</span>
-              <div class="line line--w100"></div>
-              <div class="line line--w80"></div>
+            <div class="callout-dot"></div>
+            <div style="flex:1;">
+              <span class="lbl" style="margin-bottom:5px;">À retenir</span>
+              <div class="ln ln-w100"></div>
+              <div class="ln ln-w85" style="margin:0;"></div>
             </div>
           </div>
         </div>
+
         <div>
-          <!-- Illustration 3 familles -->
-          <div class="box" style="height:180px;display:flex;align-items:center;justify-content:center;gap:16px;margin-bottom:14px;border-radius:12px;">
-            <div style="text-align:center;">
-              <div style="width:60px;height:80px;background:#C8C8C8;border-radius:8px;margin:0 auto 4px;"></div>
-              <div class="label" style="margin:0;">Sèche</div>
+          <!-- 3 familles -->
+          <div class="fam-illo">
+            <div class="fam-block">
+              <div class="fam-shape" style="height:90px;"></div>
+              <span class="lbl" style="margin:0;">Sèche</span>
             </div>
-            <div style="text-align:center;">
-              <div style="width:60px;height:80px;background:#C0C0C0;border-radius:8px;margin:0 auto 4px;"></div>
-              <div class="label" style="margin:0;">Séparation</div>
+            <div class="fam-block">
+              <div class="fam-shape" style="height:110px; background:#BABABA;"></div>
+              <span class="lbl" style="margin:0;">Séparation</span>
             </div>
-            <div style="text-align:center;">
-              <div style="width:60px;height:80px;background:#B8B8B8;border-radius:8px;margin:0 auto 4px;"></div>
-              <div class="label" style="margin:0;">Faible débit</div>
+            <div class="fam-block">
+              <div class="fam-shape" style="height:76px; background:#CECECE;"></div>
+              <span class="lbl" style="margin:0;">Faible débit</span>
             </div>
           </div>
+
           <!-- Comparatif -->
-          <div class="card" style="padding:16px;">
-            <div class="title-sm">WC classique vs WC éco</div>
+          <div class="comp">
+            <div class="t-sm">WC classique vs WC éco</div>
             <div class="comp-table">
               <div class="comp-head">
-                <div>Critère</div><div>Classique</div><div class="comp-head__eco">Éco</div>
+                <div>Critère</div>
+                <div>Classique</div>
+                <div class="comp-head-eco">Éco</div>
               </div>
               <div class="comp-row"><div>Eau par usage</div><div>6–9 L</div><div class="good">0–1 L</div></div>
               <div class="comp-row"><div>Réseau requis</div><div>Oui</div><div class="good">Non</div></div>
@@ -895,79 +955,80 @@
             </div>
           </div>
         </div>
+
       </div>
     </section>
 
-    <!-- POURQUOI -->
-    <section class="section section--dark">
-      <div class="why__band"></div>
-      <div class="wrap">
-        <div class="section__head" style="margin-bottom:28px;">
-          <span class="chip" style="border-color:rgba(255,255,255,.2);background:rgba(255,255,255,.07);color:#AAA;">Étape 02</span>
-          <h2 class="title-md" style="color:#EEE;">Trois raisons de changer.</h2>
-          <div class="line" style="background:rgba(255,255,255,.15);width:70%;margin:0 auto;"></div>
+    <!-- ══ POURQUOI ══ -->
+    <section class="section section-dark" style="padding-top: 0;">
+      <div class="why-band"></div>
+      <div class="wrap" style="padding-top: 72px;">
+        <div class="s-head" style="margin-bottom: 40px;">
+          <span class="chip chip-dark">Étape 02</span>
+          <h2 class="t-lg" style="color:#EEE;">Trois raisons de changer.</h2>
+          <div class="ln ln-w55" style="background:rgba(255,255,255,.15); margin:0 auto;"></div>
         </div>
+
         <div class="why-cards">
-          <!-- Eau -->
           <div class="why-card">
-            <div class="why-card__illo">
-              <div style="width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.15);"></div>
+            <div class="why-card-illo">
+              <div style="width:40px; height:40px; border-radius:50%; background:rgba(255,255,255,.14);"></div>
             </div>
-            <div class="why-card__body">
-              <div class="why-card__header">
-                <div class="why-card__icon"></div>
-                <div class="why-card__title">Gestion de l'eau</div>
+            <div class="why-card-body">
+              <div class="why-card-header">
+                <div class="why-icon"></div>
+                <div class="why-title">Gestion de l'eau</div>
               </div>
               <div class="why-stat">
-                <span class="big-num">30 000 L</span>
-                <span class="big-label">par foyer/an</span>
+                <span class="big-n">30 000 L</span>
+                <span class="big-lbl">économisés<br/>par foyer/an</span>
               </div>
               <ul class="why-list">
-                <li>Lorem ipsum dolor sit amet</li>
-                <li>Consectetur adipiscing elit</li>
-                <li>Sed do eiusmod tempor</li>
+                <li>Lorem ipsum dolor sit amet consectetur</li>
+                <li>Adipiscing elit sed do eiusmod tempor</li>
+                <li>Incididunt ut labore et dolore magna</li>
               </ul>
             </div>
           </div>
-          <!-- Économies -->
+
           <div class="why-card">
-            <div class="why-card__illo">
-              <div style="width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.15);"></div>
+            <div class="why-card-illo">
+              <div style="width:40px; height:40px; border-radius:50%; background:rgba(255,255,255,.14);"></div>
             </div>
-            <div class="why-card__body">
-              <div class="why-card__header">
-                <div class="why-card__icon"></div>
-                <div class="why-card__title">Économies financières</div>
+            <div class="why-card-body">
+              <div class="why-card-header">
+                <div class="why-icon"></div>
+                <div class="why-title">Économies financières</div>
               </div>
               <div class="why-stat">
-                <span class="big-num">300 €</span>
-                <span class="big-label">par an</span>
+                <span class="big-n">300 €</span>
+                <span class="big-lbl">économisés<br/>par an</span>
               </div>
               <ul class="why-list">
-                <li>Lorem ipsum dolor sit amet</li>
-                <li>Consectetur adipiscing elit</li>
-                <li>Sed do eiusmod tempor</li>
+                <li>Lorem ipsum dolor sit amet consectetur</li>
+                <li>Adipiscing elit sed do eiusmod tempor</li>
+                <li>Incididunt ut labore et dolore magna</li>
               </ul>
             </div>
           </div>
-          <!-- Environnement -->
+
           <div class="why-card">
-            <div class="why-card__illo">
-              <div style="width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.15);"></div>
+            <div class="why-card-illo">
+              <div style="width:40px; height:40px; border-radius:50%; background:rgba(255,255,255,.14);"></div>
             </div>
-            <div class="why-card__body">
-              <div class="why-card__header">
-                <div class="why-card__icon"></div>
-                <div class="why-card__title">Impact environnemental</div>
+            <div class="why-card-body">
+              <div class="why-card-header">
+                <div class="why-icon"></div>
+                <div class="why-title">Impact environnemental</div>
               </div>
               <div class="why-stat">
-                <span class="big-num">×3</span>
-                <span class="big-label">moins CO₂</span>
+                <span class="big-n">×3</span>
+                <span class="big-lbl">moins<br/>d'impact CO₂</span>
               </div>
               <ul class="why-list">
-                <li>Lorem ipsum dolor sit amet</li>
-                <li>Consectetur adipiscing elit</li>
-                <li>Sed do eiusmod tempor</li>
+                <li>Lorem ipsum dolor sit amet consectetur</li>
+                <li>Adipiscing elit sed do eiusmod tempor</li>
+                <li>Incididunt ut labore et dolore magna</li>
               </ul>
             </div>
           </div>
@@ -975,120 +1036,122 @@
       </div>
     </section>
 
-    <!-- USAGES -->
-    <section class="section section--gray">
+    <!-- ══ USAGES ══ -->
+    <section class="section section-gray">
       <div class="wrap">
-        <div class="section__head">
+        <div class="s-head">
           <span class="chip">Étape 03</span>
-          <h2 class="title-md">Pour quels usages ?</h2>
-          <div class="line line--w65" style="margin:0 auto;"></div>
+          <h2 class="t-lg">Pour quels usages ?</h2>
+          <div class="ln ln-w55" style="margin:0 auto;"></div>
         </div>
+
         <div class="usage-cards">
-          <!-- Maison -->
+
           <div class="usage-card">
-            <div class="usage-card__illo">
-              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#AAA" stroke-width="1.5"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+            <div class="usage-illo">
+              <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#AAA" stroke-width="1.5"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
             </div>
-            <div class="usage-card__body">
-              <div class="usage-card__header">
-                <div class="title-sm">Maison individuelle</div>
-                <span class="chip" style="font-size:8px;padding:2px 7px;margin:0;">Résidentiel</span>
+            <div class="usage-body">
+              <div class="usage-header">
+                <div class="t-sm" style="margin:0;">Maison individuelle</div>
+                <span class="chip" style="font-size:9px; padding:3px 9px; margin:0;">Résidentiel</span>
               </div>
-              <div class="block-label">Contraintes</div>
-              <ul class="block-list">
-                <li>Lorem ipsum dolor sit amet</li>
-                <li>Consectetur adipiscing elit</li>
-                <li>Sed do eiusmod tempor</li>
+              <div class="blk-lbl">Contraintes</div>
+              <ul class="blk-list">
+                <li>Lorem ipsum dolor sit amet consectetur</li>
+                <li>Adipiscing elit sed do eiusmod tempor</li>
+                <li>Incididunt ut labore et dolore</li>
               </ul>
               <div class="reco">
-                <div class="block-label" style="margin-bottom:4px;">Recommandé</div>
-                <div class="line line--w100"></div>
-                <div class="line line--w80"></div>
+                <div class="blk-lbl" style="margin-bottom:6px;">Recommandé</div>
+                <div class="ln ln-xs ln-w100"></div>
+                <div class="ln ln-xs ln-w85" style="margin:0;"></div>
               </div>
-              <button class="btn btn--outline" style="font-size:10px;padding:6px 14px;">Voir les solutions →</button>
+              <button class="btn btn-outline btn-sm">Voir les solutions →</button>
             </div>
           </div>
-          <!-- Bureau -->
+
           <div class="usage-card">
-            <div class="usage-card__illo">
-              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#AAA" stroke-width="1.5"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+            <div class="usage-illo">
+              <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#AAA" stroke-width="1.5"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
             </div>
-            <div class="usage-card__body">
-              <div class="usage-card__header">
-                <div class="title-sm">Bureau &amp; locaux pro</div>
-                <span class="chip" style="font-size:8px;padding:2px 7px;margin:0;">Tertiaire</span>
+            <div class="usage-body">
+              <div class="usage-header">
+                <div class="t-sm" style="margin:0;">Bureau &amp; locaux pro</div>
+                <span class="chip" style="font-size:9px; padding:3px 9px; margin:0;">Tertiaire</span>
               </div>
-              <div class="block-label">Contraintes</div>
-              <ul class="block-list">
-                <li>Lorem ipsum dolor sit amet</li>
-                <li>Consectetur adipiscing elit</li>
-                <li>Sed do eiusmod tempor</li>
+              <div class="blk-lbl">Contraintes</div>
+              <ul class="blk-list">
+                <li>Lorem ipsum dolor sit amet consectetur</li>
+                <li>Adipiscing elit sed do eiusmod tempor</li>
+                <li>Incididunt ut labore et dolore</li>
               </ul>
               <div class="reco">
-                <div class="block-label" style="margin-bottom:4px;">Recommandé</div>
-                <div class="line line--w100"></div>
-                <div class="line line--w80"></div>
+                <div class="blk-lbl" style="margin-bottom:6px;">Recommandé</div>
+                <div class="ln ln-xs ln-w100"></div>
+                <div class="ln ln-xs ln-w85" style="margin:0;"></div>
               </div>
-              <button class="btn btn--outline" style="font-size:10px;padding:6px 14px;">Voir les solutions →</button>
+              <button class="btn btn-outline btn-sm">Voir les solutions →</button>
             </div>
           </div>
-          <!-- Événementiel -->
+
           <div class="usage-card">
-            <div class="usage-card__illo">
-              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#AAA" stroke-width="1.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <div class="usage-illo">
+              <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#AAA" stroke-width="1.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
             </div>
-            <div class="usage-card__body">
-              <div class="usage-card__header">
-                <div class="title-sm">Événementiel &amp; outdoor</div>
-                <span class="chip" style="font-size:8px;padding:2px 7px;margin:0;">Temporaire</span>
+            <div class="usage-body">
+              <div class="usage-header">
+                <div class="t-sm" style="margin:0;">Événementiel &amp; outdoor</div>
+                <span class="chip" style="font-size:9px; padding:3px 9px; margin:0;">Temporaire</span>
               </div>
-              <div class="block-label">Contraintes</div>
-              <ul class="block-list">
-                <li>Lorem ipsum dolor sit amet</li>
-                <li>Consectetur adipiscing elit</li>
-                <li>Sed do eiusmod tempor</li>
+              <div class="blk-lbl">Contraintes</div>
+              <ul class="blk-list">
+                <li>Lorem ipsum dolor sit amet consectetur</li>
+                <li>Adipiscing elit sed do eiusmod tempor</li>
+                <li>Incididunt ut labore et dolore</li>
               </ul>
               <div class="reco">
-                <div class="block-label" style="margin-bottom:4px;">Recommandé</div>
-                <div class="line line--w100"></div>
-                <div class="line line--w80"></div>
+                <div class="blk-lbl" style="margin-bottom:6px;">Recommandé</div>
+                <div class="ln ln-xs ln-w100"></div>
+                <div class="ln ln-xs ln-w85" style="margin:0;"></div>
               </div>
-              <button class="btn btn--outline" style="font-size:10px;padding:6px 14px;">Voir les solutions →</button>
+              <button class="btn btn-outline btn-sm">Voir les solutions →</button>
             </div>
           </div>
+
         </div>
       </div>
     </section>
 
   </main>
 
-  <!-- FOOTER -->
+  <!-- ══ FOOTER ══ -->
   <footer class="footer">
-    <div class="footer__top wrap">
-      <div class="footer__brand">
-        <div class="footer__brand-name">
+    <div class="footer-top wrap">
+      <div class="footer-brand">
+        <div class="footer-brand-name">
           <span></span> ToilettEco
         </div>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit ut labore.</p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut labore et dolore magna aliqua.</p>
       </div>
-      <nav class="footer__nav">
-        <div class="footer__col">
+      <nav class="footer-nav">
+        <div class="footer-col">
           <h3>Contenus</h3>
           <ul><li></li><li></li><li></li><li></li><li></li></ul>
         </div>
-        <div class="footer__col">
+        <div class="footer-col">
           <h3>Outils</h3>
           <ul><li></li><li></li><li></li><li></li></ul>
         </div>
-        <div class="footer__col">
+        <div class="footer-col">
           <h3>À propos</h3>
           <ul><li></li><li></li><li></li><li></li></ul>
         </div>
       </nav>
     </div>
-    <div class="footer__bottom">
+    <div class="footer-bottom">
       <div class="wrap">
-        <p>Site éco-conçu · Accessible · Zéro dépendance JS</p>
+        <p>Site éco-conçu · Accessible RGAA · Zéro dépendance JS</p>
         <p>© 2025 ToilettEco — Licence ouverte</p>
       </div>
     </div>
