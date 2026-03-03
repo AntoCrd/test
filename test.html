@@ -1,858 +1,954 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Annuaire Professionnels — Partenaires</title>
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    body {
-      font-family: Arial, sans-serif;
-      background: #EFEFEF;
-      color: #555;
-      font-size: 16px;
-      min-width: 1440px;
-      -webkit-font-smoothing: antialiased;
-    }
-
-    .wrap {
-      max-width: 1320px;
-      margin: 0 auto;
-      padding: 0 60px;
-    }
-
-    /* ══ TOKENS ══ */
-    .ln { height: 12px; border-radius: 4px; background: #CECECE; margin-bottom: 8px; }
-    .ln-dark { background: #BBBBBB; }
-    .ln-w100 { width: 100%; }
-    .ln-w85  { width: 85%; }
-    .ln-w70  { width: 70%; }
-    .ln-w55  { width: 55%; }
-    .ln-w40  { width: 40%; }
-
-    .lbl {
-      font-size: 10px; font-weight: 700; letter-spacing: .11em;
-      text-transform: uppercase; color: #AAAAAA; display: block; margin-bottom: 8px;
-    }
-
-    .t-hero    { font-size: 52px; font-weight: 700; color: #252525; line-height: 1.05; letter-spacing: -.02em; }
-    .t-section { font-size: 28px; font-weight: 700; color: #252525; line-height: 1.15; }
-    .t-card    { font-size: 18px; font-weight: 700; color: #2A2A2A; margin-bottom: 4px; }
-    .t-sm      { font-size: 13px; font-weight: 700; color: #444; }
-
-    .chip {
-      display: inline-flex; align-items: center; gap: 6px;
-      border: 1.5px solid #CCCCCC; border-radius: 999px;
-      padding: 4px 13px; font-size: 10px; font-weight: 700;
-      letter-spacing: .08em; text-transform: uppercase;
-      color: #AAAAAA; background: white;
-    }
-
-    .btn {
-      display: inline-flex; align-items: center; gap: 7px;
-      border-radius: 8px; font-size: 13px; font-weight: 600;
-      padding: 10px 20px; border: 1.5px solid #C8C8C8;
-      background: white; color: #666; cursor: pointer; white-space: nowrap;
-    }
-    .btn-dark    { background: #3A3A3A; border-color: #3A3A3A; color: white; }
-    .btn-primary { background: #5A5A5A; border-color: #5A5A5A; color: white; }
-    .btn-sm      { font-size: 11px; padding: 7px 14px; }
-
-    /* ══ HEADER ══ */
-    .header {
-      background: #FFF; border-bottom: 1.5px solid #DDDDDD;
-      position: sticky; top: 0; z-index: 100;
-    }
-    .header-inner {
-      display: flex; align-items: center; gap: 24px; height: 70px;
-    }
-    .logo { display: flex; align-items: center; gap: 11px; flex-shrink: 0; }
-    .logo-icon { width: 36px; height: 36px; border-radius: 50%; background: #CCCCCC; }
-    .logo-name { font-size: 20px; font-weight: 700; color: #252525; }
-    .nav { display: flex; gap: 4px; flex: 1; }
-    .nav-item { padding: 7px 15px; border-radius: 7px; font-size: 13px; color: #AAAAAA; font-weight: 500; }
-    .nav-item.active { background: #EEEEEE; color: #444; font-weight: 600; }
-
-    /* ══ BREADCRUMB ══ */
-    .breadcrumb-bar { background: #FFF; border-bottom: 1px solid #E8E8E8; }
-    .breadcrumb {
-      display: flex; align-items: center; gap: 8px;
-      padding: 12px 0; font-size: 12px; color: #BBBBBB;
-    }
-    .breadcrumb span { color: #777; font-weight: 500; }
-    .bc-sep { color: #D8D8D8; }
-
-    /* ══ HERO ANNUAIRE ══ */
-    .hero-annuaire {
-      background: #FFF;
-      padding: 56px 0 52px;
-      border-bottom: 1.5px solid #EEEEEE;
-    }
-
-    .hero-annuaire-inner {
-      display: flex; align-items: flex-end;
-      justify-content: space-between; gap: 40px;
-    }
-
-    .hero-left {}
-
-    .hero-eyebrow {
-      display: flex; align-items: center; gap: 8px;
-      font-size: 11px; font-weight: 700; letter-spacing: .1em;
-      text-transform: uppercase; color: #AAAAAA; margin-bottom: 16px;
-    }
-
-    .hero-dot { width: 7px; height: 7px; border-radius: 50%; background: #C0C0C0; }
-
-    .hero-desc {
-      font-size: 16px; color: #777; line-height: 1.7;
-      max-width: 500px; margin-top: 14px;
-    }
-
-    .hero-right {
-      display: flex; flex-direction: column; align-items: flex-end; gap: 20px; flex-shrink: 0;
-    }
-
-    .hero-stats {
-      display: flex; align-items: center; gap: 28px;
-    }
-
-    .stat-num { font-size: 26px; font-weight: 700; color: #444; display: block; }
-    .stat-lbl { font-size: 11px; color: #AAAAAA; line-height: 1.4; }
-    .stat-sep { width: 1px; height: 36px; background: #DDDDDD; }
-
-    /* Barre de recherche hero */
-    .search-bar {
-      display: flex; align-items: center;
-      background: #F6F6F6; border: 1.5px solid #DDDDDD;
-      border-radius: 12px; padding: 0 16px;
-      gap: 12px; width: 460px; height: 52px;
-    }
-
-    .search-icon { width: 18px; height: 18px; background: #D0D0D0; border-radius: 50%; flex-shrink: 0; }
-    .search-input-fake { flex: 1; height: 12px; border-radius: 4px; background: #DDDDDD; }
-    .search-btn {
-      background: #3A3A3A; color: white; border: none;
-      border-radius: 8px; padding: 8px 18px;
-      font-size: 12px; font-weight: 600; cursor: pointer; flex-shrink: 0;
-    }
-
-    /* ══ MAIN LAYOUT ══ */
-    .main-layout {
-      display: grid;
-      grid-template-columns: 300px 1fr;
-      gap: 32px;
-      padding: 40px 0 80px;
-      align-items: start;
-    }
-
-    /* ══ SIDEBAR FILTRES ══ */
-    .sidebar {
-      position: sticky; top: 86px;
-      display: flex; flex-direction: column; gap: 14px;
-    }
-
-    .filter-panel {
-      background: #FFF;
-      border: 1.5px solid #DDDDDD;
-      border-radius: 16px;
-      overflow: hidden;
-    }
-
-    .filter-panel-header {
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 16px 20px;
-      border-bottom: 1px solid #EEEEEE;
-    }
-
-    .filter-panel-title {
-      font-size: 12px; font-weight: 700;
-      letter-spacing: .08em; text-transform: uppercase; color: #555;
-    }
-
-    .filter-reset {
-      font-size: 11px; color: #AAAAAA; cursor: pointer; font-weight: 500;
-    }
-
-    .filter-body { padding: 16px 20px; display: flex; flex-direction: column; gap: 10px; }
-
-    /* Checkbox ligne */
-    .filter-item {
-      display: flex; align-items: center; gap: 10px;
-      font-size: 13px; color: #555;
-    }
-
-    .filter-cb {
-      width: 17px; height: 17px; border-radius: 5px;
-      border: 1.5px solid #CCCCCC; background: white; flex-shrink: 0;
-    }
-
-    .filter-cb-checked { background: #3A3A3A; border-color: #3A3A3A; }
-
-    .filter-count {
-      margin-left: auto; font-size: 11px;
-      color: #BBBBBB; font-weight: 500;
-    }
-
-    /* Range fake */
-    .filter-range {
-      height: 5px; border-radius: 999px;
-      background: #E4E4E4; position: relative; margin: 8px 0 4px;
-    }
-
-    .filter-range-fill {
-      position: absolute; left: 0; top: 0;
-      height: 100%; background: #888; border-radius: 999px;
-      width: 65%;
-    }
-
-    .filter-range-thumb {
-      width: 16px; height: 16px; border-radius: 50%;
-      background: #FFF; border: 2px solid #888;
-      position: absolute; top: 50%; transform: translateY(-50%);
-      left: 65%; margin-left: -8px;
-    }
-
-    .filter-range-labels {
-      display: flex; justify-content: space-between;
-      font-size: 11px; color: #BBBBBB;
-    }
-
-    /* Région pills */
-    .filter-pills { display: flex; flex-wrap: wrap; gap: 7px; }
-
-    .filter-pill {
-      padding: 5px 12px; border-radius: 999px;
-      font-size: 11px; font-weight: 600;
-      border: 1.5px solid #D4D4D4; background: white;
-      color: #777; cursor: pointer;
-    }
-
-    .filter-pill.active {
-      background: #3A3A3A; border-color: #3A3A3A; color: white;
-    }
-
-    /* Résultats compteur */
-    .results-header {
-      display: flex; align-items: center;
-      justify-content: space-between; margin-bottom: 20px;
-    }
-
-    .results-count {
-      font-size: 14px; color: #555;
-    }
-
-    .results-count strong { font-weight: 700; color: #252525; }
-
-    .results-sort {
-      display: flex; align-items: center; gap: 10px;
-    }
-
-    .sort-label { font-size: 12px; color: #AAAAAA; }
-
-    .sort-select {
-      display: flex; align-items: center; gap: 8px;
-      background: white; border: 1.5px solid #D8D8D8;
-      border-radius: 8px; padding: 7px 14px;
-      font-size: 12px; color: #555; cursor: pointer;
-    }
-
-    .sort-arrow { width: 10px; height: 6px; background: #C8C8C8; border-radius: 2px; }
-
-    /* ══ CARDS ENTREPRISES ══ */
-    .company-list { display: flex; flex-direction: column; gap: 16px; }
-
-    .company-card {
-      background: #FFF;
-      border: 1.5px solid #DDDDDD;
-      border-radius: 18px;
-      padding: 28px 32px;
-      display: grid;
-      grid-template-columns: 80px 1fr auto;
-      gap: 24px;
-      align-items: start;
-      transition: box-shadow .2s, transform .2s;
-    }
-
-    .company-card:hover {
-      box-shadow: 0 8px 32px rgba(0,0,0,.08);
-      transform: translateY(-2px);
-    }
-
-    /* Card featured */
-    .company-card-featured {
-      border-color: #B8B8B8;
-      background: #FAFAFA;
-      position: relative;
-    }
-
-    .featured-ribbon {
-      position: absolute; top: -1px; left: 28px;
-      background: #3A3A3A; color: white;
-      font-size: 9px; font-weight: 700; letter-spacing: .1em;
-      text-transform: uppercase;
-      padding: 4px 12px; border-radius: 0 0 8px 8px;
-    }
-
-    /* Logo entreprise */
-    .company-logo {
-      width: 80px; height: 80px;
-      border-radius: 14px;
-      background: #E4E4E4;
-      border: 1.5px solid #D4D4D4;
-      display: flex; align-items: center; justify-content: center;
-      flex-shrink: 0;
-    }
-
-    .company-logo-inner {
-      width: 44px; height: 44px; background: #C8C8C8; border-radius: 8px;
-    }
-
-    /* Corps de la card */
-    .company-body {}
-
-    .company-header {
-      display: flex; align-items: center; gap: 12px; margin-bottom: 8px;
-    }
-
-    .company-name { font-size: 18px; font-weight: 700; color: #252525; }
-
-    .company-badge {
-      display: inline-flex; align-items: center; gap: 5px;
-      background: #EFEFEF; border: 1px solid #D8D8D8;
-      border-radius: 6px; padding: 3px 9px;
-      font-size: 10px; font-weight: 700; color: #777;
-      letter-spacing: .06em; text-transform: uppercase;
-    }
-
-    .company-badge-dot {
-      width: 6px; height: 6px; border-radius: 50%; background: #C0C0C0;
-    }
-
-    .company-desc {
-      font-size: 14px; color: #777; line-height: 1.65;
-      margin-bottom: 16px; max-width: 560px;
-    }
-
-    .company-meta {
-      display: flex; align-items: center; gap: 20px; flex-wrap: wrap;
-    }
-
-    .meta-item {
-      display: flex; align-items: center; gap: 7px;
-      font-size: 12px; color: #999; font-weight: 500;
-    }
-
-    .meta-icon {
-      width: 14px; height: 14px; border-radius: 50%; background: #DDDDDD; flex-shrink: 0;
-    }
-
-    .meta-tag {
-      display: inline-block;
-      background: #F0F0F0; border: 1px solid #E0E0E0;
-      border-radius: 5px; padding: 2px 8px;
-      font-size: 11px; font-weight: 600; color: #888;
-    }
-
-    /* Actions card */
-    .company-actions {
-      display: flex; flex-direction: column;
-      gap: 10px; align-items: flex-end; flex-shrink: 0;
-      padding-top: 4px;
-    }
-
-    .company-actions .btn { min-width: 150px; justify-content: center; }
-
-    .company-actions-sub {
-      font-size: 11px; color: #BBBBBB; text-align: right; line-height: 1.5;
-    }
-
-    /* ══ PAGINATION ══ */
-    .pagination {
-      display: flex; align-items: center;
-      justify-content: center; gap: 6px; padding: 40px 0 0;
-    }
-
-    .page-btn {
-      width: 40px; height: 40px; border-radius: 10px;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 13px; font-weight: 600; cursor: pointer;
-      border: 1.5px solid #D8D8D8; background: white; color: #666;
-    }
-
-    .page-btn.active { background: #3A3A3A; border-color: #3A3A3A; color: white; }
-    .page-btn-arrow { width: 40px; height: 40px; border-radius: 10px; background: #EEEEEE; border: 1.5px solid #D8D8D8; display: flex; align-items: center; justify-content: center; cursor: pointer; }
-
-    /* ══ ENCART PUB CTA ══ */
-    .promo-banner {
-      background: #2E2E2E;
-      border-radius: 18px;
-      padding: 28px 32px;
-      display: flex; align-items: center;
-      justify-content: space-between; gap: 24px;
-      margin-bottom: 20px;
-    }
-
-    .promo-left {}
-
-    .promo-title {
-      font-size: 16px; font-weight: 700; color: white; margin-bottom: 5px;
-    }
-
-    .promo-sub { font-size: 13px; color: rgba(255,255,255,.45); line-height: 1.55; }
-
-    .promo-price {
-      font-size: 26px; font-weight: 700; color: white; flex-shrink: 0; text-align: right;
-    }
-
-    .promo-price span { font-size: 13px; color: rgba(255,255,255,.35); display: block; font-weight: 400; }
-
-    /* ══ FOOTER ══ */
-    .footer { background: #363636; }
-    .footer-top { display: grid; grid-template-columns: 240px 1fr; gap: 80px; padding: 64px 0; align-items: start; }
-    .footer-brand-name { display: flex; align-items: center; gap: 10px; font-size: 17px; font-weight: 700; color: #EEE; margin-bottom: 10px; }
-    .footer-brand-icon { width: 28px; height: 28px; border-radius: 50%; background: #555; flex-shrink: 0; }
-    .footer-brand p { font-size: 12px; color: rgba(255,255,255,.28); line-height: 1.7; }
-    .footer-nav { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
-    .footer-col h3 { font-size: 10px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: rgba(255,255,255,.25); margin-bottom: 14px; }
-    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 9px; }
-    .footer-col ul li { height: 10px; border-radius: 3px; background: rgba(255,255,255,.12); }
-    .footer-col ul li:nth-child(odd) { width: 72%; }
-    .footer-col ul li:nth-child(even) { width: 54%; }
-    .footer-bottom { border-top: 1px solid rgba(255,255,255,.07); padding: 18px 0; }
-    .footer-bottom .wrap { display: flex; align-items: center; justify-content: space-between; }
-    .footer-bottom p { font-size: 11px; color: rgba(255,255,255,.2); }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>AURA // Organic & Dark Mode</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* --- DESIGN SYSTEM : ORGANIC JAPANDI (LIGHT) --- */
+        :root {
+            --bg-base: #F4F1EB;
+            /* Sable très clair */
+            --surface-1: #FFFFFF;
+            /* Blanc pur */
+            --surface-2: #FAF8F5;
+            /* Blanc cassé */
+
+            --text-main: #33302E;
+            /* Brun très foncé */
+            --text-dim: #8C857B;
+            /* Gris taupe */
+
+            --border-soft: #E8E3D9;
+            /* Beige */
+
+            /* Couleurs Sémantiques */
+            --accent-sage: #7A907C;
+            /* Vert sauge */
+            --accent-sage-bg: #EAF0EB;
+            --accent-terra: #C26D5C;
+            /* Terracotta */
+            --accent-terra-bg: #F5EAE8;
+
+            /* Formes & Ombres */
+            --radius-pill: 100px;
+            --radius-card: 32px;
+            --radius-btn: 24px;
+            --shadow-float: 0 12px 30px rgba(140, 133, 123, 0.08);
+
+            --transition-velvet: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+
+            /* État par défaut */
+            --theme-accent: var(--accent-sage);
+            --theme-accent-bg: var(--accent-sage-bg);
+        }
+
+        /* --- DARK MODE (Ardoise & Bois Fumé) --- */
+        [data-theme="dark"] {
+            --bg-base: #1A1817;
+            /* Brun très profond */
+            --surface-1: #242120;
+            /* Ardoise chaude */
+            --surface-2: #2E2A28;
+            /* Bois fumé */
+
+            --text-main: #EFEBE4;
+            /* Blanc cassé très doux */
+            --text-dim: #A39B93;
+            /* Taupe clair */
+
+            --border-soft: #383431;
+            /* Bordure discrète */
+
+            /* Sauge plus lumineuse pour contraster sur le sombre */
+            --theme-accent: #92AA94;
+            --theme-accent-bg: rgba(146, 170, 148, 0.15);
+
+            --shadow-float: 0 12px 30px rgba(0, 0, 0, 0.25);
+        }
+
+        /* --- CRISIS MODE OVERRIDE (Charbon & Terracotta) --- */
+        body.crisis-active {
+            --bg-base: #141212 !important;
+            /* Noir presque pur pour l'économie d'énergie */
+            --surface-1: #241D1B !important;
+            --surface-2: #302624 !important;
+
+            --text-main: #F4F1EB !important;
+            --text-dim: #A8A198 !important;
+            --border-soft: #3D312E !important;
+
+            --theme-accent: var(--accent-terra) !important;
+            --theme-accent-bg: rgba(194, 109, 92, 0.15) !important;
+            --shadow-float: 0 12px 30px rgba(0, 0, 0, 0.4) !important;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: var(--bg-base);
+            color: var(--text-main);
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: var(--transition-velvet);
+            user-select: none;
+        }
+
+        /* --- TOP NAV --- */
+        .top-nav {
+            height: 100px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 40px;
+        }
+
+        .nav-logo {
+            font-weight: 700;
+            font-size: 1.8rem;
+            letter-spacing: -1px;
+        }
+
+        .zen-pill {
+            background: var(--surface-1);
+            border: 1px solid var(--border-soft);
+            box-shadow: var(--shadow-float);
+            padding: 10px 24px 10px 10px;
+            border-radius: var(--radius-pill);
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            transition: var(--transition-velvet);
+            margin: 0 auto;
+        }
+
+        .ai-sun {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: var(--theme-accent);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: var(--bg-base);
+            font-size: 1.2rem;
+            transition: var(--transition-velvet);
+            box-shadow: 0 0 0 8px var(--theme-accent-bg);
+            animation: breathe 4s infinite alternate ease-in-out;
+        }
+
+        @keyframes breathe {
+            0% {
+                transform: scale(0.95);
+                opacity: 0.9;
+            }
+
+            100% {
+                transform: scale(1.05);
+                opacity: 1;
+                box-shadow: 0 0 0 12px var(--theme-accent-bg);
+            }
+        }
+
+        .pill-text {
+            font-size: 1.05rem;
+            font-weight: 500;
+        }
+
+        .actions-group {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        /* Bouton Thème */
+        .btn-theme {
+            width: 54px;
+            height: 54px;
+            border-radius: 50%;
+            background: var(--surface-1);
+            border: 1px solid var(--border-soft);
+            box-shadow: var(--shadow-float);
+            color: var(--text-main);
+            font-size: 1.3rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: var(--transition-velvet);
+        }
+
+        .btn-theme:hover {
+            transform: translateY(-2px);
+        }
+
+        body.crisis-active .btn-theme {
+            opacity: 0.5;
+            pointer-events: none;
+        }
+
+        /* Désactivé en crise */
+
+        /* Bouton Crise */
+        .btn-trigger {
+            background: var(--surface-1);
+            border: 1px solid var(--border-soft);
+            box-shadow: var(--shadow-float);
+            color: var(--text-main);
+            padding: 16px 28px;
+            border-radius: var(--radius-pill);
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: var(--transition-velvet);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-family: 'Outfit';
+        }
+
+        .btn-trigger:hover {
+            transform: translateY(-2px);
+        }
+
+        body.crisis-active .btn-trigger {
+            background: var(--theme-accent-bg);
+            border-color: var(--theme-accent);
+            color: var(--theme-accent);
+        }
+
+        /* --- LAYOUT --- */
+        .core-ui {
+            display: flex;
+            flex: 1;
+            overflow: hidden;
+            padding: 0 30px 30px 30px;
+            gap: 30px;
+        }
+
+        .dock {
+            width: 80px;
+            background: var(--surface-1);
+            border: 1px solid var(--border-soft);
+            box-shadow: var(--shadow-float);
+            border-radius: 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px 0;
+            gap: 30px;
+            transition: var(--transition-velvet);
+        }
+
+        .dock-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: var(--text-dim);
+            font-size: 1.3rem;
+            cursor: pointer;
+            transition: var(--transition-velvet);
+        }
+
+        .dock-icon.active {
+            background: var(--text-main);
+            color: var(--surface-1);
+        }
+
+        /* --- MASTER: SPACES --- */
+        .master-view {
+            width: 380px;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .overview-card {
+            background: var(--surface-1);
+            border: 1px solid var(--border-soft);
+            box-shadow: var(--shadow-float);
+            border-radius: var(--radius-card);
+            padding: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: var(--transition-velvet);
+        }
+
+        .micro-label {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-weight: 600;
+            color: var(--text-dim);
+            margin-bottom: 4px;
+        }
+
+        .huge-value {
+            font-size: 3rem;
+            font-weight: 300;
+            letter-spacing: -0.04em;
+            line-height: 1;
+            color: var(--text-main);
+        }
+
+        .huge-value span {
+            font-size: 1.2rem;
+            font-weight: 500;
+            color: var(--text-dim);
+        }
+
+        .space-list {
+            flex: 1;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            scrollbar-width: none;
+        }
+
+        .space-item {
+            background: var(--surface-1);
+            border: 1px solid var(--border-soft);
+            box-shadow: var(--shadow-float);
+            padding: 20px;
+            border-radius: var(--radius-card);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: var(--transition-velvet);
+        }
+
+        .space-item.active {
+            border-color: var(--theme-accent);
+            background: var(--theme-accent-bg);
+            box-shadow: none;
+        }
+
+        .space-item.offline {
+            opacity: 0.4;
+            filter: grayscale(0.8);
+            pointer-events: none;
+            box-shadow: none;
+        }
+
+        .s-info {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .s-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 20px;
+            background: var(--surface-2);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.4rem;
+            color: var(--text-dim);
+            transition: var(--transition-velvet);
+        }
+
+        .space-item.active .s-icon {
+            color: var(--theme-accent);
+            background: var(--surface-1);
+        }
+
+        .s-name {
+            font-weight: 600;
+            font-size: 1.15rem;
+            color: var(--text-main);
+        }
+
+        .s-status {
+            font-size: 0.9rem;
+            color: var(--text-dim);
+            margin-top: 4px;
+            font-weight: 500;
+        }
+
+        .s-power {
+            font-weight: 600;
+            font-size: 1.2rem;
+            color: var(--text-main);
+        }
+
+        /* --- DETAIL: CONTROLS --- */
+        .detail-view {
+            flex: 1;
+            background: var(--surface-1);
+            border: 1px solid var(--border-soft);
+            box-shadow: var(--shadow-float);
+            border-radius: 40px;
+            padding: 50px;
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+            position: relative;
+            transition: var(--transition-velvet);
+            scrollbar-width: none;
+        }
+
+        .detail-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 40px;
+        }
+
+        .room-title {
+            font-size: 3.5rem;
+            font-weight: 500;
+            letter-spacing: -0.02em;
+            margin-bottom: 8px;
+            color: var(--text-main);
+            line-height: 1;
+        }
+
+        /* Control Grid */
+        .control-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+        }
+
+        /* Pebble Widget */
+        .pebble-widget {
+            background: var(--surface-2);
+            border-radius: var(--radius-card);
+            padding: 32px;
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            transition: var(--transition-velvet);
+            border: 1px solid transparent;
+        }
+
+        [data-theme="dark"] .pebble-widget {
+            border-color: var(--border-soft);
+        }
+
+        /* Légère bordure en dark mode pour détacher */
+
+        .w-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .w-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .w-title i {
+            color: var(--text-dim);
+            font-size: 1.2rem;
+        }
+
+        /* Soft Toggle */
+        .soft-toggle {
+            position: relative;
+            width: 60px;
+            height: 34px;
+            cursor: pointer;
+        }
+
+        .soft-toggle input {
+            display: none;
+        }
+
+        .st-track {
+            position: absolute;
+            inset: 0;
+            background: var(--border-soft);
+            border-radius: 34px;
+            transition: var(--transition-velvet);
+        }
+
+        .st-thumb {
+            position: absolute;
+            width: 26px;
+            height: 26px;
+            left: 4px;
+            top: 4px;
+            background: var(--surface-1);
+            border-radius: 50%;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            transition: var(--transition-velvet);
+        }
+
+        input:checked+.st-track {
+            background: var(--theme-accent);
+        }
+
+        input:checked+.st-track .st-thumb {
+            transform: translateX(26px);
+        }
+
+        /* Matte Slider */
+        .matte-slider {
+            position: relative;
+            width: 100%;
+            height: 80px;
+            background: var(--surface-1);
+            border-radius: 40px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            padding: 0 30px;
+            box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.02);
+            transition: var(--transition-velvet);
+            border: 1px solid var(--border-soft);
+        }
+
+        .matte-slider.disabled {
+            opacity: 0.4;
+            filter: grayscale(1);
+            pointer-events: none;
+        }
+
+        .ms-fill {
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            background: var(--theme-accent-bg);
+            transition: width 0.1s;
+            border-right: 4px solid var(--theme-accent);
+        }
+
+        .ms-value {
+            z-index: 2;
+            font-size: 1.8rem;
+            font-weight: 500;
+            color: var(--text-main);
+            pointer-events: none;
+            transition: var(--transition-velvet);
+        }
+
+        input[type="range"].ms-input {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            cursor: pointer;
+            z-index: 3;
+        }
+
+        /* Device List Natural */
+        .hardware-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .hw-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 24px;
+            background: var(--surface-1);
+            border-radius: var(--radius-btn);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+            transition: var(--transition-velvet);
+            border: 1px solid var(--border-soft);
+        }
+
+        .hw-item.disabled {
+            opacity: 0.5;
+            box-shadow: none;
+        }
+
+        .hw-info h4 {
+            font-size: 1.1rem;
+            font-weight: 500;
+            margin-bottom: 6px;
+            color: var(--text-main);
+        }
+
+        .hw-info p {
+            font-size: 0.9rem;
+            color: var(--text-dim);
+            font-weight: 500;
+        }
+
+        .vital-tag {
+            color: var(--theme-accent);
+            background: var(--theme-accent-bg);
+            font-size: 0.75rem;
+            padding: 4px 10px;
+            border-radius: 12px;
+            margin-left: 10px;
+            font-weight: 600;
+        }
+    </style>
 </head>
+
 <body>
 
-  <!-- HEADER -->
-  <header class="header">
-    <div class="header-inner wrap">
-      <div class="logo">
-        <div class="logo-icon"></div>
-        <span class="logo-name">ToilettEco</span>
-      </div>
-      <nav class="nav">
-        <div class="nav-item">Accueil</div>
-        <div class="nav-item">C'est quoi ?</div>
-        <div class="nav-item">Pourquoi ?</div>
-        <div class="nav-item">Usages</div>
-        <div class="nav-item active">Professionnels</div>
-        <div class="nav-item">Outils</div>
-      </nav>
-      <button class="btn btn-dark">Référencer mon entreprise</button>
-    </div>
-  </header>
+    <nav class="top-nav">
+        <div class="nav-logo">aura.</div>
 
-  <!-- BREADCRUMB -->
-  <div class="breadcrumb-bar">
-    <div class="wrap">
-      <div class="breadcrumb">
-        Accueil <span class="bc-sep">›</span>
-        <span>Annuaire des professionnels</span>
-      </div>
-    </div>
-  </div>
-
-  <main>
-
-    <!-- ══ HERO ══ -->
-    <section class="hero-annuaire">
-      <div class="wrap hero-annuaire-inner">
-        <div class="hero-left">
-          <div class="hero-eyebrow">
-            <span class="hero-dot"></span>
-            Annuaire · Partenaires référencés
-          </div>
-          <h1 class="t-hero">Trouvez un<br/>professionnel.</h1>
-          <p class="hero-desc">Des centaines d'entreprises vérifiées dans tous les secteurs d'activité. Chaque fiche est mise à jour régulièrement par nos équipes.</p>
+        <div class="zen-pill">
+            <div class="ai-sun" id="aiIcon"><i class="fa-solid fa-leaf"></i></div>
+            <div class="pill-text" id="mainStatus">Équilibre énergétique optimal. Maison apaisée.</div>
         </div>
-        <div class="hero-right">
-          <div class="hero-stats">
-            <div>
-              <span class="stat-num">340</span>
-              <span class="stat-lbl">entreprises<br/>référencées</span>
-            </div>
-            <div class="stat-sep"></div>
-            <div>
-              <span class="stat-num">18</span>
-              <span class="stat-lbl">secteurs<br/>couverts</span>
-            </div>
-            <div class="stat-sep"></div>
-            <div>
-              <span class="stat-num">12</span>
-              <span class="stat-lbl">régions<br/>disponibles</span>
-            </div>
-          </div>
-          <div class="search-bar">
-            <div class="search-icon"></div>
-            <div class="search-input-fake"></div>
-            <button class="search-btn">Rechercher</button>
-          </div>
+
+        <div class="actions-group">
+            <button class="btn-theme" onclick="toggleTheme()" id="themeBtn" aria-label="Changer de thème">
+                <i class="fa-solid fa-moon"></i>
+            </button>
+            <button class="btn-trigger" onclick="toggleEmergency()" id="btnCrisis">
+                <i class="fa-solid fa-cloud-bolt"></i> <span>Alerte Hivernale RTE</span>
+            </button>
         </div>
-      </div>
-    </section>
+    </nav>
 
-    <!-- ══ MAIN LAYOUT ══ -->
-    <div class="wrap">
-      <div class="main-layout">
+    <div class="core-ui">
 
-        <!-- ══ SIDEBAR FILTRES ══ -->
-        <aside class="sidebar">
-
-          <!-- Secteur d'activité -->
-          <div class="filter-panel">
-            <div class="filter-panel-header">
-              <span class="filter-panel-title">Secteur d'activité</span>
-              <span class="filter-reset">Réinitialiser</span>
-            </div>
-            <div class="filter-body">
-              <div class="filter-item">
-                <div class="filter-cb filter-cb-checked"></div>
-                Artisanat & Bâtiment
-                <span class="filter-count">64</span>
-              </div>
-              <div class="filter-item">
-                <div class="filter-cb filter-cb-checked"></div>
-                Santé & Bien-être
-                <span class="filter-count">41</span>
-              </div>
-              <div class="filter-item">
-                <div class="filter-cb"></div>
-                Conseil & Formation
-                <span class="filter-count">38</span>
-              </div>
-              <div class="filter-item">
-                <div class="filter-cb"></div>
-                Commerce & Distribution
-                <span class="filter-count">55</span>
-              </div>
-              <div class="filter-item">
-                <div class="filter-cb"></div>
-                Numérique & Tech
-                <span class="filter-count">47</span>
-              </div>
-              <div class="filter-item">
-                <div class="filter-cb"></div>
-                Alimentation & Restauration
-                <span class="filter-count">29</span>
-              </div>
-              <div class="filter-item">
-                <div class="filter-cb"></div>
-                Événementiel
-                <span class="filter-count">22</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- Région -->
-          <div class="filter-panel">
-            <div class="filter-panel-header">
-              <span class="filter-panel-title">Région</span>
-              <span class="filter-reset">Tout voir</span>
-            </div>
-            <div class="filter-body">
-              <div class="filter-pills">
-                <div class="filter-pill active">Île-de-France</div>
-                <div class="filter-pill active">Occitanie</div>
-                <div class="filter-pill">PACA</div>
-                <div class="filter-pill">Bretagne</div>
-                <div class="filter-pill">Auvergne-RA</div>
-                <div class="filter-pill">Nouvelle-Aquitaine</div>
-                <div class="filter-pill">Normandie</div>
-                <div class="filter-pill">Pays de la Loire</div>
-                <div class="filter-pill">Grand Est</div>
-                <div class="filter-pill">+ 3 autres</div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Type de prestation -->
-          <div class="filter-panel">
-            <div class="filter-panel-header">
-              <span class="filter-panel-title">Type de prestation</span>
-              <span class="filter-reset">Réinitialiser</span>
-            </div>
-            <div class="filter-body">
-              <div class="filter-item">
-                <div class="filter-cb filter-cb-checked"></div>
-                Vente de produits
-                <span class="filter-count">98</span>
-              </div>
-              <div class="filter-item">
-                <div class="filter-cb filter-cb-checked"></div>
-                Prestation de service
-                <span class="filter-count">142</span>
-              </div>
-              <div class="filter-item">
-                <div class="filter-cb"></div>
-                Conseil & expertise
-                <span class="filter-count">61</span>
-              </div>
-              <div class="filter-item">
-                <div class="filter-cb"></div>
-                Formation
-                <span class="filter-count">39</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- Rayon d'intervention -->
-          <div class="filter-panel">
-            <div class="filter-panel-header">
-              <span class="filter-panel-title">Rayon d'intervention</span>
-            </div>
-            <div class="filter-body">
-              <span class="lbl" style="margin-bottom:4px;">Distance max</span>
-              <div class="filter-range">
-                <div class="filter-range-fill"></div>
-                <div class="filter-range-thumb"></div>
-              </div>
-              <div class="filter-range-labels">
-                <span>0 km</span>
-                <span style="font-weight:700; color:#555;">130 km</span>
-                <span>500 km</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- CTA référencement -->
-          <div style="background:#2E2E2E; border-radius:16px; padding:22px;">
-            <div class="lbl" style="color:rgba(255,255,255,.35);">Vous êtes professionnel ?</div>
-            <p style="font-size:13px; color:rgba(255,255,255,.45); line-height:1.6; margin-bottom:16px;">Référencez votre entreprise et gagnez en visibilité auprès de milliers de clients potentiels.</p>
-            <button class="btn btn-sm" style="background:white; color:#222; border-color:white; width:100%; justify-content:center;">Nous rejoindre →</button>
-          </div>
-
+        <aside class="dock">
+            <div class="dock-icon active"><i class="fa-solid fa-house-chimney"></i></div>
+            <div class="dock-icon"><i class="fa-solid fa-chart-pie"></i></div>
+            <div class="dock-icon"><i class="fa-solid fa-seedling"></i></div>
         </aside>
 
-        <!-- ══ LISTE RÉSULTATS ══ -->
-        <div>
-
-          <!-- Header résultats -->
-          <div class="results-header">
-            <div class="results-count"><strong>340 professionnels</strong> correspondent à votre recherche</div>
-            <div class="results-sort">
-              <span class="sort-label">Trier par</span>
-              <div class="sort-select">
-                Pertinence
-                <div class="sort-arrow"></div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Encart pub / CTA référencement -->
-          <div class="promo-banner">
-            <div class="promo-left">
-              <div class="promo-title">Vous êtes professionnel ? Rejoignez l'annuaire.</div>
-              <div class="promo-sub">Accédez à nos 40 000 visiteurs mensuels. Fiche complète, badge partenaire, mise en avant prioritaire dans les résultats.</div>
-            </div>
-            <div>
-              <div class="promo-price">à partir de 29 €<span>/ mois HT</span></div>
-            </div>
-            <button class="btn btn-sm" style="background:white; color:#222; border-color:white; flex-shrink:0;">Voir les offres</button>
-          </div>
-
-          <div class="company-list">
-
-            <!-- CARD 1 — Featured -->
-            <div class="company-card company-card-featured">
-              <div class="featured-ribbon">★ En avant</div>
-              <div class="company-logo">
-                <div class="company-logo-inner"></div>
-              </div>
-              <div class="company-body" style="padding-top:10px;">
-                <div class="company-header">
-                  <div class="company-name">Atelier Lemaire</div>
-                  <div class="company-badge">
-                    <div class="company-badge-dot"></div>
-                    Artisanat & Bâtiment
-                  </div>
-                  <div class="company-badge">
-                    <div class="company-badge-dot"></div>
-                    Prestation de service
-                  </div>
+        <div class="master-view">
+            <div class="overview-card">
+                <div>
+                    <div class="micro-label">Empreinte Instantanée</div>
+                    <div class="huge-value" id="globalPowerLabel">0.00<span>kW</span></div>
                 </div>
-                <p class="company-desc">Menuisier ébéniste depuis 1998, spécialisé dans la fabrication sur mesure de mobilier intérieur et d'agencement. Bois massif, restauration de pièces anciennes et création contemporaine. Devis gratuit sous 48h.</p>
-                <div class="company-meta">
-                  <div class="meta-item"><div class="meta-icon"></div>Nantes · Pays de la Loire</div>
-                  <div class="meta-item"><div class="meta-icon"></div>Rayon : 80 km</div>
-                  <div class="meta-item"><span class="meta-tag">Artisanat</span></div>
-                  <div class="meta-item"><span class="meta-tag">Sur mesure</span></div>
-                </div>
-              </div>
-              <div class="company-actions">
-                <button class="btn btn-primary">Contacter →</button>
-                <button class="btn">Voir le site</button>
-                <div class="company-actions-sub">Répond sous 48h<br/>Devis gratuit</div>
-              </div>
+                <div
+                    style="width: 56px; height: 56px; border-radius: 50%; background: var(--theme-accent-bg); color: var(--theme-accent); display: flex; justify-content: center; align-items: center; font-size: 1.5rem; transition: var(--transition-velvet);">
+                    <i class="fa-solid fa-bolt"></i></div>
             </div>
 
-            <!-- CARD 2 -->
-            <div class="company-card">
-              <div class="company-logo"><div class="company-logo-inner"></div></div>
-              <div class="company-body">
-                <div class="company-header">
-                  <div class="company-name">Cabinet Véra & Associés</div>
-                  <div class="company-badge"><div class="company-badge-dot"></div>Conseil & Formation</div>
-                </div>
-                <p class="company-desc">Cabinet de conseil en ressources humaines et management. Accompagnement des PME dans leurs transformations organisationnelles, recrutement cadres et formation de managers. Interventions en présentiel et à distance.</p>
-                <div class="company-meta">
-                  <div class="meta-item"><div class="meta-icon"></div>Paris · Île-de-France</div>
-                  <div class="meta-item"><div class="meta-icon"></div>National</div>
-                  <div class="meta-item"><span class="meta-tag">RH</span></div>
-                  <div class="meta-item"><span class="meta-tag">Formation</span></div>
-                </div>
-              </div>
-              <div class="company-actions">
-                <button class="btn btn-primary">Contacter →</button>
-                <button class="btn">Voir le site</button>
-              </div>
+            <div class="space-list" id="spacesContainer">
             </div>
-
-            <!-- CARD 3 -->
-            <div class="company-card">
-              <div class="company-logo"><div class="company-logo-inner"></div></div>
-              <div class="company-body">
-                <div class="company-header">
-                  <div class="company-name">Pixel Studio</div>
-                  <div class="company-badge"><div class="company-badge-dot"></div>Numérique & Tech</div>
-                </div>
-                <p class="company-desc">Agence web spécialisée en création de sites vitrines et e-commerce pour TPE et PME. Design sur mesure, référencement naturel SEO, maintenance mensuelle incluse. Plus de 200 projets livrés depuis 2016.</p>
-                <div class="company-meta">
-                  <div class="meta-item"><div class="meta-icon"></div>Bordeaux · Nouvelle-Aquitaine</div>
-                  <div class="meta-item"><div class="meta-icon"></div>France entière</div>
-                  <div class="meta-item"><span class="meta-tag">Web</span></div>
-                  <div class="meta-item"><span class="meta-tag">SEO</span></div>
-                  <div class="meta-item"><span class="meta-tag">E-commerce</span></div>
-                </div>
-              </div>
-              <div class="company-actions">
-                <button class="btn btn-primary">Contacter →</button>
-                <button class="btn">Voir le site</button>
-              </div>
-            </div>
-
-            <!-- CARD 4 -->
-            <div class="company-card">
-              <div class="company-logo"><div class="company-logo-inner"></div></div>
-              <div class="company-body">
-                <div class="company-header">
-                  <div class="company-name">La Table de Solène</div>
-                  <div class="company-badge"><div class="company-badge-dot"></div>Alimentation & Restauration</div>
-                </div>
-                <p class="company-desc">Traiteur événementiel et chef à domicile. Cuisine gastronomique française revisitée pour mariages, séminaires et dîners privés. Produits locaux et de saison, menus personnalisés, jusqu'à 200 couverts.</p>
-                <div class="company-meta">
-                  <div class="meta-item"><div class="meta-icon"></div>Lyon · Auvergne-Rhône-Alpes</div>
-                  <div class="meta-item"><div class="meta-icon"></div>Rayon : 120 km</div>
-                  <div class="meta-item"><span class="meta-tag">Traiteur</span></div>
-                  <div class="meta-item"><span class="meta-tag">Événementiel</span></div>
-                </div>
-              </div>
-              <div class="company-actions">
-                <button class="btn btn-primary">Contacter →</button>
-                <button class="btn">Voir le site</button>
-              </div>
-            </div>
-
-            <!-- CARD 5 -->
-            <div class="company-card">
-              <div class="company-logo"><div class="company-logo-inner"></div></div>
-              <div class="company-body">
-                <div class="company-header">
-                  <div class="company-name">Kiné Sport Marseille</div>
-                  <div class="company-badge"><div class="company-badge-dot"></div>Santé & Bien-être</div>
-                </div>
-                <p class="company-desc">Cabinet de kinésithérapie spécialisé en rééducation du sport et traumatologie. Suivi de sportifs amateurs et professionnels, bilans posturaux, accompagnement post-opératoire. Prise en charge CPAM.</p>
-                <div class="company-meta">
-                  <div class="meta-item"><div class="meta-icon"></div>Marseille · PACA</div>
-                  <div class="meta-item"><div class="meta-icon"></div>Consultation sur place</div>
-                  <div class="meta-item"><span class="meta-tag">Kinésithérapie</span></div>
-                  <div class="meta-item"><span class="meta-tag">Sport</span></div>
-                </div>
-              </div>
-              <div class="company-actions">
-                <button class="btn btn-primary">Contacter →</button>
-                <button class="btn">Voir le site</button>
-              </div>
-            </div>
-
-            <!-- CARD 6 -->
-            <div class="company-card">
-              <div class="company-logo"><div class="company-logo-inner"></div></div>
-              <div class="company-body">
-                <div class="company-header">
-                  <div class="company-name">Nordlum Events</div>
-                  <div class="company-badge"><div class="company-badge-dot"></div>Événementiel</div>
-                </div>
-                <p class="company-desc">Agence de production événementielle spécialisée dans l'organisation de conférences, salons professionnels et team buildings. Coordination complète de A à Z : logistique, scénographie, communication digitale.</p>
-                <div class="company-meta">
-                  <div class="meta-item"><div class="meta-icon"></div>Lille · Hauts-de-France</div>
-                  <div class="meta-item"><div class="meta-icon"></div>France & Belgique</div>
-                  <div class="meta-item"><span class="meta-tag">Événementiel</span></div>
-                  <div class="meta-item"><span class="meta-tag">B2B</span></div>
-                </div>
-              </div>
-              <div class="company-actions">
-                <button class="btn btn-primary">Contacter →</button>
-                <button class="btn">Voir le site</button>
-              </div>
-            </div>
-
-          </div>
-
-          <!-- PAGINATION -->
-          <div class="pagination">
-            <div class="page-btn-arrow">←</div>
-            <div class="page-btn active">1</div>
-            <div class="page-btn">2</div>
-            <div class="page-btn">3</div>
-            <div class="page-btn">4</div>
-            <div class="page-btn">5</div>
-            <div style="width:10px; color:#CCC; font-size:13px;">···</div>
-            <div class="page-btn">12</div>
-            <div class="page-btn-arrow">→</div>
-          </div>
-
         </div>
-      </div>
+
+        <main class="detail-view">
+            <header class="detail-header">
+                <div>
+                    <h1 class="room-title" id="roomTitle">Sélectionnez un espace</h1>
+                    <div class="micro-label" id="roomSub" style="font-size: 1rem;">Contrôle environnemental</div>
+                </div>
+                <div style="text-align: right;">
+                    <div class="micro-label">Demande Active</div>
+                    <div class="huge-value" id="roomPowerLabel">0<span>W</span></div>
+                </div>
+            </header>
+
+            <div class="control-grid">
+
+                <div class="pebble-widget">
+                    <div class="w-top">
+                        <div class="w-title"><i class="fa-solid fa-temperature-three-quarters"></i> Confort Thermique
+                        </div>
+                        <label class="soft-toggle"><input type="checkbox" id="tglClim"
+                                onchange="toggleSys('clim', this.checked)">
+                            <div class="st-track">
+                                <div class="st-thumb"></div>
+                            </div>
+                        </label>
+                    </div>
+                    <div class="matte-slider" id="boxClim">
+                        <div class="ms-fill" id="fillClim"></div>
+                        <div class="ms-value" id="valClim">21.0°C</div>
+                        <input type="range" class="ms-input" id="slideClim" min="15" max="28" step="0.5"
+                            oninput="updateSlide('clim', this.value)">
+                    </div>
+                </div>
+
+                <div class="pebble-widget">
+                    <div class="w-top">
+                        <div class="w-title"><i class="fa-regular fa-sun"></i> Luminosité Douce</div>
+                        <label class="soft-toggle"><input type="checkbox" id="tglLight"
+                                onchange="toggleSys('light', this.checked)">
+                            <div class="st-track">
+                                <div class="st-thumb"></div>
+                            </div>
+                        </label>
+                    </div>
+                    <div class="matte-slider" id="boxLight">
+                        <div class="ms-fill" id="fillLight"></div>
+                        <div class="ms-value" id="valLight">80%</div>
+                        <input type="range" class="ms-input" id="slideLight" min="0" max="100"
+                            oninput="updateSlide('light', this.value)">
+                    </div>
+                </div>
+
+                <div class="pebble-widget" style="grid-column: 1 / -1;">
+                    <div class="w-title" style="margin-bottom: 10px;"><i class="fa-solid fa-plug"></i> Équipements de
+                        l'espace</div>
+                    <div class="hardware-list" id="hwContainer">
+                    </div>
+                </div>
+
+            </div>
+        </main>
+
     </div>
 
-  </main>
+    <script>
+        // --- REAL-WORLD DATA : FAMILLE DUBOIS ---
+        const homeData = [
+            {
+                id: 'z1', name: 'Garage & Énergie', icon: 'fa-warehouse', isOnline: true,
+                clim: { state: false, temp: 15.0, baseW: 0 },
+                light: { state: false, val: 0, maxW: 60 },
+                hw: [
+                    { name: 'Recharge Peugeot e-208', draw: 3200, state: true, critical: false },
+                    { name: 'Onduleur & Stockage', draw: 50, state: true, critical: true }
+                ]
+            },
+            {
+                id: 'z2', name: 'Espace de Vie', icon: 'fa-couch', isOnline: true,
+                clim: { state: true, temp: 20.5, baseW: 650 },
+                light: { state: true, val: 60, maxW: 100 },
+                hw: [
+                    { name: 'Écran OLED & Audio', draw: 120, state: true, critical: false },
+                    { name: 'Lampes sur pied', draw: 15, state: true, critical: false }
+                ]
+            },
+            {
+                id: 'z3', name: 'Cuisine Ouverte', icon: 'fa-kitchen-set', isOnline: true,
+                clim: { state: true, temp: 19.5, baseW: 400 },
+                light: { state: true, val: 80, maxW: 120 },
+                hw: [
+                    { name: 'Réfrigérateur Principal', draw: 85, state: true, critical: true },
+                    { name: 'Four Encastrable', draw: 2100, state: true, critical: false }
+                ]
+            },
+            {
+                id: 'z4', name: 'Bureau (Télétravail)', icon: 'fa-laptop-house', isOnline: true,
+                clim: { state: true, temp: 19.0, baseW: 350 },
+                light: { state: false, val: 0, maxW: 50 },
+                hw: [
+                    { name: 'Box Fibre & Routeur Wi-Fi', draw: 20, state: true, critical: true },
+                    { name: 'Ordinateur & Écrans', draw: 180, state: true, critical: false }
+                ]
+            }
+        ];
 
-  <!-- FOOTER -->
-  <footer class="footer">
-    <div class="footer-top wrap">
-      <div class="footer-brand">
-        <div class="footer-brand-name">
-          <span class="footer-brand-icon"></span>
-          ToilettEco
-        </div>
-        <p>Guide citoyen sur les toilettes écologiques. Zéro tracker, open source.</p>
-      </div>
-      <nav class="footer-nav">
-        <div class="footer-col">
-          <h3>Contenus</h3>
-          <ul><li></li><li></li><li></li><li></li><li></li></ul>
-        </div>
-        <div class="footer-col">
-          <h3>Annuaire</h3>
-          <ul><li></li><li></li><li></li><li></li></ul>
-        </div>
-        <div class="footer-col">
-          <h3>À propos</h3>
-          <ul><li></li><li></li><li></li><li></li></ul>
-        </div>
-      </nav>
-    </div>
-    <div class="footer-bottom">
-      <div class="wrap">
-        <p>Site éco-conçu · Accessible RGAA · Zéro dépendance JS</p>
-        <p>© 2025 ToilettEco — Licence ouverte</p>
-      </div>
-    </div>
-  </footer>
+        let activeZ = 'z1';
+        let isEmergency = false;
+        let isDark = false;
 
+        // --- MATH ENGINE ---
+        function getZonePower(z) {
+            if (!z.isOnline) return 0;
+            let p = 0;
+            if (z.clim.state) p += z.clim.baseW;
+            if (z.light.state) p += Math.round((z.light.val / 100) * z.light.maxW);
+            z.hw.forEach(h => { if (h.state) p += h.draw; });
+            return p;
+        }
+
+        function updateGlobals() {
+            let total = 0;
+            homeData.forEach(z => {
+                const p = getZonePower(z);
+                total += p;
+                const spEl = document.getElementById(`z-pow-${z.id}`);
+                if (spEl) spEl.innerText = p + 'W';
+            });
+            document.getElementById('globalPowerLabel').innerHTML = (total / 1000).toFixed(2) + '<span>kW</span>';
+            const currentZ = homeData.find(x => x.id === activeZ);
+            document.getElementById('roomPowerLabel').innerHTML = getZonePower(currentZ) + '<span>W</span>';
+        }
+
+        // --- UI RENDERERS ---
+        function renderMaster() {
+            const list = document.getElementById('spacesContainer');
+            list.innerHTML = '';
+
+            homeData.forEach(z => {
+                const activeCls = z.id === activeZ ? 'active' : '';
+                const offCls = !z.isOnline ? 'offline' : '';
+
+                list.innerHTML += `
+                    <div class="space-item ${activeCls} ${offCls}" onclick="${!z.isOnline ? '' : `selectZone('${z.id}')`}">
+                        <div class="s-info">
+                            <div class="s-icon"><i class="fa-solid ${z.icon}"></i></div>
+                            <div>
+                                <div class="s-name">${z.name}</div>
+                                <div class="s-status">Confort : ${z.clim.state ? z.clim.temp.toFixed(1) + '°C' : 'Veille'}</div>
+                            </div>
+                        </div>
+                        <div class="s-power" id="z-pow-${z.id}">0W</div>
+                    </div>
+                `;
+            });
+            updateGlobals();
+        }
+
+        function selectZone(id) {
+            activeZ = id;
+            const z = homeData.find(x => x.id === id);
+
+            renderMaster();
+
+            document.getElementById('roomTitle').innerText = z.name;
+
+            // Sync Toggles & Sliders
+            document.getElementById('tglClim').checked = z.clim.state;
+            document.getElementById('slideClim').value = z.clim.temp;
+            syncSliderUI('clim', z.clim.temp, '°C', z.clim.state);
+
+            document.getElementById('tglLight').checked = z.light.state;
+            document.getElementById('slideLight').value = z.light.val;
+            syncSliderUI('light', z.light.val, '%', z.light.state);
+
+            // Sync Hardware
+            const hwBox = document.getElementById('hwContainer');
+            hwBox.innerHTML = '';
+            z.hw.forEach((h, i) => {
+                const tag = h.critical ? `<span class="vital-tag">Essentiel</span>` : '';
+                hwBox.innerHTML += `
+                    <div class="hw-item ${!h.state ? 'disabled' : ''}">
+                        <div class="hw-info">
+                            <h4>${h.name}</h4>
+                            <p>Tirage : ${h.state ? h.draw : 0}W ${tag}</p>
+                        </div>
+                        <label class="soft-toggle">
+                            <input type="checkbox" ${h.state ? 'checked' : ''} onchange="toggleHw(${i}, this.checked)" ${!z.isOnline ? 'disabled' : ''}>
+                            <div class="st-track"><div class="st-thumb"></div></div>
+                        </label>
+                    </div>
+                `;
+            });
+            updateGlobals();
+        }
+
+        function syncSliderUI(type, val, unit, isActive) {
+            const box = document.getElementById(`box${type.charAt(0).toUpperCase() + type.slice(1)}`);
+            const fill = document.getElementById(`fill${type.charAt(0).toUpperCase() + type.slice(1)}`);
+            const txt = document.getElementById(`val${type.charAt(0).toUpperCase() + type.slice(1)}`);
+
+            if (isActive) {
+                box.classList.remove('disabled');
+                let pct = type === 'clim' ? ((val - 15) / (28 - 15)) * 100 : val;
+                fill.style.width = pct + '%';
+                txt.innerText = val + unit;
+            } else {
+                box.classList.add('disabled');
+                fill.style.width = '0%';
+                txt.innerText = 'OFF';
+            }
+        }
+
+        // --- INTERACTIONS ---
+        window.toggleSys = function (type, isChecked) {
+            const z = homeData.find(x => x.id === activeZ);
+            z[type].state = isChecked;
+            const val = type === 'clim' ? z.clim.temp : z.light.val;
+            const unit = type === 'clim' ? '°C' : '%';
+            syncSliderUI(type, val, unit, isChecked);
+            updateGlobals();
+            renderMaster();
+        }
+
+        window.updateSlide = function (type, val) {
+            const z = homeData.find(x => x.id === activeZ);
+            if (!z[type].state) {
+                document.getElementById(`slide${type.charAt(0).toUpperCase() + type.slice(1)}`).value = type === 'clim' ? z.clim.temp : z.light.val;
+                return;
+            }
+            if (type === 'clim') z.clim.temp = parseFloat(val);
+            if (type === 'light') z.light.val = parseInt(val);
+            const unit = type === 'clim' ? '°C' : '%';
+            syncSliderUI(type, val, unit, true);
+            updateGlobals();
+            renderMaster();
+        }
+
+        window.toggleHw = function (idx, isChecked) {
+            const z = homeData.find(x => x.id === activeZ);
+            z.hw[idx].state = isChecked;
+            selectZone(z.id);
+        }
+
+        // --- THEME TOGGLE (LIGHT/DARK) ---
+        window.toggleTheme = function () {
+            isDark = !isDark;
+            const btn = document.getElementById('themeBtn');
+
+            if (isDark) {
+                document.documentElement.setAttribute('data-theme', 'dark');
+                btn.innerHTML = '<i class="fa-solid fa-sun"></i>';
+            } else {
+                document.documentElement.removeAttribute('data-theme');
+                btn.innerHTML = '<i class="fa-solid fa-moon"></i>';
+            }
+        }
+
+        // --- CRISIS SCENARIO ---
+        window.toggleEmergency = function () {
+            isEmergency = !isEmergency;
+            const body = document.body;
+            const statusTxt = document.getElementById('mainStatus');
+            const btn = document.getElementById('btnCrisis');
+            const aiIcon = document.getElementById('aiIcon');
+
+            if (isEmergency) {
+                body.classList.add('crisis-active');
+                statusTxt.innerHTML = "Délestage en cours. Maison en préservation d'énergie.";
+                btn.innerHTML = `<i class="fa-solid fa-leaf"></i> <span>Rétablir le confort</span>`;
+                aiIcon.innerHTML = `<i class="fa-solid fa-shield-halved"></i>`;
+
+                // Smart Shedding
+                homeData.forEach(z => {
+                    if (z.id === 'z1') { z.hw[0].state = false; } // Coupe voiture
+                    if (z.id === 'z3') { z.hw[1].state = false; } // Coupe four
+                    if (z.id === 'z3') { z.isOnline = false; z.clim.state = false; z.hw.forEach(h => h.state = false); } // Isole la chambre
+                    if (z.clim.state) { z.clim.temp -= 2; } // Baisse PAC
+                });
+
+            } else {
+                body.classList.remove('crisis-active');
+                statusTxt.innerHTML = "Équilibre énergétique optimal. Maison apaisée.";
+                btn.innerHTML = `<i class="fa-solid fa-cloud-bolt"></i> <span>Alerte Hivernale RTE</span>`;
+                aiIcon.innerHTML = `<i class="fa-solid fa-leaf"></i>`;
+
+                // Restore
+                homeData[0].hw[0].state = true;
+                homeData[2].hw[1].state = true;
+                homeData.forEach(z => {
+                    z.isOnline = true;
+                    if (z.clim.state) z.clim.temp += 2;
+                });
+            }
+            selectZone('z1');
+        }
+
+        // Init
+        renderMaster();
+        selectZone(activeZ);
+    </script>
 </body>
+
 </html>
