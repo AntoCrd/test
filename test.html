@@ -4,11 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>AURA // Organic & Extensible</title>
+    <title>AURA // The Ultimate 2050 Smart Home</title>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* --- DESIGN SYSTEM : ORGANIC JAPANDI (LIGHT) --- */
+        /* --- DESIGN SYSTEM : ORGANIC JAPANDI --- */
         :root {
             --bg-base: #F4F1EB;
             --surface-1: #FFFFFF;
@@ -16,20 +16,28 @@
             --text-main: #33302E;
             --text-dim: #8C857B;
             --border-soft: #E8E3D9;
+
+            /* Thèmes sémantiques */
             --accent-sage: #7A907C;
             --accent-sage-bg: #EAF0EB;
+            /* Nominal */
             --accent-terra: #C26D5C;
             --accent-terra-bg: #F5EAE8;
+            /* Crise */
+            --accent-storm: #5C6BC2;
+            --accent-storm-bg: #E8EAF5;
+            /* Anticipation */
+
             --radius-pill: 100px;
             --radius-card: 32px;
-            --radius-btn: 24px;
+            --radius-btn: 20px;
             --shadow-float: 0 12px 30px rgba(140, 133, 123, 0.08);
             --transition-velvet: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+
             --theme-accent: var(--accent-sage);
             --theme-accent-bg: var(--accent-sage-bg);
         }
 
-        /* --- DARK MODE --- */
         [data-theme="dark"] {
             --bg-base: #1A1817;
             --surface-1: #242120;
@@ -42,7 +50,6 @@
             --shadow-float: 0 12px 30px rgba(0, 0, 0, 0.25);
         }
 
-        /* --- CRISIS MODE --- */
         body.crisis-active {
             --bg-base: #141212 !important;
             --surface-1: #241D1B !important;
@@ -52,7 +59,17 @@
             --border-soft: #3D312E !important;
             --theme-accent: var(--accent-terra) !important;
             --theme-accent-bg: rgba(194, 109, 92, 0.15) !important;
-            --shadow-float: 0 12px 30px rgba(0, 0, 0, 0.4) !important;
+        }
+
+        body.anticipation-active {
+            --theme-accent: var(--accent-storm) !important;
+            --theme-accent-bg: var(--accent-storm-bg) !important;
+            --border-soft: #C5CAE8 !important;
+        }
+
+        [data-theme="dark"] body.anticipation-active {
+            --theme-accent-bg: rgba(92, 107, 194, 0.2) !important;
+            --border-soft: #424660 !important;
         }
 
         * {
@@ -74,9 +91,9 @@
             user-select: none;
         }
 
-        /* --- HEADER --- */
+        /* --- HEADER & INTENTIONS --- */
         .top-nav {
-            height: 100px;
+            height: 90px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -87,6 +104,7 @@
             font-weight: 700;
             font-size: 1.8rem;
             letter-spacing: -1px;
+            width: 250px;
         }
 
         .zen-pill {
@@ -99,7 +117,6 @@
             align-items: center;
             gap: 16px;
             transition: var(--transition-velvet);
-            margin: 0 auto;
         }
 
         .ai-sun {
@@ -114,7 +131,7 @@
             font-size: 1.2rem;
             transition: var(--transition-velvet);
             box-shadow: 0 0 0 8px var(--theme-accent-bg);
-            animation: breathe 4s infinite alternate ease-in-out;
+            animation: breathe 3s infinite alternate ease-in-out;
         }
 
         @keyframes breathe {
@@ -131,25 +148,31 @@
         }
 
         .pill-text {
-            font-size: 1.05rem;
+            font-size: 1rem;
             font-weight: 500;
+            max-width: 400px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
         .actions-group {
             display: flex;
             align-items: center;
-            gap: 16px;
+            gap: 12px;
+            width: 250px;
+            justify-content: flex-end;
         }
 
-        .btn-theme {
-            width: 54px;
-            height: 54px;
+        .btn-circle {
+            width: 50px;
+            height: 50px;
             border-radius: 50%;
             background: var(--surface-1);
             border: 1px solid var(--border-soft);
             box-shadow: var(--shadow-float);
             color: var(--text-main);
-            font-size: 1.3rem;
+            font-size: 1.2rem;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -157,40 +180,35 @@
             transition: var(--transition-velvet);
         }
 
-        .btn-theme:hover {
+        .btn-circle:hover {
             transform: translateY(-2px);
         }
 
-        body.crisis-active .btn-theme {
-            opacity: 0.5;
-            pointer-events: none;
+        /* IA Intent Selector */
+        .intent-bar {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            padding: 0 0 20px 0;
         }
 
-        .btn-trigger {
-            background: var(--surface-1);
-            border: 1px solid var(--border-soft);
-            box-shadow: var(--shadow-float);
-            color: var(--text-main);
-            padding: 16px 28px;
+        .intent-btn {
+            padding: 8px 24px;
             border-radius: var(--radius-pill);
+            border: 1px solid var(--border-soft);
+            background: var(--surface-1);
             font-weight: 600;
-            font-size: 1rem;
+            color: var(--text-dim);
             cursor: pointer;
             transition: var(--transition-velvet);
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            font-family: 'Outfit';
+            font-size: 0.95rem;
         }
 
-        .btn-trigger:hover {
-            transform: translateY(-2px);
-        }
-
-        body.crisis-active .btn-trigger {
-            background: var(--theme-accent-bg);
+        .intent-btn.active {
+            background: var(--theme-accent);
+            color: var(--surface-1);
             border-color: var(--theme-accent);
-            color: var(--theme-accent);
+            box-shadow: 0 4px 15px var(--theme-accent-bg);
         }
 
         /* --- LAYOUT --- */
@@ -240,7 +258,7 @@
             width: 380px;
             display: flex;
             flex-direction: column;
-            gap: 24px;
+            gap: 20px;
             z-index: 10;
         }
 
@@ -352,14 +370,7 @@
             font-weight: 500;
         }
 
-        .s-power {
-            font-weight: 600;
-            font-size: 1.2rem;
-            color: var(--text-main);
-        }
-
-        /* Bouton Ajouter Espace */
-        .btn-add-room {
+        .btn-dashed {
             border: 2px dashed var(--border-soft);
             border-radius: var(--radius-card);
             padding: 20px;
@@ -371,10 +382,10 @@
             font-weight: 600;
             cursor: pointer;
             transition: var(--transition-velvet);
-            font-size: 1.1rem;
+            font-size: 1rem;
         }
 
-        .btn-add-room:hover {
+        .btn-dashed:hover {
             background: var(--surface-1);
             color: var(--theme-accent);
             border-color: var(--theme-accent);
@@ -425,7 +436,7 @@
             padding: 32px;
             display: flex;
             flex-direction: column;
-            gap: 30px;
+            gap: 24px;
             transition: var(--transition-velvet);
             border: 1px solid transparent;
         }
@@ -497,7 +508,7 @@
         .matte-slider {
             position: relative;
             width: 100%;
-            height: 80px;
+            height: 70px;
             background: var(--surface-1);
             border-radius: 40px;
             overflow: hidden;
@@ -527,7 +538,7 @@
 
         .ms-value {
             z-index: 2;
-            font-size: 1.8rem;
+            font-size: 1.6rem;
             font-weight: 500;
             color: var(--text-main);
             pointer-events: none;
@@ -544,18 +555,19 @@
             z-index: 3;
         }
 
-        /* Hardware */
-        .hardware-list {
+        /* Hardware & Schedule */
+        .hardware-list,
+        .schedule-list {
             display: flex;
             flex-direction: column;
             gap: 12px;
         }
 
-        .hw-item {
+        .list-item {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 20px 24px;
+            padding: 16px 20px;
             background: var(--surface-1);
             border-radius: var(--radius-btn);
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
@@ -563,20 +575,20 @@
             border: 1px solid var(--border-soft);
         }
 
-        .hw-item.disabled {
+        .list-item.disabled {
             opacity: 0.5;
             box-shadow: none;
         }
 
-        .hw-info h4 {
-            font-size: 1.1rem;
+        .li-info h4 {
+            font-size: 1.05rem;
             font-weight: 500;
-            margin-bottom: 6px;
+            margin-bottom: 4px;
             color: var(--text-main);
         }
 
-        .hw-info p {
-            font-size: 0.9rem;
+        .li-info p {
+            font-size: 0.85rem;
             color: var(--text-dim);
             font-weight: 500;
         }
@@ -591,11 +603,11 @@
             font-weight: 600;
         }
 
-        /* --- MODAL AJOUT PIÈCE --- */
+        /* --- MODALS --- */
         .modal-overlay {
             position: fixed;
             inset: 0;
-            background: rgba(0, 0, 0, 0.4);
+            background: rgba(0, 0, 0, 0.5);
             backdrop-filter: blur(8px);
             z-index: 9999;
             display: flex;
@@ -635,7 +647,7 @@
         }
 
         .input-group {
-            margin-bottom: 30px;
+            margin-bottom: 24px;
         }
 
         .input-group label {
@@ -646,26 +658,26 @@
             margin-bottom: 10px;
         }
 
-        .input-text {
+        .input-text,
+        .input-select {
             width: 100%;
-            padding: 18px 24px;
+            padding: 16px 20px;
             background: var(--surface-2);
             border: 1px solid var(--border-soft);
-            border-radius: 20px;
+            border-radius: 16px;
             font-family: 'Outfit';
-            font-size: 1.1rem;
+            font-size: 1rem;
             color: var(--text-main);
             outline: none;
             transition: 0.3s;
         }
 
-        .input-text:focus {
+        .input-text:focus,
+        .input-select:focus {
             border-color: var(--theme-accent);
-            box-shadow: 0 0 0 4px var(--theme-accent-bg);
             background: var(--surface-1);
         }
 
-        /* Grille des icônes */
         .icon-selector {
             display: grid;
             grid-template-columns: repeat(5, 1fr);
@@ -697,15 +709,15 @@
             display: flex;
             justify-content: flex-end;
             gap: 16px;
-            margin-top: 40px;
+            margin-top: 30px;
         }
 
         .btn-cancel {
-            padding: 14px 28px;
+            padding: 12px 24px;
             border-radius: var(--radius-pill);
             font-family: 'Outfit';
             font-weight: 600;
-            font-size: 1rem;
+            font-size: 0.95rem;
             cursor: pointer;
             background: transparent;
             border: none;
@@ -719,21 +731,16 @@
         }
 
         .btn-confirm {
-            padding: 14px 28px;
+            padding: 12px 24px;
             border-radius: var(--radius-pill);
             font-family: 'Outfit';
             font-weight: 600;
-            font-size: 1rem;
+            font-size: 0.95rem;
             cursor: pointer;
             background: var(--theme-accent);
             color: var(--surface-1);
             border: none;
             transition: 0.2s;
-        }
-
-        .btn-confirm:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px var(--theme-accent-bg);
         }
     </style>
 </head>
@@ -747,20 +754,26 @@
             <div class="pill-text" id="mainStatus">Équilibre énergétique optimal. Maison apaisée.</div>
         </div>
         <div class="actions-group">
-            <button class="btn-theme" onclick="toggleTheme()" id="themeBtn" aria-label="Changer de thème">
-                <i class="fa-solid fa-moon"></i>
-            </button>
-            <button class="btn-trigger" onclick="toggleEmergency()" id="btnCrisis">
-                <i class="fa-solid fa-cloud-bolt"></i> <span>Alerte Hivernale RTE</span>
-            </button>
+            <button class="btn-circle" onclick="toggleTheme()" title="Thème"><i class="fa-solid fa-moon"
+                    id="themeIco"></i></button>
+            <button class="btn-circle" onclick="simulateAnticipation()" title="Alerte Tempête" id="btnStorm"
+                style="color: var(--accent-storm);"><i class="fa-solid fa-cloud-showers-heavy"></i></button>
+            <button class="btn-circle" onclick="simulateCrisis()" title="Blackout RTE" id="btnCrisis"
+                style="color: var(--accent-terra);"><i class="fa-solid fa-plug-circle-xmark"></i></button>
         </div>
     </nav>
+
+    <div class="intent-bar">
+        <button class="intent-btn active" id="int-confort" onclick="setIntent('confort')">Priorité Confort</button>
+        <button class="intent-btn" id="int-eco" onclick="setIntent('eco')">Économie Active</button>
+        <button class="intent-btn" id="int-auto" onclick="setIntent('auto')">Préservation Batterie</button>
+    </div>
 
     <div class="core-ui">
         <aside class="dock">
             <div class="dock-icon active"><i class="fa-solid fa-house-chimney"></i></div>
             <div class="dock-icon"><i class="fa-solid fa-chart-pie"></i></div>
-            <div class="dock-icon"><i class="fa-solid fa-seedling"></i></div>
+            <div class="dock-icon"><i class="fa-solid fa-shield-halved"></i></div>
         </aside>
 
         <div class="master-view">
@@ -790,50 +803,7 @@
                 </div>
             </header>
 
-            <div class="control-grid">
-                <div class="pebble-widget">
-                    <div class="w-top">
-                        <div class="w-title"><i class="fa-solid fa-temperature-three-quarters"></i> Confort Thermique
-                        </div>
-                        <label class="soft-toggle"><input type="checkbox" id="tglClim"
-                                onchange="toggleSys('clim', this.checked)">
-                            <div class="st-track">
-                                <div class="st-thumb"></div>
-                            </div>
-                        </label>
-                    </div>
-                    <div class="matte-slider" id="boxClim">
-                        <div class="ms-fill" id="fillClim"></div>
-                        <div class="ms-value" id="valClim">21.0°C</div>
-                        <input type="range" class="ms-input" id="slideClim" min="15" max="28" step="0.5"
-                            oninput="updateSlide('clim', this.value)">
-                    </div>
-                </div>
-
-                <div class="pebble-widget">
-                    <div class="w-top">
-                        <div class="w-title"><i class="fa-regular fa-sun"></i> Luminosité Douce</div>
-                        <label class="soft-toggle"><input type="checkbox" id="tglLight"
-                                onchange="toggleSys('light', this.checked)">
-                            <div class="st-track">
-                                <div class="st-thumb"></div>
-                            </div>
-                        </label>
-                    </div>
-                    <div class="matte-slider" id="boxLight">
-                        <div class="ms-fill" id="fillLight"></div>
-                        <div class="ms-value" id="valLight">80%</div>
-                        <input type="range" class="ms-input" id="slideLight" min="0" max="100"
-                            oninput="updateSlide('light', this.value)">
-                    </div>
-                </div>
-
-                <div class="pebble-widget" style="grid-column: 1 / -1;">
-                    <div class="w-title" style="margin-bottom: 10px;"><i class="fa-solid fa-plug"></i> Équipements de
-                        l'espace</div>
-                    <div class="hardware-list" id="hwContainer">
-                    </div>
-                </div>
+            <div class="control-grid" id="mainGrid">
             </div>
         </main>
     </div>
@@ -841,13 +811,17 @@
     <div class="modal-overlay" id="addRoomModal">
         <div class="modal-box">
             <h2 class="modal-title">Nouvel Espace</h2>
-
             <div class="input-group">
                 <label>Nom de la pièce</label>
-                <input type="text" class="input-text" id="newRoomName" placeholder="Ex: Chambre d'amis, Véranda..."
-                    autocomplete="off">
+                <input type="text" class="input-text" id="newRoomName" placeholder="Ex: Chambre d'amis...">
             </div>
-
+            <div class="input-group">
+                <label>Type d'espace</label>
+                <select class="input-select" id="newRoomType">
+                    <option value="indoor">Intérieur (Chauffage & Lumière)</option>
+                    <option value="outdoor">Extérieur (Irrigation & Lumière)</option>
+                </select>
+            </div>
             <div class="input-group">
                 <label>Icône représentative</label>
                 <div class="icon-selector">
@@ -855,75 +829,102 @@
                             class="fa-solid fa-bed"></i></div>
                     <div class="icon-opt" id="ico-fa-bath" onclick="selectIcon('fa-bath')"><i
                             class="fa-solid fa-bath"></i></div>
-                    <div class="icon-opt" id="ico-fa-utensils" onclick="selectIcon('fa-utensils')"><i
-                            class="fa-solid fa-utensils"></i></div>
-                    <div class="icon-opt" id="ico-fa-dumbbell" onclick="selectIcon('fa-dumbbell')"><i
-                            class="fa-solid fa-dumbbell"></i></div>
-                    <div class="icon-opt" id="ico-fa-book-open" onclick="selectIcon('fa-book-open')"><i
-                            class="fa-solid fa-book-open"></i></div>
-                    <div class="icon-opt" id="ico-fa-shirt" onclick="selectIcon('fa-shirt')"><i
-                            class="fa-solid fa-shirt"></i></div>
-                    <div class="icon-opt" id="ico-fa-gamepad" onclick="selectIcon('fa-gamepad')"><i
-                            class="fa-solid fa-gamepad"></i></div>
-                    <div class="icon-opt" id="ico-fa-fan" onclick="selectIcon('fa-fan')"><i class="fa-solid fa-fan"></i>
-                    </div>
-                    <div class="icon-opt" id="ico-fa-car" onclick="selectIcon('fa-car')"><i class="fa-solid fa-car"></i>
-                    </div>
                     <div class="icon-opt" id="ico-fa-tree" onclick="selectIcon('fa-tree')"><i
                             class="fa-solid fa-tree"></i></div>
+                    <div class="icon-opt" id="ico-fa-car" onclick="selectIcon('fa-car')"><i class="fa-solid fa-car"></i>
+                    </div>
+                    <div class="icon-opt" id="ico-fa-dumbbell" onclick="selectIcon('fa-dumbbell')"><i
+                            class="fa-solid fa-dumbbell"></i></div>
                 </div>
             </div>
-
             <div class="modal-actions">
-                <button class="btn-cancel" onclick="closeModal()">Annuler</button>
+                <button class="btn-cancel" onclick="closeModal('addRoomModal')">Annuler</button>
                 <button class="btn-confirm" onclick="confirmAddRoom()">Créer l'espace</button>
             </div>
         </div>
     </div>
 
+    <div class="modal-overlay" id="addDeviceModal">
+        <div class="modal-box">
+            <h2 class="modal-title">Nouvel Appareil</h2>
+            <div class="input-group">
+                <label>Nom de l'appareil</label>
+                <input type="text" class="input-text" id="newDevName" placeholder="Ex: Machine à café, Enceinte...">
+            </div>
+            <div class="input-group">
+                <label>Consommation estimée (Watts)</label>
+                <input type="number" class="input-text" id="newDevLoad" value="100">
+            </div>
+            <div class="input-group">
+                <label style="display: flex; align-items: center; gap: 10px; cursor: pointer;">
+                    <input type="checkbox" id="newDevCrit" style="width: 20px; height: 20px;">
+                    Appareil Vital (Non coupable par l'IA)
+                </label>
+            </div>
+            <div class="modal-actions">
+                <button class="btn-cancel" onclick="closeModal('addDeviceModal')">Annuler</button>
+                <button class="btn-confirm" onclick="confirmAddDevice()">Appairer</button>
+            </div>
+        </div>
+    </div>
+
     <script>
-        // --- REAL-WORLD DATA ---
+        // --- ARCHITECTURE DE DONNÉES COMPLÈTE ---
         let homeData = [
             {
-                id: 'z1', name: 'Garage & Énergie', icon: 'fa-warehouse', isOnline: true,
-                clim: { state: false, temp: 15.0, baseW: 0 },
-                light: { state: false, val: 0, maxW: 60 },
+                id: 'z1', name: 'Espace de Vie', icon: 'fa-couch', type: 'indoor', isOnline: true,
+                mod1: { state: true, val: 20.5, base: 600 }, // Temp
+                mod2: { state: true, val: 60, max: 100 }, // Light
                 hw: [
-                    { name: 'Recharge Peugeot e-208', draw: 3200, state: true, critical: false },
-                    { name: 'Onduleur & Stockage', draw: 50, state: true, critical: true }
+                    { name: 'TV OLED & Audio', draw: 120, state: true, critical: false },
+                    { name: 'Prises Canapé', draw: 15, state: true, critical: false }
+                ],
+                schedules: [
+                    { time: '07:30', action: 'Chauffage 21°C' },
+                    { time: '22:30', action: 'Mode Nuit (18°C)' }
                 ]
             },
             {
-                id: 'z2', name: 'Espace de Vie', icon: 'fa-couch', isOnline: true,
-                clim: { state: true, temp: 20.5, baseW: 650 },
-                light: { state: true, val: 60, maxW: 100 },
+                id: 'z2', name: 'Cuisine Ouverte', icon: 'fa-kitchen-set', type: 'indoor', isOnline: true,
+                mod1: { state: true, val: 19.5, base: 400 },
+                mod2: { state: true, val: 80, max: 120 },
                 hw: [
-                    { name: 'Écran OLED & Audio', draw: 120, state: true, critical: false },
-                    { name: 'Lampes sur pied', draw: 15, state: true, critical: false }
-                ]
+                    { name: 'Réfrigérateur', draw: 85, state: true, critical: true },
+                    { name: 'Four (Cuisson)', draw: 2100, state: true, critical: false }
+                ],
+                schedules: []
             },
             {
-                id: 'z3', name: 'Cuisine Ouverte', icon: 'fa-kitchen-set', isOnline: true,
-                clim: { state: true, temp: 19.5, baseW: 400 },
-                light: { state: true, val: 80, maxW: 120 },
+                id: 'z3', name: 'Jardin & Extérieur', icon: 'fa-leaf', type: 'outdoor', isOnline: true,
+                mod1: { state: false, val: 25, base: 0 }, // Irrigation (Val = L/min)
+                mod2: { state: false, val: 0, max: 200 }, // Light Outdoor
                 hw: [
-                    { name: 'Réfrigérateur Principal', draw: 85, state: true, critical: true },
-                    { name: 'Four Encastrable', draw: 2100, state: true, critical: false }
+                    { name: 'Pompe à Eau (Cuve)', draw: 800, state: false, critical: false },
+                    { name: 'Caméra Sécurité', draw: 10, state: true, critical: true }
+                ],
+                schedules: [
+                    { time: '05:00', action: 'Irrigation (15 min)' },
+                    { time: '20:00', action: 'Éclairage Allée 50%' }
                 ]
             }
         ];
 
-        let activeZ = 'z2'; // Start on Salon
-        let isEmergency = false;
+        let activeZ = 'z1';
+        let aiState = 'normal'; // 'normal', 'storm', 'crisis'
+        let currentIntent = 'confort'; // 'confort', 'eco', 'auto'
         let isDark = false;
-        let currentSelectedIcon = 'fa-bed';
+        let iconSelection = 'fa-bed';
 
-        // --- MATH ENGINE ---
+        // --- MOTEUR MATHÉMATIQUE ---
         function getZonePower(z) {
             if (!z.isOnline) return 0;
             let p = 0;
-            if (z.clim.state) p += z.clim.baseW;
-            if (z.light.state) p += Math.round((z.light.val / 100) * z.light.maxW);
+            if (z.type === 'indoor') {
+                if (z.mod1.state) p += z.mod1.base; // Clim
+            } else {
+                // Pour le jardin, l'irrigation consomme de l'eau, pas de Watts directs (la pompe est dans les HW)
+            }
+            if (z.mod2.state) p += Math.round((z.mod2.val / 100) * z.mod2.max); // Light
             z.hw.forEach(h => { if (h.state) p += h.draw; });
             return p;
         }
@@ -941,14 +942,16 @@
             document.getElementById('roomPowerLabel').innerHTML = getZonePower(currentZ) + '<span>W</span>';
         }
 
-        // --- UI RENDERERS ---
+        // --- RENDUS UI ---
         function renderMaster() {
             const list = document.getElementById('spacesContainer');
             list.innerHTML = '';
-
             homeData.forEach(z => {
                 const activeCls = z.id === activeZ ? 'active' : '';
                 const offCls = !z.isOnline ? 'offline' : '';
+                const statusTxt = z.type === 'indoor'
+                    ? `Climat : ${z.mod1.state ? z.mod1.val.toFixed(1) + '°C' : 'OFF'}`
+                    : `Eau : ${z.mod1.state ? 'Irrigation ON' : 'Veille'}`;
 
                 list.innerHTML += `
                     <div class="space-item ${activeCls} ${offCls}" onclick="${!z.isOnline ? '' : `selectZone('${z.id}')`}">
@@ -956,7 +959,7 @@
                             <div class="s-icon"><i class="fa-solid ${z.icon}"></i></div>
                             <div>
                                 <div class="s-name">${z.name}</div>
-                                <div class="s-status">Confort : ${z.clim.state ? z.clim.temp.toFixed(1) + '°C' : 'Veille'}</div>
+                                <div class="s-status">${statusTxt}</div>
                             </div>
                         </div>
                         <div class="s-power" id="z-pow-${z.id}">0W</div>
@@ -964,62 +967,89 @@
                 `;
             });
 
-            // Add Room Button
-            if (!isEmergency) {
-                list.innerHTML += `
-                    <div class="btn-add-room" onclick="openModal()">
-                        <i class="fa-solid fa-plus"></i> Nouvel Espace
-                    </div>
-                `;
+            if (aiState === 'normal') {
+                list.innerHTML += `<div class="btn-dashed" onclick="openModal('addRoomModal')"><i class="fa-solid fa-plus"></i> Créer un Espace</div>`;
             }
-
             updateGlobals();
         }
 
         function selectZone(id) {
             activeZ = id;
             const z = homeData.find(x => x.id === id);
-
             renderMaster();
-
             document.getElementById('roomTitle').innerText = z.name;
 
-            document.getElementById('tglClim').checked = z.clim.state;
-            document.getElementById('slideClim').value = z.clim.temp;
-            syncSliderUI('clim', z.clim.temp, '°C', z.clim.state);
+            const grid = document.getElementById('mainGrid');
+            grid.innerHTML = '';
 
-            document.getElementById('tglLight').checked = z.light.state;
-            document.getElementById('slideLight').value = z.light.val;
-            syncSliderUI('light', z.light.val, '%', z.light.state);
+            // WIDGET 1 : CLIMAT OU IRRIGATION
+            const w1Title = z.type === 'indoor' ? '<i class="fa-solid fa-temperature-three-quarters"></i> Confort Thermique' : '<i class="fa-solid fa-droplet"></i> Irrigation (Cuve)';
+            const w1Unit = z.type === 'indoor' ? '°C' : ' L/min';
+            const w1Min = z.type === 'indoor' ? 15 : 5;
+            const w1Max = z.type === 'indoor' ? 28 : 50;
+            const w1Step = z.type === 'indoor' ? 0.5 : 5;
 
-            const hwBox = document.getElementById('hwContainer');
-            hwBox.innerHTML = '';
-            z.hw.forEach((h, i) => {
-                const tag = h.critical ? `<span class="vital-tag">Essentiel</span>` : '';
-                hwBox.innerHTML += `
-                    <div class="hw-item ${!h.state ? 'disabled' : ''}">
-                        <div class="hw-info">
-                            <h4>${h.name}</h4>
-                            <p>Tirage : ${h.state ? h.draw : 0}W ${tag}</p>
-                        </div>
-                        <label class="soft-toggle">
-                            <input type="checkbox" ${h.state ? 'checked' : ''} onchange="toggleHw(${i}, this.checked)" ${!z.isOnline ? 'disabled' : ''}>
-                            <div class="st-track"><div class="st-thumb"></div></div>
-                        </label>
+            grid.innerHTML += `
+                <div class="pebble-widget">
+                    <div class="w-top"><div class="w-title">${w1Title}</div><label class="soft-toggle"><input type="checkbox" id="tglM1" onchange="toggleSys('mod1', this.checked)"><div class="st-track"><div class="st-thumb"></div></div></label></div>
+                    <div class="matte-slider" id="boxM1">
+                        <div class="ms-fill" id="fillM1"></div><div class="ms-value" id="valM1"></div>
+                        <input type="range" class="ms-input" id="slideM1" min="${w1Min}" max="${w1Max}" step="${w1Step}" oninput="updateSlide('mod1', this.value, '${w1Unit}', ${w1Min}, ${w1Max})">
                     </div>
-                `;
+                </div>
+            `;
+
+            // WIDGET 2 : LUMIÈRE
+            grid.innerHTML += `
+                <div class="pebble-widget">
+                    <div class="w-top"><div class="w-title"><i class="fa-regular fa-sun"></i> Éclairage</div><label class="soft-toggle"><input type="checkbox" id="tglM2" onchange="toggleSys('mod2', this.checked)"><div class="st-track"><div class="st-thumb"></div></div></label></div>
+                    <div class="matte-slider" id="boxM2">
+                        <div class="ms-fill" id="fillM2"></div><div class="ms-value" id="valM2"></div>
+                        <input type="range" class="ms-input" id="slideM2" min="0" max="100" oninput="updateSlide('mod2', this.value, '%', 0, 100)">
+                    </div>
+                </div>
+            `;
+
+            // WIDGET 3 : APPAREILS
+            let hwHtml = `<div class="pebble-widget"><div class="w-top"><div class="w-title"><i class="fa-solid fa-plug"></i> Équipements</div><button style="background:none; border:none; color:var(--theme-accent); cursor:pointer; font-weight:600;" onclick="openModal('addDeviceModal')">+ Ajouter</button></div><div class="hardware-list">`;
+            z.hw.forEach((h, i) => {
+                hwHtml += `
+                    <div class="list-item ${!h.state ? 'disabled' : ''}">
+                        <div class="li-info"><h4>${h.name}</h4><p>Tirage : ${h.state ? h.draw : 0}W ${h.critical ? `<span class="vital-tag">Essentiel</span>` : ''}</p></div>
+                        <label class="soft-toggle"><input type="checkbox" ${h.state ? 'checked' : ''} onchange="toggleHw(${i}, this.checked)" ${!z.isOnline ? 'disabled' : ''}><div class="st-track"><div class="st-thumb"></div></div></label>
+                    </div>`;
             });
+            hwHtml += `</div></div>`;
+            grid.innerHTML += hwHtml;
+
+            // WIDGET 4 : AGENDA (PROGRAMMATION)
+            let schedHtml = `<div class="pebble-widget"><div class="w-top"><div class="w-title"><i class="fa-regular fa-clock"></i> Automatisations IA</div><button style="background:none; border:none; color:var(--theme-accent); cursor:pointer;"><i class="fa-solid fa-pen"></i></button></div><div class="schedule-list">`;
+            if (z.schedules.length === 0) schedHtml += `<p style="color:var(--text-dim); font-size:0.9rem;">Aucune programmation active.</p>`;
+            z.schedules.forEach(s => {
+                schedHtml += `<div class="list-item" style="padding:12px 20px;"><div class="li-info"><h4 style="font-family:monospace; color:var(--theme-accent); font-size:1.2rem;">${s.time}</h4><p>${s.action}</p></div></div>`;
+            });
+            schedHtml += `</div></div>`;
+            grid.innerHTML += schedHtml;
+
+            // Init States
+            document.getElementById('tglM1').checked = z.mod1.state;
+            document.getElementById('slideM1').value = z.mod1.val;
+            syncSliderUI('M1', z.mod1.val, w1Unit, w1Min, w1Max, z.mod1.state);
+
+            document.getElementById('tglM2').checked = z.mod2.state;
+            document.getElementById('slideM2').value = z.mod2.val;
+            syncSliderUI('M2', z.mod2.val, '%', 0, 100, z.mod2.state);
+
             updateGlobals();
         }
 
-        function syncSliderUI(type, val, unit, isActive) {
-            const box = document.getElementById(`box${type.charAt(0).toUpperCase() + type.slice(1)}`);
-            const fill = document.getElementById(`fill${type.charAt(0).toUpperCase() + type.slice(1)}`);
-            const txt = document.getElementById(`val${type.charAt(0).toUpperCase() + type.slice(1)}`);
-
+        function syncSliderUI(id, val, unit, min, max, isActive) {
+            const box = document.getElementById(`box${id}`);
+            const fill = document.getElementById(`fill${id}`);
+            const txt = document.getElementById(`val${id}`);
             if (isActive) {
                 box.classList.remove('disabled');
-                let pct = type === 'clim' ? ((val - 15) / (28 - 15)) * 100 : val;
+                let pct = ((val - min) / (max - min)) * 100;
                 fill.style.width = pct + '%';
                 txt.innerText = val + unit;
             } else {
@@ -1029,135 +1059,149 @@
             }
         }
 
-        // --- INTERACTIONS ---
-        window.toggleSys = function (type, isChecked) {
+        window.toggleSys = function (mod, isChecked) {
             const z = homeData.find(x => x.id === activeZ);
-            z[type].state = isChecked;
-            const val = type === 'clim' ? z.clim.temp : z.light.val;
-            const unit = type === 'clim' ? '°C' : '%';
-            syncSliderUI(type, val, unit, isChecked);
-            updateGlobals();
-            renderMaster();
+            z[mod].state = isChecked;
+            selectZone(z.id);
         }
 
-        window.updateSlide = function (type, val) {
+        window.updateSlide = function (mod, val, unit, min, max) {
             const z = homeData.find(x => x.id === activeZ);
-            if (!z[type].state) {
-                document.getElementById(`slide${type.charAt(0).toUpperCase() + type.slice(1)}`).value = type === 'clim' ? z.clim.temp : z.light.val;
+            if (!z[mod].state) {
+                document.getElementById(`slide${mod === 'mod1' ? 'M1' : 'M2'}`).value = z[mod].val;
                 return;
             }
-            if (type === 'clim') z.clim.temp = parseFloat(val);
-            if (type === 'light') z.light.val = parseInt(val);
-            const unit = type === 'clim' ? '°C' : '%';
-            syncSliderUI(type, val, unit, true);
-            updateGlobals();
-            renderMaster();
+            z[mod].val = (mod === 'mod1' && z.type === 'indoor') ? parseFloat(val) : parseInt(val);
+            syncSliderUI(mod === 'mod1' ? 'M1' : 'M2', z[mod].val, unit, min, max, true);
+            updateGlobals(); renderMaster();
         }
 
         window.toggleHw = function (idx, isChecked) {
             const z = homeData.find(x => x.id === activeZ);
-            z.hw[idx].state = isChecked;
-            selectZone(z.id);
+            z.hw[idx].state = isChecked; selectZone(z.id);
         }
 
-        // --- MODAL LOGIC (AJOUT DE PIÈCE) ---
-        window.openModal = function () {
-            document.getElementById('addRoomModal').classList.add('active');
-            document.getElementById('newRoomName').value = '';
-            document.getElementById('newRoomName').focus();
+        // --- GESTION DES INTENTIONS IA ---
+        window.setIntent = function (intent) {
+            if (aiState !== 'normal') return; // Bloqué en crise
+            currentIntent = intent;
+            document.querySelectorAll('.intent-btn').forEach(btn => btn.classList.remove('active'));
+            document.getElementById(`int-${intent}`).classList.add('active');
+
+            const status = document.getElementById('mainStatus');
+            if (intent === 'confort') {
+                status.innerText = "Priorité Confort. Températures optimales restaurées.";
+                homeData.forEach(z => { if (z.type === 'indoor' && z.mod1.state) z.mod1.val = 21.0; });
+            } else if (intent === 'eco') {
+                status.innerText = "Économie Active. Baisse de 1°C sur l'ensemble de la maison.";
+                homeData.forEach(z => { if (z.type === 'indoor' && z.mod1.state) z.mod1.val -= 1.0; });
+            } else if (intent === 'auto') {
+                status.innerText = "Préservation maximale. L'IA décharge moins la batterie.";
+                homeData[1].hw[1].state = false; // Coupe le four pour économiser
+            }
+            selectZone(activeZ);
         }
 
-        window.closeModal = function () {
-            document.getElementById('addRoomModal').classList.remove('active');
+        // --- GESTION ANTICIPATION / CRISE ---
+        window.simulateAnticipation = function () {
+            if (aiState === 'crisis') return;
+            const body = document.body;
+            if (aiState === 'normal') {
+                aiState = 'anticipation';
+                body.classList.add('anticipation-active');
+                document.getElementById('mainStatus').innerHTML = "<b>Alerte météo:</b> Tempête prévue demain. Je force la charge batterie sur le réseau de nuit.";
+                document.getElementById('aiIcon').innerHTML = `<i class="fa-solid fa-cloud-showers-heavy"></i>`;
+                document.getElementById('btnStorm').style.boxShadow = "0 0 20px var(--accent-storm)";
+            } else {
+                aiState = 'normal';
+                body.classList.remove('anticipation-active');
+                document.getElementById('mainStatus').innerText = "Équilibre énergétique optimal. Maison apaisée.";
+                document.getElementById('aiIcon').innerHTML = `<i class="fa-solid fa-leaf"></i>`;
+                document.getElementById('btnStorm').style.boxShadow = "none";
+                setIntent(currentIntent); // Restore intent
+            }
         }
+
+        window.simulateCrisis = function () {
+            aiState = aiState === 'crisis' ? 'normal' : 'crisis';
+            const body = document.body;
+
+            if (aiState === 'crisis') {
+                body.className = isDark ? 'crisis-active' : 'crisis-active'; // Keep dark mode memory
+                if (isDark) document.documentElement.setAttribute('data-theme', 'dark');
+
+                document.getElementById('mainStatus').innerText = "Blackout RTE en cours. L'IA isole la maison et garantit 48h d'autonomie.";
+                document.getElementById('aiIcon').innerHTML = `<i class="fa-solid fa-shield-halved"></i>`;
+                document.getElementById('btnCrisis').style.boxShadow = "0 0 20px var(--accent-terra)";
+
+                // Shedding brutal
+                homeData.forEach(z => {
+                    if (z.type === 'outdoor') { z.isOnline = false; z.mod1.state = false; z.hw.forEach(h => h.state = false); }
+                    if (z.id === 'z2') { z.hw[1].state = false; } // Coupe four
+                    if (z.type === 'indoor' && z.mod1.state) { z.mod1.val = 18.0; } // Survie thermique
+                });
+            } else {
+                body.className = '';
+                if (isDark) document.documentElement.setAttribute('data-theme', 'dark');
+
+                document.getElementById('mainStatus').innerText = "Équilibre énergétique optimal. Maison apaisée.";
+                document.getElementById('aiIcon').innerHTML = `<i class="fa-solid fa-leaf"></i>`;
+                document.getElementById('btnCrisis').style.boxShadow = "none";
+
+                // Restore
+                homeData[2].isOnline = true; // Remet jardin
+                homeData[1].hw[1].state = true; // Remet four
+                setIntent(currentIntent);
+            }
+            selectZone('z1');
+        }
+
+        // --- THEME ---
+        window.toggleTheme = function () {
+            isDark = !isDark;
+            const btn = document.getElementById('themeIco');
+            if (isDark) { document.documentElement.setAttribute('data-theme', 'dark'); btn.className = 'fa-solid fa-sun'; }
+            else { document.documentElement.removeAttribute('data-theme'); btn.className = 'fa-solid fa-moon'; }
+        }
+
+        // --- MODALS ---
+        window.openModal = function (id) { document.getElementById(id).classList.add('active'); }
+        window.closeModal = function (id) { document.getElementById(id).classList.remove('active'); }
 
         window.selectIcon = function (iconClass) {
-            currentSelectedIcon = iconClass;
+            iconSelection = iconClass;
             document.querySelectorAll('.icon-opt').forEach(el => el.classList.remove('selected'));
             document.getElementById('ico-' + iconClass).classList.add('selected');
         }
 
         window.confirmAddRoom = function () {
-            const nameInput = document.getElementById('newRoomName').value.trim();
-            if (!nameInput) return; // Empêche la création d'une pièce sans nom
-
-            // Génération d'un ID unique
+            const name = document.getElementById('newRoomName').value.trim();
+            const type = document.getElementById('newRoomType').value;
+            if (!name) return;
             const newId = 'z' + (homeData.length + 1);
-
-            // Création de l'objet Pièce avec valeurs par défaut standard
-            const newRoom = {
-                id: newId,
-                name: nameInput,
-                icon: currentSelectedIcon,
-                isOnline: true,
-                clim: { state: true, temp: 20.0, baseW: 400 },
-                light: { state: true, val: 50, maxW: 80 },
-                hw: [
-                    { name: 'Prises standards', draw: 0, state: false, critical: false }
-                ]
-            };
-
-            homeData.push(newRoom); // Ajout dans la base de données JS
-            closeModal();
-
-            // Sélectionne automatiquement la nouvelle pièce pour montrer le résultat
-            selectZone(newId);
-
-            // Fait scroller la liste vers le bas pour voir la nouvelle pièce
-            const list = document.getElementById('spacesContainer');
-            setTimeout(() => { list.scrollTop = list.scrollHeight; }, 100);
+            homeData.push({
+                id: newId, name: name, icon: iconSelection, type: type, isOnline: true,
+                mod1: { state: true, val: type === 'indoor' ? 20.0 : 20, base: type === 'indoor' ? 400 : 0 },
+                mod2: { state: true, val: 50, max: 80 },
+                hw: [], schedules: []
+            });
+            closeModal('addRoomModal'); selectZone(newId);
         }
 
-        // --- THEME & CRISIS ---
-        window.toggleTheme = function () {
-            isDark = !isDark;
-            const btn = document.getElementById('themeBtn');
-            if (isDark) {
-                document.documentElement.setAttribute('data-theme', 'dark');
-                btn.innerHTML = '<i class="fa-solid fa-sun"></i>';
-            } else {
-                document.documentElement.removeAttribute('data-theme');
-                btn.innerHTML = '<i class="fa-solid fa-moon"></i>';
-            }
-        }
+        window.confirmAddDevice = function () {
+            const name = document.getElementById('newDevName').value.trim();
+            const load = parseInt(document.getElementById('newDevLoad').value) || 0;
+            const crit = document.getElementById('newDevCrit').checked;
+            if (!name) return;
 
-        window.toggleEmergency = function () {
-            isEmergency = !isEmergency;
-            const body = document.body;
-            const statusTxt = document.getElementById('mainStatus');
-            const btn = document.getElementById('btnCrisis');
-            const aiIcon = document.getElementById('aiIcon');
+            const z = homeData.find(x => x.id === activeZ);
+            z.hw.push({ name: name, draw: load, state: true, critical: crit });
 
-            if (isEmergency) {
-                body.classList.add('crisis-active');
-                statusTxt.innerHTML = "Délestage en cours. Maison en préservation d'énergie.";
-                btn.innerHTML = `<i class="fa-solid fa-leaf"></i> <span>Rétablir le confort</span>`;
-                aiIcon.innerHTML = `<i class="fa-solid fa-shield-halved"></i>`;
-
-                homeData.forEach(z => {
-                    if (z.id === 'z1') { z.hw[0].state = false; }
-                    if (z.id === 'z3') { z.hw[1].state = false; }
-                    if (z.clim.state) { z.clim.temp -= 2; }
-                });
-            } else {
-                body.classList.remove('crisis-active');
-                statusTxt.innerHTML = "Équilibre énergétique optimal. Maison apaisée.";
-                btn.innerHTML = `<i class="fa-solid fa-cloud-bolt"></i> <span>Alerte Hivernale RTE</span>`;
-                aiIcon.innerHTML = `<i class="fa-solid fa-leaf"></i>`;
-
-                homeData[0].hw[0].state = true;
-                homeData[2].hw[1].state = true;
-                homeData.forEach(z => {
-                    z.isOnline = true;
-                    if (z.clim.state) z.clim.temp += 2;
-                });
-            }
-            selectZone('z1');
+            closeModal('addDeviceModal'); selectZone(activeZ);
         }
 
         // Init
-        renderMaster();
-        selectZone(activeZ);
+        renderMaster(); selectZone(activeZ);
     </script>
 </body>
 
