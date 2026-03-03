@@ -4,83 +4,52 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>AURA // Organic & Dark Mode</title>
+    <title>AURA // Organic & Extensible</title>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         /* --- DESIGN SYSTEM : ORGANIC JAPANDI (LIGHT) --- */
         :root {
             --bg-base: #F4F1EB;
-            /* Sable très clair */
             --surface-1: #FFFFFF;
-            /* Blanc pur */
             --surface-2: #FAF8F5;
-            /* Blanc cassé */
-
             --text-main: #33302E;
-            /* Brun très foncé */
             --text-dim: #8C857B;
-            /* Gris taupe */
-
             --border-soft: #E8E3D9;
-            /* Beige */
-
-            /* Couleurs Sémantiques */
             --accent-sage: #7A907C;
-            /* Vert sauge */
             --accent-sage-bg: #EAF0EB;
             --accent-terra: #C26D5C;
-            /* Terracotta */
             --accent-terra-bg: #F5EAE8;
-
-            /* Formes & Ombres */
             --radius-pill: 100px;
             --radius-card: 32px;
             --radius-btn: 24px;
             --shadow-float: 0 12px 30px rgba(140, 133, 123, 0.08);
-
             --transition-velvet: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
-
-            /* État par défaut */
             --theme-accent: var(--accent-sage);
             --theme-accent-bg: var(--accent-sage-bg);
         }
 
-        /* --- DARK MODE (Ardoise & Bois Fumé) --- */
+        /* --- DARK MODE --- */
         [data-theme="dark"] {
             --bg-base: #1A1817;
-            /* Brun très profond */
             --surface-1: #242120;
-            /* Ardoise chaude */
             --surface-2: #2E2A28;
-            /* Bois fumé */
-
             --text-main: #EFEBE4;
-            /* Blanc cassé très doux */
             --text-dim: #A39B93;
-            /* Taupe clair */
-
             --border-soft: #383431;
-            /* Bordure discrète */
-
-            /* Sauge plus lumineuse pour contraster sur le sombre */
             --theme-accent: #92AA94;
             --theme-accent-bg: rgba(146, 170, 148, 0.15);
-
             --shadow-float: 0 12px 30px rgba(0, 0, 0, 0.25);
         }
 
-        /* --- CRISIS MODE OVERRIDE (Charbon & Terracotta) --- */
+        /* --- CRISIS MODE --- */
         body.crisis-active {
             --bg-base: #141212 !important;
-            /* Noir presque pur pour l'économie d'énergie */
             --surface-1: #241D1B !important;
             --surface-2: #302624 !important;
-
             --text-main: #F4F1EB !important;
             --text-dim: #A8A198 !important;
             --border-soft: #3D312E !important;
-
             --theme-accent: var(--accent-terra) !important;
             --theme-accent-bg: rgba(194, 109, 92, 0.15) !important;
             --shadow-float: 0 12px 30px rgba(0, 0, 0, 0.4) !important;
@@ -105,7 +74,7 @@
             user-select: none;
         }
 
-        /* --- TOP NAV --- */
+        /* --- HEADER --- */
         .top-nav {
             height: 100px;
             display: flex;
@@ -172,7 +141,6 @@
             gap: 16px;
         }
 
-        /* Bouton Thème */
         .btn-theme {
             width: 54px;
             height: 54px;
@@ -198,9 +166,6 @@
             pointer-events: none;
         }
 
-        /* Désactivé en crise */
-
-        /* Bouton Crise */
         .btn-trigger {
             background: var(--surface-1);
             border: 1px solid var(--border-soft);
@@ -249,6 +214,7 @@
             padding: 40px 0;
             gap: 30px;
             transition: var(--transition-velvet);
+            z-index: 10;
         }
 
         .dock-icon {
@@ -275,6 +241,7 @@
             display: flex;
             flex-direction: column;
             gap: 24px;
+            z-index: 10;
         }
 
         .overview-card {
@@ -319,6 +286,7 @@
             flex-direction: column;
             gap: 16px;
             scrollbar-width: none;
+            padding-bottom: 20px;
         }
 
         .space-item {
@@ -390,6 +358,28 @@
             color: var(--text-main);
         }
 
+        /* Bouton Ajouter Espace */
+        .btn-add-room {
+            border: 2px dashed var(--border-soft);
+            border-radius: var(--radius-card);
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 12px;
+            color: var(--text-dim);
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition-velvet);
+            font-size: 1.1rem;
+        }
+
+        .btn-add-room:hover {
+            background: var(--surface-1);
+            color: var(--theme-accent);
+            border-color: var(--theme-accent);
+        }
+
         /* --- DETAIL: CONTROLS --- */
         .detail-view {
             flex: 1;
@@ -404,6 +394,7 @@
             position: relative;
             transition: var(--transition-velvet);
             scrollbar-width: none;
+            z-index: 10;
         }
 
         .detail-header {
@@ -422,14 +413,12 @@
             line-height: 1;
         }
 
-        /* Control Grid */
         .control-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             gap: 24px;
         }
 
-        /* Pebble Widget */
         .pebble-widget {
             background: var(--surface-2);
             border-radius: var(--radius-card);
@@ -444,8 +433,6 @@
         [data-theme="dark"] .pebble-widget {
             border-color: var(--border-soft);
         }
-
-        /* Légère bordure en dark mode pour détacher */
 
         .w-top {
             display: flex;
@@ -467,7 +454,7 @@
             font-size: 1.2rem;
         }
 
-        /* Soft Toggle */
+        /* Toggles & Sliders */
         .soft-toggle {
             position: relative;
             width: 60px;
@@ -507,7 +494,6 @@
             transform: translateX(26px);
         }
 
-        /* Matte Slider */
         .matte-slider {
             position: relative;
             width: 100%;
@@ -558,7 +544,7 @@
             z-index: 3;
         }
 
-        /* Device List Natural */
+        /* Hardware */
         .hardware-list {
             display: flex;
             flex-direction: column;
@@ -604,6 +590,151 @@
             margin-left: 10px;
             font-weight: 600;
         }
+
+        /* --- MODAL AJOUT PIÈCE --- */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(8px);
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: var(--transition-velvet);
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .modal-box {
+            background: var(--surface-1);
+            width: 450px;
+            border-radius: 40px;
+            padding: 40px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+            border: 1px solid var(--border-soft);
+            transform: translateY(30px);
+            transition: var(--transition-velvet);
+        }
+
+        .modal-overlay.active .modal-box {
+            transform: translateY(0);
+        }
+
+        .modal-title {
+            font-size: 2rem;
+            font-weight: 500;
+            color: var(--text-main);
+            margin-bottom: 30px;
+            letter-spacing: -0.02em;
+        }
+
+        .input-group {
+            margin-bottom: 30px;
+        }
+
+        .input-group label {
+            display: block;
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--text-dim);
+            margin-bottom: 10px;
+        }
+
+        .input-text {
+            width: 100%;
+            padding: 18px 24px;
+            background: var(--surface-2);
+            border: 1px solid var(--border-soft);
+            border-radius: 20px;
+            font-family: 'Outfit';
+            font-size: 1.1rem;
+            color: var(--text-main);
+            outline: none;
+            transition: 0.3s;
+        }
+
+        .input-text:focus {
+            border-color: var(--theme-accent);
+            box-shadow: 0 0 0 4px var(--theme-accent-bg);
+            background: var(--surface-1);
+        }
+
+        /* Grille des icônes */
+        .icon-selector {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 12px;
+        }
+
+        .icon-opt {
+            aspect-ratio: 1;
+            border-radius: 16px;
+            background: var(--surface-2);
+            border: 1px solid var(--border-soft);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.4rem;
+            color: var(--text-dim);
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .icon-opt.selected {
+            background: var(--theme-accent);
+            color: var(--surface-1);
+            border-color: var(--theme-accent);
+            transform: scale(1.05);
+        }
+
+        .modal-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 16px;
+            margin-top: 40px;
+        }
+
+        .btn-cancel {
+            padding: 14px 28px;
+            border-radius: var(--radius-pill);
+            font-family: 'Outfit';
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            background: transparent;
+            border: none;
+            color: var(--text-dim);
+            transition: 0.2s;
+        }
+
+        .btn-cancel:hover {
+            color: var(--text-main);
+            background: var(--surface-2);
+        }
+
+        .btn-confirm {
+            padding: 14px 28px;
+            border-radius: var(--radius-pill);
+            font-family: 'Outfit';
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            background: var(--theme-accent);
+            color: var(--surface-1);
+            border: none;
+            transition: 0.2s;
+        }
+
+        .btn-confirm:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px var(--theme-accent-bg);
+        }
     </style>
 </head>
 
@@ -611,12 +742,10 @@
 
     <nav class="top-nav">
         <div class="nav-logo">aura.</div>
-
         <div class="zen-pill">
             <div class="ai-sun" id="aiIcon"><i class="fa-solid fa-leaf"></i></div>
             <div class="pill-text" id="mainStatus">Équilibre énergétique optimal. Maison apaisée.</div>
         </div>
-
         <div class="actions-group">
             <button class="btn-theme" onclick="toggleTheme()" id="themeBtn" aria-label="Changer de thème">
                 <i class="fa-solid fa-moon"></i>
@@ -628,7 +757,6 @@
     </nav>
 
     <div class="core-ui">
-
         <aside class="dock">
             <div class="dock-icon active"><i class="fa-solid fa-house-chimney"></i></div>
             <div class="dock-icon"><i class="fa-solid fa-chart-pie"></i></div>
@@ -663,7 +791,6 @@
             </header>
 
             <div class="control-grid">
-
                 <div class="pebble-widget">
                     <div class="w-top">
                         <div class="w-title"><i class="fa-solid fa-temperature-three-quarters"></i> Confort Thermique
@@ -707,15 +834,56 @@
                     <div class="hardware-list" id="hwContainer">
                     </div>
                 </div>
-
             </div>
         </main>
+    </div>
 
+    <div class="modal-overlay" id="addRoomModal">
+        <div class="modal-box">
+            <h2 class="modal-title">Nouvel Espace</h2>
+
+            <div class="input-group">
+                <label>Nom de la pièce</label>
+                <input type="text" class="input-text" id="newRoomName" placeholder="Ex: Chambre d'amis, Véranda..."
+                    autocomplete="off">
+            </div>
+
+            <div class="input-group">
+                <label>Icône représentative</label>
+                <div class="icon-selector">
+                    <div class="icon-opt selected" id="ico-fa-bed" onclick="selectIcon('fa-bed')"><i
+                            class="fa-solid fa-bed"></i></div>
+                    <div class="icon-opt" id="ico-fa-bath" onclick="selectIcon('fa-bath')"><i
+                            class="fa-solid fa-bath"></i></div>
+                    <div class="icon-opt" id="ico-fa-utensils" onclick="selectIcon('fa-utensils')"><i
+                            class="fa-solid fa-utensils"></i></div>
+                    <div class="icon-opt" id="ico-fa-dumbbell" onclick="selectIcon('fa-dumbbell')"><i
+                            class="fa-solid fa-dumbbell"></i></div>
+                    <div class="icon-opt" id="ico-fa-book-open" onclick="selectIcon('fa-book-open')"><i
+                            class="fa-solid fa-book-open"></i></div>
+                    <div class="icon-opt" id="ico-fa-shirt" onclick="selectIcon('fa-shirt')"><i
+                            class="fa-solid fa-shirt"></i></div>
+                    <div class="icon-opt" id="ico-fa-gamepad" onclick="selectIcon('fa-gamepad')"><i
+                            class="fa-solid fa-gamepad"></i></div>
+                    <div class="icon-opt" id="ico-fa-fan" onclick="selectIcon('fa-fan')"><i class="fa-solid fa-fan"></i>
+                    </div>
+                    <div class="icon-opt" id="ico-fa-car" onclick="selectIcon('fa-car')"><i class="fa-solid fa-car"></i>
+                    </div>
+                    <div class="icon-opt" id="ico-fa-tree" onclick="selectIcon('fa-tree')"><i
+                            class="fa-solid fa-tree"></i></div>
+                </div>
+            </div>
+
+            <div class="modal-actions">
+                <button class="btn-cancel" onclick="closeModal()">Annuler</button>
+                <button class="btn-confirm" onclick="confirmAddRoom()">Créer l'espace</button>
+            </div>
+        </div>
     </div>
 
     <script>
-        // --- REAL-WORLD DATA : FAMILLE DUBOIS ---
-        const homeData = [
+        // --- REAL-WORLD DATA ---
+        let homeData = [
             {
                 id: 'z1', name: 'Garage & Énergie', icon: 'fa-warehouse', isOnline: true,
                 clim: { state: false, temp: 15.0, baseW: 0 },
@@ -742,21 +910,13 @@
                     { name: 'Réfrigérateur Principal', draw: 85, state: true, critical: true },
                     { name: 'Four Encastrable', draw: 2100, state: true, critical: false }
                 ]
-            },
-            {
-                id: 'z4', name: 'Bureau (Télétravail)', icon: 'fa-laptop-house', isOnline: true,
-                clim: { state: true, temp: 19.0, baseW: 350 },
-                light: { state: false, val: 0, maxW: 50 },
-                hw: [
-                    { name: 'Box Fibre & Routeur Wi-Fi', draw: 20, state: true, critical: true },
-                    { name: 'Ordinateur & Écrans', draw: 180, state: true, critical: false }
-                ]
             }
         ];
 
-        let activeZ = 'z1';
+        let activeZ = 'z2'; // Start on Salon
         let isEmergency = false;
         let isDark = false;
+        let currentSelectedIcon = 'fa-bed';
 
         // --- MATH ENGINE ---
         function getZonePower(z) {
@@ -803,6 +963,16 @@
                     </div>
                 `;
             });
+
+            // Add Room Button
+            if (!isEmergency) {
+                list.innerHTML += `
+                    <div class="btn-add-room" onclick="openModal()">
+                        <i class="fa-solid fa-plus"></i> Nouvel Espace
+                    </div>
+                `;
+            }
+
             updateGlobals();
         }
 
@@ -814,7 +984,6 @@
 
             document.getElementById('roomTitle').innerText = z.name;
 
-            // Sync Toggles & Sliders
             document.getElementById('tglClim').checked = z.clim.state;
             document.getElementById('slideClim').value = z.clim.temp;
             syncSliderUI('clim', z.clim.temp, '°C', z.clim.state);
@@ -823,7 +992,6 @@
             document.getElementById('slideLight').value = z.light.val;
             syncSliderUI('light', z.light.val, '%', z.light.state);
 
-            // Sync Hardware
             const hwBox = document.getElementById('hwContainer');
             hwBox.innerHTML = '';
             z.hw.forEach((h, i) => {
@@ -892,11 +1060,58 @@
             selectZone(z.id);
         }
 
-        // --- THEME TOGGLE (LIGHT/DARK) ---
+        // --- MODAL LOGIC (AJOUT DE PIÈCE) ---
+        window.openModal = function () {
+            document.getElementById('addRoomModal').classList.add('active');
+            document.getElementById('newRoomName').value = '';
+            document.getElementById('newRoomName').focus();
+        }
+
+        window.closeModal = function () {
+            document.getElementById('addRoomModal').classList.remove('active');
+        }
+
+        window.selectIcon = function (iconClass) {
+            currentSelectedIcon = iconClass;
+            document.querySelectorAll('.icon-opt').forEach(el => el.classList.remove('selected'));
+            document.getElementById('ico-' + iconClass).classList.add('selected');
+        }
+
+        window.confirmAddRoom = function () {
+            const nameInput = document.getElementById('newRoomName').value.trim();
+            if (!nameInput) return; // Empêche la création d'une pièce sans nom
+
+            // Génération d'un ID unique
+            const newId = 'z' + (homeData.length + 1);
+
+            // Création de l'objet Pièce avec valeurs par défaut standard
+            const newRoom = {
+                id: newId,
+                name: nameInput,
+                icon: currentSelectedIcon,
+                isOnline: true,
+                clim: { state: true, temp: 20.0, baseW: 400 },
+                light: { state: true, val: 50, maxW: 80 },
+                hw: [
+                    { name: 'Prises standards', draw: 0, state: false, critical: false }
+                ]
+            };
+
+            homeData.push(newRoom); // Ajout dans la base de données JS
+            closeModal();
+
+            // Sélectionne automatiquement la nouvelle pièce pour montrer le résultat
+            selectZone(newId);
+
+            // Fait scroller la liste vers le bas pour voir la nouvelle pièce
+            const list = document.getElementById('spacesContainer');
+            setTimeout(() => { list.scrollTop = list.scrollHeight; }, 100);
+        }
+
+        // --- THEME & CRISIS ---
         window.toggleTheme = function () {
             isDark = !isDark;
             const btn = document.getElementById('themeBtn');
-
             if (isDark) {
                 document.documentElement.setAttribute('data-theme', 'dark');
                 btn.innerHTML = '<i class="fa-solid fa-sun"></i>';
@@ -906,7 +1121,6 @@
             }
         }
 
-        // --- CRISIS SCENARIO ---
         window.toggleEmergency = function () {
             isEmergency = !isEmergency;
             const body = document.body;
@@ -920,21 +1134,17 @@
                 btn.innerHTML = `<i class="fa-solid fa-leaf"></i> <span>Rétablir le confort</span>`;
                 aiIcon.innerHTML = `<i class="fa-solid fa-shield-halved"></i>`;
 
-                // Smart Shedding
                 homeData.forEach(z => {
-                    if (z.id === 'z1') { z.hw[0].state = false; } // Coupe voiture
-                    if (z.id === 'z3') { z.hw[1].state = false; } // Coupe four
-                    if (z.id === 'z3') { z.isOnline = false; z.clim.state = false; z.hw.forEach(h => h.state = false); } // Isole la chambre
-                    if (z.clim.state) { z.clim.temp -= 2; } // Baisse PAC
+                    if (z.id === 'z1') { z.hw[0].state = false; }
+                    if (z.id === 'z3') { z.hw[1].state = false; }
+                    if (z.clim.state) { z.clim.temp -= 2; }
                 });
-
             } else {
                 body.classList.remove('crisis-active');
                 statusTxt.innerHTML = "Équilibre énergétique optimal. Maison apaisée.";
                 btn.innerHTML = `<i class="fa-solid fa-cloud-bolt"></i> <span>Alerte Hivernale RTE</span>`;
                 aiIcon.innerHTML = `<i class="fa-solid fa-leaf"></i>`;
 
-                // Restore
                 homeData[0].hw[0].state = true;
                 homeData[2].hw[1].state = true;
                 homeData.forEach(z => {
