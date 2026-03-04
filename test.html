@@ -3,75 +3,55 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>AURA // The Ultimate 2050 Smart Home</title>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AURA // Bouclier de Résilience (Figma 1194x834)</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* --- DESIGN SYSTEM : ORGANIC JAPANDI --- */
+        /* ==========================================================================
+           1. DESIGN TOKENS (Organic Japandi)
+           ========================================================================== */
         :root {
             --bg-base: #F4F1EB;
             --surface-1: #FFFFFF;
             --surface-2: #FAF8F5;
+
             --text-main: #33302E;
             --text-dim: #8C857B;
             --border-soft: #E8E3D9;
 
-            /* Thèmes sémantiques */
             --accent-sage: #7A907C;
+            /* Nominal / Autonomie */
             --accent-sage-bg: #EAF0EB;
-            /* Nominal */
             --accent-terra: #C26D5C;
+            /* Blackout / Délestage */
             --accent-terra-bg: #F5EAE8;
-            /* Crise */
+            --accent-water: #5B8C9C;
+            /* Gestion de l'eau */
+            --accent-water-bg: #E5EFF2;
             --accent-storm: #5C6BC2;
+            /* Alerte météo */
             --accent-storm-bg: #E8EAF5;
-            /* Anticipation */
 
-            --radius-pill: 100px;
-            --radius-card: 32px;
-            --radius-btn: 20px;
+            --gap-sm: 12px;
+            --gap-md: 20px;
+            --gap-lg: 32px;
+            --gap-xl: 40px;
+
+            --rad-sm: 12px;
+            --rad-md: 16px;
+            --rad-lg: 32px;
+            --rad-pill: 100px;
+
             --shadow-float: 0 12px 30px rgba(140, 133, 123, 0.08);
-            --transition-velvet: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
-
-            --theme-accent: var(--accent-sage);
-            --theme-accent-bg: var(--accent-sage-bg);
+            --transition-soft: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
         }
 
-        [data-theme="dark"] {
-            --bg-base: #1A1817;
-            --surface-1: #242120;
-            --surface-2: #2E2A28;
-            --text-main: #EFEBE4;
-            --text-dim: #A39B93;
-            --border-soft: #383431;
-            --theme-accent: #92AA94;
-            --theme-accent-bg: rgba(146, 170, 148, 0.15);
-            --shadow-float: 0 12px 30px rgba(0, 0, 0, 0.25);
-        }
-
-        body.crisis-active {
-            --bg-base: #141212 !important;
-            --surface-1: #241D1B !important;
-            --surface-2: #302624 !important;
-            --text-main: #F4F1EB !important;
-            --text-dim: #A8A198 !important;
-            --border-soft: #3D312E !important;
-            --theme-accent: var(--accent-terra) !important;
-            --theme-accent-bg: rgba(194, 109, 92, 0.15) !important;
-        }
-
-        body.anticipation-active {
-            --theme-accent: var(--accent-storm) !important;
-            --theme-accent-bg: var(--accent-storm-bg) !important;
-            --border-soft: #C5CAE8 !important;
-        }
-
-        [data-theme="dark"] body.anticipation-active {
-            --theme-accent-bg: rgba(92, 107, 194, 0.2) !important;
-            --border-soft: #424660 !important;
-        }
-
+        /* ==========================================================================
+           2. LAYOUT FIGMA (1194x834 EXACT)
+           ========================================================================== */
         * {
             box-sizing: border-box;
             margin: 0;
@@ -83,169 +63,106 @@
             font-family: 'Outfit', sans-serif;
             background: var(--bg-base);
             color: var(--text-main);
-            height: 100vh;
+
+            /* DIMENSIONS STRICTES POUR IMPORT FIGMA */
+            width: 1194px;
+            height: 834px;
+
             overflow: hidden;
+            display: flex;
+            padding: var(--gap-lg);
+            gap: var(--gap-lg);
+            margin: 0 auto;
+            /* Pour centrer si affiché sur un grand écran de navigateur */
+        }
+
+        /* Classes Utilitaires Flexbox pour forcer les Auto-layouts Figma */
+        .v-stack {
             display: flex;
             flex-direction: column;
-            transition: var(--transition-velvet);
-            user-select: none;
         }
 
-        /* --- HEADER & INTENTIONS --- */
-        .top-nav {
-            height: 90px;
+        .h-stack {
             display: flex;
+            flex-direction: row;
+            align-items: center;
+        }
+
+        .flex-1 {
+            flex: 1;
+            min-height: 0;
+        }
+
+        /* min-height: 0 empêche le flex de déborder */
+        .w-full {
+            width: 100%;
+        }
+
+        .justify-between {
             justify-content: space-between;
-            align-items: center;
-            padding: 0 40px;
         }
 
-        .nav-logo {
-            font-weight: 700;
-            font-size: 1.8rem;
-            letter-spacing: -1px;
-            width: 250px;
-        }
-
-        .zen-pill {
-            background: var(--surface-1);
-            border: 1px solid var(--border-soft);
-            box-shadow: var(--shadow-float);
-            padding: 10px 24px 10px 10px;
-            border-radius: var(--radius-pill);
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            transition: var(--transition-velvet);
-        }
-
-        .ai-sun {
-            width: 44px;
-            height: 44px;
-            border-radius: 50%;
-            background: var(--theme-accent);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: var(--bg-base);
-            font-size: 1.2rem;
-            transition: var(--transition-velvet);
-            box-shadow: 0 0 0 8px var(--theme-accent-bg);
-            animation: breathe 3s infinite alternate ease-in-out;
-        }
-
-        @keyframes breathe {
-            0% {
-                transform: scale(0.95);
-                opacity: 0.9;
-            }
-
-            100% {
-                transform: scale(1.05);
-                opacity: 1;
-                box-shadow: 0 0 0 12px var(--theme-accent-bg);
-            }
-        }
-
-        .pill-text {
-            font-size: 1rem;
+        /* Typographie */
+        .title-page {
+            font-size: 36px;
             font-weight: 500;
-            max-width: 400px;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
+            letter-spacing: -0.02em;
         }
 
-        .actions-group {
+        .title-card {
+            font-size: 18px;
+            font-weight: 600;
             display: flex;
             align-items: center;
             gap: 12px;
-            width: 250px;
-            justify-content: flex-end;
         }
 
-        .btn-circle {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background: var(--surface-1);
-            border: 1px solid var(--border-soft);
-            box-shadow: var(--shadow-float);
-            color: var(--text-main);
-            font-size: 1.2rem;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            cursor: pointer;
-            transition: var(--transition-velvet);
-        }
-
-        .btn-circle:hover {
-            transform: translateY(-2px);
-        }
-
-        /* IA Intent Selector */
-        .intent-bar {
-            display: flex;
-            justify-content: center;
-            gap: 16px;
-            padding: 0 0 20px 0;
-        }
-
-        .intent-btn {
-            padding: 8px 24px;
-            border-radius: var(--radius-pill);
-            border: 1px solid var(--border-soft);
-            background: var(--surface-1);
-            font-weight: 600;
+        .title-card i {
             color: var(--text-dim);
-            cursor: pointer;
-            transition: var(--transition-velvet);
-            font-size: 0.95rem;
         }
 
-        .intent-btn.active {
-            background: var(--theme-accent);
-            color: var(--surface-1);
-            border-color: var(--theme-accent);
-            box-shadow: 0 4px 15px var(--theme-accent-bg);
+        .text-body {
+            font-size: 15px;
+            font-weight: 500;
         }
 
-        /* --- LAYOUT --- */
-        .core-ui {
-            display: flex;
-            flex: 1;
-            overflow: hidden;
-            padding: 0 30px 30px 30px;
-            gap: 30px;
+        .text-sub {
+            font-size: 13px;
+            color: var(--text-dim);
+            font-weight: 400;
         }
 
+        .text-mono {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        /* ==========================================================================
+           3. DOCK (NAVIGATION LATÉRALE)
+           ========================================================================== */
         .dock {
-            width: 80px;
+            width: 88px;
             background: var(--surface-1);
             border: 1px solid var(--border-soft);
+            border-radius: var(--rad-pill);
+            padding: var(--gap-xl) 0;
             box-shadow: var(--shadow-float);
-            border-radius: 40px;
-            display: flex;
-            flex-direction: column;
+            gap: var(--gap-lg);
             align-items: center;
-            padding: 40px 0;
-            gap: 30px;
-            transition: var(--transition-velvet);
-            z-index: 10;
         }
 
         .dock-icon {
-            width: 48px;
-            height: 48px;
+            width: 54px;
+            height: 54px;
             border-radius: 50%;
+            font-size: 20px;
+            color: var(--text-dim);
             display: flex;
             justify-content: center;
             align-items: center;
-            color: var(--text-dim);
-            font-size: 1.3rem;
             cursor: pointer;
-            transition: var(--transition-velvet);
+            transition: var(--transition-soft);
         }
 
         .dock-icon.active {
@@ -253,956 +170,373 @@
             color: var(--surface-1);
         }
 
-        /* --- MASTER: SPACES --- */
-        .master-view {
-            width: 380px;
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-            z-index: 10;
-        }
-
-        .overview-card {
-            background: var(--surface-1);
-            border: 1px solid var(--border-soft);
-            box-shadow: var(--shadow-float);
-            border-radius: var(--radius-card);
-            padding: 30px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            transition: var(--transition-velvet);
-        }
-
-        .micro-label {
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            font-weight: 600;
-            color: var(--text-dim);
-            margin-bottom: 4px;
-        }
-
-        .huge-value {
-            font-size: 3rem;
-            font-weight: 300;
-            letter-spacing: -0.04em;
-            line-height: 1;
-            color: var(--text-main);
-        }
-
-        .huge-value span {
-            font-size: 1.2rem;
-            font-weight: 500;
-            color: var(--text-dim);
-        }
-
-        .space-list {
-            flex: 1;
-            overflow-y: auto;
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-            scrollbar-width: none;
-            padding-bottom: 20px;
-        }
-
-        .space-item {
-            background: var(--surface-1);
-            border: 1px solid var(--border-soft);
-            box-shadow: var(--shadow-float);
-            padding: 20px;
-            border-radius: var(--radius-card);
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            transition: var(--transition-velvet);
-        }
-
-        .space-item.active {
-            border-color: var(--theme-accent);
-            background: var(--theme-accent-bg);
-            box-shadow: none;
-        }
-
-        .space-item.offline {
-            opacity: 0.4;
-            filter: grayscale(0.8);
-            pointer-events: none;
-            box-shadow: none;
-        }
-
-        .s-info {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-        }
-
-        .s-icon {
-            width: 50px;
-            height: 50px;
-            border-radius: 20px;
+        .dock-icon:hover:not(.active) {
             background: var(--surface-2);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 1.4rem;
-            color: var(--text-dim);
-            transition: var(--transition-velvet);
-        }
-
-        .space-item.active .s-icon {
-            color: var(--theme-accent);
-            background: var(--surface-1);
-        }
-
-        .s-name {
-            font-weight: 600;
-            font-size: 1.15rem;
             color: var(--text-main);
         }
 
-        .s-status {
-            font-size: 0.9rem;
-            color: var(--text-dim);
-            margin-top: 4px;
-            font-weight: 500;
-        }
-
-        .btn-dashed {
-            border: 2px dashed var(--border-soft);
-            border-radius: var(--radius-card);
-            padding: 20px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 12px;
-            color: var(--text-dim);
-            font-weight: 600;
-            cursor: pointer;
-            transition: var(--transition-velvet);
-            font-size: 1rem;
-        }
-
-        .btn-dashed:hover {
-            background: var(--surface-1);
-            color: var(--theme-accent);
-            border-color: var(--theme-accent);
-        }
-
-        /* --- DETAIL: CONTROLS --- */
-        .detail-view {
+        /* ==========================================================================
+           4. ZONE PRINCIPALE ET GRILLE
+           ========================================================================== */
+        .main-content {
             flex: 1;
-            background: var(--surface-1);
-            border: 1px solid var(--border-soft);
-            box-shadow: var(--shadow-float);
-            border-radius: 40px;
-            padding: 50px;
+            gap: var(--gap-lg);
             display: flex;
             flex-direction: column;
-            overflow-y: auto;
-            position: relative;
-            transition: var(--transition-velvet);
-            scrollbar-width: none;
-            z-index: 10;
-        }
-
-        .detail-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-end;
-            margin-bottom: 40px;
-        }
-
-        .room-title {
-            font-size: 3.5rem;
-            font-weight: 500;
-            letter-spacing: -0.02em;
-            margin-bottom: 8px;
-            color: var(--text-main);
-            line-height: 1;
-        }
-
-        .control-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 24px;
-        }
-
-        .pebble-widget {
-            background: var(--surface-2);
-            border-radius: var(--radius-card);
-            padding: 32px;
-            display: flex;
-            flex-direction: column;
-            gap: 24px;
-            transition: var(--transition-velvet);
-            border: 1px solid transparent;
-        }
-
-        [data-theme="dark"] .pebble-widget {
-            border-color: var(--border-soft);
-        }
-
-        .w-top {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .w-title {
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: var(--text-main);
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .w-title i {
-            color: var(--text-dim);
-            font-size: 1.2rem;
-        }
-
-        /* Toggles & Sliders */
-        .soft-toggle {
-            position: relative;
-            width: 60px;
-            height: 34px;
-            cursor: pointer;
-        }
-
-        .soft-toggle input {
-            display: none;
-        }
-
-        .st-track {
-            position: absolute;
-            inset: 0;
-            background: var(--border-soft);
-            border-radius: 34px;
-            transition: var(--transition-velvet);
-        }
-
-        .st-thumb {
-            position: absolute;
-            width: 26px;
-            height: 26px;
-            left: 4px;
-            top: 4px;
-            background: var(--surface-1);
-            border-radius: 50%;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-            transition: var(--transition-velvet);
-        }
-
-        input:checked+.st-track {
-            background: var(--theme-accent);
-        }
-
-        input:checked+.st-track .st-thumb {
-            transform: translateX(26px);
-        }
-
-        .matte-slider {
-            position: relative;
-            width: 100%;
-            height: 70px;
-            background: var(--surface-1);
-            border-radius: 40px;
             overflow: hidden;
-            display: flex;
-            align-items: center;
-            padding: 0 30px;
-            box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.02);
-            transition: var(--transition-velvet);
+            /* Empêche le débordement du body */
+        }
+
+        .header-status {
+            background: var(--surface-1);
             border: 1px solid var(--border-soft);
+            border-radius: var(--rad-pill);
+            padding: 10px 24px;
+            box-shadow: var(--shadow-float);
+            gap: 24px;
         }
 
-        .matte-slider.disabled {
-            opacity: 0.4;
-            filter: grayscale(1);
-            pointer-events: none;
+        .bento-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr 1fr;
+            /* Remplissage fluide des colonnes */
+            gap: var(--gap-lg);
+            flex: 1;
+            min-height: 0;
         }
 
-        .ms-fill {
-            position: absolute;
-            left: 0;
-            top: 0;
-            bottom: 0;
-            background: var(--theme-accent-bg);
-            transition: width 0.1s;
-            border-right: 4px solid var(--theme-accent);
-        }
-
-        .ms-value {
-            z-index: 2;
-            font-size: 1.6rem;
-            font-weight: 500;
-            color: var(--text-main);
-            pointer-events: none;
-            transition: var(--transition-velvet);
-        }
-
-        input[type="range"].ms-input {
-            position: absolute;
-            inset: 0;
-            width: 100%;
-            height: 100%;
-            opacity: 0;
-            cursor: pointer;
-            z-index: 3;
-        }
-
-        /* Hardware & Schedule */
-        .hardware-list,
-        .schedule-list {
+        .card {
+            background: var(--surface-1);
+            border: 1px solid var(--border-soft);
+            border-radius: var(--rad-lg);
+            padding: 28px;
+            box-shadow: var(--shadow-float);
+            gap: var(--gap-md);
             display: flex;
             flex-direction: column;
-            gap: 12px;
+            overflow: hidden;
+        }
+
+        /* ==========================================================================
+           5. COMPOSANTS (Listes, Boutons, Toggles)
+           ========================================================================== */
+
+        /* Liste Matrice (Basée sur ta capture d'écran) */
+        .list-container {
+            gap: var(--gap-sm);
+            margin-top: 8px;
+            overflow-y: auto;
+            /* Permet le scroll interne si besoin */
+            scrollbar-width: none;
+            padding-right: 4px;
+            flex: 1;
+            /* Prend l'espace restant de la carte */
         }
 
         .list-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 16px 20px;
             background: var(--surface-1);
-            border-radius: var(--radius-btn);
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
-            transition: var(--transition-velvet);
             border: 1px solid var(--border-soft);
+            border-radius: var(--rad-md);
+            padding: 14px 18px;
+            gap: 16px;
+            transition: var(--transition-soft);
         }
 
-        .list-item.disabled {
-            opacity: 0.5;
-            box-shadow: none;
+        .list-item.vital {
+            border-color: var(--accent-terra);
+            background: var(--accent-terra-bg);
         }
 
-        .li-info h4 {
-            font-size: 1.05rem;
-            font-weight: 500;
-            margin-bottom: 4px;
-            color: var(--text-main);
-        }
-
-        .li-info p {
-            font-size: 0.85rem;
-            color: var(--text-dim);
-            font-weight: 500;
-        }
-
-        .vital-tag {
-            color: var(--theme-accent);
-            background: var(--theme-accent-bg);
-            font-size: 0.75rem;
-            padding: 4px 10px;
-            border-radius: 12px;
-            margin-left: 10px;
-            font-weight: 600;
-        }
-
-        /* --- MODALS --- */
-        .modal-overlay {
-            position: fixed;
-            inset: 0;
-            background: rgba(0, 0, 0, 0.5);
-            backdrop-filter: blur(8px);
-            z-index: 9999;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            opacity: 0;
-            pointer-events: none;
-            transition: var(--transition-velvet);
-        }
-
-        .modal-overlay.active {
-            opacity: 1;
-            pointer-events: all;
-        }
-
-        .modal-box {
-            background: var(--surface-1);
-            width: 450px;
-            border-radius: 40px;
-            padding: 40px;
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
-            border: 1px solid var(--border-soft);
-            transform: translateY(30px);
-            transition: var(--transition-velvet);
-        }
-
-        .modal-overlay.active .modal-box {
-            transform: translateY(0);
-        }
-
-        .modal-title {
-            font-size: 2rem;
-            font-weight: 500;
-            color: var(--text-main);
-            margin-bottom: 30px;
-            letter-spacing: -0.02em;
-        }
-
-        .input-group {
-            margin-bottom: 24px;
-        }
-
-        .input-group label {
-            display: block;
-            font-size: 0.95rem;
+        .list-num {
+            font-family: 'JetBrains Mono';
+            font-size: 18px;
             font-weight: 600;
             color: var(--text-dim);
-            margin-bottom: 10px;
         }
 
-        .input-text,
-        .input-select {
-            width: 100%;
-            padding: 16px 20px;
+        .vital .list-num {
+            color: var(--accent-terra);
+        }
+
+        .list-drag {
+            color: var(--border-soft);
+            cursor: grab;
+            font-size: 16px;
+        }
+
+        /* Toggles Flex */
+        .row-action {
             background: var(--surface-2);
             border: 1px solid var(--border-soft);
-            border-radius: 16px;
-            font-family: 'Outfit';
-            font-size: 1rem;
-            color: var(--text-main);
-            outline: none;
+            border-radius: var(--rad-md);
+            padding: 14px 18px;
+        }
+
+        .switch {
+            width: 50px;
+            height: 28px;
+            background: var(--border-soft);
+            border-radius: var(--rad-pill);
+            padding: 4px;
+            cursor: pointer;
             transition: 0.3s;
         }
 
-        .input-text:focus,
-        .input-select:focus {
-            border-color: var(--theme-accent);
-            background: var(--surface-1);
-        }
-
-        .icon-selector {
-            display: grid;
-            grid-template-columns: repeat(5, 1fr);
-            gap: 12px;
-        }
-
-        .icon-opt {
-            aspect-ratio: 1;
-            border-radius: 16px;
-            background: var(--surface-2);
-            border: 1px solid var(--border-soft);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 1.4rem;
-            color: var(--text-dim);
-            cursor: pointer;
-            transition: 0.2s;
-        }
-
-        .icon-opt.selected {
-            background: var(--theme-accent);
-            color: var(--surface-1);
-            border-color: var(--theme-accent);
-            transform: scale(1.05);
-        }
-
-        .modal-actions {
-            display: flex;
+        .switch.on {
+            background: var(--accent-sage);
             justify-content: flex-end;
-            gap: 16px;
-            margin-top: 30px;
         }
 
-        .btn-cancel {
-            padding: 12px 24px;
-            border-radius: var(--radius-pill);
-            font-family: 'Outfit';
-            font-weight: 600;
-            font-size: 0.95rem;
-            cursor: pointer;
-            background: transparent;
-            border: none;
+        .switch.on.storm {
+            background: var(--accent-storm);
+        }
+
+        .switch.on.water {
+            background: var(--accent-water);
+        }
+
+        .switch-thumb {
+            width: 20px;
+            height: 20px;
+            background: var(--surface-1);
+            border-radius: 50%;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Grosses Cartes de Données */
+        .data-hero {
+            font-size: 48px;
+            font-weight: 300;
+            letter-spacing: -0.04em;
+            line-height: 1;
+        }
+
+        .data-hero span {
+            font-size: 18px;
+            font-weight: 500;
             color: var(--text-dim);
-            transition: 0.2s;
+            margin-left: 4px;
         }
 
-        .btn-cancel:hover {
-            color: var(--text-main);
+        .progress-bg {
+            height: 10px;
             background: var(--surface-2);
+            border-radius: 10px;
+            overflow: hidden;
+            width: 100%;
+            border: 1px solid var(--border-soft);
         }
 
-        .btn-confirm {
-            padding: 12px 24px;
-            border-radius: var(--radius-pill);
-            font-family: 'Outfit';
-            font-weight: 600;
-            font-size: 0.95rem;
-            cursor: pointer;
-            background: var(--theme-accent);
-            color: var(--surface-1);
-            border: none;
-            transition: 0.2s;
+        .progress-fill {
+            height: 100%;
+            background: var(--accent-sage);
+            border-right: 2px solid rgba(255, 255, 255, 0.5);
         }
     </style>
 </head>
 
 <body>
 
-    <nav class="top-nav">
-        <div class="nav-logo">aura.</div>
-        <div class="zen-pill">
-            <div class="ai-sun" id="aiIcon"><i class="fa-solid fa-leaf"></i></div>
-            <div class="pill-text" id="mainStatus">Équilibre énergétique optimal. Maison apaisée.</div>
-        </div>
-        <div class="actions-group">
-            <button class="btn-circle" onclick="toggleTheme()" title="Thème"><i class="fa-solid fa-moon"
-                    id="themeIco"></i></button>
-            <button class="btn-circle" onclick="simulateAnticipation()" title="Alerte Tempête" id="btnStorm"
-                style="color: var(--accent-storm);"><i class="fa-solid fa-cloud-showers-heavy"></i></button>
-            <button class="btn-circle" onclick="simulateCrisis()" title="Blackout RTE" id="btnCrisis"
-                style="color: var(--accent-terra);"><i class="fa-solid fa-plug-circle-xmark"></i></button>
-        </div>
+    <nav class="v-stack dock">
+        <div class="h-stack dock-icon"><i class="fa-solid fa-house"></i></div>
+        <div class="h-stack dock-icon"><i class="fa-solid fa-chart-pie"></i></div>
+        <div class="h-stack dock-icon active"><i class="fa-solid fa-shield-halved"></i></div>
     </nav>
 
-    <div class="intent-bar">
-        <button class="intent-btn active" id="int-confort" onclick="setIntent('confort')">Priorité Confort</button>
-        <button class="intent-btn" id="int-eco" onclick="setIntent('eco')">Économie Active</button>
-        <button class="intent-btn" id="int-auto" onclick="setIntent('auto')">Préservation Batterie</button>
-    </div>
+    <main class="main-content">
 
-    <div class="core-ui">
-        <aside class="dock">
-            <div class="dock-icon active"><i class="fa-solid fa-house-chimney"></i></div>
-            <div class="dock-icon"><i class="fa-solid fa-chart-pie"></i></div>
-            <div class="dock-icon"><i class="fa-solid fa-shield-halved"></i></div>
-        </aside>
+        <header class="h-stack justify-between w-full" style="height: 60px;">
+            <div class="v-stack" style="gap: 4px;">
+                <h1 class="title-page">Bouclier de Résilience</h1>
+                <p class="text-sub">Anticipation climatique et autonomie énergétique.</p>
+            </div>
 
-        <div class="master-view">
-            <div class="overview-card">
-                <div>
-                    <div class="micro-label">Empreinte Instantanée</div>
-                    <div class="huge-value" id="globalPowerLabel">0.00<span>kW</span></div>
+            <div class="h-stack header-status">
+                <div class="h-stack"
+                    style="gap: 12px; border-right: 1px solid var(--border-soft); padding-right: 24px;">
+                    <i class="fa-solid fa-plug-circle-check" style="color: var(--accent-sage); font-size: 18px;"></i>
+                    <div class="v-stack"><span class="text-body">Réseau RTE</span><span class="text-sub">Connecté &
+                            Stable</span></div>
                 </div>
-                <div
-                    style="width: 56px; height: 56px; border-radius: 50%; background: var(--theme-accent-bg); color: var(--theme-accent); display: flex; justify-content: center; align-items: center; font-size: 1.5rem; transition: var(--transition-velvet);">
-                    <i class="fa-solid fa-bolt"></i></div>
-            </div>
-
-            <div class="space-list" id="spacesContainer">
-            </div>
-        </div>
-
-        <main class="detail-view">
-            <header class="detail-header">
-                <div>
-                    <h1 class="room-title" id="roomTitle">Sélectionnez un espace</h1>
-                    <div class="micro-label" id="roomSub" style="font-size: 1rem;">Contrôle environnemental</div>
+                <div class="h-stack" style="gap: 12px;">
+                    <i class="fa-solid fa-cloud-sun" style="color: var(--text-dim); font-size: 18px;"></i>
+                    <div class="v-stack"><span class="text-body">Alerte Météo</span><span class="text-sub">Aucune
+                            anomalie</span></div>
                 </div>
-                <div style="text-align: right;">
-                    <div class="micro-label">Demande Active</div>
-                    <div class="huge-value" id="roomPowerLabel">0<span>W</span></div>
+            </div>
+        </header>
+
+        <div class="bento-grid">
+
+            <div class="v-stack card">
+                <div class="h-stack justify-between w-full" style="flex-shrink: 0;">
+                    <h2 class="title-card"><i class="fa-solid fa-list-ol"></i> Matrice de Délestage</h2>
+                    <i class="fa-solid fa-pen" style="color: var(--text-dim); cursor: pointer;"></i>
                 </div>
-            </header>
+                <p class="text-sub" style="flex-shrink: 0;">Ordre strict de maintien en cas de coupure (Blackout) du
+                    réseau électrique.</p>
 
-            <div class="control-grid" id="mainGrid">
-            </div>
-        </main>
-    </div>
-
-    <div class="modal-overlay" id="addRoomModal">
-        <div class="modal-box">
-            <h2 class="modal-title">Nouvel Espace</h2>
-            <div class="input-group">
-                <label>Nom de la pièce</label>
-                <input type="text" class="input-text" id="newRoomName" placeholder="Ex: Chambre d'amis...">
-            </div>
-            <div class="input-group">
-                <label>Type d'espace</label>
-                <select class="input-select" id="newRoomType">
-                    <option value="indoor">Intérieur (Chauffage & Lumière)</option>
-                    <option value="outdoor">Extérieur (Irrigation & Lumière)</option>
-                </select>
-            </div>
-            <div class="input-group">
-                <label>Icône représentative</label>
-                <div class="icon-selector">
-                    <div class="icon-opt selected" id="ico-fa-bed" onclick="selectIcon('fa-bed')"><i
-                            class="fa-solid fa-bed"></i></div>
-                    <div class="icon-opt" id="ico-fa-bath" onclick="selectIcon('fa-bath')"><i
-                            class="fa-solid fa-bath"></i></div>
-                    <div class="icon-opt" id="ico-fa-tree" onclick="selectIcon('fa-tree')"><i
-                            class="fa-solid fa-tree"></i></div>
-                    <div class="icon-opt" id="ico-fa-car" onclick="selectIcon('fa-car')"><i class="fa-solid fa-car"></i>
+                <div class="v-stack list-container">
+                    <div class="h-stack list-item vital">
+                        <span class="list-num">01</span>
+                        <div class="v-stack flex-1">
+                            <span class="text-body">Assistance Médicale</span>
+                            <span class="text-sub" style="color: var(--accent-terra);">Vital • Ne coupe jamais</span>
+                        </div>
+                        <i class="fa-solid fa-grip-lines list-drag"></i>
                     </div>
-                    <div class="icon-opt" id="ico-fa-dumbbell" onclick="selectIcon('fa-dumbbell')"><i
-                            class="fa-solid fa-dumbbell"></i></div>
+
+                    <div class="h-stack list-item vital">
+                        <span class="list-num">02</span>
+                        <div class="v-stack flex-1">
+                            <span class="text-body">Réfrigérateur Principal</span>
+                            <span class="text-sub" style="color: var(--accent-terra);">Conservation des aliments</span>
+                        </div>
+                        <i class="fa-solid fa-grip-lines list-drag"></i>
+                    </div>
+
+                    <div class="h-stack list-item">
+                        <span class="list-num">03</span>
+                        <div class="v-stack flex-1">
+                            <span class="text-body">Pompe à Chaleur (Hors-Gel)</span>
+                            <span class="text-sub">Maintien thermique (16°C)</span>
+                        </div>
+                        <i class="fa-solid fa-grip-lines list-drag"></i>
+                    </div>
+
+                    <div class="h-stack list-item">
+                        <span class="list-num">04</span>
+                        <div class="v-stack flex-1">
+                            <span class="text-body">Serveur IA AURA & Wi-Fi</span>
+                            <span class="text-sub">Maintien du contrôle</span>
+                        </div>
+                        <i class="fa-solid fa-grip-lines list-drag"></i>
+                    </div>
+
+                    <div class="h-stack list-item" style="opacity: 0.5;">
+                        <span class="list-num">05</span>
+                        <div class="v-stack flex-1">
+                            <span class="text-body">Prises & TV (Salon)</span>
+                            <span class="text-sub">Coupure immédiate IA</span>
+                        </div>
+                        <i class="fa-solid fa-grip-lines list-drag"></i>
+                    </div>
                 </div>
             </div>
-            <div class="modal-actions">
-                <button class="btn-cancel" onclick="closeModal('addRoomModal')">Annuler</button>
-                <button class="btn-confirm" onclick="confirmAddRoom()">Créer l'espace</button>
-            </div>
-        </div>
-    </div>
 
-    <div class="modal-overlay" id="addDeviceModal">
-        <div class="modal-box">
-            <h2 class="modal-title">Nouvel Appareil</h2>
-            <div class="input-group">
-                <label>Nom de l'appareil</label>
-                <input type="text" class="input-text" id="newDevName" placeholder="Ex: Machine à café, Enceinte...">
-            </div>
-            <div class="input-group">
-                <label>Consommation estimée (Watts)</label>
-                <input type="number" class="input-text" id="newDevLoad" value="100">
-            </div>
-            <div class="input-group">
-                <label style="display: flex; align-items: center; gap: 10px; cursor: pointer;">
-                    <input type="checkbox" id="newDevCrit" style="width: 20px; height: 20px;">
-                    Appareil Vital (Non coupable par l'IA)
-                </label>
-            </div>
-            <div class="modal-actions">
-                <button class="btn-cancel" onclick="closeModal('addDeviceModal')">Annuler</button>
-                <button class="btn-confirm" onclick="confirmAddDevice()">Appairer</button>
-            </div>
-        </div>
-    </div>
+            <div class="v-stack" style="gap: var(--gap-lg);">
 
-    <script>
-        // --- ARCHITECTURE DE DONNÉES COMPLÈTE ---
-        let homeData = [
-            {
-                id: 'z1', name: 'Espace de Vie', icon: 'fa-couch', type: 'indoor', isOnline: true,
-                mod1: { state: true, val: 20.5, base: 600 }, // Temp
-                mod2: { state: true, val: 60, max: 100 }, // Light
-                hw: [
-                    { name: 'TV OLED & Audio', draw: 120, state: true, critical: false },
-                    { name: 'Prises Canapé', draw: 15, state: true, critical: false }
-                ],
-                schedules: [
-                    { time: '07:30', action: 'Chauffage 21°C' },
-                    { time: '22:30', action: 'Mode Nuit (18°C)' }
-                ]
-            },
-            {
-                id: 'z2', name: 'Cuisine Ouverte', icon: 'fa-kitchen-set', type: 'indoor', isOnline: true,
-                mod1: { state: true, val: 19.5, base: 400 },
-                mod2: { state: true, val: 80, max: 120 },
-                hw: [
-                    { name: 'Réfrigérateur', draw: 85, state: true, critical: true },
-                    { name: 'Four (Cuisson)', draw: 2100, state: true, critical: false }
-                ],
-                schedules: []
-            },
-            {
-                id: 'z3', name: 'Jardin & Extérieur', icon: 'fa-leaf', type: 'outdoor', isOnline: true,
-                mod1: { state: false, val: 25, base: 0 }, // Irrigation (Val = L/min)
-                mod2: { state: false, val: 0, max: 200 }, // Light Outdoor
-                hw: [
-                    { name: 'Pompe à Eau (Cuve)', draw: 800, state: false, critical: false },
-                    { name: 'Caméra Sécurité', draw: 10, state: true, critical: true }
-                ],
-                schedules: [
-                    { time: '05:00', action: 'Irrigation (15 min)' },
-                    { time: '20:00', action: 'Éclairage Allée 50%' }
-                ]
-            }
-        ];
+                <div class="v-stack card flex-1">
+                    <h2 class="title-card"><i class="fa-solid fa-car-battery"></i> Stockage Énergétique</h2>
 
-        let activeZ = 'z1';
-        let aiState = 'normal'; // 'normal', 'storm', 'crisis'
-        let currentIntent = 'confort'; // 'confort', 'eco', 'auto'
-        let isDark = false;
-        let iconSelection = 'fa-bed';
+                    <div class="v-stack justify-between flex-1" style="padding-top: 12px;">
+                        <div class="v-stack" style="align-items: center;">
+                            <span class="data-hero" style="color: var(--accent-sage);">72<span>Heures</span></span>
+                            <span class="text-sub" style="margin-top: 8px;">D'autonomie estimée (Si Blackout)</span>
+                        </div>
 
-        // --- MOTEUR MATHÉMATIQUE ---
-        function getZonePower(z) {
-            if (!z.isOnline) return 0;
-            let p = 0;
-            if (z.type === 'indoor') {
-                if (z.mod1.state) p += z.mod1.base; // Clim
-            } else {
-                // Pour le jardin, l'irrigation consomme de l'eau, pas de Watts directs (la pompe est dans les HW)
-            }
-            if (z.mod2.state) p += Math.round((z.mod2.val / 100) * z.mod2.max); // Light
-            z.hw.forEach(h => { if (h.state) p += h.draw; });
-            return p;
-        }
+                        <div class="v-stack" style="gap: 12px;">
+                            <div class="h-stack justify-between">
+                                <span class="text-body">Capacité Batterie</span>
+                                <span class="text-mono">82%</span>
+                            </div>
+                            <div class="progress-bg">
+                                <div class="progress-fill" style="width: 82%;"></div>
+                            </div>
+                            <span class="text-sub" style="text-align: center; margin-top: 4px;">Réserve actuelle : 12.4
+                                kWh</span>
+                        </div>
+                    </div>
+                </div>
 
-        function updateGlobals() {
-            let total = 0;
-            homeData.forEach(z => {
-                const p = getZonePower(z);
-                total += p;
-                const spEl = document.getElementById(`z-pow-${z.id}`);
-                if (spEl) spEl.innerText = p + 'W';
-            });
-            document.getElementById('globalPowerLabel').innerHTML = (total / 1000).toFixed(2) + '<span>kW</span>';
-            const currentZ = homeData.find(x => x.id === activeZ);
-            document.getElementById('roomPowerLabel').innerHTML = getZonePower(currentZ) + '<span>W</span>';
-        }
-
-        // --- RENDUS UI ---
-        function renderMaster() {
-            const list = document.getElementById('spacesContainer');
-            list.innerHTML = '';
-            homeData.forEach(z => {
-                const activeCls = z.id === activeZ ? 'active' : '';
-                const offCls = !z.isOnline ? 'offline' : '';
-                const statusTxt = z.type === 'indoor'
-                    ? `Climat : ${z.mod1.state ? z.mod1.val.toFixed(1) + '°C' : 'OFF'}`
-                    : `Eau : ${z.mod1.state ? 'Irrigation ON' : 'Veille'}`;
-
-                list.innerHTML += `
-                    <div class="space-item ${activeCls} ${offCls}" onclick="${!z.isOnline ? '' : `selectZone('${z.id}')`}">
-                        <div class="s-info">
-                            <div class="s-icon"><i class="fa-solid ${z.icon}"></i></div>
-                            <div>
-                                <div class="s-name">${z.name}</div>
-                                <div class="s-status">${statusTxt}</div>
+                <div class="v-stack card">
+                    <h2 class="title-card"><i class="fa-solid fa-droplet"></i> Réserve Hydrique</h2>
+                    <div class="v-stack" style="gap: 16px; margin-top: 8px;">
+                        <div class="h-stack justify-between">
+                            <span class="data-hero" style="font-size: 32px;">4 200<span>L</span></span>
+                            <span class="text-mono" style="color: var(--accent-water);">85%</span>
+                        </div>
+                        <div class="progress-bg">
+                            <div class="progress-fill" style="background: var(--accent-water); width: 85%;"></div>
+                        </div>
+                        <div class="h-stack justify-between row-action" style="margin-top: 4px; padding: 12px 16px;">
+                            <div class="v-stack">
+                                <span class="text-body">Mode Sécheresse</span>
+                                <span class="text-sub" style="font-size: 12px;">Coupe l'arrosage auto</span>
+                            </div>
+                            <div class="h-stack switch on water" onclick="this.classList.toggle('on')">
+                                <div class="switch-thumb"></div>
                             </div>
                         </div>
-                        <div class="s-power" id="z-pow-${z.id}">0W</div>
-                    </div>
-                `;
-            });
-
-            if (aiState === 'normal') {
-                list.innerHTML += `<div class="btn-dashed" onclick="openModal('addRoomModal')"><i class="fa-solid fa-plus"></i> Créer un Espace</div>`;
-            }
-            updateGlobals();
-        }
-
-        function selectZone(id) {
-            activeZ = id;
-            const z = homeData.find(x => x.id === id);
-            renderMaster();
-            document.getElementById('roomTitle').innerText = z.name;
-
-            const grid = document.getElementById('mainGrid');
-            grid.innerHTML = '';
-
-            // WIDGET 1 : CLIMAT OU IRRIGATION
-            const w1Title = z.type === 'indoor' ? '<i class="fa-solid fa-temperature-three-quarters"></i> Confort Thermique' : '<i class="fa-solid fa-droplet"></i> Irrigation (Cuve)';
-            const w1Unit = z.type === 'indoor' ? '°C' : ' L/min';
-            const w1Min = z.type === 'indoor' ? 15 : 5;
-            const w1Max = z.type === 'indoor' ? 28 : 50;
-            const w1Step = z.type === 'indoor' ? 0.5 : 5;
-
-            grid.innerHTML += `
-                <div class="pebble-widget">
-                    <div class="w-top"><div class="w-title">${w1Title}</div><label class="soft-toggle"><input type="checkbox" id="tglM1" onchange="toggleSys('mod1', this.checked)"><div class="st-track"><div class="st-thumb"></div></div></label></div>
-                    <div class="matte-slider" id="boxM1">
-                        <div class="ms-fill" id="fillM1"></div><div class="ms-value" id="valM1"></div>
-                        <input type="range" class="ms-input" id="slideM1" min="${w1Min}" max="${w1Max}" step="${w1Step}" oninput="updateSlide('mod1', this.value, '${w1Unit}', ${w1Min}, ${w1Max})">
                     </div>
                 </div>
-            `;
+            </div>
 
-            // WIDGET 2 : LUMIÈRE
-            grid.innerHTML += `
-                <div class="pebble-widget">
-                    <div class="w-top"><div class="w-title"><i class="fa-regular fa-sun"></i> Éclairage</div><label class="soft-toggle"><input type="checkbox" id="tglM2" onchange="toggleSys('mod2', this.checked)"><div class="st-track"><div class="st-thumb"></div></div></label></div>
-                    <div class="matte-slider" id="boxM2">
-                        <div class="ms-fill" id="fillM2"></div><div class="ms-value" id="valM2"></div>
-                        <input type="range" class="ms-input" id="slideM2" min="0" max="100" oninput="updateSlide('mod2', this.value, '%', 0, 100)">
+            <div class="v-stack card">
+                <h2 class="title-card"><i class="fa-solid fa-temperature-arrow-up"></i> Bouclier Climatique</h2>
+                <p class="text-sub">L'IA anticipe la météo des prochaines 48h pour préparer la maison aux extrêmes.</p>
+
+                <div class="v-stack" style="gap: var(--gap-md); margin-top: 8px;">
+
+                    <div class="v-stack row-action" style="gap: 12px;">
+                        <div class="h-stack justify-between w-full">
+                            <div class="h-stack" style="gap: 12px;">
+                                <div style="width: 24px; text-align: center;"><i class="fa-solid fa-sun"
+                                        style="color: #D4A373; font-size: 18px;"></i></div>
+                                <span class="text-body">Protocole Canicule</span>
+                            </div>
+                            <div class="h-stack switch" onclick="this.classList.toggle('on')">
+                                <div class="switch-thumb"></div>
+                            </div>
+                        </div>
+                        <p class="text-sub" style="font-size: 12px;">Pré-refroidit la maison la nuit et opacifie les
+                            vitrages à 100% l'après-midi.</p>
+                    </div>
+
+                    <div class="v-stack row-action"
+                        style="background: var(--accent-storm-bg); border-color: var(--accent-storm); gap: 12px;">
+                        <div class="h-stack justify-between w-full">
+                            <div class="h-stack" style="gap: 12px;">
+                                <div style="width: 24px; text-align: center;"><i class="fa-solid fa-cloud-showers-heavy"
+                                        style="color: var(--accent-storm); font-size: 18px;"></i></div>
+                                <span class="text-body" style="color: var(--accent-storm); font-weight: 600;">Protocole
+                                    Tempête</span>
+                            </div>
+                            <div class="h-stack switch on storm" onclick="this.classList.toggle('on')">
+                                <div class="switch-thumb"></div>
+                            </div>
+                        </div>
+                        <ul class="text-sub v-stack"
+                            style="gap: 8px; font-size: 12px; list-style-type: none; color: var(--text-main);">
+                            <li><i class="fa-solid fa-check"
+                                    style="color: var(--accent-storm); margin-right: 8px;"></i>Force la charge batterie
+                                100%</li>
+                            <li><i class="fa-solid fa-check"
+                                    style="color: var(--accent-storm); margin-right: 8px;"></i>Verrouille les stores
+                            </li>
+                            <li><i class="fa-solid fa-check"
+                                    style="color: var(--accent-storm); margin-right: 8px;"></i>Prépare le mode
+                                hors-réseau</li>
+                        </ul>
+                    </div>
+
+                </div>
+
+                <div class="h-stack row-action justify-between"
+                    style="margin-top: auto; cursor: pointer; border: 2px dashed var(--accent-terra); padding: 16px;">
+                    <div class="h-stack" style="gap: 12px;">
+                        <div style="width: 24px; text-align: center;"><i class="fa-solid fa-plug-circle-xmark"
+                                style="color: var(--accent-terra); font-size: 18px;"></i></div>
+                        <span class="text-body" style="font-weight: 600; color: var(--accent-terra);">Simuler Blackout
+                            RTE</span>
                     </div>
                 </div>
-            `;
 
-            // WIDGET 3 : APPAREILS
-            let hwHtml = `<div class="pebble-widget"><div class="w-top"><div class="w-title"><i class="fa-solid fa-plug"></i> Équipements</div><button style="background:none; border:none; color:var(--theme-accent); cursor:pointer; font-weight:600;" onclick="openModal('addDeviceModal')">+ Ajouter</button></div><div class="hardware-list">`;
-            z.hw.forEach((h, i) => {
-                hwHtml += `
-                    <div class="list-item ${!h.state ? 'disabled' : ''}">
-                        <div class="li-info"><h4>${h.name}</h4><p>Tirage : ${h.state ? h.draw : 0}W ${h.critical ? `<span class="vital-tag">Essentiel</span>` : ''}</p></div>
-                        <label class="soft-toggle"><input type="checkbox" ${h.state ? 'checked' : ''} onchange="toggleHw(${i}, this.checked)" ${!z.isOnline ? 'disabled' : ''}><div class="st-track"><div class="st-thumb"></div></div></label>
-                    </div>`;
-            });
-            hwHtml += `</div></div>`;
-            grid.innerHTML += hwHtml;
+            </div>
 
-            // WIDGET 4 : AGENDA (PROGRAMMATION)
-            let schedHtml = `<div class="pebble-widget"><div class="w-top"><div class="w-title"><i class="fa-regular fa-clock"></i> Automatisations IA</div><button style="background:none; border:none; color:var(--theme-accent); cursor:pointer;"><i class="fa-solid fa-pen"></i></button></div><div class="schedule-list">`;
-            if (z.schedules.length === 0) schedHtml += `<p style="color:var(--text-dim); font-size:0.9rem;">Aucune programmation active.</p>`;
-            z.schedules.forEach(s => {
-                schedHtml += `<div class="list-item" style="padding:12px 20px;"><div class="li-info"><h4 style="font-family:monospace; color:var(--theme-accent); font-size:1.2rem;">${s.time}</h4><p>${s.action}</p></div></div>`;
-            });
-            schedHtml += `</div></div>`;
-            grid.innerHTML += schedHtml;
+        </div>
+    </main>
 
-            // Init States
-            document.getElementById('tglM1').checked = z.mod1.state;
-            document.getElementById('slideM1').value = z.mod1.val;
-            syncSliderUI('M1', z.mod1.val, w1Unit, w1Min, w1Max, z.mod1.state);
-
-            document.getElementById('tglM2').checked = z.mod2.state;
-            document.getElementById('slideM2').value = z.mod2.val;
-            syncSliderUI('M2', z.mod2.val, '%', 0, 100, z.mod2.state);
-
-            updateGlobals();
-        }
-
-        function syncSliderUI(id, val, unit, min, max, isActive) {
-            const box = document.getElementById(`box${id}`);
-            const fill = document.getElementById(`fill${id}`);
-            const txt = document.getElementById(`val${id}`);
-            if (isActive) {
-                box.classList.remove('disabled');
-                let pct = ((val - min) / (max - min)) * 100;
-                fill.style.width = pct + '%';
-                txt.innerText = val + unit;
-            } else {
-                box.classList.add('disabled');
-                fill.style.width = '0%';
-                txt.innerText = 'OFF';
-            }
-        }
-
-        window.toggleSys = function (mod, isChecked) {
-            const z = homeData.find(x => x.id === activeZ);
-            z[mod].state = isChecked;
-            selectZone(z.id);
-        }
-
-        window.updateSlide = function (mod, val, unit, min, max) {
-            const z = homeData.find(x => x.id === activeZ);
-            if (!z[mod].state) {
-                document.getElementById(`slide${mod === 'mod1' ? 'M1' : 'M2'}`).value = z[mod].val;
-                return;
-            }
-            z[mod].val = (mod === 'mod1' && z.type === 'indoor') ? parseFloat(val) : parseInt(val);
-            syncSliderUI(mod === 'mod1' ? 'M1' : 'M2', z[mod].val, unit, min, max, true);
-            updateGlobals(); renderMaster();
-        }
-
-        window.toggleHw = function (idx, isChecked) {
-            const z = homeData.find(x => x.id === activeZ);
-            z.hw[idx].state = isChecked; selectZone(z.id);
-        }
-
-        // --- GESTION DES INTENTIONS IA ---
-        window.setIntent = function (intent) {
-            if (aiState !== 'normal') return; // Bloqué en crise
-            currentIntent = intent;
-            document.querySelectorAll('.intent-btn').forEach(btn => btn.classList.remove('active'));
-            document.getElementById(`int-${intent}`).classList.add('active');
-
-            const status = document.getElementById('mainStatus');
-            if (intent === 'confort') {
-                status.innerText = "Priorité Confort. Températures optimales restaurées.";
-                homeData.forEach(z => { if (z.type === 'indoor' && z.mod1.state) z.mod1.val = 21.0; });
-            } else if (intent === 'eco') {
-                status.innerText = "Économie Active. Baisse de 1°C sur l'ensemble de la maison.";
-                homeData.forEach(z => { if (z.type === 'indoor' && z.mod1.state) z.mod1.val -= 1.0; });
-            } else if (intent === 'auto') {
-                status.innerText = "Préservation maximale. L'IA décharge moins la batterie.";
-                homeData[1].hw[1].state = false; // Coupe le four pour économiser
-            }
-            selectZone(activeZ);
-        }
-
-        // --- GESTION ANTICIPATION / CRISE ---
-        window.simulateAnticipation = function () {
-            if (aiState === 'crisis') return;
-            const body = document.body;
-            if (aiState === 'normal') {
-                aiState = 'anticipation';
-                body.classList.add('anticipation-active');
-                document.getElementById('mainStatus').innerHTML = "<b>Alerte météo:</b> Tempête prévue demain. Je force la charge batterie sur le réseau de nuit.";
-                document.getElementById('aiIcon').innerHTML = `<i class="fa-solid fa-cloud-showers-heavy"></i>`;
-                document.getElementById('btnStorm').style.boxShadow = "0 0 20px var(--accent-storm)";
-            } else {
-                aiState = 'normal';
-                body.classList.remove('anticipation-active');
-                document.getElementById('mainStatus').innerText = "Équilibre énergétique optimal. Maison apaisée.";
-                document.getElementById('aiIcon').innerHTML = `<i class="fa-solid fa-leaf"></i>`;
-                document.getElementById('btnStorm').style.boxShadow = "none";
-                setIntent(currentIntent); // Restore intent
-            }
-        }
-
-        window.simulateCrisis = function () {
-            aiState = aiState === 'crisis' ? 'normal' : 'crisis';
-            const body = document.body;
-
-            if (aiState === 'crisis') {
-                body.className = isDark ? 'crisis-active' : 'crisis-active'; // Keep dark mode memory
-                if (isDark) document.documentElement.setAttribute('data-theme', 'dark');
-
-                document.getElementById('mainStatus').innerText = "Blackout RTE en cours. L'IA isole la maison et garantit 48h d'autonomie.";
-                document.getElementById('aiIcon').innerHTML = `<i class="fa-solid fa-shield-halved"></i>`;
-                document.getElementById('btnCrisis').style.boxShadow = "0 0 20px var(--accent-terra)";
-
-                // Shedding brutal
-                homeData.forEach(z => {
-                    if (z.type === 'outdoor') { z.isOnline = false; z.mod1.state = false; z.hw.forEach(h => h.state = false); }
-                    if (z.id === 'z2') { z.hw[1].state = false; } // Coupe four
-                    if (z.type === 'indoor' && z.mod1.state) { z.mod1.val = 18.0; } // Survie thermique
-                });
-            } else {
-                body.className = '';
-                if (isDark) document.documentElement.setAttribute('data-theme', 'dark');
-
-                document.getElementById('mainStatus').innerText = "Équilibre énergétique optimal. Maison apaisée.";
-                document.getElementById('aiIcon').innerHTML = `<i class="fa-solid fa-leaf"></i>`;
-                document.getElementById('btnCrisis').style.boxShadow = "none";
-
-                // Restore
-                homeData[2].isOnline = true; // Remet jardin
-                homeData[1].hw[1].state = true; // Remet four
-                setIntent(currentIntent);
-            }
-            selectZone('z1');
-        }
-
-        // --- THEME ---
-        window.toggleTheme = function () {
-            isDark = !isDark;
-            const btn = document.getElementById('themeIco');
-            if (isDark) { document.documentElement.setAttribute('data-theme', 'dark'); btn.className = 'fa-solid fa-sun'; }
-            else { document.documentElement.removeAttribute('data-theme'); btn.className = 'fa-solid fa-moon'; }
-        }
-
-        // --- MODALS ---
-        window.openModal = function (id) { document.getElementById(id).classList.add('active'); }
-        window.closeModal = function (id) { document.getElementById(id).classList.remove('active'); }
-
-        window.selectIcon = function (iconClass) {
-            iconSelection = iconClass;
-            document.querySelectorAll('.icon-opt').forEach(el => el.classList.remove('selected'));
-            document.getElementById('ico-' + iconClass).classList.add('selected');
-        }
-
-        window.confirmAddRoom = function () {
-            const name = document.getElementById('newRoomName').value.trim();
-            const type = document.getElementById('newRoomType').value;
-            if (!name) return;
-            const newId = 'z' + (homeData.length + 1);
-            homeData.push({
-                id: newId, name: name, icon: iconSelection, type: type, isOnline: true,
-                mod1: { state: true, val: type === 'indoor' ? 20.0 : 20, base: type === 'indoor' ? 400 : 0 },
-                mod2: { state: true, val: 50, max: 80 },
-                hw: [], schedules: []
-            });
-            closeModal('addRoomModal'); selectZone(newId);
-        }
-
-        window.confirmAddDevice = function () {
-            const name = document.getElementById('newDevName').value.trim();
-            const load = parseInt(document.getElementById('newDevLoad').value) || 0;
-            const crit = document.getElementById('newDevCrit').checked;
-            if (!name) return;
-
-            const z = homeData.find(x => x.id === activeZ);
-            z.hw.push({ name: name, draw: load, state: true, critical: crit });
-
-            closeModal('addDeviceModal'); selectZone(activeZ);
-        }
-
-        // Init
-        renderMaster(); selectZone(activeZ);
-    </script>
 </body>
 
 </html>
