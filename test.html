@@ -4,49 +4,56 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AURA // Bouclier de Résilience (Figma 1194x834)</title>
+    <title>AURA // Synthèse Analytique (Pixel Perfect)</title>
     <link
-        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         /* ==========================================================================
-           1. DESIGN TOKENS (Organic Japandi)
+           1. DESIGN TOKENS (Strict Matching avec tes maquettes)
            ========================================================================== */
         :root {
+            /* Backgrounds */
             --bg-base: #F4F1EB;
             --surface-1: #FFFFFF;
             --surface-2: #FAF8F5;
 
+            /* Text & Lines */
             --text-main: #33302E;
+            /* Repris de ton image 2 */
             --text-dim: #8C857B;
             --border-soft: #E8E3D9;
 
-            --accent-sage: #7A907C;
-            /* Nominal / Autonomie */
-            --accent-sage-bg: #EAF0EB;
-            --accent-terra: #C26D5C;
-            /* Blackout / Délestage */
-            --accent-terra-bg: #F5EAE8;
-            --accent-water: #5B8C9C;
-            /* Gestion de l'eau */
-            --accent-water-bg: #E5EFF2;
-            --accent-storm: #5C6BC2;
-            /* Alerte météo */
-            --accent-storm-bg: #E8EAF5;
+            /* Semantic Brands */
+            --brand-sage: #7A907C;
+            --brand-sage-bg: #EAF0EB;
+            --brand-terra: #C26D5C;
+            --brand-terra-bg: #F5EAE8;
+            --brand-warm: #D4A373;
 
-            --gap-sm: 12px;
-            --gap-md: 20px;
-            --gap-lg: 32px;
-            --gap-xl: 40px;
+            /* Strict Spacing (Figma Auto-Layout) */
+            --gap-4: 4px;
+            --gap-8: 8px;
+            --gap-12: 12px;
+            --gap-16: 16px;
+            --gap-20: 20px;
+            --gap-24: 24px;
+            --gap-32: 32px;
 
-            --rad-sm: 12px;
-            --rad-md: 16px;
-            --rad-lg: 32px;
+            /* Radii */
+            --rad-sm: 8px;
+            --rad-md: 12px;
+            --rad-lg: 20px;
+            --rad-xl: 32px;
             --rad-pill: 100px;
 
-            --shadow-float: 0 12px 30px rgba(140, 133, 123, 0.08);
-            --transition-soft: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+            /* Effects */
+            --shadow-float: 0 4px 24px rgba(140, 133, 123, 0.08);
+            --shadow-tooltip: 0 8px 24px rgba(0, 0, 0, 0.12);
+            --shadow-inner: inset 0 2px 8px rgba(0, 0, 0, 0.03);
+
+            --transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
         }
 
         /* ==========================================================================
@@ -56,27 +63,23 @@
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            -webkit-tap-highlight-color: transparent;
+            user-select: none;
         }
 
         body {
             font-family: 'Outfit', sans-serif;
             background: var(--bg-base);
             color: var(--text-main);
-
-            /* DIMENSIONS STRICTES POUR IMPORT FIGMA */
             width: 1194px;
             height: 834px;
-
             overflow: hidden;
             display: flex;
-            padding: var(--gap-lg);
-            gap: var(--gap-lg);
+            padding: var(--gap-24);
+            gap: var(--gap-24);
             margin: 0 auto;
-            /* Pour centrer si affiché sur un grand écran de navigateur */
         }
 
-        /* Classes Utilitaires Flexbox pour forcer les Auto-layouts Figma */
+        /* Flexbox Core Classes */
         .v-stack {
             display: flex;
             flex-direction: column;
@@ -91,78 +94,108 @@
         .flex-1 {
             flex: 1;
             min-height: 0;
+            min-width: 0;
         }
 
-        /* min-height: 0 empêche le flex de déborder */
         .w-full {
             width: 100%;
+        }
+
+        .h-full {
+            height: 100%;
         }
 
         .justify-between {
             justify-content: space-between;
         }
 
-        /* Typographie */
-        .title-page {
-            font-size: 36px;
-            font-weight: 500;
-            letter-spacing: -0.02em;
+        .justify-center {
+            justify-content: center;
         }
 
-        .title-card {
-            font-size: 18px;
+        .align-start {
+            align-items: flex-start;
+        }
+
+        .align-end {
+            align-items: flex-end;
+        }
+
+        .align-baseline {
+            align-items: baseline;
+        }
+
+        /* Typography - Strict Line Heights */
+        .t-hero {
+            font-size: 28px;
             font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 12px;
+            letter-spacing: -0.02em;
+            line-height: 1.2;
         }
 
-        .title-card i {
-            color: var(--text-dim);
+        .t-h2 {
+            font-size: 16px;
+            font-weight: 600;
+            line-height: 1.2;
         }
 
-        .text-body {
-            font-size: 15px;
-            font-weight: 500;
-        }
-
-        .text-sub {
-            font-size: 13px;
-            color: var(--text-dim);
-            font-weight: 400;
-        }
-
-        .text-mono {
-            font-family: 'JetBrains Mono', monospace;
+        .t-body {
             font-size: 14px;
             font-weight: 600;
+            line-height: 1.4;
+        }
+
+        .t-sub {
+            font-size: 13px;
+            color: var(--text-dim);
+            font-weight: 500;
+            line-height: 1.4;
+        }
+
+        .t-mono {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 13px;
+            font-weight: 600;
+            line-height: 1.2;
+            transition: var(--transition);
+        }
+
+        .data-huge {
+            font-size: 44px;
+            font-weight: 400;
+            line-height: 1;
+            letter-spacing: -0.04em;
+            transition: var(--transition);
+        }
+
+        .data-unit {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text-dim);
         }
 
         /* ==========================================================================
-           3. DOCK (NAVIGATION LATÉRALE)
+           3. DOCK (NAVIGATION) - Corrigé selon Image 2
            ========================================================================== */
         .dock {
-            width: 88px;
+            width: 80px;
             background: var(--surface-1);
             border: 1px solid var(--border-soft);
             border-radius: var(--rad-pill);
-            padding: var(--gap-xl) 0;
+            padding: var(--gap-24) 0;
             box-shadow: var(--shadow-float);
-            gap: var(--gap-lg);
-            align-items: center;
+            gap: var(--gap-24);
+            z-index: 10;
         }
 
         .dock-icon {
-            width: 54px;
-            height: 54px;
-            border-radius: 50%;
-            font-size: 20px;
+            width: 52px;
+            height: 52px;
+            border-radius: var(--rad-pill);
+            font-size: 22px;
             color: var(--text-dim);
-            display: flex;
-            justify-content: center;
-            align-items: center;
             cursor: pointer;
-            transition: var(--transition-soft);
+            transition: var(--transition);
         }
 
         .dock-icon.active {
@@ -176,31 +209,42 @@
         }
 
         /* ==========================================================================
-           4. ZONE PRINCIPALE ET GRILLE
+           4. MAIN CONTENT & BENTO GRID
            ========================================================================== */
         .main-content {
-            flex: 1;
-            gap: var(--gap-lg);
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
-            /* Empêche le débordement du body */
+            gap: var(--gap-20);
         }
 
-        .header-status {
+        /* Time Filter */
+        .time-filter {
             background: var(--surface-1);
-            border: 1px solid var(--border-soft);
+            padding: 4px;
             border-radius: var(--rad-pill);
-            padding: 10px 24px;
+            border: 1px solid var(--border-soft);
             box-shadow: var(--shadow-float);
-            gap: 24px;
+            gap: 4px;
+        }
+
+        .filter-btn {
+            padding: 8px 24px;
+            border-radius: var(--rad-pill);
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-dim);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .filter-btn.active {
+            background: var(--text-main);
+            color: var(--surface-1);
         }
 
         .bento-grid {
             display: grid;
-            grid-template-columns: 1.2fr 1fr 1fr;
-            /* Remplissage fluide des colonnes */
-            gap: var(--gap-lg);
+            grid-template-columns: 1.1fr 1.3fr 1fr;
+            grid-template-rows: 1.2fr 1fr;
+            gap: var(--gap-20);
             flex: 1;
             min-height: 0;
         }
@@ -209,128 +253,315 @@
             background: var(--surface-1);
             border: 1px solid var(--border-soft);
             border-radius: var(--rad-lg);
-            padding: 28px;
+            padding: var(--gap-24);
             box-shadow: var(--shadow-float);
-            gap: var(--gap-md);
+            position: relative;
             display: flex;
             flex-direction: column;
-            overflow: hidden;
+            justify-content: space-between;
         }
 
         /* ==========================================================================
-           5. COMPOSANTS (Listes, Boutons, Toggles)
+           5. INTERACTIVE COMPONENTS
            ========================================================================== */
 
-        /* Liste Matrice (Basée sur ta capture d'écran) */
-        .list-container {
-            gap: var(--gap-sm);
-            margin-top: 8px;
-            overflow-y: auto;
-            /* Permet le scroll interne si besoin */
-            scrollbar-width: none;
-            padding-right: 4px;
-            flex: 1;
-            /* Prend l'espace restant de la carte */
+        /* Dropdown Menu */
+        .dropdown-container {
+            position: relative;
         }
 
-        .list-item {
+        .ellipsis-btn {
+            color: var(--text-dim);
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: 0.2s;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .ellipsis-btn:hover {
+            background: var(--surface-2);
+            color: var(--text-main);
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            top: calc(100% + 4px);
+            right: 0;
+            width: 220px;
             background: var(--surface-1);
             border: 1px solid var(--border-soft);
             border-radius: var(--rad-md);
-            padding: 14px 18px;
-            gap: 16px;
-            transition: var(--transition-soft);
+            box-shadow: var(--shadow-tooltip);
+            padding: var(--gap-8);
+            z-index: 100;
+            opacity: 0;
+            pointer-events: none;
+            transform: translateY(-8px);
+            transition: var(--transition);
         }
 
-        .list-item.vital {
-            border-color: var(--accent-terra);
-            background: var(--accent-terra-bg);
+        .dropdown-menu.active {
+            opacity: 1;
+            pointer-events: all;
+            transform: translateY(0);
         }
 
-        .list-num {
-            font-family: 'JetBrains Mono';
-            font-size: 18px;
-            font-weight: 600;
-            color: var(--text-dim);
+        .dropdown-item {
+            padding: var(--gap-12) var(--gap-16);
+            gap: var(--gap-12);
+            border-radius: var(--rad-sm);
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: 0.2s;
         }
 
-        .vital .list-num {
-            color: var(--accent-terra);
+        .dropdown-item:hover {
+            background: var(--surface-2);
+            color: var(--brand-sage);
         }
 
-        .list-drag {
-            color: var(--border-soft);
-            cursor: grab;
-            font-size: 16px;
+        /* Badges */
+        .trend-badge {
+            padding: 6px 12px;
+            border-radius: var(--rad-pill);
+            font-size: 12px;
+            font-weight: 700;
+            gap: var(--gap-4);
+            transition: var(--transition);
+            border: 1px solid transparent;
         }
 
-        /* Toggles Flex */
-        .row-action {
+        .trend-badge.good {
+            background: var(--brand-sage-bg);
+            color: var(--brand-sage);
+        }
+
+        .trend-badge.bad {
+            background: var(--brand-terra-bg);
+            color: var(--brand-terra);
+        }
+
+        /* Cost Box - Corrigé pour le prix */
+        .cost-box {
             background: var(--surface-2);
             border: 1px solid var(--border-soft);
             border-radius: var(--rad-md);
-            padding: 14px 18px;
+            padding: var(--gap-16);
+            gap: var(--gap-12);
+            transition: var(--transition);
         }
 
-        .switch {
-            width: 50px;
-            height: 28px;
-            background: var(--border-soft);
-            border-radius: var(--rad-pill);
-            padding: 4px;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-
-        .switch.on {
-            background: var(--accent-sage);
-            justify-content: flex-end;
-        }
-
-        .switch.on.storm {
-            background: var(--accent-storm);
-        }
-
-        .switch.on.water {
-            background: var(--accent-water);
-        }
-
-        .switch-thumb {
-            width: 20px;
-            height: 20px;
-            background: var(--surface-1);
-            border-radius: 50%;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-        }
-
-        /* Grosses Cartes de Données */
-        .data-hero {
-            font-size: 48px;
-            font-weight: 300;
-            letter-spacing: -0.04em;
+        .price-huge {
+            font-family: 'Outfit', sans-serif;
+            font-size: 32px;
+            font-weight: 400;
+            color: var(--text-main);
             line-height: 1;
         }
 
-        .data-hero span {
-            font-size: 18px;
+        .price-symbol {
+            font-size: 20px;
             font-weight: 500;
-            color: var(--text-dim);
-            margin-left: 4px;
+            color: var(--text-main);
         }
 
-        .progress-bg {
-            height: 10px;
+        /* Progress & Budget Bars */
+        .progress-track {
+            height: 6px;
             background: var(--surface-2);
-            border-radius: 10px;
+            border-radius: 6px;
             overflow: hidden;
             width: 100%;
             border: 1px solid var(--border-soft);
+            position: relative;
         }
 
         .progress-fill {
             height: 100%;
-            background: var(--accent-sage);
-            border-right: 2px solid rgba(255, 255, 255, 0.5);
+            border-radius: 6px;
+            transition: width 1s cubic-bezier(0.25, 1, 0.5, 1), background 0.5s;
+        }
+
+        .budget-limit {
+            position: absolute;
+            height: 100%;
+            width: 2px;
+            background: var(--brand-terra);
+            left: 85%;
+            top: 0;
+            z-index: 2;
+        }
+
+        /* Interactive Bar Chart - Corrigé (Barres pleines, ancrées en bas) */
+        .chart-col {
+            gap: var(--gap-8);
+            position: relative;
+        }
+
+        .bar-bg {
+            width: 32px;
+            background: transparent;
+            border: 1px solid var(--border-soft);
+            border-radius: 6px;
+            cursor: pointer;
+            overflow: hidden;
+            display: flex;
+            align-items: flex-end;
+            padding: 2px;
+        }
+
+        .bar-fill {
+            width: 100%;
+            background: var(--brand-sage);
+            border-radius: 4px;
+            transition: height 0.8s cubic-bezier(0.25, 1, 0.5, 1), filter 0.2s;
+        }
+
+        .bar-bg:hover .bar-fill {
+            filter: brightness(1.1);
+        }
+
+        .bar-bg:hover+.chart-label+.tooltip {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .chart-label {
+            font-size: 12px;
+            color: var(--text-dim);
+            font-weight: 500;
+            font-family: 'JetBrains Mono';
+            text-align: center;
+        }
+
+        .tooltip {
+            position: absolute;
+            top: -36px;
+            left: 50%;
+            transform: translateX(-50%) translateY(10px);
+            background: var(--text-main);
+            color: var(--surface-1);
+            padding: 6px 10px;
+            border-radius: var(--rad-sm);
+            font-size: 12px;
+            font-weight: 600;
+            pointer-events: none;
+            opacity: 0;
+            transition: var(--transition);
+            box-shadow: var(--shadow-tooltip);
+            white-space: nowrap;
+            z-index: 10;
+            font-family: 'JetBrains Mono';
+        }
+
+        /* Segmented Control (Tabs) */
+        .segmented-control {
+            background: var(--surface-2);
+            padding: 4px;
+            border-radius: var(--rad-pill);
+            border: 1px solid var(--border-soft);
+            gap: 4px;
+        }
+
+        .segment-btn {
+            padding: 8px 16px;
+            border-radius: var(--rad-pill);
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-dim);
+            cursor: pointer;
+            transition: var(--transition);
+            text-align: center;
+            flex: 1;
+        }
+
+        .segment-btn.active {
+            background: var(--surface-1);
+            color: var(--text-main);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            border: 1px solid var(--border-soft);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: flex;
+            animation: fadeIn 0.4s;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(5px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Lists */
+        .list-row {
+            background: var(--surface-2);
+            padding: var(--gap-12) var(--gap-16);
+            border-radius: var(--rad-md);
+            border: 1px solid var(--border-soft);
+            transition: 0.2s;
+            cursor: pointer;
+        }
+
+        .list-row:hover {
+            border-color: var(--brand-sage);
+            transform: translateX(4px);
+            background: var(--surface-1);
+        }
+
+        .icon-box {
+            width: 32px;
+            height: 32px;
+            border-radius: var(--rad-sm);
+            background: var(--surface-1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+        }
+
+        /* IA Box */
+        .ai-glass-box {
+            background: var(--surface-1);
+            padding: var(--gap-16);
+            border-radius: var(--rad-md);
+            border: 1px solid rgba(122, 144, 124, 0.2);
+            gap: var(--gap-8);
+        }
+
+        .btn-ia {
+            background: var(--brand-sage);
+            color: var(--surface-1);
+            padding: var(--gap-12) var(--gap-24);
+            border-radius: var(--rad-pill);
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            transition: 0.2s;
+            text-align: center;
+            border: none;
+        }
+
+        .btn-ia:hover {
+            filter: brightness(1.1);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(122, 144, 124, 0.2);
         }
     </style>
 </head>
@@ -338,205 +569,307 @@
 <body>
 
     <nav class="v-stack dock">
-        <div class="h-stack dock-icon"><i class="fa-solid fa-house"></i></div>
-        <div class="h-stack dock-icon"><i class="fa-solid fa-chart-pie"></i></div>
-        <div class="h-stack dock-icon active"><i class="fa-solid fa-shield-halved"></i></div>
+        <div class="h-stack dock-icon justify-center"><i class="fa-solid fa-house"></i></div>
+        <div class="h-stack dock-icon justify-center active"><i class="fa-solid fa-chart-pie"></i></div>
+        <div class="h-stack dock-icon justify-center"><i class="fa-solid fa-shield-halved"></i></div>
     </nav>
 
-    <main class="main-content">
+    <main class="v-stack flex-1 main-content">
 
-        <header class="h-stack justify-between w-full" style="height: 60px;">
-            <div class="v-stack" style="gap: 4px;">
-                <h1 class="title-page">Bouclier de Résilience</h1>
-                <p class="text-sub">Anticipation climatique et autonomie énergétique.</p>
+        <header class="h-stack justify-between w-full">
+            <div class="v-stack" style="gap: var(--gap-4);">
+                <h1 class="t-hero">Synthèse Analytique</h1>
+                <p class="t-sub" id="headerSub">Performances et données énergétiques.</p>
             </div>
 
-            <div class="h-stack header-status">
-                <div class="h-stack"
-                    style="gap: 12px; border-right: 1px solid var(--border-soft); padding-right: 24px;">
-                    <i class="fa-solid fa-plug-circle-check" style="color: var(--accent-sage); font-size: 18px;"></i>
-                    <div class="v-stack"><span class="text-body">Réseau RTE</span><span class="text-sub">Connecté &
-                            Stable</span></div>
-                </div>
-                <div class="h-stack" style="gap: 12px;">
-                    <i class="fa-solid fa-cloud-sun" style="color: var(--text-dim); font-size: 18px;"></i>
-                    <div class="v-stack"><span class="text-body">Alerte Météo</span><span class="text-sub">Aucune
-                            anomalie</span></div>
-                </div>
+            <div class="h-stack time-filter">
+                <div class="filter-btn active" onclick="setPeriod('jour', this)">Jour</div>
+                <div class="filter-btn" onclick="setPeriod('semaine', this)">Semaine</div>
+                <div class="filter-btn" onclick="setPeriod('mois', this)">Mois</div>
             </div>
         </header>
 
         <div class="bento-grid">
 
-            <div class="v-stack card">
-                <div class="h-stack justify-between w-full" style="flex-shrink: 0;">
-                    <h2 class="title-card"><i class="fa-solid fa-list-ol"></i> Matrice de Délestage</h2>
-                    <i class="fa-solid fa-pen" style="color: var(--text-dim); cursor: pointer;"></i>
-                </div>
-                <p class="text-sub" style="flex-shrink: 0;">Ordre strict de maintien en cas de coupure (Blackout) du
-                    réseau électrique.</p>
+            <div class="card">
+                <div class="v-stack w-full" style="gap: var(--gap-20);">
+                    <div class="h-stack justify-between w-full">
+                        <h2 class="t-h2"><i class="fa-solid fa-bolt" style="color: var(--text-dim);"></i> Consommation
+                            globale</h2>
 
-                <div class="v-stack list-container">
-                    <div class="h-stack list-item vital">
-                        <span class="list-num">01</span>
-                        <div class="v-stack flex-1">
-                            <span class="text-body">Assistance Médicale</span>
-                            <span class="text-sub" style="color: var(--accent-terra);">Vital • Ne coupe jamais</span>
-                        </div>
-                        <i class="fa-solid fa-grip-lines list-drag"></i>
-                    </div>
-
-                    <div class="h-stack list-item vital">
-                        <span class="list-num">02</span>
-                        <div class="v-stack flex-1">
-                            <span class="text-body">Réfrigérateur Principal</span>
-                            <span class="text-sub" style="color: var(--accent-terra);">Conservation des aliments</span>
-                        </div>
-                        <i class="fa-solid fa-grip-lines list-drag"></i>
-                    </div>
-
-                    <div class="h-stack list-item">
-                        <span class="list-num">03</span>
-                        <div class="v-stack flex-1">
-                            <span class="text-body">Pompe à Chaleur (Hors-Gel)</span>
-                            <span class="text-sub">Maintien thermique (16°C)</span>
-                        </div>
-                        <i class="fa-solid fa-grip-lines list-drag"></i>
-                    </div>
-
-                    <div class="h-stack list-item">
-                        <span class="list-num">04</span>
-                        <div class="v-stack flex-1">
-                            <span class="text-body">Serveur IA AURA & Wi-Fi</span>
-                            <span class="text-sub">Maintien du contrôle</span>
-                        </div>
-                        <i class="fa-solid fa-grip-lines list-drag"></i>
-                    </div>
-
-                    <div class="h-stack list-item" style="opacity: 0.5;">
-                        <span class="list-num">05</span>
-                        <div class="v-stack flex-1">
-                            <span class="text-body">Prises & TV (Salon)</span>
-                            <span class="text-sub">Coupure immédiate IA</span>
-                        </div>
-                        <i class="fa-solid fa-grip-lines list-drag"></i>
-                    </div>
-                </div>
-            </div>
-
-            <div class="v-stack" style="gap: var(--gap-lg);">
-
-                <div class="v-stack card flex-1">
-                    <h2 class="title-card"><i class="fa-solid fa-car-battery"></i> Stockage Énergétique</h2>
-
-                    <div class="v-stack justify-between flex-1" style="padding-top: 12px;">
-                        <div class="v-stack" style="align-items: center;">
-                            <span class="data-hero" style="color: var(--accent-sage);">72<span>Heures</span></span>
-                            <span class="text-sub" style="margin-top: 8px;">D'autonomie estimée (Si Blackout)</span>
-                        </div>
-
-                        <div class="v-stack" style="gap: 12px;">
-                            <div class="h-stack justify-between">
-                                <span class="text-body">Capacité Batterie</span>
-                                <span class="text-mono">82%</span>
+                        <div class="dropdown-container">
+                            <div class="h-stack ellipsis-btn justify-center" onclick="toggleMenu('consoMenu', event)"><i
+                                    class="fa-solid fa-ellipsis"></i></div>
+                            <div class="v-stack dropdown-menu" id="consoMenu" style="gap: var(--gap-4);">
+                                <div class="h-stack dropdown-item"><i class="fa-solid fa-pen"></i> Éditer le budget
+                                    cible</div>
+                                <div class="h-stack dropdown-item"><i class="fa-solid fa-file-contract"></i> Modifier le
+                                    contrat</div>
+                                <div style="height: 1px; background: var(--border-soft);"></div>
+                                <div class="h-stack dropdown-item"><i class="fa-solid fa-download"></i> Exporter les
+                                    données</div>
                             </div>
-                            <div class="progress-bg">
-                                <div class="progress-fill" style="width: 82%;"></div>
-                            </div>
-                            <span class="text-sub" style="text-align: center; margin-top: 4px;">Réserve actuelle : 12.4
-                                kWh</span>
+                        </div>
+                    </div>
+
+                    <div class="h-stack justify-between align-end w-full">
+                        <div class="h-stack align-baseline" style="gap: var(--gap-8);">
+                            <span class="data-huge" id="valKwh">12.4</span>
+                            <span class="data-unit">kWh</span>
+                        </div>
+                        <div class="h-stack trend-badge good" id="trendKwh" style="margin-bottom: 4px;">
+                            <i class="fa-solid fa-arrow-trend-down" id="trendIcon"></i> <span id="trendVal">-15%</span>
                         </div>
                     </div>
                 </div>
 
-                <div class="v-stack card">
-                    <h2 class="title-card"><i class="fa-solid fa-droplet"></i> Réserve Hydrique</h2>
-                    <div class="v-stack" style="gap: 16px; margin-top: 8px;">
-                        <div class="h-stack justify-between">
-                            <span class="data-hero" style="font-size: 32px;">4 200<span>L</span></span>
-                            <span class="text-mono" style="color: var(--accent-water);">85%</span>
+                <div class="v-stack w-full" style="gap: var(--gap-20);">
+                    <div class="h-stack justify-between cost-box w-full">
+                        <div class="v-stack" style="gap: var(--gap-4);">
+                            <span class="t-body">Coût estimé</span>
+                            <span class="t-sub"><i class="fa-solid fa-tag"
+                                    style="margin-right: 4px; font-size: 10px;"></i>Tarif Bleu • 0.25€/kWh</span>
                         </div>
-                        <div class="progress-bg">
-                            <div class="progress-fill" style="background: var(--accent-water); width: 85%;"></div>
+                        <div class="h-stack align-baseline" style="gap: var(--gap-4);">
+                            <span class="price-huge" id="valEur">2.85</span>
+                            <span class="price-symbol">€</span>
                         </div>
-                        <div class="h-stack justify-between row-action" style="margin-top: 4px; padding: 12px 16px;">
-                            <div class="v-stack">
-                                <span class="text-body">Mode Sécheresse</span>
-                                <span class="text-sub" style="font-size: 12px;">Coupe l'arrosage auto</span>
-                            </div>
-                            <div class="h-stack switch on water" onclick="this.classList.toggle('on')">
-                                <div class="switch-thumb"></div>
-                            </div>
+                    </div>
+
+                    <div class="v-stack w-full" style="gap: var(--gap-8);">
+                        <div class="h-stack justify-between w-full">
+                            <span class="t-body">Budget suivi (90€)</span>
+                            <span class="t-mono" id="budgetPct" style="color: var(--text-dim);">24%</span>
+                        </div>
+                        <div class="progress-track w-full">
+                            <div class="budget-limit" title="Limite 85%"></div>
+                            <div class="progress-fill" id="budgetFill"
+                                style="background: var(--brand-sage); width: 24%;"></div>
+                        </div>
+                        <div class="h-stack justify-between w-full">
+                            <span class="t-sub">Reste avant dépassement</span>
+                            <span class="t-mono" id="budgetRem">87.15 €</span>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="v-stack card">
-                <h2 class="title-card"><i class="fa-solid fa-temperature-arrow-up"></i> Bouclier Climatique</h2>
-                <p class="text-sub">L'IA anticipe la météo des prochaines 48h pour préparer la maison aux extrêmes.</p>
-
-                <div class="v-stack" style="gap: var(--gap-md); margin-top: 8px;">
-
-                    <div class="v-stack row-action" style="gap: 12px;">
-                        <div class="h-stack justify-between w-full">
-                            <div class="h-stack" style="gap: 12px;">
-                                <div style="width: 24px; text-align: center;"><i class="fa-solid fa-sun"
-                                        style="color: #D4A373; font-size: 18px;"></i></div>
-                                <span class="text-body">Protocole Canicule</span>
-                            </div>
-                            <div class="h-stack switch" onclick="this.classList.toggle('on')">
-                                <div class="switch-thumb"></div>
-                            </div>
-                        </div>
-                        <p class="text-sub" style="font-size: 12px;">Pré-refroidit la maison la nuit et opacifie les
-                            vitrages à 100% l'après-midi.</p>
-                    </div>
-
-                    <div class="v-stack row-action"
-                        style="background: var(--accent-storm-bg); border-color: var(--accent-storm); gap: 12px;">
-                        <div class="h-stack justify-between w-full">
-                            <div class="h-stack" style="gap: 12px;">
-                                <div style="width: 24px; text-align: center;"><i class="fa-solid fa-cloud-showers-heavy"
-                                        style="color: var(--accent-storm); font-size: 18px;"></i></div>
-                                <span class="text-body" style="color: var(--accent-storm); font-weight: 600;">Protocole
-                                    Tempête</span>
-                            </div>
-                            <div class="h-stack switch on storm" onclick="this.classList.toggle('on')">
-                                <div class="switch-thumb"></div>
-                            </div>
-                        </div>
-                        <ul class="text-sub v-stack"
-                            style="gap: 8px; font-size: 12px; list-style-type: none; color: var(--text-main);">
-                            <li><i class="fa-solid fa-check"
-                                    style="color: var(--accent-storm); margin-right: 8px;"></i>Force la charge batterie
-                                100%</li>
-                            <li><i class="fa-solid fa-check"
-                                    style="color: var(--accent-storm); margin-right: 8px;"></i>Verrouille les stores
-                            </li>
-                            <li><i class="fa-solid fa-check"
-                                    style="color: var(--accent-storm); margin-right: 8px;"></i>Prépare le mode
-                                hors-réseau</li>
-                        </ul>
-                    </div>
-
-                </div>
-
-                <div class="h-stack row-action justify-between"
-                    style="margin-top: auto; cursor: pointer; border: 2px dashed var(--accent-terra); padding: 16px;">
-                    <div class="h-stack" style="gap: 12px;">
-                        <div style="width: 24px; text-align: center;"><i class="fa-solid fa-plug-circle-xmark"
-                                style="color: var(--accent-terra); font-size: 18px;"></i></div>
-                        <span class="text-body" style="font-weight: 600; color: var(--accent-terra);">Simuler Blackout
-                            RTE</span>
+            <div class="card" style="grid-column: span 2;">
+                <div class="h-stack justify-between w-full">
+                    <div class="v-stack" style="gap: var(--gap-4);">
+                        <h2 class="t-h2"><i class="fa-solid fa-chart-column" style="color: var(--text-dim);"></i>
+                            Historique d'activité</h2>
+                        <span class="t-sub" id="graphSubtitle">Comparé à la période précédente</span>
                     </div>
                 </div>
 
+                <div class="h-stack flex-1 w-full justify-between align-end" id="mainChart"
+                    style="padding-top: var(--gap-24);">
+                </div>
+            </div>
+
+            <div class="card" style="grid-column: span 2; gap: var(--gap-20);">
+                <div class="h-stack segmented-control w-full">
+                    <div class="segment-btn active" onclick="switchTab('tabAppareils', this)">Top Appareils</div>
+                    <div class="segment-btn" onclick="switchTab('tabPieces', this)">Par Pièce</div>
+                </div>
+
+                <div class="v-stack tab-content active w-full flex-1 justify-center" id="tabAppareils"
+                    style="gap: var(--gap-20);">
+                    <div class="v-stack w-full" style="gap: var(--gap-8);">
+                        <div class="h-stack justify-between w-full"><span class="t-body">Chauffage (PAC)</span><span
+                                class="t-mono" id="app1">1 200 W</span></div>
+                        <div class="progress-track">
+                            <div class="progress-fill" id="fillApp1"
+                                style="background: var(--brand-terra); width: 75%;"></div>
+                        </div>
+                    </div>
+                    <div class="v-stack w-full" style="gap: var(--gap-8);">
+                        <div class="h-stack justify-between w-full"><span class="t-body">Chauffe-eau</span><span
+                                class="t-mono" id="app2">800 W</span></div>
+                        <div class="progress-track">
+                            <div class="progress-fill" id="fillApp2" style="background: var(--brand-warm); width: 45%;">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="v-stack w-full" style="gap: var(--gap-8);">
+                        <div class="h-stack justify-between w-full"><span class="t-body">Réfrigérateur</span><span
+                                class="t-mono" id="app3">150 W</span></div>
+                        <div class="progress-track">
+                            <div class="progress-fill" id="fillApp3" style="background: var(--brand-sage); width: 15%;">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="v-stack tab-content w-full flex-1 justify-center" id="tabPieces"
+                    style="gap: var(--gap-16);">
+                    <div class="h-stack justify-between list-row w-full">
+                        <div class="h-stack" style="gap: var(--gap-16);">
+                            <div class="h-stack icon-box justify-center"><i class="fa-solid fa-couch"
+                                    style="color: var(--brand-terra);"></i></div>
+                            <span class="t-body">Salon</span>
+                        </div>
+                        <span class="t-mono" id="piece1">45%</span>
+                    </div>
+                    <div class="h-stack justify-between list-row w-full">
+                        <div class="h-stack" style="gap: var(--gap-16);">
+                            <div class="h-stack icon-box justify-center"><i class="fa-solid fa-kitchen-set"
+                                    style="color: var(--brand-warm);"></i></div>
+                            <span class="t-body">Cuisine</span>
+                        </div>
+                        <span class="t-mono" id="piece2">35%</span>
+                    </div>
+                    <div class="h-stack justify-between list-row w-full">
+                        <div class="h-stack" style="gap: var(--gap-16);">
+                            <div class="h-stack icon-box justify-center"><i class="fa-solid fa-bed"
+                                    style="color: var(--brand-sage);"></i></div>
+                            <span class="t-body">Chambre</span>
+                        </div>
+                        <span class="t-mono" id="piece3">20%</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card" style="background: var(--brand-sage-bg); border-color: transparent;">
+                <div class="h-stack justify-between w-full">
+                    <h2 class="t-h2" style="color: var(--brand-sage);"><i class="fa-solid fa-sparkles"
+                            style="color: var(--brand-sage);"></i> L'aide de l'IA</h2>
+                </div>
+
+                <div class="v-stack flex-1 justify-between w-full">
+                    <div class="v-stack" style="gap: var(--gap-8);">
+                        <div class="h-stack align-baseline" style="gap: var(--gap-8);">
+                            <span class="data-huge" style="color: var(--brand-sage);" id="valEco">2.4</span>
+                            <span class="price-symbol" style="color: var(--brand-sage);">€</span>
+                        </div>
+                        <span class="t-body" style="color: var(--brand-sage);">Économisés pour vous</span>
+                    </div>
+
+                    <div class="v-stack ai-glass-box w-full">
+                        <span class="t-sub" style="color: var(--text-main);" id="iaText">Baisse du chauffage (Salon)
+                            suite à une inactivité prolongée.</span>
+                    </div>
+
+                    <button class="btn-ia w-full" onclick="alert('Ouverture de l\'historique détaillé...')">Voir tout
+                        l'historique</button>
+                </div>
             </div>
 
         </div>
     </main>
 
+    <script>
+        // --- DATA STORE ---
+        const data = {
+            jour: {
+                kwh: "12.4", eur: "2.85", eco: "2.4", pct: 24, remain: "87.15",
+                trend: "-15%", trendClass: "good", trendIcon: "fa-arrow-trend-down",
+                graph: [
+                    { label: "00h", val: 10, k: "0.4" }, { label: "04h", val: 15, k: "0.6" }, { label: "08h", val: 60, k: "2.5" },
+                    { label: "12h", val: 40, k: "1.8" }, { label: "16h", val: 45, k: "1.9" }, { label: "20h", val: 80, k: "3.2" }, { label: "24h", val: 50, k: "2.1" }
+                ],
+                app1: "1 200 W", app2: "800 W", app3: "150 W", f1: 75, f2: 45, f3: 15,
+                p1: "45%", p2: "35%", p3: "20%",
+                iaTxt: "Baisse du chauffage (Salon) suite à une inactivité prolongée."
+            },
+            semaine: {
+                kwh: "86.2", eur: "19.40", eco: "14.5", pct: 45, remain: "70.60",
+                trend: "+5%", trendClass: "bad", trendIcon: "fa-arrow-trend-up",
+                graph: [
+                    { label: "LUN", val: 40, k: "12.4" }, { label: "MAR", val: 55, k: "14.2" }, { label: "MER", val: 50, k: "13.1" },
+                    { label: "JEU", val: 90, k: "18.5" }, { label: "VEN", val: 65, k: "15.0" }, { label: "SAM", val: 80, k: "17.2" }, { label: "DIM", val: 35, k: "10.4" }
+                ],
+                app1: "42 kWh", app2: "28 kWh", app3: "10 kWh", f1: 85, f2: 60, f3: 20,
+                p1: "50%", p2: "30%", p3: "20%",
+                iaTxt: "Décalage du chauffe-eau sur les heures pleines solaires."
+            },
+            mois: {
+                kwh: "345.8", eur: "78.50", eco: "34.0", pct: 87, remain: "11.50",
+                trend: "-8%", trendClass: "good", trendIcon: "fa-arrow-trend-down",
+                graph: [
+                    { label: "S1", val: 60, k: "82.4" }, { label: "S2", val: 80, k: "94.2" }, { label: "S3", val: 40, k: "65.1" },
+                    { label: "S4", val: 70, k: "88.5" }, { label: "J29", val: 10, k: "12.0" }, { label: "J30", val: 15, k: "14.2" }, { label: "J31", val: 0, k: "0.0" }
+                ],
+                app1: "180 kWh", app2: "115 kWh", app3: "45 kWh", f1: 90, f2: 70, f3: 30,
+                p1: "40%", p2: "40%", p3: "20%",
+                iaTxt: "Extinction automatique des lumières extérieures à minuit."
+            }
+        };
+
+        // --- LOGIC FUNCTIONS ---
+        function setPeriod(period, btnElement) {
+            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+            btnElement.classList.add('active');
+            const d = data[period];
+
+            document.getElementById('valKwh').innerText = d.kwh;
+            document.getElementById('valEur').innerText = d.eur;
+            document.getElementById('valEco').innerText = d.eco;
+            document.getElementById('iaText').innerText = d.iaTxt;
+
+            const tb = document.getElementById('trendKwh');
+            tb.className = `h-stack trend-badge ${d.trendClass}`;
+            document.getElementById('trendVal').innerText = d.trend;
+            document.getElementById('trendIcon').className = `fa-solid ${d.trendIcon}`;
+
+            const bf = document.getElementById('budgetFill');
+            bf.style.width = `${d.pct}%`;
+            document.getElementById('budgetPct').innerText = `${d.pct}%`;
+            document.getElementById('budgetRem').innerText = `${d.remain} €`;
+            bf.style.background = d.pct >= 85 ? 'var(--brand-terra)' : 'var(--brand-sage)';
+
+            document.getElementById('app1').innerText = d.app1; document.getElementById('fillApp1').style.width = d.f1 + '%';
+            document.getElementById('app2').innerText = d.app2; document.getElementById('fillApp2').style.width = d.f2 + '%';
+            document.getElementById('app3').innerText = d.app3; document.getElementById('fillApp3').style.width = d.f3 + '%';
+            document.getElementById('piece1').innerText = d.p1;
+            document.getElementById('piece2').innerText = d.p2;
+            document.getElementById('piece3').innerText = d.p3;
+
+            renderGraph(d.graph);
+        }
+
+        function renderGraph(graphData) {
+            const container = document.getElementById('mainChart');
+            container.innerHTML = '';
+            graphData.forEach(item => {
+                let color = 'var(--brand-sage)';
+                if (item.val > 75) color = 'var(--brand-terra)';
+                else if (item.val > 45) color = 'var(--brand-warm)';
+
+                container.innerHTML += `
+                    <div class="v-stack chart-col h-full">
+                        <div class="tooltip">${item.k} kWh</div>
+                        <div class="h-stack justify-center bar-bg h-full">
+                            <div class="bar-fill" style="height: ${item.val}%; background: ${color};"></div>
+                        </div>
+                        <span class="chart-label">${item.label}</span>
+                    </div>
+                `;
+            });
+        }
+
+        // --- UI INTERACTIONS ---
+        function toggleMenu(id, event) {
+            event.stopPropagation();
+            const menu = document.getElementById(id);
+            document.querySelectorAll('.dropdown-menu').forEach(m => { if (m.id !== id) m.classList.remove('active'); });
+            menu.classList.toggle('active');
+        }
+        document.addEventListener('click', function (e) {
+            if (!e.target.closest('.dropdown-container')) document.querySelectorAll('.dropdown-menu').forEach(m => m.classList.remove('active'));
+        });
+
+        function switchTab(tabId, btnElement) {
+            document.querySelectorAll('.segment-btn').forEach(btn => btn.classList.remove('active'));
+            btnElement.classList.add('active');
+            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+            document.getElementById(tabId).classList.add('active');
+        }
+
+        // Init
+        renderGraph(data.jour.graph);
+    </script>
 </body>
 
 </html>
