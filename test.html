@@ -4,971 +4,1329 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AURA // Synthèse Analytique (Interactive Menu)</title>
+    <title>Portfolio | Énergie Créative & Design Digital</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&family=Unbounded:wght@700;900&display=swap"
         rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
     <style>
         /* ==========================================================================
-           1. DESIGN TOKENS & DARK MODE
+           1. DESIGN SYSTEM "RAW ENERGY"
            ========================================================================== */
         :root {
-            /* Light Theme (Default) */
-            --bg-page: #F5EFEA;
-            --surface-white: #FFFFFF;
-            --surface-grey: #F8F5F1;
-            --text-dark: #2E2A27;
-            --text-grey: #8B8682;
-            --border-light: #EAE6E1;
+            --bg-light: #F4F4F2;
+            /* Beige/Gris très clair */
+            --blue: #1A43FF;
+            /* Bleu électrique vibrant */
+            --lime: #CCFF00;
+            /* Vert acide */
+            --dark: #0A0A0A;
+            /* Noir pur */
+            --white: #FFFFFF;
 
-            --brand-sage: #7D9082;
-            --brand-sage-bg: #EBF0EB;
-            --brand-sage-light: #E2EAE4;
-            --brand-terra: #C06C5A;
-            --brand-amber: #D0A171;
+            --font-display: 'Unbounded', sans-serif;
+            --font-main: 'Manrope', sans-serif;
 
-            --gap-4: 4px;
-            --gap-8: 8px;
-            --gap-12: 12px;
-            --gap-16: 16px;
-            --gap-20: 20px;
-            --gap-24: 24px;
-            --gap-32: 32px;
-            --gap-40: 40px;
-
-            --rad-sm: 8px;
-            --rad-md: 12px;
-            --rad-lg: 24px;
-            --rad-xl: 32px;
-            --rad-pill: 100px;
-            --shadow-card: 0 12px 32px rgba(130, 120, 110, 0.05);
-            --shadow-hover: 0 8px 24px rgba(130, 120, 110, 0.1);
-            --shadow-dropdown: 0 16px 40px rgba(0, 0, 0, 0.1);
-
-            --transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+            --radius-max: 40px;
+            --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+            --ease-smooth: cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        /* Dark Theme Variables */
-        [data-theme="dark"] {
-            --bg-page: #161413;
-            --surface-white: #201D1C;
-            --surface-grey: #2A2624;
-            --text-dark: #F5EFEA;
-            --text-grey: #A6A09C;
-            --border-light: #36322F;
-            --brand-sage-bg: #222C25;
-            --brand-sage-light: #2B3A2F;
-            --shadow-card: 0 12px 32px rgba(0, 0, 0, 0.2);
-            --shadow-hover: 0 8px 24px rgba(0, 0, 0, 0.4);
-            --shadow-dropdown: 0 16px 40px rgba(0, 0, 0, 0.5);
-        }
-
-        /* ==========================================================================
-           2. LAYOUT DE BASE
-           ========================================================================== */
         * {
-            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            user-select: none;
+            box-sizing: border-box;
+            cursor: none;
+        }
+
+        ::selection {
+            background: var(--blue);
+            color: var(--white);
+        }
+
+        html {
+            scroll-behavior: smooth;
         }
 
         body {
-            font-family: 'Outfit', sans-serif;
-            background: var(--bg-page);
-            color: var(--text-dark);
-            width: 1194px;
-            height: 834px;
-            overflow: hidden;
-            display: flex;
-            padding: var(--gap-32);
-            gap: var(--gap-32);
+            background-color: var(--bg-light);
+            color: var(--dark);
+            font-family: var(--font-main);
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .container {
+            max-width: 1440px;
             margin: 0 auto;
-            transition: background 0.4s ease, color 0.4s ease;
-        }
-
-        /* Flex Utilities */
-        .v-stack {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .h-stack {
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-        }
-
-        .flex-1 {
-            flex: 1;
-            min-height: 0;
-            min-width: 0;
-        }
-
-        .w-full {
-            width: 100%;
-        }
-
-        .h-full {
-            height: 100%;
-        }
-
-        .justify-between {
-            justify-content: space-between;
-        }
-
-        .justify-center {
-            justify-content: center;
-        }
-
-        .align-start {
-            align-items: flex-start;
-        }
-
-        .align-end {
-            align-items: flex-end;
-        }
-
-        /* Typography */
-        .t-hero {
-            font-size: 32px;
-            font-weight: 600;
-            letter-spacing: -0.02em;
-            line-height: 1.2;
-            color: var(--text-dark);
-            transition: color 0.3s;
-        }
-
-        .t-h2 {
-            font-size: 18px;
-            font-weight: 600;
-            line-height: 1.2;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            color: var(--text-dark);
-            transition: color 0.3s;
-        }
-
-        .t-body {
-            font-size: 15px;
-            font-weight: 600;
-            line-height: 1.4;
-            color: var(--text-dark);
-            transition: color 0.3s;
-        }
-
-        .t-sub {
-            font-size: 14px;
-            color: var(--text-grey);
-            font-weight: 400;
-            line-height: 1.4;
-        }
-
-        .t-mono {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 13px;
-            font-weight: 600;
-            line-height: 1.2;
-        }
-
-        .data-huge {
-            font-size: 48px;
-            font-weight: 400;
-            line-height: 1;
-            letter-spacing: -0.02em;
-            color: var(--text-dark);
-            transition: var(--transition);
-        }
-
-        .data-unit {
-            font-size: 16px;
-            font-weight: 500;
-            color: var(--text-grey);
-        }
-
-        .data-update {
-            animation: pop 0.4s ease;
-        }
-
-        @keyframes pop {
-            0% {
-                transform: scale(0.95);
-                opacity: 0.5;
-            }
-
-            100% {
-                transform: scale(1);
-                opacity: 1;
-            }
+            padding: 0 4vw;
         }
 
         /* ==========================================================================
-           3. DOCK
+           2. CURSEUR CUSTOM & EFFETS AMBIANTS
            ========================================================================== */
-        .dock {
-            width: 80px;
-            background: var(--surface-white);
-            border: 1px solid var(--border-light);
-            border-radius: var(--rad-pill);
-            padding: var(--gap-32) 0;
-            box-shadow: var(--shadow-card);
-            gap: var(--gap-32);
-            z-index: 10;
-            transition: var(--transition);
-        }
-
-        .dock-icon {
-            width: 52px;
-            height: 52px;
-            border-radius: var(--rad-pill);
-            font-size: 20px;
-            color: var(--text-grey);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: var(--transition);
-        }
-
-        .dock-icon:hover:not(.active) {
-            background: var(--surface-grey);
-            color: var(--text-dark);
-        }
-
-        .dock-icon.active {
-            background: var(--text-dark);
-            color: var(--surface-white);
-        }
-
-        /* ==========================================================================
-           4. MAIN CONTENT & BENTO GRID
-           ========================================================================== */
-        .main-content {
-            gap: var(--gap-24);
-        }
-
-        .time-filter {
-            background: var(--surface-white);
-            padding: 6px;
-            border-radius: var(--rad-pill);
-            border: 1px solid var(--border-light);
-            gap: 4px;
-            box-shadow: var(--shadow-card);
-            transition: var(--transition);
-        }
-
-        .filter-btn {
-            padding: 10px 24px;
-            border-radius: var(--rad-pill);
-            font-size: 14px;
-            font-weight: 600;
-            color: var(--text-grey);
-            cursor: pointer;
-            transition: var(--transition);
-        }
-
-        .filter-btn:hover:not(.active) {
-            color: var(--text-dark);
-        }
-
-        .filter-btn.active {
-            background: var(--text-dark);
-            color: var(--surface-white);
-        }
-
-        .bento-grid {
-            display: grid;
-            grid-template-columns: 1.1fr 1.8fr;
-            grid-template-rows: 1.15fr 1fr;
-            gap: var(--gap-24);
-            flex: 1;
-            min-height: 0;
-        }
-
-        .card {
-            background: var(--surface-white);
-            border: 1px solid var(--border-light);
-            border-radius: var(--rad-lg);
-            padding: var(--gap-24);
-            box-shadow: var(--shadow-card);
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            transition: var(--transition);
-        }
-
-        /* ==========================================================================
-           5. INTERACTIVE DROPDOWN (LES 3 POINTS)
-           ========================================================================== */
-        .dropdown-container {
-            position: relative;
-        }
-
-        .ellipsis-btn {
-            color: var(--text-grey);
-            width: 32px;
-            height: 32px;
+        .cursor-dot {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 10px;
+            height: 10px;
+            background: var(--blue);
             border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 18px;
-            cursor: pointer;
-            transition: var(--transition);
-        }
-
-        .ellipsis-btn:hover,
-        .ellipsis-btn.active {
-            background: var(--surface-grey);
-            color: var(--text-dark);
-        }
-
-        .dropdown-menu {
-            position: absolute;
-            top: calc(100% + 8px);
-            right: 0;
-            background: var(--surface-white);
-            border: 1px solid var(--border-light);
-            border-radius: var(--rad-md);
-            padding: var(--gap-8);
-            box-shadow: var(--shadow-dropdown);
-            z-index: 100;
-            display: flex;
-            flex-direction: column;
-            gap: var(--gap-4);
-            min-width: 220px;
-            /* Animation d'apparition */
-            opacity: 0;
+            transform: translate(-50%, -50%);
+            z-index: 9999;
             pointer-events: none;
-            transform: translateY(-10px);
-            transition: var(--transition);
+            transition: width 0.3s, height 0.3s, background 0.3s;
         }
 
-        /* État Actif */
-        .dropdown-menu.active {
-            opacity: 1;
-            pointer-events: all;
-            transform: translateY(0);
-        }
-
-        .dropdown-item {
-            padding: var(--gap-12) var(--gap-16);
-            border-radius: var(--rad-sm);
-            font-size: 14px;
-            font-weight: 500;
-            color: var(--text-dark);
-            display: flex;
-            align-items: center;
-            gap: var(--gap-12);
-            cursor: pointer;
-            transition: 0.2s;
-        }
-
-        .dropdown-item i {
-            color: var(--text-grey);
-            font-size: 14px;
-            width: 16px;
-            text-align: center;
-            transition: 0.2s;
-        }
-
-        .dropdown-item:hover {
-            background: var(--surface-grey);
-            color: var(--brand-sage);
-        }
-
-        .dropdown-item:hover i {
-            color: var(--brand-sage);
-        }
-
-        .dropdown-divider {
-            height: 1px;
-            background: var(--border-light);
-            margin: var(--gap-4) 0;
-        }
-
-        /* ==========================================================================
-           6. COMPOSANTS INTERNES
-           ========================================================================== */
-        .trend-badge {
-            padding: 6px 12px;
-            border-radius: var(--rad-pill);
-            font-size: 13px;
-            font-weight: 700;
-            gap: var(--gap-4);
-            transition: var(--transition);
-        }
-
-        .trend-badge.good {
-            background: var(--brand-sage-light);
-            color: var(--brand-sage);
-        }
-
-        .trend-badge.bad {
-            background: rgba(192, 108, 90, 0.15);
-            color: var(--brand-terra);
-        }
-
-        .cost-box {
-            background: var(--surface-grey);
-            border: 1px solid var(--border-light);
-            border-radius: var(--rad-md);
-            padding: var(--gap-16) var(--gap-20);
-            gap: var(--gap-16);
-            transition: var(--transition);
-        }
-
-        .price-text {
-            font-size: 32px;
-            font-weight: 500;
-            color: var(--text-dark);
-            line-height: 1;
-            transition: color 0.3s;
-        }
-
-        .progress-track {
-            height: 8px;
-            background: var(--surface-grey);
-            border-radius: 8px;
-            overflow: hidden;
-            width: 100%;
-            border: 1px solid var(--border-light);
-            transition: var(--transition);
-        }
-
-        .progress-fill {
-            height: 100%;
-            border-radius: 8px;
-            transition: width 0.8s cubic-bezier(0.25, 1, 0.5, 1), background 0.4s;
-        }
-
-        .chart-col {
-            gap: var(--gap-12);
-            flex: 1;
-            height: 100%;
-            justify-content: flex-end;
-            align-items: center;
-            position: relative;
-        }
-
-        .bar-bg {
-            width: 36px;
-            background: var(--surface-white);
-            border: 1px solid var(--border-light);
-            border-radius: var(--rad-sm);
-            display: flex;
-            align-items: flex-end;
-            padding: 2px;
-            height: 100%;
-            transition: var(--transition);
-            cursor: pointer;
-        }
-
-        .bar-fill {
-            width: 100%;
-            border-radius: 6px;
-            transition: height 0.8s cubic-bezier(0.25, 1, 0.5, 1), background-color 0.5s ease;
-        }
-
-        .bar-bg:hover {
-            border-color: var(--text-grey);
-            transform: translateY(-2px);
-        }
-
-        .chart-tooltip {
-            position: absolute;
-            top: -30px;
-            background: var(--text-dark);
-            color: var(--bg-page);
-            padding: 4px 8px;
-            border-radius: 6px;
-            font-size: 12px;
-            font-weight: 600;
-            opacity: 0;
-            transition: 0.2s;
+        .cursor-follower {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 40px;
+            height: 40px;
+            border: 2px solid var(--blue);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 9998;
             pointer-events: none;
-            white-space: nowrap;
-            font-family: 'JetBrains Mono';
+            transition: transform 0.1s ease-out, width 0.3s, height 0.3s, border-color 0.3s;
         }
 
-        .bar-bg:hover+.chart-label+.chart-tooltip {
-            opacity: 1;
-            transform: translateY(-5px);
+        .hovering .cursor-dot {
+            width: 60px;
+            height: 60px;
+            background: var(--white);
+            mix-blend-mode: difference;
         }
 
-        .segmented-control {
-            background: var(--surface-grey);
-            padding: 4px;
-            border-radius: var(--rad-pill);
-            border: 1px solid var(--border-light);
-            gap: 4px;
-            transition: var(--transition);
-        }
-
-        .segment-btn {
-            padding: 12px 24px;
-            border-radius: var(--rad-pill);
-            font-size: 14px;
-            font-weight: 600;
-            color: var(--text-grey);
-            cursor: pointer;
-            text-align: center;
-            flex: 1;
-            transition: var(--transition);
-        }
-
-        .segment-btn.active {
-            background: var(--surface-white);
-            color: var(--text-dark);
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-            border: 1px solid var(--border-light);
-        }
-
-        .list-container {
-            display: none;
-            flex-direction: column;
-            justify-content: space-between;
-            flex: 1;
-            animation: fadeIn 0.3s ease;
-        }
-
-        .list-container.active {
-            display: flex;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(5px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .list-row {
-            background: var(--surface-white);
-            padding: var(--gap-12) var(--gap-20);
-            border-radius: var(--rad-md);
-            border: 1px solid var(--border-light);
-            transition: var(--transition);
-            cursor: pointer;
-        }
-
-        .list-row:hover {
-            border-color: var(--brand-sage);
-            transform: translateX(4px);
-            box-shadow: var(--shadow-hover);
-        }
-
-        .icon-box {
-            width: 36px;
-            height: 36px;
-            border-radius: var(--rad-sm);
-            background: var(--surface-grey);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: var(--transition);
-        }
-
-        .ia-card {
-            background: var(--brand-sage-bg);
+        .hovering .cursor-follower {
+            width: 80px;
+            height: 80px;
             border-color: transparent;
         }
 
-        .ia-glass-box {
-            background: var(--surface-white);
-            padding: var(--gap-20);
-            border-radius: var(--rad-md);
-            transition: var(--transition);
-            border: 1px solid rgba(125, 144, 130, 0.2);
+        .ambient-glow {
+            position: absolute;
+            top: -10%;
+            right: -10%;
+            width: 50vw;
+            height: 50vw;
+            background: radial-gradient(circle, rgba(26, 67, 255, 0.15) 0%, rgba(244, 244, 242, 0) 60%);
+            border-radius: 50%;
+            filter: blur(80px);
+            z-index: -1;
+            pointer-events: none;
         }
 
-        .btn-ia {
-            background: var(--brand-sage);
-            color: #FFFFFF;
-            padding: var(--gap-16);
-            border-radius: var(--rad-pill);
-            font-weight: 600;
-            font-size: 15px;
-            cursor: pointer;
+        /* ==========================================================================
+           3. NAV FLOTTANTE (LA PILULE)
+           ========================================================================== */
+        header {
+            position: fixed;
+            top: 24px;
+            left: 0;
+            width: 100%;
+            z-index: 100;
+            display: flex;
+            justify-content: center;
+            pointer-events: none;
+        }
+
+        .nav-pill {
+            pointer-events: auto;
+            background: var(--white);
+            padding: 12px 32px;
+            border-radius: 50px;
+            display: flex;
+            gap: 32px;
+            align-items: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            border: 2px solid transparent;
+            transition: border 0.3s;
+        }
+
+        .nav-pill:hover {
+            border-color: var(--blue);
+        }
+
+        .logo-text {
+            font-family: var(--font-display);
+            font-weight: 900;
+            color: var(--blue);
+            font-size: 16px;
+            margin-right: 24px;
+            letter-spacing: -0.5px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 24px;
+            font-weight: 800;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .nav-links a {
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: var(--blue);
+        }
+
+        .btn-hire {
+            background: var(--blue);
+            color: var(--white);
+            padding: 10px 24px;
+            border-radius: 50px;
+            font-weight: 800;
+            text-transform: uppercase;
+            font-size: 12px;
+            transition: transform 0.3s var(--ease-bounce);
+        }
+
+        .btn-hire:hover {
+            transform: scale(1.05) rotate(2deg);
+            background: var(--lime);
+            color: var(--dark);
+        }
+
+        /* ==========================================================================
+           4. HERO SECTION
+           ========================================================================== */
+        .hero {
+            height: 100vh;
+            min-height: 800px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+        }
+
+        .hero-title-container {
             text-align: center;
-            border: none;
-            transition: var(--transition);
+            position: relative;
+            z-index: 10;
         }
 
-        .btn-ia:hover {
-            filter: brightness(1.1);
-            transform: translateY(-2px);
-            box-shadow: 0 8px 16px rgba(125, 144, 130, 0.3);
+        .hero-title-massive {
+            font-family: var(--font-display);
+            font-weight: 900;
+            font-size: clamp(3.5rem, 9.5vw, 160px);
+            color: var(--blue);
+            line-height: 0.95;
+            margin-bottom: 24px;
+            text-transform: uppercase;
+            letter-spacing: -3px;
+        }
+
+        .sub-title {
+            font-size: clamp(1.2rem, 2.5vw, 32px);
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: -0.5px;
+        }
+
+        .sub-title span {
+            background: var(--blue);
+            color: var(--white);
+            padding: 4px 16px;
+            border-radius: 8px;
+            display: inline-block;
+            transform: rotate(-2deg);
+        }
+
+        .hero-desc {
+            font-size: clamp(1rem, 1.2vw, 20px);
+            font-weight: 600;
+            max-width: 500px;
+            line-height: 1.6;
+            margin: 32px auto 0;
+            color: var(--text-muted);
+        }
+
+        /* Éléments Volants */
+        .floating-tag {
+            position: absolute;
+            background: var(--white);
+            color: var(--blue);
+            border: 2px solid var(--blue);
+            padding: 12px 24px;
+            border-radius: 50px;
+            font-weight: 800;
+            font-size: 12px;
+            text-transform: uppercase;
+            box-shadow: 4px 4px 0px var(--blue);
+            animation: float 6s ease-in-out infinite;
+            z-index: 5;
+        }
+
+        .tag-1 {
+            top: 20%;
+            left: 8%;
+            transform: rotate(-10deg);
+            animation-delay: 0s;
+        }
+
+        .tag-2 {
+            top: 25%;
+            right: 12%;
+            transform: rotate(15deg);
+            animation-delay: -2s;
+        }
+
+        .tag-3 {
+            bottom: 25%;
+            left: 15%;
+            transform: rotate(5deg);
+            animation-delay: -4s;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                margin-top: 0;
+            }
+
+            50% {
+                margin-top: -20px;
+            }
+        }
+
+        /* Badge Rotatif */
+        .circle-badge {
+            position: absolute;
+            bottom: 15%;
+            right: 8%;
+            width: 140px;
+            height: 140px;
+            animation: spin 10s linear infinite;
+            z-index: 10;
+        }
+
+        @keyframes spin {
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* ==========================================================================
+           5. MARQUEE ACID GREEN
+           ========================================================================== */
+        .marquee-wrapper {
+            background: var(--lime);
+            padding: 24px 0;
+            transform: rotate(-2deg) scale(1.05);
+            border-top: 4px solid var(--dark);
+            border-bottom: 4px solid var(--dark);
+            overflow: hidden;
+            position: relative;
+            z-index: 20;
+        }
+
+        .marquee {
+            display: flex;
+            white-space: nowrap;
+            font-family: var(--font-display);
+            font-weight: 900;
+            font-size: 28px;
+            color: var(--dark);
+            animation: scrollLeft 15s linear infinite;
+            text-transform: uppercase;
+            letter-spacing: -1px;
+        }
+
+        .marquee span {
+            padding-right: 40px;
+        }
+
+        @keyframes scrollLeft {
+            0% {
+                transform: translateX(0);
+            }
+
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+
+        /* ==========================================================================
+           6. PROJETS (CURATED CHAOS BOARD)
+           ========================================================================== */
+        .chaos-section {
+            padding: 120px 0;
+        }
+
+        .section-header {
+            margin-bottom: 40px;
+        }
+
+        .section-title {
+            font-family: var(--font-display);
+            font-size: clamp(3rem, 6vw, 80px);
+            text-transform: uppercase;
+            font-weight: 900;
+            color: var(--blue);
+            letter-spacing: -2px;
+            line-height: 1;
+        }
+
+        .chaos-board {
+            position: relative;
+            background: var(--bg-light);
+            border: 4px solid var(--dark);
+            border-radius: 40px;
+            padding: 80px 40px;
+            overflow: hidden;
+            margin-bottom: 64px;
+        }
+
+        .chaos-bg-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-family: var(--font-display);
+            font-size: clamp(5rem, 15vw, 250px);
+            color: rgba(0, 0, 0, 0.03);
+            white-space: nowrap;
+            pointer-events: none;
+            line-height: 0.8;
+            text-align: center;
+        }
+
+        .chaos-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            grid-auto-rows: minmax(200px, auto);
+            gap: 20px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .chaos-card {
+            background: var(--white);
+            padding: 16px;
+            border: 3px solid var(--dark);
+            border-radius: 16px;
+            box-shadow: 8px 8px 0 rgba(0, 0, 0, 0.1);
+            transition: all 0.4s var(--ease-bounce);
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .chaos-card img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 8px;
+            border: 2px solid var(--dark);
+            margin-bottom: 16px;
+            filter: grayscale(80%);
+            transition: filter 0.4s;
+        }
+
+        /* Le placement asymétrique */
+        .cc-1 {
+            grid-column: 1 / 6;
+            grid-row: 1;
+            transform: rotate(-4deg) translateY(20px);
+            z-index: 1;
+        }
+
+        .cc-2 {
+            grid-column: 6 / 12;
+            grid-row: 1;
+            transform: rotate(5deg) translateY(-20px);
+            z-index: 2;
+            margin-left: -40px;
+        }
+
+        .cc-3 {
+            grid-column: 2 / 7;
+            grid-row: 2;
+            transform: rotate(3deg) translateY(-40px);
+            z-index: 3;
+            margin-top: -60px;
+        }
+
+        .cc-4 {
+            grid-column: 7 / 13;
+            grid-row: 2;
+            transform: rotate(-5deg) translateY(10px);
+            z-index: 2;
+            margin-left: -20px;
+            margin-top: -40px;
+        }
+
+        .chaos-card:hover {
+            z-index: 100 !important;
+            transform: scale(1.08) rotate(0deg) !important;
+            box-shadow: 16px 16px 0 var(--blue);
+            border-color: var(--blue);
+        }
+
+        .chaos-card:hover img {
+            filter: grayscale(0%);
+        }
+
+        .chaos-name {
+            font-family: var(--font-display);
+            font-size: 24px;
+            text-transform: uppercase;
+            color: var(--dark);
+            margin-bottom: 4px;
+            font-weight: 900;
+        }
+
+        .chaos-role {
+            font-weight: 800;
+            color: var(--blue);
+            font-size: 13px;
+            text-transform: uppercase;
+        }
+
+        /* Bouton Brutal */
+        .btn-brutal {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--dark);
+            color: var(--lime);
+            font-family: var(--font-display);
+            font-weight: 700;
+            font-size: 16px;
+            text-transform: uppercase;
+            padding: 20px 48px;
+            border-radius: 50px;
+            border: 3px solid var(--dark);
+            transition: all 0.4s var(--ease-bounce);
+            cursor: pointer;
+        }
+
+        .btn-brutal:hover {
+            background: var(--blue);
+            color: var(--white);
+            border-color: var(--blue);
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 15px 30px rgba(26, 67, 255, 0.3);
+        }
+
+
+
+
+
+
+
+
+
+        /* ==========================================================================
+           SECTION SKILLS : THE BULLETPROOF STICKER BOMB
+           ========================================================================== */
+        .sticker-section {
+            padding: 120px 0;
+        }
+
+        .section-header {
+            margin-bottom: 40px;
+        }
+
+        .section-title {
+            font-family: var(--font-display);
+            font-size: clamp(3rem, 6vw, 80px);
+            text-transform: uppercase;
+            color: var(--blue);
+            letter-spacing: -2px;
+            line-height: 1;
+        }
+
+        .section-desc {
+            font-weight: 600;
+            font-size: 18px;
+            color: var(--text-muted);
+            max-width: 450px;
+            margin-top: 16px;
+        }
+
+        /* Le conteneur principal */
+        .sticker-board-wrapper {
+            position: relative;
+            width: 100%;
+            margin-bottom: 64px;
+        }
+
+        /* La couche de fond (Texte géant masqué sur les bords) */
+        .sticker-bg-layer {
+            position: absolute;
+            inset: 0;
+            background: var(--bg-light);
+            border: 4px solid var(--dark);
+            border-radius: 40px;
+            overflow: hidden;
+            z-index: 1;
+            box-shadow: 16px 16px 0 rgba(0, 0, 0, 0.05);
+        }
+
+        .sticker-bg-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-family: var(--font-display);
+            font-size: clamp(5rem, 15vw, 250px);
+            color: rgba(0, 0, 0, 0.03);
+            white-space: nowrap;
+            pointer-events: none;
+            line-height: 0.8;
+            text-align: center;
+        }
+
+        /* La couche interactive (Les stickers) */
+        .sticker-interactive-layer {
+            position: relative;
+            width: 100%;
+            height: 750px;
+            z-index: 2;
+        }
+
+        /* --- STICKER GENERAL STYLE --- */
+        .sticker {
+            position: absolute;
+            border: 3px solid var(--dark);
+            transition: all 0.4s var(--ease-bounce);
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            box-shadow: 6px 6px 0 rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            /* Sécurité pour ne pas casser le texte */
+            max-width: 90vw;
+        }
+
+        .sticker h3 {
+            font-family: var(--font-display);
+            font-weight: 900;
+            text-transform: uppercase;
+            line-height: 1;
+            margin: 0;
+            white-space: nowrap;
+        }
+
+        .sticker-tools {
+            font-family: var(--font-main);
+            font-weight: 800;
+            font-size: 11px;
+            text-transform: uppercase;
+            color: currentColor;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.3s var(--ease);
+            margin-top: 8px;
+            white-space: nowrap;
+        }
+
+        /* L'interaction "Pop" SÉCURISÉE (On garde le translate pour éviter les sauts) */
+        .sticker:hover {
+            z-index: 100 !important;
+            box-shadow: 16px 16px 0 var(--blue);
+            border-color: var(--blue);
+        }
+
+        .sticker:hover .sticker-tools {
+            opacity: 0.9;
+            transform: translateY(0);
+        }
+
+        /* --- FORMES --- */
+        .st-pill {
+            border-radius: 100px;
+            padding: 20px 48px;
+        }
+
+        .st-pill h3 {
+            font-size: clamp(20px, 2vw, 28px);
+        }
+
+        .st-seal {
+            border-radius: 50%;
+            width: 180px;
+            height: 180px;
+            padding: 20px;
+        }
+
+        .st-seal h3 {
+            font-size: 28px;
+            white-space: normal;
+        }
+
+        .st-seal .sticker-tools {
+            font-size: 10px;
+            white-space: normal;
+            margin-top: 12px;
+        }
+
+        .st-label {
+            border-radius: 12px;
+            padding: 24px 32px;
+            align-items: flex-start;
+            text-align: left;
+        }
+
+        .st-label h3 {
+            font-size: clamp(18px, 1.5vw, 24px);
+        }
+
+        .st-label .sticker-tools {
+            white-space: normal;
+            text-align: left;
+        }
+
+        /* --- COULEURS --- */
+        .st-blue {
+            background: var(--blue);
+            color: var(--white);
+        }
+
+        .st-lime {
+            background: var(--lime);
+            color: var(--dark);
+        }
+
+        .st-dark {
+            background: var(--dark);
+            color: var(--lime);
+            border-color: var(--blue);
+        }
+
+        .st-dark h3 {
+            color: var(--white);
+        }
+
+        .st-white {
+            background: var(--white);
+            color: var(--dark);
+            border-color: var(--dark);
+        }
+
+        /* --- PLACEMENT ABSOLU (Ancré par le centre pour zéro bug) --- */
+        /* UI/UX */
+        .s-ui-1 {
+            top: 25%;
+            left: 20%;
+            transform: translate(-50%, -50%) rotate(-6deg);
+            z-index: 2;
+        }
+
+        .s-ui-1:hover {
+            transform: translate(-50%, -50%) scale(1.1) rotate(0deg);
+        }
+
+        .s-ui-2 {
+            top: 55%;
+            left: 30%;
+            transform: translate(-50%, -50%) rotate(10deg);
+            z-index: 3;
+        }
+
+        .s-ui-2:hover {
+            transform: translate(-50%, -50%) scale(1.1) rotate(0deg);
+        }
+
+        /* DA */
+        .s-da-1 {
+            top: 30%;
+            left: 55%;
+            transform: translate(-50%, -50%) rotate(-4deg);
+            z-index: 1;
+        }
+
+        .s-da-1:hover {
+            transform: translate(-50%, -50%) scale(1.1) rotate(0deg);
+        }
+
+        .s-da-2 {
+            top: 25%;
+            left: 80%;
+            transform: translate(-50%, -50%) rotate(12deg);
+            z-index: 2;
+        }
+
+        .s-da-2:hover {
+            transform: translate(-50%, -50%) scale(1.1) rotate(0deg);
+        }
+
+        /* Tech */
+        .s-tech-1 {
+            top: 75%;
+            left: 18%;
+            transform: translate(-50%, -50%) rotate(8deg);
+            z-index: 1;
+        }
+
+        .s-tech-1:hover {
+            transform: translate(-50%, -50%) scale(1.1) rotate(0deg);
+        }
+
+        /* Profil / Dispo */
+        .s-prof-1 {
+            top: 70%;
+            left: 75%;
+            transform: translate(-50%, -50%) rotate(-5deg);
+            z-index: 4;
+        }
+
+        .s-prof-1:hover {
+            transform: translate(-50%, -50%) scale(1.1) rotate(0deg);
+        }
+
+        /* --- ÉLÉMENTS UI --- */
+        .live-dot {
+            width: 12px;
+            height: 12px;
+            background: var(--lime);
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 8px;
+            animation: blinker 1.5s infinite;
+            border: 1px solid var(--dark);
+        }
+
+        @keyframes blinker {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.2;
+            }
+        }
+
+        .btn-brutal {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--dark);
+            color: var(--lime);
+            font-family: var(--font-display);
+            font-weight: 700;
+            font-size: 16px;
+            text-transform: uppercase;
+            padding: 20px 48px;
+            border-radius: 50px;
+            border: 3px solid var(--dark);
+            transition: all 0.4s var(--ease-bounce);
+            cursor: pointer;
+        }
+
+        .btn-brutal:hover {
+            background: var(--blue);
+            color: var(--white);
+            border-color: var(--blue);
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 15px 30px rgba(26, 67, 255, 0.3);
+        }
+
+        /* --- RESPONSIVE SÉCURISÉ --- */
+        @media (max-width: 1024px) {
+
+            /* Sur tablette, on bascule sur une grille propre pour éviter que les stickers ne se chevauchent trop */
+            .sticker-interactive-layer {
+                height: auto;
+                padding: 40px;
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 32px;
+            }
+
+            .sticker {
+                position: relative;
+                top: auto;
+                left: auto;
+                transform: none !important;
+                width: 100%;
+                white-space: normal;
+            }
+
+            .sticker h3 {
+                white-space: normal;
+            }
+
+            .sticker-tools {
+                opacity: 1;
+                transform: none;
+                white-space: normal;
+            }
+
+            .sticker:hover {
+                transform: translateY(-4px) !important;
+                box-shadow: 8px 8px 0 var(--blue);
+            }
+
+            .st-seal {
+                width: 100%;
+                height: auto;
+                border-radius: 12px;
+            }
+
+            /* On casse le cercle sur tablette */
+        }
+
+        @media (max-width: 768px) {
+            .sticker-interactive-layer {
+                grid-template-columns: 1fr;
+                gap: 24px;
+                padding: 24px;
+            }
+
+            .sticker-bg-layer {
+                border-radius: 24px;
+            }
+
+            .btn-brutal {
+                width: 100%;
+                padding: 16px;
+                font-size: 14px;
+            }
+
+            .sticker h3 {
+                font-size: 20px !important;
+            }
+        }
+
+
+
+
+
+
+
+
+        /* ==========================================================================
+           8. FOOTER UNUSUALLY (Massif)
+           ========================================================================== */
+        footer {
+            background: var(--dark);
+            color: var(--white);
+            padding: 120px 5vw 40px;
+            border-radius: 60px 60px 0 0;
+            margin-top: 80px;
+        }
+
+        .footer-title {
+            font-family: var(--font-display);
+            font-size: clamp(3rem, 9vw, 140px);
+            font-weight: 900;
+            letter-spacing: -4px;
+            line-height: 1;
+            margin-bottom: 40px;
+            transition: color 0.3s;
+            display: inline-block;
+        }
+
+        .footer-title:hover {
+            color: var(--blue);
+        }
+
+        .footer-grid {
+            display: flex;
+            justify-content: space-between;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 40px;
+            margin-top: 80px;
+            font-size: 14px;
+            text-transform: uppercase;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        .socials {
+            display: flex;
+            gap: 32px;
+        }
+
+        .socials a:hover {
+            color: var(--lime);
+        }
+
+        /* --- ANIMATIONS AU SCROLL --- */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s var(--ease-smooth);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 1024px) {
+            .chaos-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 40px;
+            }
+
+            .cc-1,
+            .cc-2,
+            .cc-3,
+            .cc-4 {
+                grid-column: span 1;
+                grid-row: auto;
+                margin: 0;
+            }
+
+            .cc-1 {
+                transform: rotate(-3deg);
+            }
+
+            .cc-2 {
+                transform: rotate(3deg);
+            }
+
+            .cc-3 {
+                transform: rotate(2deg);
+            }
+
+            .cc-4 {
+                transform: rotate(-2deg);
+            }
+
+            .skills-grid {
+                grid-template-columns: 1fr;
+                grid-auto-rows: auto;
+            }
+
+            .box-blue,
+            .box-light {
+                grid-column: span 1;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 24px;
+            }
+        }
+
+        @media (max-width: 768px) {
+
+            .floating-tag,
+            .circle-badge {
+                display: none;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .chaos-board {
+                padding: 24px;
+                border-radius: 24px;
+                border: none;
+                background: transparent;
+            }
+
+            .chaos-bg-text {
+                display: none;
+            }
+
+            .chaos-grid {
+                grid-template-columns: 1fr;
+                gap: 24px;
+            }
+
+            .chaos-card {
+                transform: none !important;
+                box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.1);
+            }
+
+            .chaos-card img {
+                height: 250px;
+                filter: grayscale(0%);
+            }
+
+            .chaos-card:hover {
+                transform: translateY(-4px) !important;
+                box-shadow: 8px 8px 0 var(--blue);
+            }
+
+            .btn-brutal {
+                width: 100%;
+                padding: 16px;
+                font-size: 14px;
+            }
+
+            .footer-grid {
+                flex-direction: column;
+                gap: 24px;
+                align-items: center;
+                text-align: center;
+            }
+
+            .cursor-dot,
+            .cursor-follower {
+                display: none;
+            }
         }
     </style>
 </head>
 
 <body>
 
-    <nav class="v-stack dock">
-        <div class="h-stack dock-icon justify-center" onclick="setDock(this)"><i class="fa-solid fa-house"></i></div>
-        <div class="h-stack dock-icon justify-center active" onclick="setDock(this)"><i
-                class="fa-solid fa-chart-pie"></i></div>
-        <div class="h-stack dock-icon justify-center" onclick="setDock(this)"><i class="fa-solid fa-shield-halved"></i>
+    <div class="cursor-dot" id="cursor-dot"></div>
+    <div class="cursor-follower" id="cursor-follower"></div>
+
+    <div class="ambient-glow"></div>
+
+    <header>
+        <div class="nav-pill">
+            <div class="logo-text">DA.</div>
+            <nav class="nav-links">
+                <a href="#work" class="interactable">Projets</a>
+                <a href="#skills" class="interactable">Expertise</a>
+                <a href="#contact" class="interactable">Contact</a>
+            </nav>
+            <a href="mailto:hello@design.fr" class="btn-hire interactable">Me Contacter</a>
         </div>
-        <div class="flex-1"></div>
-        <div class="h-stack dock-icon justify-center" onclick="toggleTheme()" title="Mode Nuit"><i
-                class="fa-solid fa-moon" id="themeIcon"></i></div>
-    </nav>
+    </header>
 
-    <main class="v-stack flex-1 main-content">
+    <section class="hero container">
 
-        <header class="h-stack justify-between w-full">
-            <div class="v-stack" style="gap: var(--gap-4);">
-                <h1 class="t-hero">Synthèse Analytique</h1>
-                <p class="t-sub" id="headerSubtitle">Performances énergétiques du jour.</p>
-            </div>
-            <div class="h-stack time-filter">
-                <div class="filter-btn active" onclick="setPeriod('jour', this)">Jour</div>
-                <div class="filter-btn" onclick="setPeriod('semaine', this)">Semaine</div>
-                <div class="filter-btn" onclick="setPeriod('mois', this)">Mois</div>
-            </div>
-        </header>
+        <div class="floating-tag tag-1">✦ Expert Figma</div>
+        <div class="floating-tag tag-2">Dir. Artistique ✦</div>
+        <div class="floating-tag tag-3">Design UI / UX</div>
 
-        <div class="bento-grid">
+        <svg class="circle-badge interactable" viewBox="0 0 100 100">
+            <defs>
+                <path id="circle" d="M 50, 50 m -37, 0 a 37,37 0 1,1 74,0 a 37,37 0 1,1 -74,0" />
+            </defs>
+            <text font-size="10.5" font-family="'Unbounded', sans-serif" font-weight="700" fill="var(--blue)"
+                letter-spacing="1.5">
+                <textPath xlink:href="#circle">✦ DISPO POUR ALTERNANCE 2026 ✦</textPath>
+            </text>
+        </svg>
 
-            <div class="card">
-                <div class="v-stack w-full" style="gap: var(--gap-16);">
-                    <div class="h-stack justify-between w-full">
-                        <h2 class="t-h2"><i class="fa-solid fa-bolt" style="color: var(--text-grey);"></i> Consommation
-                            globale</h2>
-
-                        <div class="dropdown-container">
-                            <div class="h-stack ellipsis-btn" onclick="toggleMenu(event, 'consoDropdown')">
-                                <i class="fa-solid fa-ellipsis"></i>
-                            </div>
-
-                            <div class="dropdown-menu" id="consoDropdown">
-                                <div class="dropdown-item" onclick="alert('Paramètres du budget')">
-                                    <i class="fa-solid fa-pen"></i> Modifier le budget
-                                </div>
-                                <div class="dropdown-item" onclick="alert('Accès au contrat Tarif Bleu')">
-                                    <i class="fa-solid fa-file-contract"></i> Mon contrat d'énergie
-                                </div>
-                                <div class="dropdown-item" onclick="alert('Création d\'une alerte de surconsommation')">
-                                    <i class="fa-solid fa-bell"></i> Créer une alerte
-                                </div>
-                                <div class="dropdown-divider"></div>
-                                <div class="dropdown-item" onclick="alert('Exportation CSV/PDF en cours...')">
-                                    <i class="fa-solid fa-download"></i> Exporter les données
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="h-stack justify-between align-end w-full">
-                        <div class="v-stack" style="gap: var(--gap-4);">
-                            <span class="t-sub" id="periodLabel">Aujourd'hui</span>
-                            <div class="h-stack align-baseline" style="gap: var(--gap-8);">
-                                <span class="data-huge" id="valConso">12.4</span>
-                                <span class="data-unit">kWh</span>
-                            </div>
-                        </div>
-                        <div class="h-stack trend-badge good" id="trendBadge" style="margin-bottom: 6px;">
-                            <i class="fa-solid fa-arrow-trend-down" id="trendIcon"></i> <span id="valTrend">-15%</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="v-stack w-full" style="gap: var(--gap-20);">
-                    <div class="h-stack justify-between cost-box w-full">
-                        <div class="v-stack" style="gap: var(--gap-4);">
-                            <span class="t-body">Coût estimé</span>
-                            <span class="t-sub" style="font-size: 13px;"><i class="fa-solid fa-tag"
-                                    style="margin-right: 4px; font-size: 10px;"></i>Tarif Bleu • 0.25€/kWh</span>
-                        </div>
-                        <div class="v-stack align-end" style="gap: var(--gap-4);">
-                            <span class="price-text" id="valCost">2.85</span>
-                            <span class="price-symbol">€</span>
-                        </div>
-                    </div>
-
-                    <div class="v-stack w-full" style="gap: var(--gap-8);">
-                        <div class="h-stack justify-between w-full">
-                            <span class="t-body">Budget suivi (<span id="budgetMax">90</span>€)</span>
-                            <span class="t-mono" style="color: var(--text-grey);" id="valBudgetPct">24%</span>
-                        </div>
-                        <div class="progress-track w-full">
-                            <div class="progress-fill" id="barBudget"
-                                style="width: 24%; background: var(--brand-sage);"></div>
-                        </div>
-                        <div class="h-stack justify-between w-full">
-                            <span class="t-sub" style="font-size: 12px;">Reste avant dépassement</span>
-                            <span class="t-body" style="font-size: 13px;" id="valBudgetRem">87.15 €</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="card">
-                <div class="v-stack w-full" style="gap: var(--gap-4);">
-                    <h2 class="t-h2"><i class="fa-solid fa-chart-column" style="color: var(--text-grey);"></i>
-                        Historique d'activité</h2>
-                    <span class="t-sub" id="graphLabel">Comparé à la période précédente</span>
-                </div>
-                <div class="h-stack flex-1 w-full justify-between align-end" id="chartContainer"
-                    style="padding-top: var(--gap-24); padding-bottom: var(--gap-8);">
-                </div>
-            </div>
-
-            <div class="card" style="gap: var(--gap-24);">
-                <div class="h-stack segmented-control w-full">
-                    <div class="segment-btn" onclick="switchList('listAppareils', this)">Top Appareils</div>
-                    <div class="segment-btn active" onclick="switchList('listPieces', this)">Par Pièce</div>
-                </div>
-
-                <div class="list-container active" id="listPieces">
-                    <div class="h-stack justify-between list-row w-full">
-                        <div class="h-stack" style="gap: var(--gap-16);">
-                            <div class="h-stack icon-box justify-center"><i class="fa-solid fa-couch"
-                                    style="color: var(--brand-terra); font-size: 16px;"></i></div><span
-                                class="t-body">Salon</span>
-                        </div>
-                        <span class="t-mono" style="color: var(--text-dark);">45%</span>
-                    </div>
-                    <div class="h-stack justify-between list-row w-full">
-                        <div class="h-stack" style="gap: var(--gap-16);">
-                            <div class="h-stack icon-box justify-center"><i class="fa-solid fa-kitchen-set"
-                                    style="color: var(--brand-amber); font-size: 16px;"></i></div><span
-                                class="t-body">Cuisine</span>
-                        </div>
-                        <span class="t-mono" style="color: var(--text-dark);">35%</span>
-                    </div>
-                    <div class="h-stack justify-between list-row w-full">
-                        <div class="h-stack" style="gap: var(--gap-16);">
-                            <div class="h-stack icon-box justify-center"><i class="fa-solid fa-bed"
-                                    style="color: var(--brand-sage); font-size: 16px;"></i></div><span
-                                class="t-body">Chambre</span>
-                        </div>
-                        <span class="t-mono" style="color: var(--text-dark);">20%</span>
-                    </div>
-                </div>
-
-                <div class="list-container" id="listAppareils">
-                    <div class="h-stack justify-between list-row w-full">
-                        <div class="h-stack" style="gap: var(--gap-16);">
-                            <div class="h-stack icon-box justify-center"><i class="fa-solid fa-temperature-arrow-up"
-                                    style="color: var(--brand-terra); font-size: 16px;"></i></div><span
-                                class="t-body">PAC (Chauffage)</span>
-                        </div>
-                        <span class="t-mono" style="color: var(--text-dark);">1 200 W</span>
-                    </div>
-                    <div class="h-stack justify-between list-row w-full">
-                        <div class="h-stack" style="gap: var(--gap-16);">
-                            <div class="h-stack icon-box justify-center"><i class="fa-solid fa-shower"
-                                    style="color: var(--brand-amber); font-size: 16px;"></i></div><span
-                                class="t-body">Chauffe-eau</span>
-                        </div>
-                        <span class="t-mono" style="color: var(--text-dark);">800 W</span>
-                    </div>
-                    <div class="h-stack justify-between list-row w-full">
-                        <div class="h-stack" style="gap: var(--gap-16);">
-                            <div class="h-stack icon-box justify-center"><i class="fa-solid fa-snowflake"
-                                    style="color: var(--brand-sage); font-size: 16px;"></i></div><span
-                                class="t-body">Réfrigérateur</span>
-                        </div>
-                        <span class="t-mono" style="color: var(--text-dark);">150 W</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="card ia-card">
-                <div class="v-stack w-full" style="gap: var(--gap-8);">
-                    <h2 class="t-h2" style="color: var(--brand-sage);"><i class="fa-solid fa-sparkles"></i> L'aide de
-                        l'IA</h2>
-                    <div class="v-stack w-full" style="gap: var(--gap-8); margin-top: 16px;">
-                        <div class="h-stack align-baseline" style="gap: var(--gap-8);">
-                            <span class="data-huge" style="color: var(--brand-sage);" id="valIa">2.4</span>
-                            <span class="price-symbol" style="color: var(--brand-sage);">€</span>
-                        </div>
-                        <span class="t-body" style="color: var(--brand-sage);">Économisés pour vous</span>
-                    </div>
-                </div>
-
-                <div class="v-stack w-full" style="gap: var(--gap-20);">
-                    <div class="v-stack ia-glass-box w-full">
-                        <span class="t-sub" style="color: var(--text-dark); line-height: 1.5;" id="textIa">Baisse du
-                            chauffage (Salon) suite à une inactivité prolongée.</span>
-                    </div>
-                    <button class="h-stack justify-center w-full btn-ia" onclick="alert('Historique IA ouvert')">
-                        Voir tout l'historique
-                    </button>
-                </div>
-            </div>
-
+        <div class="hero-title-container">
+            <h1 class="hero-title-massive reveal">CRÉATIF</h1>
+            <h2 class="sub-title reveal" style="transition-delay: 0.1s;">Designer <span>Digital</span> & Graphiste</h2>
+            <p class="hero-desc reveal" style="transition-delay: 0.2s;">Fini les designs ennuyeux. Je crée des
+                expériences web et des identités visuelles qui ont de la gueule et qui convertissent.</p>
         </div>
-    </main>
+    </section>
+
+    <div class="marquee-wrapper">
+        <div class="marquee">
+            <span>WEB DESIGN ✦ IDENTITÉ VISUELLE ✦ NO-CODE ✦ UI/UX ✦ DIRECTION ARTISTIQUE ✦ WEB DESIGN ✦ BRANDING ✦
+                NO-CODE ✦</span>
+        </div>
+    </div>
+
+    <section id="work" class="chaos-section container">
+
+        <div class="section-header reveal">
+            <h2 class="section-title">RÉALISATIONS_</h2>
+            <p style="font-weight: 600; font-size: 18px; color: var(--text-muted); margin-top: 16px;">Le chaos n'est
+                qu'une question de perspective.</p>
+        </div>
+
+        <div class="chaos-board reveal" style="transition-delay: 0.1s;">
+            <div class="chaos-bg-text">WORKS<br>WORKS</div>
+
+            <div class="chaos-grid">
+                <a href="#" class="chaos-card cc-1 interactable">
+                    <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=800" alt="Nova App">
+                    <h3 class="chaos-name">Nova App</h3>
+                    <span class="chaos-role">UI/UX Design</span>
+                </a>
+
+                <a href="#" class="chaos-card cc-2 interactable">
+                    <img src="https://images.unsplash.com/photo-1600132806370-bf17e65e942f?q=80&w=800"
+                        alt="Studio Koto">
+                    <h3 class="chaos-name">Koto Studio</h3>
+                    <span class="chaos-role">Direction Artistique</span>
+                </a>
+
+                <a href="#" class="chaos-card cc-3 interactable">
+                    <img src="https://images.unsplash.com/photo-1629851496054-d830b561c272?q=80&w=800" alt="Neon Fest">
+                    <h3 class="chaos-name">Neon Fest</h3>
+                    <span class="chaos-role">Graphisme / Print</span>
+                </a>
+
+                <a href="#" class="chaos-card cc-4 interactable">
+                    <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=800" alt="Aura Shop">
+                    <h3 class="chaos-name">Aura Shop</h3>
+                    <span class="chaos-role">Webdesign & No-Code</span>
+                </a>
+            </div>
+        </div>
+
+        <div class="reveal" style="text-align: center; transition-delay: 0.2s;">
+            <a href="#" class="btn-brutal interactable">
+                Voir toutes les archives ✦
+            </a>
+        </div>
+
+    </section>
+
+
+
+
+
+
+
+    <section id="skills" class="sticker-section container">
+
+        <div class="section-header reveal">
+            <h2 class="section-title">MON ARSENAL_</h2>
+            <p class="section-desc">Design UI, Direction Artistique et Intégration Web. Les outils que je maîtrise pour
+                construire des expériences digitales complètes.</p>
+        </div>
+
+        <div class="sticker-board-wrapper reveal" style="transition-delay: 0.1s;">
+
+            <div class="sticker-bg-layer">
+                <div class="sticker-bg-text">SKILLS<br>SKILLS</div>
+            </div>
+
+            <div class="sticker-interactive-layer">
+
+                <div class="sticker st-pill st-blue s-ui-1 interactable">
+                    <h3>UI/UX Design</h3>
+                    <span class="sticker-tools">Wireframing, Prototyping, User Flow</span>
+                </div>
+
+                <div class="sticker st-seal st-lime s-ui-2 interactable">
+                    <h3>Figma Expert</h3>
+                    <span class="sticker-tools">Variables, Auto-Layout, Components</span>
+                </div>
+
+                <div class="sticker st-label st-dark s-da-1 interactable">
+                    <h3>Direction Artistique</h3>
+                    <span class="sticker-tools">Création d'identités visuelles radicales.<br>Moodboards et chartes
+                        graphiques.</span>
+                </div>
+
+                <div class="sticker st-pill st-lime s-da-2 interactable">
+                    <h3>Branding & Print</h3>
+                    <span class="sticker-tools">Adobe Suite (Illustrator, Indesign, PS)</span>
+                </div>
+
+                <div class="sticker st-label st-blue s-tech-1 interactable">
+                    <h3>&lt;/&gt; Intégration Web</h3>
+                    <span class="sticker-tools">Développement No-Code sur Webflow.<br>Bases solides en HTML /
+                        CSS.</span>
+                </div>
+
+                <div class="sticker st-label st-white s-prof-1 interactable">
+                    <div
+                        style="font-family: var(--font-display); font-size: 12px; text-transform: uppercase; margin-bottom: 8px; color: var(--dark);">
+                        <span class="live-dot"></span> Dispo Alternance 2026
+                    </div>
+                    <h3 style="color: var(--blue);">Master Design.</h3>
+                    <span class="sticker-tools"
+                        style="color: var(--dark); opacity: 1; transform: none; margin-top: 8px;">Étudiant basé à Angers
+                        (49)</span>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="reveal" style="text-align: center; transition-delay: 0.2s;">
+            <a href="#" class="btn-brutal interactable">
+                Télécharger mon CV ✦
+            </a>
+        </div>
+
+    </section>
+
+
+
+
+    <footer id="contact">
+        <a href="mailto:hello@design.fr" class="footer-title interactable">DISCUTONS.</a>
+
+        <div class="footer-grid">
+            <span>© 2026 — Conçu avec énergie</span>
+            <div class="socials">
+                <a href="#" class="interactable">LinkedIn</a>
+                <a href="#" class="interactable">Behance</a>
+                <a href="#" class="interactable">Instagram</a>
+            </div>
+            <span>Statut : Disponible</span>
+        </div>
+    </footer>
 
     <script>
-        // 1. LOGIQUE DU MENU DROPDOWN (LES 3 POINTS)
-        function toggleMenu(event, menuId) {
-            event.stopPropagation(); // Empêche le clic de fermer le menu immédiatement
+        document.addEventListener("DOMContentLoaded", () => {
+            const isTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
 
-            const menu = document.getElementById(menuId);
-            const btn = event.currentTarget;
-            const isActive = menu.classList.contains('active');
-
-            // Fermer tous les menus existants
-            document.querySelectorAll('.dropdown-menu').forEach(m => m.classList.remove('active'));
-            document.querySelectorAll('.ellipsis-btn').forEach(b => b.classList.remove('active'));
-
-            // Si le menu cliqué n'était pas actif, on l'ouvre
-            if (!isActive) {
-                menu.classList.add('active');
-                btn.classList.add('active');
-            }
-        }
-
-        // Fermer le menu si on clique n'importe où ailleurs sur la page
-        document.addEventListener('click', (event) => {
-            document.querySelectorAll('.dropdown-menu').forEach(menu => {
-                if (menu.classList.contains('active') && !menu.parentElement.contains(event.target)) {
-                    menu.classList.remove('active');
-                    menu.parentElement.querySelector('.ellipsis-btn').classList.remove('active');
-                }
-            });
-        });
-
-        // 2. DONNÉES DU DASHBOARD
-        const dashboardData = {
-            jour: {
-                label: "Aujourd'hui", subtitle: "Performances énergétiques du jour.",
-                conso: "12.4", trend: "-15%", trendState: "good",
-                cost: "2.85", budgetMax: "90", budgetPct: 24, budgetRem: "87.15",
-                iaEco: "2.4", iaText: "Baisse du chauffage (Salon) suite à une inactivité prolongée.",
-                chart: [
-                    { label: "00h", val: 30 }, { label: "04h", val: 10 }, { label: "08h", val: 60 },
-                    { label: "12h", val: 45 }, { label: "16h", val: 40 }, { label: "20h", val: 85 }, { label: "24h", val: 50 }
-                ]
-            },
-            semaine: {
-                label: "Cette semaine", subtitle: "Performances sur les 7 derniers jours.",
-                conso: "86.2", trend: "-8%", trendState: "good",
-                cost: "19.80", budgetMax: "350", budgetPct: 55, budgetRem: "157.50",
-                iaEco: "14.5", iaText: "Décalage du chauffe-eau pour profiter du tarif creux solaire.",
-                chart: [
-                    { label: "LUN", val: 40 }, { label: "MAR", val: 65 }, { label: "MER", val: 35 },
-                    { label: "JEU", val: 80 }, { label: "VEN", val: 55 }, { label: "SAM", val: 90 }, { label: "DIM", val: 70 }
-                ]
-            },
-            mois: {
-                label: "Ce mois", subtitle: "Bilan mensuel consolidé.",
-                conso: "345.8", trend: "+4%", trendState: "bad",
-                cost: "79.50", budgetMax: "90", budgetPct: 88, budgetRem: "10.50",
-                iaEco: "42.0", iaText: "Optimisation de la batterie domestique face aux pics réseau.",
-                chart: [
-                    { label: "S1", val: 60 }, { label: "S2", val: 75 }, { label: "S3", val: 50 },
-                    { label: "S4", val: 85 }, { label: "J29", val: 15 }, { label: "J30", val: 30 }, { label: "J31", val: 10 }
-                ]
-            }
-        };
-
-        // 3. FONCTIONS GLOBALES DU DASHBOARD
-        function setPeriod(period, btn) {
-            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-
-            const d = dashboardData[period];
-
-            const textElements = ['valConso', 'valCost', 'valIa'];
-            textElements.forEach(id => {
-                let el = document.getElementById(id);
-                el.classList.remove('data-update');
-                void el.offsetWidth;
-                el.classList.add('data-update');
-            });
-
-            document.getElementById('headerSubtitle').innerText = d.subtitle;
-            document.getElementById('periodLabel').innerText = d.label;
-            document.getElementById('valConso').innerText = d.conso;
-            document.getElementById('valCost').innerText = d.cost;
-
-            const trendBadge = document.getElementById('trendBadge');
-            trendBadge.className = `h-stack trend-badge ${d.trendState}`;
-            document.getElementById('valTrend').innerText = d.trend;
-            document.getElementById('trendIcon').className = d.trendState === 'good' ? "fa-solid fa-arrow-trend-down" : "fa-solid fa-arrow-trend-up";
-
-            document.getElementById('budgetMax').innerText = d.budgetMax;
-            document.getElementById('valBudgetPct').innerText = d.budgetPct + "%";
-            document.getElementById('valBudgetRem').innerText = d.budgetRem + " €";
-
-            const barBudget = document.getElementById('barBudget');
-            barBudget.style.width = d.budgetPct + "%";
-            barBudget.style.background = d.budgetPct > 85 ? "var(--brand-terra)" : "var(--brand-sage)";
-
-            document.getElementById('valIa').innerText = d.iaEco;
-            document.getElementById('textIa').innerText = d.iaText;
-
-            renderChart(d.chart);
-        }
-
-        function renderChart(chartData) {
-            const container = document.getElementById('chartContainer');
-            container.innerHTML = '';
-
-            chartData.forEach(item => {
-                let color = 'var(--brand-sage)';
-                if (item.val >= 80) color = 'var(--brand-terra)';
-                else if (item.val >= 60) color = 'var(--brand-amber)';
-
-                container.innerHTML += `
-                    <div class="v-stack chart-col">
-                        <div class="bar-bg">
-                            <div class="bar-fill" style="height: 0%; background: ${color};"></div>
-                        </div>
-                        <span class="chart-label t-mono" style="color: var(--text-grey); font-size: 12px;">${item.label}</span>
-                        <div class="chart-tooltip">${item.val} kWh</div>
-                    </div>
-                `;
-            });
-
-            setTimeout(() => {
-                const bars = container.querySelectorAll('.bar-fill');
-                bars.forEach((bar, index) => {
-                    bar.style.height = chartData[index].val + '%';
+            // 1. REVEAL AU SCROLL
+            const reveals = document.querySelectorAll(".reveal");
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add("active");
+                    }
                 });
-            }, 50);
-        }
+            }, { threshold: 0.15 });
+            reveals.forEach(reveal => observer.observe(reveal));
 
-        function switchList(listId, btn) {
-            document.querySelectorAll('.segment-btn').forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
+            // 2. CURSEUR CUSTOM
+            if (!isTouch) {
+                const cursorDot = document.getElementById('cursor-dot');
+                const cursorFollower = document.getElementById('cursor-follower');
+                const interactables = document.querySelectorAll('.interactable');
 
-            document.querySelectorAll('.list-container').forEach(l => l.classList.remove('active'));
-            document.getElementById(listId).classList.add('active');
-        }
+                let mouseX = 0, mouseY = 0;
+                let dotX = 0, dotY = 0;
+                let followX = 0, followY = 0;
 
-        function setDock(btn) {
-            document.querySelectorAll('.dock-icon').forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-        }
+                document.addEventListener('mousemove', (e) => {
+                    mouseX = e.clientX;
+                    mouseY = e.clientY;
+                });
 
-        function toggleTheme() {
-            const body = document.body;
-            const icon = document.getElementById('themeIcon');
+                function animateCursor() {
+                    // Le point suit rapidement
+                    dotX += (mouseX - dotX) * 0.5;
+                    dotY += (mouseY - dotY) * 0.5;
+                    cursorDot.style.left = `${dotX}px`;
+                    cursorDot.style.top = `${dotY}px`;
 
-            if (body.getAttribute('data-theme') === 'dark') {
-                body.removeAttribute('data-theme');
-                icon.className = 'fa-solid fa-moon';
+                    // L'anneau suit avec un léger décalage
+                    followX += (mouseX - followX) * 0.2;
+                    followY += (mouseY - followY) * 0.2;
+                    cursorFollower.style.left = `${followX}px`;
+                    cursorFollower.style.top = `${followY}px`;
+
+                    requestAnimationFrame(animateCursor);
+                }
+                animateCursor();
+
+                interactables.forEach(el => {
+                    el.addEventListener('mouseenter', () => document.body.classList.add('hovering'));
+                    el.addEventListener('mouseleave', () => document.body.classList.remove('hovering'));
+                });
             } else {
-                body.setAttribute('data-theme', 'dark');
-                icon.className = 'fa-solid fa-sun';
+                // Sur mobile, on cache le curseur custom
+                document.getElementById('cursor-dot').style.display = 'none';
+                document.getElementById('cursor-follower').style.display = 'none';
             }
-        }
-
-        renderChart(dashboardData.jour.chart);
+        });
     </script>
 </body>
 
