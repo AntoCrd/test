@@ -4,12 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>À PROPOS | Qui suis-je ? — Portfolio 2026</title>
+    <title>CASE STUDY | Nova Banking — Design Radical</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Manrope:wght@600;700;800&family=Unbounded:wght@700;900&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Manrope:wght@600;700;800&family=Unbounded:wght@700;900&family=Space+Mono:wght@400;700&display=swap"
         rel="stylesheet">
 
     <style>
@@ -21,10 +21,11 @@
             --white: #FFFFFF;
             --font-display: 'Unbounded', sans-serif;
             --font-main: 'Manrope', sans-serif;
+            --font-mono: 'Space Mono', monospace;
             --ease: cubic-bezier(0.34, 1.56, 0.64, 1);
         }
 
-        /* --- BASE --- */
+        /* --- SYSTÈME ANTI-BUG --- */
         * {
             margin: 0;
             padding: 0;
@@ -32,23 +33,32 @@
             cursor: none;
         }
 
+        html {
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+            width: 100%;
+        }
+
         body {
             background-color: var(--bg);
             color: var(--dark);
             font-family: var(--font-main);
             overflow-x: hidden;
+            width: 100%;
             -webkit-font-smoothing: antialiased;
-        }
-
-        a {
-            text-decoration: none;
-            color: inherit;
         }
 
         .container {
             max-width: 1440px;
             margin: 0 auto;
             padding: 0 4vw;
+        }
+
+        p {
+            line-height: 1.7;
+            font-size: 19px;
+            font-weight: 600;
+            color: rgba(10, 10, 10, 0.85);
         }
 
         /* --- CURSEUR --- */
@@ -76,7 +86,7 @@
             transform: translate(-50%, -50%);
             z-index: 10000;
             pointer-events: none;
-            transition: transform 0.15s ease-out;
+            transition: transform 0.12s ease-out;
         }
 
         body.hovering #cursor-follower {
@@ -87,13 +97,13 @@
             mix-blend-mode: difference;
         }
 
-        /* --- NAV PILL --- */
+        /* --- NAVIGATION --- */
         header {
             position: fixed;
             top: 24px;
             left: 0;
             width: 100%;
-            z-index: 5000;
+            z-index: 9000;
             display: flex;
             justify-content: center;
             pointer-events: none;
@@ -102,13 +112,13 @@
         .nav-pill {
             pointer-events: auto;
             background: var(--white);
-            padding: 8px 8px 8px 32px;
+            padding: 8px 12px 8px 32px;
             border-radius: 50px;
             display: flex;
             gap: 32px;
             align-items: center;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
-            border: 1px solid rgba(0, 0, 0, 0.05);
+            border: 2px solid var(--dark);
         }
 
         .logo {
@@ -124,41 +134,29 @@
             font-weight: 700;
             font-size: 11px;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .nav-links a:hover {
-            color: var(--blue);
-        }
-
-        .btn-hire {
-            background: var(--blue);
-            color: var(--white);
-            padding: 12px 24px;
-            border-radius: 50px;
-            font-weight: 800;
-            font-size: 11px;
-            text-transform: uppercase;
-            transition: transform 0.3s var(--ease);
-        }
-
-        .btn-hire:hover {
-            transform: scale(1.05);
-            background: var(--dark);
         }
 
         /* --- HERO --- */
-        .about-hero {
-            padding: 220px 0 80px;
-            position: relative;
+        .project-hero {
+            padding: 220px 0 100px;
+            border-bottom: 3px solid var(--dark);
+        }
+
+        .hero-meta {
+            font-family: var(--font-mono);
+            font-size: 12px;
+            color: var(--blue);
+            font-weight: 700;
+            margin-bottom: 24px;
+            display: block;
         }
 
         .massive-title {
             font-family: var(--font-display);
             font-weight: 900;
-            font-size: clamp(4rem, 15vw, 250px);
+            font-size: clamp(3rem, 12vw, 170px);
             line-height: 0.8;
-            letter-spacing: -10px;
+            letter-spacing: -8px;
             text-transform: uppercase;
         }
 
@@ -166,224 +164,212 @@
             color: var(--blue);
         }
 
-        .hero-tagline {
-            font-family: var(--font-display);
-            font-size: 24px;
-            text-transform: uppercase;
-            margin-top: 20px;
-            color: var(--blue);
-        }
-
-        /* --- SECTION : VISION & CHIFFRES --- */
-        .grid-2 {
+        /* --- SPECS --- */
+        .specs-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 80px;
-            margin: 100px 0;
-        }
-
-        .vision-text {
-            font-size: clamp(1.2rem, 2.2vw, 32px);
-            font-weight: 800;
-            text-transform: uppercase;
-            line-height: 1.2;
-        }
-
-        .vision-text span {
-            background: var(--blue);
-            color: var(--white);
-            padding: 0 10px;
-        }
-
-        .stats-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-        }
-
-        .stat-card {
+            grid-template-columns: repeat(4, 1fr);
             border: 3px solid var(--dark);
-            padding: 30px;
-            border-radius: 20px;
             background: var(--white);
-            box-shadow: 6px 6px 0 var(--dark);
+            border-radius: 32px;
+            margin: -50px 0 100px;
+            box-shadow: 15px 15px 0 var(--dark);
         }
 
-        .stat-num {
+        .spec-item {
+            padding: 40px;
+            border-right: 3px solid var(--dark);
+        }
+
+        .spec-item:last-child {
+            border-right: none;
+        }
+
+        .spec-label {
             font-family: var(--font-display);
-            font-size: 48px;
-            font-weight: 900;
+            font-size: 10px;
             color: var(--blue);
-            display: block;
-        }
-
-        .stat-label {
-            font-weight: 800;
             text-transform: uppercase;
-            font-size: 12px;
+            margin-bottom: 15px;
+            display: block;
             opacity: 0.5;
         }
 
-        /* --- EXPÉRIENCES (STICKERS) --- */
-        .section-title {
-            font-family: var(--font-display);
-            font-size: clamp(2.5rem, 6vw, 80px);
-            font-weight: 900;
+        .spec-value {
+            font-weight: 800;
+            font-size: 15px;
             text-transform: uppercase;
-            margin-bottom: 60px;
         }
 
-        .exp-grid {
+        /* --- SECTION NARRATIVE --- */
+        .section-split {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 30px;
-            margin-bottom: 120px;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 80px;
+            padding: 120px 0;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
         }
 
-        .exp-card {
-            background: var(--white);
-            border: 3.5px solid var(--dark);
-            padding: 40px;
-            border-radius: 32px;
-            box-shadow: 12px 12px 0 var(--dark);
-            transition: all 0.4s var(--ease);
+        .sticky-side {
+            position: sticky;
+            top: 120px;
+            height: fit-content;
         }
 
-        .exp-card:hover {
-            transform: translateY(-10px) rotate(1deg);
-            box-shadow: 20px 20px 0 var(--blue);
-            border-color: var(--blue);
+        .side-label {
+            font-family: var(--font-mono);
+            font-size: 12px;
+            color: var(--blue);
+            margin-bottom: 20px;
+            display: block;
         }
 
-        .exp-top {
-            display: flex;
-            justify-content: space-between;
+        .side-h {
+            font-family: var(--font-display);
+            font-size: 48px;
+            text-transform: uppercase;
+            line-height: 0.9;
+            margin-bottom: 40px;
+        }
+
+        .content-body h4 {
+            font-family: var(--font-display);
+            font-size: 14px;
+            text-transform: uppercase;
+            color: var(--blue);
             margin-bottom: 20px;
         }
 
-        .exp-year {
-            font-family: var(--font-display);
-            font-size: 12px;
-            font-weight: 900;
-            color: var(--blue);
+        .content-body p {
+            margin-bottom: 30px;
         }
 
-        .exp-title {
-            font-family: var(--font-display);
-            font-size: 24px;
-            font-weight: 900;
-            text-transform: uppercase;
-            line-height: 1;
-            margin-bottom: 10px;
-        }
-
-        .exp-loc {
-            font-weight: 800;
-            font-size: 12px;
-            text-transform: uppercase;
-            opacity: 0.4;
-        }
-
-        .exp-desc {
-            margin-top: 20px;
-            font-weight: 600;
-            line-height: 1.6;
-            opacity: 0.7;
-        }
-
-        /* --- FORMATION (BLUEPRINT) --- */
-        .edu-wrapper {
+        /* --- GRID ANALYSIS (L'EFFET COOL) --- */
+        .grid-analysis {
+            position: relative;
+            width: 100%;
+            border-radius: 40px;
             border: 4px solid var(--dark);
-            background: var(--dark);
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 4px;
+            overflow: hidden;
+            margin: 80px 0;
+        }
+
+        .grid-analysis img {
+            width: 100%;
+            display: block;
+            transition: 0.6s var(--ease);
+        }
+
+        .grid-analysis:hover img {
+            transform: scale(1.02);
+        }
+
+        .grid-lines {
+            position: absolute;
+            inset: 0;
+            background-image: linear-gradient(to right, rgba(26, 67, 255, 0.1) 1px, transparent 1px);
+            background-size: calc(100% / 12) 100%;
+            pointer-events: none;
+        }
+
+        .tech-stamp {
+            position: absolute;
+            bottom: 30px;
+            right: 30px;
+            background: var(--lime);
+            color: var(--dark);
+            padding: 10px 20px;
+            border: 2px solid var(--dark);
+            font-family: var(--font-mono);
+            font-size: 10px;
+            font-weight: 900;
+            transform: rotate(-3deg);
+        }
+
+        /* --- GALLERY --- */
+        .gallery-wrap {
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
             margin-bottom: 120px;
         }
 
-        .edu-item {
-            background: var(--white);
-            padding: 40px;
-            min-height: 300px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
+        .g-card {
+            border-radius: 40px;
+            border: 4px solid var(--dark);
+            overflow: hidden;
+            position: relative;
+            background: #eee;
         }
 
-        .edu-item:hover {
-            background: var(--lime);
+        .g-card img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: 0.6s var(--ease);
         }
 
-        .edu-id {
-            font-family: var(--font-display);
-            opacity: 0.2;
-            font-size: 20px;
+        .g-card:hover img {
+            transform: scale(1.02);
         }
 
-        .edu-name {
-            font-family: var(--font-display);
-            font-size: 24px;
-            font-weight: 900;
-            text-transform: uppercase;
-            line-height: 1;
-        }
-
-        /* --- ARRIERE-CUISINE (HOBBIES) --- */
-        .hobbies-wrap {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 15px;
-            margin-bottom: 150px;
-        }
-
-        .hobby-tag {
-            padding: 15px 30px;
-            border: 3px solid var(--dark);
-            border-radius: 100px;
-            font-family: var(--font-display);
-            font-weight: 800;
-            font-size: 14px;
-            text-transform: uppercase;
-            background: var(--white);
-            transition: all 0.3s var(--ease);
-        }
-
-        .hobby-tag:hover {
+        /* --- FOOTER NEXT --- */
+        .next-wrap {
             background: var(--blue);
             color: var(--white);
-            transform: scale(1.1) rotate(-3deg);
-        }
-
-        /* --- FOOTER --- */
-        footer {
-            background: var(--dark);
-            color: var(--white);
-            padding: 120px 0;
-            border-radius: 60px 60px 0 0;
+            padding: 150px 0;
+            border-radius: 80px 80px 0 0;
             text-align: center;
+            text-decoration: none;
+            display: block;
+            transition: 0.4s var(--ease);
         }
 
-        .f-cta {
+        .next-wrap:hover {
+            background: var(--lime);
+            color: var(--dark);
+        }
+
+        .next-h {
             font-family: var(--font-display);
-            font-size: clamp(3rem, 10vw, 150px);
-            font-weight: 900;
+            font-size: clamp(3rem, 10vw, 140px);
             text-transform: uppercase;
-            line-height: 0.8;
-            margin-bottom: 40px;
             letter-spacing: -6px;
+            line-height: 0.8;
+        }
+
+        /* REVEAL */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s var(--ease);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         @media (max-width: 1024px) {
 
-            .grid-2,
-            .exp-grid,
-            .edu-wrapper {
+            .specs-grid,
+            .section-split {
                 grid-template-columns: 1fr;
+                gap: 40px;
             }
 
-            .edu-item {
-                min-height: auto;
-                gap: 40px;
+            .spec-item {
+                border-right: none;
+                border-bottom: 3px solid var(--dark);
+            }
+
+            .sticky-side {
+                position: relative;
+                top: 0;
+            }
+
+            .massive-title {
+                font-size: 4rem;
+                letter-spacing: -3px;
             }
         }
     </style>
@@ -398,117 +384,110 @@
         <div class="nav-pill">
             <div class="logo">DA.</div>
             <nav class="nav-links">
-                <a href="index.html" class="it">Accueil</a>
-                <a href="archives.html" class="it">Travaux</a>
-                <a href="#" class="it" style="color:var(--blue)">Moi</a>
+                <a href="index.html" class="it">Home</a>
+                <a href="archives.html" class="it">Archives</a>
+                <a href="a-propos.html" class="it">Individu</a>
             </nav>
-            <a href="mailto:hello@design.fr" class="btn-hire it">Me Contacter</a>
+            <a href="mailto:hello@design.fr" class="btn-hire it">UN PROJET ?</a>
         </div>
     </header>
 
     <main class="container">
-        <section class="about-hero">
-            <h1 class="massive-title">MOI<span>_</span></h1>
-            <p class="hero-tagline">Designer Digital & Explorateur Visuel</p>
+
+        <section class="project-hero">
+            <span class="hero-meta reveal">ARCHIVE_LOG // 2026_NOVA_BANKING</span>
+            <h1 class="massive-title reveal">FINTECH<span>_</span><br>LIFESTYLE</h1>
         </section>
 
-        <section class="grid-2">
-            <div class="vision-text">
-                Mon approche est simple : <span>Casser l'ennui</span>. Dans un web saturé de templates, je choisis la
-                <span>radicalité</span> et l'énergie brute pour faire émerger les marques.
+        <section class="specs-grid reveal">
+            <div class="spec-item"><span class="spec-label">CLIENT</span><span class="spec-value">Nova Startup</span>
             </div>
-            <div class="stats-grid">
-                <div class="stat-card it">
-                    <span class="stat-num">03+</span>
-                    <span class="stat-label">Années d'expérience</span>
-                </div>
-                <div class="stat-card it">
-                    <span class="stat-num">12</span>
-                    <span class="stat-label">Projets terminés</span>
-                </div>
-                <div class="stat-card it">
-                    <span class="stat-num">01</span>
-                    <span class="stat-label">Master en cours</span>
-                </div>
-                <div class="stat-card it">
-                    <span class="stat-num">∞</span>
-                    <span class="stat-label">Dose de caféine</span>
-                </div>
+            <div class="spec-item"><span class="spec-label">SECTEUR</span><span class="spec-value">Fintech /
+                    Mobile</span></div>
+            <div class="spec-item"><span class="spec-label">RÔLE</span><span class="spec-value">Art Director</span>
+            </div>
+            <div class="spec-item"><span class="spec-label">DURÉE</span><span class="spec-value">12 Semaines</span>
             </div>
         </section>
 
-        <h2 class="section-title">PARCOURS_</h2>
-        <section class="exp-grid">
-            <div class="exp-card it">
-                <div class="exp-top">
-                    <span class="exp-year">2024 — PRÉSENT</span>
-                    <span class="exp-loc">ANGERS / REMOTE</span>
-                </div>
-                <h3 class="exp-title">UX/UI Designer Freelance</h3>
-                <p class="exp-desc">Création d'interfaces pour des startups Early-Stage. Focus sur la conversion et
-                    l'identité de marque via Webflow et Figma.</p>
+        <section class="section-split reveal">
+            <div class="sticky-side">
+                <span class="side-label">01 // CONTEXTE</span>
+                <h2 class="side-h">DÉCONSTRUIRE<br>LES CODES<span>.</span></h2>
             </div>
-            <div class="exp-card it">
-                <div class="exp-top">
-                    <span class="exp-year">2023 — 2024</span>
-                    <span class="exp-loc">NANTES</span>
-                </div>
-                <h3 class="exp-title">Assistant D.A. (Alternance)</h3>
-                <p class="exp-desc">Apprentissage de la rigueur publicitaire et du branding institutionnel au sein d'une
-                    agence de communication globale.</p>
+            <div class="content-body">
+                <h4>LA MISSION</h4>
+                <p>En 2026, la Génération Z ne cherche plus une banque, elle cherche un <strong>outil de contrôle
+                        esthétique</strong>. Nova m'a approché pour briser les codes austères de la Fintech
+                    traditionnelle. L'objectif : rendre la gestion de budget aussi addictive et désirable qu'un magazine
+                    de mode ou un jeu vidéo.</p>
+                <h4>LA STRATÉGIE VISUELLE</h4>
+                <p>Mon travail a consisté à injecter une énergie brute (le Brutalisme) dans une structure de donnée
+                    hyper-rigoureuse. J'ai utilisé des contrastes massifs et une typographie imposante pour créer un
+                    sentiment de puissance et de sécurité immédiat.</p>
+                <p>Chaque action — virement, épargne, investissement — a été pensée comme un moment de récompense
+                    visuelle, transformant une corvée administrative en une expérience gratifiante.</p>
             </div>
         </section>
 
-        <h2 class="section-title">FORMATION_</h2>
-        <section class="edu-wrapper">
-            <div class="edu-item it">
-                <span class="edu-id">01_MASTER</span>
-                <div>
-                    <h3 class="edu-name">Design & Stratégie Digitale</h3>
-                    <p style="font-weight: 800; opacity: 0.5; margin-top: 10px;">ÉCOLE SUPÉRIEURE DE DESIGN / 2024 -
-                        2026</p>
-                </div>
-            </div>
-            <div class="edu-item it">
-                <span class="edu-id">02_LICENCE</span>
-                <div>
-                    <h3 class="edu-name">Design Graphique</h3>
-                    <p style="font-weight: 800; opacity: 0.5; margin-top: 10px;">UNIVERSITÉ DES ARTS / 2021 - 2024</p>
-                </div>
-            </div>
-            <div class="edu-item it">
-                <span class="edu-id">03_BAC</span>
-                <div>
-                    <h3 class="edu-name">Arts Appliqués (STD2A)</h3>
-                    <p style="font-weight: 800; opacity: 0.5; margin-top: 10px;">LYCÉE TECHNIQUE / 2021</p>
-                </div>
-            </div>
-        </section>
-
-        <h2 class="section-title">L'ARRIÈRE_CUISINE</h2>
-        <p style="margin-bottom: 40px; font-weight: 700; opacity: 0.6; text-transform: uppercase;">Ce qui nourrit ma
-            créativité en dehors de Figma :</p>
-        <div class="hobbies-wrap">
-            <div class="hobby-tag it">Techno Industrielle</div>
-            <div class="hobby-tag it">Street Photography</div>
-            <div class="hobby-tag it">Architecture Brutaliste</div>
-            <div class="hobby-tag it">Typographie Suédoise</div>
-            <div class="hobby-tag it">Veille Awwwards</div>
-            <div class="hobby-tag it">Sneakers Culture</div>
+        <div class="grid-analysis reveal">
+            <div class="grid-lines"></div>
+            <div class="tech-stamp">STRUCTURE: 12_COLUMNS // PIXEL_PRECISION: 100%</div>
+            <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2000" alt="Nova Architecture">
         </div>
+
+        <section class="section-split reveal">
+            <div class="sticky-side">
+                <span class="side-label">02 // MÉTHODE</span>
+                <h2 class="side-h">DU BLUEPRINT<br>AU PIXEL<span>_</span></h2>
+            </div>
+            <div class="content-body">
+                <h4>UX RESEARCH & MAPPING</h4>
+                <p>Le projet a débuté par un audit profond des comportements financiers des 18-25 ans. Le constat est
+                    sans appel : <strong>l'anxiété est le premier frein</strong>. Ma réponse a été de simplifier
+                    l'architecture de l'information pour qu'elle soit "scanable" en moins de 2 secondes.</p>
+                <h4>CRÉATION RADICALE</h4>
+                <p>J'ai développé une identité basée sur le bleu électrique Nova (#1A43FF). Ce choix n'est pas seulement
+                    esthétique : il garantit une lisibilité maximale sous toutes les conditions de luminosité mobile et
+                    affirme le caractère technologique du produit.</p>
+                <p>L'ensemble de l'interface a été conçu pour être <strong>"No-Code Ready"</strong>, permettant une
+                    transition fluide entre la maquette Figma et l'intégration finale sans perte de détails visuels.</p>
+            </div>
+        </section>
+
+        <div class="gallery-wrap">
+            <div class="g-card reveal">
+                <img src="https://images.unsplash.com/photo-1563986768609-322da13575f3?q=80&w=2000" alt="Detail View 1">
+            </div>
+
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:40px;">
+                <div class="g-card reveal"><img
+                        src="https://images.unsplash.com/photo-1586717791821-3f44a563eb4c?q=80&w=1200"></div>
+                <div class="g-card reveal" style="transition-delay:0.2s;"><img
+                        src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1200"></div>
+            </div>
+
+            <div class="g-card reveal">
+                <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2000" alt="Detail View 2">
+            </div>
+            </section>
+
     </main>
 
-    <footer class="it">
+    <a href="archives.html" class="next-wrap it">
         <div class="container">
-            <h2 class="f-cta">DISCUTONS.</h2>
-            <p style="font-family: var(--font-display); font-weight: 900; color: var(--blue);">HELLO@DESIGN-PORTFOLIO.FR
-            </p>
+            <span
+                style="font-family:var(--font-mono); font-size:14px; text-transform:uppercase; margin-bottom:20px; display:block; color:var(--dark)">Projet
+                Suivant</span>
+            <h2 class="next-h">KOTO STUDIO</h2>
         </div>
-    </footer>
+    </a>
 
     <script>
         document.addEventListener("DOMContentLoaded", () => {
             const isTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+
+            // 1. CURSEUR DYNAMIQUE
             if (!isTouch) {
                 const dot = document.getElementById('cursor-dot');
                 const follow = document.getElementById('cursor-follower');
@@ -527,6 +506,16 @@
                     el.addEventListener('mouseleave', () => document.body.classList.remove('hovering'));
                 });
             }
+
+            // 2. REVEAL SCROLL ANIMATION
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                    }
+                });
+            }, { threshold: 0.1 });
+            document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
         });
     </script>
 </body>
