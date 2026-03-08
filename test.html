@@ -4,35 +4,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AURA // Synthèse Analytique (Pixel Perfect)</title>
+    <title>AURA // Synthèse Analytique (Interactive Menu)</title>
     <link
-        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         /* ==========================================================================
-           1. DESIGN TOKENS (Strict Matching avec tes maquettes)
+           1. DESIGN TOKENS & DARK MODE
            ========================================================================== */
         :root {
-            /* Backgrounds */
-            --bg-base: #F4F1EB;
-            --surface-1: #FFFFFF;
-            --surface-2: #FAF8F5;
+            /* Light Theme (Default) */
+            --bg-page: #F5EFEA;
+            --surface-white: #FFFFFF;
+            --surface-grey: #F8F5F1;
+            --text-dark: #2E2A27;
+            --text-grey: #8B8682;
+            --border-light: #EAE6E1;
 
-            /* Text & Lines */
-            --text-main: #33302E;
-            /* Repris de ton image 2 */
-            --text-dim: #8C857B;
-            --border-soft: #E8E3D9;
+            --brand-sage: #7D9082;
+            --brand-sage-bg: #EBF0EB;
+            --brand-sage-light: #E2EAE4;
+            --brand-terra: #C06C5A;
+            --brand-amber: #D0A171;
 
-            /* Semantic Brands */
-            --brand-sage: #7A907C;
-            --brand-sage-bg: #EAF0EB;
-            --brand-terra: #C26D5C;
-            --brand-terra-bg: #F5EAE8;
-            --brand-warm: #D4A373;
-
-            /* Strict Spacing (Figma Auto-Layout) */
             --gap-4: 4px;
             --gap-8: 8px;
             --gap-12: 12px;
@@ -40,24 +35,37 @@
             --gap-20: 20px;
             --gap-24: 24px;
             --gap-32: 32px;
+            --gap-40: 40px;
 
-            /* Radii */
             --rad-sm: 8px;
             --rad-md: 12px;
-            --rad-lg: 20px;
+            --rad-lg: 24px;
             --rad-xl: 32px;
             --rad-pill: 100px;
-
-            /* Effects */
-            --shadow-float: 0 4px 24px rgba(140, 133, 123, 0.08);
-            --shadow-tooltip: 0 8px 24px rgba(0, 0, 0, 0.12);
-            --shadow-inner: inset 0 2px 8px rgba(0, 0, 0, 0.03);
+            --shadow-card: 0 12px 32px rgba(130, 120, 110, 0.05);
+            --shadow-hover: 0 8px 24px rgba(130, 120, 110, 0.1);
+            --shadow-dropdown: 0 16px 40px rgba(0, 0, 0, 0.1);
 
             --transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
         }
 
+        /* Dark Theme Variables */
+        [data-theme="dark"] {
+            --bg-page: #161413;
+            --surface-white: #201D1C;
+            --surface-grey: #2A2624;
+            --text-dark: #F5EFEA;
+            --text-grey: #A6A09C;
+            --border-light: #36322F;
+            --brand-sage-bg: #222C25;
+            --brand-sage-light: #2B3A2F;
+            --shadow-card: 0 12px 32px rgba(0, 0, 0, 0.2);
+            --shadow-hover: 0 8px 24px rgba(0, 0, 0, 0.4);
+            --shadow-dropdown: 0 16px 40px rgba(0, 0, 0, 0.5);
+        }
+
         /* ==========================================================================
-           2. LAYOUT FIGMA (1194x834 EXACT)
+           2. LAYOUT DE BASE
            ========================================================================== */
         * {
             box-sizing: border-box;
@@ -68,18 +76,19 @@
 
         body {
             font-family: 'Outfit', sans-serif;
-            background: var(--bg-base);
-            color: var(--text-main);
+            background: var(--bg-page);
+            color: var(--text-dark);
             width: 1194px;
             height: 834px;
             overflow: hidden;
             display: flex;
-            padding: var(--gap-24);
-            gap: var(--gap-24);
+            padding: var(--gap-32);
+            gap: var(--gap-32);
             margin: 0 auto;
+            transition: background 0.4s ease, color 0.4s ease;
         }
 
-        /* Flexbox Core Classes */
+        /* Flex Utilities */
         .v-stack {
             display: flex;
             flex-direction: column;
@@ -121,34 +130,39 @@
             align-items: flex-end;
         }
 
-        .align-baseline {
-            align-items: baseline;
-        }
-
-        /* Typography - Strict Line Heights */
+        /* Typography */
         .t-hero {
-            font-size: 28px;
+            font-size: 32px;
             font-weight: 600;
             letter-spacing: -0.02em;
             line-height: 1.2;
+            color: var(--text-dark);
+            transition: color 0.3s;
         }
 
         .t-h2 {
-            font-size: 16px;
+            font-size: 18px;
             font-weight: 600;
             line-height: 1.2;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-dark);
+            transition: color 0.3s;
         }
 
         .t-body {
-            font-size: 14px;
+            font-size: 15px;
             font-weight: 600;
             line-height: 1.4;
+            color: var(--text-dark);
+            transition: color 0.3s;
         }
 
         .t-sub {
-            font-size: 13px;
-            color: var(--text-dim);
-            font-weight: 500;
+            font-size: 14px;
+            color: var(--text-grey);
+            font-weight: 400;
             line-height: 1.4;
         }
 
@@ -157,154 +171,182 @@
             font-size: 13px;
             font-weight: 600;
             line-height: 1.2;
-            transition: var(--transition);
         }
 
         .data-huge {
-            font-size: 44px;
+            font-size: 48px;
             font-weight: 400;
             line-height: 1;
-            letter-spacing: -0.04em;
+            letter-spacing: -0.02em;
+            color: var(--text-dark);
             transition: var(--transition);
         }
 
         .data-unit {
-            font-size: 18px;
-            font-weight: 600;
-            color: var(--text-dim);
+            font-size: 16px;
+            font-weight: 500;
+            color: var(--text-grey);
+        }
+
+        .data-update {
+            animation: pop 0.4s ease;
+        }
+
+        @keyframes pop {
+            0% {
+                transform: scale(0.95);
+                opacity: 0.5;
+            }
+
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
         }
 
         /* ==========================================================================
-           3. DOCK (NAVIGATION) - Corrigé selon Image 2
+           3. DOCK
            ========================================================================== */
         .dock {
             width: 80px;
-            background: var(--surface-1);
-            border: 1px solid var(--border-soft);
+            background: var(--surface-white);
+            border: 1px solid var(--border-light);
             border-radius: var(--rad-pill);
-            padding: var(--gap-24) 0;
-            box-shadow: var(--shadow-float);
-            gap: var(--gap-24);
+            padding: var(--gap-32) 0;
+            box-shadow: var(--shadow-card);
+            gap: var(--gap-32);
             z-index: 10;
+            transition: var(--transition);
         }
 
         .dock-icon {
             width: 52px;
             height: 52px;
             border-radius: var(--rad-pill);
-            font-size: 22px;
-            color: var(--text-dim);
+            font-size: 20px;
+            color: var(--text-grey);
+            display: flex;
+            align-items: center;
+            justify-content: center;
             cursor: pointer;
             transition: var(--transition);
         }
 
-        .dock-icon.active {
-            background: var(--text-main);
-            color: var(--surface-1);
+        .dock-icon:hover:not(.active) {
+            background: var(--surface-grey);
+            color: var(--text-dark);
         }
 
-        .dock-icon:hover:not(.active) {
-            background: var(--surface-2);
-            color: var(--text-main);
+        .dock-icon.active {
+            background: var(--text-dark);
+            color: var(--surface-white);
         }
 
         /* ==========================================================================
            4. MAIN CONTENT & BENTO GRID
            ========================================================================== */
         .main-content {
-            gap: var(--gap-20);
+            gap: var(--gap-24);
         }
 
-        /* Time Filter */
         .time-filter {
-            background: var(--surface-1);
-            padding: 4px;
+            background: var(--surface-white);
+            padding: 6px;
             border-radius: var(--rad-pill);
-            border: 1px solid var(--border-soft);
-            box-shadow: var(--shadow-float);
+            border: 1px solid var(--border-light);
             gap: 4px;
+            box-shadow: var(--shadow-card);
+            transition: var(--transition);
         }
 
         .filter-btn {
-            padding: 8px 24px;
+            padding: 10px 24px;
             border-radius: var(--rad-pill);
-            font-size: 13px;
+            font-size: 14px;
             font-weight: 600;
-            color: var(--text-dim);
+            color: var(--text-grey);
             cursor: pointer;
             transition: var(--transition);
         }
 
+        .filter-btn:hover:not(.active) {
+            color: var(--text-dark);
+        }
+
         .filter-btn.active {
-            background: var(--text-main);
-            color: var(--surface-1);
+            background: var(--text-dark);
+            color: var(--surface-white);
         }
 
         .bento-grid {
             display: grid;
-            grid-template-columns: 1.1fr 1.3fr 1fr;
-            grid-template-rows: 1.2fr 1fr;
-            gap: var(--gap-20);
+            grid-template-columns: 1.1fr 1.8fr;
+            grid-template-rows: 1.15fr 1fr;
+            gap: var(--gap-24);
             flex: 1;
             min-height: 0;
         }
 
         .card {
-            background: var(--surface-1);
-            border: 1px solid var(--border-soft);
+            background: var(--surface-white);
+            border: 1px solid var(--border-light);
             border-radius: var(--rad-lg);
             padding: var(--gap-24);
-            box-shadow: var(--shadow-float);
-            position: relative;
+            box-shadow: var(--shadow-card);
             display: flex;
             flex-direction: column;
             justify-content: space-between;
+            transition: var(--transition);
         }
 
         /* ==========================================================================
-           5. INTERACTIVE COMPONENTS
+           5. INTERACTIVE DROPDOWN (LES 3 POINTS)
            ========================================================================== */
-
-        /* Dropdown Menu */
         .dropdown-container {
             position: relative;
         }
 
         .ellipsis-btn {
-            color: var(--text-dim);
+            color: var(--text-grey);
             width: 32px;
             height: 32px;
             border-radius: 50%;
-            cursor: pointer;
-            transition: 0.2s;
-            font-size: 18px;
             display: flex;
             align-items: center;
             justify-content: center;
+            font-size: 18px;
+            cursor: pointer;
+            transition: var(--transition);
         }
 
-        .ellipsis-btn:hover {
-            background: var(--surface-2);
-            color: var(--text-main);
+        .ellipsis-btn:hover,
+        .ellipsis-btn.active {
+            background: var(--surface-grey);
+            color: var(--text-dark);
         }
 
         .dropdown-menu {
             position: absolute;
-            top: calc(100% + 4px);
+            top: calc(100% + 8px);
             right: 0;
-            width: 220px;
-            background: var(--surface-1);
-            border: 1px solid var(--border-soft);
+            background: var(--surface-white);
+            border: 1px solid var(--border-light);
             border-radius: var(--rad-md);
-            box-shadow: var(--shadow-tooltip);
             padding: var(--gap-8);
+            box-shadow: var(--shadow-dropdown);
             z-index: 100;
+            display: flex;
+            flex-direction: column;
+            gap: var(--gap-4);
+            min-width: 220px;
+            /* Animation d'apparition */
             opacity: 0;
             pointer-events: none;
-            transform: translateY(-8px);
+            transform: translateY(-10px);
             transition: var(--transition);
         }
 
+        /* État Actif */
         .dropdown-menu.active {
             opacity: 1;
             pointer-events: all;
@@ -313,188 +355,187 @@
 
         .dropdown-item {
             padding: var(--gap-12) var(--gap-16);
-            gap: var(--gap-12);
             border-radius: var(--rad-sm);
-            font-size: 13px;
+            font-size: 14px;
             font-weight: 500;
+            color: var(--text-dark);
+            display: flex;
+            align-items: center;
+            gap: var(--gap-12);
             cursor: pointer;
             transition: 0.2s;
         }
 
+        .dropdown-item i {
+            color: var(--text-grey);
+            font-size: 14px;
+            width: 16px;
+            text-align: center;
+            transition: 0.2s;
+        }
+
         .dropdown-item:hover {
-            background: var(--surface-2);
+            background: var(--surface-grey);
             color: var(--brand-sage);
         }
 
-        /* Badges */
+        .dropdown-item:hover i {
+            color: var(--brand-sage);
+        }
+
+        .dropdown-divider {
+            height: 1px;
+            background: var(--border-light);
+            margin: var(--gap-4) 0;
+        }
+
+        /* ==========================================================================
+           6. COMPOSANTS INTERNES
+           ========================================================================== */
         .trend-badge {
             padding: 6px 12px;
             border-radius: var(--rad-pill);
-            font-size: 12px;
+            font-size: 13px;
             font-weight: 700;
             gap: var(--gap-4);
             transition: var(--transition);
-            border: 1px solid transparent;
         }
 
         .trend-badge.good {
-            background: var(--brand-sage-bg);
+            background: var(--brand-sage-light);
             color: var(--brand-sage);
         }
 
         .trend-badge.bad {
-            background: var(--brand-terra-bg);
+            background: rgba(192, 108, 90, 0.15);
             color: var(--brand-terra);
         }
 
-        /* Cost Box - Corrigé pour le prix */
         .cost-box {
-            background: var(--surface-2);
-            border: 1px solid var(--border-soft);
+            background: var(--surface-grey);
+            border: 1px solid var(--border-light);
             border-radius: var(--rad-md);
-            padding: var(--gap-16);
-            gap: var(--gap-12);
+            padding: var(--gap-16) var(--gap-20);
+            gap: var(--gap-16);
             transition: var(--transition);
         }
 
-        .price-huge {
-            font-family: 'Outfit', sans-serif;
+        .price-text {
             font-size: 32px;
-            font-weight: 400;
-            color: var(--text-main);
-            line-height: 1;
-        }
-
-        .price-symbol {
-            font-size: 20px;
             font-weight: 500;
-            color: var(--text-main);
+            color: var(--text-dark);
+            line-height: 1;
+            transition: color 0.3s;
         }
 
-        /* Progress & Budget Bars */
         .progress-track {
-            height: 6px;
-            background: var(--surface-2);
-            border-radius: 6px;
+            height: 8px;
+            background: var(--surface-grey);
+            border-radius: 8px;
             overflow: hidden;
             width: 100%;
-            border: 1px solid var(--border-soft);
-            position: relative;
+            border: 1px solid var(--border-light);
+            transition: var(--transition);
         }
 
         .progress-fill {
             height: 100%;
-            border-radius: 6px;
-            transition: width 1s cubic-bezier(0.25, 1, 0.5, 1), background 0.5s;
+            border-radius: 8px;
+            transition: width 0.8s cubic-bezier(0.25, 1, 0.5, 1), background 0.4s;
         }
 
-        .budget-limit {
-            position: absolute;
-            height: 100%;
-            width: 2px;
-            background: var(--brand-terra);
-            left: 85%;
-            top: 0;
-            z-index: 2;
-        }
-
-        /* Interactive Bar Chart - Corrigé (Barres pleines, ancrées en bas) */
         .chart-col {
-            gap: var(--gap-8);
+            gap: var(--gap-12);
+            flex: 1;
+            height: 100%;
+            justify-content: flex-end;
+            align-items: center;
             position: relative;
         }
 
         .bar-bg {
-            width: 32px;
-            background: transparent;
-            border: 1px solid var(--border-soft);
-            border-radius: 6px;
-            cursor: pointer;
-            overflow: hidden;
+            width: 36px;
+            background: var(--surface-white);
+            border: 1px solid var(--border-light);
+            border-radius: var(--rad-sm);
             display: flex;
             align-items: flex-end;
             padding: 2px;
+            height: 100%;
+            transition: var(--transition);
+            cursor: pointer;
         }
 
         .bar-fill {
             width: 100%;
-            background: var(--brand-sage);
-            border-radius: 4px;
-            transition: height 0.8s cubic-bezier(0.25, 1, 0.5, 1), filter 0.2s;
+            border-radius: 6px;
+            transition: height 0.8s cubic-bezier(0.25, 1, 0.5, 1), background-color 0.5s ease;
         }
 
-        .bar-bg:hover .bar-fill {
-            filter: brightness(1.1);
+        .bar-bg:hover {
+            border-color: var(--text-grey);
+            transform: translateY(-2px);
         }
 
-        .bar-bg:hover+.chart-label+.tooltip {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .chart-label {
-            font-size: 12px;
-            color: var(--text-dim);
-            font-weight: 500;
-            font-family: 'JetBrains Mono';
-            text-align: center;
-        }
-
-        .tooltip {
+        .chart-tooltip {
             position: absolute;
-            top: -36px;
-            left: 50%;
-            transform: translateX(-50%) translateY(10px);
-            background: var(--text-main);
-            color: var(--surface-1);
-            padding: 6px 10px;
-            border-radius: var(--rad-sm);
+            top: -30px;
+            background: var(--text-dark);
+            color: var(--bg-page);
+            padding: 4px 8px;
+            border-radius: 6px;
             font-size: 12px;
             font-weight: 600;
-            pointer-events: none;
             opacity: 0;
-            transition: var(--transition);
-            box-shadow: var(--shadow-tooltip);
+            transition: 0.2s;
+            pointer-events: none;
             white-space: nowrap;
-            z-index: 10;
             font-family: 'JetBrains Mono';
         }
 
-        /* Segmented Control (Tabs) */
+        .bar-bg:hover+.chart-label+.chart-tooltip {
+            opacity: 1;
+            transform: translateY(-5px);
+        }
+
         .segmented-control {
-            background: var(--surface-2);
+            background: var(--surface-grey);
             padding: 4px;
             border-radius: var(--rad-pill);
-            border: 1px solid var(--border-soft);
+            border: 1px solid var(--border-light);
             gap: 4px;
+            transition: var(--transition);
         }
 
         .segment-btn {
-            padding: 8px 16px;
+            padding: 12px 24px;
             border-radius: var(--rad-pill);
-            font-size: 13px;
+            font-size: 14px;
             font-weight: 600;
-            color: var(--text-dim);
+            color: var(--text-grey);
             cursor: pointer;
-            transition: var(--transition);
             text-align: center;
             flex: 1;
+            transition: var(--transition);
         }
 
         .segment-btn.active {
-            background: var(--surface-1);
-            color: var(--text-main);
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-            border: 1px solid var(--border-soft);
+            background: var(--surface-white);
+            color: var(--text-dark);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+            border: 1px solid var(--border-light);
         }
 
-        .tab-content {
+        .list-container {
             display: none;
+            flex-direction: column;
+            justify-content: space-between;
+            flex: 1;
+            animation: fadeIn 0.3s ease;
         }
 
-        .tab-content.active {
+        .list-container.active {
             display: flex;
-            animation: fadeIn 0.4s;
         }
 
         @keyframes fadeIn {
@@ -509,59 +550,62 @@
             }
         }
 
-        /* Lists */
         .list-row {
-            background: var(--surface-2);
-            padding: var(--gap-12) var(--gap-16);
+            background: var(--surface-white);
+            padding: var(--gap-12) var(--gap-20);
             border-radius: var(--rad-md);
-            border: 1px solid var(--border-soft);
-            transition: 0.2s;
+            border: 1px solid var(--border-light);
+            transition: var(--transition);
             cursor: pointer;
         }
 
         .list-row:hover {
             border-color: var(--brand-sage);
             transform: translateX(4px);
-            background: var(--surface-1);
+            box-shadow: var(--shadow-hover);
         }
 
         .icon-box {
-            width: 32px;
-            height: 32px;
+            width: 36px;
+            height: 36px;
             border-radius: var(--rad-sm);
-            background: var(--surface-1);
+            background: var(--surface-grey);
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+            transition: var(--transition);
         }
 
-        /* IA Box */
-        .ai-glass-box {
-            background: var(--surface-1);
-            padding: var(--gap-16);
+        .ia-card {
+            background: var(--brand-sage-bg);
+            border-color: transparent;
+        }
+
+        .ia-glass-box {
+            background: var(--surface-white);
+            padding: var(--gap-20);
             border-radius: var(--rad-md);
-            border: 1px solid rgba(122, 144, 124, 0.2);
-            gap: var(--gap-8);
+            transition: var(--transition);
+            border: 1px solid rgba(125, 144, 130, 0.2);
         }
 
         .btn-ia {
             background: var(--brand-sage);
-            color: var(--surface-1);
-            padding: var(--gap-12) var(--gap-24);
+            color: #FFFFFF;
+            padding: var(--gap-16);
             border-radius: var(--rad-pill);
             font-weight: 600;
-            font-size: 14px;
+            font-size: 15px;
             cursor: pointer;
-            transition: 0.2s;
             text-align: center;
             border: none;
+            transition: var(--transition);
         }
 
         .btn-ia:hover {
             filter: brightness(1.1);
             transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(122, 144, 124, 0.2);
+            box-shadow: 0 8px 16px rgba(125, 144, 130, 0.3);
         }
     </style>
 </head>
@@ -569,9 +613,14 @@
 <body>
 
     <nav class="v-stack dock">
-        <div class="h-stack dock-icon justify-center"><i class="fa-solid fa-house"></i></div>
-        <div class="h-stack dock-icon justify-center active"><i class="fa-solid fa-chart-pie"></i></div>
-        <div class="h-stack dock-icon justify-center"><i class="fa-solid fa-shield-halved"></i></div>
+        <div class="h-stack dock-icon justify-center" onclick="setDock(this)"><i class="fa-solid fa-house"></i></div>
+        <div class="h-stack dock-icon justify-center active" onclick="setDock(this)"><i
+                class="fa-solid fa-chart-pie"></i></div>
+        <div class="h-stack dock-icon justify-center" onclick="setDock(this)"><i class="fa-solid fa-shield-halved"></i>
+        </div>
+        <div class="flex-1"></div>
+        <div class="h-stack dock-icon justify-center" onclick="toggleTheme()" title="Mode Nuit"><i
+                class="fa-solid fa-moon" id="themeIcon"></i></div>
     </nav>
 
     <main class="v-stack flex-1 main-content">
@@ -579,9 +628,8 @@
         <header class="h-stack justify-between w-full">
             <div class="v-stack" style="gap: var(--gap-4);">
                 <h1 class="t-hero">Synthèse Analytique</h1>
-                <p class="t-sub" id="headerSub">Performances et données énergétiques.</p>
+                <p class="t-sub" id="headerSubtitle">Performances énergétiques du jour.</p>
             </div>
-
             <div class="h-stack time-filter">
                 <div class="filter-btn active" onclick="setPeriod('jour', this)">Jour</div>
                 <div class="filter-btn" onclick="setPeriod('semaine', this)">Semaine</div>
@@ -592,33 +640,44 @@
         <div class="bento-grid">
 
             <div class="card">
-                <div class="v-stack w-full" style="gap: var(--gap-20);">
+                <div class="v-stack w-full" style="gap: var(--gap-16);">
                     <div class="h-stack justify-between w-full">
-                        <h2 class="t-h2"><i class="fa-solid fa-bolt" style="color: var(--text-dim);"></i> Consommation
+                        <h2 class="t-h2"><i class="fa-solid fa-bolt" style="color: var(--text-grey);"></i> Consommation
                             globale</h2>
 
                         <div class="dropdown-container">
-                            <div class="h-stack ellipsis-btn justify-center" onclick="toggleMenu('consoMenu', event)"><i
-                                    class="fa-solid fa-ellipsis"></i></div>
-                            <div class="v-stack dropdown-menu" id="consoMenu" style="gap: var(--gap-4);">
-                                <div class="h-stack dropdown-item"><i class="fa-solid fa-pen"></i> Éditer le budget
-                                    cible</div>
-                                <div class="h-stack dropdown-item"><i class="fa-solid fa-file-contract"></i> Modifier le
-                                    contrat</div>
-                                <div style="height: 1px; background: var(--border-soft);"></div>
-                                <div class="h-stack dropdown-item"><i class="fa-solid fa-download"></i> Exporter les
-                                    données</div>
+                            <div class="h-stack ellipsis-btn" onclick="toggleMenu(event, 'consoDropdown')">
+                                <i class="fa-solid fa-ellipsis"></i>
+                            </div>
+
+                            <div class="dropdown-menu" id="consoDropdown">
+                                <div class="dropdown-item" onclick="alert('Paramètres du budget')">
+                                    <i class="fa-solid fa-pen"></i> Modifier le budget
+                                </div>
+                                <div class="dropdown-item" onclick="alert('Accès au contrat Tarif Bleu')">
+                                    <i class="fa-solid fa-file-contract"></i> Mon contrat d'énergie
+                                </div>
+                                <div class="dropdown-item" onclick="alert('Création d\'une alerte de surconsommation')">
+                                    <i class="fa-solid fa-bell"></i> Créer une alerte
+                                </div>
+                                <div class="dropdown-divider"></div>
+                                <div class="dropdown-item" onclick="alert('Exportation CSV/PDF en cours...')">
+                                    <i class="fa-solid fa-download"></i> Exporter les données
+                                </div>
                             </div>
                         </div>
                     </div>
 
                     <div class="h-stack justify-between align-end w-full">
-                        <div class="h-stack align-baseline" style="gap: var(--gap-8);">
-                            <span class="data-huge" id="valKwh">12.4</span>
-                            <span class="data-unit">kWh</span>
+                        <div class="v-stack" style="gap: var(--gap-4);">
+                            <span class="t-sub" id="periodLabel">Aujourd'hui</span>
+                            <div class="h-stack align-baseline" style="gap: var(--gap-8);">
+                                <span class="data-huge" id="valConso">12.4</span>
+                                <span class="data-unit">kWh</span>
+                            </div>
                         </div>
-                        <div class="h-stack trend-badge good" id="trendKwh" style="margin-bottom: 4px;">
-                            <i class="fa-solid fa-arrow-trend-down" id="trendIcon"></i> <span id="trendVal">-15%</span>
+                        <div class="h-stack trend-badge good" id="trendBadge" style="margin-bottom: 6px;">
+                            <i class="fa-solid fa-arrow-trend-down" id="trendIcon"></i> <span id="valTrend">-15%</span>
                         </div>
                     </div>
                 </div>
@@ -627,132 +686,125 @@
                     <div class="h-stack justify-between cost-box w-full">
                         <div class="v-stack" style="gap: var(--gap-4);">
                             <span class="t-body">Coût estimé</span>
-                            <span class="t-sub"><i class="fa-solid fa-tag"
+                            <span class="t-sub" style="font-size: 13px;"><i class="fa-solid fa-tag"
                                     style="margin-right: 4px; font-size: 10px;"></i>Tarif Bleu • 0.25€/kWh</span>
                         </div>
-                        <div class="h-stack align-baseline" style="gap: var(--gap-4);">
-                            <span class="price-huge" id="valEur">2.85</span>
+                        <div class="v-stack align-end" style="gap: var(--gap-4);">
+                            <span class="price-text" id="valCost">2.85</span>
                             <span class="price-symbol">€</span>
                         </div>
                     </div>
 
                     <div class="v-stack w-full" style="gap: var(--gap-8);">
                         <div class="h-stack justify-between w-full">
-                            <span class="t-body">Budget suivi (90€)</span>
-                            <span class="t-mono" id="budgetPct" style="color: var(--text-dim);">24%</span>
+                            <span class="t-body">Budget suivi (<span id="budgetMax">90</span>€)</span>
+                            <span class="t-mono" style="color: var(--text-grey);" id="valBudgetPct">24%</span>
                         </div>
                         <div class="progress-track w-full">
-                            <div class="budget-limit" title="Limite 85%"></div>
-                            <div class="progress-fill" id="budgetFill"
-                                style="background: var(--brand-sage); width: 24%;"></div>
+                            <div class="progress-fill" id="barBudget"
+                                style="width: 24%; background: var(--brand-sage);"></div>
                         </div>
                         <div class="h-stack justify-between w-full">
-                            <span class="t-sub">Reste avant dépassement</span>
-                            <span class="t-mono" id="budgetRem">87.15 €</span>
+                            <span class="t-sub" style="font-size: 12px;">Reste avant dépassement</span>
+                            <span class="t-body" style="font-size: 13px;" id="valBudgetRem">87.15 €</span>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="card" style="grid-column: span 2;">
-                <div class="h-stack justify-between w-full">
-                    <div class="v-stack" style="gap: var(--gap-4);">
-                        <h2 class="t-h2"><i class="fa-solid fa-chart-column" style="color: var(--text-dim);"></i>
-                            Historique d'activité</h2>
-                        <span class="t-sub" id="graphSubtitle">Comparé à la période précédente</span>
-                    </div>
+            <div class="card">
+                <div class="v-stack w-full" style="gap: var(--gap-4);">
+                    <h2 class="t-h2"><i class="fa-solid fa-chart-column" style="color: var(--text-grey);"></i>
+                        Historique d'activité</h2>
+                    <span class="t-sub" id="graphLabel">Comparé à la période précédente</span>
                 </div>
-
-                <div class="h-stack flex-1 w-full justify-between align-end" id="mainChart"
-                    style="padding-top: var(--gap-24);">
+                <div class="h-stack flex-1 w-full justify-between align-end" id="chartContainer"
+                    style="padding-top: var(--gap-24); padding-bottom: var(--gap-8);">
                 </div>
             </div>
 
-            <div class="card" style="grid-column: span 2; gap: var(--gap-20);">
+            <div class="card" style="gap: var(--gap-24);">
                 <div class="h-stack segmented-control w-full">
-                    <div class="segment-btn active" onclick="switchTab('tabAppareils', this)">Top Appareils</div>
-                    <div class="segment-btn" onclick="switchTab('tabPieces', this)">Par Pièce</div>
+                    <div class="segment-btn" onclick="switchList('listAppareils', this)">Top Appareils</div>
+                    <div class="segment-btn active" onclick="switchList('listPieces', this)">Par Pièce</div>
                 </div>
 
-                <div class="v-stack tab-content active w-full flex-1 justify-center" id="tabAppareils"
-                    style="gap: var(--gap-20);">
-                    <div class="v-stack w-full" style="gap: var(--gap-8);">
-                        <div class="h-stack justify-between w-full"><span class="t-body">Chauffage (PAC)</span><span
-                                class="t-mono" id="app1">1 200 W</span></div>
-                        <div class="progress-track">
-                            <div class="progress-fill" id="fillApp1"
-                                style="background: var(--brand-terra); width: 75%;"></div>
-                        </div>
-                    </div>
-                    <div class="v-stack w-full" style="gap: var(--gap-8);">
-                        <div class="h-stack justify-between w-full"><span class="t-body">Chauffe-eau</span><span
-                                class="t-mono" id="app2">800 W</span></div>
-                        <div class="progress-track">
-                            <div class="progress-fill" id="fillApp2" style="background: var(--brand-warm); width: 45%;">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="v-stack w-full" style="gap: var(--gap-8);">
-                        <div class="h-stack justify-between w-full"><span class="t-body">Réfrigérateur</span><span
-                                class="t-mono" id="app3">150 W</span></div>
-                        <div class="progress-track">
-                            <div class="progress-fill" id="fillApp3" style="background: var(--brand-sage); width: 15%;">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="v-stack tab-content w-full flex-1 justify-center" id="tabPieces"
-                    style="gap: var(--gap-16);">
+                <div class="list-container active" id="listPieces">
                     <div class="h-stack justify-between list-row w-full">
                         <div class="h-stack" style="gap: var(--gap-16);">
                             <div class="h-stack icon-box justify-center"><i class="fa-solid fa-couch"
-                                    style="color: var(--brand-terra);"></i></div>
-                            <span class="t-body">Salon</span>
+                                    style="color: var(--brand-terra); font-size: 16px;"></i></div><span
+                                class="t-body">Salon</span>
                         </div>
-                        <span class="t-mono" id="piece1">45%</span>
+                        <span class="t-mono" style="color: var(--text-dark);">45%</span>
                     </div>
                     <div class="h-stack justify-between list-row w-full">
                         <div class="h-stack" style="gap: var(--gap-16);">
                             <div class="h-stack icon-box justify-center"><i class="fa-solid fa-kitchen-set"
-                                    style="color: var(--brand-warm);"></i></div>
-                            <span class="t-body">Cuisine</span>
+                                    style="color: var(--brand-amber); font-size: 16px;"></i></div><span
+                                class="t-body">Cuisine</span>
                         </div>
-                        <span class="t-mono" id="piece2">35%</span>
+                        <span class="t-mono" style="color: var(--text-dark);">35%</span>
                     </div>
                     <div class="h-stack justify-between list-row w-full">
                         <div class="h-stack" style="gap: var(--gap-16);">
                             <div class="h-stack icon-box justify-center"><i class="fa-solid fa-bed"
-                                    style="color: var(--brand-sage);"></i></div>
-                            <span class="t-body">Chambre</span>
+                                    style="color: var(--brand-sage); font-size: 16px;"></i></div><span
+                                class="t-body">Chambre</span>
                         </div>
-                        <span class="t-mono" id="piece3">20%</span>
+                        <span class="t-mono" style="color: var(--text-dark);">20%</span>
+                    </div>
+                </div>
+
+                <div class="list-container" id="listAppareils">
+                    <div class="h-stack justify-between list-row w-full">
+                        <div class="h-stack" style="gap: var(--gap-16);">
+                            <div class="h-stack icon-box justify-center"><i class="fa-solid fa-temperature-arrow-up"
+                                    style="color: var(--brand-terra); font-size: 16px;"></i></div><span
+                                class="t-body">PAC (Chauffage)</span>
+                        </div>
+                        <span class="t-mono" style="color: var(--text-dark);">1 200 W</span>
+                    </div>
+                    <div class="h-stack justify-between list-row w-full">
+                        <div class="h-stack" style="gap: var(--gap-16);">
+                            <div class="h-stack icon-box justify-center"><i class="fa-solid fa-shower"
+                                    style="color: var(--brand-amber); font-size: 16px;"></i></div><span
+                                class="t-body">Chauffe-eau</span>
+                        </div>
+                        <span class="t-mono" style="color: var(--text-dark);">800 W</span>
+                    </div>
+                    <div class="h-stack justify-between list-row w-full">
+                        <div class="h-stack" style="gap: var(--gap-16);">
+                            <div class="h-stack icon-box justify-center"><i class="fa-solid fa-snowflake"
+                                    style="color: var(--brand-sage); font-size: 16px;"></i></div><span
+                                class="t-body">Réfrigérateur</span>
+                        </div>
+                        <span class="t-mono" style="color: var(--text-dark);">150 W</span>
                     </div>
                 </div>
             </div>
 
-            <div class="card" style="background: var(--brand-sage-bg); border-color: transparent;">
-                <div class="h-stack justify-between w-full">
-                    <h2 class="t-h2" style="color: var(--brand-sage);"><i class="fa-solid fa-sparkles"
-                            style="color: var(--brand-sage);"></i> L'aide de l'IA</h2>
-                </div>
-
-                <div class="v-stack flex-1 justify-between w-full">
-                    <div class="v-stack" style="gap: var(--gap-8);">
+            <div class="card ia-card">
+                <div class="v-stack w-full" style="gap: var(--gap-8);">
+                    <h2 class="t-h2" style="color: var(--brand-sage);"><i class="fa-solid fa-sparkles"></i> L'aide de
+                        l'IA</h2>
+                    <div class="v-stack w-full" style="gap: var(--gap-8); margin-top: 16px;">
                         <div class="h-stack align-baseline" style="gap: var(--gap-8);">
-                            <span class="data-huge" style="color: var(--brand-sage);" id="valEco">2.4</span>
+                            <span class="data-huge" style="color: var(--brand-sage);" id="valIa">2.4</span>
                             <span class="price-symbol" style="color: var(--brand-sage);">€</span>
                         </div>
                         <span class="t-body" style="color: var(--brand-sage);">Économisés pour vous</span>
                     </div>
+                </div>
 
-                    <div class="v-stack ai-glass-box w-full">
-                        <span class="t-sub" style="color: var(--text-main);" id="iaText">Baisse du chauffage (Salon)
-                            suite à une inactivité prolongée.</span>
+                <div class="v-stack w-full" style="gap: var(--gap-20);">
+                    <div class="v-stack ia-glass-box w-full">
+                        <span class="t-sub" style="color: var(--text-dark); line-height: 1.5;" id="textIa">Baisse du
+                            chauffage (Salon) suite à une inactivité prolongée.</span>
                     </div>
-
-                    <button class="btn-ia w-full" onclick="alert('Ouverture de l\'historique détaillé...')">Voir tout
-                        l'historique</button>
+                    <button class="h-stack justify-center w-full btn-ia" onclick="alert('Historique IA ouvert')">
+                        Voir tout l'historique
+                    </button>
                 </div>
             </div>
 
@@ -760,115 +812,163 @@
     </main>
 
     <script>
-        // --- DATA STORE ---
-        const data = {
+        // 1. LOGIQUE DU MENU DROPDOWN (LES 3 POINTS)
+        function toggleMenu(event, menuId) {
+            event.stopPropagation(); // Empêche le clic de fermer le menu immédiatement
+
+            const menu = document.getElementById(menuId);
+            const btn = event.currentTarget;
+            const isActive = menu.classList.contains('active');
+
+            // Fermer tous les menus existants
+            document.querySelectorAll('.dropdown-menu').forEach(m => m.classList.remove('active'));
+            document.querySelectorAll('.ellipsis-btn').forEach(b => b.classList.remove('active'));
+
+            // Si le menu cliqué n'était pas actif, on l'ouvre
+            if (!isActive) {
+                menu.classList.add('active');
+                btn.classList.add('active');
+            }
+        }
+
+        // Fermer le menu si on clique n'importe où ailleurs sur la page
+        document.addEventListener('click', (event) => {
+            document.querySelectorAll('.dropdown-menu').forEach(menu => {
+                if (menu.classList.contains('active') && !menu.parentElement.contains(event.target)) {
+                    menu.classList.remove('active');
+                    menu.parentElement.querySelector('.ellipsis-btn').classList.remove('active');
+                }
+            });
+        });
+
+        // 2. DONNÉES DU DASHBOARD
+        const dashboardData = {
             jour: {
-                kwh: "12.4", eur: "2.85", eco: "2.4", pct: 24, remain: "87.15",
-                trend: "-15%", trendClass: "good", trendIcon: "fa-arrow-trend-down",
-                graph: [
-                    { label: "00h", val: 10, k: "0.4" }, { label: "04h", val: 15, k: "0.6" }, { label: "08h", val: 60, k: "2.5" },
-                    { label: "12h", val: 40, k: "1.8" }, { label: "16h", val: 45, k: "1.9" }, { label: "20h", val: 80, k: "3.2" }, { label: "24h", val: 50, k: "2.1" }
-                ],
-                app1: "1 200 W", app2: "800 W", app3: "150 W", f1: 75, f2: 45, f3: 15,
-                p1: "45%", p2: "35%", p3: "20%",
-                iaTxt: "Baisse du chauffage (Salon) suite à une inactivité prolongée."
+                label: "Aujourd'hui", subtitle: "Performances énergétiques du jour.",
+                conso: "12.4", trend: "-15%", trendState: "good",
+                cost: "2.85", budgetMax: "90", budgetPct: 24, budgetRem: "87.15",
+                iaEco: "2.4", iaText: "Baisse du chauffage (Salon) suite à une inactivité prolongée.",
+                chart: [
+                    { label: "00h", val: 30 }, { label: "04h", val: 10 }, { label: "08h", val: 60 },
+                    { label: "12h", val: 45 }, { label: "16h", val: 40 }, { label: "20h", val: 85 }, { label: "24h", val: 50 }
+                ]
             },
             semaine: {
-                kwh: "86.2", eur: "19.40", eco: "14.5", pct: 45, remain: "70.60",
-                trend: "+5%", trendClass: "bad", trendIcon: "fa-arrow-trend-up",
-                graph: [
-                    { label: "LUN", val: 40, k: "12.4" }, { label: "MAR", val: 55, k: "14.2" }, { label: "MER", val: 50, k: "13.1" },
-                    { label: "JEU", val: 90, k: "18.5" }, { label: "VEN", val: 65, k: "15.0" }, { label: "SAM", val: 80, k: "17.2" }, { label: "DIM", val: 35, k: "10.4" }
-                ],
-                app1: "42 kWh", app2: "28 kWh", app3: "10 kWh", f1: 85, f2: 60, f3: 20,
-                p1: "50%", p2: "30%", p3: "20%",
-                iaTxt: "Décalage du chauffe-eau sur les heures pleines solaires."
+                label: "Cette semaine", subtitle: "Performances sur les 7 derniers jours.",
+                conso: "86.2", trend: "-8%", trendState: "good",
+                cost: "19.80", budgetMax: "350", budgetPct: 55, budgetRem: "157.50",
+                iaEco: "14.5", iaText: "Décalage du chauffe-eau pour profiter du tarif creux solaire.",
+                chart: [
+                    { label: "LUN", val: 40 }, { label: "MAR", val: 65 }, { label: "MER", val: 35 },
+                    { label: "JEU", val: 80 }, { label: "VEN", val: 55 }, { label: "SAM", val: 90 }, { label: "DIM", val: 70 }
+                ]
             },
             mois: {
-                kwh: "345.8", eur: "78.50", eco: "34.0", pct: 87, remain: "11.50",
-                trend: "-8%", trendClass: "good", trendIcon: "fa-arrow-trend-down",
-                graph: [
-                    { label: "S1", val: 60, k: "82.4" }, { label: "S2", val: 80, k: "94.2" }, { label: "S3", val: 40, k: "65.1" },
-                    { label: "S4", val: 70, k: "88.5" }, { label: "J29", val: 10, k: "12.0" }, { label: "J30", val: 15, k: "14.2" }, { label: "J31", val: 0, k: "0.0" }
-                ],
-                app1: "180 kWh", app2: "115 kWh", app3: "45 kWh", f1: 90, f2: 70, f3: 30,
-                p1: "40%", p2: "40%", p3: "20%",
-                iaTxt: "Extinction automatique des lumières extérieures à minuit."
+                label: "Ce mois", subtitle: "Bilan mensuel consolidé.",
+                conso: "345.8", trend: "+4%", trendState: "bad",
+                cost: "79.50", budgetMax: "90", budgetPct: 88, budgetRem: "10.50",
+                iaEco: "42.0", iaText: "Optimisation de la batterie domestique face aux pics réseau.",
+                chart: [
+                    { label: "S1", val: 60 }, { label: "S2", val: 75 }, { label: "S3", val: 50 },
+                    { label: "S4", val: 85 }, { label: "J29", val: 15 }, { label: "J30", val: 30 }, { label: "J31", val: 10 }
+                ]
             }
         };
 
-        // --- LOGIC FUNCTIONS ---
-        function setPeriod(period, btnElement) {
-            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
-            btnElement.classList.add('active');
-            const d = data[period];
+        // 3. FONCTIONS GLOBALES DU DASHBOARD
+        function setPeriod(period, btn) {
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
 
-            document.getElementById('valKwh').innerText = d.kwh;
-            document.getElementById('valEur').innerText = d.eur;
-            document.getElementById('valEco').innerText = d.eco;
-            document.getElementById('iaText').innerText = d.iaTxt;
+            const d = dashboardData[period];
 
-            const tb = document.getElementById('trendKwh');
-            tb.className = `h-stack trend-badge ${d.trendClass}`;
-            document.getElementById('trendVal').innerText = d.trend;
-            document.getElementById('trendIcon').className = `fa-solid ${d.trendIcon}`;
+            const textElements = ['valConso', 'valCost', 'valIa'];
+            textElements.forEach(id => {
+                let el = document.getElementById(id);
+                el.classList.remove('data-update');
+                void el.offsetWidth;
+                el.classList.add('data-update');
+            });
 
-            const bf = document.getElementById('budgetFill');
-            bf.style.width = `${d.pct}%`;
-            document.getElementById('budgetPct').innerText = `${d.pct}%`;
-            document.getElementById('budgetRem').innerText = `${d.remain} €`;
-            bf.style.background = d.pct >= 85 ? 'var(--brand-terra)' : 'var(--brand-sage)';
+            document.getElementById('headerSubtitle').innerText = d.subtitle;
+            document.getElementById('periodLabel').innerText = d.label;
+            document.getElementById('valConso').innerText = d.conso;
+            document.getElementById('valCost').innerText = d.cost;
 
-            document.getElementById('app1').innerText = d.app1; document.getElementById('fillApp1').style.width = d.f1 + '%';
-            document.getElementById('app2').innerText = d.app2; document.getElementById('fillApp2').style.width = d.f2 + '%';
-            document.getElementById('app3').innerText = d.app3; document.getElementById('fillApp3').style.width = d.f3 + '%';
-            document.getElementById('piece1').innerText = d.p1;
-            document.getElementById('piece2').innerText = d.p2;
-            document.getElementById('piece3').innerText = d.p3;
+            const trendBadge = document.getElementById('trendBadge');
+            trendBadge.className = `h-stack trend-badge ${d.trendState}`;
+            document.getElementById('valTrend').innerText = d.trend;
+            document.getElementById('trendIcon').className = d.trendState === 'good' ? "fa-solid fa-arrow-trend-down" : "fa-solid fa-arrow-trend-up";
 
-            renderGraph(d.graph);
+            document.getElementById('budgetMax').innerText = d.budgetMax;
+            document.getElementById('valBudgetPct').innerText = d.budgetPct + "%";
+            document.getElementById('valBudgetRem').innerText = d.budgetRem + " €";
+
+            const barBudget = document.getElementById('barBudget');
+            barBudget.style.width = d.budgetPct + "%";
+            barBudget.style.background = d.budgetPct > 85 ? "var(--brand-terra)" : "var(--brand-sage)";
+
+            document.getElementById('valIa').innerText = d.iaEco;
+            document.getElementById('textIa').innerText = d.iaText;
+
+            renderChart(d.chart);
         }
 
-        function renderGraph(graphData) {
-            const container = document.getElementById('mainChart');
+        function renderChart(chartData) {
+            const container = document.getElementById('chartContainer');
             container.innerHTML = '';
-            graphData.forEach(item => {
+
+            chartData.forEach(item => {
                 let color = 'var(--brand-sage)';
-                if (item.val > 75) color = 'var(--brand-terra)';
-                else if (item.val > 45) color = 'var(--brand-warm)';
+                if (item.val >= 80) color = 'var(--brand-terra)';
+                else if (item.val >= 60) color = 'var(--brand-amber)';
 
                 container.innerHTML += `
-                    <div class="v-stack chart-col h-full">
-                        <div class="tooltip">${item.k} kWh</div>
-                        <div class="h-stack justify-center bar-bg h-full">
-                            <div class="bar-fill" style="height: ${item.val}%; background: ${color};"></div>
+                    <div class="v-stack chart-col">
+                        <div class="bar-bg">
+                            <div class="bar-fill" style="height: 0%; background: ${color};"></div>
                         </div>
-                        <span class="chart-label">${item.label}</span>
+                        <span class="chart-label t-mono" style="color: var(--text-grey); font-size: 12px;">${item.label}</span>
+                        <div class="chart-tooltip">${item.val} kWh</div>
                     </div>
                 `;
             });
+
+            setTimeout(() => {
+                const bars = container.querySelectorAll('.bar-fill');
+                bars.forEach((bar, index) => {
+                    bar.style.height = chartData[index].val + '%';
+                });
+            }, 50);
         }
 
-        // --- UI INTERACTIONS ---
-        function toggleMenu(id, event) {
-            event.stopPropagation();
-            const menu = document.getElementById(id);
-            document.querySelectorAll('.dropdown-menu').forEach(m => { if (m.id !== id) m.classList.remove('active'); });
-            menu.classList.toggle('active');
-        }
-        document.addEventListener('click', function (e) {
-            if (!e.target.closest('.dropdown-container')) document.querySelectorAll('.dropdown-menu').forEach(m => m.classList.remove('active'));
-        });
+        function switchList(listId, btn) {
+            document.querySelectorAll('.segment-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
 
-        function switchTab(tabId, btnElement) {
-            document.querySelectorAll('.segment-btn').forEach(btn => btn.classList.remove('active'));
-            btnElement.classList.add('active');
-            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
-            document.getElementById(tabId).classList.add('active');
+            document.querySelectorAll('.list-container').forEach(l => l.classList.remove('active'));
+            document.getElementById(listId).classList.add('active');
         }
 
-        // Init
-        renderGraph(data.jour.graph);
+        function setDock(btn) {
+            document.querySelectorAll('.dock-icon').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+        }
+
+        function toggleTheme() {
+            const body = document.body;
+            const icon = document.getElementById('themeIcon');
+
+            if (body.getAttribute('data-theme') === 'dark') {
+                body.removeAttribute('data-theme');
+                icon.className = 'fa-solid fa-moon';
+            } else {
+                body.setAttribute('data-theme', 'dark');
+                icon.className = 'fa-solid fa-sun';
+            }
+        }
+
+        renderChart(dashboardData.jour.chart);
     </script>
 </body>
 
