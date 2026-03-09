@@ -4,28 +4,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CASE STUDY | Nova Banking — Design Radical</title>
+    <title>ANTO. | Designer Digital & Graphiste 360°</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Manrope:wght@600;700;800&family=Unbounded:wght@700;900&family=Space+Mono:wght@400;700&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&family=Unbounded:wght@700;800;900&family=Space+Mono:wght@400;700&display=swap"
         rel="stylesheet">
 
     <style>
+        /* ==========================================================================
+           1. DESIGN SYSTEM (RÈGLE 60/30/10)
+           ========================================================================== */
         :root {
-            --bg: #F4F4F2;
-            --blue: #1A43FF;
-            --lime: #CCFF00;
-            --dark: #0A0A0A;
-            --white: #FFFFFF;
+            /* 60% DOMINANTE - Respiration et fond de page */
+            --bg-main: #F4F5F6;
+            --bg-card: #FFFFFF;
+
+            /* 30% SECONDAIRE - Typo majeure, actions et focus visuel */
+            --brand-blue: #0A3CFF;
+
+            /* 10% ACCENTS - Éléments de rupture, structure et énergie */
+            --text-dark: #0A0A0A;
+            --accent-lime: #CCFF00;
+
+            /* Typographies */
             --font-display: 'Unbounded', sans-serif;
-            --font-main: 'Manrope', sans-serif;
+            --font-body: 'Manrope', sans-serif;
             --font-mono: 'Space Mono', monospace;
-            --ease: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+            /* Utilitaires */
+            --ease: cubic-bezier(0.25, 1, 0.5, 1);
+            --border-std: 2.5px solid var(--text-dark);
         }
 
-        /* --- SYSTÈME ANTI-BUG --- */
+        /* ==========================================================================
+           2. ANTI-BUG SYSTEM & RESET
+           ========================================================================== */
         * {
             margin: 0;
             padding: 0;
@@ -33,42 +48,56 @@
             cursor: none;
         }
 
-        html {
+        html,
+        body {
+            max-width: 100vw;
+            overflow-x: clip;
             scroll-behavior: smooth;
-            overflow-x: hidden;
-            width: 100%;
         }
 
         body {
-            background-color: var(--bg);
-            color: var(--dark);
-            font-family: var(--font-main);
-            overflow-x: hidden;
-            width: 100%;
+            background-color: var(--bg-main);
+            color: var(--text-dark);
+            font-family: var(--font-body);
             -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
 
-        .container {
-            max-width: 1440px;
-            margin: 0 auto;
-            padding: 0 4vw;
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
         }
 
         p {
-            line-height: 1.7;
-            font-size: 19px;
+            line-height: 1.6;
+            font-size: 18px;
             font-weight: 600;
-            color: rgba(10, 10, 10, 0.85);
+            color: rgba(10, 10, 10, 0.8);
         }
 
-        /* --- CURSEUR --- */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 5vw;
+            width: 100%;
+        }
+
+        /* ==========================================================================
+           3. CURSEUR CUSTOM
+           ========================================================================== */
         #cursor-dot {
             position: fixed;
             top: 0;
             left: 0;
             width: 8px;
             height: 8px;
-            background: var(--blue);
+            background: var(--brand-blue);
             border-radius: 50%;
             transform: translate(-50%, -50%);
             z-index: 10001;
@@ -81,263 +110,643 @@
             left: 0;
             width: 40px;
             height: 40px;
-            border: 2px solid var(--blue);
+            border: 2px solid var(--brand-blue);
             border-radius: 50%;
             transform: translate(-50%, -50%);
             z-index: 10000;
             pointer-events: none;
-            transition: transform 0.12s ease-out;
+            transition: width 0.3s var(--ease), height 0.3s var(--ease), background 0.3s var(--ease);
         }
 
         body.hovering #cursor-follower {
             width: 80px;
             height: 80px;
-            background: var(--blue);
+            background: rgba(10, 60, 255, 0.1);
             border-color: transparent;
-            mix-blend-mode: difference;
         }
 
-        /* --- NAVIGATION --- */
+        /* ==========================================================================
+           4. NAVIGATION (HEADER)
+           ========================================================================== */
         header {
             position: fixed;
-            top: 24px;
+            top: 30px;
             left: 0;
             width: 100%;
-            z-index: 9000;
             display: flex;
             justify-content: center;
+            z-index: 9000;
             pointer-events: none;
         }
 
         .nav-pill {
             pointer-events: auto;
-            background: var(--white);
-            padding: 8px 12px 8px 32px;
+            background: var(--bg-card);
+            padding: 8px 8px 8px 32px;
             border-radius: 50px;
             display: flex;
-            gap: 32px;
             align-items: center;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
-            border: 2px solid var(--dark);
+            gap: 40px;
+            border: 2px solid transparent;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.06);
+            transition: 0.3s var(--ease);
+        }
+
+        .nav-pill:hover {
+            transform: translateY(-3px);
+            border-color: rgba(10, 60, 255, 0.2);
         }
 
         .logo {
             font-family: var(--font-display);
             font-weight: 900;
-            color: var(--blue);
-            font-size: 14px;
+            color: var(--brand-blue);
+            font-size: 16px;
+            letter-spacing: -0.5px;
         }
 
         .nav-links {
             display: flex;
-            gap: 24px;
-            font-weight: 700;
+            gap: 30px;
+            font-weight: 800;
             font-size: 11px;
             text-transform: uppercase;
         }
 
-        /* --- HERO --- */
-        .project-hero {
-            padding: 220px 0 100px;
-            border-bottom: 3px solid var(--dark);
-        }
-
-        .hero-meta {
-            font-family: var(--font-mono);
-            font-size: 12px;
-            color: var(--blue);
-            font-weight: 700;
-            margin-bottom: 24px;
-            display: block;
-        }
-
-        .massive-title {
-            font-family: var(--font-display);
-            font-weight: 900;
-            font-size: clamp(3rem, 12vw, 170px);
-            line-height: 0.8;
-            letter-spacing: -8px;
-            text-transform: uppercase;
-        }
-
-        .massive-title span {
-            color: var(--blue);
-        }
-
-        /* --- SPECS --- */
-        .specs-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            border: 3px solid var(--dark);
-            background: var(--white);
-            border-radius: 32px;
-            margin: -50px 0 100px;
-            box-shadow: 15px 15px 0 var(--dark);
-        }
-
-        .spec-item {
-            padding: 40px;
-            border-right: 3px solid var(--dark);
-        }
-
-        .spec-item:last-child {
-            border-right: none;
-        }
-
-        .spec-label {
-            font-family: var(--font-display);
-            font-size: 10px;
-            color: var(--blue);
-            text-transform: uppercase;
-            margin-bottom: 15px;
-            display: block;
-            opacity: 0.5;
-        }
-
-        .spec-value {
-            font-weight: 800;
-            font-size: 15px;
-            text-transform: uppercase;
-        }
-
-        /* --- SECTION NARRATIVE --- */
-        .section-split {
-            display: grid;
-            grid-template-columns: 1fr 1.2fr;
-            gap: 80px;
-            padding: 120px 0;
-            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-        }
-
-        .sticky-side {
-            position: sticky;
-            top: 120px;
-            height: fit-content;
-        }
-
-        .side-label {
-            font-family: var(--font-mono);
-            font-size: 12px;
-            color: var(--blue);
-            margin-bottom: 20px;
-            display: block;
-        }
-
-        .side-h {
-            font-family: var(--font-display);
-            font-size: 48px;
-            text-transform: uppercase;
-            line-height: 0.9;
-            margin-bottom: 40px;
-        }
-
-        .content-body h4 {
-            font-family: var(--font-display);
-            font-size: 14px;
-            text-transform: uppercase;
-            color: var(--blue);
-            margin-bottom: 20px;
-        }
-
-        .content-body p {
-            margin-bottom: 30px;
-        }
-
-        /* --- GRID ANALYSIS (L'EFFET COOL) --- */
-        .grid-analysis {
+        .nav-links a {
             position: relative;
-            width: 100%;
-            border-radius: 40px;
-            border: 4px solid var(--dark);
-            overflow: hidden;
-            margin: 80px 0;
+            transition: color 0.3s;
         }
 
-        .grid-analysis img {
-            width: 100%;
-            display: block;
-            transition: 0.6s var(--ease);
+        .nav-links a:hover {
+            color: var(--brand-blue);
         }
 
-        .grid-analysis:hover img {
-            transform: scale(1.02);
+        .btn-primary {
+            background: var(--brand-blue);
+            color: var(--bg-card);
+            padding: 14px 30px;
+            border-radius: 50px;
+            font-family: var(--font-display);
+            font-weight: 800;
+            font-size: 11px;
+            text-transform: uppercase;
+            transition: all 0.3s var(--ease);
         }
 
-        .grid-lines {
+        .btn-primary:hover {
+            background: var(--text-dark);
+            transform: scale(1.05);
+        }
+
+        /* ==========================================================================
+           5. HERO SECTION
+           ========================================================================== */
+        .hero {
+            min-height: 90vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            text-align: center;
+            padding-top: 100px;
+            padding-bottom: 60px;
+        }
+
+        .hero-title {
+            font-family: var(--font-display);
+            font-size: clamp(4rem, 14vw, 200px);
+            font-weight: 900;
+            color: var(--brand-blue);
+            text-transform: uppercase;
+            line-height: 0.85;
+            letter-spacing: -0.04em;
+            margin-bottom: 25px;
+            z-index: 2;
+            position: relative;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1.2rem, 3vw, 40px);
+            font-weight: 800;
+            text-transform: uppercase;
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            z-index: 2;
+            position: relative;
+        }
+
+        .highlight-box {
+            background: var(--brand-blue);
+            color: var(--bg-card);
+            padding: 5px 20px;
+            border-radius: 8px;
+        }
+
+        .hero-desc {
+            font-size: 18px;
+            font-weight: 600;
+            line-height: 1.5;
+            max-width: 600px;
+            color: rgba(10, 10, 10, 0.7);
+            z-index: 2;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .hero-badges-wrapper {
             position: absolute;
             inset: 0;
-            background-image: linear-gradient(to right, rgba(26, 67, 255, 0.1) 1px, transparent 1px);
-            background-size: calc(100% / 12) 100%;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .float-badge {
+            position: absolute;
+            border: 2px solid var(--brand-blue);
+            color: var(--brand-blue);
+            background: var(--bg-main);
+            padding: 10px 24px;
+            border-radius: 50px;
+            font-family: var(--font-display);
+            font-size: 10px;
+            font-weight: 800;
+            text-transform: uppercase;
+            animation: float 6s ease-in-out infinite;
+            pointer-events: auto;
+            box-shadow: 4px 4px 0 rgba(10, 60, 255, 0.05);
+        }
+
+        .fb-1 {
+            top: 25%;
+            left: 12%;
+            transform: rotate(-8deg);
+            animation-delay: 0s;
+        }
+
+        .fb-2 {
+            top: 20%;
+            right: 15%;
+            transform: rotate(12deg);
+            animation-delay: -2s;
+        }
+
+        .fb-3 {
+            bottom: 20%;
+            left: 18%;
+            transform: rotate(6deg);
+            animation-delay: -4s;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0) rotate(var(--rot, 0deg));
+            }
+
+            50% {
+                transform: translateY(-15px) rotate(var(--rot, 0deg));
+            }
+        }
+
+        .circle-text {
+            position: absolute;
+            bottom: 15%;
+            right: 15%;
+            width: 130px;
+            height: 130px;
+            animation: rotate 12s linear infinite;
             pointer-events: none;
         }
 
-        .tech-stamp {
-            position: absolute;
-            bottom: 30px;
-            right: 30px;
-            background: var(--lime);
-            color: var(--dark);
-            padding: 10px 20px;
-            border: 2px solid var(--dark);
-            font-family: var(--font-mono);
-            font-size: 10px;
+        @keyframes rotate {
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* ==========================================================================
+           6. MARQUEE & MANIFESTO 
+           ========================================================================== */
+        .marquee-wrapper {
+            background: var(--accent-lime);
+            border-top: var(--border-std);
+            border-bottom: var(--border-std);
+            padding: 20px 0;
+            overflow: hidden;
+            white-space: nowrap;
+            transform: rotate(-1deg);
+            width: 105vw;
+            margin-left: -2.5vw;
+            position: relative;
+            z-index: 10;
+        }
+
+        .marquee-content {
+            display: inline-block;
+            font-family: var(--font-display);
+            font-size: 26px;
             font-weight: 900;
+            text-transform: uppercase;
+            animation: marquee 25s linear infinite;
+            color: var(--text-dark);
+        }
+
+        @keyframes marquee {
+            0% {
+                transform: translateX(0);
+            }
+
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+
+        .manifesto-section {
+            background: var(--text-dark);
+            color: var(--bg-card);
+            padding: 120px 0;
+            margin-top: 80px;
+        }
+
+        .manifesto-text {
+            font-family: var(--font-display);
+            font-size: clamp(2rem, 4.5vw, 55px);
+            font-weight: 900;
+            text-transform: uppercase;
+            line-height: 1.2;
+            letter-spacing: -1px;
+            max-width: 1000px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .manifesto-text span {
+            color: var(--accent-lime);
+        }
+
+        /* ==========================================================================
+           7. EXPERTISE & APPROCHE 
+           ========================================================================== */
+        .section-padding {
+            padding: 140px 0;
+        }
+
+        .section-header {
+            margin-bottom: 60px;
+            text-align: center;
+        }
+
+        .section-title {
+            font-family: var(--font-display);
+            font-size: clamp(3rem, 7vw, 85px);
+            color: var(--brand-blue);
+            text-transform: uppercase;
+            line-height: 0.9;
+            margin-bottom: 20px;
+            letter-spacing: -2px;
+        }
+
+        .section-desc {
+            font-size: 18px;
+            font-weight: 600;
+            color: rgba(10, 10, 10, 0.8);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            border-top: var(--border-std);
+            border-bottom: var(--border-std);
+            margin-bottom: 100px;
+        }
+
+        .stat-item {
+            padding: 40px 20px;
+            border-right: var(--border-std);
+            text-align: center;
+        }
+
+        .stat-item:last-child {
+            border-right: none;
+        }
+
+        .stat-num {
+            font-family: var(--font-display);
+            font-size: clamp(2.5rem, 5vw, 64px);
+            color: var(--brand-blue);
+            font-weight: 900;
+            line-height: 1;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            font-weight: 800;
+            text-transform: uppercase;
+            opacity: 0.7;
+        }
+
+        .process-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+        }
+
+        .process-card {
+            background: var(--bg-card);
+            border: var(--border-std);
+            padding: 40px;
+            border-radius: 24px;
+            box-shadow: 8px 8px 0 rgba(0, 0, 0, 0.05);
+            transition: 0.3s;
+        }
+
+        .process-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 12px 12px 0 var(--brand-blue);
+            border-color: var(--brand-blue);
+        }
+
+        .p-icon {
+            font-family: var(--font-display);
+            font-size: 32px;
+            color: var(--accent-lime);
+            -webkit-text-stroke: 1.5px var(--text-dark);
+            display: block;
+            margin-bottom: 20px;
+        }
+
+        .process-card h4 {
+            font-family: var(--font-display);
+            font-size: 20px;
+            text-transform: uppercase;
+            margin-bottom: 15px;
+            line-height: 1.2;
+        }
+
+        .process-card p {
+            font-size: 15px;
+        }
+
+        /* ==========================================================================
+           8. ARSENAL (COMPÉTENCES ORIGINALES)
+           ========================================================================== */
+        .section-curtain {
+            position: relative;
+            z-index: 50;
+            background-color: var(--bg-main);
+        }
+
+        .skills-container {
+            background: var(--bg-card);
+            border: var(--border-std);
+            border-radius: 40px;
+            height: 650px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .bg-text {
+            position: absolute;
+            font-family: var(--font-display);
+            font-size: clamp(8rem, 25vw, 350px);
+            font-weight: 900;
+            color: #F5F5F5;
+            line-height: 0.75;
+            text-align: center;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .skill-badge {
+            position: absolute;
+            border: var(--border-std);
+            font-family: var(--font-display);
+            font-weight: 900;
+            text-transform: uppercase;
+            box-shadow: 6px 6px 0 var(--text-dark);
+            transition: all 0.3s var(--ease);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            z-index: 2;
+        }
+
+        .skill-badge:hover {
+            transform: scale(1.1) rotate(0deg) !important;
+            z-index: 20;
+            box-shadow: 12px 12px 0 var(--brand-blue);
+            border-color: var(--brand-blue);
+        }
+
+        .sb-blue {
+            background: var(--brand-blue);
+            color: var(--bg-card);
+            padding: 18px 36px;
+            border-radius: 50px;
+            font-size: 18px;
+        }
+
+        .sb-dark {
+            background: var(--text-dark);
+            color: var(--bg-card);
+            padding: 18px 36px;
+            border-radius: 50px;
+            font-size: 18px;
+        }
+
+        .sb-lime {
+            background: var(--accent-lime);
+            color: var(--text-dark);
+            padding: 18px 36px;
+            border-radius: 50px;
+            font-size: 18px;
+        }
+
+        .sb-circle {
+            border-radius: 50%;
+            width: 160px;
+            height: 160px;
+            font-size: 20px;
+            line-height: 1.1;
+            padding: 0;
+        }
+
+        /* Positionnement Desktop */
+        .pos-ui {
+            top: 15%;
+            left: 10%;
+            transform: rotate(-5deg);
+        }
+
+        .pos-graph {
+            top: 20%;
+            left: 45%;
             transform: rotate(-3deg);
         }
 
-        /* --- GALLERY --- */
-        .gallery-wrap {
+        .pos-figma {
+            top: 40%;
+            left: 25%;
+        }
+
+        .pos-brand {
+            top: 30%;
+            right: 10%;
+            transform: rotate(8deg);
+        }
+
+        .pos-adobe {
+            top: 12%;
+            right: 5%;
+        }
+
+        .pos-dev {
+            bottom: 18%;
+            left: 12%;
+            transform: rotate(-4deg);
+        }
+
+        .info-card {
+            position: absolute;
+            bottom: 10%;
+            right: 10%;
+            background: var(--bg-card);
+            border: var(--border-std);
+            padding: 30px;
+            border-radius: 16px;
+            transform: rotate(-3deg);
+            box-shadow: 10px 10px 0 rgba(0, 0, 0, 0.1);
+            transition: 0.3s var(--ease);
+            z-index: 5;
+        }
+
+        .info-card:hover {
+            transform: scale(1.05) rotate(0deg);
+            box-shadow: 15px 15px 0 var(--brand-blue);
+            border-color: var(--brand-blue);
+        }
+
+        .info-card .top-text {
+            font-size: 11px;
+            font-weight: 800;
+            text-transform: uppercase;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .info-card .dot {
+            color: var(--accent-lime);
+            font-size: 16px;
+        }
+
+        .info-card h4 {
+            font-family: var(--font-display);
+            font-size: 22px;
+            color: var(--brand-blue);
+            text-transform: uppercase;
+            margin: 10px 0;
+            line-height: 1;
+        }
+
+        .info-card .bot-text {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            opacity: 0.8;
+        }
+
+        .btn-center {
+            display: flex;
+            justify-content: center;
+            margin-top: 60px;
+        }
+
+        .btn-dark {
+            background: var(--text-dark);
+            color: var(--bg-card);
+            padding: 18px 45px;
+            border-radius: 50px;
+            font-family: var(--font-display);
+            font-weight: 800;
+            font-size: 13px;
+            text-transform: uppercase;
+            transition: all 0.3s var(--ease);
+            border: 2px solid transparent;
+        }
+
+        .btn-dark:hover {
+            background: var(--brand-blue);
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(10, 60, 255, 0.3);
+        }
+
+        /* ==========================================================================
+           9. FOOTER 
+           ========================================================================== */
+        footer {
+            background: var(--text-dark);
+            color: var(--bg-card);
+            padding: 140px 0 40px;
+            border-radius: 60px 60px 0 0;
             display: flex;
             flex-direction: column;
-            gap: 40px;
-            margin-bottom: 120px;
+            justify-content: space-between;
         }
 
-        .g-card {
-            border-radius: 40px;
-            border: 4px solid var(--dark);
-            overflow: hidden;
-            position: relative;
-            background: #eee;
-        }
-
-        .g-card img {
-            width: 100%;
-            height: auto;
-            display: block;
-            transition: 0.6s var(--ease);
-        }
-
-        .g-card:hover img {
-            transform: scale(1.02);
-        }
-
-        /* --- FOOTER NEXT --- */
-        .next-wrap {
-            background: var(--blue);
-            color: var(--white);
-            padding: 150px 0;
-            border-radius: 80px 80px 0 0;
-            text-align: center;
-            text-decoration: none;
-            display: block;
-            transition: 0.4s var(--ease);
-        }
-
-        .next-wrap:hover {
-            background: var(--lime);
-            color: var(--dark);
-        }
-
-        .next-h {
+        .footer-title {
             font-family: var(--font-display);
-            font-size: clamp(3rem, 10vw, 140px);
+            font-size: clamp(3.5rem, 15vw, 240px);
+            font-weight: 900;
             text-transform: uppercase;
             letter-spacing: -6px;
+            text-align: center;
+            margin-bottom: 120px;
             line-height: 0.8;
+            transition: color 0.4s var(--ease);
         }
 
-        /* REVEAL */
+        .footer-title:hover {
+            color: var(--accent-lime);
+        }
+
+        .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 11px;
+            font-weight: 800;
+            text-transform: uppercase;
+            border-top: 1px solid rgba(255, 255, 255, 0.15);
+            padding-top: 40px;
+            opacity: 0.8;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 40px;
+        }
+
+        .footer-links a:hover {
+            color: var(--brand-blue);
+        }
+
+        /* ANIMATIONS REVEAL */
         .reveal {
             opacity: 0;
             transform: translateY(40px);
@@ -349,27 +758,93 @@
             transform: translateY(0);
         }
 
+        /* ==========================================================================
+           10. RESPONSIVE
+           ========================================================================== */
         @media (max-width: 1024px) {
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+                border-bottom: none;
+            }
 
-            .specs-grid,
-            .section-split {
+            .stat-item {
+                border-bottom: var(--border-std);
+            }
+
+            .stat-item:nth-child(2) {
+                border-right: none;
+            }
+
+            .process-grid {
                 grid-template-columns: 1fr;
                 gap: 40px;
             }
 
-            .spec-item {
-                border-right: none;
-                border-bottom: 3px solid var(--dark);
+            .skills-container {
+                height: auto;
+                padding: 60px 20px;
+                flex-direction: column;
+                gap: 20px;
             }
 
-            .sticky-side {
+            .bg-text,
+            .hero-badges-wrapper,
+            .circle-text {
+                display: none;
+            }
+
+            .skill-badge,
+            .info-card {
                 position: relative;
-                top: 0;
+                top: auto !important;
+                left: auto !important;
+                right: auto !important;
+                bottom: auto !important;
+                transform: none !important;
+                width: 100%;
+                max-width: 350px;
             }
 
-            .massive-title {
-                font-size: 4rem;
-                letter-spacing: -3px;
+            .sb-circle {
+                width: 100%;
+                border-radius: 50px;
+                height: auto;
+                padding: 18px;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                gap: 30px;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            #cursor-dot,
+            #cursor-follower {
+                display: none;
+            }
+
+            .section-padding {
+                padding: 80px 0;
+            }
+
+            .manifesto-section {
+                padding: 80px 4vw;
+                margin-top: 40px;
+                border-radius: 20px;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stat-item {
+                border-right: none;
             }
         }
     </style>
@@ -382,140 +857,212 @@
 
     <header>
         <div class="nav-pill">
-            <div class="logo">DA.</div>
+            <div class="logo">ANTO.</div>
             <nav class="nav-links">
-                <a href="index.html" class="it">Home</a>
-                <a href="archives.html" class="it">Archives</a>
-                <a href="a-propos.html" class="it">Individu</a>
+                <a href="#" class="interact">ACCUEIL</a>
+                <a href="#propos" class="interact">A PROPOS</a>
             </nav>
-            <a href="mailto:hello@design.fr" class="btn-hire it">UN PROJET ?</a>
+            <a href="mailto:hello@anto.fr" class="btn-primary interact">ME CONTACTER</a>
         </div>
     </header>
 
-    <main class="container">
+    <main>
+        <section class="hero container reveal">
+            <div class="hero-badges-wrapper">
+                <div class="float-badge fb-1 interact">✦ DIRECTION ARTISTIQUE</div>
+                <div class="float-badge fb-2 interact">✦ GRAPHISME 360°</div>
+                <div class="float-badge fb-3 interact">✦ DESIGN UI / UX</div>
+                <svg class="circle-text" viewBox="0 0 100 100">
+                    <path id="circlePath" d="M 50, 50 m -37, 0 a 37,37 0 1,1 74,0 a 37,37 0 1,1 -74,0"
+                        fill="transparent" />
+                    <text font-family="var(--font-display)" font-weight="900" font-size="10" fill="var(--brand-blue)">
+                        <textPath xlink:href="#circlePath">+ RECHERCHE ALTERNANCE 2026 +</textPath>
+                    </text>
+                </svg>
+            </div>
 
-        <section class="project-hero">
-            <span class="hero-meta reveal">ARCHIVE_LOG // 2026_NOVA_BANKING</span>
-            <h1 class="massive-title reveal">FINTECH<span>_</span><br>LIFESTYLE</h1>
+            <h1 class="hero-title">CRÉATIF</h1>
+            <div class="hero-subtitle">
+                DESIGNER <span class="highlight-box">DIGITAL</span> & GRAPHISTE
+            </div>
+            <p class="hero-desc">
+                Mon terrain de jeu : de la feuille blanche à l'écran interactif. Je donne vie à des identités visuelles
+                et des expériences digitales qui marquent les esprits.
+            </p>
         </section>
 
-        <section class="specs-grid reveal">
-            <div class="spec-item"><span class="spec-label">CLIENT</span><span class="spec-value">Nova Startup</span>
+        <div class="marquee-wrapper reveal">
+            <div class="marquee-content">
+                IDENTITÉ VISUELLE ✦ UI/UX DESIGN ✦ ÉDITION & PRINT ✦ DIRECTION ARTISTIQUE ✦ IDENTITÉ VISUELLE ✦ UI/UX
+                DESIGN ✦ ÉDITION & PRINT ✦ DIRECTION ARTISTIQUE ✦
             </div>
-            <div class="spec-item"><span class="spec-label">SECTEUR</span><span class="spec-value">Fintech /
-                    Mobile</span></div>
-            <div class="spec-item"><span class="spec-label">RÔLE</span><span class="spec-value">Art Director</span>
-            </div>
-            <div class="spec-item"><span class="spec-label">DURÉE</span><span class="spec-value">12 Semaines</span>
-            </div>
-        </section>
-
-        <section class="section-split reveal">
-            <div class="sticky-side">
-                <span class="side-label">01 // CONTEXTE</span>
-                <h2 class="side-h">DÉCONSTRUIRE<br>LES CODES<span>.</span></h2>
-            </div>
-            <div class="content-body">
-                <h4>LA MISSION</h4>
-                <p>En 2026, la Génération Z ne cherche plus une banque, elle cherche un <strong>outil de contrôle
-                        esthétique</strong>. Nova m'a approché pour briser les codes austères de la Fintech
-                    traditionnelle. L'objectif : rendre la gestion de budget aussi addictive et désirable qu'un magazine
-                    de mode ou un jeu vidéo.</p>
-                <h4>LA STRATÉGIE VISUELLE</h4>
-                <p>Mon travail a consisté à injecter une énergie brute (le Brutalisme) dans une structure de donnée
-                    hyper-rigoureuse. J'ai utilisé des contrastes massifs et une typographie imposante pour créer un
-                    sentiment de puissance et de sécurité immédiat.</p>
-                <p>Chaque action — virement, épargne, investissement — a été pensée comme un moment de récompense
-                    visuelle, transformant une corvée administrative en une expérience gratifiante.</p>
-            </div>
-        </section>
-
-        <div class="grid-analysis reveal">
-            <div class="grid-lines"></div>
-            <div class="tech-stamp">STRUCTURE: 12_COLUMNS // PIXEL_PRECISION: 100%</div>
-            <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2000" alt="Nova Architecture">
         </div>
 
-        <section class="section-split reveal">
-            <div class="sticky-side">
-                <span class="side-label">02 // MÉTHODE</span>
-                <h2 class="side-h">DU BLUEPRINT<br>AU PIXEL<span>_</span></h2>
-            </div>
-            <div class="content-body">
-                <h4>UX RESEARCH & MAPPING</h4>
-                <p>Le projet a débuté par un audit profond des comportements financiers des 18-25 ans. Le constat est
-                    sans appel : <strong>l'anxiété est le premier frein</strong>. Ma réponse a été de simplifier
-                    l'architecture de l'information pour qu'elle soit "scanable" en moins de 2 secondes.</p>
-                <h4>CRÉATION RADICALE</h4>
-                <p>J'ai développé une identité basée sur le bleu électrique Nova (#1A43FF). Ce choix n'est pas seulement
-                    esthétique : il garantit une lisibilité maximale sous toutes les conditions de luminosité mobile et
-                    affirme le caractère technologique du produit.</p>
-                <p>L'ensemble de l'interface a été conçu pour être <strong>"No-Code Ready"</strong>, permettant une
-                    transition fluide entre la maquette Figma et l'intégration finale sans perte de détails visuels.</p>
+        <section class="manifesto-section reveal">
+            <div class="container">
+                <h2 class="manifesto-text">
+                    Je ne fais pas juste de "belles images". Je conçois des <span>univers visuels</span>, du print au
+                    digital.
+                </h2>
             </div>
         </section>
 
-        <div class="gallery-wrap">
-            <div class="g-card reveal">
-                <img src="https://images.unsplash.com/photo-1563986768609-322da13575f3?q=80&w=2000" alt="Detail View 1">
+        <section class="section-padding container">
+            <div class="section-header reveal">
+                <h2 class="section-title">MON APPROCHE_</h2>
+                <p class="section-desc">Polyvalent par nature, j'applique la même rigueur stratégique que ce soit pour
+                    une application mobile ou pour l'impression d'un magazine.</p>
             </div>
 
-            <div style="display:grid; grid-template-columns:1fr 1fr; gap:40px;">
-                <div class="g-card reveal"><img
-                        src="https://images.unsplash.com/photo-1586717791821-3f44a563eb4c?q=80&w=1200"></div>
-                <div class="g-card reveal" style="transition-delay:0.2s;"><img
-                        src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1200"></div>
+            <div class="stats-grid reveal">
+                <div class="stat-item">
+                    <span class="stat-num">03</span>
+                    <span class="stat-label">Années de passion</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-num">15+</span>
+                    <span class="stat-label">Projets (Fictifs & Pros)</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-num">360°</span>
+                    <span class="stat-label">Vision Créative</span>
+                </div>
+                <div class="stat-item" style="border-right: none;">
+                    <span class="stat-num">∞</span>
+                    <span class="stat-label">Nuits sur la Suite Adobe</span>
+                </div>
             </div>
 
-            <div class="g-card reveal">
-                <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2000" alt="Detail View 2">
+            <div class="process-grid reveal">
+                <div class="process-card interact">
+                    <span class="p-icon">01</span>
+                    <h4>Concept & Stratégie</h4>
+                    <p>Avant chaque tracé, j'analyse. Création de moodboards, positionnement de marque et architecture
+                        de l'information pour poser des fondations solides.</p>
+                </div>
+                <div class="process-card interact">
+                    <span class="p-icon">02</span>
+                    <h4>Identité & Print</h4>
+                    <p>Création de logos, typographies, chartes graphiques complètes, affiches et supports éditoriaux
+                        destinés à l'impression papier.</p>
+                </div>
+                <div class="process-card interact">
+                    <span class="p-icon">03</span>
+                    <h4>Design Digital & UI</h4>
+                    <p>Déclinaison de l'identité sur écrans. Création de wireframes, prototypage interactif sur Figma et
+                        intégration web fluide.</p>
+                </div>
             </div>
+        </section>
+
+
+        <div class="section-curtain">
+
+            <section id="propos" class="section-padding container">
+                <div class="section-header reveal">
+                    <h2 class="section-title">MON ARSENAL_</h2>
+                    <p class="section-desc">Les logiciels et disciplines que je manipule au quotidien pour donner vie à
+                        mes idées.</p>
+                </div>
+
+                <div class="skills-container reveal">
+                    <div class="bg-text">SKILLS<br>SKILLS</div>
+
+                    <div class="skill-badge sb-blue pos-ui interact">UI/UX DESIGN</div>
+                    <div class="skill-badge sb-dark pos-graph interact">GRAPHISME 360</div>
+                    <div class="skill-badge sb-lime sb-circle pos-figma interact">FIGMA<br>EXPERT</div>
+                    <div class="skill-badge sb-blue sb-circle pos-adobe interact">SUITE<br>ADOBE</div>
+                    <div class="skill-badge sb-lime pos-brand interact">BRANDING & PRINT</div>
+                    <div class="skill-badge sb-dark pos-dev interact">DIRECTION ARTISTIQUE</div>
+
+                    <div class="info-card interact">
+                        <span class="top-text"><span class="dot">●</span> RECHERCHE ALTERNANCE 2026</span>
+                        <h4>MASTER DESIGN.</h4>
+                        <span class="bot-text">ÉTUDIANT BASÉ À ANGERS (49)</span>
+                    </div>
+                </div>
+
+                <div class="btn-center reveal">
+                    <a href="#" class="btn-dark interact">TÉLÉCHARGER MON CV ✦</a>
+                </div>
             </section>
+
+            <footer>
+                <div class="container">
+                    <h2 class="footer-title interact">DISCUTONS.</h2>
+
+                    <div class="footer-bottom">
+                        <div>© 2026 — CRÉÉ AVEC PASSION</div>
+                        <div class="footer-links">
+                            <a href="#" class="interact">LINKEDIN</a>
+                            <a href="#" class="interact">BEHANCE</a>
+                            <a href="#" class="interact">INSTAGRAM</a>
+                        </div>
+                        <div>STATUT : RECHERCHE ALTERNANCE</div>
+                    </div>
+                </div>
+            </footer>
+        </div>
 
     </main>
 
-    <a href="archives.html" class="next-wrap it">
-        <div class="container">
-            <span
-                style="font-family:var(--font-mono); font-size:14px; text-transform:uppercase; margin-bottom:20px; display:block; color:var(--dark)">Projet
-                Suivant</span>
-            <h2 class="next-h">KOTO STUDIO</h2>
-        </div>
-    </a>
-
     <script>
         document.addEventListener("DOMContentLoaded", () => {
+
+            // 1. CURSEUR CUSTOM
             const isTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
 
-            // 1. CURSEUR DYNAMIQUE
             if (!isTouch) {
                 const dot = document.getElementById('cursor-dot');
                 const follow = document.getElementById('cursor-follower');
-                let mx = 0, my = 0, dx = 0, dy = 0, fx = 0, fy = 0;
-                document.addEventListener('mousemove', (e) => { mx = e.clientX; my = e.clientY; });
-                function anim() {
-                    dx += (mx - dx) * 0.5; dy += (my - dy) * 0.5;
-                    dot.style.left = dx + 'px'; dot.style.top = dy + 'px';
-                    fx += (mx - fx) * 0.2; fy += (my - fy) * 0.2;
-                    follow.style.left = fx + 'px'; follow.style.top = fy + 'px';
-                    requestAnimationFrame(anim);
+
+                let mouseX = 0, mouseY = 0;
+                let dotX = 0, dotY = 0;
+                let followX = 0, followY = 0;
+
+                document.addEventListener('mousemove', (e) => {
+                    mouseX = e.clientX;
+                    mouseY = e.clientY;
+                });
+
+                function animateCursor() {
+                    dotX += (mouseX - dotX) * 0.6;
+                    dotY += (mouseY - dotY) * 0.6;
+                    dot.style.left = dotX + 'px';
+                    dot.style.top = dotY + 'px';
+
+                    followX += (mouseX - followX) * 0.15;
+                    followY += (mouseY - followY) * 0.15;
+                    follow.style.left = followX + 'px';
+                    follow.style.top = followY + 'px';
+
+                    requestAnimationFrame(animateCursor);
                 }
-                anim();
-                document.querySelectorAll('.it').forEach(el => {
+                animateCursor();
+
+                document.querySelectorAll('a, button, .interact').forEach(el => {
                     el.addEventListener('mouseenter', () => document.body.classList.add('hovering'));
                     el.addEventListener('mouseleave', () => document.body.classList.remove('hovering'));
                 });
             }
 
-            // 2. REVEAL SCROLL ANIMATION
-            const observer = new IntersectionObserver((entries) => {
+            // 2. REVEAL ANIMATIONS (Scroll)
+            const revealOptions = {
+                threshold: 0.1,
+                rootMargin: "0px 0px -50px 0px"
+            };
+
+            const revealObserver = new IntersectionObserver((entries, observer) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
                         entry.target.classList.add('active');
                     }
                 });
-            }, { threshold: 0.1 });
-            document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+            }, revealOptions);
+
+            document.querySelectorAll('.reveal').forEach(el => {
+                revealObserver.observe(el);
+            });
         });
     </script>
 </body>
