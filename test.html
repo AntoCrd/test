@@ -4,104 +4,61 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LE STUDIO | Base de Données</title>
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <title>LE STUDIO | DOSSIER_COMPLET : BLADE_RUNNER_2019</title>
     <link
-        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Anton&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Mono:wght@400;700&family=Playfair+Display:ital,wght@0,400;1,400&display=swap"
         rel="stylesheet">
-
     <style>
         :root {
-            --bg: #020202;
+            --bg: #000000;
             --txt: #FFFFFF;
             --red: #FF0000;
-            --grid: rgba(255, 255, 255, 0.15);
-            --dim: rgba(255, 255, 255, 0.6);
+            --border: #1a1a1a;
+            --grid-line: rgba(255, 255, 255, 0.05);
+            --dim: rgba(255, 255, 255, 0.5);
         }
 
-        body,
-        html {
+        * {
             margin: 0;
             padding: 0;
-            width: 100%;
-            background-color: var(--bg);
-            color: var(--txt);
-            font-family: 'Space Mono', monospace;
-            overflow-x: hidden;
-            scroll-behavior: smooth;
+            box-sizing: border-box;
             cursor: crosshair;
         }
 
-        /* --- LE CADRE FIXE (HUD / VISEUR) --- */
-        .viewfinder {
+        body {
+            background-color: var(--bg);
+            color: var(--txt);
+            font-family: 'Space Mono', monospace;
+            line-height: 1.4;
+            background-image: linear-gradient(var(--grid-line) 1px, transparent 1px), linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+            background-size: 100px 100px;
+        }
+
+        /* --- HUD HEADER --- */
+        header {
             position: fixed;
-            top: 1.5vw;
-            left: 1.5vw;
-            width: 97vw;
-            height: 97vh;
-            border: 1px solid var(--grid);
-            box-sizing: border-box;
-            z-index: 9999;
-            pointer-events: none;
-            mix-blend-mode: difference;
-        }
-
-        .viewfinder::before,
-        .viewfinder::after {
-            content: '';
-            position: absolute;
-            background: var(--txt);
-        }
-
-        .viewfinder::before {
-            top: 50%;
-            left: -10px;
-            width: 20px;
-            height: 1px;
-        }
-
-        .viewfinder::after {
-            top: -10px;
-            left: 50%;
-            width: 1px;
-            height: 20px;
-        }
-
-        /* HEADER HUD */
-        .hud-top {
-            position: fixed;
-            top: 1.5vw;
-            left: 1.5vw;
-            width: 97vw;
+            top: 0;
+            width: 100%;
+            padding: 25px 50px;
             display: flex;
             justify-content: space-between;
-            padding: 20px;
-            box-sizing: border-box;
-            border-bottom: 1px solid var(--grid);
-            z-index: 10000;
-            mix-blend-mode: difference;
+            align-items: center;
+            border-bottom: 1px solid var(--border);
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 1000;
+            font-size: 10px;
+            letter-spacing: 3px;
         }
 
-        .hud-logo {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.5rem;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-        }
-
-        .hud-status {
+        .status-link {
             display: flex;
             align-items: center;
-            gap: 20px;
-            font-size: 0.8rem;
-            letter-spacing: 2px;
+            gap: 15px;
         }
 
         .rec-dot {
-            width: 10px;
-            height: 10px;
+            width: 8px;
+            height: 8px;
             background: var(--red);
             border-radius: 50%;
             animation: blink 1s infinite;
@@ -119,459 +76,440 @@
             }
         }
 
-        /* BRUIT STATIQUE LÉGER */
-        .grain {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            pointer-events: none;
-            z-index: 9000;
-            opacity: 0.05;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+        /* --- LAYOUT WRAPPER --- */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 150px 50px;
         }
 
-        /* --- LAYOUT DU CONTENU SCROLLABLE --- */
-        .content-wrapper {
-            position: relative;
-            z-index: 10;
-            padding: 100px 5vw 0 5vw;
-        }
-
-        section {
-            padding: 120px 0;
-            border-bottom: 1px dashed var(--grid);
-        }
-
-        .section-header {
-            font-size: 0.8rem;
-            color: var(--red);
-            letter-spacing: 4px;
-            text-transform: uppercase;
-            margin-bottom: 40px;
+        .label-red {
             display: inline-block;
             border: 1px solid var(--red);
+            color: var(--red);
             padding: 5px 15px;
-        }
-
-        /* TYPOGRAPHIES */
-        .t-huge {
-            font-family: 'Anton', sans-serif;
-            font-size: clamp(3rem, 8vw, 6rem);
-            line-height: 1;
+            font-size: 10px;
             text-transform: uppercase;
-            margin: 0;
-        }
-
-        .t-serif {
-            font-family: 'Playfair Display', serif;
-        }
-
-        .t-body {
-            font-size: 1rem;
-            color: var(--dim);
-            line-height: 1.6;
-        }
-
-        /* --- 1. SÉLECTEUR DE CAMÉRAS (HÉRO) --- */
-        .hero {
-            height: 85vh;
-            display: flex;
-            gap: 2vw;
-            padding-top: 5vh;
-            border-bottom: none;
-        }
-
-        .cam-viewer {
-            flex: 3;
-            position: relative;
-            border: 1px solid var(--grid);
-            overflow: hidden;
-            background: #050505;
-        }
-
-        .feed-img {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            filter: grayscale(100%) brightness(0.4);
-            opacity: 0;
-            transition: opacity 0.2s;
-        }
-
-        .feed-img.active {
-            opacity: 1;
-        }
-
-        .cam-controls {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .cam-btn {
-            padding: 20px;
-            border: 1px solid var(--grid);
-            background: transparent;
-            color: var(--dim);
-            text-align: left;
-            cursor: crosshair;
-            transition: all 0.3s;
-            font-family: 'Space Mono';
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .cam-btn:hover {
-            border-color: var(--txt);
-            color: var(--txt);
-        }
-
-        .cam-btn.active {
-            background: var(--txt);
-            color: var(--bg);
-            border-color: var(--txt);
-        }
-
-        .cam-num {
-            font-size: 1.5rem;
-            font-family: 'Anton';
-        }
-
-        /* OSD (On Screen Display) data sur l'image */
-        .osd-data {
-            position: absolute;
-            bottom: 30px;
-            left: 30px;
-            display: none;
-        }
-
-        .osd-data.active {
-            display: block;
-            animation: textGlitch 0.3s forwards;
-        }
-
-        @keyframes textGlitch {
-            0% {
-                opacity: 0;
-                transform: translateX(-10px);
-            }
-
-            100% {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        /* --- 2. MANIFESTE (RAPPORT) --- */
-        .manifesto-grid {
-            display: grid;
-            grid-template-columns: 1fr 2fr;
-            gap: 50px;
-        }
-
-        /* --- 3. ANATOMIE (MÉCANIQUE) --- */
-        .tech-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 30px;
-        }
-
-        .tech-card {
-            border: 1px solid var(--grid);
-            padding: 30px;
-            background: rgba(255, 255, 255, 0.02);
-        }
-
-        .tech-card h3 {
-            color: var(--red);
-            font-family: 'Anton';
-            font-size: 2rem;
-            margin: 0 0 15px 0;
-        }
-
-        /* --- 4. LE SCRIPT (MENU) --- */
-        .script-list {
-            display: flex;
-            flex-direction: column;
-            gap: 0;
-            border-top: 1px solid var(--grid);
-        }
-
-        .script-row {
-            display: grid;
-            grid-template-columns: 100px 1fr 2fr;
-            padding: 30px 0;
-            border-bottom: 1px solid var(--grid);
-            transition: background 0.3s;
-        }
-
-        .script-row:hover {
-            background: rgba(255, 255, 255, 0.05);
-            padding-left: 20px;
-        }
-
-        .s-act {
-            color: var(--red);
+            margin-bottom: 25px;
+            letter-spacing: 3px;
             font-weight: bold;
         }
 
-        .s-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.5rem;
-            margin: 0;
-        }
-
-        /* --- 5. PROTOCOLES (FAQ) --- */
-        .faq-grid {
+        /* --- HERO MISSION --- */
+        .mission-header {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 40px;
+            grid-template-columns: 1.8fr 1fr;
+            gap: 80px;
+            margin-bottom: 120px;
         }
 
-        .faq-item {
-            border-left: 2px solid var(--red);
-            padding-left: 20px;
-        }
-
-        .faq-item h4 {
-            margin: 0 0 10px 0;
-            font-size: 1.1rem;
+        .mission-header h1 {
+            font-family: 'Anton';
+            font-size: clamp(5rem, 15vw, 11rem);
+            line-height: 0.8;
             text-transform: uppercase;
         }
 
-        /* --- 6. CTA FINAL --- */
-        .terminal-cta {
-            text-align: center;
-            padding: 150px 0;
+        .mission-meta {
+            border-left: 1px solid var(--red);
+            padding-left: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
 
-        .btn-override {
-            font-family: 'Anton', sans-serif;
-            font-size: clamp(3rem, 8vw, 8rem);
-            color: transparent;
-            -webkit-text-stroke: 2px var(--txt);
-            text-decoration: none;
-            transition: all 0.3s;
-            cursor: crosshair;
+        .meta-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 15px 0;
+            border-bottom: 1px solid var(--border);
+            font-size: 12px;
         }
 
-        .btn-override:hover {
+        .meta-row span:first-child {
             color: var(--red);
-            -webkit-text-stroke: 0px;
-            text-shadow: 0 0 30px rgba(255, 0, 0, 0.5);
         }
 
-        /* Interactive element helper */
-        .interactive {
-            cursor: crosshair;
+        /* --- TELEMETRY --- */
+        .telemetry-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1px;
+            background: var(--border);
+            margin-bottom: 60px;
+            border: 1px solid var(--border);
+        }
+
+        .telemetry-card {
+            background: var(--bg);
+            padding: 40px 30px;
+        }
+
+        .telemetry-card h3 {
+            font-family: 'Anton';
+            font-size: 20px;
+            color: var(--red);
+            margin-bottom: 10px;
+            letter-spacing: 1px;
+        }
+
+        .telemetry-card .data-val {
+            font-family: 'Anton';
+            font-size: 40px;
+            line-height: 1;
+        }
+
+        /* --- SECTION VIDEO (NEW) --- */
+        .video-container {
+            width: 100%;
+            height: 60vh;
+            background: #050505;
+            border: 1px solid var(--border);
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 120px;
+        }
+
+        .video-overlay {
+            position: absolute;
+            inset: 0;
+            z-index: 10;
+            pointer-events: none;
+            border: 40px solid transparent;
+            background:
+                linear-gradient(to right, var(--red) 2px, transparent 2px) 0 0,
+                linear-gradient(to bottom, var(--red) 2px, transparent 2px) 0 0,
+                linear-gradient(to left, var(--red) 2px, transparent 2px) 100% 0,
+                linear-gradient(to bottom, var(--red) 2px, transparent 2px) 100% 0,
+                linear-gradient(to right, var(--red) 2px, transparent 2px) 0 100%,
+                linear-gradient(to top, var(--red) 2px, transparent 2px) 0 100%,
+                linear-gradient(to left, var(--red) 2px, transparent 2px) 100% 100%,
+                linear-gradient(to top, var(--red) 2px, transparent 2px) 100% 100%;
+            background-repeat: no-repeat;
+            background-size: 20px 20px;
+            opacity: 0.5;
+        }
+
+        .video-hud {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: 9px;
+            color: var(--red);
+            z-index: 11;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: grayscale(1) brightness(0.6) contrast(1.2);
+            transition: 0.5s;
+        }
+
+        .video-container:hover video {
+            filter: grayscale(0.5) brightness(0.8);
+        }
+
+        /* --- ACTE / SECTIONS --- */
+        .act-divider {
+            border-bottom: 2px solid var(--txt);
+            padding-bottom: 15px;
+            margin: 100px 0 60px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+
+        .act-divider h2 {
+            font-family: 'Anton';
+            font-size: 60px;
+            text-transform: uppercase;
+            line-height: 1;
+        }
+
+        .act-id {
+            font-family: 'Anton';
+            font-size: 20px;
+            color: var(--red);
+        }
+
+        /* --- MENU GRID --- */
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+        }
+
+        .dish-card {
+            border: 1px solid var(--border);
+            transition: 0.4s;
+            background: rgba(255, 255, 255, 0.01);
+        }
+
+        .dish-card:hover {
+            border-color: var(--red);
+        }
+
+        .dish-img {
+            width: 100%;
+            height: 280px;
+            overflow: hidden;
+            border-bottom: 1px solid var(--border);
+            position: relative;
+        }
+
+        .dish-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: grayscale(1);
+            opacity: 0.5;
+            transition: 0.6s;
+        }
+
+        .dish-card:hover .dish-img img {
+            filter: grayscale(0);
+            opacity: 1;
+        }
+
+        .dish-info {
+            padding: 30px;
+        }
+
+        .dish-name {
+            font-family: 'Anton';
+            font-size: 26px;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
+        .dish-desc {
+            font-family: 'Playfair Display', serif;
+            font-size: 14px;
+            color: var(--dim);
+            font-style: italic;
+            margin-bottom: 20px;
+        }
+
+        .tech-table {
+            border-top: 1px dashed var(--border);
+            padding-top: 15px;
+            font-size: 9px;
+        }
+
+        .tech-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+        }
+
+        .tech-row .label {
+            color: var(--red);
+        }
+
+        /* --- CTA --- */
+        .cta-block {
+            text-align: center;
+            padding: 120px 0;
+            border-top: 1px solid var(--border);
+            margin-top: 100px;
+        }
+
+        .btn-massive {
+            font-family: 'Anton';
+            font-size: clamp(3rem, 10vw, 8rem);
+            color: transparent;
+            -webkit-text-stroke: 1px var(--txt);
+            text-decoration: none;
+            display: block;
+            transition: 0.4s;
+            line-height: 0.9;
+        }
+
+        .btn-massive:hover {
+            color: var(--txt);
+            -webkit-text-stroke: 0px;
+            text-shadow: 0 0 30px var(--red);
         }
     </style>
 </head>
 
 <body>
 
-    <div class="viewfinder"></div>
-    <div class="hud-top">
-        <div class="hud-logo">LE STUDIO.</div>
-        <div class="hud-status">
-            <span id="timecode">00:00:00:00</span>
-            <span>DATA LINK</span>
-            <div class="rec-dot"></div>
+    <header>
+        <div style="font-weight: bold;">LE STUDIO.</div>
+        <div class="status-link">
+            TCR <span id="clock">18:16:02:34</span> DATA LINK <div class="rec-dot"></div>
         </div>
-    </div>
-    <div class="grain"></div>
+    </header>
 
-    <div class="content-wrapper">
+    <div class="container">
 
-        <section class="hero" id="cameras">
-            <div class="cam-viewer">
-                <img src="https://images.unsplash.com/photo-1605810230434-7631ac76ec81?q=80&w=2070&auto=format&fit=crop"
-                    class="feed-img active" id="img-01">
-                <img src="https://images.unsplash.com/photo-1534447677768-be436bb09401?q=80&w=2094&auto=format&fit=crop"
-                    class="feed-img" id="img-02">
-                <img src="https://images.unsplash.com/photo-1518173946687-a4c8892bbd9f?q=80&w=1974&auto=format&fit=crop"
-                    class="feed-img" id="img-03">
-
-                <div class="osd-data active" id="data-01">
-                    <div class="t-huge" style="font-size: 4rem;">LE PARRAIN</div>
-                    <div class="t-body">Séquence 01 / Italo-Américain Brutal / 22°C</div>
-                </div>
-                <div class="osd-data" id="data-02">
-                    <div class="t-huge" style="font-size: 4rem;">BLADE RUNNER</div>
-                    <div class="t-body">Séquence 02 / Asiatique Moléculaire / 18°C</div>
-                </div>
-                <div class="osd-data" id="data-03">
-                    <div class="t-huge" style="font-size: 4rem;">INCEPTION</div>
-                    <div class="t-body">Séquence 03 / Trompe-l'œil Sensoriel / Variable</div>
-                </div>
+        <section class="mission-header">
+            <div>
+                <span class="label-red">FILE_ID: 2019_BR</span>
+                <h1>BLADE<br>RUNNER</h1>
+                <p style="font-family: 'Playfair Display'; font-size: 22px; margin-top: 30px; opacity: 0.8;">
+                    "Tous ces moments se perdront dans l'oubli, comme des larmes dans la pluie."
+                </p>
             </div>
-
-            <div class="cam-controls">
-                <div class="section-header" style="margin-bottom: 10px;">CAM FEED</div>
-                <button class="cam-btn active interactive" data-target="01">
-                    <span class="cam-num">CH.01</span>
-                    <span class="t-serif" style="font-size: 1.2rem;">Le Parrain</span>
-                </button>
-                <button class="cam-btn interactive" data-target="02">
-                    <span class="cam-num">CH.02</span>
-                    <span class="t-serif" style="font-size: 1.2rem;">Blade Runner</span>
-                </button>
-                <button class="cam-btn interactive" data-target="03">
-                    <span class="cam-num">CH.03</span>
-                    <span class="t-serif" style="font-size: 1.2rem;">Inception</span>
-                </button>
+            <div class="mission-meta">
+                <div class="meta-row"><span>RUNTIME</span><span>135 MINUTES</span></div>
+                <div class="meta-row"><span>SÉQUENCES</span><span>08 ACTES</span></div>
+                <div class="meta-row"><span>CRÉDITS</span><span>85,00 € / PERS</span></div>
             </div>
         </section>
 
-        <section id="manifesto">
-            <div class="section-header">FICHIER: MANIFESTE</div>
-            <div class="manifesto-grid">
-                <h2 class="t-huge">L'ILLUSION<br>DOIT ÊTRE<br>PARFAITE.</h2>
-                <div class="t-body t-serif" style="font-size: 1.5rem; color: var(--txt);">
-                    Oubliez la restauration traditionnelle. Le Studio est un complexe de production sensorielle conçu
-                    par des décorateurs du 7ème art.<br><br>
-                    <span style="color: var(--dim); font-size: 1rem; font-family: 'Space Mono';">Dès que la porte
-                        capitonnée se referme, la température s'ajuste, les enceintes directionnelles s'activent, la
-                        lumière se tamise. Vous ne venez pas pour manger, vous venez pour jouer votre rôle dans notre
-                        script.</span>
-                </div>
+        <div class="label-red">PARAMÈTRES_SALLE</div>
+        <section class="telemetry-grid">
+            <div class="telemetry-card">
+                <h3>ACOUSTIQUE</h3>
+                <div class="data-val">85<small style="font-size: 12px">dB</small></div>
+            </div>
+            <div class="telemetry-card">
+                <h3>LUMINANCE</h3>
+                <div class="data-val">2700<span style="font-size: 12px">K</span></div>
+            </div>
+            <div class="telemetry-card">
+                <h3>THERMIQUE</h3>
+                <div class="data-val">18.5<span style="font-size: 12px">°C</span></div>
+            </div>
+            <div class="telemetry-card">
+                <h3>SYNC</h3>
+                <div class="data-val">LIVE</div>
             </div>
         </section>
 
-        <section id="mechanics">
-            <div class="section-header">DONNÉES TECHNIQUES</div>
-            <div class="tech-grid">
-                <div class="tech-card">
-                    <h3>SCÉNOGRAPHIE</h3>
-                    <p class="t-body">240h de construction par salle. Murs, mobiliers, accessoires : il n'y a pas de
-                        décor, il n'y a que la réalité du film.</p>
-                </div>
-                <div class="tech-card">
-                    <h3>LUMIÈRE & CLIMAT</h3>
-                    <p class="t-body">Projecteurs DMX sur rail. La lumière vire au rouge, s'éteint ou clignote. La
-                        température chute physiquement pendant les scènes de tension.</p>
-                </div>
-                <div class="tech-card">
-                    <h3>ACOUSTIQUE</h3>
-                    <p class="t-body">Système 12.1 dissimulé. Pas de musique d'ambiance : vous entendez la pluie sur une
-                        vitre virtuelle ou le bruit d'une arme voisine.</p>
-                </div>
+        <div class="label-red">VISUALISATION_ZONE_SÉANCE // CAM_01</div>
+        <div class="video-container">
+            <div class="video-hud">
+                <span>SIGNAL: ENCRYPTED</span>
+                <span>LENS: 35MM f/1.4</span>
+                <span>STATUS: STREAMING_ACTIVE</span>
             </div>
-        </section>
+            <div class="video-overlay"></div>
+            <video autoplay muted loop playsinline>
+                <source
+                    src="https://player.vimeo.com/external/477461942.hd.mp4?s=f5e427d1428c05342a3928e1d2003c407f1e7371&profile_id=175"
+                    type="video/mp4">
+            </video>
+        </div>
 
-        <section id="script">
-            <div class="section-header">DOCUMENT: SCRIPT CULINAIRE</div>
-            <p class="t-body" style="margin-bottom: 40px; max-width: 600px;">La carte est classifiée "Secret" pour ne
-                pas spoiler l'intrigue. Vous ne connaissez que la structure narrative.</p>
+        <div class="act-divider">
+            <h2>L'ÉVEIL DES SENS</h2>
+            <div class="act-id">ACTE I : PROLOGUE</div>
+        </div>
 
-            <div class="script-list">
-                <div class="script-row interactive">
-                    <div class="s-act">ACTE I</div>
-                    <h3 class="s-title">Prologue</h3>
-                    <div class="t-body">Mise en situation. Une bouchée thématique qui installe l'atmosphère et coupe les
-                        ponts avec l'extérieur.</div>
-                </div>
-                <div class="script-row interactive">
-                    <div class="s-act">ACTE II</div>
-                    <h3 class="s-title">Rupture</h3>
-                    <div class="t-body">L'élément déclencheur. Textures inattendues et changement brusque d'éclairage.
+        <div class="menu-grid">
+            <div class="dish-card">
+                <div class="dish-img"><img src="https://images.unsplash.com/photo-1551024506-0bccd828d307?q=80&w=1000"
+                        alt="Ramen"></div>
+                <div class="dish-info">
+                    <h3 class="dish-name">Larmes de Pluie</h3>
+                    <p class="dish-desc">Bouillon d'encre de seiche froid et nouilles soba.</p>
+                    <div class="tech-table">
+                        <div class="tech-row"><span class="label">BASE</span><span>Dashi fumé</span></div>
+                        <div class="tech-row"><span class="label">FX</span><span>Azote liquide</span></div>
                     </div>
                 </div>
-                <div class="script-row interactive">
-                    <div class="s-act">ACTE III</div>
-                    <h3 class="s-title">Climax</h3>
-                    <div class="t-body">Le plat principal. Tension dramatique maximale. Saveurs brutes et volume sonore
-                        à son apogée.</div>
+            </div>
+            <div class="dish-card">
+                <div class="dish-img"><img
+                        src="https://images.unsplash.com/photo-1511690656952-34342bb7c2f2?q=80&w=1000" alt="Gyoza">
                 </div>
-                <div class="script-row interactive">
-                    <div class="s-act">ACTE IV</div>
-                    <h3 class="s-title">Dénouement</h3>
-                    <div class="t-body">Le twist final en trompe-l'œil. La pression retombe, la lumière se radoucit, le
-                        générique approche.</div>
+                <div class="dish-info">
+                    <h3 class="dish-name">Gyoza Sector 4</h3>
+                    <p class="dish-desc">Raviolis vapeurs au gingembre électrique.</p>
+                    <div class="tech-table">
+                        <div class="tech-row"><span class="label">BASE</span><span>Porc Ibérique</span></div>
+                        <div class="tech-row"><span class="label">FX</span><span>Vapeur sync</span></div>
+                    </div>
                 </div>
             </div>
-        </section>
+            <div class="dish-card">
+                <div class="dish-img"><img
+                        src="https://images.unsplash.com/photo-1617196034183-421b4917c92d?q=80&w=1000" alt="Sashimi">
+                </div>
+                <div class="dish-info">
+                    <h3 class="dish-name">Data-Sashimi</h3>
+                    <p class="dish-desc">Thon rouge taillé au laser, wasabi moléculaire.</p>
+                    <div class="tech-table">
+                        <div class="tech-row"><span class="label">BASE</span><span>Bluefin / Yuzu</span></div>
+                        <div class="tech-row"><span class="label">FX</span><span>Stroboscope</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-        <section id="protocols">
-            <div class="section-header">PROTOCOLES D'ACCÈS</div>
-            <div class="faq-grid">
-                <div class="faq-item">
-                    <h4>Ponctualité Exigée</h4>
-                    <p class="t-body">Le film commence à heure fixe. Aucun retardataire accepté après le verrouillage
-                        des portes pour maintenir l'immersion totale.</p>
-                </div>
-                <div class="faq-item">
-                    <h4>Dress Code (Smart Dark)</h4>
-                    <p class="t-body">Le noir est fortement recommandé pour vous fondre dans les décors et respecter le
-                        travail de nos éclairagistes.</p>
-                </div>
-                <div class="faq-item">
-                    <h4>Restrictions Alimentaires</h4>
-                    <p class="t-body">Le script peut être adapté en cas d'allergies. Celles-ci doivent être
-                        impérativement signalées lors de l'émission du billet.</p>
-                </div>
-                <div class="faq-item">
-                    <h4>Blackout Numérique</h4>
-                    <p class="t-body">La lumière des écrans détruit l'éclairage de la salle. Les téléphones doivent
-                        rester silencieux et face contre table.</p>
-                </div>
-            </div>
-        </section>
+        <div class="act-divider">
+            <h2>POINT DE RUPTURE</h2>
+            <div class="act-id">ACTE II : CLIMAX</div>
+        </div>
 
-        <section class="terminal-cta" style="border: none;">
-            <div class="section-header" style="margin-bottom: 30px;">OVERRIDE SYSTEM</div><br>
-            <a href="#" class="btn-override interactive">ÉMETTRE<br>UN TICKET</a>
-            <div
-                style="margin-top: 100px; color: var(--dim); font-size: 0.8rem; display: flex; justify-content: space-between;">
-                <span>© 2026 LE STUDIO</span>
-                <span>CONNEXION SÉCURISÉE</span>
+        <div class="menu-grid">
+            <div class="dish-card">
+                <div class="dish-img"><img
+                        src="https://images.unsplash.com/photo-1599084993091-1cb5c0721cc6?q=80&w=1000" alt="Wagyu">
+                </div>
+                <div class="dish-info">
+                    <h3 class="dish-name">Le Protocole 6</h3>
+                    <p class="dish-desc">Bœuf Wagyu maturé, croûte de charbon actif.</p>
+                    <div class="tech-table">
+                        <div class="tech-row"><span class="label">BASE</span><span>Wagyu A5</span></div>
+                        <div class="tech-row"><span class="label">FX</span><span>Sub-bass 20Hz</span></div>
+                    </div>
+                </div>
             </div>
+            <div class="dish-card">
+                <div class="dish-img"><img
+                        src="https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?q=80&w=1000" alt="Saumon">
+                </div>
+                <div class="dish-info">
+                    <h3 class="dish-name">Saumon Réplicant</h3>
+                    <p class="dish-desc">Pavé mi-cuit, écailles de radis noir.</p>
+                    <div class="tech-table">
+                        <div class="tech-row"><span class="label">BASE</span><span>Yuzu / Radis</span></div>
+                        <div class="tech-row"><span class="label">FX</span><span>Brumisation</span></div>
+                    </div>
+                </div>
+            </div>
+            <div class="dish-card">
+                <div class="dish-img"><img src="https://images.unsplash.com/photo-1559339352-11d035aa65de?q=80&w=1000"
+                        alt="Risotto"></div>
+                <div class="dish-info">
+                    <h3 class="dish-name">Noir Absolu</h3>
+                    <p class="dish-desc">Risotto à la truffe noire et parmesan 36 mois.</p>
+                    <div class="tech-table">
+                        <div class="tech-row"><span class="label">BASE</span><span>Acquerello</span></div>
+                        <div class="tech-row"><span class="label">FX</span><span>Blackout total</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <section class="cta-block">
+            <span class="label-red">INITIALISATION_TICKET</span>
+            <a href="#" class="btn-massive">RESERVEZ VOTRE TICKET</a>
+            <p style="font-size: 11px; margin-top: 50px; color: var(--dim);">© 2026 LE STUDIO. TOUS DROITS RÉSERVÉS.</p>
         </section>
 
     </div>
 
     <script>
-        // 1. TIMECODE (HUD)
-        function updateTimecode() {
+        function updateClock() {
             const now = new Date();
             const h = String(now.getHours()).padStart(2, '0');
             const m = String(now.getMinutes()).padStart(2, '0');
             const s = String(now.getSeconds()).padStart(2, '0');
             const ms = String(Math.floor(now.getMilliseconds() / 10)).padStart(2, '0');
-            document.getElementById('timecode').innerText = `TCR ${h}:${m}:${s}:${ms}`;
-            requestAnimationFrame(updateTimecode);
+            document.getElementById('clock').innerText = `${h}:${m}:${s}:${ms}`;
+            requestAnimationFrame(updateClock);
         }
-        updateTimecode();
-
-        // 2. SWITCH CAMÉRAS
-        const btns = document.querySelectorAll('.cam-btn');
-        const imgs = document.querySelectorAll('.feed-img');
-        const datas = document.querySelectorAll('.osd-data');
-
-        btns.forEach(btn => {
-            btn.addEventListener('click', () => {
-                if (btn.classList.contains('active')) return;
-
-                const target = btn.getAttribute('data-target');
-
-                // Reset
-                btns.forEach(b => b.classList.remove('active'));
-                imgs.forEach(i => i.classList.remove('active'));
-                datas.forEach(d => d.classList.remove('active'));
-
-                // Activate
-                btn.classList.add('active');
-                document.getElementById(`img-${target}`).classList.add('active');
-                document.getElementById(`data-${target}`).classList.add('active');
-            });
-        });
+        updateClock();
     </script>
 </body>
 
