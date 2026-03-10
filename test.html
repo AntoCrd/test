@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LE STUDIO | SYSTEME DE RÉSERVATION V4.0</title>
+    <title>LE STUDIO | DOSSIER OPÉRATIONNEL OMÉGA</title>
     <link
         href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Mono:wght@400;700&family=Playfair+Display:ital,wght@0,400;1,400&display=swap"
         rel="stylesheet">
@@ -14,9 +14,11 @@
             --txt: #FFFFFF;
             --red: #FF0000;
             --border: #1a1a1a;
-            --dim: rgba(255, 255, 255, 0.4);
+            --dim: rgba(255, 255, 255, 0.5);
+            --grid-line: rgba(255, 255, 255, 0.05);
         }
 
+        /* --- RESET & FONDATION --- */
         * {
             margin: 0;
             padding: 0;
@@ -28,21 +30,22 @@
             background-color: var(--bg);
             color: var(--txt);
             font-family: 'Space Mono', monospace;
-            line-height: 1.4;
+            line-height: 1.5;
             overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
         }
 
-        /* --- HUD --- */
+        /* --- HUD PERSISTANT --- */
         header {
             position: fixed;
             top: 0;
             width: 100%;
-            padding: 20px 40px;
+            padding: 25px 50px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             border-bottom: 1px solid var(--border);
-            background: var(--bg);
+            background: rgba(0, 0, 0, 0.9);
             z-index: 1000;
             font-size: 10px;
             letter-spacing: 2px;
@@ -70,271 +73,261 @@
             }
         }
 
-        /* --- CONTAINER --- */
+        .scanline {
+            position: fixed;
+            inset: 0;
+            background: linear-gradient(to bottom, transparent 50%, rgba(255, 255, 255, 0.02) 50%);
+            background-size: 100% 4px;
+            pointer-events: none;
+            z-index: 2000;
+        }
+
+        /* --- STRUCTURE --- */
         .container {
-            max-width: 1200px;
+            max-width: 1300px;
             margin: 0 auto;
-            padding: 120px 40px;
+            padding: 150px 40px;
+        }
+
+        section {
+            padding: 120px 0;
+            border-bottom: 1px solid var(--grid-line);
         }
 
         .label-red {
             display: inline-block;
             border: 1px solid var(--red);
             color: var(--red);
-            padding: 5px 12px;
+            padding: 5px 15px;
             font-size: 10px;
             text-transform: uppercase;
-            margin-bottom: 20px;
-            letter-spacing: 2px;
+            margin-bottom: 30px;
+            letter-spacing: 3px;
+            font-weight: bold;
         }
 
         .t-huge {
             font-family: 'Anton';
-            font-size: clamp(3rem, 10vw, 8rem);
+            font-size: clamp(4rem, 15vw, 10rem);
             line-height: 0.85;
             text-transform: uppercase;
-            margin-bottom: 60px;
+            margin-bottom: 40px;
         }
 
-        /* --- SÉLECTEUR DE FILM SENSORIEL --- */
-        .film-selector {
+        /* --- 01. LE MANIFESTE --- */
+        .manifesto-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-            margin-bottom: 80px;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 80px;
+            align-items: center;
         }
 
-        .film-card {
-            position: relative;
-            border: 1px solid var(--border);
-            overflow: hidden;
-            transition: 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
-            background: #080808;
-            cursor: pointer;
-        }
-
-        .film-card input {
-            position: absolute;
-            opacity: 0;
-        }
-
-        .film-img {
-            width: 100%;
-            height: 200px;
-            overflow: hidden;
-            filter: grayscale(1);
-            opacity: 0.4;
-            transition: 0.4s;
-        }
-
-        .film-card:hover .film-img,
-        .film-card:has(input:checked) .film-img {
-            filter: grayscale(0);
-            opacity: 0.8;
-        }
-
-        .film-img img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .film-info {
-            padding: 20px;
-        }
-
-        .film-info h3 {
-            font-family: 'Anton';
-            font-size: 20px;
-            text-transform: uppercase;
-            margin-bottom: 5px;
-        }
-
-        .film-info p {
-            font-size: 9px;
+        .manifesto-text {
+            font-family: 'Playfair Display';
+            font-size: 26px;
+            font-style: italic;
             color: var(--dim);
+            line-height: 1.3;
         }
 
-        .film-card:has(input:checked) {
-            border-color: var(--red);
-            box-shadow: 0 0 30px rgba(255, 0, 0, 0.2);
+        .manifesto-text b {
+            color: var(--txt);
+            font-style: normal;
         }
 
-        .film-card:has(input:checked)::after {
-            content: "SELECTED_MISSION";
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background: var(--red);
-            color: white;
-            padding: 2px 6px;
-            font-size: 8px;
-            z-index: 2;
-        }
-
-        /* --- INPUTS & LOGISTIQUE --- */
-        .grid-form {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 40px;
-            margin-bottom: 80px;
-        }
-
-        .field {
-            position: relative;
-            border-bottom: 1px solid var(--border);
-            padding: 15px 0;
-            transition: 0.3s;
-        }
-
-        .field:focus-within {
-            border-color: var(--red);
-        }
-
-        .field label {
-            font-size: 9px;
-            color: var(--red);
-            text-transform: uppercase;
-            display: block;
-            margin-bottom: 10px;
-            letter-spacing: 1px;
-        }
-
-        input,
-        select,
-        textarea {
-            width: 100%;
-            background: transparent;
-            border: none;
-            color: white;
-            font-family: 'Space Mono';
-            font-size: 16px;
-            outline: none;
-            padding: 5px 0;
-        }
-
-        ::placeholder {
-            color: rgba(255, 255, 255, 0.2);
-        }
-
-        /* --- EXPERIENCE MODIFIERS (DRINKS) --- */
-        .modifiers {
-            margin-bottom: 80px;
-        }
-
-        .mod-row {
+        /* --- 02. LE CYCLE DES 90 JOURS --- */
+        .cycle-header {
             display: flex;
             justify-content: space-between;
-            align-items: center;
-            padding: 20px;
+            align-items: flex-end;
+            margin-bottom: 40px;
+        }
+
+        .cycle-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1px;
+            background: var(--border);
             border: 1px solid var(--border);
-            margin-bottom: 10px;
-            transition: 0.3s;
         }
 
-        .mod-row:hover {
-            border-color: var(--txt);
+        .cycle-card {
+            background: var(--bg);
+            padding: 40px 25px;
+            transition: 0.4s;
+            position: relative;
         }
 
-        .mod-info h4 {
-            font-family: 'Anton';
-            font-size: 18px;
-            text-transform: uppercase;
+        .cycle-card.active {
+            background: rgba(255, 0, 0, 0.05);
         }
 
-        .mod-info p {
-            font-size: 10px;
-            color: var(--dim);
-        }
-
-        .mod-price {
-            font-family: 'Space Mono';
+        .cycle-card.active::before {
+            content: "CURRENT_SESSION";
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 8px;
             color: var(--red);
         }
 
-        /* --- TICKET SUMMARY --- */
-        .ticket-summary {
-            background: white;
-            color: black;
-            padding: 40px;
-            display: grid;
-            grid-template-columns: 2fr 1fr;
-            border-radius: 2px;
-            margin-top: 60px;
-            background-image: radial-gradient(#ccc 10%, transparent 10%);
-            background-size: 10px 10px;
-        }
-
-        .ticket-left h4 {
+        .cycle-card h3 {
             font-family: 'Anton';
-            font-size: 32px;
+            font-size: 24px;
+            margin-bottom: 10px;
             text-transform: uppercase;
-            border-bottom: 2px solid black;
-            display: inline-block;
-            margin-bottom: 20px;
         }
 
-        .ticket-left p {
+        .cycle-card p {
             font-size: 11px;
-            text-transform: uppercase;
+            color: var(--dim);
+        }
+
+        .cycle-card .status {
+            font-size: 9px;
+            color: var(--red);
+            margin-top: 30px;
+            display: block;
             font-weight: bold;
         }
 
-        .ticket-right {
-            border-left: 2px dashed black;
-            padding-left: 40px;
-            text-align: right;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
+        /* --- 03. TÉLÉMÉTRIE DE LA SALLE --- */
+        .specs-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
         }
 
-        .total-label {
-            font-size: 10px;
-            opacity: 0.6;
+        .spec-card {
+            border: 1px solid var(--border);
+            padding: 40px;
+            background: rgba(255, 255, 255, 0.01);
         }
 
-        .total-val {
+        .spec-card h3 {
             font-family: 'Anton';
-            font-size: 50px;
-            line-height: 1;
+            font-size: 2rem;
+            color: var(--red);
+            margin-bottom: 20px;
+        }
+
+        .spec-card p {
+            font-size: 13px;
+            color: var(--dim);
+            line-height: 1.6;
+        }
+
+        .spec-card .data-val {
+            font-family: 'Anton';
+            font-size: 4rem;
+            color: var(--txt);
+            margin-top: 20px;
+            display: block;
+        }
+
+        /* --- 04. PROTOCOLE DE SÉANCE --- */
+        .timeline {
+            position: relative;
+            padding-left: 40px;
+            border-left: 1px solid var(--red);
+            margin-top: 60px;
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 80px;
+        }
+
+        .timeline-item::before {
+            content: "";
+            position: absolute;
+            left: -45.5px;
+            top: 10px;
+            width: 10px;
+            height: 10px;
+            background: var(--red);
+            border-radius: 50%;
+        }
+
+        .t-marker {
+            color: var(--red);
+            font-size: 12px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .t-content h4 {
+            font-family: 'Anton';
+            font-size: 2.5rem;
+            text-transform: uppercase;
+            margin-bottom: 15px;
+        }
+
+        .t-content p {
+            font-size: 14px;
+            color: var(--dim);
+            max-width: 800px;
+        }
+
+        /* --- 05. PRODUCTION CREDITS --- */
+        .credits-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        .credit-item label {
+            color: var(--red);
+            font-size: 10px;
+            text-transform: uppercase;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .credit-item p {
+            font-family: 'Playfair Display';
+            font-size: 18px;
         }
 
         /* --- CTA --- */
-        .btn-submit {
-            width: 100%;
-            background: none;
-            border: none;
+        .cta-section {
+            text-align: center;
+            padding: 150px 0;
+            border-top: 1px solid var(--border);
+        }
+
+        .btn-massive {
             font-family: 'Anton';
             font-size: 8vw;
             color: transparent;
             -webkit-text-stroke: 1px var(--txt);
-            cursor: pointer;
-            margin-top: 80px;
+            text-decoration: none;
+            display: block;
             transition: 0.3s;
-            text-align: center;
+            line-height: 0.9;
         }
 
-        .btn-submit:hover {
+        .btn-massive:hover {
             color: var(--red);
             -webkit-text-stroke: 0px;
-            text-shadow: 0 0 30px var(--red);
+            text-shadow: 0 0 50px rgba(255, 0, 0, 0.6);
         }
 
-        @media (max-width: 900px) {
+        /* --- RESPONSIVE --- */
+        @media (max-width: 1000px) {
 
-            .film-selector,
-            .grid-form,
-            .ticket-summary {
+            .manifesto-grid,
+            .cycle-grid,
+            .specs-grid,
+            .credits-grid {
                 grid-template-columns: 1fr;
+                gap: 40px;
             }
 
-            .ticket-right {
-                border-left: none;
-                border-top: 2px dashed black;
-                padding-left: 0;
-                padding-top: 20px;
-                text-align: left;
+            .t-huge {
+                font-size: 60px;
             }
         }
     </style>
@@ -342,124 +335,162 @@
 
 <body>
 
+    <div class="scanline"></div>
+
     <header>
-        <div>LE STUDIO. / REZ_SYSTEM</div>
-        <div>TCR <span id="clock">00:00:00:00</span></div>
-        <div>DATA_LINK <div class="rec-dot"></div>
+        <div>LE STUDIO. / SYSTEM_MANIFESTO_V4.0</div>
+        <div>TCR <span id="clock">18:16:02:34</span> STATUS: NOMINAL <div class="rec-dot"></div>
         </div>
     </header>
 
     <div class="container">
 
-        <span class="label-red">INITIALISATION_MISSION</span>
-        <h1 class="t-huge">PROGRAMMER<br>MA SÉANCE</h1>
-
-        <form>
-            <div class="label-red">01_SÉLECTION_DU_CANAL</div>
-            <div class="film-selector">
-                <label class="film-card">
-                    <input type="radio" name="film" checked>
-                    <div class="film-img"><img
-                            src="https://images.unsplash.com/photo-1534422298391-e4f8c172dddb?q=80&w=600"
-                            alt="Le Parrain"></div>
-                    <div class="film-info">
-                        <h3>LE PARRAIN</h3>
-                        <p>GASTRONOMIE ITALO-AMÉRICAINE BRUTALE</p>
-                    </div>
-                </label>
-                <label class="film-card">
-                    <input type="radio" name="film">
-                    <div class="film-img"><img
-                            src="https://images.unsplash.com/photo-1534447677768-be436bb09401?q=80&w=600"
-                            alt="Blade Runner"></div>
-                    <div class="film-info">
-                        <h3>BLADE RUNNER</h3>
-                        <p>DÉGUSTATION CYBERPUNK ET NÉONS</p>
-                    </div>
-                </label>
-                <label class="film-card">
-                    <input type="radio" name="film">
-                    <div class="film-img"><img
-                            src="https://images.unsplash.com/photo-1509248961158-e54f6934749c?q=80&w=600"
-                            alt="Inception"></div>
-                    <div class="film-info">
-                        <h3>INCEPTION</h3>
-                        <p>EXPÉRIENCE MOLÉCULAIRE PARALLÈLE</p>
-                    </div>
-                </label>
+        <section style="border-bottom: none;">
+            <span class="label-red">DÉCRYPTAGE_DU_CONCEPT</span>
+            <h1 class="t-huge">L'ILLUSION<br>PAR LES SENS.</h1>
+            <div class="manifesto-grid">
+                <div class="manifesto-text">
+                    "Le Studio n'est pas un restaurant. C'est une <b>machine de projection biologique</b>. Nous ne
+                    servons pas des plats, nous injectons des séquences narratives dans votre réalité."
+                </div>
+                <p style="font-size: 14px; color: var(--dim);">
+                    Chaque détail, de la vibration de votre siège à la température de la pièce, est synchronisé au
+                    TimeCode du film. Notre obsession : abolir la frontière entre l'écran et la table.
+                </p>
             </div>
+        </section>
 
-            <div class="label-red">02_COORDONNÉES_D_ACCÈS</div>
-            <div class="grid-form">
-                <div class="field">
-                    <label>ID SPECTATEUR (NOM COMPLET)</label>
-                    <input type="text" placeholder="EX: RICK DECKARD" required>
+        <section id="cycle">
+            <div class="cycle-header">
+                <div>
+                    <span class="label-red">PROGRAMMATION_TRIMESTRIELLE</span>
+                    <h2 font-family="Anton" style="font-size: 3rem; text-transform: uppercase;">LE CYCLE DES 90 JOURS
+                    </h2>
                 </div>
-                <div class="field">
-                    <label>EMAIL DE RÉCEPTION DATA</label>
-                    <input type="email" placeholder="EX: DECKARD@LAPD.SYS" required>
+                <p style="text-align: right; font-size: 10px; color: var(--dim); max-width: 300px;">
+                    Chaque expérience est éphémère. Le Studio ferme ses portes tous les 3 mois pour une reprogrammation
+                    complète de l'espace.
+                </p>
+            </div>
+            <div class="cycle-grid">
+                <div class="cycle-card">
+                    <p>SAISON 01 // JAN - MAR</p>
+                    <h3>LE PARRAIN</h3>
+                    <p>Cuisine Italo-Américaine / 22°C</p>
+                    <span class="status">ARCHIVÉ // CLASSIFIÉ</span>
                 </div>
-                <div class="field">
-                    <label>DATE DE LA SÉANCE</label>
-                    <input type="date" required>
+                <div class="cycle-card active">
+                    <p>SAISON 02 // AVR - JUIN</p>
+                    <h3>BLADE RUNNER</h3>
+                    <p>Cuisine Cyberpunk / 18.5°C</p>
+                    <span class="status">● SÉANCE EN COURS</span>
                 </div>
-                <div class="field">
-                    <label>CRÉNEAU TCR (HEURE)</label>
-                    <select>
-                        <option>19:00:00 [SÉANCE_ALPHA]</option>
-                        <option>21:30:00 [SÉANCE_BETA]</option>
-                        <option>00:00:00 [SÉANCE_OMEGA]</option>
-                    </select>
+                <div class="cycle-card">
+                    <p>SAISON 03 // JUIL - SEPT</p>
+                    <h3>INCEPTION</h3>
+                    <p>Cuisine Moléculaire / Variable</p>
+                    <span class="status">EN PRÉ-PRODUCTION</span>
                 </div>
-                <div class="field">
-                    <label>UNITÉS (NOMBRE DE PERSONNES)</label>
-                    <select>
-                        <option>01 SPECTATEUR</option>
-                        <option selected>02 SPECTATEURS</option>
-                        <option>04 SPECTATEURS (MAX)</option>
-                    </select>
-                </div>
-                <div class="field">
-                    <label>PROTOCOLE ALIMENTAIRE (ALLERGIES)</label>
-                    <input type="text" placeholder="SIGNALER TOUTE RESTRICTION...">
+                <div class="cycle-card">
+                    <p>SAISON 04 // OCT - DÉC</p>
+                    <h3>INTERSTELLAR</h3>
+                    <p>Dégustation Gravitationnelle / 4°C</p>
+                    <span class="status">EN DÉVELOPPEMENT</span>
                 </div>
             </div>
+        </section>
 
-            <div class="label-red">03_AUGMENTATIONS_SENSORIELLES</div>
-            <div class="modifiers">
-                <div class="mod-row">
-                    <div class="mod-info">
-                        <h4>ACCORD "DIRECTOR'S CUT" (VINS)</h4>
-                        <p>SÉLECTION DE CRUS RARES EN PHASE AVEC CHAQUE SCÈNE.</p>
-                    </div>
-                    <div class="mod-price">+45€ / UNITÉ</div>
+        <section id="tech">
+            <span class="label-red">INFRASTRUCTURE_SENSORIELLE</span>
+            <div class="specs-grid">
+                <div class="spec-card">
+                    <h3>SPATIAL AUDIO</h3>
+                    <p>Système de transducteurs à conduction osseuse intégrés aux tables et enceintes 12.1. Le son vous
+                        traverse physiquement.</p>
+                    <span class="data-val">105<small style="font-size: 1rem">dB</small></span>
                 </div>
-                <div class="mod-row">
-                    <div class="mod-info">
-                        <h4>MIXOLOGIE DIGITALE</h4>
-                        <p>COCKTAILS MOLÉCULAIRES SERVIS DURANT LES ENTRACTES.</p>
-                    </div>
-                    <div class="mod-price">+25€ / UNITÉ</div>
+                <div class="spec-card">
+                    <h3>DMX CLIMATE</h3>
+                    <p>Pilotage en temps réel de l'hygrométrie et de la température. Sensation de pluie, de vent ou de
+                        chaleur aride selon la scène.</p>
+                    <span class="data-val">4-28<small style="font-size: 1rem">°C</small></span>
+                </div>
+                <div class="spec-card">
+                    <h3>SYNC ENGINE</h3>
+                    <p>Algorithme propriétaire synchronisant l'envoi des séquences culinaires avec le montage du film à
+                        0.2ms de précision.</p>
+                    <span class="data-val">0.2<small style="font-size: 1rem">ms</small></span>
                 </div>
             </div>
+        </section>
 
-            <div class="ticket-summary">
-                <div class="ticket-left">
-                    <h4>VOTRE MISSION</h4>
-                    <p>CANAL : BLADE RUNNER [SESSION_BETA]</p>
-                    <p>SPECTATEURS : 02 UNITÉS</p>
-                    <p>STATUS : EN ATTENTE D'INITIALISATION</p>
+        <section id="timeline">
+            <span class="label-red">PROTOCOLE_D_EXPÉRIENCE</span>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <span class="t-marker">T + 00 MIN // LE SAS</span>
+                    <div class="t-content">
+                        <h4>Briefing & Blackout</h4>
+                        <p>Accueil dans le sas de décompression. Stockage des appareils mobiles. Mise en bouche
+                            "Calibrage" pour aligner vos récepteurs sensoriels sur le spectre du film.</p>
+                    </div>
                 </div>
-                <div class="ticket-right">
-                    <span class="total-label">COÛT TOTAL</span>
-                    <div class="total-val">170.00€</div>
+                <div class="timeline-item">
+                    <span class="t-marker">T + 20 MIN // INITIALISATION</span>
+                    <div class="t-content">
+                        <h4>Ouverture du Rideau</h4>
+                        <p>Entrée en salle. Verrouillage des portes. Le film commence. Les premières fréquences
+                            haptiques s'activent dans votre siège.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <span class="t-marker">T + 60 MIN // CLIMAX</span>
+                    <div class="t-content">
+                        <h4>Séquences de Tension</h4>
+                        <p>Le plat de résistance est servi lors du point de rupture narratif. Les saveurs brutes et les
+                            chocs thermiques amplifient l'impact de la scène.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <span class="t-marker">T + 130 MIN // DÉNOUEMENT</span>
+                    <div class="t-content">
+                        <h4>Générique & Débrief</h4>
+                        <p>Le dessert clôt l'intrigue. Retour progressif à la lumière du jour. Remise de votre dossier
+                            de mission (menu détaillé).</p>
+                    </div>
                 </div>
             </div>
+        </section>
 
-            <button type="submit" class="btn-submit">CONFIRMER_L_ACCÈS</button>
-            <p style="text-align: center; font-size: 10px; margin-top: 30px; opacity: 0.3;">TOUTE SÉANCE NON ANNULÉE 48H
-                AVANT SERA FACTURÉE EN CRÉDITS STUDIO.</p>
-        </form>
+        <section id="credits">
+            <span class="label-red">CRÉDITS_DE_PRODUCTION</span>
+            <div class="credits-grid">
+                <div class="credit-item">
+                    <label>Réalisation Culinaire</label>
+                    <p>Chef Marc Veyrat x Studio 24</p>
+                </div>
+                <div class="credit-item">
+                    <label>Ingénierie Sonore</label>
+                    <p>L-Acoustics Spatial Lab</p>
+                </div>
+                <div class="credit-item">
+                    <label>Scénographie</label>
+                    <p>Ateliers de l'Opéra Bastille</p>
+                </div>
+                <div class="credit-item">
+                    <label>Direction Technique</label>
+                    <p>Gusto_OS Systems</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="cta-section" style="border: none;">
+            <span class="label-red">INITIALISER_LA_RESERVATION</span>
+            <a href="#" class="btn-massive">PRENDRE MON TICKET</a>
+            <p style="font-size: 10px; margin-top: 50px; opacity: 0.3; letter-spacing: 2px;">© 2026 LE STUDIO. AUCUNE
+                ANNULATION APRÈS ENCRYPTAGE.</p>
+        </section>
+
     </div>
 
     <script>
