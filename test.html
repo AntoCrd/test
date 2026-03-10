@@ -1,397 +1,578 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ecorina - Le guide de la Toilette Sèche</title>
+    <title>LE STUDIO | Base de Données</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Anton&display=swap"
+        rel="stylesheet">
+
     <style>
-        /* --- THEME "ACCUEIL 3 - LUXURY EDITORIAL" --- */
         :root {
-            /* Couleurs de fond */
-            --bg-page: #F3F5F2; 
-            --bg-card: #FFFFFF;
-            --bg-card-alt: #FAFBFA;
-            
-            /* Textes */
-            --text-main: #131E17; 
-            --text-muted: #596B60; 
-            
-            /* Accents */
-            --primary: #167D3D; 
-            --primary-hover: #116330;
-            --primary-light: #EBF2EC; 
-            
-            --accent-warm: #D97746; 
-            --accent-warm-light: #FDF4EF;
-            
-            /* UI Elements & Ombres */
-            --border: rgba(19, 30, 23, 0.08);
-            --shadow-sm: 0 4px 12px rgba(19, 30, 23, 0.03);
-            --shadow-lg: 0 24px 48px rgba(19, 30, 23, 0.06);
-            --shadow-hover: 0 32px 64px rgba(22, 125, 61, 0.08);
-            
-            /* Arrondis */
-            --radius-xl: 40px;
-            --radius-lg: 24px;
-            --radius-md: 16px;
-            
-            --font-main: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Segoe UI", Roboto, sans-serif;
-            --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            --bg: #020202;
+            --txt: #FFFFFF;
+            --red: #FF0000;
+            --grid: rgba(255, 255, 255, 0.15);
+            --dim: rgba(255, 255, 255, 0.6);
         }
 
-        /* --- RESET & SECURITE --- */
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        html { scroll-behavior: smooth; background: var(--bg-page); }
-        body { font-family: var(--font-main); color: var(--text-main); line-height: 1.6; overflow-x: hidden; -webkit-font-smoothing: antialiased; }
-        
-        .site-wrapper { overflow-x: hidden; width: 100%; max-width: 100vw; position: relative; }
-        a { text-decoration: none; color: inherit; transition: var(--transition); }
-        ul { list-style: none; }
-        img, svg { max-width: 100%; display: block; }
-
-        /* --- LAYOUT GLOBAL --- */
-        .container { max-width: 1240px; margin: 0 auto; padding: 0 clamp(24px, 5vw, 48px); }
-        .section { padding: clamp(80px, 10vw, 140px) 0; }
-        .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: clamp(40px, 6vw, 80px); align-items: stretch; }
-
-        /* --- TYPOGRAPHIE --- */
-        h1 { font-size: clamp(3rem, 7vw, 6.5rem); line-height: 0.95; letter-spacing: -0.04em; margin-bottom: 24px; font-weight: 500; }
-        h1 span { color: var(--primary); font-style: italic; font-weight: 400; display: block; }
-        h2 { font-size: clamp(2.5rem, 5vw, 4.5rem); line-height: 1.05; letter-spacing: -0.03em; margin-bottom: 24px; font-weight: 500; max-width: 900px; }
-        h3 { font-size: clamp(1.5rem, 3vw, 2rem); margin-bottom: 12px; font-weight: 500; letter-spacing: -0.02em; color: var(--text-main); }
-        h4 { font-size: 1.125rem; font-weight: 600; margin-bottom: 8px; color: var(--text-main); }
-        
-        p.lead { font-size: clamp(1.15rem, 2.5vw, 1.35rem); color: var(--text-muted); max-width: 650px; margin-bottom: 40px; font-weight: 400; line-height: 1.6; }
-        p { font-size: 1.05rem; color: var(--text-muted); margin-bottom: 16px; }
-        
-        .pill { display: inline-flex; align-items: center; padding: 8px 24px; border-radius: 50px; font-size: 0.85rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; background: var(--bg-card); border: 1px solid var(--border); box-shadow: var(--shadow-sm); margin-bottom: 32px; color: var(--text-main); }
-        .pill.green { background: var(--primary-light); color: var(--primary); border-color: transparent; box-shadow: none; }
-
-        /* --- BOUTONS --- */
-        .btn-group { display: flex; gap: 16px; flex-wrap: wrap; }
-        .btn { display: inline-flex; justify-content: center; align-items: center; padding: 18px 40px; border-radius: 100px; font-weight: 500; font-size: 1.05rem; transition: var(--transition); cursor: pointer; border: 1px solid transparent; letter-spacing: 0.01em; }
-        .btn-primary { background: var(--primary); color: white; box-shadow: 0 8px 24px rgba(22, 125, 61, 0.25); }
-        .btn-primary:hover { background: var(--primary-hover); transform: translateY(-4px); box-shadow: 0 12px 32px rgba(22, 125, 61, 0.35); }
-        .btn-outline { background: transparent; color: var(--text-main); border-color: var(--border); }
-        .btn-outline:hover { background: var(--bg-card); border-color: var(--text-main); transform: translateY(-4px); box-shadow: var(--shadow-sm); }
-
-        /* --- NAVIGATION --- */
-        nav { display: flex; justify-content: space-between; align-items: center; padding: 32px 0; border-bottom: 1px solid rgba(22, 125, 61, 0.1); margin-bottom: clamp(32px, 5vw, 64px); }
-        .logo { font-size: 1.75rem; font-weight: 700; letter-spacing: -0.05em; color: var(--text-main); }
-        .logo span { color: var(--primary); }
-        .nav-links { display: flex; gap: 40px; font-size: 0.9rem; font-weight: 600; color: var(--text-muted); }
-        .nav-links a:hover { color: var(--text-main); }
-
-        /* --- HERO SECTION --- */
-        .hero { display: flex; flex-direction: column; justify-content: center; padding-top: 40px; padding-bottom: 80px; position: relative; }
-        .data-bar { display: flex; gap: clamp(32px, 5vw, 64px); margin-top: 64px; padding-top: 48px; border-top: 1px solid var(--border); flex-wrap: wrap; }
-        .data-item strong { display: block; font-size: clamp(2rem, 4vw, 2.5rem); font-weight: 400; color: var(--text-main); line-height: 1; margin-bottom: 8px; }
-        .data-item span { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--primary); font-weight: 600; }
-
-        /* --- BENTO GRID (Fonctionnement) CORRIGÉ --- */
-        /* On passe en 2 colonnes pour éviter le "trou" visuel sur Desktop */
-        .bento-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; margin-top: 64px; }
-        .bento-card { background: var(--bg-card); border-radius: var(--radius-xl); padding: clamp(32px, 5vw, 48px); box-shadow: var(--shadow-sm); position: relative; overflow: hidden; transition: var(--transition); border: 1px solid transparent; display: flex; flex-direction: column; }
-        .bento-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); border-color: var(--border); }
-        
-        .bento-card.large { grid-column: 1 / -1; background: var(--primary-light); display: flex; flex-direction: row; align-items: center; justify-content: space-between; gap: 40px; }
-        .bento-card.large h3 { font-size: clamp(2rem, 4vw, 2.5rem); color: var(--primary-hover); }
-        .bento-card.large .bento-content { max-width: 600px; position: relative; z-index: 2; }
-        
-        .bento-num { font-size: clamp(4rem, 8vw, 8rem); font-weight: 200; line-height: 0.8; color: var(--bg-page); position: absolute; top: 32px; right: 32px; letter-spacing: -0.05em; pointer-events: none; z-index: 1; }
-        .bento-card.large .bento-num { color: #FFFFFF; opacity: 0.7; }
-
-        /* --- SPLIT PROS/CONS (Le Bilan) --- */
-        .split-section { display: flex; border-radius: var(--radius-xl); overflow: hidden; box-shadow: var(--shadow-lg); border: 1px solid var(--border); margin-top: 64px; }
-        .split-card { flex: 1; padding: clamp(40px, 6vw, 80px); display: flex; flex-direction: column; }
-        
-        .pros-side { background: var(--bg-card); border-right: 1px solid var(--border); }
-        .cons-side { background: var(--bg-card-alt); }
-        
-        .feature-item { display: flex; gap: 24px; margin-bottom: 40px; align-items: flex-start; }
-        .feature-item:last-child { margin-bottom: 0; }
-        .f-icon { width: 56px; height: 56px; border-radius: 16px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; background: var(--bg-page); }
-        .f-icon svg { width: 28px; height: 28px; stroke: var(--text-main); fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
-        
-        .pros-side .f-icon { background: var(--primary-light); }
-        .pros-side .f-icon svg { stroke: var(--primary); }
-        
-        .cons-side .f-icon { background: var(--accent-warm-light); }
-        .cons-side .f-icon svg { stroke: var(--accent-warm); }
-
-        /* --- USAGES (Cartes Poster) --- */
-        .poster-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 64px; }
-        .poster-card { background: var(--bg-card); border-radius: var(--radius-xl); padding: 48px 40px; text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: flex-start; box-shadow: var(--shadow-sm); transition: var(--transition); border: 1px solid transparent; }
-        .poster-card:hover { transform: translateY(-8px); box-shadow: var(--shadow-hover); border-color: var(--border); }
-        
-        .poster-icon { width: 80px; height: 80px; background: var(--bg-page); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 32px; flex-shrink: 0; }
-        .poster-icon svg { width: 40px; height: 40px; stroke: var(--primary); fill: none; stroke-width: 1.5; }
-
-        /* --- LE RITUEL (Installation & Entretien) --- */
-        .ritual-wrapper { background: var(--text-main); border-radius: var(--radius-xl); padding: clamp(48px, 8vw, 96px); color: white; margin-top: 64px; box-shadow: var(--shadow-lg); }
-        .ritual-wrapper h2 { color: white; }
-        .ritual-wrapper p.lead { color: #A0AAB2; }
-        
-        .ritual-grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(40px, 8vw, 80px); margin-top: 64px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 64px; }
-        
-        .r-step { position: relative; padding-left: 64px; margin-bottom: 40px; }
-        .r-step:last-child { margin-bottom: 0; }
-        .r-step::before { content: '✓'; position: absolute; left: 0; top: 0; width: 40px; height: 40px; background: rgba(255,255,255,0.1); color: var(--primary-light); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; font-weight: bold; }
-        .r-step h4 { color: white; font-size: 1.25rem; margin-bottom: 8px; }
-        .r-step p { color: #A0AAB2; margin: 0; font-size: 1rem; }
-        
-        .r-step.warning::before { color: var(--accent-warm); background: rgba(217, 119, 70, 0.15); content: '!'; }
-
-        /* --- CROSS SELL BANNER --- */
-        .cross-sell-banner { background: var(--bg-card); border-radius: var(--radius-xl); padding: clamp(48px, 8vw, 80px); text-align: center; margin-top: 80px; box-shadow: var(--shadow-lg); border: 1px solid var(--border); }
-        
-        /* --- FOOTER --- */
-        footer { padding: 48px 0; margin-top: 80px; text-align: center; border-top: 1px solid var(--border); }
-
-        /* --- RESPONSIVE MOBILE & TABLETTE --- */
-        @media (max-width: 1024px) {
-            .bento-card.large { flex-direction: column; align-items: flex-start; gap: 24px; }
-            .split-section { flex-direction: column; }
-            .pros-side { border-right: none; border-bottom: 1px solid var(--border); }
-            .poster-grid { grid-template-columns: 1fr; }
-            .ritual-grid { grid-template-columns: 1fr; }
+        body,
+        html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            background-color: var(--bg);
+            color: var(--txt);
+            font-family: 'Space Mono', monospace;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+            cursor: crosshair;
         }
 
-        @media (max-width: 768px) {
-            .nav-links { display: none; } /* On cache les liens sur mobile pour épurer */
-            .btn-group { flex-direction: column; width: 100%; }
-            .btn { width: 100%; }
-            .data-bar { gap: 24px; flex-direction: column; }
+        /* --- LE CADRE FIXE (HUD / VISEUR) --- */
+        .viewfinder {
+            position: fixed;
+            top: 1.5vw;
+            left: 1.5vw;
+            width: 97vw;
+            height: 97vh;
+            border: 1px solid var(--grid);
+            box-sizing: border-box;
+            z-index: 9999;
+            pointer-events: none;
+            mix-blend-mode: difference;
+        }
+
+        .viewfinder::before,
+        .viewfinder::after {
+            content: '';
+            position: absolute;
+            background: var(--txt);
+        }
+
+        .viewfinder::before {
+            top: 50%;
+            left: -10px;
+            width: 20px;
+            height: 1px;
+        }
+
+        .viewfinder::after {
+            top: -10px;
+            left: 50%;
+            width: 1px;
+            height: 20px;
+        }
+
+        /* HEADER HUD */
+        .hud-top {
+            position: fixed;
+            top: 1.5vw;
+            left: 1.5vw;
+            width: 97vw;
+            display: flex;
+            justify-content: space-between;
+            padding: 20px;
+            box-sizing: border-box;
+            border-bottom: 1px solid var(--grid);
+            z-index: 10000;
+            mix-blend-mode: difference;
+        }
+
+        .hud-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .hud-status {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+        }
+
+        .rec-dot {
+            width: 10px;
+            height: 10px;
+            background: var(--red);
+            border-radius: 50%;
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0;
+            }
+        }
+
+        /* BRUIT STATIQUE LÉGER */
+        .grain {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 9000;
+            opacity: 0.05;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+        }
+
+        /* --- LAYOUT DU CONTENU SCROLLABLE --- */
+        .content-wrapper {
+            position: relative;
+            z-index: 10;
+            padding: 100px 5vw 0 5vw;
+        }
+
+        section {
+            padding: 120px 0;
+            border-bottom: 1px dashed var(--grid);
+        }
+
+        .section-header {
+            font-size: 0.8rem;
+            color: var(--red);
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            margin-bottom: 40px;
+            display: inline-block;
+            border: 1px solid var(--red);
+            padding: 5px 15px;
+        }
+
+        /* TYPOGRAPHIES */
+        .t-huge {
+            font-family: 'Anton', sans-serif;
+            font-size: clamp(3rem, 8vw, 6rem);
+            line-height: 1;
+            text-transform: uppercase;
+            margin: 0;
+        }
+
+        .t-serif {
+            font-family: 'Playfair Display', serif;
+        }
+
+        .t-body {
+            font-size: 1rem;
+            color: var(--dim);
+            line-height: 1.6;
+        }
+
+        /* --- 1. SÉLECTEUR DE CAMÉRAS (HÉRO) --- */
+        .hero {
+            height: 85vh;
+            display: flex;
+            gap: 2vw;
+            padding-top: 5vh;
+            border-bottom: none;
+        }
+
+        .cam-viewer {
+            flex: 3;
+            position: relative;
+            border: 1px solid var(--grid);
+            overflow: hidden;
+            background: #050505;
+        }
+
+        .feed-img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: grayscale(100%) brightness(0.4);
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+
+        .feed-img.active {
+            opacity: 1;
+        }
+
+        .cam-controls {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .cam-btn {
+            padding: 20px;
+            border: 1px solid var(--grid);
+            background: transparent;
+            color: var(--dim);
+            text-align: left;
+            cursor: crosshair;
+            transition: all 0.3s;
+            font-family: 'Space Mono';
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .cam-btn:hover {
+            border-color: var(--txt);
+            color: var(--txt);
+        }
+
+        .cam-btn.active {
+            background: var(--txt);
+            color: var(--bg);
+            border-color: var(--txt);
+        }
+
+        .cam-num {
+            font-size: 1.5rem;
+            font-family: 'Anton';
+        }
+
+        /* OSD (On Screen Display) data sur l'image */
+        .osd-data {
+            position: absolute;
+            bottom: 30px;
+            left: 30px;
+            display: none;
+        }
+
+        .osd-data.active {
+            display: block;
+            animation: textGlitch 0.3s forwards;
+        }
+
+        @keyframes textGlitch {
+            0% {
+                opacity: 0;
+                transform: translateX(-10px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* --- 2. MANIFESTE (RAPPORT) --- */
+        .manifesto-grid {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 50px;
+        }
+
+        /* --- 3. ANATOMIE (MÉCANIQUE) --- */
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+
+        .tech-card {
+            border: 1px solid var(--grid);
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .tech-card h3 {
+            color: var(--red);
+            font-family: 'Anton';
+            font-size: 2rem;
+            margin: 0 0 15px 0;
+        }
+
+        /* --- 4. LE SCRIPT (MENU) --- */
+        .script-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+            border-top: 1px solid var(--grid);
+        }
+
+        .script-row {
+            display: grid;
+            grid-template-columns: 100px 1fr 2fr;
+            padding: 30px 0;
+            border-bottom: 1px solid var(--grid);
+            transition: background 0.3s;
+        }
+
+        .script-row:hover {
+            background: rgba(255, 255, 255, 0.05);
+            padding-left: 20px;
+        }
+
+        .s-act {
+            color: var(--red);
+            font-weight: bold;
+        }
+
+        .s-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            margin: 0;
+        }
+
+        /* --- 5. PROTOCOLES (FAQ) --- */
+        .faq-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+        }
+
+        .faq-item {
+            border-left: 2px solid var(--red);
+            padding-left: 20px;
+        }
+
+        .faq-item h4 {
+            margin: 0 0 10px 0;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+        }
+
+        /* --- 6. CTA FINAL --- */
+        .terminal-cta {
+            text-align: center;
+            padding: 150px 0;
+        }
+
+        .btn-override {
+            font-family: 'Anton', sans-serif;
+            font-size: clamp(3rem, 8vw, 8rem);
+            color: transparent;
+            -webkit-text-stroke: 2px var(--txt);
+            text-decoration: none;
+            transition: all 0.3s;
+            cursor: crosshair;
+        }
+
+        .btn-override:hover {
+            color: var(--red);
+            -webkit-text-stroke: 0px;
+            text-shadow: 0 0 30px rgba(255, 0, 0, 0.5);
+        }
+
+        /* Interactive element helper */
+        .interactive {
+            cursor: crosshair;
         }
     </style>
 </head>
+
 <body>
-<div class="site-wrapper">
 
-    <div class="container">
-        <nav>
-            <div class="logo">eco<span>rina</span></div>
-            <div class="nav-links">
-                <a href="#fonctionnement">Fonctionnement</a>
-                <a href="#avantages">Le Bilan</a>
-                <a href="#usages">Usages</a>
-                <a href="#pratique">Le Rituel</a>
-            </div>
-            <a href="#" class="btn btn-outline" style="padding: 10px 20px; font-size: 0.9rem;">Simulateur gratuit</a>
-        </nav>
-    </div>
-
-    <header class="container hero">
-        <div style="max-width: 900px;">
-            <div class="pill">TLB - Toilette à litière bio-maîtrisée</div>
-            <h1>L'élégance de la<br><span>simplicité absolue.</span></h1>
-            <p class="lead">Zéro plomberie, zéro électricité, et un retour direct à la terre. Découvrez comment la méthode ancestrale du WC à sciure a été repensée pour offrir une autonomie totale et un air parfaitement sain.</p>
-            
-            <div class="btn-group">
-                <a href="#pratique" class="btn btn-primary">Guide d'installation</a>
-                <a href="#fonctionnement" class="btn btn-outline">Découvrir le secret</a>
-            </div>
-        </div>
-
-        <div class="data-bar">
-            <div class="data-item">
-                <strong>0 €</strong>
-                <span>Frais de plomberie</span>
-            </div>
-            <div class="data-item">
-                <strong>100%</strong>
-                <span>Autonomie réseau</span>
-            </div>
-            <div class="data-item">
-                <strong>15 min</strong>
-                <span>Temps d'installation</span>
-            </div>
-        </div>
-    </header>
-
-    <section id="fonctionnement" class="container section" style="padding-top: 0;">
-        <div class="pill green">Fonctionnement</div>
-        <h2>La science de l'assèchement.</h2>
-        <p class="lead">Contrairement aux idées reçues, la matière ne sent pas. L'odeur provient de la fermentation dans l'eau. Voici comment la nature règle le problème.</p>
-
-        <div class="bento-grid">
-            <div class="bento-card large">
-                <div class="bento-num">01</div>
-                <div class="bento-content">
-                    <h3 style="margin-bottom: 16px;">Un réceptacle unique et universel.</h3>
-                    <p style="font-size: 1.125rem; color: var(--text-muted); margin: 0;">Ici, aucune séparation complexe. L'urine, la matière fécale et le papier toilette vont dans le même seau (généralement 20 litres, en inox). La magie s'opère après grâce au carbone.</p>
-                </div>
-            </div>
-            
-            <div class="bento-card">
-                <div class="bento-num">02</div>
-                <h3>Le pouvoir du carbone.</h3>
-                <p style="margin: 0; position: relative; z-index: 2;">Après chaque passage, on recouvre d'une louche de sciure. Elle absorbe instantanément l'humidité et bloque la création d'ammoniac. L'air reste pur.</p>
-            </div>
-
-            <div class="bento-card">
-                <div class="bento-num">03</div>
-                <h3>Le retour à la terre.</h3>
-                <p style="margin: 0; position: relative; z-index: 2;">Le seau plein est vidé au compost. Sous l'action de l'oxygène, la matière chauffe (hygiénisation) et devient un terreau stérile en 18 à 24 mois.</p>
-            </div>
-        </div>
-    </section>
-
-    <section id="avantages" class="container section">
-        <div style="text-align: center;">
-            <h2>Le choix en conscience.</h2>
-            <p class="lead" style="margin: 0 auto;">C'est la solution la plus écologique du marché, mais elle implique d'adopter un nouveau rituel. Faisons le bilan en toute transparence.</p>
-        </div>
-
-        <div class="split-section">
-            <div class="split-card pros-side">
-                <h3 style="color: var(--primary); margin-bottom: 48px;">Les bénéfices absolus</h3>
-                
-                <div class="feature-item">
-                    <div class="f-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></div>
-                    <div>
-                        <h4>Liberté d'installation</h4>
-                        <p style="color: var(--text-muted); margin: 0;">Ni arrivée d'eau, ni évacuation, ni prise électrique. Vous posez le meuble où bon vous semble, même en pleine forêt.</p>
-                    </div>
-                </div>
-                <div class="feature-item">
-                    <div class="f-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></div>
-                    <div>
-                        <h4>Indestructible</h4>
-                        <p style="color: var(--text-muted); margin: 0;">L'absence totale de mécanique ou d'électronique rend la panne impossible. C'est un investissement à vie sans entretien.</p>
-                    </div>
-                </div>
-                <div class="feature-item">
-                    <div class="f-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></div>
-                    <div>
-                        <h4>Coût maîtrisé</h4>
-                        <p style="color: var(--text-muted); margin: 0;">Dès 150€ pour un meuble de qualité, et 0€ de facture d'eau pour les décennies à venir. Le meilleur rapport qualité/prix.</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="split-card cons-side">
-                <h3 style="color: var(--accent-warm); margin-bottom: 48px;">Les compromis à accepter</h3>
-                
-                <div class="feature-item">
-                    <div class="f-icon"><svg viewBox="0 0 24 24"><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line><circle cx="12" cy="12" r="10"></circle></svg></div>
-                    <div>
-                        <h4>La vidange fréquente</h4>
-                        <p style="color: var(--text-muted); margin: 0;">L'urine remplit vite le seau. Pour 2 personnes en usage quotidien, il faut vider manuellement le seau au compost tous les 3 à 4 jours.</p>
-                    </div>
-                </div>
-                <div class="feature-item">
-                    <div class="f-icon"><svg viewBox="0 0 24 24"><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line><circle cx="12" cy="12" r="10"></circle></svg></div>
-                    <div>
-                        <h4>Logistique de la sciure</h4>
-                        <p style="color: var(--text-muted); margin: 0;">Il faut s'approvisionner régulièrement en sciure propre (scierie/menuiserie) et prévoir un espace sec pour la stocker.</p>
-                    </div>
-                </div>
-                <div class="feature-item">
-                    <div class="f-icon"><svg viewBox="0 0 24 24"><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line><circle cx="12" cy="12" r="10"></circle></svg></div>
-                    <div>
-                        <h4>Extérieur obligatoire</h4>
-                        <p style="color: var(--text-muted); margin: 0;">La loi impose un compostage sur aire étanche. Ce système est techniquement incompatible avec la vie en appartement.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="usages" class="container section" style="padding-top: 0;">
-        <div class="pill">Contextes</div>
-        <h2>Où la magie opère-t-elle vraiment ?</h2>
-        
-        <div class="poster-grid">
-            <div class="poster-card" style="border-color: var(--primary); box-shadow: var(--shadow-lg);">
-                <div class="poster-icon" style="background: var(--primary-light);">
-                    <svg viewBox="0 0 24 24"><path d="M3 22l9-18 9 18"></path><path d="M12 15v7"></path><path d="M8 22l4-7 4 7"></path></svg>
-                </div>
-                <span style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--primary); font-weight: 700; margin-bottom: 16px;">Le Terrain de jeu idéal</span>
-                <h3>Habitat léger & Extérieur</h3>
-                <p style="color: var(--text-muted); margin: 0;">Cabanon de jardin, Tiny House, yourte ou atelier. Sans électricité ni égouts, c'est la seule solution viable, robuste et immédiatement fonctionnelle.</p>
-            </div>
-            
-            <div class="poster-card">
-                <div class="poster-icon">
-                    <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
-                </div>
-                <span style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-muted); font-weight: 700; margin-bottom: 16px;">Choix militant</span>
-                <h3>Maison principale</h3>
-                <p style="color: var(--text-muted); margin: 0;">Parfait en WC d'appoint. Pour un usage familial exclusif, la corvée de vidange bi-hebdomadaire peut lasser. Les modèles à "séparation" sont souvent préférés ici.</p>
-            </div>
-
-            <div class="poster-card">
-                <div class="poster-icon">
-                    <svg viewBox="0 0 24 24"><rect x="4" y="2" width="16" height="20" rx="2" ry="2"></rect><path d="M9 22v-4h6v4"></path></svg>
-                </div>
-                <span style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-muted); font-weight: 700; margin-bottom: 16px;">Généralement déconseillé</span>
-                <h3>Pro & Collectivité</h3>
-                <p style="color: var(--text-muted); margin: 0;">Le volume de passage rend la gestion des seaux ingérable pour le personnel d'entretien. On privilégiera les systèmes de lombricompostage sous-plancher.</p>
-            </div>
-        </div>
-    </section>
-
-    <section id="pratique" class="container">
-        <div class="ritual-wrapper">
-            <div style="text-align: center;">
-                <div class="pill" style="background: rgba(255,255,255,0.1); color: white; border-color: rgba(255,255,255,0.2); box-shadow: none;">Le Guide Pratique</div>
-                <h2>Le rituel de l'autonomie.</h2>
-                <p class="lead" style="margin: 0 auto;">Passez à l'action. L'installation prend 15 minutes, et l'entretien devient une routine naturelle apaisante.</p>
-            </div>
-
-            <div class="ritual-grid">
-                <div>
-                    <h3 style="color: var(--primary-light); margin-bottom: 40px; font-size: 2rem;">Installer son WC sèches</h3>
-                    
-                    <div class="r-step">
-                        <h4>1. L'aire de compostage</h4>
-                        <p>Préparez un bac extérieur (min. 1m³) strictement dédié. Selon la loi, il doit être étanche au sol et à l'abri de la pluie.</p>
-                    </div>
-                    <div class="r-step">
-                        <h4>2. Positionner le meuble</h4>
-                        <p>C'est l'étape la plus rapide. Posez le meuble en bois sur un sol plat, et installez une jolie réserve pour votre sciure à côté.</p>
-                    </div>
-                    <div class="r-step">
-                        <h4>3. Amorcer le système</h4>
-                        <p>Insérez le seau (l'inox est conseillé pour éviter les imprégnations) et versez 5 cm de sciure vierge au fond. C'est prêt.</p>
-                    </div>
-                </div>
-
-                <div>
-                    <h3 style="color: var(--primary-light); margin-bottom: 40px; font-size: 2rem;">Utiliser & Entretenir</h3>
-                    
-                    <div class="r-step">
-                        <h4>Le geste de couverture</h4>
-                        <p>Jetez le papier toilette, puis recouvrez de sciure. La règle : <strong>on ne doit plus rien voir</strong>. Pour l'urine seule, une petite poignée suffit.</p>
-                    </div>
-                    <div class="r-step">
-                        <h4>La vidange</h4>
-                        <p>Ne laissez pas déborder ! Videz le seau sur le tas de compost dès qu'il est aux 3/4. Couvrez le tas avec de la paille ou de la tonte de gazon.</p>
-                    </div>
-                    <div class="r-step warning">
-                        <h4 style="color: var(--accent-warm-light);">L'interdiction absolue</h4>
-                        <p>Nettoyez le seau à l'eau et au vinaigre blanc pur. <strong>N'utilisez jamais d'eau de Javel</strong>, vous tueriez l'écosystème de votre compost !</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <div class="container" style="padding-top: 80px; padding-bottom: 80px;">
-        <div class="cross-sell-banner">
-            <h2>La vidange vous fait peur ?</h2>
-            <p class="lead" style="margin: 0 auto 40px auto; max-width: 800px;">C'est la contrainte principale de la sciure. Si vous cherchez un confort absolu pour la maison principale (vidange toutes les 6 semaines, sans avoir à manipuler de sciure), découvrez l'alternative moderne.</p>
-            <a href="#" class="btn btn-primary">Découvrir les WC à Séparation</a>
+    <div class="viewfinder"></div>
+    <div class="hud-top">
+        <div class="hud-logo">LE STUDIO.</div>
+        <div class="hud-status">
+            <span id="timecode">00:00:00:00</span>
+            <span>DATA LINK</span>
+            <div class="rec-dot"></div>
         </div>
     </div>
+    <div class="grain"></div>
 
-    <footer>
-        <div class="container" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 24px;">
-            <div class="logo" style="font-size: 1.5rem;">eco<span>rina.</span></div>
-            <p style="font-size: 0.9rem; color: var(--text-muted); margin: 0;">Le design au service de la transition écologique. © 2026</p>
-        </div>
-    </footer>
+    <div class="content-wrapper">
 
-</div> </body>
+        <section class="hero" id="cameras">
+            <div class="cam-viewer">
+                <img src="https://images.unsplash.com/photo-1605810230434-7631ac76ec81?q=80&w=2070&auto=format&fit=crop"
+                    class="feed-img active" id="img-01">
+                <img src="https://images.unsplash.com/photo-1534447677768-be436bb09401?q=80&w=2094&auto=format&fit=crop"
+                    class="feed-img" id="img-02">
+                <img src="https://images.unsplash.com/photo-1518173946687-a4c8892bbd9f?q=80&w=1974&auto=format&fit=crop"
+                    class="feed-img" id="img-03">
+
+                <div class="osd-data active" id="data-01">
+                    <div class="t-huge" style="font-size: 4rem;">LE PARRAIN</div>
+                    <div class="t-body">Séquence 01 / Italo-Américain Brutal / 22°C</div>
+                </div>
+                <div class="osd-data" id="data-02">
+                    <div class="t-huge" style="font-size: 4rem;">BLADE RUNNER</div>
+                    <div class="t-body">Séquence 02 / Asiatique Moléculaire / 18°C</div>
+                </div>
+                <div class="osd-data" id="data-03">
+                    <div class="t-huge" style="font-size: 4rem;">INCEPTION</div>
+                    <div class="t-body">Séquence 03 / Trompe-l'œil Sensoriel / Variable</div>
+                </div>
+            </div>
+
+            <div class="cam-controls">
+                <div class="section-header" style="margin-bottom: 10px;">CAM FEED</div>
+                <button class="cam-btn active interactive" data-target="01">
+                    <span class="cam-num">CH.01</span>
+                    <span class="t-serif" style="font-size: 1.2rem;">Le Parrain</span>
+                </button>
+                <button class="cam-btn interactive" data-target="02">
+                    <span class="cam-num">CH.02</span>
+                    <span class="t-serif" style="font-size: 1.2rem;">Blade Runner</span>
+                </button>
+                <button class="cam-btn interactive" data-target="03">
+                    <span class="cam-num">CH.03</span>
+                    <span class="t-serif" style="font-size: 1.2rem;">Inception</span>
+                </button>
+            </div>
+        </section>
+
+        <section id="manifesto">
+            <div class="section-header">FICHIER: MANIFESTE</div>
+            <div class="manifesto-grid">
+                <h2 class="t-huge">L'ILLUSION<br>DOIT ÊTRE<br>PARFAITE.</h2>
+                <div class="t-body t-serif" style="font-size: 1.5rem; color: var(--txt);">
+                    Oubliez la restauration traditionnelle. Le Studio est un complexe de production sensorielle conçu
+                    par des décorateurs du 7ème art.<br><br>
+                    <span style="color: var(--dim); font-size: 1rem; font-family: 'Space Mono';">Dès que la porte
+                        capitonnée se referme, la température s'ajuste, les enceintes directionnelles s'activent, la
+                        lumière se tamise. Vous ne venez pas pour manger, vous venez pour jouer votre rôle dans notre
+                        script.</span>
+                </div>
+            </div>
+        </section>
+
+        <section id="mechanics">
+            <div class="section-header">DONNÉES TECHNIQUES</div>
+            <div class="tech-grid">
+                <div class="tech-card">
+                    <h3>SCÉNOGRAPHIE</h3>
+                    <p class="t-body">240h de construction par salle. Murs, mobiliers, accessoires : il n'y a pas de
+                        décor, il n'y a que la réalité du film.</p>
+                </div>
+                <div class="tech-card">
+                    <h3>LUMIÈRE & CLIMAT</h3>
+                    <p class="t-body">Projecteurs DMX sur rail. La lumière vire au rouge, s'éteint ou clignote. La
+                        température chute physiquement pendant les scènes de tension.</p>
+                </div>
+                <div class="tech-card">
+                    <h3>ACOUSTIQUE</h3>
+                    <p class="t-body">Système 12.1 dissimulé. Pas de musique d'ambiance : vous entendez la pluie sur une
+                        vitre virtuelle ou le bruit d'une arme voisine.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="script">
+            <div class="section-header">DOCUMENT: SCRIPT CULINAIRE</div>
+            <p class="t-body" style="margin-bottom: 40px; max-width: 600px;">La carte est classifiée "Secret" pour ne
+                pas spoiler l'intrigue. Vous ne connaissez que la structure narrative.</p>
+
+            <div class="script-list">
+                <div class="script-row interactive">
+                    <div class="s-act">ACTE I</div>
+                    <h3 class="s-title">Prologue</h3>
+                    <div class="t-body">Mise en situation. Une bouchée thématique qui installe l'atmosphère et coupe les
+                        ponts avec l'extérieur.</div>
+                </div>
+                <div class="script-row interactive">
+                    <div class="s-act">ACTE II</div>
+                    <h3 class="s-title">Rupture</h3>
+                    <div class="t-body">L'élément déclencheur. Textures inattendues et changement brusque d'éclairage.
+                    </div>
+                </div>
+                <div class="script-row interactive">
+                    <div class="s-act">ACTE III</div>
+                    <h3 class="s-title">Climax</h3>
+                    <div class="t-body">Le plat principal. Tension dramatique maximale. Saveurs brutes et volume sonore
+                        à son apogée.</div>
+                </div>
+                <div class="script-row interactive">
+                    <div class="s-act">ACTE IV</div>
+                    <h3 class="s-title">Dénouement</h3>
+                    <div class="t-body">Le twist final en trompe-l'œil. La pression retombe, la lumière se radoucit, le
+                        générique approche.</div>
+                </div>
+            </div>
+        </section>
+
+        <section id="protocols">
+            <div class="section-header">PROTOCOLES D'ACCÈS</div>
+            <div class="faq-grid">
+                <div class="faq-item">
+                    <h4>Ponctualité Exigée</h4>
+                    <p class="t-body">Le film commence à heure fixe. Aucun retardataire accepté après le verrouillage
+                        des portes pour maintenir l'immersion totale.</p>
+                </div>
+                <div class="faq-item">
+                    <h4>Dress Code (Smart Dark)</h4>
+                    <p class="t-body">Le noir est fortement recommandé pour vous fondre dans les décors et respecter le
+                        travail de nos éclairagistes.</p>
+                </div>
+                <div class="faq-item">
+                    <h4>Restrictions Alimentaires</h4>
+                    <p class="t-body">Le script peut être adapté en cas d'allergies. Celles-ci doivent être
+                        impérativement signalées lors de l'émission du billet.</p>
+                </div>
+                <div class="faq-item">
+                    <h4>Blackout Numérique</h4>
+                    <p class="t-body">La lumière des écrans détruit l'éclairage de la salle. Les téléphones doivent
+                        rester silencieux et face contre table.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="terminal-cta" style="border: none;">
+            <div class="section-header" style="margin-bottom: 30px;">OVERRIDE SYSTEM</div><br>
+            <a href="#" class="btn-override interactive">ÉMETTRE<br>UN TICKET</a>
+            <div
+                style="margin-top: 100px; color: var(--dim); font-size: 0.8rem; display: flex; justify-content: space-between;">
+                <span>© 2026 LE STUDIO</span>
+                <span>CONNEXION SÉCURISÉE</span>
+            </div>
+        </section>
+
+    </div>
+
+    <script>
+        // 1. TIMECODE (HUD)
+        function updateTimecode() {
+            const now = new Date();
+            const h = String(now.getHours()).padStart(2, '0');
+            const m = String(now.getMinutes()).padStart(2, '0');
+            const s = String(now.getSeconds()).padStart(2, '0');
+            const ms = String(Math.floor(now.getMilliseconds() / 10)).padStart(2, '0');
+            document.getElementById('timecode').innerText = `TCR ${h}:${m}:${s}:${ms}`;
+            requestAnimationFrame(updateTimecode);
+        }
+        updateTimecode();
+
+        // 2. SWITCH CAMÉRAS
+        const btns = document.querySelectorAll('.cam-btn');
+        const imgs = document.querySelectorAll('.feed-img');
+        const datas = document.querySelectorAll('.osd-data');
+
+        btns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                if (btn.classList.contains('active')) return;
+
+                const target = btn.getAttribute('data-target');
+
+                // Reset
+                btns.forEach(b => b.classList.remove('active'));
+                imgs.forEach(i => i.classList.remove('active'));
+                datas.forEach(d => d.classList.remove('active'));
+
+                // Activate
+                btn.classList.add('active');
+                document.getElementById(`img-${target}`).classList.add('active');
+                document.getElementById(`data-${target}`).classList.add('active');
+            });
+        });
+    </script>
+</body>
+
 </html>
