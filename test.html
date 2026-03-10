@@ -3,25 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ecorina - Le guide des WC Sèches</title>
+    <title>Ecorina - L'art de l'autonomie</title>
     <style>
-        /* --- THEME "ACCUEIL 3 - ECO-TECH PREMIUM" (Conservé) --- */
+        /* --- THEME "ACCUEIL 3 - LUXURY EDITORIAL" --- */
         :root {
-            --bg-page: #F3F5F2; /* Gris-vert très clair */
-            --bg-card: #FFFFFF; /* Blanc pur */
-            --text-main: #131E17; /* Vert très sombre */
-            --text-muted: #596B60; /* Gris-vert secondaire */
+            /* Couleurs de fond */
+            --bg-page: #F3F5F2; /* Vert de gris très clair et lumineux */
+            --bg-card: #FFFFFF;
             
-            --primary: #167D3D; /* Vert vibrant Ecorina */
+            /* Typographie */
+            --text-main: #131E17; /* Anthracite/Vert très profond */
+            --text-muted: #596B60; /* Gris-vert doux */
+            
+            /* Accents */
+            --primary: #167D3D; /* Vert Ecorina */
             --primary-hover: #116330;
             --primary-light: #EBF2EC; 
             
-            --border: #E1E6E2;
-            --shadow-sm: 0 4px 20px rgba(19, 30, 23, 0.03);
-            --shadow-hover: 0 12px 30px rgba(19, 30, 23, 0.08);
+            --accent-warm: #D97746; /* Terre cuite pour contraster */
+            --accent-warm-light: #FDF4EF;
             
-            --font-main: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            --transition: all 0.3s ease;
+            /* UI Elements */
+            --border: rgba(19, 30, 23, 0.08);
+            --shadow-sm: 0 4px 12px rgba(19, 30, 23, 0.03);
+            --shadow-lg: 0 24px 48px rgba(19, 30, 23, 0.06);
+            --shadow-hover: 0 32px 64px rgba(22, 125, 61, 0.08);
+            
+            --radius-xl: 40px;
+            --radius-lg: 24px;
+            --radius-md: 16px;
+            
+            --font-main: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Segoe UI", Roboto, sans-serif;
+            --transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         /* --- RESET --- */
@@ -33,303 +46,320 @@
         img, svg { max-width: 100%; display: block; }
 
         /* --- LAYOUT --- */
-        .container { max-width: 1000px; /* Plus étroit que l'accueil pour un format "Guide/Article" */ margin: 0 auto; padding: 0 clamp(24px, 5vw, 48px); }
-        .section { padding: clamp(60px, 8vw, 100px) 0; }
-        .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 32px; }
-
-        /* --- TYPOGRAPHIE --- */
-        h1 { font-size: clamp(2.5rem, 6vw, 4.5rem); line-height: 1.05; letter-spacing: -0.03em; margin-bottom: 24px; font-weight: 500; color: var(--text-main); }
-        h2 { font-size: clamp(2rem, 4vw, 3rem); line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 24px; font-weight: 500; color: var(--text-main); }
-        h3 { font-size: clamp(1.25rem, 2vw, 1.5rem); margin-bottom: 12px; font-weight: 600; color: var(--text-main); }
-        h4 { font-size: 1.125rem; font-weight: 600; margin-bottom: 8px; color: var(--text-main); }
+        .container { max-width: 1240px; margin: 0 auto; padding: 0 clamp(24px, 5vw, 48px); }
+        .section { padding: clamp(100px, 12vw, 160px) 0; }
         
-        p { font-size: 1.05rem; color: var(--text-muted); margin-bottom: 16px; }
-        p.lead { font-size: clamp(1.125rem, 2vw, 1.25rem); color: var(--text-muted); margin-bottom: 40px; font-weight: 400; line-height: 1.6; max-width: 750px; }
+        /* --- TYPOGRAPHIE LIFESTYLE --- */
+        h1 { font-size: clamp(3.5rem, 8vw, 6.5rem); line-height: 0.95; letter-spacing: -0.04em; margin-bottom: 24px; font-weight: 500; }
+        h1 span { color: var(--primary); font-style: italic; font-weight: 400; }
+        h2 { font-size: clamp(2.5rem, 5vw, 4.5rem); line-height: 1.05; letter-spacing: -0.03em; margin-bottom: 24px; font-weight: 500; }
+        h3 { font-size: clamp(1.5rem, 3vw, 2rem); margin-bottom: 12px; font-weight: 500; letter-spacing: -0.02em; }
         
-        .breadcrumb { display: flex; align-items: center; gap: 8px; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--primary); margin-bottom: 32px; font-weight: 600; }
-        .breadcrumb span { color: var(--text-muted); }
-
-        /* --- NAVIGATION (Identique à l'accueil) --- */
-        nav { display: flex; justify-content: space-between; align-items: center; padding: 24px 0; }
-        .logo { font-size: 1.75rem; font-weight: 800; letter-spacing: -0.05em; color: var(--text-main); display: flex; align-items: center; gap: 8px; }
-        .logo span { color: var(--primary); }
-        .nav-links { display: flex; gap: 32px; font-size: 0.85rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; }
-        .nav-links a:hover { color: var(--text-main); }
+        p.lead { font-size: clamp(1.25rem, 2.5vw, 1.5rem); color: var(--text-muted); max-width: 650px; margin-bottom: 40px; font-weight: 400; line-height: 1.5; }
+        
+        .pill { display: inline-flex; align-items: center; padding: 8px 24px; border-radius: 50px; font-size: 0.85rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; background: var(--bg-card); border: 1px solid var(--border); box-shadow: var(--shadow-sm); margin-bottom: 32px; color: var(--text-main); }
+        .pill.green { background: var(--primary-light); color: var(--primary); border-color: transparent; }
 
         /* --- BOUTONS --- */
-        .btn { display: inline-flex; justify-content: center; align-items: center; padding: 14px 28px; border-radius: 100px; font-weight: 500; font-size: 0.95rem; transition: var(--transition); cursor: pointer; border: 1px solid transparent; }
-        .btn-primary { background: var(--primary); color: white; }
-        .btn-primary:hover { background: var(--primary-hover); transform: translateY(-2px); box-shadow: 0 8px 20px rgba(22, 125, 61, 0.2); }
+        .btn { display: inline-flex; justify-content: center; align-items: center; padding: 18px 40px; border-radius: 100px; font-weight: 500; font-size: 1.05rem; transition: var(--transition); cursor: pointer; border: 1px solid transparent; }
+        .btn-primary { background: var(--primary); color: white; box-shadow: 0 8px 24px rgba(22, 125, 61, 0.25); }
+        .btn-primary:hover { background: var(--primary-hover); transform: translateY(-4px); box-shadow: 0 12px 32px rgba(22, 125, 61, 0.35); }
         .btn-outline { background: transparent; color: var(--text-main); border-color: var(--border); }
-        .btn-outline:hover { background: var(--bg-card); transform: translateY(-2px); }
+        .btn-outline:hover { background: var(--bg-card); border-color: var(--text-main); transform: translateY(-4px); }
 
-        /* --- HERO EDITORIAL --- */
-        .hero-editorial { text-align: center; display: flex; flex-direction: column; align-items: center; padding-top: 64px; padding-bottom: 48px; border-bottom: 1px solid var(--border); }
+        /* --- NAVIGATION --- */
+        nav { display: flex; justify-content: space-between; align-items: center; padding: 32px 0; }
+        .logo { font-size: 1.75rem; font-weight: 700; letter-spacing: -0.05em; color: var(--text-main); }
+        .logo span { color: var(--primary); }
+        .nav-links { display: flex; gap: 40px; font-size: 0.9rem; font-weight: 500; color: var(--text-muted); }
+        .nav-links a:hover { color: var(--text-main); }
+
+        /* --- HERO --- */
+        .hero { min-height: 85vh; display: flex; flex-direction: column; justify-content: center; position: relative; }
+        .data-bar { display: flex; gap: 48px; margin-top: 64px; padding-top: 48px; border-top: 1px solid var(--border); flex-wrap: wrap; }
+        .data-item strong { display: block; font-size: 2.5rem; font-weight: 400; color: var(--text-main); line-height: 1; margin-bottom: 8px; }
+        .data-item span { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--primary); font-weight: 600; }
+
+        /* --- BENTO GRID (Fonctionnement) --- */
+        .bento-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 64px; }
+        .bento-card { background: var(--bg-card); border-radius: var(--radius-xl); padding: 48px; box-shadow: var(--shadow-sm); position: relative; overflow: hidden; transition: var(--transition); border: 1px solid transparent; display: flex; flex-direction: column; }
+        .bento-card:hover { transform: translateY(-8px); box-shadow: var(--shadow-lg); border-color: var(--border); }
         
-        /* --- FONCTIONNEMENT (Flux horizontal) --- */
-        .process-flow { display: flex; justify-content: space-between; gap: 32px; margin-top: 48px; position: relative; }
-        .process-flow::before { content: ''; position: absolute; top: 40px; left: 40px; right: 40px; height: 2px; background: dashed 2px var(--border); z-index: 0; }
+        .bento-card.large { grid-column: span 2; background: var(--primary-light); }
+        .bento-card.large h3 { font-size: 2.5rem; color: var(--primary-hover); }
         
-        .process-step { position: relative; z-index: 1; text-align: center; flex: 1; background: var(--bg-page); padding: 0 16px; }
-        .process-icon { width: 80px; height: 80px; background: var(--bg-card); border: 1px solid var(--border); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 24px auto; box-shadow: var(--shadow-sm); }
-        .process-icon svg { width: 32px; height: 32px; stroke: var(--primary); fill: none; stroke-width: 1.5; }
+        .bento-num { font-size: 8rem; font-weight: 200; line-height: 0.8; color: var(--bg-page); position: absolute; top: 32px; right: 32px; letter-spacing: -0.05em; pointer-events: none; }
+        .bento-card.large .bento-num { color: #FFFFFF; opacity: 0.7; }
 
-        /* --- AVANTAGES / LIMITES (Bloc Unifié) --- */
-        .pros-cons-box { background: var(--bg-card); border-radius: 32px; border: 1px solid var(--border); box-shadow: var(--shadow-sm); display: flex; overflow: hidden; margin-top: 48px; }
-        .pros-side, .cons-side { padding: 48px; flex: 1; }
-        .pros-side { background: var(--primary-light); }
+        /* --- SPLIT PROS/CONS (Le Bilan) --- */
+        .split-section { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; margin-top: 64px; }
+        .split-card { background: var(--bg-card); border-radius: var(--radius-xl); padding: 64px; box-shadow: var(--shadow-sm); border: 1px solid var(--border); }
         
-        .feature-list li { display: flex; align-items: flex-start; gap: 16px; margin-bottom: 24px; }
-        .feature-list li:last-child { margin-bottom: 0; }
-        .feature-list svg { width: 24px; height: 24px; flex-shrink: 0; margin-top: 2px; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
-        .icon-check { stroke: var(--primary); }
-        .icon-warn { stroke: #D97746; }
-
-        /* --- USAGES (Listes horizontales) --- */
-        .usage-row { background: var(--bg-card); border-radius: 24px; padding: 40px; border: 1px solid var(--border); margin-bottom: 24px; display: flex; gap: 40px; align-items: center; transition: var(--transition); }
-        .usage-row:hover { box-shadow: var(--shadow-sm); border-color: var(--primary); transform: translateX(8px); }
-        .usage-row .icon-wrapper { width: 64px; height: 64px; background: var(--bg-page); border-radius: 16px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-        .usage-row .icon-wrapper svg { width: 32px; height: 32px; stroke: var(--text-main); fill: none; stroke-width: 1.5; }
+        .feature-item { display: flex; gap: 24px; margin-bottom: 40px; align-items: flex-start; }
+        .feature-item:last-child { margin-bottom: 0; }
+        .f-icon { width: 56px; height: 56px; border-radius: 16px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; background: var(--bg-page); }
+        .f-icon svg { width: 28px; height: 28px; stroke: var(--text-main); fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
         
-        /* --- INSTALLATION & ENTRETIEN (Guide Pratique) --- */
-        .guide-box { background: var(--bg-card); border-radius: 24px; padding: 48px; border: 1px solid var(--border); }
-        .step-list { counter-reset: custom-counter; list-style: none; margin-top: 32px; }
-        .step-list li { position: relative; padding-left: 64px; margin-bottom: 32px; }
-        .step-list li::before { counter-increment: custom-counter; content: counter(custom-counter); position: absolute; left: 0; top: -4px; width: 40px; height: 40px; background: var(--bg-page); border: 1px solid var(--border); color: var(--primary); font-weight: 700; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+        .pros-side .f-icon { background: var(--primary-light); }
+        .pros-side .f-icon svg { stroke: var(--primary); }
+        
+        .cons-side .f-icon { background: var(--accent-warm-light); }
+        .cons-side .f-icon svg { stroke: var(--accent-warm); }
 
-        /* --- CROSS-SELL (Le lien vers l'autre modèle) --- */
-        .cross-sell { background: var(--text-main); color: white; border-radius: 32px; padding: 48px; text-align: center; margin-top: 64px; }
-        .cross-sell h2 { color: white; }
-        .cross-sell p { color: rgba(255,255,255,0.8); }
+        /* --- USAGES (Cartes Poster) --- */
+        .poster-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 64px; }
+        .poster-card { background: var(--bg-card); border-radius: var(--radius-xl); padding: 48px 40px; text-align: center; display: flex; flex-direction: column; align-items: center; box-shadow: var(--shadow-sm); transition: var(--transition); border: 1px solid transparent; }
+        .poster-card:hover { transform: translateY(-8px) scale(1.02); box-shadow: var(--shadow-hover); border-color: var(--border); }
+        
+        .poster-icon { width: 80px; height: 80px; background: var(--bg-page); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 32px; }
+        .poster-icon svg { width: 40px; height: 40px; stroke: var(--primary); fill: none; stroke-width: 1.5; }
 
-        @media (max-width: 900px) {
-            .grid-2 { grid-template-columns: 1fr; }
+        /* --- LE RITUEL (Installation & Entretien) --- */
+        .ritual-wrapper { background: var(--text-main); border-radius: var(--radius-xl); padding: clamp(48px, 8vw, 96px); color: white; margin-top: 64px; box-shadow: var(--shadow-lg); }
+        .ritual-wrapper h2 { color: white; }
+        .ritual-wrapper p.lead { color: #A0AAB2; }
+        
+        .ritual-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; margin-top: 64px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 64px; }
+        
+        .r-step { position: relative; padding-left: 64px; margin-bottom: 40px; }
+        .r-step:last-child { margin-bottom: 0; }
+        .r-step::before { content: '✓'; position: absolute; left: 0; top: 0; width: 40px; height: 40px; background: rgba(255,255,255,0.1); color: var(--primary-light); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; font-weight: bold; }
+        .r-step h4 { color: white; font-size: 1.25rem; margin-bottom: 8px; }
+        .r-step p { color: #A0AAB2; margin: 0; font-size: 1rem; }
+        
+        .r-step.warning::before { color: var(--accent-warm); background: rgba(217, 119, 70, 0.1); content: '!'; }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 1024px) {
+            .bento-card.large { grid-column: span 1; }
+            .bento-grid, .split-section, .poster-grid, .ritual-grid { grid-template-columns: 1fr; gap: 32px; }
             .nav-links { display: none; }
-            .process-flow { flex-direction: column; gap: 48px; }
-            .process-flow::before { display: none; }
-            .pros-cons-box { flex-direction: column; }
-            .usage-row { flex-direction: column; align-items: flex-start; gap: 24px; }
+            .ritual-grid { gap: 64px; }
         }
     </style>
 </head>
 <body>
 
-    <div class="container" style="max-width: 1200px;">
+    <div class="container">
         <nav>
-            <div class="logo">
-                eco<span>rina</span>
-            </div>
+            <div class="logo">eco<span>rina</span></div>
             <div class="nav-links">
-                <a href="#">Accueil</a>
                 <a href="#fonctionnement">Fonctionnement</a>
-                <a href="#avantages">Avantages & Limites</a>
+                <a href="#avantages">Le Bilan</a>
                 <a href="#usages">Usages</a>
-                <a href="#pratique">Guide Pratique</a>
+                <a href="#pratique">Le Rituel</a>
             </div>
-            <a href="#" class="btn btn-outline" style="font-size: 0.85rem; padding: 10px 24px;">Trouver un artisan</a>
+            <a href="#" class="btn btn-outline" style="padding: 10px 24px; font-size: 0.9rem;">Simulateur gratuit</a>
         </nav>
     </div>
 
-    <header class="container hero-editorial">
-        <div class="breadcrumb">
-            Guides <span>/</span> Modèles <span>/</span> WC à sciure
+    <header class="container hero">
+        <div style="max-width: 900px;">
+            <div class="pill">TLB - Toilette à litière bio-maîtrisée</div>
+            <h1>L'élégance de la<br><span>simplicité absolue.</span></h1>
+            <p class="lead">Zéro plomberie, zéro électricité, et un retour direct à la terre. Découvrez comment la méthode ancestrale du WC à sciure a été repensée pour offrir une autonomie totale et un air parfaitement sain.</p>
+            
+            <div class="btn-group">
+                <a href="#pratique" class="btn btn-primary">Guide d'installation</a>
+                <a href="#fonctionnement" class="btn btn-outline">Découvrir le secret</a>
+            </div>
         </div>
-        <h1>Les Toilettes Sèches.<br>L'autonomie absolue.</h1>
-        <p class="lead">C'est le modèle originel (la TLB). Zéro plomberie, zéro électricité, et un retour direct à la terre. Découvrez si cette solution rustique et ultra-robuste est faite pour votre projet.</p>
+
+        <div class="data-bar">
+            <div class="data-item">
+                <strong>0 €</strong>
+                <span>Frais de plomberie</span>
+            </div>
+            <div class="data-item">
+                <strong>100%</strong>
+                <span>Autonomie réseau</span>
+            </div>
+            <div class="data-item">
+                <strong>15 min</strong>
+                <span>Temps d'installation</span>
+            </div>
+        </div>
     </header>
 
-    <section id="fonctionnement" class="container section">
-        <div style="text-align: center;">
-            <h2>Comment ça marche en pratique ?</h2>
-            <p class="lead" style="margin: 0 auto;">C'est la méthode la plus simple au monde. Elle repose sur un principe biologique infaillible : l'équilibre carbone/azote.</p>
-        </div>
+    <section id="fonctionnement" class="container section" style="padding-top: 0;">
+        <div class="pill green">Fonctionnement</div>
+        <h2>La science de l'assèchement.</h2>
+        <p class="lead">Contrairement aux idées reçues, la matière ne sent pas. L'odeur provient de la fermentation dans l'eau. Voici comment la nature règle le problème.</p>
 
-        <div class="process-flow">
-            <div class="process-step">
-                <div class="process-icon">
-                    <svg viewBox="0 0 24 24"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
-                </div>
-                <h3>1. Le contenant unique</h3>
-                <p>Contrairement aux modèles technologiques, ici tout va dans le même seau (urine, fèces, papier toilette). Pas de séparation, pas de mécanique.</p>
+        <div class="bento-grid">
+            <div class="bento-card large">
+                <div class="bento-num">01</div>
+                <h3 style="max-width: 400px; margin-bottom: 24px;">Un réceptacle unique et universel.</h3>
+                <p style="font-size: 1.125rem; color: var(--text-muted); max-width: 500px; margin: 0;">Ici, aucune séparation complexe. L'urine, la matière fécale et le papier toilette vont dans le même seau (généralement 20 litres, en inox). La magie s'opère après.</p>
             </div>
-            <div class="process-step">
-                <div class="process-icon">
-                    <svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
-                </div>
-                <h3>2. La couverture (Carbone)</h3>
-                <p>Après votre passage, vous recouvrez la matière avec une louche de sciure ou de copeaux de bois. C'est elle qui absorbe l'humidité et bloque 100% des odeurs.</p>
+            
+            <div class="bento-card">
+                <div class="bento-num">02</div>
+                <h3>Le pouvoir du carbone.</h3>
+                <p style="margin: 0;">Après chaque passage, on recouvre d'une louche de sciure. Elle absorbe instantanément l'humidité et bloque la création d'ammoniac.</p>
             </div>
-            <div class="process-step">
-                <div class="process-icon">
-                    <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-                </div>
-                <h3>3. Le compostage</h3>
-                <p>Une fois le seau plein (tous les 3/4 jours), il est vidé dans un bac à compost extérieur. La nature fait son œuvre et transforme le tout en terreau fertile.</p>
+
+            <div class="bento-card">
+                <div class="bento-num">03</div>
+                <h3>Le retour à la terre.</h3>
+                <p style="margin: 0;">Le seau plein est vidé au jardin. Sous l'action de l'oxygène, la matière chauffe et devient un terreau stérile en 18 mois.</p>
             </div>
         </div>
     </section>
 
-    <section id="avantages" class="container section" style="padding-top: 0;">
-        <h2>Avantages & Limites</h2>
-        <p class="lead">Le WC à sciure demande un peu de logistique en échange d'une liberté totale. Voici le bilan objectif.</p>
+    <section id="avantages" class="container section">
+        <div style="text-align: center;">
+            <h2>Le choix en conscience.</h2>
+            <p class="lead" style="margin: 0 auto;">C'est la solution la plus écologique du marché, mais elle implique d'adopter un nouveau rituel. Faisons le bilan en toute transparence.</p>
+        </div>
 
-        <div class="pros-cons-box">
-            <div class="pros-side">
-                <h3 style="color: var(--primary);">Les points forts</h3>
-                <ul class="feature-list" style="margin-top: 32px;">
-                    <li>
-                        <svg class="icon-check" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                        <div>
-                            <h4>Installation immédiate et libre</h4>
-                            <p style="margin: 0;">Aucun travaux, ni raccordement à l'eau, ni prise électrique. Vous achetez le meuble, vous le posez, il est prêt à l'emploi.</p>
-                        </div>
-                    </li>
-                    <li>
-                        <svg class="icon-check" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                        <div>
-                            <h4>Une robustesse à toute épreuve</h4>
-                            <p style="margin: 0;">C'est un seau dans une boîte. Il n'y a aucune pièce mécanique. Le système ne tombera jamais en panne et ne fuira jamais.</p>
-                        </div>
-                    </li>
-                    <li>
-                        <svg class="icon-check" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                        <div>
-                            <h4>Le prix le plus bas</h4>
-                            <p style="margin: 0;">Les modèles d'excellente qualité coûtent entre 150€ et 300€, soit 3 à 4 fois moins cher qu'un système à séparation.</p>
-                        </div>
-                    </li>
-                </ul>
+        <div class="split-section">
+            <div class="split-card pros-side">
+                <h3 style="color: var(--primary); margin-bottom: 48px;">Les bénéfices absolus</h3>
+                
+                <div class="feature-item">
+                    <div class="f-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></div>
+                    <div>
+                        <h4>Liberté d'installation</h4>
+                        <p style="color: var(--text-muted); margin: 0;">Ni arrivée d'eau, ni évacuation, ni prise électrique. Vous posez le meuble où bon vous semble.</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="f-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></div>
+                    <div>
+                        <h4>Indestructible</h4>
+                        <p style="color: var(--text-muted); margin: 0;">L'absence totale de mécanique ou d'électronique rend la panne impossible. C'est un investissement à vie.</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="f-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></div>
+                    <div>
+                        <h4>Coût maîtrisé</h4>
+                        <p style="color: var(--text-muted); margin: 0;">Dès 150€ pour un meuble de qualité, et 0€ de facture d'eau pour les décennies à venir.</p>
+                    </div>
+                </div>
             </div>
 
-            <div class="cons-side">
-                <h3>À prendre en compte</h3>
-                <ul class="feature-list" style="margin-top: 32px;">
-                    <li>
-                        <svg class="icon-warn" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
-                        <div>
-                            <h4>La vidange est très fréquente</h4>
-                            <p style="margin: 0;">L'urine remplit le seau très rapidement. Pour deux personnes, attendez-vous à vider un seau de 20L tous les 3 à 4 jours.</p>
-                        </div>
-                    </li>
-                    <li>
-                        <svg class="icon-warn" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
-                        <div>
-                            <h4>La gestion de la sciure</h4>
-                            <p style="margin: 0;">Il vous faut un fournisseur régulier (menuiserie locale, scierie) et un endroit pour stocker les sacs au sec.</p>
-                        </div>
-                    </li>
-                    <li>
-                        <svg class="icon-warn" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
-                        <div>
-                            <h4>Le confort "Rustique"</h4>
-                            <p style="margin: 0;">Manipuler un seau lourd et jeter de la sciure n'est pas au goût de tout le monde, surtout en maison principale ou pour les invités.</p>
-                        </div>
-                    </li>
-                </ul>
+            <div class="split-card cons-side">
+                <h3 style="color: var(--accent-warm); margin-bottom: 48px;">Les compromis à accepter</h3>
+                
+                <div class="feature-item">
+                    <div class="f-icon"><svg viewBox="0 0 24 24"><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line><circle cx="12" cy="12" r="10"></circle></svg></div>
+                    <div>
+                        <h4>La vidange fréquente</h4>
+                        <p style="color: var(--text-muted); margin: 0;">L'urine remplit vite le seau. Pour 2 personnes, il faut vider manuellement le seau au compost tous les 3 à 4 jours.</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="f-icon"><svg viewBox="0 0 24 24"><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line><circle cx="12" cy="12" r="10"></circle></svg></div>
+                    <div>
+                        <h4>Logistique de la sciure</h4>
+                        <p style="color: var(--text-muted); margin: 0;">Il faut s'approvisionner régulièrement en sciure propre et prévoir un espace sec pour la stocker.</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="f-icon"><svg viewBox="0 0 24 24"><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line><circle cx="12" cy="12" r="10"></circle></svg></div>
+                    <div>
+                        <h4>Extérieur obligatoire</h4>
+                        <p style="color: var(--text-muted); margin: 0;">La loi impose un compostage sur aire étanche. Ce système est incompatible avec la vie en appartement.</p>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
     <section id="usages" class="container section" style="padding-top: 0;">
-        <h2>Pour quels usages ?</h2>
-        <p class="lead">Ne vous trompez pas de modèle. Le WC à sciure brille dans des contextes très précis.</p>
-
-        <div style="margin-top: 40px;">
-            <div class="usage-row">
-                <div class="icon-wrapper">
+        <div class="pill">Contextes</div>
+        <h2>Où la magie opère-t-elle vraiment ?</h2>
+        
+        <div class="poster-grid">
+            <div class="poster-card" style="border-color: var(--primary); box-shadow: var(--shadow-lg);">
+                <div class="poster-icon" style="background: var(--primary-light);">
                     <svg viewBox="0 0 24 24"><path d="M3 22l9-18 9 18"></path><path d="M12 15v7"></path><path d="M8 22l4-7 4 7"></path></svg>
                 </div>
-                <div>
-                    <h4>1. Le contexte idéal : Extérieur & Habitat léger</h4>
-                    <p style="margin: 0;">C'est son terrain de jeu naturel. Cabanon de jardin, Tiny House, yourte, caravane ou chantier. L'absence de réseau électrique et d'eau courante rend la toilette à sciure indispensable et imbattable.</p>
-                </div>
+                <span style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--primary); font-weight: 700; margin-bottom: 16px;">Le Terrain de jeu idéal</span>
+                <h3>Habitat léger & Extérieur</h3>
+                <p style="color: var(--text-muted); margin: 0;">Cabanon de jardin, Tiny House, yourte ou atelier. Sans électricité ni égouts, c'est la seule solution viable, robuste et immédiatement fonctionnelle.</p>
             </div>
-
-            <div class="usage-row">
-                <div class="icon-wrapper">
+            
+            <div class="poster-card">
+                <div class="poster-icon">
                     <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
                 </div>
-                <div>
-                    <h4>2. En maison principale : WC d'appoint ou pour les plus motivés</h4>
-                    <p style="margin: 0;">Vous pouvez tout à fait l'installer dans votre salle de bain, mais attention à "la charge mentale" de la vidange bi-hebdomadaire. Pour un usage familial 100% du temps, les modèles technologiques à "séparation" sont souvent préférés.</p>
-                </div>
+                <span style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-muted); font-weight: 700; margin-bottom: 16px;">Choix militant</span>
+                <h3>Maison principale</h3>
+                <p style="color: var(--text-muted); margin: 0;">Parfait en WC d'appoint. Pour un usage familial exclusif, la corvée de vidange bi-hebdomadaire peut lasser. Les modèles à "séparation" sont souvent préférés ici.</p>
             </div>
 
-            <div class="usage-row">
-                <div class="icon-wrapper">
+            <div class="poster-card">
+                <div class="poster-icon">
                     <svg viewBox="0 0 24 24"><rect x="4" y="2" width="16" height="20" rx="2" ry="2"></rect><path d="M9 22v-4h6v4"></path></svg>
                 </div>
+                <span style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-muted); font-weight: 700; margin-bottom: 16px;">Généralement déconseillé</span>
+                <h3>Pro & Collectivité</h3>
+                <p style="color: var(--text-muted); margin: 0;">Le volume de passage rend la gestion des seaux ingérable pour le personnel. On privilégiera les systèmes de lombricompostage sous-plancher.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="pratique" class="container">
+        <div class="ritual-wrapper">
+            <div style="text-align: center;">
+                <div class="pill" style="background: rgba(255,255,255,0.1); color: white; border-color: rgba(255,255,255,0.2); box-shadow: none;">Le Guide Pratique</div>
+                <h2>Le rituel de l'autonomie.</h2>
+                <p class="lead" style="margin: 0 auto;">Passez à l'action. L'installation prend 15 minutes, et l'entretien devient une routine naturelle.</p>
+            </div>
+
+            <div class="ritual-grid">
                 <div>
-                    <h4>3. Collectivité / Entreprises : Déconseillé en l'état</h4>
-                    <p style="margin: 0;">Pour des bureaux ou un parc public, le volume de passage rendrait la gestion des seaux ingérable pour le personnel. Dans ce cas, on s'oriente vers des systèmes de lombricompostage de grande capacité sous-plancher.</p>
+                    <h3 style="color: var(--primary-light); margin-bottom: 40px; font-size: 2rem;">Installer son WC sèches</h3>
+                    
+                    <div class="r-step">
+                        <h4>1. L'aire de compostage</h4>
+                        <p>Préparez un bac extérieur (min. 1m³) strictement dédié. Selon la loi, il doit être étanche au sol et à l'abri de la pluie.</p>
+                    </div>
+                    <div class="r-step">
+                        <h4>2. Positionner le meuble</h4>
+                        <p>C'est l'étape la plus rapide. Posez le meuble en bois sur un sol plat, et installez une jolie réserve pour votre sciure à côté.</p>
+                    </div>
+                    <div class="r-step">
+                        <h4>3. Amorcer le système</h4>
+                        <p>Insérez le seau (l'inox est conseillé pour éviter les imprégnations) et versez 5 cm de sciure vierge au fond. C'est prêt.</p>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 style="color: var(--primary-light); margin-bottom: 40px; font-size: 2rem;">Utiliser & Entretenir</h3>
+                    
+                    <div class="r-step">
+                        <h4>Le geste de couverture</h4>
+                        <p>Jetez le papier toilette, puis recouvrez de sciure. La règle : <strong>on ne doit plus rien voir</strong>. Pour l'urine seule, une petite poignée suffit.</p>
+                    </div>
+                    <div class="r-step">
+                        <h4>La vidange</h4>
+                        <p>Ne laissez pas déborder ! Videz le seau sur le tas de compost dès qu'il est aux 3/4. Couvrez le tas avec de la paille ou de la tonte.</p>
+                    </div>
+                    <div class="r-step warning">
+                        <h4 style="color: var(--accent-warm-light);">L'interdiction absolue</h4>
+                        <p>Nettoyez le seau à l'eau et au vinaigre blanc pur. <strong>N'utilisez jamais d'eau de Javel</strong>, vous tueriez l'écosystème de votre compost !</p>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="pratique" class="container section" style="padding-top: 0;">
-        <h2>Le guide pratique</h2>
-        <p class="lead">Passer à l'action n'a jamais été aussi simple. Voici le quotidien de votre future installation.</p>
-
-        <div class="grid-2">
-            <div class="guide-box">
-                <h3 style="color: var(--primary);">L'installation</h3>
-                <p>Oubliez les devis de plomberie. C'est à la portée de n'importe qui.</p>
-                
-                <ul class="step-list">
-                    <li>
-                        <h4>Créer l'aire de compostage</h4>
-                        <p style="margin:0;">Avant toute chose, préparez un bac à compost extérieur (étanche au sol selon la loi française) pour accueillir les matières.</p>
-                    </li>
-                    <li>
-                        <h4>Poser le meuble</h4>
-                        <p style="margin:0;">Posez le meuble en bois de votre WC sèche sur un sol plat, tout simplement.</p>
-                    </li>
-                    <li>
-                        <h4>Préparer la litière</h4>
-                        <p style="margin:0;">Placez le seau (inox ou plastique de 15L à 20L) à l'intérieur, et versez 5 cm de sciure vierge au fond pour démarrer l'absorption.</p>
-                    </li>
-                </ul>
-            </div>
-
-            <div class="guide-box">
-                <h3 style="color: var(--primary);">Utilisation & Entretien</h3>
-                <p>Quelques règles simples pour que l'air reste parfaitement sain.</p>
-
-                <ul class="step-list">
-                    <li>
-                        <h4>Le geste quotidien</h4>
-                        <p style="margin:0;">Jetez le papier toilette dans le seau, et recouvrez systématiquement la matière solide d'une belle louche de sciure. Pour l'urine, une poignée suffit.</p>
-                    </li>
-                    <li>
-                        <h4>La vidange</h4>
-                        <p style="margin:0;">Ne laissez pas le seau déborder. Videz-le sur le compost extérieur quand il est plein aux 3/4. Recouvrez ensuite le tas d'un peu de paille ou de feuilles mortes.</p>
-                    </li>
-                    <li>
-                        <h4>L'interdiction absolue</h4>
-                        <p style="margin:0;">Rincez le seau à l'eau et au vinaigre blanc. <strong>N'utilisez jamais d'eau de javel ou de produits chimiques</strong>, sous peine de tuer toutes les bactéries de votre futur compost !</p>
-                    </li>
-                </ul>
-            </div>
+    <div class="container" style="padding-top: 80px; padding-bottom: 80px;">
+        <div style="background: var(--bg-card); border-radius: var(--radius-xl); padding: 64px; text-align: center; border: 1px solid var(--border); box-shadow: var(--shadow-sm);">
+            <h2>La vidange vous fait peur ?</h2>
+            <p class="lead" style="margin: 0 auto 32px auto;">C'est la contrainte n°1 de la sciure. Si vous cherchez un confort absolu pour la maison (vidange toutes les 6 semaines, sans sciure), découvrez l'alternative moderne.</p>
+            <a href="#" class="btn btn-outline">Découvrir les WC à Séparation</a>
         </div>
-    </section>
+    </div>
 
-    <section class="container" style="padding-bottom: 100px;">
-        <div class="cross-sell">
-            <h2>Peur de la contrainte de vidange ?</h2>
-            <p class="lead" style="margin: 0 auto 32px auto; color: rgba(255,255,255,0.8);">La toilette à sciure est fantastique, mais elle demande du temps. Si vous cherchez le confort absolu pour votre maison principale, découvrez l'alternative technologique.</p>
-            <a href="#" class="btn btn-primary" style="background: white; color: var(--text-main);">Découvrir les WC à Séparation</a>
-        </div>
-    </section>
-
-    <footer style="border-top: 1px solid var(--border); padding: 64px 0 32px 0;">
-        <div class="container" style="max-width: 1200px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 24px;">
-            <div class="logo" style="font-size: 1.5rem;">
-                eco<span>rina</span>
-            </div>
-            <div style="font-size: 0.85rem; color: var(--text-muted); font-weight: 500;">
-                Design Éco-Conçu • Zéro JavaScript • Projet Pédagogique
-            </div>
+    <footer style="background: var(--bg-card); border-top: 1px solid var(--border); padding: 48px 0; text-align: center;">
+        <div class="container">
+            <div class="logo" style="justify-content: center; margin-bottom: 16px;">eco<span>rina.</span></div>
+            <p style="font-size: 0.9rem; color: var(--text-muted);">Le design au service de la transition écologique.</p>
         </div>
     </footer>
 
