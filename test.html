@@ -1,1070 +1,363 @@
 <!DOCTYPE html>
 <html lang="fr">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ANTO. | Designer Digital & Graphiste 360°</title>
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&family=Unbounded:wght@700;800;900&family=Space+Mono:wght@400;700&display=swap"
-        rel="stylesheet">
-
+    <title>Ecorina - Le guide complet des toilettes écologiques</title>
     <style>
-        /* ==========================================================================
-           1. DESIGN SYSTEM (RÈGLE 60/30/10)
-           ========================================================================== */
+        /* --- THEME PÉDAGOGIQUE & NATUREL --- */
         :root {
-            /* 60% DOMINANTE - Respiration et fond de page */
-            --bg-main: #F4F5F6;
-            --bg-card: #FFFFFF;
-
-            /* 30% SECONDAIRE - Typo majeure, actions et focus visuel */
-            --brand-blue: #0A3CFF;
-
-            /* 10% ACCENTS - Éléments de rupture, structure et énergie */
-            --text-dark: #0A0A0A;
-            --accent-lime: #CCFF00;
-
-            /* Typographies */
-            --font-display: 'Unbounded', sans-serif;
-            --font-body: 'Manrope', sans-serif;
-            --font-mono: 'Space Mono', monospace;
-
-            /* Utilitaires */
-            --ease: cubic-bezier(0.25, 1, 0.5, 1);
-            --border-std: 2.5px solid var(--text-dark);
-        }
-
-        /* ==========================================================================
-           2. ANTI-BUG SYSTEM & RESET
-           ========================================================================== */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            cursor: none;
-        }
-
-        html,
-        body {
-            max-width: 100vw;
-            overflow-x: clip;
-            scroll-behavior: smooth;
-        }
-
-        body {
-            background-color: var(--bg-main);
-            color: var(--text-dark);
-            font-family: var(--font-body);
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-        }
-
-        a {
-            text-decoration: none;
-            color: inherit;
-        }
-
-        img {
-            max-width: 100%;
-            height: auto;
-            display: block;
-        }
-
-        p {
-            line-height: 1.6;
-            font-size: 18px;
-            font-weight: 600;
-            color: rgba(10, 10, 10, 0.8);
-        }
-
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 5vw;
-            width: 100%;
-        }
-
-        /* ==========================================================================
-           3. CURSEUR CUSTOM
-           ========================================================================== */
-        #cursor-dot {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 8px;
-            height: 8px;
-            background: var(--brand-blue);
-            border-radius: 50%;
-            transform: translate(-50%, -50%);
-            z-index: 10001;
-            pointer-events: none;
-        }
-
-        #cursor-follower {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 40px;
-            height: 40px;
-            border: 2px solid var(--brand-blue);
-            border-radius: 50%;
-            transform: translate(-50%, -50%);
-            z-index: 10000;
-            pointer-events: none;
-            transition: width 0.3s var(--ease), height 0.3s var(--ease), background 0.3s var(--ease);
-        }
-
-        body.hovering #cursor-follower {
-            width: 80px;
-            height: 80px;
-            background: rgba(10, 60, 255, 0.1);
-            border-color: transparent;
-        }
-
-        /* ==========================================================================
-           4. NAVIGATION (HEADER)
-           ========================================================================== */
-        header {
-            position: fixed;
-            top: 30px;
-            left: 0;
-            width: 100%;
-            display: flex;
-            justify-content: center;
-            z-index: 9000;
-            pointer-events: none;
-        }
-
-        .nav-pill {
-            pointer-events: auto;
-            background: var(--bg-card);
-            padding: 8px 8px 8px 32px;
-            border-radius: 50px;
-            display: flex;
-            align-items: center;
-            gap: 40px;
-            border: 2px solid transparent;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.06);
-            transition: 0.3s var(--ease);
-        }
-
-        .nav-pill:hover {
-            transform: translateY(-3px);
-            border-color: rgba(10, 60, 255, 0.2);
-        }
-
-        .logo {
-            font-family: var(--font-display);
-            font-weight: 900;
-            color: var(--brand-blue);
-            font-size: 16px;
-            letter-spacing: -0.5px;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 30px;
-            font-weight: 800;
-            font-size: 11px;
-            text-transform: uppercase;
-        }
-
-        .nav-links a {
-            position: relative;
-            transition: color 0.3s;
-        }
-
-        .nav-links a:hover {
-            color: var(--brand-blue);
-        }
-
-        .btn-primary {
-            background: var(--brand-blue);
-            color: var(--bg-card);
-            padding: 14px 30px;
-            border-radius: 50px;
-            font-family: var(--font-display);
-            font-weight: 800;
-            font-size: 11px;
-            text-transform: uppercase;
-            transition: all 0.3s var(--ease);
-        }
-
-        .btn-primary:hover {
-            background: var(--text-dark);
-            transform: scale(1.05);
-        }
-
-        /* ==========================================================================
-           5. HERO SECTION
-           ========================================================================== */
-        .hero {
-            min-height: 90vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            text-align: center;
-            padding-top: 100px;
-            padding-bottom: 60px;
-        }
-
-        .hero-title {
-            font-family: var(--font-display);
-            font-size: clamp(4rem, 14vw, 200px);
-            font-weight: 900;
-            color: var(--brand-blue);
-            text-transform: uppercase;
-            line-height: 0.85;
-            letter-spacing: -0.04em;
-            margin-bottom: 25px;
-            z-index: 2;
-            position: relative;
-        }
-
-        .hero-subtitle {
-            font-size: clamp(1.2rem, 3vw, 40px);
-            font-weight: 800;
-            text-transform: uppercase;
-            margin-bottom: 30px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 15px;
-            flex-wrap: wrap;
-            z-index: 2;
-            position: relative;
-        }
-
-        .highlight-box {
-            background: var(--brand-blue);
-            color: var(--bg-card);
-            padding: 5px 20px;
-            border-radius: 8px;
-        }
-
-        .hero-desc {
-            font-size: 18px;
-            font-weight: 600;
-            line-height: 1.5;
-            max-width: 600px;
-            color: rgba(10, 10, 10, 0.7);
-            z-index: 2;
-            margin: 0 auto;
-            position: relative;
-        }
-
-        .hero-badges-wrapper {
-            position: absolute;
-            inset: 0;
-            pointer-events: none;
-            overflow: hidden;
-        }
-
-        .float-badge {
-            position: absolute;
-            border: 2px solid var(--brand-blue);
-            color: var(--brand-blue);
-            background: var(--bg-main);
-            padding: 10px 24px;
-            border-radius: 50px;
-            font-family: var(--font-display);
-            font-size: 10px;
-            font-weight: 800;
-            text-transform: uppercase;
-            animation: float 6s ease-in-out infinite;
-            pointer-events: auto;
-            box-shadow: 4px 4px 0 rgba(10, 60, 255, 0.05);
-        }
-
-        .fb-1 {
-            top: 25%;
-            left: 12%;
-            transform: rotate(-8deg);
-            animation-delay: 0s;
-        }
-
-        .fb-2 {
-            top: 20%;
-            right: 15%;
-            transform: rotate(12deg);
-            animation-delay: -2s;
-        }
-
-        .fb-3 {
-            bottom: 20%;
-            left: 18%;
-            transform: rotate(6deg);
-            animation-delay: -4s;
-        }
-
-        @keyframes float {
-
-            0%,
-            100% {
-                transform: translateY(0) rotate(var(--rot, 0deg));
-            }
-
-            50% {
-                transform: translateY(-15px) rotate(var(--rot, 0deg));
-            }
-        }
-
-        .circle-text {
-            position: absolute;
-            bottom: 15%;
-            right: 15%;
-            width: 130px;
-            height: 130px;
-            animation: rotate 12s linear infinite;
-            pointer-events: none;
-        }
-
-        @keyframes rotate {
-            100% {
-                transform: rotate(360deg);
-            }
-        }
-
-        /* ==========================================================================
-           6. MARQUEE & MANIFESTO 
-           ========================================================================== */
-        .marquee-wrapper {
-            background: var(--accent-lime);
-            border-top: var(--border-std);
-            border-bottom: var(--border-std);
-            padding: 20px 0;
-            overflow: hidden;
-            white-space: nowrap;
-            transform: rotate(-1deg);
-            width: 105vw;
-            margin-left: -2.5vw;
-            position: relative;
-            z-index: 10;
-        }
-
-        .marquee-content {
-            display: inline-block;
-            font-family: var(--font-display);
-            font-size: 26px;
-            font-weight: 900;
-            text-transform: uppercase;
-            animation: marquee 25s linear infinite;
-            color: var(--text-dark);
-        }
-
-        @keyframes marquee {
-            0% {
-                transform: translateX(0);
-            }
-
-            100% {
-                transform: translateX(-50%);
-            }
-        }
-
-        .manifesto-section {
-            background: var(--text-dark);
-            color: var(--bg-card);
-            padding: 120px 0;
-            margin-top: 80px;
-        }
-
-        .manifesto-text {
-            font-family: var(--font-display);
-            font-size: clamp(2rem, 4.5vw, 55px);
-            font-weight: 900;
-            text-transform: uppercase;
-            line-height: 1.2;
-            letter-spacing: -1px;
-            max-width: 1000px;
-            margin: 0 auto;
-            text-align: center;
-        }
-
-        .manifesto-text span {
-            color: var(--accent-lime);
-        }
-
-        /* ==========================================================================
-           7. EXPERTISE & APPROCHE 
-           ========================================================================== */
-        .section-padding {
-            padding: 140px 0;
-        }
-
-        .section-header {
-            margin-bottom: 60px;
-            text-align: center;
-        }
-
-        .section-title {
-            font-family: var(--font-display);
-            font-size: clamp(3rem, 7vw, 85px);
-            color: var(--brand-blue);
-            text-transform: uppercase;
-            line-height: 0.9;
-            margin-bottom: 20px;
-            letter-spacing: -2px;
-        }
-
-        .section-desc {
-            font-size: 18px;
-            font-weight: 600;
-            color: rgba(10, 10, 10, 0.8);
-            max-width: 700px;
-            margin: 0 auto;
-        }
-
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            border-top: var(--border-std);
-            border-bottom: var(--border-std);
-            margin-bottom: 100px;
-        }
-
-        .stat-item {
-            padding: 40px 20px;
-            border-right: var(--border-std);
-            text-align: center;
-        }
-
-        .stat-item:last-child {
-            border-right: none;
-        }
-
-        .stat-num {
-            font-family: var(--font-display);
-            font-size: clamp(2.5rem, 5vw, 64px);
-            color: var(--brand-blue);
-            font-weight: 900;
-            line-height: 1;
-            display: block;
-            margin-bottom: 10px;
-        }
-
-        .stat-label {
-            font-size: 12px;
-            font-weight: 800;
-            text-transform: uppercase;
-            opacity: 0.7;
-        }
-
-        .process-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 40px;
-        }
-
-        .process-card {
-            background: var(--bg-card);
-            border: var(--border-std);
-            padding: 40px;
-            border-radius: 24px;
-            box-shadow: 8px 8px 0 rgba(0, 0, 0, 0.05);
-            transition: 0.3s;
-        }
-
-        .process-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 12px 12px 0 var(--brand-blue);
-            border-color: var(--brand-blue);
-        }
-
-        .p-icon {
-            font-family: var(--font-display);
-            font-size: 32px;
-            color: var(--accent-lime);
-            -webkit-text-stroke: 1.5px var(--text-dark);
-            display: block;
-            margin-bottom: 20px;
-        }
-
-        .process-card h4 {
-            font-family: var(--font-display);
-            font-size: 20px;
-            text-transform: uppercase;
-            margin-bottom: 15px;
-            line-height: 1.2;
-        }
-
-        .process-card p {
-            font-size: 15px;
-        }
-
-        /* ==========================================================================
-           8. ARSENAL (COMPÉTENCES ORIGINALES)
-           ========================================================================== */
-        .section-curtain {
-            position: relative;
-            z-index: 50;
-            background-color: var(--bg-main);
-        }
-
-        .skills-container {
-            background: var(--bg-card);
-            border: var(--border-std);
-            border-radius: 40px;
-            height: 650px;
-            position: relative;
-            overflow: hidden;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .bg-text {
-            position: absolute;
-            font-family: var(--font-display);
-            font-size: clamp(8rem, 25vw, 350px);
-            font-weight: 900;
-            color: #F5F5F5;
-            line-height: 0.75;
-            text-align: center;
-            pointer-events: none;
-            z-index: 0;
-        }
-
-        .skill-badge {
-            position: absolute;
-            border: var(--border-std);
-            font-family: var(--font-display);
-            font-weight: 900;
-            text-transform: uppercase;
-            box-shadow: 6px 6px 0 var(--text-dark);
-            transition: all 0.3s var(--ease);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            z-index: 2;
-        }
-
-        .skill-badge:hover {
-            transform: scale(1.1) rotate(0deg) !important;
-            z-index: 20;
-            box-shadow: 12px 12px 0 var(--brand-blue);
-            border-color: var(--brand-blue);
-        }
-
-        .sb-blue {
-            background: var(--brand-blue);
-            color: var(--bg-card);
-            padding: 18px 36px;
-            border-radius: 50px;
-            font-size: 18px;
-        }
-
-        .sb-dark {
-            background: var(--text-dark);
-            color: var(--bg-card);
-            padding: 18px 36px;
-            border-radius: 50px;
-            font-size: 18px;
-        }
-
-        .sb-lime {
-            background: var(--accent-lime);
-            color: var(--text-dark);
-            padding: 18px 36px;
-            border-radius: 50px;
-            font-size: 18px;
-        }
-
-        .sb-circle {
-            border-radius: 50%;
-            width: 160px;
-            height: 160px;
-            font-size: 20px;
-            line-height: 1.1;
-            padding: 0;
-        }
-
-        /* Positionnement Desktop */
-        .pos-ui {
-            top: 15%;
-            left: 10%;
-            transform: rotate(-5deg);
-        }
-
-        .pos-graph {
-            top: 20%;
-            left: 45%;
-            transform: rotate(-3deg);
-        }
-
-        .pos-figma {
-            top: 40%;
-            left: 25%;
-        }
-
-        .pos-brand {
-            top: 30%;
-            right: 10%;
-            transform: rotate(8deg);
-        }
-
-        .pos-adobe {
-            top: 12%;
-            right: 5%;
-        }
-
-        .pos-dev {
-            bottom: 18%;
-            left: 12%;
-            transform: rotate(-4deg);
-        }
-
-        .info-card {
-            position: absolute;
-            bottom: 10%;
-            right: 10%;
-            background: var(--bg-card);
-            border: var(--border-std);
-            padding: 30px;
-            border-radius: 16px;
-            transform: rotate(-3deg);
-            box-shadow: 10px 10px 0 rgba(0, 0, 0, 0.1);
-            transition: 0.3s var(--ease);
-            z-index: 5;
-        }
-
-        .info-card:hover {
-            transform: scale(1.05) rotate(0deg);
-            box-shadow: 15px 15px 0 var(--brand-blue);
-            border-color: var(--brand-blue);
-        }
-
-        .info-card .top-text {
-            font-size: 11px;
-            font-weight: 800;
-            text-transform: uppercase;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .info-card .dot {
-            color: var(--accent-lime);
-            font-size: 16px;
-        }
-
-        .info-card h4 {
-            font-family: var(--font-display);
-            font-size: 22px;
-            color: var(--brand-blue);
-            text-transform: uppercase;
-            margin: 10px 0;
-            line-height: 1;
-        }
-
-        .info-card .bot-text {
-            font-size: 11px;
-            font-weight: 700;
-            text-transform: uppercase;
-            opacity: 0.8;
-        }
-
-        .btn-center {
-            display: flex;
-            justify-content: center;
-            margin-top: 60px;
-        }
-
-        .btn-dark {
-            background: var(--text-dark);
-            color: var(--bg-card);
-            padding: 18px 45px;
-            border-radius: 50px;
-            font-family: var(--font-display);
-            font-weight: 800;
-            font-size: 13px;
-            text-transform: uppercase;
-            transition: all 0.3s var(--ease);
-            border: 2px solid transparent;
-        }
-
-        .btn-dark:hover {
-            background: var(--brand-blue);
-            transform: translateY(-5px);
-            box-shadow: 0 15px 30px rgba(10, 60, 255, 0.3);
-        }
-
-        /* ==========================================================================
-           9. FOOTER 
-           ========================================================================== */
-        footer {
-            background: var(--text-dark);
-            color: var(--bg-card);
-            padding: 140px 0 40px;
-            border-radius: 60px 60px 0 0;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-
-        .footer-title {
-            font-family: var(--font-display);
-            font-size: clamp(3.5rem, 15vw, 240px);
-            font-weight: 900;
-            text-transform: uppercase;
-            letter-spacing: -6px;
-            text-align: center;
-            margin-bottom: 120px;
-            line-height: 0.8;
-            transition: color 0.4s var(--ease);
-        }
-
-        .footer-title:hover {
-            color: var(--accent-lime);
-        }
-
-        .footer-bottom {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 11px;
-            font-weight: 800;
-            text-transform: uppercase;
-            border-top: 1px solid rgba(255, 255, 255, 0.15);
-            padding-top: 40px;
-            opacity: 0.8;
-        }
-
-        .footer-links {
-            display: flex;
-            gap: 40px;
-        }
-
-        .footer-links a:hover {
-            color: var(--brand-blue);
-        }
-
-        /* ANIMATIONS REVEAL */
-        .reveal {
-            opacity: 0;
-            transform: translateY(40px);
-            transition: all 0.8s var(--ease);
-        }
-
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* ==========================================================================
-           10. RESPONSIVE
-           ========================================================================== */
-        @media (max-width: 1024px) {
-            .stats-grid {
-                grid-template-columns: repeat(2, 1fr);
-                border-bottom: none;
-            }
-
-            .stat-item {
-                border-bottom: var(--border-std);
-            }
-
-            .stat-item:nth-child(2) {
-                border-right: none;
-            }
-
-            .process-grid {
-                grid-template-columns: 1fr;
-                gap: 40px;
-            }
-
-            .skills-container {
-                height: auto;
-                padding: 60px 20px;
-                flex-direction: column;
-                gap: 20px;
-            }
-
-            .bg-text,
-            .hero-badges-wrapper,
-            .circle-text {
-                display: none;
-            }
-
-            .skill-badge,
-            .info-card {
-                position: relative;
-                top: auto !important;
-                left: auto !important;
-                right: auto !important;
-                bottom: auto !important;
-                transform: none !important;
-                width: 100%;
-                max-width: 350px;
-            }
-
-            .sb-circle {
-                width: 100%;
-                border-radius: 50px;
-                height: auto;
-                padding: 18px;
-            }
-
-            .footer-bottom {
-                flex-direction: column;
-                gap: 30px;
-                text-align: center;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-            }
-
-            #cursor-dot,
-            #cursor-follower {
-                display: none;
-            }
-
-            .section-padding {
-                padding: 80px 0;
-            }
-
-            .manifesto-section {
-                padding: 80px 4vw;
-                margin-top: 40px;
-                border-radius: 20px;
-            }
-
-            .stats-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .stat-item {
-                border-right: none;
-            }
+            --bg-page: #f9f9f6; 
+            --bg-alt: #f1f2ec;
+            --text-dark: #232d26;
+            --text-muted: #5a665e;
+            --primary: #1e4530; 
+            --primary-light: #2c6345;
+            --accent-1: #d97746; /* Terre cuite (Sciure) */
+            --accent-2: #248277; /* Vert d'eau (Séparation) */
+            --border: #dfdfd6;
+            --radius: 16px;
+            --font-main: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+        }
+
+        /* --- RESET --- */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; font-size: 16px; }
+        body { font-family: var(--font-main); background: var(--bg-page); color: var(--text-dark); line-height: 1.7; -webkit-font-smoothing: antialiased; }
+        a { text-decoration: none; color: inherit; transition: color 0.2s; }
+        
+        /* --- LAYOUT --- */
+        .container { max-width: 1000px; margin: 0 auto; padding: 0 24px; }
+        .section { padding: 100px 0; }
+        .section-alt { background-color: var(--bg-alt); }
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; }
+        .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+
+        /* --- TYPOGRAPHIE --- */
+        h1 { font-size: clamp(2.5rem, 5vw, 4rem); line-height: 1.1; margin-bottom: 24px; color: var(--primary); font-weight: 800; letter-spacing: -0.02em; }
+        h2 { font-size: clamp(2rem, 4vw, 2.5rem); line-height: 1.2; margin-bottom: 24px; color: var(--primary); font-weight: 700; }
+        h3 { font-size: 1.5rem; margin-bottom: 16px; color: var(--primary); }
+        h4 { font-size: 1.125rem; margin-bottom: 8px; color: var(--text-dark); font-weight: 700; }
+        p { font-size: 1.125rem; margin-bottom: 24px; color: var(--text-dark); }
+        .lead { font-size: 1.25rem; color: var(--text-muted); margin-bottom: 40px; font-weight: 400; }
+        
+        .chapitre-label { display: inline-block; background: var(--primary); color: white; padding: 6px 16px; border-radius: 50px; font-size: 0.875rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 24px; }
+        .badge { display: inline-block; padding: 4px 12px; border-radius: 50px; font-size: 0.75rem; font-weight: bold; text-transform: uppercase; letter-spacing: 0.5px; }
+        .badge-outline { border: 1px solid var(--border); color: var(--text-muted); }
+
+        /* --- NAVIGATION --- */
+        header { background: white; border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; }
+        .nav-container { display: flex; justify-content: space-between; align-items: center; padding: 16px 24px; max-width: 1200px; margin: 0 auto; }
+        .logo { font-size: 1.5rem; font-weight: 800; color: var(--primary); }
+        .nav-links { display: flex; gap: 24px; font-weight: 500; font-size: 0.9rem; }
+        .nav-links a:hover { color: var(--primary-light); }
+        .btn { background: var(--primary); color: white; padding: 12px 24px; border-radius: 50px; font-weight: 600; display: inline-flex; align-items: center; justify-content: center; transition: 0.2s; border: 2px solid transparent; text-align: center; }
+        .btn:hover { background: var(--primary-light); }
+        .btn-outline { background: transparent; color: var(--primary); border-color: var(--primary); }
+        .btn-outline:hover { background: var(--primary); color: white; }
+
+        /* --- BLOCS PÉDAGOGIQUES --- */
+        .info-box { background: white; border: 1px solid var(--border); border-left: 4px solid var(--primary); padding: 32px; border-radius: 0 var(--radius) var(--radius) 0; margin: 40px 0; }
+        .info-box p:last-child { margin-bottom: 0; }
+
+        /* --- CARTES SOLUTIONS --- */
+        .solution-card { background: white; border-radius: var(--radius); overflow: hidden; border: 1px solid var(--border); display: flex; flex-direction: column; transition: transform 0.3s ease; box-shadow: 0 4px 20px rgba(0,0,0,0.03); }
+        .solution-card:hover { transform: translateY(-5px); box-shadow: 0 10px 30px rgba(0,0,0,0.08); }
+        .sol-header { padding: 40px; text-align: center; color: white; }
+        .sol-body { padding: 40px; flex-grow: 1; }
+        .sol-body ul { list-style: none; margin-bottom: 32px; }
+        .sol-body li { margin-bottom: 16px; padding-left: 32px; position: relative; font-size: 0.95rem; }
+        .sol-body li::before { content: '✓'; position: absolute; left: 0; font-weight: bold; }
+        
+        .theme-1 .sol-header { background: var(--accent-1); }
+        .theme-1 .sol-body li::before { color: var(--accent-1); }
+        .theme-2 .sol-header { background: var(--accent-2); }
+        .theme-2 .sol-body li::before { color: var(--accent-2); }
+
+        /* --- TABLEAU COMPARATIF --- */
+        .table-wrapper { overflow-x: auto; margin: 40px 0; background: white; border-radius: var(--radius); border: 1px solid var(--border); box-shadow: 0 4px 20px rgba(0,0,0,0.02); }
+        table { width: 100%; border-collapse: collapse; text-align: left; min-width: 700px; }
+        th, td { padding: 24px; border-bottom: 1px solid var(--border); }
+        th { background: var(--bg-alt); font-weight: 700; color: var(--primary); font-size: 1.125rem; width: 33.33%; }
+        tr:last-child td { border-bottom: none; }
+        .check-icon { color: var(--primary); font-weight: bold; }
+        .cross-icon { color: #d9534f; opacity: 0.5; }
+
+        /* --- CARTES OUTILS & ANNUAIRE --- */
+        .tool-card { background: white; padding: 32px; border-radius: var(--radius); border: 1px solid var(--border); display: flex; flex-direction: column; align-items: flex-start; }
+        .tool-icon { width: 48px; height: 48px; background: var(--bg-alt); border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 24px; font-size: 1.5rem; }
+
+        /* --- FAQ --- */
+        details { background: white; border: 1px solid var(--border); border-radius: 12px; margin-bottom: 16px; overflow: hidden; }
+        summary { padding: 24px; font-size: 1.125rem; font-weight: 600; cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
+        summary::-webkit-details-marker { display: none; }
+        summary::after { content: '+'; font-size: 1.5rem; color: var(--primary); }
+        details[open] summary::after { content: '-'; }
+        details p { padding: 0 24px 24px 24px; margin: 0; color: var(--text-muted); font-size: 1.05rem; }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 900px) {
+            .grid-2, .grid-3 { grid-template-columns: 1fr; }
+            .nav-links { display: none; }
+            .section { padding: 60px 0; }
+            th, td { padding: 16px; font-size: 0.95rem; }
         }
     </style>
 </head>
-
 <body>
 
-    <div id="cursor-dot"></div>
-    <div id="cursor-follower"></div>
-
     <header>
-        <div class="nav-pill">
-            <div class="logo">ANTO.</div>
+        <div class="nav-container">
+            <div class="logo">Ecorina.</div>
             <nav class="nav-links">
-                <a href="#" class="interact">ACCUEIL</a>
-                <a href="#propos" class="interact">A PROPOS</a>
+                <a href="#comprendre">Comprendre</a>
+                <a href="#comparatif">Le comparatif</a>
+                <a href="#usages">Usages & Installation</a>
+                <a href="#outils">Outils & Annuaire</a>
             </nav>
-            <a href="mailto:hello@anto.fr" class="btn-primary interact">ME CONTACTER</a>
+            <a href="#outils" class="btn" style="padding: 8px 16px; font-size: 0.875rem;">Trouver un pro</a>
         </div>
     </header>
 
-    <main>
-        <section class="hero container reveal">
-            <div class="hero-badges-wrapper">
-                <div class="float-badge fb-1 interact">✦ DIRECTION ARTISTIQUE</div>
-                <div class="float-badge fb-2 interact">✦ GRAPHISME 360°</div>
-                <div class="float-badge fb-3 interact">✦ DESIGN UI / UX</div>
-                <svg class="circle-text" viewBox="0 0 100 100">
-                    <path id="circlePath" d="M 50, 50 m -37, 0 a 37,37 0 1,1 74,0 a 37,37 0 1,1 -74,0"
-                        fill="transparent" />
-                    <text font-family="var(--font-display)" font-weight="900" font-size="10" fill="var(--brand-blue)">
-                        <textPath xlink:href="#circlePath">+ RECHERCHE ALTERNANCE 2026 +</textPath>
-                    </text>
-                </svg>
-            </div>
-
-            <h1 class="hero-title">CRÉATIF</h1>
-            <div class="hero-subtitle">
-                DESIGNER <span class="highlight-box">DIGITAL</span> & GRAPHISTE
-            </div>
-            <p class="hero-desc">
-                Mon terrain de jeu : de la feuille blanche à l'écran interactif. Je donne vie à des identités visuelles
-                et des expériences digitales qui marquent les esprits.
-            </p>
-        </section>
-
-        <div class="marquee-wrapper reveal">
-            <div class="marquee-content">
-                IDENTITÉ VISUELLE ✦ UI/UX DESIGN ✦ ÉDITION & PRINT ✦ DIRECTION ARTISTIQUE ✦ IDENTITÉ VISUELLE ✦ UI/UX
-                DESIGN ✦ ÉDITION & PRINT ✦ DIRECTION ARTISTIQUE ✦
+    <section class="section" style="padding-top: 80px; padding-bottom: 40px;">
+        <div class="container text-center" style="max-width: 800px;">
+            <h1>Le guide de référence des toilettes écologiques.</h1>
+            <p class="lead">Sans jargon ni jugement. Découvrez le fonctionnement, comparez les modèles à sciure et à séparation, et trouvez la solution exacte pour votre maison ou votre entreprise.</p>
+            <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
+                <a href="#comparatif" class="btn">Voir le comparatif détaillé</a>
+                <a href="#outils" class="btn btn-outline">Simulateur d'aides financières</a>
             </div>
         </div>
+    </section>
 
-        <section class="manifesto-section reveal">
-            <div class="container">
-                <h2 class="manifesto-text">
-                    Je ne fais pas juste de "belles images". Je conçois des <span>univers visuels</span>, du print au
-                    digital.
-                </h2>
-            </div>
-        </section>
+    <section id="comprendre" class="section section-alt">
+        <div class="container">
+            <span class="chapitre-label">Bases pédagogiques</span>
+            <h2>Pourquoi changer, et comment ça marche ?</h2>
+            <p>Nous utilisons environ <strong>36 litres d'eau potable par jour</strong> juste pour tirer la chasse. En plus du gaspillage, le mélange de l'eau et de nos déjections crée une pollution complexe à traiter en station d'épuration.</p>
 
-        <section class="section-padding container">
-            <div class="section-header reveal">
-                <h2 class="section-title">MON APPROCHE_</h2>
-                <p class="section-desc">Polyvalent par nature, j'applique la même rigueur stratégique que ce soit pour
-                    une application mobile ou pour l'impression d'un magazine.</p>
-            </div>
-
-            <div class="stats-grid reveal">
-                <div class="stat-item">
-                    <span class="stat-num">03</span>
-                    <span class="stat-label">Années de passion</span>
+            <div class="grid-2" style="margin-top: 48px; align-items: center;">
+                <div>
+                    <h3 style="color: var(--accent-1);">La règle d'or : équilibrer l'humidité</h3>
+                    <p>Pour éviter la fermentation et les mauvaises odeurs (ammoniac), il suffit de ne plus utiliser d'eau.</p>
+                    <p>Il faut mettre la matière en contact avec du <strong>Carbone sec</strong> (sciure) ou bien <strong>séparer l'urine</strong> (liquide) de la matière fécale (solide). Sans humidité excessive, les bactéries saines transforment le tout en terreau inodore.</p>
                 </div>
-                <div class="stat-item">
-                    <span class="stat-num">15+</span>
-                    <span class="stat-label">Projets (Fictifs & Pros)</span>
-                </div>
-                <div class="stat-item">
-                    <span class="stat-num">360°</span>
-                    <span class="stat-label">Vision Créative</span>
-                </div>
-                <div class="stat-item" style="border-right: none;">
-                    <span class="stat-num">∞</span>
-                    <span class="stat-label">Nuits sur la Suite Adobe</span>
+                <div style="background: white; padding: 40px; border-radius: var(--radius); border: 1px dashed var(--border); text-align: center;">
+                    <div style="font-size: 3rem; margin-bottom: 16px;">💧 + 🪵 = 🌱</div>
+                    <h4 style="margin-bottom: 16px;">L'équation naturelle</h4>
+                    <p style="font-size: 0.9rem; color: var(--text-muted); margin: 0;">Azote (Humide)<br>+<br>Carbone (Sec)<br>=<br>Compost sans odeur</p>
                 </div>
             </div>
+        </div>
+    </section>
 
-            <div class="process-grid reveal">
-                <div class="process-card interact">
-                    <span class="p-icon">01</span>
-                    <h4>Concept & Stratégie</h4>
-                    <p>Avant chaque tracé, j'analyse. Création de moodboards, positionnement de marque et architecture
-                        de l'information pour poser des fondations solides.</p>
-                </div>
-                <div class="process-card interact">
-                    <span class="p-icon">02</span>
-                    <h4>Identité & Print</h4>
-                    <p>Création de logos, typographies, chartes graphiques complètes, affiches et supports éditoriaux
-                        destinés à l'impression papier.</p>
-                </div>
-                <div class="process-card interact">
-                    <span class="p-icon">03</span>
-                    <h4>Design Digital & UI</h4>
-                    <p>Déclinaison de l'identité sur écrans. Création de wireframes, prototypage interactif sur Figma et
-                        intégration web fluide.</p>
-                </div>
-            </div>
-        </section>
+    <section id="comparatif" class="section">
+        <div class="container">
+            <span class="chapitre-label">Le Face-à-Face</span>
+            <h2>Sciure ou Séparation : Quelle technologie choisir ?</h2>
+            <p class="lead">C'est la décision la plus importante de votre projet. Faisons le tri de manière objective entre la méthode traditionnelle et l'ingénierie moderne.</p>
 
-
-        <div class="section-curtain">
-
-            <section id="propos" class="section-padding container">
-                <div class="section-header reveal">
-                    <h2 class="section-title">MON ARSENAL_</h2>
-                    <p class="section-desc">Les logiciels et disciplines que je manipule au quotidien pour donner vie à
-                        mes idées.</p>
-                </div>
-
-                <div class="skills-container reveal">
-                    <div class="bg-text">SKILLS<br>SKILLS</div>
-
-                    <div class="skill-badge sb-blue pos-ui interact">UI/UX DESIGN</div>
-                    <div class="skill-badge sb-dark pos-graph interact">GRAPHISME 360</div>
-                    <div class="skill-badge sb-lime sb-circle pos-figma interact">FIGMA<br>EXPERT</div>
-                    <div class="skill-badge sb-blue sb-circle pos-adobe interact">SUITE<br>ADOBE</div>
-                    <div class="skill-badge sb-lime pos-brand interact">BRANDING & PRINT</div>
-                    <div class="skill-badge sb-dark pos-dev interact">DIRECTION ARTISTIQUE</div>
-
-                    <div class="info-card interact">
-                        <span class="top-text"><span class="dot">●</span> RECHERCHE ALTERNANCE 2026</span>
-                        <h4>MASTER DESIGN.</h4>
-                        <span class="bot-text">ÉTUDIANT BASÉ À ANGERS (49)</span>
+            <div class="grid-2" style="margin-top: 48px;">
+                <div class="solution-card theme-1">
+                    <div class="sol-header">
+                        <div style="font-size: 0.875rem; text-transform: uppercase; font-weight: 600;">La Traditionnelle</div>
+                        <h3 style="color: white; font-size: 2rem; margin: 0;">WC Sèche à sciure</h3>
+                    </div>
+                    <div class="sol-body">
+                        <p style="font-size: 0.95rem; margin-bottom: 24px;">Un seau, un meuble en bois, et de la sciure pour recouvrir après chaque passage.</p>
+                        <ul>
+                            <li><strong>Budget :</strong> Très abordable (50€ à 300€)</li>
+                            <li><strong>Installation :</strong> Zéro travaux, 100% hors-réseau.</li>
+                            <li><strong>Entretien :</strong> Vidange manuelle tous les 3-4 jours.</li>
+                        </ul>
+                        <a href="#" style="color: var(--accent-1); font-weight: bold; font-size: 0.9rem;">→ Lire le guide d'installation complet</a>
                     </div>
                 </div>
 
-                <div class="btn-center reveal">
-                    <a href="#" class="btn-dark interact">TÉLÉCHARGER MON CV ✦</a>
-                </div>
-            </section>
-
-            <footer>
-                <div class="container">
-                    <h2 class="footer-title interact">DISCUTONS.</h2>
-
-                    <div class="footer-bottom">
-                        <div>© 2026 — CRÉÉ AVEC PASSION</div>
-                        <div class="footer-links">
-                            <a href="#" class="interact">LINKEDIN</a>
-                            <a href="#" class="interact">BEHANCE</a>
-                            <a href="#" class="interact">INSTAGRAM</a>
-                        </div>
-                        <div>STATUT : RECHERCHE ALTERNANCE</div>
+                <div class="solution-card theme-2">
+                    <div class="sol-header">
+                        <div style="font-size: 0.875rem; text-transform: uppercase; font-weight: 600;">La Moderne</div>
+                        <h3 style="color: white; font-size: 2rem; margin: 0;">WC à séparation</h3>
+                    </div>
+                    <div class="sol-body">
+                        <p style="font-size: 0.95rem; margin-bottom: 24px;">L'urine est déviée à l'avant, la matière solide tombe à l'arrière et est asséchée par un ventilateur.</p>
+                        <ul>
+                            <li><strong>Budget :</strong> Premium (600€ à 1500€)</li>
+                            <li><strong>Confort :</strong> Pas de sciure, utilisation normale.</li>
+                            <li><strong>Entretien :</strong> Vidange espacée (toutes les 4-6 semaines).</li>
+                        </ul>
+                        <a href="#" style="color: var(--accent-2); font-weight: bold; font-size: 0.9rem;">→ Lire le guide d'installation complet</a>
                     </div>
                 </div>
-            </footer>
+            </div>
+
+            <h3 style="margin-top: 80px; text-align: center;">Tableau comparatif détaillé</h3>
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Critères de choix</th>
+                            <th style="color: var(--accent-1);">WC à Sciure</th>
+                            <th style="color: var(--accent-2);">WC à Séparation</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Gestion des odeurs</strong></td>
+                            <td>Par ajout de matière carbonée (sciure)</td>
+                            <td>Par séparation des flux + ventilation</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Fréquence de vidange (2 pers.)</strong></td>
+                            <td>Très fréquente (3 à 5 jours)</td>
+                            <td>Très espacée (4 à 6 semaines)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Travaux d'installation</strong></td>
+                            <td><span class="check-icon">Aucun. Prêt à poser.</span></td>
+                            <td>Raccordement urine + gaine d'air (mur)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Besoin en électricité</strong></td>
+                            <td><span class="check-icon">Non (100% autonome)</span></td>
+                            <td>Oui (petit ventilateur 12V/220V)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Acceptation par les invités</strong></td>
+                            <td><span class="cross-icon">Demande de la pédagogie</span></td>
+                            <td><span class="check-icon">Excellente (proche d'un WC classique)</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div style="text-align: center;">
+                <a href="#" class="btn btn-outline" style="font-size: 0.9rem;">Découvrir les erreurs fréquentes lors du choix</a>
+            </div>
         </div>
+    </section>
 
-    </main>
+    <section id="usages" class="section section-alt">
+        <div class="container">
+            <span class="chapitre-label">Contexte & Pratique</span>
+            <h2>À chaque usage sa solution</h2>
+            <p class="lead">L'erreur principale est de choisir un modèle inadapté à son lieu de vie. Voici nos recommandations selon votre contexte.</p>
 
-    <script>
-        document.addEventListener("DOMContentLoaded", () => {
+            <div class="grid-3" style="margin-top: 48px;">
+                <div class="tool-card">
+                    <span class="badge badge-outline" style="margin-bottom: 16px;">Maison principale</span>
+                    <h4 style="margin-bottom: 16px;">La salle de bain familiale</h4>
+                    <p style="font-size: 0.95rem; flex-grow: 1;">Pour un usage quotidien par toute la famille, le confort prime. La <strong>toilette à séparation</strong> est incontournable pour éviter la corvée de sciure tous les 3 jours et rassurer les enfants/invités.</p>
+                </div>
+                <div class="tool-card">
+                    <span class="badge badge-outline" style="margin-bottom: 16px;">Habitat léger / Jardin</span>
+                    <h4 style="margin-bottom: 16px;">Tiny House & Cabanon</h4>
+                    <p style="font-size: 0.95rem; flex-grow: 1;">En l'absence de réseau électrique continu ou de possibilités de percer les murs facilement, la <strong>toilette sèche à sciure</strong> reste la solution la plus robuste et la plus simple à installer.</p>
+                </div>
+                <div class="tool-card">
+                    <span class="badge badge-outline" style="margin-bottom: 16px;">Pro & Collectivité</span>
+                    <h4 style="margin-bottom: 16px;">Entreprises / Écoles</h4>
+                    <p style="font-size: 0.95rem; flex-grow: 1;">Les normes sanitaires et le volume d'utilisation exigent des systèmes continus (comme le <strong>lombricompostage sous plancher</strong>). L'entretien doit être effectué par des professionnels.</p>
+                </div>
+            </div>
 
-            // 1. CURSEUR CUSTOM
-            const isTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+            <div class="info-box" style="margin-top: 48px;">
+                <h4>L'entretien au quotidien (sans eau)</h4>
+                <p>Oubliez la javel ! L'entretien se fait avec un simple vaporisateur contenant de l'eau et du vinaigre blanc, et un coup de papier toilette qu'on jette directement dans le bac. Adieu le tartre et le calcaire de l'eau stagnante.</p>
+            </div>
+        </div>
+    </section>
 
-            if (!isTouch) {
-                const dot = document.getElementById('cursor-dot');
-                const follow = document.getElementById('cursor-follower');
+    <section id="outils" class="section">
+        <div class="container">
+            <span class="chapitre-label">Passez à l'action</span>
+            <h2>Outils & Accompagnement</h2>
+            <p class="lead">Ne restez pas seul avec vos questions. Utilisez nos outils gratuits ou faites appel à un installateur qualifié près de chez vous.</p>
 
-                let mouseX = 0, mouseY = 0;
-                let dotX = 0, dotY = 0;
-                let followX = 0, followY = 0;
+            <div class="grid-2" style="margin-top: 48px;">
+                <div class="tool-card" style="background: var(--primary); color: white;">
+                    <div class="tool-icon" style="background: rgba(255,255,255,0.1);">⚙️</div>
+                    <h3 style="color: white;">Simulateur de modèle</h3>
+                    <p style="color: rgba(255,255,255,0.8);">Répondez à 5 questions sur votre logement (appartement, maison, nombre de personnes, accès extérieur) pour découvrir le type exact de toilette écologique qu'il vous faut.</p>
+                    <a href="#" class="btn" style="background: white; color: var(--primary); margin-top: 16px;">Lancer le test</a>
+                </div>
 
-                document.addEventListener('mousemove', (e) => {
-                    mouseX = e.clientX;
-                    mouseY = e.clientY;
-                });
+                <div class="tool-card">
+                    <div class="tool-icon">💰</div>
+                    <h3>Aides financières</h3>
+                    <p>Saviez-vous que certaines Agences de l'Eau et régions financent l'installation de toilettes sèches ou à séparation pour préserver les nappes phréatiques ?</p>
+                    <a href="#" class="btn btn-outline" style="margin-top: 16px;">Vérifier mon éligibilité</a>
+                </div>
 
-                function animateCursor() {
-                    dotX += (mouseX - dotX) * 0.6;
-                    dotY += (mouseY - dotY) * 0.6;
-                    dot.style.left = dotX + 'px';
-                    dot.style.top = dotY + 'px';
+                <div class="tool-card" style="grid-column: 1 / -1; flex-direction: row; align-items: center; gap: 32px; flex-wrap: wrap;">
+                    <div class="tool-icon" style="margin: 0;">📍</div>
+                    <div style="flex-grow: 1;">
+                        <h3>Annuaire des professionnels</h3>
+                        <p style="margin: 0;">Trouvez un artisan certifié, un fabricant local ou un revendeur dans votre région. (Espace partenaire disponible pour les entreprises).</p>
+                    </div>
+                    <a href="#" class="btn">Consulter l'annuaire</a>
+                </div>
+            </div>
+        </div>
+    </section>
 
-                    followX += (mouseX - followX) * 0.15;
-                    followY += (mouseY - followY) * 0.15;
-                    follow.style.left = followX + 'px';
-                    follow.style.top = followY + 'px';
+    <section id="faq" class="section section-alt">
+        <div class="container" style="max-width: 800px;">
+            <div style="text-align: center; margin-bottom: 48px;">
+                <h2>On vous répond en toute transparence.</h2>
+            </div>
 
-                    requestAnimationFrame(animateCursor);
-                }
-                animateCursor();
+            <details>
+                <summary>Est-ce que ça sent mauvais pour de vrai ?</summary>
+                <p>C'est la peur numéro un ! La réponse est non. Une toilette écologique bien gérée ne sent pas. Comme expliqué, c'est le processus d'assèchement (par la sciure ou la ventilation) qui empêche l'ammoniac de se former.</p>
+            </details>
+            <details>
+                <summary>Que dit la loi en France ? Est-ce autorisé ?</summary>
+                <p>Oui, c'est tout à fait légal. Les toilettes sans eau sont reconnues par l'arrêté du 7 septembre 2009. La seule obligation légale concerne la gestion des déchets : vous devez composter les matières sur une aire étanche et à l'abri des intempéries.</p>
+            </details>
+            <details>
+                <summary>Je vis en appartement, c'est possible ?</summary>
+                <p>En théorie oui, en pratique c'est très compliqué sans accès extérieur pour le compostage (qui est interdit sur un balcon pour des raisons sanitaires). Cette solution est plutôt réservée aux habitats avec un accès jardin.</p>
+            </details>
+            <div style="text-align: center; margin-top: 32px;">
+                <a href="#" style="color: var(--primary); font-weight: bold; text-decoration: underline;">Voir toutes les questions fréquentes</a>
+            </div>
+        </div>
+    </section>
 
-                document.querySelectorAll('a, button, .interact').forEach(el => {
-                    el.addEventListener('mouseenter', () => document.body.classList.add('hovering'));
-                    el.addEventListener('mouseleave', () => document.body.classList.remove('hovering'));
-                });
-            }
+    <footer style="background: white; border-top: 1px solid var(--border); padding: 80px 24px 40px 24px;">
+        <div class="container">
+            <div class="grid-3" style="margin-bottom: 64px; border-bottom: 1px solid var(--border); padding-bottom: 48px;">
+                <div>
+                    <div class="logo" style="margin-bottom: 16px;">Ecorina.</div>
+                    <p style="font-size: 0.9rem; color: var(--text-muted); max-width: 250px;">
+                        Site pédagogique de référence pour la transition écologique des sanitaires francophones.
+                    </p>
+                </div>
+                <div>
+                    <h4>Guides pratiques</h4>
+                    <ul style="list-style: none; font-size: 0.95rem; color: var(--text-muted);">
+                        <li style="margin-bottom: 8px;"><a href="#">Fonctionnement WC sèches</a></li>
+                        <li style="margin-bottom: 8px;"><a href="#">Fonctionnement WC séparation</a></li>
+                        <li style="margin-bottom: 8px;"><a href="#">Tableau comparatif</a></li>
+                        <li style="margin-bottom: 8px;"><a href="#">Erreurs fréquentes</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>Ressources</h4>
+                    <ul style="list-style: none; font-size: 0.95rem; color: var(--text-muted);">
+                        <li style="margin-bottom: 8px;"><a href="#">Simulateur de modèle</a></li>
+                        <li style="margin-bottom: 8px;"><a href="#">Aides financières</a></li>
+                        <li style="margin-bottom: 8px;"><a href="#">Annuaire des professionnels</a></li>
+                        <li style="margin-bottom: 8px;"><a href="#">Qui sommes-nous ?</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div style="text-align: center; font-size: 0.8rem; color: #999;">
+                Conception éco-responsable • Zéro JavaScript • Accessible RGAA<br>
+                © 2026 Ecorina
+            </div>
+        </div>
+    </footer>
 
-            // 2. REVEAL ANIMATIONS (Scroll)
-            const revealOptions = {
-                threshold: 0.1,
-                rootMargin: "0px 0px -50px 0px"
-            };
-
-            const revealObserver = new IntersectionObserver((entries, observer) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('active');
-                    }
-                });
-            }, revealOptions);
-
-            document.querySelectorAll('.reveal').forEach(el => {
-                revealObserver.observe(el);
-            });
-        });
-    </script>
 </body>
-
 </html>
