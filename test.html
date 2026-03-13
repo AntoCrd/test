@@ -1,286 +1,256 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LE STUDIO | DOSSIER DE DÉPLOIEMENT</title>
-    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Mono:wght@400;700&family=Playfair+Display:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --bg: #000000;
-            --txt: #FFFFFF;
-            --red: #FF0000;
-            --border: #222222;
-            --ticket-bg: #0a0a0a;
-            --dim: rgba(255, 255, 255, 0.4);
-            --grid: rgba(255, 255, 255, 0.02);
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Parcours Papillon Courbe</title>
 
-        * { margin: 0; padding: 0; box-sizing: border-box; cursor: crosshair; }
-        body { 
-            background-color: var(--bg); color: var(--txt); 
-            font-family: 'Space Mono', monospace; line-height: 1.4; overflow-x: hidden;
-            background-image: linear-gradient(var(--grid) 1px, transparent 1px), linear-gradient(90deg, var(--grid) 1px, transparent 1px);
-            background-size: 40px 40px;
-        }
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/MotionPathPlugin.min.js"></script>
 
-        /* --- NAVIGATION --- */
-        nav {
-            position: fixed; top: 0; left: 0; width: 100%; height: 90px;
-            display: flex; justify-content: space-between; align-items: center; padding: 0 40px;
-            border-bottom: 1px solid var(--border); background: rgba(0,0,0,0.95); z-index: 10000; backdrop-filter: blur(10px);
-        }
-        .nav-logo { font-weight: bold; font-size: 14px; letter-spacing: 3px; }
-        .nav-telemetry { display: flex; flex-direction: column; align-items: flex-end; font-size: 9px; gap: 4px; color: var(--dim); }
-        .tcr { color: var(--red); font-weight: bold; font-size: 10px; }
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=Inter:wght@300;400&display=swap');
 
-        /* --- LAYOUT --- */
-        .container { max-width: 1200px; margin: 0 auto; padding: 160px 20px 100px 20px; }
-        .header-text { margin-bottom: 60px; text-align: center; }
-        .label-red { display: inline-block; border: 1px solid var(--red); color: var(--red); padding: 5px 15px; font-size: 10px; text-transform: uppercase; margin-bottom: 20px; letter-spacing: 3px; font-weight: bold; background: rgba(255,0,0,0.05); }
-        .t-huge { font-family: 'Anton'; font-size: clamp(3rem, 8vw, 6rem); line-height: 0.9; text-transform: uppercase; }
+  :root {
+    --bg-color: #030303;
+    --gold: #d4af37;
+    --gold-glow: rgba(212, 175, 55, 0.5);
+    --text-white: #ffffff;
+    --text-grey: #999999;
+  }
 
-        /* --- 01. LE TICKET (BOARDING PASS) --- */
-        .ticket-wrapper {
-            display: flex; width: 100%; background: var(--ticket-bg); border: 1px solid var(--border);
-            box-shadow: 0 20px 50px rgba(255,0,0,0.05); position: relative; margin-bottom: 40px;
-        }
-        .ticket-main { flex-grow: 1; display: grid; grid-template-columns: 300px 1fr; padding: 40px; gap: 40px; }
-        .t-visual { position: relative; height: 100%; min-height: 350px; border: 1px solid var(--border); overflow: hidden; }
-        .t-visual img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(1) brightness(0.6) contrast(1.2); }
-        .t-visual::after { content: "CLASSIFIED"; position: absolute; top: 10px; left: 10px; font-size: 8px; color: var(--red); background: #000; padding: 2px 6px; letter-spacing: 2px;}
-        
-        .t-info { display: flex; flex-direction: column; justify-content: center; }
-        .t-channel { color: var(--red); font-size: 10px; letter-spacing: 3px; margin-bottom: 10px; }
-        .t-title { font-family: 'Anton'; font-size: 4.5rem; line-height: 0.9; text-transform: uppercase; margin-bottom: 40px; }
-        .t-data-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
-        .t-data-item { display: flex; flex-direction: column; gap: 5px; }
-        .t-data-item label { font-size: 8px; color: var(--dim); letter-spacing: 1px; text-transform: uppercase; }
-        .t-data-item span { font-size: 16px; font-weight: bold; }
-        .t-data-item .highlight { color: var(--red); font-family: 'Anton'; font-size: 24px; letter-spacing: 1px; }
+  body {
+    margin: 0;
+    background-color: var(--bg-color);
+    color: var(--text-white);
+    font-family: 'Inter', sans-serif;
+    overflow-x: hidden;
+  }
 
-        .ticket-divider { width: 2px; background: repeating-linear-gradient(to bottom, var(--border) 0, var(--border) 8px, transparent 8px, transparent 16px); position: relative; }
-        .ticket-divider::before, .ticket-divider::after { content: ''; position: absolute; left: -15px; width: 30px; height: 30px; background-color: var(--bg); border-radius: 50%; border: 1px solid var(--border); }
-        .ticket-divider::before { top: -16px; border-top: none; border-left: none; border-right: none; }
-        .ticket-divider::after { bottom: -16px; border-bottom: none; border-left: none; border-right: none; }
+  .hero-spacer, .footer-spacer {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    color: var(--text-grey);
+    font-size: 1.2rem;
+  }
 
-        .ticket-stub { width: 280px; padding: 40px; display: flex; flex-direction: column; align-items: center; justify-content: space-between; background: repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(255,255,255,0.01) 10px, rgba(255,255,255,0.01) 20px); }
-        .stub-title { font-family: 'Anton'; font-size: 2rem; writing-mode: vertical-rl; transform: rotate(180deg); color: var(--txt); letter-spacing: 2px; }
-        .barcode-box { display: flex; flex-direction: column; align-items: center; gap: 10px; width: 100%; }
-        .barcode { width: 100%; height: 80px; background: linear-gradient(to right, var(--txt) 0%, var(--txt) 4%, transparent 4%, transparent 8%, var(--txt) 8%, var(--txt) 10%, transparent 10%, transparent 14%, var(--txt) 14%, var(--txt) 22%, transparent 22%, transparent 26%, var(--txt) 26%, var(--txt) 30%, transparent 30%, transparent 34%, var(--txt) 34%, var(--txt) 40%, transparent 40%, transparent 45%, var(--txt) 45%, var(--txt) 60%, transparent 60%, transparent 65%, var(--txt) 65%, var(--txt) 70%, transparent 70%, transparent 80%, var(--txt) 80%, var(--txt) 85%, transparent 85%, transparent 90%, var(--txt) 90%, var(--txt) 100%); position: relative; }
-        .scan-laser { position: absolute; top: 0; left: 0; width: 100%; height: 2px; background: var(--red); box-shadow: 0 0 10px var(--red); animation: scan 2s infinite linear; }
-        @keyframes scan { 0% { top: -5px; opacity: 0; } 10% { opacity: 1; } 90% { opacity: 1; } 100% { top: 100%; opacity: 0; } }
-        .serial { font-size: 10px; letter-spacing: 4px; color: var(--dim); }
+  .section-title {
+    text-align: center;
+    font-family: 'Playfair Display', serif;
+    font-size: 4rem;
+    font-weight: 400;
+    font-style: italic;
+    margin: 100px 0 150px 0;
+  }
 
-        .action-bar { display: flex; justify-content: center; gap: 20px; margin-bottom: 80px; }
-        .btn-wallet { border: 1px solid var(--txt); background: var(--txt); color: var(--bg); padding: 15px 30px; font-family: 'Anton'; font-size: 1.2rem; text-transform: uppercase; text-decoration: none; transition: 0.3s; }
-        .btn-wallet:hover { background: transparent; color: var(--txt); }
-        .btn-outline { border: 1px solid var(--border); color: var(--txt); padding: 15px 30px; font-family: 'Anton'; font-size: 1.2rem; text-transform: uppercase; text-decoration: none; transition: 0.3s; }
-        .btn-outline:hover { border-color: var(--txt); }
+  /* --- LE PARCOURS (Taille fixe pour contrôler la courbe) --- */
+  .track-container {
+    position: relative;
+    width: 100%;
+    max-width: 800px; /* Largeur de la zone de vol */
+    height: 1400px;   /* Hauteur totale du parcours */
+    margin: 0 auto;
+  }
 
-        /* --- 02. DASHBOARD OPÉRATIONNEL (GRID LOGISTIQUE) --- */
-        .ops-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-bottom: 80px; }
-        
-        .ops-card { border: 1px solid var(--border); background: rgba(0,0,0,0.5); padding: 40px; position: relative; }
-        .ops-card::before { content: ""; position: absolute; top: 0; left: 0; width: 20px; height: 20px; border-top: 2px solid var(--red); border-left: 2px solid var(--red); }
-        .ops-title { font-family: 'Anton'; font-size: 24px; color: var(--red); margin-bottom: 30px; text-transform: uppercase; letter-spacing: 1px; }
+  /* Le SVG qui contient la ligne courbe */
+  .svg-path {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    pointer-events: none;
+  }
 
-        /* Bloc Location */
-        .loc-data { margin-bottom: 20px; }
-        .loc-label { font-size: 9px; color: var(--dim); letter-spacing: 2px; display: block; margin-bottom: 5px; }
-        .loc-val { font-size: 16px; font-weight: bold; }
-        .map-placeholder { width: 100%; height: 120px; border: 1px dashed var(--border); display: flex; align-items: center; justify-content: center; font-size: 10px; color: var(--dim); background: repeating-linear-gradient(45deg, transparent, transparent 5px, rgba(255,255,255,0.02) 5px, rgba(255,255,255,0.02) 10px); }
+  /* Le Papillon */
+  .butterfly {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 45px;
+    height: 45px;
+    z-index: 10;
+    filter: drop-shadow(0 0 12px var(--gold));
+    /* On centre le point d'ancrage pour le MotionPath */
+    transform: translate(-50%, -50%); 
+  }
 
-        /* Bloc Reçu (Receipt) */
-        .receipt-line { display: flex; justify-content: space-between; font-size: 12px; margin-bottom: 15px; border-bottom: 1px dashed var(--border); padding-bottom: 5px; }
-        .receipt-line span:first-child { color: var(--dim); }
-        .receipt-total { display: flex; justify-content: space-between; font-size: 20px; font-weight: bold; margin-top: 20px; color: var(--red); font-family: 'Space Mono'; }
-        .transaction-id { font-size: 9px; color: var(--dim); text-align: center; margin-top: 20px; letter-spacing: 2px; }
+  .butterfly img {
+    width: 100%;
+    animation: breathe 0.3s infinite alternate ease-in-out;
+  }
 
-        /* --- 03. DIRECTIVES (RÈGLES DU JEU) --- */
-        .directives-section { border-top: 1px solid var(--border); padding-top: 60px; margin-bottom: 60px; }
-        .dir-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; }
-        .dir-item { border-left: 1px solid var(--red); padding-left: 20px; }
-        .dir-icon { font-family: 'Anton'; font-size: 24px; color: var(--red); margin-bottom: 10px; display: block; }
-        .dir-item h4 { font-size: 11px; text-transform: uppercase; font-weight: bold; margin-bottom: 10px; letter-spacing: 1px; }
-        .dir-item p { font-family: 'Playfair Display'; font-size: 14px; color: var(--dim); font-style: italic; }
+  @keyframes breathe {
+    from { transform: scaleX(0.7); }
+    to { transform: scaleX(1); }
+  }
 
-        /* --- FOOTER / SUPPORT --- */
-        .support-box { text-align: center; padding: 60px; background: rgba(255,0,0,0.02); border: 1px solid var(--border); }
-        .support-box p { font-size: 10px; color: var(--dim); letter-spacing: 2px; margin-bottom: 20px; }
-        .support-email { font-family: 'Anton'; font-size: 24px; color: var(--txt); text-decoration: none; border-bottom: 1px solid var(--red); padding-bottom: 5px; transition: 0.3s; }
-        .support-email:hover { color: var(--red); }
+  /* --- LES CARTES (Positionnées de façon absolue par rapport aux courbes) --- */
+  .step-card {
+    position: absolute;
+    width: 350px;
+    z-index: 5;
+    opacity: 0;
+  }
 
-        @media (max-width: 1000px) {
-            .ticket-wrapper { flex-direction: column; }
-            .ticket-main { grid-template-columns: 1fr; padding: 20px; }
-            .t-visual { height: 200px; min-height: 200px; }
-            .ticket-divider { width: 100%; height: 2px; background: repeating-linear-gradient(to right, var(--border) 0, var(--border) 8px, transparent 8px, transparent 16px); }
-            .ticket-divider::before, .ticket-divider::after { top: -15px; }
-            .ticket-divider::before { left: -16px; border-right: none; border-top: none; border-bottom: none; }
-            .ticket-divider::after { right: -16px; left: auto; border-left: none; border-top: none; border-bottom: none; }
-            .ticket-stub { width: 100%; flex-direction: row; padding: 20px; }
-            .stub-title { writing-mode: horizontal-tb; transform: none; }
-            .barcode-box { width: 60%; }
-            .ops-grid, .dir-grid { grid-template-columns: 1fr; }
-        }
-    </style>
+  /* Placement manuel pour épouser les virages du SVG */
+  #step-1 { top: 150px; left: 0; text-align: right; } /* Le papillon vire à droite, le texte est à gauche */
+  #step-2 { top: 600px; right: 0; text-align: left; } /* Le papillon vire à gauche, le texte est à droite */
+  #step-3 { top: 1100px; left: 0; text-align: right; } /* Le papillon vire à droite, le texte est à gauche */
+
+  .step-bg-number {
+    position: absolute;
+    top: -50px;
+    font-family: 'Playfair Display', serif;
+    font-size: 8rem;
+    font-style: italic;
+    color: rgba(255, 255, 255, 0.04);
+    line-height: 1;
+    z-index: -1;
+  }
+
+  #step-1 .step-bg-number { right: 20px; }
+  #step-2 .step-bg-number { left: 20px; }
+  #step-3 .step-bg-number { right: 20px; }
+
+  .step-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.2rem;
+    font-weight: 400;
+    margin: 0 0 10px 0;
+  }
+
+  .step-card h3 span { color: var(--gold); font-style: italic; }
+
+  .step-card p {
+    color: var(--text-grey);
+    font-size: 1rem;
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  /* Mobile */
+  @media (max-width: 850px) {
+    .track-container { max-width: 100%; overflow: hidden; }
+    .step-card { width: 80%; text-align: left !important; left: 10% !important; padding: 20px; background: rgba(0,0,0,0.5); border-radius: 10px; backdrop-filter: blur(5px); }
+    .step-bg-number { left: 10px !important; right: auto !important; }
+    #step-1 { top: 250px; }
+    #step-2 { top: 750px; }
+    #step-3 { top: 1200px; }
+  }
+</style>
 </head>
 <body>
 
-    <nav>
-        <div class="nav-logo">LE STUDIO.</div>
-        <div class="nav-telemetry">
-            <div class="tcr">TCR <span id="clock">00:00:00:00</span></div>
-            <div>STATUS: ACCRÉDITATION GÉNÉRÉE</div>
-        </div>
-    </nav>
+<div class="hero-spacer">Scrollez doucement...</div>
 
-    <main class="container">
-        
-        <div class="header-text">
-            <span class="label-red">PAIEMENT VALIDÉ // TRANSFERT OK</span>
-            <h1 class="t-huge">DOSSIER DE<br>DÉPLOIEMENT.</h1>
-            <p style="font-family: 'Playfair Display'; font-size: 16px; color: var(--dim); font-style: italic;">
-                L'illusion est enclenchée. Veuillez conserver ce document, il est votre unique point d'accès.
-            </p>
-        </div>
+<section class="experience-section">
+  <h2 class="section-title">Comment ça fonctionne ?</h2>
 
-        <div class="ticket-wrapper">
-            <div class="ticket-main">
-                <div class="t-visual">
-                    <img src="https://images.unsplash.com/photo-1534447677768-be436bb09401?q=80&w=800" alt="Blade Runner">
-                </div>
-                <div class="t-info">
-                    <div class="t-channel">CANAL_01 // ÉPISODE_02</div>
-                    <h2 class="t-title">BLADE RUNNER</h2>
-                    
-                    <div class="t-data-grid">
-                        <div class="t-data-item">
-                            <label>DATE DE MISSION</label>
-                            <span>VEN. 13 MARS 2026</span>
-                        </div>
-                        <div class="t-data-item">
-                            <label>HEURE D'EXTRACTION</label>
-                            <span>21:30:00</span>
-                        </div>
-                        <div class="t-data-item">
-                            <label>ID SPECTATEUR</label>
-                            <span>DECKARD, RICK</span>
-                        </div>
-                        <div class="t-data-item">
-                            <label>UNITÉS</label>
-                            <span class="highlight">02 PAX</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="ticket-divider"></div>
-            <div class="ticket-stub">
-                <div class="stub-title">ADMIT TWO</div>
-                <div class="barcode-box">
-                    <div class="barcode"><div class="scan-laser"></div></div>
-                    <span class="serial">BR-742-88X9</span>
-                </div>
-                <div style="font-size: 10px; color: var(--red); text-align: center; border: 1px solid var(--red); padding: 5px; width: 100%; margin-top: 20px;">ZONE : STUDIO_02</div>
-            </div>
-        </div>
-
-        <div class="action-bar">
-            <a href="#" class="btn-wallet">AJOUTER AU WALLET</a>
-            <a href="#" class="btn-outline">TÉLÉCHARGER LE PDF</a>
-        </div>
-
-        <div class="ops-grid">
+  <div class="track-container" id="track-container">
+    
+    <svg class="svg-path" viewBox="0 0 800 1400" preserveAspectRatio="none">
+      <path id="bg-path" 
+            d="M 400 0 C 800 200, 800 400, 400 500 C 0 600, 0 800, 400 900 C 800 1000, 800 1200, 400 1400" 
+            fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="2" stroke-dasharray="8 8" />
             
-            <div class="ops-card">
-                <h3 class="ops-title">01 // COORDONNÉES DE NAVIGATION</h3>
-                
-                <div class="loc-data">
-                    <span class="loc-label">SITE D'EXTRACTION (ADRESSE)</span>
-                    <span class="loc-val">ZONE INDUSTRIELLE SUD, BÂTIMENT 4<br>49000 ANGERS, FRANCE</span>
-                </div>
-                
-                <div class="loc-data">
-                    <span class="loc-label">PROTOCOLE D'APPROCHE</span>
-                    <span class="loc-val" style="color: var(--red);">ARRIVÉE REQUISE À T-15 MIN (21H15)</span>
-                    <p style="font-size: 10px; color: var(--dim); margin-top: 5px;">Les portes se verrouillent hydrauliquement à l'heure précise. Tout retard entraîne l'annulation sans remboursement.</p>
-                </div>
+      <path id="active-path" 
+            d="M 400 0 C 800 200, 800 400, 400 500 C 0 600, 0 800, 400 900 C 800 1000, 800 1200, 400 1400" 
+            fill="none" stroke="var(--gold)" stroke-width="3" style="filter: drop-shadow(0 0 8px var(--gold));" />
+    </svg>
 
-                <div class="map-placeholder">
-                    [ SYSTÈME DE GÉOLOCALISATION ENCRYPTÉ ]
-                </div>
-            </div>
+    <div class="butterfly" id="butterfly">
+      <img src="https://cdn-icons-png.flaticon.com/512/555/555679.png" alt="Papillon">
+    </div>
 
-            <div class="ops-card">
-                <h3 class="ops-title">02 // RÉCAPITULATIF SYSTÈME</h3>
-                
-                <div class="receipt-line">
-                    <span>IMMERSION SENSORIELLE (2 PAX)</span>
-                    <span>170.00 €</span>
-                </div>
-                <div class="receipt-line">
-                    <span>ACCORD DIRECTOR'S CUT (VINS)</span>
-                    <span>90.00 €</span>
-                </div>
-                <div class="receipt-line">
-                    <span>TAXES GOUVERNEMENTALES (TVA 20%)</span>
-                    <span>INCLUS</span>
-                </div>
-                
-                <div class="receipt-total">
-                    <span>MONTANT TOTAL</span>
-                    <span>260.00 €</span>
-                </div>
-                
-                <div class="transaction-id">
-                    TRANSACTION VALIDÉE VIA TERMINAL SÉCURISÉ<br>
-                    ID: TXN-99482-OMEGA
-                </div>
-            </div>
+    <div class="step-card step-anim" id="step-1">
+      <div class="step-bg-number">I</div>
+      <h3>L'Instant <span>Précieux</span></h3>
+      <p>Choisissez la date de votre évasion pour initier cette expérience unique et figer le temps.</p>
+    </div>
 
-        </div>
+    <div class="step-card step-anim" id="step-2">
+      <div class="step-bg-number">II</div>
+      <h3>Votre <span>Passage</span></h3>
+      <p>Sélectionnez avec soin le type de billet qui correspondra parfaitement à vous et vos proches.</p>
+    </div>
 
-        <div class="directives-section">
-            <span class="label-red">DIRECTIVES_PRÉPARATOIRES</span>
-            <div class="dir-grid">
-                <div class="dir-item">
-                    <span class="dir-icon">01</span>
-                    <h4>CODE VESTIMENTAIRE</h4>
-                    <p>Le port de vêtements sombres (Smart Dark) est exigé pour ne pas interférer avec la colorimétrie et les projecteurs DMX de la salle.</p>
-                </div>
-                <div class="dir-item">
-                    <span class="dir-icon">02</span>
-                    <h4>BLACKOUT NUMÉRIQUE</h4>
-                    <p>Tout signal RF (téléphone, montre connectée) doit être éteint avant l'entrée dans le sas. L'émission de lumière parasite entraîne l'expulsion.</p>
-                </div>
-                <div class="dir-item">
-                    <span class="dir-icon">03</span>
-                    <h4>PROFIL ALIMENTAIRE</h4>
-                    <p>Aucune restriction n'a été signalée lors de l'initialisation. Le laboratoire culinaire appliquera le script original sans aucune altération.</p>
-                </div>
-            </div>
-        </div>
+    <div class="step-card step-anim" id="step-3">
+      <div class="step-bg-number">III</div>
+      <h3>L'Envol <span>Final</span></h3>
+      <p>Vos précieux sésames vous sont délivrés instantanément. Préparez-vous à l'émerveillement.</p>
+    </div>
 
-        <div class="support-box">
-            <p>UNE ANOMALIE DANS VOTRE DOSSIER DE MISSION ?</p>
-            <a href="mailto:dispatch@lestudio.fr" class="support-email">DISPATCH@LESTUDIO.FR</a>
-        </div>
+  </div>
+</section>
 
-    </main>
+<div class="footer-spacer">Fin du voyage</div>
 
-    <script>
-        // HORLOGE TCR
-        function updateClock() {
-            const now = new Date();
-            const h = String(now.getHours()).padStart(2, '0');
-            const m = String(now.getMinutes()).padStart(2, '0');
-            const s = String(now.getSeconds()).padStart(2, '0');
-            const ms = String(Math.floor(now.getMilliseconds() / 10)).padStart(2, '0');
-            document.getElementById('clock').innerText = `${h}:${m}:${s}:${ms}`;
-            requestAnimationFrame(updateClock);
+<script>
+  // Enregistrement des plugins
+  gsap.registerPlugin(ScrollTrigger, MotionPathPlugin);
+
+  // 1. Animation du tracé doré (Dessin progressif)
+  const path = document.querySelector('#active-path');
+  const pathLength = path.getTotalLength(); // Calcule la longueur de la courbe
+  
+  // On masque la ligne dorée au départ
+  gsap.set(path, { strokeDasharray: pathLength, strokeDashoffset: pathLength });
+
+  // On la dessine au scroll
+  gsap.to(path, {
+    strokeDashoffset: 0,
+    ease: "none",
+    scrollTrigger: {
+      trigger: "#track-container",
+      start: "top center",
+      end: "bottom center",
+      scrub: 1
+    }
+  });
+
+  // 2. Le papillon suit la ligne
+  gsap.to("#butterfly", {
+    motionPath: {
+      path: "#active-path",
+      align: "#active-path",
+      alignOrigin: [0.5, 0.5],
+      autoRotate: 90 // Incline le papillon dans le sens des virages (90 ajuste l'angle de base de l'image)
+    },
+    ease: "none",
+    scrollTrigger: {
+      trigger: "#track-container",
+      start: "top center",
+      end: "bottom center",
+      scrub: 1
+    }
+  });
+
+  // 3. Apparition des textes "Cinématique"
+  const steps = gsap.utils.toArray('.step-anim');
+
+  steps.forEach((step) => {
+    gsap.fromTo(step, 
+      { y: 50, opacity: 0, filter: "blur(8px)" },
+      {
+        y: 0, opacity: 1, filter: "blur(0px)",
+        duration: 1.5,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: step,
+          start: "top 60%", // Le texte apparaît quand il arrive à 60% de l'écran
+          toggleActions: "play none none reverse"
         }
-        updateClock();
-    </script>
+      }
+    );
+  });
+</script>
+
 </body>
 </html>
