@@ -1,256 +1,417 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Parcours Papillon Courbe</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LE STUDIO | CONTACT & ASSISTANCE</title>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Mono:wght@400;700&family=Playfair+Display:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #020202;
+            --txt: #FFFFFF;
+            --red: #FF0000;
+            --border: #222222;
+            --dim: rgba(255, 255, 255, 0.4);
+            --grid: rgba(255, 255, 255, 0.02);
+        }
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/MotionPathPlugin.min.js"></script>
+        /* --- RESET & ACCESSIBILITY --- */
+        * { margin: 0; padding: 0; box-sizing: border-box; cursor: crosshair; scroll-behavior: smooth; }
+        ::selection { background: var(--red); color: var(--txt); }
+        
+        body { 
+            background-color: var(--bg); color: var(--txt); 
+            font-family: 'Space Mono', monospace; line-height: 1.5; overflow-x: hidden;
+            background-image: linear-gradient(var(--grid) 1px, transparent 1px), linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+            background-size: 40px 40px;
+            -webkit-font-smoothing: antialiased;
+        }
 
-<style>
-  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=Inter:wght@300;400&display=swap');
+        /* --- GLOBAL FX --- */
+        .scanline { position: fixed; inset: 0; background: linear-gradient(to bottom, transparent 50%, rgba(255,255,255,0.02) 50%); background-size: 100% 4px; pointer-events: none; z-index: 9999; }
+        .dot { width: 6px; height: 6px; background: var(--red); border-radius: 50%; animation: blink 1s infinite; display: inline-block; margin-left: 8px;}
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
 
-  :root {
-    --bg-color: #030303;
-    --gold: #d4af37;
-    --gold-glow: rgba(212, 175, 55, 0.5);
-    --text-white: #ffffff;
-    --text-grey: #999999;
-  }
+        /* --- HUD NAVIGATION --- */
+        nav {
+            position: fixed; top: 0; left: 0; width: 100%; height: 90px;
+            display: flex; justify-content: space-between; align-items: center; padding: 0 40px;
+            border-bottom: 1px solid var(--border); background: rgba(2,2,2,0.95); z-index: 1000; backdrop-filter: blur(10px);
+        }
+        .nav-logo { font-weight: bold; font-size: 14px; letter-spacing: 3px; }
+        .nav-links { display: flex; gap: 40px; list-style: none; }
+        .nav-links a { text-decoration: none; color: var(--txt); font-size: 10px; text-transform: uppercase; letter-spacing: 3px; opacity: 0.4; transition: 0.3s; position: relative; padding: 10px 0; }
+        .nav-links a:hover, .nav-links a.active { opacity: 1; color: var(--red); }
+        .nav-links a.active::after { content: ""; position: absolute; bottom: 0; left: 0; width: 100%; height: 1px; background: var(--red); box-shadow: 0 0 10px var(--red); }
+        .nav-telemetry { display: flex; flex-direction: column; align-items: flex-end; font-size: 9px; gap: 4px; color: var(--dim); }
+        .tcr { color: var(--red); font-weight: bold; font-size: 10px; }
 
-  body {
-    margin: 0;
-    background-color: var(--bg-color);
-    color: var(--text-white);
-    font-family: 'Inter', sans-serif;
-    overflow-x: hidden;
-  }
+        /* --- LAYOUT STRUCTURE --- */
+        .container { max-width: 1300px; margin: 0 auto; padding: 150px 40px 0 40px; }
+        
+        .label-red { display: inline-block; border: 1px solid var(--red); color: var(--red); padding: 4px 10px; font-size: 9px; text-transform: uppercase; margin-bottom: 20px; letter-spacing: 3px; background: rgba(255,0,0,0.05); }
+        .t-huge { font-family: 'Anton'; font-size: clamp(3rem, 8vw, 6rem); line-height: 0.85; text-transform: uppercase; margin-bottom: 15px; }
 
-  .hero-spacer, .footer-spacer {
-    height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: 'Playfair Display', serif;
-    font-style: italic;
-    color: var(--text-grey);
-    font-size: 1.2rem;
-  }
+        /* --- HEADER (HERO) --- */
+        .header-box { display: flex; justify-content: space-between; align-items: flex-end; border-bottom: 1px solid var(--border); padding-bottom: 40px; margin-bottom: 60px; }
+        .signal-box { text-align: right; }
+        .signal-bars { display: flex; align-items: flex-end; justify-content: flex-end; gap: 4px; height: 30px; margin-top: 10px; }
+        .s-bar { width: 6px; background: var(--red); animation: signal 1.5s infinite ease-in-out alternate; opacity: 0.8; }
+        .s-bar:nth-child(1) { height: 30%; animation-delay: 0.1s; }
+        .s-bar:nth-child(2) { height: 60%; animation-delay: 0.2s; }
+        .s-bar:nth-child(3) { height: 100%; animation-delay: 0.3s; box-shadow: 0 0 10px var(--red); }
+        .s-bar:nth-child(4) { height: 40%; animation-delay: 0.4s; }
+        @keyframes signal { 0% { transform: scaleY(0.5); } 100% { transform: scaleY(1); } }
 
-  .section-title {
-    text-align: center;
-    font-family: 'Playfair Display', serif;
-    font-size: 4rem;
-    font-weight: 400;
-    font-style: italic;
-    margin: 100px 0 150px 0;
-  }
+        /* --- CORE GRID (FORM vs TACTICAL DATA) --- */
+        .dispatch-grid { display: grid; grid-template-columns: 1.5fr 1fr; gap: 60px; margin-bottom: 100px; }
 
-  /* --- LE PARCOURS (Taille fixe pour contrôler la courbe) --- */
-  .track-container {
-    position: relative;
-    width: 100%;
-    max-width: 800px; /* Largeur de la zone de vol */
-    height: 1400px;   /* Hauteur totale du parcours */
-    margin: 0 auto;
-  }
+        /* 1. TERMINAL FORM */
+        .terminal-wrapper { position: relative; border: 1px solid var(--border); background: rgba(0,0,0,0.8); min-height: 550px; }
+        .terminal-header { background: var(--border); padding: 10px 20px; font-size: 9px; color: var(--dim); letter-spacing: 2px; display: flex; justify-content: space-between; align-items: center; }
+        
+        #comms-form { padding: 40px; transition: opacity 0.3s; }
+        .form-group { margin-bottom: 30px; position: relative; }
+        .form-group label { display: block; font-size: 9px; color: var(--red); margin-bottom: 10px; letter-spacing: 1px; }
+        .input-control { width: 100%; background: transparent; border: 1px solid var(--border); color: var(--txt); font-family: 'Space Mono'; padding: 15px; font-size: 12px; outline: none; transition: 0.3s; }
+        .input-control:focus { border-color: var(--red); background: rgba(255,0,0,0.05); border-left: 3px solid var(--red); }
+        .input-control::placeholder { color: var(--dim); }
+        select.input-control { appearance: none; cursor: pointer; }
+        textarea.input-control { resize: none; height: 120px; }
+        
+        .btn-submit {
+            width: 100%; position: relative; border: 1px solid var(--red); background: transparent; 
+            color: var(--red); font-family: 'Anton'; font-size: 1.5rem; letter-spacing: 2px;
+            padding: 15px 0; cursor: pointer; text-transform: uppercase; overflow: hidden; z-index: 1; transition: 0.3s;
+        }
+        .btn-submit::before { content: ''; position: absolute; top: 0; left: 0; width: 0%; height: 100%; background: var(--red); z-index: -1; transition: 0.4s cubic-bezier(0.165, 0.84, 0.44, 1); }
+        .btn-submit:hover { color: var(--bg); }
+        .btn-submit:hover::before { width: 100%; }
 
-  /* Le SVG qui contient la ligne courbe */
-  .svg-path {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 1;
-    pointer-events: none;
-  }
+        /* Terminal Success Log */
+        #success-log { display: none; padding: 40px; font-size: 11px; color: var(--dim); flex-direction: column; justify-content: center; height: 100%; }
+        .log-line { margin-bottom: 10px; opacity: 0; }
+        .log-highlight { color: var(--red); font-weight: bold; }
+        .log-final { color: var(--txt); font-size: 14px; margin-top: 20px; border-top: 1px dashed var(--border); padding-top: 20px; }
 
-  /* Le Papillon */
-  .butterfly {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 45px;
-    height: 45px;
-    z-index: 10;
-    filter: drop-shadow(0 0 12px var(--gold));
-    /* On centre le point d'ancrage pour le MotionPath */
-    transform: translate(-50%, -50%); 
-  }
+        /* 2. TACTICAL INFO PANEL */
+        .info-panel { display: flex; flex-direction: column; gap: 40px; }
+        
+        .info-block { border-left: 2px solid var(--red); padding-left: 20px; }
+        .info-block h3 { font-family: 'Anton'; font-size: 1.2rem; margin-bottom: 10px; color: var(--txt); letter-spacing: 1px; }
+        .info-block p { font-size: 11px; color: var(--dim); margin-bottom: 15px; line-height: 1.6; }
 
-  .butterfly img {
-    width: 100%;
-    animation: breathe 0.3s infinite alternate ease-in-out;
-  }
+        .comms-btn {
+            display: flex; align-items: center; justify-content: space-between;
+            border: 1px solid var(--border); background: rgba(255,255,255,0.02);
+            padding: 15px 20px; text-decoration: none; color: var(--txt);
+            font-family: 'Space Mono'; transition: 0.3s; margin-bottom: 10px;
+        }
+        .comms-btn:hover { border-color: var(--red); background: rgba(255,0,0,0.05); transform: translateX(5px); }
+        .comms-icon { font-size: 9px; color: var(--red); letter-spacing: 2px; }
+        .comms-val { font-size: 12px; font-weight: bold; letter-spacing: 1px; }
 
-  @keyframes breathe {
-    from { transform: scaleX(0.7); }
-    to { transform: scaleX(1); }
-  }
+        /* Radar & Wayfinding */
+        .wayfinding-box { border: 1px solid var(--border); background: rgba(0,0,0,0.5); padding: 20px; }
+        .radar-screen { width: 100%; height: 120px; border: 1px solid var(--border); position: relative; background: #050505; overflow: hidden; margin-bottom: 20px; }
+        .radar-sweep { position: absolute; top: 50%; left: 50%; width: 200px; height: 200px; background: conic-gradient(from 0deg, transparent 70%, rgba(255,0,0,0.3) 100%); transform-origin: 0 0; animation: sweep 3s infinite linear; }
+        .target-dot { position: absolute; width: 4px; height: 4px; background: var(--txt); border-radius: 50%; box-shadow: 0 0 5px var(--txt); top: 40%; left: 60%; animation: blink 2s infinite; }
+        @keyframes sweep { to { transform: rotate(360deg); } }
+        
+        .way-step { display: flex; gap: 10px; margin-bottom: 10px; font-size: 10px; color: var(--dim); }
+        .way-step span:first-child { color: var(--red); font-weight: bold; }
 
-  /* --- LES CARTES (Positionnées de façon absolue par rapport aux courbes) --- */
-  .step-card {
-    position: absolute;
-    width: 350px;
-    z-index: 5;
-    opacity: 0;
-  }
+        /* --- KNOWLEDGE BASE (FAQ ACCORDION) --- */
+        .faq-wrapper { border-top: 1px solid var(--border); padding-top: 80px; margin-bottom: 100px; }
+        .faq-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 40px; }
+        
+        .faq-item { border-bottom: 1px solid var(--border); }
+        .faq-question {
+            width: 100%; text-align: left; background: transparent; border: none; 
+            color: var(--txt); font-family: 'Anton'; font-size: 1.5rem; 
+            padding: 25px 0; cursor: pointer; display: flex; justify-content: space-between; 
+            align-items: center; text-transform: uppercase; transition: color 0.3s; letter-spacing: 1px;
+        }
+        .faq-question:hover { color: var(--red); }
+        .faq-icon { font-family: 'Space Mono'; font-size: 14px; color: var(--red); font-weight: bold; transition: transform 0.3s; }
+        
+        .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.4s ease, padding 0.4s ease; font-family: 'Playfair Display'; font-size: 15px; color: var(--dim); line-height: 1.6; }
+        .faq-item.active .faq-answer { max-height: 200px; padding-bottom: 25px; }
+        .faq-item.active .faq-question { color: var(--red); }
+        .faq-item.active .faq-icon { transform: rotate(45deg); }
 
-  /* Placement manuel pour épouser les virages du SVG */
-  #step-1 { top: 150px; left: 0; text-align: right; } /* Le papillon vire à droite, le texte est à gauche */
-  #step-2 { top: 600px; right: 0; text-align: left; } /* Le papillon vire à gauche, le texte est à droite */
-  #step-3 { top: 1100px; left: 0; text-align: right; } /* Le papillon vire à droite, le texte est à gauche */
+        /* --- FOOTER --- */
+        footer { border-top: 1px solid var(--border); background: #010101; padding: 60px 40px 40px 40px; font-size: 10px; color: var(--dim); }
+        .footer-grid { max-width: 1300px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 60px; margin-bottom: 60px; }
+        .f-col h4 { font-family: 'Anton'; font-size: 1.2rem; color: var(--txt); margin-bottom: 20px; letter-spacing: 1px; text-transform: uppercase; }
+        .f-col p { margin-bottom: 10px; line-height: 1.6; }
+        .f-links { list-style: none; }
+        .f-links li { margin-bottom: 10px; }
+        .f-links a { color: var(--dim); text-decoration: none; transition: 0.3s; }
+        .f-links a:hover { color: var(--red); padding-left: 5px; }
+        .footer-bottom { max-width: 1300px; margin: 0 auto; border-top: 1px dashed var(--border); padding-top: 20px; display: flex; justify-content: space-between; align-items: center; }
 
-  .step-bg-number {
-    position: absolute;
-    top: -50px;
-    font-family: 'Playfair Display', serif;
-    font-size: 8rem;
-    font-style: italic;
-    color: rgba(255, 255, 255, 0.04);
-    line-height: 1;
-    z-index: -1;
-  }
-
-  #step-1 .step-bg-number { right: 20px; }
-  #step-2 .step-bg-number { left: 20px; }
-  #step-3 .step-bg-number { right: 20px; }
-
-  .step-card h3 {
-    font-family: 'Playfair Display', serif;
-    font-size: 2.2rem;
-    font-weight: 400;
-    margin: 0 0 10px 0;
-  }
-
-  .step-card h3 span { color: var(--gold); font-style: italic; }
-
-  .step-card p {
-    color: var(--text-grey);
-    font-size: 1rem;
-    line-height: 1.6;
-    margin: 0;
-  }
-
-  /* Mobile */
-  @media (max-width: 850px) {
-    .track-container { max-width: 100%; overflow: hidden; }
-    .step-card { width: 80%; text-align: left !important; left: 10% !important; padding: 20px; background: rgba(0,0,0,0.5); border-radius: 10px; backdrop-filter: blur(5px); }
-    .step-bg-number { left: 10px !important; right: auto !important; }
-    #step-1 { top: 250px; }
-    #step-2 { top: 750px; }
-    #step-3 { top: 1200px; }
-  }
-</style>
+        @media (max-width: 900px) {
+            .header-box { flex-direction: column; align-items: flex-start; gap: 20px; }
+            .dispatch-grid { grid-template-columns: 1fr; gap: 40px; }
+            .comms-btn { flex-direction: column; align-items: flex-start; gap: 5px; }
+            .footer-grid { grid-template-columns: 1fr; gap: 40px; }
+            .footer-bottom { flex-direction: column; gap: 10px; align-items: flex-start; }
+            .faq-question { font-size: 1.2rem; }
+        }
+    </style>
 </head>
 <body>
 
-<div class="hero-spacer">Scrollez doucement...</div>
+    <div class="scanline"></div>
 
-<section class="experience-section">
-  <h2 class="section-title">Comment ça fonctionne ?</h2>
+    <nav>
+        <div class="nav-logo">LE STUDIO.</div>
+        <ul class="nav-links">
+            <li><a href="#">ACCUEIL</a></li>
+            <li><a href="#">RÉSERVER</a></li>
+            <li><a href="#" class="active">NOUS CONTACTER</a></li>
+        </ul>
+        <div class="nav-telemetry">
+            <div class="tcr">TCR <span id="clock">00:00:00:00</span></div>
+            <div id="current-date">CONNEXION SÉCURISÉE <div class="dot"></div></div>
+        </div>
+    </nav>
 
-  <div class="track-container" id="track-container">
-    
-    <svg class="svg-path" viewBox="0 0 800 1400" preserveAspectRatio="none">
-      <path id="bg-path" 
-            d="M 400 0 C 800 200, 800 400, 400 500 C 0 600, 0 800, 400 900 C 800 1000, 800 1200, 400 1400" 
-            fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="2" stroke-dasharray="8 8" />
+    <main class="container">
+        
+        <div class="header-box">
+            <div>
+                <span class="label-red">SERVICE CLIENT & ASSISTANCE</span>
+                <h1 class="t-huge">NOUS<br>CONTACTER.</h1>
+                <p style="font-family: 'Playfair Display'; font-size: 16px; color: var(--dim); max-width: 500px;">
+                    Notre équipe traite toutes les demandes. Les urgences liées aux réservations du jour (retards, allergies de dernière minute) sont traitées en priorité.
+                </p>
+            </div>
+            <div class="signal-box">
+                <span style="font-size: 8px; color: var(--dim); letter-spacing: 2px;">RÉSEAU SÉCURISÉ</span>
+                <div class="signal-bars">
+                    <div class="s-bar"></div><div class="s-bar"></div><div class="s-bar"></div><div class="s-bar"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="dispatch-grid">
             
-      <path id="active-path" 
-            d="M 400 0 C 800 200, 800 400, 400 500 C 0 600, 0 800, 400 900 C 800 1000, 800 1200, 400 1400" 
-            fill="none" stroke="var(--gold)" stroke-width="3" style="filter: drop-shadow(0 0 8px var(--gold));" />
-    </svg>
+            <div class="terminal-wrapper" id="terminal-screen">
+                <div class="terminal-header">
+                    <span>FORMULAIRE DE CONTACT</span>
+                    <span style="color:var(--red);">[ EN LIGNE ]</span>
+                </div>
 
-    <div class="butterfly" id="butterfly">
-      <img src="https://cdn-icons-png.flaticon.com/512/555/555679.png" alt="Papillon">
-    </div>
+                <form id="comms-form" onsubmit="processTransmission(event)">
+                    <div class="form-group">
+                        <label>VOTRE NOM ET PRÉNOM</label>
+                        <input type="text" class="input-control" placeholder="Ex: Jean Dupont" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>ADRESSE EMAIL</label>
+                        <input type="email" class="input-control" placeholder="Pour vous répondre..." required>
+                    </div>
 
-    <div class="step-card step-anim" id="step-1">
-      <div class="step-bg-number">I</div>
-      <h3>L'Instant <span>Précieux</span></h3>
-      <p>Choisissez la date de votre évasion pour initier cette expérience unique et figer le temps.</p>
-    </div>
+                    <div class="form-group">
+                        <label>OBJET DE VOTRE DEMANDE</label>
+                        <select class="input-control" id="topic-select" required>
+                            <option value="" disabled selected>[ SÉLECTIONNER UN SUJET ]</option>
+                            <option value="allergies">SIGNALER UNE ALLERGIE / RÉGIME SPÉCIFIQUE</option>
+                            <option value="ticket">PROBLÈME AVEC MA RÉSERVATION</option>
+                            <option value="privatisation">PRIVATISATION & ÉVÉNEMENTS (B2B)</option>
+                            <option value="other">AUTRE QUESTION</option>
+                        </select>
+                    </div>
 
-    <div class="step-card step-anim" id="step-2">
-      <div class="step-bg-number">II</div>
-      <h3>Votre <span>Passage</span></h3>
-      <p>Sélectionnez avec soin le type de billet qui correspondra parfaitement à vous et vos proches.</p>
-    </div>
+                    <div class="form-group">
+                        <label>VOTRE MESSAGE</label>
+                        <textarea class="input-control" id="message-body" placeholder="Veuillez détailler votre demande ici..." required></textarea>
+                    </div>
 
-    <div class="step-card step-anim" id="step-3">
-      <div class="step-bg-number">III</div>
-      <h3>L'Envol <span>Final</span></h3>
-      <p>Vos précieux sésames vous sont délivrés instantanément. Préparez-vous à l'émerveillement.</p>
-    </div>
+                    <button type="submit" class="btn-submit" id="submit-btn">ENVOYER LE MESSAGE</button>
+                </form>
 
-  </div>
-</section>
+                <div id="success-log">
+                    <div class="log-line" style="animation: fadeIn 0.1s forwards 0.2s">> PRÉPARATION DU MESSAGE... [OK]</div>
+                    <div class="log-line" style="animation: fadeIn 0.1s forwards 0.8s">> CONNEXION AU SERVEUR... <span class="log-highlight">[SÉCURISÉ]</span></div>
+                    <div class="log-line" style="animation: fadeIn 0.1s forwards 1.4s">> ENVOI EN COURS...</div>
+                    <div class="log-line" style="animation: fadeIn 0.1s forwards 2.2s">> MESSAGE REÇU PAR NOTRE ÉQUIPE.</div>
+                    
+                    <div class="log-final log-line" style="animation: fadeIn 0.1s forwards 3.0s">
+                        <span style="color:var(--red); font-weight:bold; font-family: 'Anton'; font-size: 1.5rem; letter-spacing: 1px;">ENVOI RÉUSSI.</span><br><br>
+                        Notre équipe a bien reçu votre demande. Nous vous répondrons sur votre adresse email dans les plus brefs délais.
+                    </div>
+                    
+                    <button class="btn-submit" style="margin-top:40px; font-size:1rem; opacity:0; animation: fadeIn 0.5s forwards 4.0s;" onclick="resetTerminal()">ENVOYER UN AUTRE MESSAGE</button>
+                </div>
+            </div>
 
-<div class="footer-spacer">Fin du voyage</div>
+            <div class="info-panel">
+                
+                <div class="info-block">
+                    <h3>CONTACTS D'URGENCE</h3>
+                    <p>En cas d'imprévu le jour de votre réservation (retard sur la route, annulation), veuillez utiliser nos lignes directes :</p>
+                    
+                    <a href="tel:+33188888888" class="comms-btn">
+                        <span class="comms-icon">[ TÉLÉPHONE ]</span>
+                        <span class="comms-val">+33 1 88 88 88 88</span>
+                    </a>
+                    
+                    <a href="mailto:contact@lestudio.fr" class="comms-btn">
+                        <span class="comms-icon">[ EMAIL ]</span>
+                        <span class="comms-val">CONTACT@LESTUDIO.FR</span>
+                    </a>
+                </div>
 
-<script>
-  // Enregistrement des plugins
-  gsap.registerPlugin(ScrollTrigger, MotionPathPlugin);
+                <div class="info-block" style="border-left: none; padding-left: 0;">
+                    <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 15px;">
+                        <h3 style="margin-bottom: 0;">ADRESSE DU STUDIO</h3>
+                        <span style="font-size: 9px; color: var(--red); letter-spacing: 2px;">ANGERS, FRANCE</span>
+                    </div>
+                    
+                    <div class="wayfinding-box">
+                        <div class="radar-screen">
+                            <div class="radar-sweep"></div>
+                            <div class="target-dot"></div>
+                            <span style="position: absolute; bottom: 5px; left: 5px; font-size: 8px; color: var(--red); letter-spacing: 2px; background: rgba(0,0,0,0.8); padding: 2px 4px;">LOCALISATION EXACTE</span>
+                        </div>
+                        
+                        <div class="way-step"><span>01_</span> Rendez-vous au Bâtiment 4, Zone Industrielle Sud.</div>
+                        <div class="way-step"><span>02_</span> Cherchez la porte avec l'éclairage rouge.</div>
+                        <div class="way-step"><span>03_</span> Ayez votre réservation prête pour le scan à l'entrée.</div>
+                    </div>
+                </div>
 
-  // 1. Animation du tracé doré (Dessin progressif)
-  const path = document.querySelector('#active-path');
-  const pathLength = path.getTotalLength(); // Calcule la longueur de la courbe
-  
-  // On masque la ligne dorée au départ
-  gsap.set(path, { strokeDasharray: pathLength, strokeDashoffset: pathLength });
+            </div>
+        </div>
 
-  // On la dessine au scroll
-  gsap.to(path, {
-    strokeDashoffset: 0,
-    ease: "none",
-    scrollTrigger: {
-      trigger: "#track-container",
-      start: "top center",
-      end: "bottom center",
-      scrub: 1
-    }
-  });
+        <div class="faq-wrapper">
+            <div class="faq-header">
+                <div>
+                    <span class="label-red">FOIRE AUX QUESTIONS</span>
+                    <h2 style="font-family: 'Anton'; font-size: 3.5rem; text-transform: uppercase; line-height: 1;">QUESTIONS<br>FRÉQUENTES.</h2>
+                </div>
+            </div>
 
-  // 2. Le papillon suit la ligne
-  gsap.to("#butterfly", {
-    motionPath: {
-      path: "#active-path",
-      align: "#active-path",
-      alignOrigin: [0.5, 0.5],
-      autoRotate: 90 // Incline le papillon dans le sens des virages (90 ajuste l'angle de base de l'image)
-    },
-    ease: "none",
-    scrollTrigger: {
-      trigger: "#track-container",
-      start: "top center",
-      end: "bottom center",
-      scrub: 1
-    }
-  });
+            <div class="faq-list">
+                <div class="faq-item">
+                    <button class="faq-question"><span>Que se passe-t-il si j'arrive en retard ?</span><span class="faq-icon">[+]</span></button>
+                    <div class="faq-answer"><p>Pour ne pas gâcher l'immersion des autres clients (le son et la lumière sont synchronisés avec les plats), les portes du restaurant sont verrouillées à l'heure pile de la réservation. <strong>Aucun accès n'est possible après le début de l'expérience et aucun remboursement ne sera effectué en cas de retard.</strong> Prévoyez d'arriver 15 minutes à l'avance.</p></div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question"><span>Pouvez-vous adapter le menu (allergies, végétarien...) ?</span><span class="faq-icon">[+]</span></button>
+                    <div class="faq-answer"><p>Oui, nos chefs peuvent adapter le menu à vos restrictions alimentaires (allergies, sans gluten, végétarien, vegan). Cependant, vous devez impérativement nous prévenir <strong>au minimum 48 heures avant votre venue</strong> via notre formulaire de contact ou par email.</p></div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question"><span>Y a-t-il un code vestimentaire (Dress Code) ?</span><span class="faq-icon">[+]</span></button>
+                    <div class="faq-answer"><p>La salle est plongée dans le noir pour profiter au mieux des écrans et des jeux de lumière. Pour éviter les reflets parasites, nous demandons à nos clients de porter <strong>des vêtements sombres</strong> (noir, bleu marine, gris foncé). Les couleurs claires ou fluorescentes sont à éviter.</p></div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question"><span>Puis-je annuler ou donner ma réservation à un ami ?</span><span class="faq-icon">[+]</span></button>
+                    <div class="faq-answer"><p>Les réservations sont fermes et non-remboursables en raison des coûts de préparation de nos menus immersifs. En revanche, vous pouvez tout à fait céder votre place à une autre personne. Il suffit de nous envoyer un email avec le nom de la personne qui vous remplacera au moins 24h avant.</p></div>
+                </div>
+            </div>
+        </div>
 
-  // 3. Apparition des textes "Cinématique"
-  const steps = gsap.utils.toArray('.step-anim');
+    </main>
 
-  steps.forEach((step) => {
-    gsap.fromTo(step, 
-      { y: 50, opacity: 0, filter: "blur(8px)" },
-      {
-        y: 0, opacity: 1, filter: "blur(0px)",
-        duration: 1.5,
-        ease: "power3.out",
-        scrollTrigger: {
-          trigger: step,
-          start: "top 60%", // Le texte apparaît quand il arrive à 60% de l'écran
-          toggleActions: "play none none reverse"
+    <footer>
+        <div class="footer-grid">
+            <div class="f-col">
+                <h4>LE STUDIO.</h4>
+                <p>Le premier restaurant immersif de France.<br>Nous synchronisons la haute gastronomie avec les chefs-d'œuvre du cinéma.</p>
+                <p style="color: var(--red); margin-top: 15px;">BÂTIMENT 4, Z.I. SUD, 49000 ANGERS</p>
+            </div>
+            <div class="f-col">
+                <h4>NAVIGATION</h4>
+                <ul class="f-links">
+                    <li><a href="#">Le Concept</a></li>
+                    <li><a href="#">Réserver une table</a></li>
+                    <li><a href="#">Nous contacter</a></li>
+                    <li><a href="#">Privatisations (B2B)</a></li>
+                </ul>
+            </div>
+            <div class="f-col">
+                <h4>INFORMATIONS LÉGALES</h4>
+                <ul class="f-links">
+                    <li><a href="#">Conditions Générales de Vente</a></li>
+                    <li><a href="#">Politique de Confidentialité</a></li>
+                    <li><a href="#">Mentions Légales</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <span>© 2026 LE STUDIO. TOUS DROITS RÉSERVÉS.</span>
+            <span style="color: var(--red);">SYSTÈME OPÉRATIONNEL</span>
+        </div>
+    </footer>
+
+    <script>
+        // Set real-time date in Header
+        const dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+        document.getElementById('current-date').innerHTML = new Date().toLocaleDateString('fr-FR', dateOptions).toUpperCase() + ' <div class="dot"></div>';
+
+        // TCR CLOCK
+        function updateClock() {
+            const now = new Date();
+            const h = String(now.getHours()).padStart(2, '0');
+            const m = String(now.getMinutes()).padStart(2, '0');
+            const s = String(now.getSeconds()).padStart(2, '0');
+            const ms = String(Math.floor(now.getMilliseconds() / 10)).padStart(2, '0');
+            document.getElementById('clock').innerText = `${h}:${m}:${s}:${ms}`;
+            requestAnimationFrame(updateClock);
         }
-      }
-    );
-  });
-</script>
+        updateClock();
 
+        // FORM SUBMISSION (SPA BEHAVIOR)
+        const form = document.getElementById('comms-form');
+        const logScreen = document.getElementById('success-log');
+        const submitBtn = document.getElementById('submit-btn');
+
+        function processTransmission(e) {
+            e.preventDefault();
+            // Button feedback
+            submitBtn.innerText = "ENVOI EN COURS...";
+            submitBtn.style.color = "var(--bg)";
+
+            // Fake processing delay
+            setTimeout(() => {
+                form.style.display = "none";
+                logScreen.style.display = "flex";
+            }, 600);
+        }
+
+        function resetTerminal() {
+            logScreen.style.display = "none";
+            form.reset();
+            form.style.display = "block";
+            submitBtn.innerText = "ENVOYER LE MESSAGE";
+            submitBtn.style.color = "var(--red)";
+        }
+
+        // ACCORDION FAQ LOGIC
+        const faqItems = document.querySelectorAll('.faq-item');
+        faqItems.forEach(item => {
+            const questionBtn = item.querySelector('.faq-question');
+            questionBtn.addEventListener('click', () => {
+                const isActive = item.classList.contains('active');
+                
+                // Close all
+                faqItems.forEach(i => {
+                    i.classList.remove('active');
+                    i.querySelector('.faq-icon').innerText = '[+]';
+                });
+
+                // Open clicked if it wasn't active
+                if (!isActive) {
+                    item.classList.add('active');
+                    item.querySelector('.faq-icon').innerText = '[-]';
+                }
+            });
+        });
+    </script>
 </body>
 </html>
