@@ -1,933 +1,550 @@
 <!DOCTYPE html>
 <html lang="fr">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AURA // Premium Lifestyle OS</title>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
-        rel="stylesheet">
+    <title>AURA // Executive OS (Pixel Perfect)</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         /* ==========================================================================
-           1. DESIGN TOKENS (LA DA PREMIUM VALIDÉE)
+           1. DESIGN TOKENS (PIXEL PERFECT DARK)
            ========================================================================== */
         :root {
             --bg-base: #030303;
-            --bg-panel: #0A0A0C;
-            --bg-card: rgba(20, 20, 24, 0.6);
-
-            --border-subtle: rgba(255, 255, 255, 0.06);
-            --border-strong: rgba(255, 255, 255, 0.12);
-
-            --accent-primary: #8B5CF6;
-            /* Violet Électrique */
-            --accent-secondary: #3B82F6;
-            /* Bleu Océan */
-            --accent-glow: rgba(139, 92, 246, 0.25);
-
+            --bg-app: #08080A;
+            --bg-card: #101014;
+            --bg-card-hover: #16161A;
+            --bg-input: #18181C;
+            
+            --border-light: rgba(255, 255, 255, 0.06);
+            --border-focus: rgba(255, 255, 255, 0.15);
+            --shadow-card: 0 10px 30px rgba(0,0,0,0.5);
+            
             --text-p: #F8FAFC;
             --text-s: #A1A1AA;
             --text-t: #64748B;
-
-            --status-success: #10B981;
-            --status-warning: #F59E0B;
+            
+            --accent-purple: #8B5CF6;
+            --accent-green: #10B981;
+            --accent-blue: #3B82F6;
+            --accent-glow: rgba(139, 92, 246, 0.2);
 
             --font-main: 'Inter', sans-serif;
             --font-mono: 'JetBrains Mono', monospace;
-
-            --shadow-glass: 0 24px 40px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.05);
-            --transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+            
+            --transition: all 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
         }
 
         /* ==========================================================================
-           2. STRUCTURE FIGMA (1194 x 834)
+           2. STRUCTURE & RESET (1194x834 LOCK)
            ========================================================================== */
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            user-select: none;
-        }
-
-        body {
-            background: #000;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-            font-family: var(--font-main);
-            color: var(--text-p);
+        * { box-sizing: border-box; margin: 0; padding: 0; user-select: none; }
+        
+        body { 
+            background: var(--bg-base); display: flex; align-items: center; justify-content: center; 
+            min-height: 100vh; font-family: var(--font-main); color: var(--text-p); 
             -webkit-font-smoothing: antialiased;
         }
 
         .app-frame {
-            width: 1194px;
-            height: 834px;
-            flex-shrink: 0;
-            background: var(--bg-base);
-            border-radius: 36px;
-            border: 1px solid var(--border-strong);
-            display: flex;
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 40px 120px rgba(0, 0, 0, 1);
-            background-image:
-                radial-gradient(circle at 20% 50%, rgba(139, 92, 246, 0.08), transparent 40%),
-                radial-gradient(circle at 80% 30%, rgba(59, 130, 246, 0.06), transparent 40%);
+            width: 1194px; height: 834px; flex-shrink: 0;
+            background: var(--bg-app); border-radius: 36px;
+            border: 1px solid var(--border-light);
+            display: flex; position: relative; overflow: hidden;
+            box-shadow: 0 0 0 1px rgba(0,0,0,0.5), 0 40px 100px rgba(0,0,0,0.9);
+            background-image: radial-gradient(circle at 25% 25%, rgba(139, 92, 246, 0.04), transparent 40%);
         }
 
-        .v-stack {
-            display: flex;
-            flex-direction: column;
-        }
+        .v-stack { display: flex; flex-direction: column; }
+        .h-stack { display: flex; flex-direction: row; align-items: center; }
+        .flex-1 { flex: 1; min-height: 0; min-width: 0; }
+        .text-truncate { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
-        .h-stack {
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-        }
-
-        .t-h1 {
-            font-size: 24px;
-            font-weight: 600;
-            letter-spacing: -0.02em;
-        }
-
-        .t-h2 {
-            font-size: 12px;
-            font-weight: 600;
-            letter-spacing: 0.06em;
-            color: var(--text-t);
-            text-transform: uppercase;
-        }
-
-        .t-body {
-            font-size: 14px;
-            line-height: 1.5;
-            color: var(--text-s);
-        }
-
-        .t-mono {
-            font-family: var(--font-mono);
-            font-size: 11px;
-            font-weight: 500;
-        }
+        .t-title { font-size: 13px; font-weight: 600; letter-spacing: 0.05em; color: var(--text-s); text-transform: uppercase; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; flex-shrink: 0;}
+        .t-title i { color: var(--text-t); font-size: 14px; }
+        .t-mono { font-family: var(--font-mono); font-size: 12px; font-weight: 500; }
 
         /* ==========================================================================
            3. DOCK LATÉRAL
            ========================================================================== */
         .dock {
-            width: 80px;
-            height: 100%;
-            flex-shrink: 0;
-            background: var(--bg-panel);
-            border-right: 1px solid var(--border-subtle);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 32px 0;
-            gap: 32px;
-            z-index: 50;
+            width: 76px; height: 100%; flex-shrink: 0;
+            border-right: 1px solid var(--border-light); background: rgba(0,0,0,0.3);
+            display: flex; flex-direction: column; align-items: center; 
+            padding: 32px 0; gap: 24px; z-index: 10;
         }
-
-        .logo-mark {
-            font-weight: 800;
-            font-size: 24px;
-            background: linear-gradient(135deg, #FFF, var(--text-t));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 16px;
-        }
-
+        .logo-mark { font-weight: 800; font-size: 22px; color: var(--text-p); margin-bottom: 16px;}
         .dock-icon {
-            width: 48px;
-            height: 48px;
-            border-radius: 16px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--text-t);
-            font-size: 20px;
-            cursor: pointer;
-            transition: 0.2s;
+            width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; 
+            color: var(--text-t); font-size: 18px; cursor: pointer; transition: var(--transition); border: 1px solid transparent;
         }
-
-        .dock-icon.active {
-            color: #FFF;
-            background: rgba(139, 92, 246, 0.15);
-            box-shadow: inset 0 0 0 1px rgba(139, 92, 246, 0.4), 0 8px 24px var(--accent-glow);
-        }
-
-        .dock-icon:hover:not(.active) {
-            color: var(--text-p);
-            background: rgba(255, 255, 255, 0.05);
-        }
+        .dock-icon.active { color: var(--text-p); background: rgba(139, 92, 246, 0.1); border-color: rgba(139, 92, 246, 0.2); box-shadow: 0 4px 20px var(--accent-glow); }
+        .dock-icon:hover:not(.active) { color: var(--text-p); background: rgba(255,255,255,0.05); border-color: var(--border-light); }
 
         /* ==========================================================================
-           4. LAYOUT 3 COLONNES
+           4. MAIN GRID (BENTO)
            ========================================================================== */
         .main-wrapper {
-            flex: 1;
-            display: grid;
-            grid-template-columns: 280px 1fr 280px;
-            padding: 32px;
-            gap: 24px;
-            min-width: 0;
-            z-index: 10;
+            flex: 1; padding: 32px 40px; display: flex; flex-direction: column; gap: 24px; min-width: 0;
         }
 
-        /* --- COLONNE GAUCHE : CONTEXTE & SCÉNARIOS --- */
-        .left-panel {
-            display: flex;
-            flex-direction: column;
-            gap: 24px;
+        .header { display: flex; justify-content: space-between; align-items: center; flex-shrink: 0; }
+        .h-greeting { font-size: 24px; font-weight: 600; letter-spacing: -0.02em; }
+        .h-context { display: flex; align-items: center; gap: 16px; background: var(--bg-card); padding: 8px 16px; border-radius: 100px; border: 1px solid var(--border-light); }
+        .h-dot { width: 6px; height: 6px; background: var(--accent-green); border-radius: 50%; box-shadow: 0 0 10px var(--accent-green); animation: pulse 2s infinite; }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+
+        .bento-grid {
+            flex: 1; display: grid; 
+            grid-template-columns: 1.3fr 1fr 0.8fr; 
+            grid-template-rows: 1fr 1.3fr; 
+            gap: 20px; min-height: 0;
         }
 
-        .context-card {
-            background: var(--bg-card);
-            backdrop-filter: blur(20px);
-            border: 1px solid var(--border-subtle);
-            border-radius: 24px;
-            padding: 24px;
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-            box-shadow: var(--shadow-glass);
+        .card {
+            background: var(--bg-card); border: 1px solid var(--border-light);
+            border-radius: 24px; padding: 24px; display: flex; flex-direction: column;
+            transition: var(--transition); position: relative; overflow: hidden;
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.02);
         }
+        .card:hover { border-color: var(--border-focus); background: var(--bg-card-hover); box-shadow: var(--shadow-card), inset 0 1px 0 rgba(255,255,255,0.05); }
 
-        .weather-block {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .temp-huge {
-            font-size: 36px;
-            font-weight: 600;
-            letter-spacing: -0.04em;
-            color: var(--text-p);
-        }
-
-        .routine-list {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-
-        .routine-btn {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid var(--border-subtle);
-            padding: 16px;
-            border-radius: 16px;
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            cursor: pointer;
-            transition: var(--transition);
-        }
-
-        .routine-btn:hover {
-            background: rgba(255, 255, 255, 0.06);
-            border-color: var(--border-strong);
-            transform: translateX(4px);
-        }
-
-        .r-icon {
-            width: 36px;
-            height: 36px;
-            border-radius: 12px;
-            background: rgba(139, 92, 246, 0.1);
-            color: var(--accent-primary);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 16px;
-        }
-
-        /* --- COLONNE CENTRALE : L'IA EN ACTION --- */
-        .center-stage {
-            display: flex;
-            flex-direction: column;
-            position: relative;
-        }
-
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 24px;
-            flex-shrink: 0;
-        }
-
-        .status-pill {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 6px 16px;
-            background: rgba(16, 185, 129, 0.1);
-            border: 1px solid rgba(16, 185, 129, 0.2);
-            border-radius: 100px;
-            font-size: 11px;
-            font-family: var(--font-mono);
-            color: var(--status-success);
-            font-weight: 600;
-        }
-
-        .pulse-dot {
-            width: 8px;
-            height: 8px;
-            background: var(--status-success);
-            border-radius: 50%;
-            box-shadow: 0 0 10px var(--status-success);
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-
-            0%,
-            100% {
-                opacity: 1;
-            }
-
-            50% {
-                opacity: 0.4;
-            }
-        }
-
-        /* L'Omnibar Magique */
+        /* --- CARTE 1 : COPILOTE IA --- */
+        .card-ai { grid-column: 1; grid-row: 1; justify-content: space-between; }
+        
+        .ai-header { display: flex; align-items: center; gap: 16px; margin-bottom: 20px;}
+        .ai-orb { width: 44px; height: 44px; border-radius: 50%; background: radial-gradient(circle at 30% 30%, var(--accent-purple), #4C1D95); filter: blur(4px); box-shadow: 0 0 20px var(--accent-glow); animation: float 4s ease-in-out infinite; flex-shrink: 0;}
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }
+        
         .omnibar {
-            width: 100%;
-            background: var(--bg-card);
-            backdrop-filter: blur(20px);
-            border: 1px solid var(--border-strong);
-            border-radius: 24px;
-            padding: 12px 12px 12px 24px;
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            box-shadow: 0 24px 48px rgba(0, 0, 0, 0.5);
-            transition: var(--transition);
-            z-index: 20;
+            background: var(--bg-input); border: 1px solid var(--border-light);
+            border-radius: 16px; padding: 6px 6px 6px 16px; display: flex; align-items: center; gap: 12px;
+            transition: var(--transition); flex-shrink: 0;
         }
+        .omnibar:focus-within { border-color: var(--accent-purple); background: #141418; box-shadow: 0 0 0 1px rgba(139, 92, 246, 0.3), 0 8px 24px var(--accent-glow); }
+        .omnibar input { flex: 1; background: transparent; border: none; outline: none; color: var(--text-p); font-size: 14px; font-family: var(--font-main); }
+        .omnibar input::placeholder { color: var(--text-t); }
+        .btn-submit { width: 36px; height: 36px; flex-shrink: 0; border-radius: 12px; background: var(--text-p); color: #000; display: flex; align-items: center; justify-content: center; border: none; cursor: pointer; transition: 0.2s; }
+        .btn-submit:hover { background: var(--accent-purple); color: #FFF; }
 
-        .omnibar:focus-within {
-            border-color: var(--accent-primary);
-            box-shadow: 0 24px 60px rgba(0, 0, 0, 0.8), 0 0 0 1px var(--accent-primary), 0 0 40px var(--accent-glow);
-            transform: translateY(-2px);
+        .ai-suggestions { display: flex; gap: 8px; margin-top: 16px; overflow-x: auto; scrollbar-width: none; padding-bottom: 4px;}
+        .ai-suggestions::-webkit-scrollbar { display: none; }
+        .sugg-chip { padding: 8px 14px; background: rgba(255,255,255,0.03); border: 1px solid var(--border-light); border-radius: 100px; font-size: 12px; font-weight: 500; color: var(--text-s); cursor: pointer; white-space: nowrap; transition: 0.2s;}
+        .sugg-chip:hover { background: rgba(255,255,255,0.08); color: var(--text-p); border-color: var(--border-focus);}
+
+        /* --- CARTE 2 : VITALS --- */
+        .card-vitals { grid-column: 2; grid-row: 1; display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; gap: 12px; padding: 20px;}
+        
+        .vital-box { background: rgba(0,0,0,0.2); border: 1px solid var(--border-light); border-radius: 16px; padding: 16px; display: flex; flex-direction: column; justify-content: center; gap: 4px; transition: 0.2s;}
+        .vital-box:hover { background: rgba(255,255,255,0.02); border-color: var(--border-focus); }
+        .vital-box .v-icon { color: var(--text-t); font-size: 14px; margin-bottom: 2px; }
+        .vital-box .t-val { font-size: 20px; font-weight: 600; color: var(--text-p); }
+        .vital-box .t-lbl { font-size: 11px; color: var(--text-s); font-weight: 500;}
+
+        /* --- CARTE 3 : MEDIA PLAYER (REMASTERED) --- */
+        .card-media { 
+            grid-column: 3; grid-row: 1; padding: 0; border: 1px solid var(--border-light); 
+            background: var(--bg-card); position: relative; overflow: hidden;
         }
-
-        .omnibar input {
-            flex: 1;
-            background: transparent;
-            border: none;
-            outline: none;
-            color: #FFF;
-            font-size: 16px;
-            font-family: var(--font-main);
+        
+        /* Blur Background */
+        .media-bg { 
+            position: absolute; inset: 0; z-index: 0;
+            background: url('https://images.unsplash.com/photo-1493225457289-73f15d78a8d0?q=80&w=600&auto=format&fit=crop') center/cover; 
+            filter: blur(16px) saturate(1.2); opacity: 0.45; transform: scale(1.1); /* Scale prevents blur leaking edges */
         }
-
-        .omnibar input::placeholder {
-            color: var(--text-t);
+        
+        /* Gradient Overlay for contrast */
+        .media-overlay { 
+            position: absolute; inset: 0; z-index: 1;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%); 
         }
-
-        .btn-submit {
-            width: 40px;
-            height: 40px;
-            border-radius: 12px;
-            background: var(--text-p);
-            color: #000;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 16px;
-            border: none;
-            cursor: pointer;
-            transition: 0.2s;
+        
+        /* Actual Content */
+        .media-content { 
+            position: relative; z-index: 2; padding: 20px 24px 24px 24px; 
+            display: flex; flex-direction: column; height: 100%; 
         }
+        
+        .m-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: auto;}
+        .m-header span { font-size: 12px; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; color: rgba(255,255,255,0.9); display: flex; align-items: center; gap: 8px;}
+        
+        .m-track-info { display: flex; align-items: center; gap: 16px; margin-bottom: 20px;}
+        .m-art { width: 56px; height: 56px; border-radius: 12px; background: url('https://images.unsplash.com/photo-1493225457289-73f15d78a8d0?q=80&w=200&auto=format&fit=crop') center/cover; box-shadow: 0 8px 16px rgba(0,0,0,0.6); border: 1px solid rgba(255,255,255,0.1); flex-shrink: 0;}
+        .m-text { display: flex; flex-direction: column; gap: 4px; overflow: hidden; }
+        .m-title { font-size: 16px; font-weight: 600; color: #FFF; white-space: nowrap; text-overflow: ellipsis; overflow: hidden; }
+        .m-artist { font-size: 13px; color: rgba(255,255,255,0.7); white-space: nowrap; text-overflow: ellipsis; overflow: hidden; font-weight: 500;}
 
-        .btn-submit:hover {
-            background: var(--accent-primary);
-            color: #FFF;
+        /* Scrubber / Progress Bar */
+        .m-progress { display: flex; align-items: center; gap: 12px; margin-bottom: 20px;}
+        .m-time { font-family: var(--font-mono); font-size: 11px; color: rgba(255,255,255,0.6); width: 32px; text-align: center;}
+        .m-bar { flex: 1; height: 4px; background: rgba(255,255,255,0.2); border-radius: 2px; position: relative; cursor: pointer; }
+        .m-fill { position: absolute; left: 0; top: 0; bottom: 0; width: 45%; background: #FFF; border-radius: 2px; box-shadow: 0 0 10px rgba(255,255,255,0.5);}
+
+        /* Controls */
+        .media-controls { display: flex; justify-content: center; align-items: center; gap: 32px; }
+        .mc-btn { color: rgba(255,255,255,0.9); font-size: 18px; cursor: pointer; transition: 0.2s; }
+        .mc-btn:hover { color: #FFF; transform: scale(1.1); }
+        .mc-play { width: 44px; height: 44px; background: #FFF; color: #000; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 16px; cursor: pointer; transition: 0.2s; box-shadow: 0 8px 16px rgba(0,0,0,0.4);}
+        .mc-play:hover { transform: scale(1.05); }
+
+        /* --- CARTE 4 : SPATIAL (PIÈCES) --- */
+        .card-rooms { grid-column: 1 / 3; grid-row: 2; }
+        
+        .rooms-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; flex: 1; min-height: 0;}
+        .room-box {
+            background: var(--bg-input); border: 1px solid var(--border-light);
+            border-radius: 20px; padding: 20px; display: flex; flex-direction: column; justify-content: space-between;
+            transition: var(--transition); cursor: pointer;
         }
+        .room-box:hover { border-color: var(--border-focus); background: rgba(255,255,255,0.03); }
+        
+        .rb-header { display: flex; justify-content: space-between; align-items: flex-start; }
+        .rb-name { font-size: 16px; font-weight: 600; color: var(--text-p); }
+        .rb-temp { font-family: var(--font-mono); font-size: 14px; color: var(--text-s); font-weight: 500; }
+        
+        .rb-controls { display: flex; justify-content: space-between; align-items: center; margin-top: 16px;}
+        .rb-icons { display: flex; gap: 12px; }
+        .rb-icon { width: 32px; height: 32px; border-radius: 8px; background: rgba(255,255,255,0.05); color: var(--text-t); display: flex; align-items: center; justify-content: center; font-size: 14px; transition: 0.2s;}
+        .rb-icon.active { background: rgba(255,255,255,0.1); color: var(--text-p); }
 
-        /* Canvas de Génération */
-        .workspace-canvas {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            overflow-y: auto;
-            padding: 24px 0;
+        /* Perfect Toggle Switch */
+        .toggle { position: relative; width: 40px; height: 24px; flex-shrink: 0; }
+        .toggle input { opacity: 0; width: 0; height: 0; position: absolute; }
+        .slider { position: absolute; cursor: pointer; inset: 0; background-color: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.05); transition: .3s; border-radius: 24px; }
+        .slider:before { position: absolute; content: ""; height: 18px; width: 18px; left: 2px; bottom: 2px; background-color: var(--text-s); transition: .3s; border-radius: 50%; box-shadow: 0 2px 4px rgba(0,0,0,0.3);}
+        input:checked + .slider { background-color: var(--accent-purple); border-color: var(--accent-purple); }
+        input:checked + .slider:before { transform: translateX(16px); background-color: #FFF;}
+
+        /* --- CARTE 5 : APPAREILS ACTIFS --- */
+        .card-devices { grid-column: 3; grid-row: 2; padding-right: 16px; }
+        
+        .device-list { display: flex; flex-direction: column; gap: 12px; flex: 1; overflow-y: auto; padding-right: 8px;}
+        .device-list::-webkit-scrollbar { width: 4px; }
+        .device-list::-webkit-scrollbar-thumb { background: var(--border-focus); border-radius: 4px; }
+        .device-list::-webkit-scrollbar-track { background: transparent; }
+
+        .dev-item {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 12px 16px; background: rgba(255,255,255,0.02); border: 1px solid var(--border-light); 
+            border-radius: 16px; transition: 0.2s;
         }
+        .dev-item:hover { background: rgba(255,255,255,0.04); border-color: var(--border-focus); }
+        .dev-info { display: flex; align-items: center; gap: 12px; min-width: 0; }
+        .dev-icon { width: 36px; height: 36px; flex-shrink: 0; border-radius: 10px; background: rgba(255,255,255,0.05); color: var(--text-t); display: flex; align-items: center; justify-content: center; font-size: 14px; transition: 0.3s;}
+        .dev-icon.active { background: rgba(16, 185, 129, 0.1); color: var(--accent-green); }
+        .dev-icon.purple { background: rgba(139, 92, 246, 0.1); color: var(--accent-purple); }
 
-        .workspace-canvas::-webkit-scrollbar {
-            display: none;
-        }
-
-        .idle-state {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 24px;
-            opacity: 1;
-            transition: 0.3s;
-        }
-
-        .orb {
-            width: 100px;
-            height: 100px;
-            background: radial-gradient(circle at 30% 30%, var(--accent-secondary), var(--accent-primary));
-            border-radius: 50%;
-            filter: blur(20px);
-            opacity: 0.4;
-            animation: float 6s infinite ease-in-out;
-        }
-
-        @keyframes float {
-
-            0%,
-            100% {
-                transform: translateY(0) scale(1);
-            }
-
-            50% {
-                transform: translateY(-15px) scale(1.1);
-            }
-        }
-
-        .loading-state {
-            display: none;
-            flex-direction: column;
-            gap: 20px;
-            width: 100%;
-            max-width: 460px;
-        }
-
-        .skeleton {
-            height: 16px;
-            background: var(--border-strong);
-            border-radius: 8px;
-            animation: pulseSkel 1.5s infinite;
-        }
-
-        @keyframes pulseSkel {
-
-            0%,
-            100% {
-                opacity: 0.2;
-            }
-
-            50% {
-                opacity: 0.6;
-            }
-        }
-
-        /* Interface Générée (Panneau de contrôle) */
-        .generated-ui {
-            display: none;
-            width: 100%;
-            max-width: 480px;
-            background: var(--bg-card);
-            backdrop-filter: blur(24px);
-            border: 1px solid var(--border-strong);
-            border-radius: 32px;
-            padding: 32px;
-            box-shadow: var(--shadow-glass);
-            flex-direction: column;
-            gap: 28px;
-            animation: slideUp 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
-        }
-
-        @keyframes slideUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px) scale(0.95);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0) scale(1);
-            }
-        }
-
-        .ai-message {
-            font-size: 15px;
-            color: var(--text-p);
-            line-height: 1.5;
-            font-weight: 500;
-            display: flex;
-            gap: 16px;
-            align-items: flex-start;
-        }
-
-        .ai-message i {
-            color: var(--accent-primary);
-            font-size: 20px;
-            margin-top: 2px;
-        }
-
-        /* Beaux contrôles UI générés */
-        .ui-controls {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid var(--border-subtle);
-            padding: 20px;
-            border-radius: 20px;
-        }
-
-        .control-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .control-label {
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-        }
-
-        .toggle {
-            position: relative;
-            width: 44px;
-            height: 24px;
-        }
-
-        .toggle input {
-            opacity: 0;
-            width: 0;
-            height: 0;
-        }
-
-        .slider {
-            position: absolute;
-            cursor: pointer;
-            inset: 0;
-            background-color: var(--border-strong);
-            transition: .3s;
-            border-radius: 34px;
-        }
-
-        .slider:before {
-            position: absolute;
-            content: "";
-            height: 18px;
-            width: 18px;
-            left: 3px;
-            bottom: 3px;
-            background-color: white;
-            transition: .3s;
-            border-radius: 50%;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-        }
-
-        input:checked+.slider {
-            background-color: var(--accent-primary);
-        }
-
-        input:checked+.slider:before {
-            transform: translateX(20px);
-        }
-
-        .range-slider {
-            -webkit-appearance: none;
-            width: 120px;
-            height: 6px;
-            background: var(--border-strong);
-            border-radius: 4px;
-            outline: none;
-        }
-
-        .range-slider::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            appearance: none;
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            background: #FFF;
-            cursor: pointer;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
-        }
-
-        .btn-execute {
-            background: var(--text-p);
-            color: #000;
-            border: none;
-            border-radius: 16px;
-            padding: 16px;
-            font-size: 15px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: var(--transition);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 10px;
-            width: 100%;
-        }
-
-        .btn-execute:hover {
-            background: var(--accent-primary);
-            color: #FFF;
-            transform: translateY(-2px);
-            box-shadow: 0 8px 24px var(--accent-glow);
-        }
-
-        /* --- COLONNE DROITE : APPAREILS ACTIFS (Visuel et simple) --- */
-        .right-panel {
-            display: flex;
-            flex-direction: column;
-            gap: 24px;
-        }
-
-        .devices-card {
-            background: var(--bg-card);
-            backdrop-filter: blur(20px);
-            border: 1px solid var(--border-subtle);
-            border-radius: 24px;
-            padding: 24px;
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-            flex: 1;
-            box-shadow: var(--shadow-glass);
-        }
-
-        .device-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding-bottom: 16px;
-            border-bottom: 1px solid var(--border-subtle);
-        }
-
-        .device-item:last-child {
-            border-bottom: none;
-            padding-bottom: 0;
-        }
-
-        .d-info {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-        }
-
-        .d-icon {
-            width: 40px;
-            height: 40px;
-            border-radius: 12px;
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid var(--border-subtle);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 16px;
-            color: var(--text-p);
-        }
-
-        .d-icon.active {
-            background: rgba(16, 185, 129, 0.1);
-            color: var(--status-success);
-            border-color: rgba(16, 185, 129, 0.2);
-        }
     </style>
 </head>
-
 <body>
 
     <div class="app-frame">
-
+        
         <nav class="dock">
-            <div class="logo-mark">a.</div>
+            <div class="logo-mark">A.</div>
+            <div class="dock-icon active"><i class="fa-solid fa-grid-2"></i></div>
             <div class="dock-icon"><i class="fa-solid fa-house"></i></div>
-            <div class="dock-icon active"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
-            <div class="dock-icon"><i class="fa-solid fa-chart-pie"></i></div>
+            <div class="dock-icon"><i class="fa-solid fa-bolt"></i></div>
             <div class="dock-icon"><i class="fa-solid fa-shield-halved"></i></div>
+            <div class="flex-1"></div>
+            <div class="dock-icon"><i class="fa-solid fa-gear"></i></div>
         </nav>
 
         <main class="main-wrapper">
-
-            <aside class="left-panel">
-                <div class="v-stack" style="gap: 8px;">
-                    <h2 class="t-h2">Ma Maison</h2>
-                    <span class="t-mono" style="color: var(--text-s);">ST-LAMBERT • <span id="clock">16:02</span></span>
+            
+            <header class="header">
+                <div class="v-stack" style="gap: 4px;">
+                    <span class="h-greeting">Bonsoir, Julien.</span>
+                    <span class="t-lbl">Voici l'état de votre maison.</span>
                 </div>
-
-                <div class="context-card">
-                    <div class="weather-block">
-                        <div class="v-stack" style="gap: 4px;">
-                            <span class="t-body" style="color: var(--text-s);">À l'intérieur</span>
-                            <span class="temp-huge">21°</span>
-                        </div>
-                        <i class="fa-solid fa-house-chimney" style="color: var(--text-t); font-size: 24px;"></i>
-                    </div>
-                    <div style="height: 1px; width: 100%; background: var(--border-strong);"></div>
-                    <div class="weather-block">
-                        <div class="v-stack" style="gap: 4px;">
-                            <span class="t-body" style="color: var(--text-s);">À l'extérieur</span>
-                            <span class="temp-huge" style="color: var(--text-s);">14°</span>
-                        </div>
-                        <i class="fa-solid fa-sun" style="color: var(--status-warning); font-size: 24px;"></i>
-                    </div>
+                <div class="h-context">
+                    <div class="h-dot"></div>
+                    <span class="t-mono" style="color: var(--accent-green);">SYSTÈME SÉCURISÉ</span>
+                    <div style="width: 1px; height: 14px; background: var(--border-focus); margin: 0 8px;"></div>
+                    <span class="t-mono" style="color: var(--text-s);"><i class="fa-solid fa-location-dot" style="margin-right: 4px;"></i> Angers • <span id="clock" style="color: var(--text-p);">20:22</span></span>
                 </div>
+            </header>
 
-                <div class="v-stack" style="gap: 16px; margin-top: 8px;">
-                    <h2 class="t-h2">Ambiance & Confort</h2>
-                    <div class="routine-list">
-                        <div class="routine-btn" onclick="triggerAI('cinema')">
-                            <div class="r-icon"><i class="fa-solid fa-film"></i></div>
-                            <div class="v-stack"><span
-                                    style="font-size: 15px; font-weight: 500; color: var(--text-p);">Soirée
-                                    Cinéma</span><span style="font-size: 13px; color: var(--text-s);">Salon
-                                    tamisé</span></div>
-                        </div>
-                        <div class="routine-btn" onclick="triggerAI('night')">
-                            <div class="r-icon" style="color: #FFF; background: rgba(255,255,255,0.1);"><i
-                                    class="fa-solid fa-moon"></i></div>
-                            <div class="v-stack"><span
-                                    style="font-size: 15px; font-weight: 500; color: var(--text-p);">Mode
-                                    Nuit</span><span style="font-size: 13px; color: var(--text-s);">Préparer le
-                                    coucher</span></div>
-                        </div>
-                        <div class="routine-btn" onclick="triggerAI('away')">
-                            <div class="r-icon"
-                                style="color: var(--status-warning); background: rgba(245, 158, 11, 0.1);"><i
-                                    class="fa-solid fa-door-open"></i></div>
-                            <div class="v-stack"><span
-                                    style="font-size: 15px; font-weight: 500; color: var(--text-p);">Je quitte la
-                                    maison</span><span style="font-size: 13px; color: var(--text-s);">Éteindre et
-                                    sécuriser</span></div>
-                        </div>
-                    </div>
-                </div>
-            </aside>
-
-            <section class="center-stage">
-                <header class="header">
-                    <h1 class="t-h1">AURA Copilote</h1>
-                    <div class="status-pill">
-                        <div class="pulse-dot"></div>
-                        <span>AURA EST PRÊT</span>
-                    </div>
-                </header>
-
-                <div class="omnibar" id="omnibar">
-                    <i class="fa-solid fa-sparkles" style="color: var(--accent-primary); font-size: 18px;"></i>
-                    <input type="text" id="aiInput" placeholder="Demandez une ambiance ou une action..."
-                        autocomplete="off">
-                    <button class="btn-submit" onclick="triggerAI('custom')"><i
-                            class="fa-solid fa-arrow-up"></i></button>
-                </div>
-
-                <div class="workspace-canvas">
-
-                    <div class="idle-state" id="idleState">
-                        <div class="orb"></div>
-                        <span class="t-mono" style="color: var(--text-t); letter-spacing: 0.1em;">EN ATTENTE DE
-                            COMMANDE</span>
-                    </div>
-
-                    <div class="loading-state" id="loadingState">
-                        <span class="t-mono"
-                            style="color: var(--accent-primary); margin-bottom: 8px; text-align: center;">CRÉATION DE
-                            L'INTERFACE...</span>
-                        <div class="skeleton" style="width: 100%; height: 80px; border-radius: 20px;"></div>
-                        <div class="skeleton" style="width: 100%; height: 120px; border-radius: 20px;"></div>
-                        <div class="skeleton" style="width: 100%; height: 56px; border-radius: 16px; margin-top: 12px;">
-                        </div>
-                    </div>
-
-                    <div class="generated-ui" id="generatedUI">
-                    </div>
-
-                </div>
-            </section>
-
-            <aside class="right-panel">
-                <div class="v-stack" style="gap: 8px;">
-                    <h2 class="t-h2">En fonctionnement</h2>
-                    <span class="t-body">Ce qui consomme actuellement</span>
-                </div>
-
-                <div class="devices-card">
-                    <div class="device-item">
-                        <div class="d-info">
-                            <div class="d-icon active"><i class="fa-solid fa-fan"></i></div>
-                            <div class="v-stack"><span style="font-weight: 500; font-size: 14px;">Chauffage</span><span
-                                    style="font-size: 12px; color: var(--status-success);">Mode Auto (21°C)</span></div>
-                        </div>
-                        <label class="toggle"><input type="checkbox" checked><span class="slider"></span></label>
-                    </div>
-
-                    <div class="device-item">
-                        <div class="d-info">
-                            <div class="d-icon active"><i class="fa-solid fa-server"></i></div>
-                            <div class="v-stack"><span style="font-weight: 500; font-size: 14px;">Baie
-                                    Réseau</span><span style="font-size: 12px; color: var(--text-t);">Continu</span>
+            <div class="bento-grid">
+                
+                <div class="card card-ai">
+                    <span class="t-title"><i class="fa-solid fa-wand-magic-sparkles"></i> AURA Copilote</span>
+                    
+                    <div class="v-stack flex-1" style="justify-content: center;">
+                        <div class="ai-header" id="aiHeader">
+                            <div class="ai-orb" id="aiOrb"></div>
+                            <div class="v-stack" style="gap: 2px; min-width: 0;">
+                                <span style="font-size: 16px; font-weight: 500; color: var(--text-p);" class="text-truncate" id="aiTitle">En écoute...</span>
+                                <span style="font-size: 13px; color: var(--text-s);" class="text-truncate" id="aiSub">Que souhaitez-vous ajuster ?</span>
                             </div>
                         </div>
-                        <label class="toggle"><input type="checkbox" checked disabled><span
-                                class="slider"></span></label>
-                    </div>
 
-                    <div class="device-item">
-                        <div class="d-info">
-                            <div class="d-icon"><i class="fa-solid fa-lightbulb"></i></div>
-                            <div class="v-stack"><span
-                                    style="font-weight: 500; font-size: 14px; color: var(--text-s);">Lumières</span><span
-                                    style="font-size: 12px; color: var(--text-t);">Toutes éteintes</span></div>
+                        <div class="omnibar">
+                            <input type="text" id="aiInput" placeholder="Ex: Tamise les lumières du salon..." autocomplete="off">
+                            <button class="btn-submit" onclick="submitAI()"><i class="fa-solid fa-arrow-up"></i></button>
                         </div>
-                        <label class="toggle"><input type="checkbox"><span class="slider"></span></label>
-                    </div>
 
-                    <div class="device-item" style="border:none; padding-bottom: 0;">
-                        <div class="d-info">
-                            <div class="d-icon"><i class="fa-solid fa-tv"></i></div>
-                            <div class="v-stack"><span
-                                    style="font-weight: 500; font-size: 14px; color: var(--text-s);">TV
-                                    Salon</span><span style="font-size: 12px; color: var(--text-t);">En veille</span>
-                            </div>
+                        <div class="ai-suggestions">
+                            <div class="sugg-chip" onclick="fillAI('Fermer tous les volets')">Fermer les volets</div>
+                            <div class="sugg-chip" onclick="fillAI('Activer le mode Nuit')">Mode Nuit</div>
+                            <div class="sugg-chip" onclick="fillAI('Musique d\'ambiance')">Musique d'ambiance</div>
                         </div>
-                        <label class="toggle"><input type="checkbox"><span class="slider"></span></label>
                     </div>
                 </div>
-            </aside>
 
+                <div class="card card-vitals">
+                    <div class="vital-box">
+                        <i class="fa-solid fa-house-chimney v-icon"></i>
+                        <span class="t-val">21.5°</span>
+                        <span class="t-lbl">Intérieur</span>
+                    </div>
+                    <div class="vital-box">
+                        <i class="fa-solid fa-cloud-moon v-icon"></i>
+                        <span class="t-val">12.0°</span>
+                        <span class="t-lbl">Extérieur</span>
+                    </div>
+                    <div class="vital-box" style="background: rgba(16, 185, 129, 0.05); border-color: rgba(16, 185, 129, 0.15);">
+                        <i class="fa-solid fa-shield-check v-icon" style="color: var(--accent-green);"></i>
+                        <span class="t-val" style="color: var(--accent-green);">Armé</span>
+                        <span class="t-lbl">Périmètre</span>
+                    </div>
+                    <div class="vital-box">
+                        <i class="fa-solid fa-wind v-icon"></i>
+                        <span class="t-val">42 AQI</span>
+                        <span class="t-lbl">Qualité Air</span>
+                    </div>
+                </div>
+
+                <div class="card card-media">
+                    <div class="media-bg"></div>
+                    <div class="media-overlay"></div>
+                    
+                    <div class="media-content">
+                        <div class="m-header">
+                            <span><i class="fa-brands fa-apple"></i> Salon TV</span>
+                            <i class="fa-solid fa-tower-broadcast" style="color: rgba(255,255,255,0.8); font-size: 14px;"></i>
+                        </div>
+                        
+                        <div class="v-stack">
+                            <div class="m-track-info">
+                                <div class="m-art"></div>
+                                <div class="m-text">
+                                    <span class="m-title">Midnight City</span>
+                                    <span class="m-artist">Spotify • Playlist Soirée</span>
+                                </div>
+                            </div>
+
+                            <div class="m-progress">
+                                <span class="m-time">1:24</span>
+                                <div class="m-bar"><div class="m-fill"></div></div>
+                                <span class="m-time">-2:41</span>
+                            </div>
+
+                            <div class="media-controls">
+                                <i class="fa-solid fa-backward-step mc-btn"></i>
+                                <div class="mc-play"><i class="fa-solid fa-pause"></i></div>
+                                <i class="fa-solid fa-forward-step mc-btn"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card card-rooms">
+                    <div class="h-stack" style="justify-content: space-between; margin-bottom: 16px;">
+                        <span class="t-title" style="margin:0;"><i class="fa-solid fa-layer-group"></i> Espaces de vie</span>
+                        <span class="t-lbl" style="cursor: pointer; transition: 0.2s;">Voir tout <i class="fa-solid fa-chevron-right" style="font-size: 10px; margin-left: 4px;"></i></span>
+                    </div>
+
+                    <div class="rooms-grid">
+                        <div class="room-box">
+                            <div class="rb-header">
+                                <div class="v-stack" style="gap: 2px;"><span class="rb-name">Salon</span><span class="t-lbl">Occupé</span></div>
+                                <span class="rb-temp">21.5°</span>
+                            </div>
+                            <div class="rb-controls">
+                                <div class="rb-icons">
+                                    <div class="rb-icon active"><i class="fa-solid fa-lightbulb"></i></div>
+                                    <div class="rb-icon"><i class="fa-solid fa-person-shelter"></i></div>
+                                </div>
+                                <label class="toggle"><input type="checkbox" checked><span class="slider"></span></label>
+                            </div>
+                        </div>
+
+                        <div class="room-box">
+                            <div class="rb-header">
+                                <div class="v-stack" style="gap: 2px;"><span class="rb-name">Cuisine</span><span class="t-lbl">Vide</span></div>
+                                <span class="rb-temp">20.0°</span>
+                            </div>
+                            <div class="rb-controls">
+                                <div class="rb-icons">
+                                    <div class="rb-icon active"><i class="fa-solid fa-lightbulb"></i></div>
+                                    <div class="rb-icon"><i class="fa-solid fa-person-shelter"></i></div>
+                                </div>
+                                <label class="toggle"><input type="checkbox" checked><span class="slider"></span></label>
+                            </div>
+                        </div>
+
+                        <div class="room-box">
+                            <div class="rb-header">
+                                <div class="v-stack" style="gap: 2px;"><span class="rb-name">Chambre</span><span class="t-lbl">Vide</span></div>
+                                <span class="rb-temp">19.0°</span>
+                            </div>
+                            <div class="rb-controls">
+                                <div class="rb-icons">
+                                    <div class="rb-icon"><i class="fa-regular fa-lightbulb"></i></div>
+                                    <div class="rb-icon"><i class="fa-solid fa-person-shelter"></i></div>
+                                </div>
+                                <label class="toggle"><input type="checkbox"><span class="slider"></span></label>
+                            </div>
+                        </div>
+
+                        <div class="room-box">
+                            <div class="rb-header">
+                                <div class="v-stack" style="gap: 2px;"><span class="rb-name">Salle de bain</span><span class="t-lbl">Vide</span></div>
+                                <span class="rb-temp">21.0°</span>
+                            </div>
+                            <div class="rb-controls">
+                                <div class="rb-icons">
+                                    <div class="rb-icon"><i class="fa-regular fa-lightbulb"></i></div>
+                                </div>
+                                <label class="toggle"><input type="checkbox"><span class="slider"></span></label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card card-devices">
+                    <span class="t-title"><i class="fa-solid fa-bolt"></i> Appareils actifs</span>
+                    
+                    <div class="device-list">
+                        
+                        <div class="dev-item">
+                            <div class="dev-info">
+                                <div class="dev-icon active"><i class="fa-solid fa-fan"></i></div>
+                                <div class="v-stack text-truncate" style="gap: 2px;">
+                                    <span style="font-size: 14px; font-weight: 500;" class="text-truncate">Chauffage</span>
+                                    <span style="font-size: 12px; color: var(--accent-green);" class="text-truncate">Mode Auto (21.5°C)</span>
+                                </div>
+                            </div>
+                            <label class="toggle"><input type="checkbox" checked><span class="slider"></span></label>
+                        </div>
+
+                        <div class="dev-item">
+                            <div class="dev-info">
+                                <div class="dev-icon active"><i class="fa-solid fa-tv"></i></div>
+                                <div class="v-stack text-truncate" style="gap: 2px;">
+                                    <span style="font-size: 14px; font-weight: 500;" class="text-truncate">TV Salon</span>
+                                    <span style="font-size: 12px; color: var(--accent-green);" class="text-truncate">Apple TV</span>
+                                </div>
+                            </div>
+                            <label class="toggle"><input type="checkbox" checked><span class="slider"></span></label>
+                        </div>
+
+                        <div class="dev-item">
+                            <div class="dev-info">
+                                <div class="dev-icon purple"><i class="fa-solid fa-server"></i></div>
+                                <div class="v-stack text-truncate" style="gap: 2px;">
+                                    <span style="font-size: 14px; font-weight: 500;" class="text-truncate">Baie Réseau</span>
+                                    <span style="font-size: 12px; color: var(--text-t);" class="text-truncate">Continu</span>
+                                </div>
+                            </div>
+                            <label class="toggle"><input type="checkbox" checked disabled><span class="slider"></span></label>
+                        </div>
+
+                        <div class="dev-item">
+                            <div class="dev-info">
+                                <div class="dev-icon"><i class="fa-solid fa-car"></i></div>
+                                <div class="v-stack text-truncate" style="gap: 2px;">
+                                    <span style="font-size: 14px; font-weight: 500; color: var(--text-s);" class="text-truncate">Recharge VE</span>
+                                    <span style="font-size: 12px; color: var(--text-t);" class="text-truncate">En attente (HC)</span>
+                                </div>
+                            </div>
+                            <label class="toggle"><input type="checkbox"><span class="slider"></span></label>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
         </main>
     </div>
 
     <script>
-        // Horloge
-        setInterval(() => {
-            const d = new Date();
-            document.getElementById('clock').innerText = `${String(d.getHours()).padStart(2, '0')}:${String(d.getMinutes()).padStart(2, '0')}`;
-        }, 1000);
+        // 1. Horloge Real-time fixée sur le contexte
+        function updateClock() {
+            const now = new Date();
+            let h = now.getHours();
+            let m = now.getMinutes();
+            // Utilisation de l'heure du navigateur, initialement calibrée sur le contexte demandé.
+            document.getElementById('clock').innerText = `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}`;
+        }
+        setInterval(updateClock, 1000);
+        document.getElementById('clock').innerText = "20:22"; // Contexte spécifique
 
-        // Moteur UI Générative
-        const input = document.getElementById('aiInput');
-        const omnibar = document.getElementById('omnibar');
-        const idle = document.getElementById('idleState');
-        const loader = document.getElementById('loadingState');
-        const uiCanvas = document.getElementById('generatedUI');
+        // 2. Interaction avec l'IA
+        const aiInput = document.getElementById('aiInput');
+        const aiTitle = document.getElementById('aiTitle');
+        const aiSub = document.getElementById('aiSub');
+        const aiOrb = document.getElementById('aiOrb');
+        const btnSubmit = document.querySelector('.btn-submit');
 
-        const scenarios = {
-            cinema: {
-                prompt: "Prépare le salon pour une soirée cinéma.",
-                message: "Parfait. Je tamise les lumières, je ferme les volets pour éviter les reflets, et j'allume l'écran du salon.",
-                controls: `
-                    <div class="control-row">
-                        <div class="control-label"><span style="font-size: 15px; font-weight: 500; color: #FFF;">Lumières Salon</span><span style="font-size: 13px; color: var(--text-t);">Ambiance (15%)</span></div>
-                        <input type="range" class="range-slider" min="0" max="100" value="15">
-                    </div>
-                    <div class="control-row">
-                        <div class="control-label"><span style="font-size: 15px; font-weight: 500; color: #FFF;">Volets & Rideaux</span><span style="font-size: 13px; color: var(--text-t);">Fermeture totale</span></div>
-                        <label class="toggle"><input type="checkbox" checked><span class="slider"></span></label>
-                    </div>
-                    <div class="control-row">
-                        <div class="control-label"><span style="font-size: 15px; font-weight: 500; color: #FFF;">Écran & Audio</span><span style="font-size: 13px; color: var(--text-t);">Allumage Home Cinéma</span></div>
-                        <label class="toggle"><input type="checkbox" checked><span class="slider"></span></label>
-                    </div>
-                `
-            },
-            night: {
-                prompt: "Prépare la maison pour la nuit.",
-                message: "Bonne nuit. Je coupe les appareils inutiles, je baisse le chauffage à 18°C dans les chambres, et j'active l'alarme.",
-                controls: `
-                    <div class="control-row">
-                        <div class="control-label"><span style="font-size: 15px; font-weight: 500; color: #FFF;">Extinction totale</span><span style="font-size: 13px; color: var(--text-t);">Lumières et TV</span></div>
-                        <label class="toggle"><input type="checkbox" checked><span class="slider"></span></label>
-                    </div>
-                    <div class="control-row">
-                        <div class="control-label"><span style="font-size: 15px; font-weight: 500; color: #FFF;">Chauffage Nuit</span><span style="font-size: 13px; color: var(--text-t);">Consigne à 18°C</span></div>
-                        <input type="range" class="range-slider" min="15" max="25" value="18">
-                    </div>
-                    <div class="control-row">
-                        <div class="control-label"><span style="font-size: 15px; font-weight: 500; color: #FFF;">Sécurité</span><span style="font-size: 13px; color: var(--status-warning);">Alarme Armée</span></div>
-                        <label class="toggle"><input type="checkbox" checked><span class="slider"></span></label>
-                    </div>
-                `
-            },
-            away: {
-                prompt: "Je quitte la maison.",
-                message: "À bientôt. Je passe la maison en mode économie maximale et je verrouille toutes les issues.",
-                controls: `
-                    <div class="control-row">
-                        <div class="control-label"><span style="font-size: 15px; font-weight: 500; color: #FFF;">Mode Éco. Absolue</span><span style="font-size: 13px; color: var(--status-success);">Chauffage à 14°C</span></div>
-                        <label class="toggle"><input type="checkbox" checked><span class="slider"></span></label>
-                    </div>
-                    <div class="control-row">
-                        <div class="control-label"><span style="font-size: 15px; font-weight: 500; color: #FFF;">Verrouillage</span><span style="font-size: 13px; color: var(--status-warning);">Portes et Volets</span></div>
-                        <label class="toggle"><input type="checkbox" checked><span class="slider"></span></label>
-                    </div>
-                `
-            }
-        };
+        function fillAI(text) {
+            aiInput.value = text;
+            aiInput.focus();
+        }
 
-        function triggerAI(type) {
-            let data = scenarios[type];
-            if (type === 'custom') {
-                if (input.value.trim() === '') return;
-                data = {
-                    prompt: input.value,
-                    message: "Voici les réglages que je vous propose selon votre demande :",
-                    controls: scenarios.cinema.controls // Demo fallback
-                };
-            } else {
-                input.value = data.prompt;
-            }
+        function submitAI() {
+            if(aiInput.value.trim() === '') return;
 
-            // Lock UI & Show Loader
-            omnibar.style.borderColor = 'var(--accent-primary)';
-            input.disabled = true;
-            idle.style.display = 'none';
-            uiCanvas.style.display = 'none';
-            loader.style.display = 'flex';
+            // Loading state
+            aiInput.disabled = true;
+            btnSubmit.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i>';
+            aiOrb.style.filter = "blur(8px)";
+            aiOrb.style.transform = "scale(1.2)";
+            aiOrb.style.background = "radial-gradient(circle at 50% 50%, var(--accent-blue), var(--accent-purple))";
+            
+            aiTitle.innerText = "Traitement en cours...";
+            aiTitle.style.color = "var(--text-p)";
+            aiSub.innerText = "Application de vos réglages en temps réel.";
 
-            // Fake AI Generation Time (1.2s)
+            // Success state
             setTimeout(() => {
-                loader.style.display = 'none';
+                aiOrb.style.transform = "scale(1)";
+                aiOrb.style.filter = "blur(4px)";
+                aiOrb.style.background = "radial-gradient(circle at 30% 30%, var(--accent-green), #047857)";
+                
+                btnSubmit.innerHTML = '<i class="fa-solid fa-check"></i>';
+                btnSubmit.style.background = "var(--accent-green)";
+                btnSubmit.style.color = "#FFF";
 
-                uiCanvas.innerHTML = `
-                    <div class="ai-message">
-                        <i class="fa-solid fa-wand-magic-sparkles"></i>
-                        <p>${data.message}</p>
-                    </div>
-                    <div class="ui-controls">
-                        ${data.controls}
-                    </div>
-                    <button class="btn-execute" onclick="executeRoutine(this)">
-                        Activer cette ambiance
-                    </button>
-                `;
+                aiTitle.innerText = "Commandes appliquées";
+                aiTitle.style.color = "var(--accent-green)";
+                aiSub.innerText = "Synchronisation de la maison terminée.";
+                
+                aiInput.value = '';
 
-                uiCanvas.style.display = 'flex';
-                input.disabled = false;
-                input.value = '';
-                omnibar.style.borderColor = '';
+                // Reset state
+                setTimeout(() => {
+                    aiOrb.style.background = "radial-gradient(circle at 30% 30%, var(--accent-purple), #4C1D95)";
+                    aiTitle.innerText = "En écoute...";
+                    aiTitle.style.color = "var(--text-p)";
+                    aiSub.innerText = "Que souhaitez-vous ajuster ?";
+                    
+                    btnSubmit.innerHTML = '<i class="fa-solid fa-arrow-up"></i>';
+                    btnSubmit.style.background = "var(--text-p)";
+                    btnSubmit.style.color = "#000";
+                    
+                    aiInput.disabled = false;
+                }, 2500);
+
             }, 1200);
         }
 
-        input.addEventListener('keypress', (e) => { if (e.key === 'Enter') triggerAI('custom'); });
-
-        function executeRoutine(btn) {
-            btn.innerHTML = `<i class="fa-solid fa-circle-notch fa-spin"></i> Application en cours...`;
-            btn.style.opacity = "0.8";
-            btn.style.pointerEvents = "none";
-
-            setTimeout(() => {
-                btn.style.background = "var(--status-success)";
-                btn.style.color = "#FFF";
-                btn.style.opacity = "1";
-                btn.innerHTML = `<i class="fa-solid fa-check"></i> Ambiance activée avec succès`;
-            }, 1000);
-        }
+        aiInput.addEventListener('keypress', (e) => {
+            if(e.key === 'Enter') submitAI();
+        });
     </script>
 </body>
-
 </html>
