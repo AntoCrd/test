@@ -1,417 +1,943 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LE STUDIO | CONTACT & ASSISTANCE</title>
-    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Mono:wght@400;700&family=Playfair+Display:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+    <title>AURA // Home OS (Zero Jargon)</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        /* ==========================================================================
+           1. DESIGN TOKENS
+           ========================================================================== */
         :root {
-            --bg: #020202;
-            --txt: #FFFFFF;
-            --red: #FF0000;
-            --border: #222222;
-            --dim: rgba(255, 255, 255, 0.4);
-            --grid: rgba(255, 255, 255, 0.02);
+            --bg-base: #000000;
+            --bg-surface: #0C0C0C;
+            --bg-elevated: #141414;
+            --border-subtle: #222222;
+            --border-strong: #333333;
+
+            --accent-primary: #6366F1;
+            --accent-glow: rgba(99, 102, 241, 0.2);
+            --accent-glow-strong: rgba(99, 102, 241, 0.4);
+
+            --text-primary: #F8FAFC;
+            --text-secondary: #94A3B8;
+            --text-tertiary: #475569;
+
+            --status-success: #10B981;
+            --status-warning: #F59E0B;
+            --status-danger: #EF4444;
+
+            --gap-4: 4px;
+            --gap-8: 8px;
+            --gap-12: 12px;
+            --gap-16: 16px;
+            --gap-20: 20px;
+            --gap-24: 24px;
+            --rad-sm: 6px;
+            --rad-md: 12px;
+            --rad-lg: 16px;
+            --rad-xl: 24px;
+            --rad-pill: 100px;
+
+            --transition: all 0.2s cubic-bezier(0.25, 1, 0.5, 1);
         }
 
-        /* --- RESET & ACCESSIBILITY --- */
-        * { margin: 0; padding: 0; box-sizing: border-box; cursor: crosshair; scroll-behavior: smooth; }
-        ::selection { background: var(--red); color: var(--txt); }
-        
-        body { 
-            background-color: var(--bg); color: var(--txt); 
-            font-family: 'Space Mono', monospace; line-height: 1.5; overflow-x: hidden;
-            background-image: linear-gradient(var(--grid) 1px, transparent 1px), linear-gradient(90deg, var(--grid) 1px, transparent 1px);
-            background-size: 40px 40px;
+        /* ==========================================================================
+           2. FONDATION & CADRE STRICT FIGMA (1194x834)
+           ========================================================================== */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            user-select: none;
+        }
+
+        body {
+            background: #050505;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            font-family: 'Inter', sans-serif;
             -webkit-font-smoothing: antialiased;
         }
 
-        /* --- GLOBAL FX --- */
-        .scanline { position: fixed; inset: 0; background: linear-gradient(to bottom, transparent 50%, rgba(255,255,255,0.02) 50%); background-size: 100% 4px; pointer-events: none; z-index: 9999; }
-        .dot { width: 6px; height: 6px; background: var(--red); border-radius: 50%; animation: blink 1s infinite; display: inline-block; margin-left: 8px;}
-        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
-
-        /* --- HUD NAVIGATION --- */
-        nav {
-            position: fixed; top: 0; left: 0; width: 100%; height: 90px;
-            display: flex; justify-content: space-between; align-items: center; padding: 0 40px;
-            border-bottom: 1px solid var(--border); background: rgba(2,2,2,0.95); z-index: 1000; backdrop-filter: blur(10px);
+        .app-frame {
+            width: 1194px;
+            height: 834px;
+            flex-shrink: 0;
+            background: var(--bg-base);
+            color: var(--text-primary);
+            border-radius: 32px;
+            border: 1px solid var(--border-strong);
+            box-shadow: 0 40px 100px rgba(0, 0, 0, 1), inset 0 0 80px rgba(99, 102, 241, 0.03);
+            display: flex;
+            padding: var(--gap-24);
+            gap: var(--gap-24);
+            position: relative;
+            overflow: hidden;
+            background-image:
+                radial-gradient(circle at 50% 0%, rgba(99, 102, 241, 0.08), transparent 50%),
+                linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+            background-size: 100% 100%, 32px 32px, 32px 32px;
+            background-position: 0 0, 16px 16px, 16px 16px;
         }
-        .nav-logo { font-weight: bold; font-size: 14px; letter-spacing: 3px; }
-        .nav-links { display: flex; gap: 40px; list-style: none; }
-        .nav-links a { text-decoration: none; color: var(--txt); font-size: 10px; text-transform: uppercase; letter-spacing: 3px; opacity: 0.4; transition: 0.3s; position: relative; padding: 10px 0; }
-        .nav-links a:hover, .nav-links a.active { opacity: 1; color: var(--red); }
-        .nav-links a.active::after { content: ""; position: absolute; bottom: 0; left: 0; width: 100%; height: 1px; background: var(--red); box-shadow: 0 0 10px var(--red); }
-        .nav-telemetry { display: flex; flex-direction: column; align-items: flex-end; font-size: 9px; gap: 4px; color: var(--dim); }
-        .tcr { color: var(--red); font-weight: bold; font-size: 10px; }
 
-        /* --- LAYOUT STRUCTURE --- */
-        .container { max-width: 1300px; margin: 0 auto; padding: 150px 40px 0 40px; }
-        
-        .label-red { display: inline-block; border: 1px solid var(--red); color: var(--red); padding: 4px 10px; font-size: 9px; text-transform: uppercase; margin-bottom: 20px; letter-spacing: 3px; background: rgba(255,0,0,0.05); }
-        .t-huge { font-family: 'Anton'; font-size: clamp(3rem, 8vw, 6rem); line-height: 0.85; text-transform: uppercase; margin-bottom: 15px; }
-
-        /* --- HEADER (HERO) --- */
-        .header-box { display: flex; justify-content: space-between; align-items: flex-end; border-bottom: 1px solid var(--border); padding-bottom: 40px; margin-bottom: 60px; }
-        .signal-box { text-align: right; }
-        .signal-bars { display: flex; align-items: flex-end; justify-content: flex-end; gap: 4px; height: 30px; margin-top: 10px; }
-        .s-bar { width: 6px; background: var(--red); animation: signal 1.5s infinite ease-in-out alternate; opacity: 0.8; }
-        .s-bar:nth-child(1) { height: 30%; animation-delay: 0.1s; }
-        .s-bar:nth-child(2) { height: 60%; animation-delay: 0.2s; }
-        .s-bar:nth-child(3) { height: 100%; animation-delay: 0.3s; box-shadow: 0 0 10px var(--red); }
-        .s-bar:nth-child(4) { height: 40%; animation-delay: 0.4s; }
-        @keyframes signal { 0% { transform: scaleY(0.5); } 100% { transform: scaleY(1); } }
-
-        /* --- CORE GRID (FORM vs TACTICAL DATA) --- */
-        .dispatch-grid { display: grid; grid-template-columns: 1.5fr 1fr; gap: 60px; margin-bottom: 100px; }
-
-        /* 1. TERMINAL FORM */
-        .terminal-wrapper { position: relative; border: 1px solid var(--border); background: rgba(0,0,0,0.8); min-height: 550px; }
-        .terminal-header { background: var(--border); padding: 10px 20px; font-size: 9px; color: var(--dim); letter-spacing: 2px; display: flex; justify-content: space-between; align-items: center; }
-        
-        #comms-form { padding: 40px; transition: opacity 0.3s; }
-        .form-group { margin-bottom: 30px; position: relative; }
-        .form-group label { display: block; font-size: 9px; color: var(--red); margin-bottom: 10px; letter-spacing: 1px; }
-        .input-control { width: 100%; background: transparent; border: 1px solid var(--border); color: var(--txt); font-family: 'Space Mono'; padding: 15px; font-size: 12px; outline: none; transition: 0.3s; }
-        .input-control:focus { border-color: var(--red); background: rgba(255,0,0,0.05); border-left: 3px solid var(--red); }
-        .input-control::placeholder { color: var(--dim); }
-        select.input-control { appearance: none; cursor: pointer; }
-        textarea.input-control { resize: none; height: 120px; }
-        
-        .btn-submit {
-            width: 100%; position: relative; border: 1px solid var(--red); background: transparent; 
-            color: var(--red); font-family: 'Anton'; font-size: 1.5rem; letter-spacing: 2px;
-            padding: 15px 0; cursor: pointer; text-transform: uppercase; overflow: hidden; z-index: 1; transition: 0.3s;
+        .v-stack {
+            display: flex;
+            flex-direction: column;
         }
-        .btn-submit::before { content: ''; position: absolute; top: 0; left: 0; width: 0%; height: 100%; background: var(--red); z-index: -1; transition: 0.4s cubic-bezier(0.165, 0.84, 0.44, 1); }
-        .btn-submit:hover { color: var(--bg); }
-        .btn-submit:hover::before { width: 100%; }
 
-        /* Terminal Success Log */
-        #success-log { display: none; padding: 40px; font-size: 11px; color: var(--dim); flex-direction: column; justify-content: center; height: 100%; }
-        .log-line { margin-bottom: 10px; opacity: 0; }
-        .log-highlight { color: var(--red); font-weight: bold; }
-        .log-final { color: var(--txt); font-size: 14px; margin-top: 20px; border-top: 1px dashed var(--border); padding-top: 20px; }
-
-        /* 2. TACTICAL INFO PANEL */
-        .info-panel { display: flex; flex-direction: column; gap: 40px; }
-        
-        .info-block { border-left: 2px solid var(--red); padding-left: 20px; }
-        .info-block h3 { font-family: 'Anton'; font-size: 1.2rem; margin-bottom: 10px; color: var(--txt); letter-spacing: 1px; }
-        .info-block p { font-size: 11px; color: var(--dim); margin-bottom: 15px; line-height: 1.6; }
-
-        .comms-btn {
-            display: flex; align-items: center; justify-content: space-between;
-            border: 1px solid var(--border); background: rgba(255,255,255,0.02);
-            padding: 15px 20px; text-decoration: none; color: var(--txt);
-            font-family: 'Space Mono'; transition: 0.3s; margin-bottom: 10px;
+        .h-stack {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
         }
-        .comms-btn:hover { border-color: var(--red); background: rgba(255,0,0,0.05); transform: translateX(5px); }
-        .comms-icon { font-size: 9px; color: var(--red); letter-spacing: 2px; }
-        .comms-val { font-size: 12px; font-weight: bold; letter-spacing: 1px; }
 
-        /* Radar & Wayfinding */
-        .wayfinding-box { border: 1px solid var(--border); background: rgba(0,0,0,0.5); padding: 20px; }
-        .radar-screen { width: 100%; height: 120px; border: 1px solid var(--border); position: relative; background: #050505; overflow: hidden; margin-bottom: 20px; }
-        .radar-sweep { position: absolute; top: 50%; left: 50%; width: 200px; height: 200px; background: conic-gradient(from 0deg, transparent 70%, rgba(255,0,0,0.3) 100%); transform-origin: 0 0; animation: sweep 3s infinite linear; }
-        .target-dot { position: absolute; width: 4px; height: 4px; background: var(--txt); border-radius: 50%; box-shadow: 0 0 5px var(--txt); top: 40%; left: 60%; animation: blink 2s infinite; }
-        @keyframes sweep { to { transform: rotate(360deg); } }
-        
-        .way-step { display: flex; gap: 10px; margin-bottom: 10px; font-size: 10px; color: var(--dim); }
-        .way-step span:first-child { color: var(--red); font-weight: bold; }
-
-        /* --- KNOWLEDGE BASE (FAQ ACCORDION) --- */
-        .faq-wrapper { border-top: 1px solid var(--border); padding-top: 80px; margin-bottom: 100px; }
-        .faq-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 40px; }
-        
-        .faq-item { border-bottom: 1px solid var(--border); }
-        .faq-question {
-            width: 100%; text-align: left; background: transparent; border: none; 
-            color: var(--txt); font-family: 'Anton'; font-size: 1.5rem; 
-            padding: 25px 0; cursor: pointer; display: flex; justify-content: space-between; 
-            align-items: center; text-transform: uppercase; transition: color 0.3s; letter-spacing: 1px;
+        .flex-1 {
+            flex: 1;
+            min-height: 0;
+            min-width: 0;
         }
-        .faq-question:hover { color: var(--red); }
-        .faq-icon { font-family: 'Space Mono'; font-size: 14px; color: var(--red); font-weight: bold; transition: transform 0.3s; }
-        
-        .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.4s ease, padding 0.4s ease; font-family: 'Playfair Display'; font-size: 15px; color: var(--dim); line-height: 1.6; }
-        .faq-item.active .faq-answer { max-height: 200px; padding-bottom: 25px; }
-        .faq-item.active .faq-question { color: var(--red); }
-        .faq-item.active .faq-icon { transform: rotate(45deg); }
 
-        /* --- FOOTER --- */
-        footer { border-top: 1px solid var(--border); background: #010101; padding: 60px 40px 40px 40px; font-size: 10px; color: var(--dim); }
-        .footer-grid { max-width: 1300px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 60px; margin-bottom: 60px; }
-        .f-col h4 { font-family: 'Anton'; font-size: 1.2rem; color: var(--txt); margin-bottom: 20px; letter-spacing: 1px; text-transform: uppercase; }
-        .f-col p { margin-bottom: 10px; line-height: 1.6; }
-        .f-links { list-style: none; }
-        .f-links li { margin-bottom: 10px; }
-        .f-links a { color: var(--dim); text-decoration: none; transition: 0.3s; }
-        .f-links a:hover { color: var(--red); padding-left: 5px; }
-        .footer-bottom { max-width: 1300px; margin: 0 auto; border-top: 1px dashed var(--border); padding-top: 20px; display: flex; justify-content: space-between; align-items: center; }
+        .w-full {
+            width: 100%;
+        }
 
-        @media (max-width: 900px) {
-            .header-box { flex-direction: column; align-items: flex-start; gap: 20px; }
-            .dispatch-grid { grid-template-columns: 1fr; gap: 40px; }
-            .comms-btn { flex-direction: column; align-items: flex-start; gap: 5px; }
-            .footer-grid { grid-template-columns: 1fr; gap: 40px; }
-            .footer-bottom { flex-direction: column; gap: 10px; align-items: flex-start; }
-            .faq-question { font-size: 1.2rem; }
+        .justify-between {
+            justify-content: space-between;
+        }
+
+        .t-hero {
+            font-size: 24px;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+        }
+
+        .t-h2 {
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+        }
+
+        .t-body {
+            font-size: 14px;
+            font-weight: 500;
+            line-height: 1.4;
+            color: var(--text-primary);
+        }
+
+        .t-sub {
+            font-size: 12px;
+            font-weight: 500;
+            color: var(--text-secondary);
+        }
+
+        .t-mono {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12px;
+            font-weight: 500;
+            letter-spacing: 0.02em;
+        }
+
+        .data-huge {
+            font-size: 32px;
+            font-weight: 600;
+            line-height: 1;
+            letter-spacing: -0.02em;
+            color: var(--text-primary);
+        }
+
+        .data-unit {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-tertiary);
+            margin-left: 4px;
+        }
+
+        /* ==========================================================================
+           3. DOCK LATÉRAL
+           ========================================================================== */
+        .dock {
+            width: 72px;
+            background: rgba(12, 12, 12, 0.8);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--rad-xl);
+            padding: var(--gap-24) 0;
+            gap: var(--gap-24);
+            align-items: center;
+            z-index: 50;
+            flex-shrink: 0;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+        }
+
+        .dock-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: var(--rad-md);
+            font-size: 18px;
+            color: var(--text-tertiary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .dock-icon:hover:not(.active) {
+            background: var(--bg-elevated);
+            color: var(--text-primary);
+        }
+
+        .dock-icon.active {
+            background: var(--accent-primary);
+            color: #FFF;
+            box-shadow: 0 0 20px var(--accent-glow);
+        }
+
+        /* ==========================================================================
+           4. MAIN CONTENT
+           ========================================================================== */
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            min-height: 0;
+            min-width: 0;
+            gap: var(--gap-24);
+            z-index: 10;
+        }
+
+        /* --- HEADER & OMNIBAR --- */
+        .top-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 24px;
+            flex-shrink: 0;
+        }
+
+        .greeting-box {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .greeting-text {
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--text-primary);
+            letter-spacing: -0.02em;
+        }
+
+        .status-pill {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-family: 'JetBrains Mono';
+            font-size: 10px;
+            color: var(--status-success);
+            background: rgba(16, 185, 129, 0.1);
+            padding: 4px 8px;
+            border-radius: 100px;
+            border: 1px solid rgba(16, 185, 129, 0.2);
+            width: fit-content;
+        }
+
+        .omnibar-wrapper {
+            flex: 1;
+            max-width: 540px;
+            position: relative;
+            border-radius: var(--rad-pill);
+            padding: 1px;
+            background: linear-gradient(90deg, var(--border-subtle), var(--border-strong), var(--border-subtle));
+            transition: var(--transition);
+        }
+
+        .omnibar-wrapper:focus-within {
+            background: linear-gradient(90deg, var(--accent-primary), transparent, var(--accent-primary));
+            background-size: 200% 100%;
+            animation: shimmer 3s linear infinite;
+            box-shadow: 0 16px 48px rgba(0, 0, 0, 0.8), 0 0 32px var(--accent-glow);
+        }
+
+        @keyframes shimmer {
+            0% {
+                background-position: 100% 0;
+            }
+
+            100% {
+                background-position: -100% 0;
+            }
+        }
+
+        .omnibar-inner {
+            background: var(--bg-surface);
+            border-radius: calc(var(--rad-pill) - 1px);
+            padding: 10px 16px 10px 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .omni-icon {
+            font-size: 16px;
+            color: var(--accent-primary);
+        }
+
+        .omni-input {
+            flex: 1;
+            background: transparent;
+            border: none;
+            outline: none;
+            color: var(--text-primary);
+            font-size: 15px;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .omni-input::placeholder {
+            color: var(--text-tertiary);
+            font-weight: 400;
+        }
+
+        .omni-submit {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: var(--text-primary);
+            color: var(--bg-base);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            border: none;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .omni-submit:hover {
+            background: var(--accent-primary);
+            color: #FFF;
+            box-shadow: 0 0 12px var(--accent-glow-strong);
+        }
+
+        .profile-btn {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: var(--bg-surface);
+            border: 1px solid var(--border-subtle);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .profile-btn:hover {
+            color: var(--text-primary);
+            border-color: var(--text-tertiary);
+        }
+
+        /* --- VITAL RECAP (4 KPI Cards) --- */
+        .kpi-row {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            flex-shrink: 0;
+        }
+
+        .kpi-card {
+            background: rgba(12, 12, 12, 0.8);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--rad-lg);
+            padding: 16px 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            gap: 12px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+            transition: 0.2s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .kpi-card:hover {
+            border-color: var(--border-strong);
+            transform: translateY(-2px);
+        }
+
+        .kpi-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 16px;
+            right: 16px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+        }
+
+        .kpi-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .kpi-icon-box {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            background: var(--bg-elevated);
+            border: 1px solid var(--border-subtle);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+        }
+
+        .trend-badge {
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            border: 1px solid transparent;
+        }
+
+        .trend-badge.good {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--status-success);
+            border-color: rgba(16, 185, 129, 0.2);
+        }
+
+        .trend-badge.bad {
+            background: rgba(239, 68, 68, 0.1);
+            color: var(--status-danger);
+            border-color: rgba(239, 68, 68, 0.2);
+        }
+
+        /* --- BENTO BOTTOM (Graphique + Actions) --- */
+        .bento-bottom {
+            display: flex;
+            gap: var(--gap-24);
+            flex: 1;
+            min-height: 0;
+        }
+
+        .main-card {
+            background: rgba(12, 12, 12, 0.8);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--rad-xl);
+            padding: 24px;
+            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .main-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 24px;
+            right: 24px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+        }
+
+        /* Graphique (Gauche) */
+        .chart-section {
+            flex: 1.8;
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+        }
+
+        .chart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .time-filter {
+            background: var(--bg-base);
+            padding: 4px;
+            border-radius: var(--rad-md);
+            border: 1px solid var(--border-subtle);
+            display: flex;
+            gap: 4px;
+        }
+
+        .filter-btn {
+            padding: 6px 12px;
+            border-radius: var(--rad-sm);
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .filter-btn:hover:not(.active) {
+            color: var(--text-primary);
+        }
+
+        .filter-btn.active {
+            background: var(--border-strong);
+            color: var(--text-primary);
+        }
+
+        .chart-wrapper {
+            position: relative;
+            flex: 1;
+            display: flex;
+            align-items: flex-end;
+            padding-top: 16px;
+        }
+
+        .chart-grid {
+            position: absolute;
+            inset: 0;
+            background-image: linear-gradient(to bottom, var(--border-subtle) 1px, transparent 1px);
+            background-size: 100% 33.33%;
+            z-index: 0;
+            pointer-events: none;
+            border-top: 1px solid var(--border-subtle);
+        }
+
+        #chartContainer {
+            flex: 1;
+            display: flex;
+            justify-content: space-between;
+            align-items: stretch;
+            z-index: 1;
+            height: 100%;
+        }
+
+        .chart-col {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            position: relative;
+            height: 100%;
+        }
+
+        .bar-bg {
+            width: 100%;
+            max-width: 32px;
+            background: transparent;
+            display: flex;
+            align-items: flex-end;
+            flex: 1;
+            border-radius: 4px 4px 0 0;
+        }
+
+        .bar-fill {
+            width: 100%;
+            border-radius: 4px 4px 0 0;
+            transition: height 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+            position: relative;
+            background: var(--border-strong);
+        }
+
+        .bar-fill::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: rgba(255, 255, 255, 0.6);
+            border-radius: 2px;
+        }
+
+        .chart-col:hover .bar-fill {
+            filter: brightness(1.5);
+        }
+
+        .chart-col.highlight .bar-fill {
+            background: var(--accent-primary);
+            box-shadow: 0 0 16px var(--accent-glow);
+        }
+
+        .chart-col.highlight .bar-fill::after {
+            background: #FFF;
+            box-shadow: 0 0 8px #FFF;
+        }
+
+        .chart-tooltip {
+            position: absolute;
+            top: -32px;
+            background: var(--text-primary);
+            color: var(--bg-base);
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 700;
+            opacity: 0;
+            transition: 0.2s;
+            pointer-events: none;
+            white-space: nowrap;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
+            z-index: 100;
+        }
+
+        .chart-col:hover .chart-tooltip {
+            opacity: 1;
+            transform: translateY(-4px);
+        }
+
+        /* Colonne Droite : Actions & IA */
+        .action-section {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: var(--gap-16);
+            min-width: 0;
+        }
+
+        .quick-actions-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-top: 16px;
+        }
+
+        .action-btn {
+            background: var(--bg-base);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--rad-md);
+            padding: 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .action-btn:hover {
+            background: var(--bg-elevated);
+            border-color: var(--text-tertiary);
+            transform: translateY(-2px);
+        }
+
+        .action-icon {
+            font-size: 16px;
+            color: var(--text-secondary);
+        }
+
+        .ia-log-box {
+            flex: 1;
+            background: var(--bg-base);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--rad-md);
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            overflow-y: auto;
+            margin-top: 8px;
+        }
+
+        .ia-log-box::-webkit-scrollbar {
+            display: none;
+        }
+
+        .log-entry {
+            display: flex;
+            gap: 12px;
+        }
+
+        .log-time {
+            font-family: 'JetBrains Mono';
+            font-size: 11px;
+            color: var(--text-tertiary);
+            width: 45px;
+            flex-shrink: 0;
+        }
+
+        .log-text {
+            font-size: 13px;
+            color: var(--text-secondary);
+            line-height: 1.4;
+        }
+
+        .log-text.highlight {
+            color: var(--text-primary);
+            font-weight: 500;
         }
     </style>
 </head>
+
 <body>
 
-    <div class="scanline"></div>
+    <div class="app-frame">
 
-    <nav>
-        <div class="nav-logo">LE STUDIO.</div>
-        <ul class="nav-links">
-            <li><a href="#">ACCUEIL</a></li>
-            <li><a href="#">RÉSERVER</a></li>
-            <li><a href="#" class="active">NOUS CONTACTER</a></li>
-        </ul>
-        <div class="nav-telemetry">
-            <div class="tcr">TCR <span id="clock">00:00:00:00</span></div>
-            <div id="current-date">CONNEXION SÉCURISÉE <div class="dot"></div></div>
-        </div>
-    </nav>
+        <nav class="v-stack dock">
+            <div class="dock-icon active"><i class="fa-solid fa-house"></i></div>
+            <div class="dock-icon"><i class="fa-solid fa-chart-pie"></i></div>
+            <div class="dock-icon"><i class="fa-solid fa-sparkles"></i></div>
+            <div class="dock-icon"><i class="fa-solid fa-shield-halved"></i></div>
+            <div class="flex-1"></div>
+            <div class="dock-icon"><i class="fa-solid fa-gear"></i></div>
+        </nav>
 
-    <main class="container">
-        
-        <div class="header-box">
-            <div>
-                <span class="label-red">SERVICE CLIENT & ASSISTANCE</span>
-                <h1 class="t-huge">NOUS<br>CONTACTER.</h1>
-                <p style="font-family: 'Playfair Display'; font-size: 16px; color: var(--dim); max-width: 500px;">
-                    Notre équipe traite toutes les demandes. Les urgences liées aux réservations du jour (retards, allergies de dernière minute) sont traitées en priorité.
-                </p>
-            </div>
-            <div class="signal-box">
-                <span style="font-size: 8px; color: var(--dim); letter-spacing: 2px;">RÉSEAU SÉCURISÉ</span>
-                <div class="signal-bars">
-                    <div class="s-bar"></div><div class="s-bar"></div><div class="s-bar"></div><div class="s-bar"></div>
-                </div>
-            </div>
-        </div>
+        <main class="main-content">
 
-        <div class="dispatch-grid">
-            
-            <div class="terminal-wrapper" id="terminal-screen">
-                <div class="terminal-header">
-                    <span>FORMULAIRE DE CONTACT</span>
-                    <span style="color:var(--red);">[ EN LIGNE ]</span>
+            <header class="top-section">
+                <div class="greeting-box">
+                    <span class="greeting-text">Aura Home</span>
+                    <div class="status-pill"><i class="fa-solid fa-circle" style="font-size: 6px;"></i> TOUT EST NORMAL
+                    </div>
                 </div>
 
-                <form id="comms-form" onsubmit="processTransmission(event)">
-                    <div class="form-group">
-                        <label>VOTRE NOM ET PRÉNOM</label>
-                        <input type="text" class="input-control" placeholder="Ex: Jean Dupont" required>
+                <div class="omnibar-wrapper">
+                    <div class="omnibar-inner">
+                        <i class="fa-solid fa-sparkles omni-icon"></i>
+                        <input type="text" class="omni-input" id="aiInput"
+                            placeholder="Demandez une action à votre maison..." autocomplete="off"
+                            onkeypress="handleEnter(event)">
+                        <button class="omni-submit" onclick="submitPrompt()"><i
+                                class="fa-solid fa-arrow-up"></i></button>
                     </div>
-                    
-                    <div class="form-group">
-                        <label>ADRESSE EMAIL</label>
-                        <input type="email" class="input-control" placeholder="Pour vous répondre..." required>
-                    </div>
-
-                    <div class="form-group">
-                        <label>OBJET DE VOTRE DEMANDE</label>
-                        <select class="input-control" id="topic-select" required>
-                            <option value="" disabled selected>[ SÉLECTIONNER UN SUJET ]</option>
-                            <option value="allergies">SIGNALER UNE ALLERGIE / RÉGIME SPÉCIFIQUE</option>
-                            <option value="ticket">PROBLÈME AVEC MA RÉSERVATION</option>
-                            <option value="privatisation">PRIVATISATION & ÉVÉNEMENTS (B2B)</option>
-                            <option value="other">AUTRE QUESTION</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label>VOTRE MESSAGE</label>
-                        <textarea class="input-control" id="message-body" placeholder="Veuillez détailler votre demande ici..." required></textarea>
-                    </div>
-
-                    <button type="submit" class="btn-submit" id="submit-btn">ENVOYER LE MESSAGE</button>
-                </form>
-
-                <div id="success-log">
-                    <div class="log-line" style="animation: fadeIn 0.1s forwards 0.2s">> PRÉPARATION DU MESSAGE... [OK]</div>
-                    <div class="log-line" style="animation: fadeIn 0.1s forwards 0.8s">> CONNEXION AU SERVEUR... <span class="log-highlight">[SÉCURISÉ]</span></div>
-                    <div class="log-line" style="animation: fadeIn 0.1s forwards 1.4s">> ENVOI EN COURS...</div>
-                    <div class="log-line" style="animation: fadeIn 0.1s forwards 2.2s">> MESSAGE REÇU PAR NOTRE ÉQUIPE.</div>
-                    
-                    <div class="log-final log-line" style="animation: fadeIn 0.1s forwards 3.0s">
-                        <span style="color:var(--red); font-weight:bold; font-family: 'Anton'; font-size: 1.5rem; letter-spacing: 1px;">ENVOI RÉUSSI.</span><br><br>
-                        Notre équipe a bien reçu votre demande. Nous vous répondrons sur votre adresse email dans les plus brefs délais.
-                    </div>
-                    
-                    <button class="btn-submit" style="margin-top:40px; font-size:1rem; opacity:0; animation: fadeIn 0.5s forwards 4.0s;" onclick="resetTerminal()">ENVOYER UN AUTRE MESSAGE</button>
-                </div>
-            </div>
-
-            <div class="info-panel">
-                
-                <div class="info-block">
-                    <h3>CONTACTS D'URGENCE</h3>
-                    <p>En cas d'imprévu le jour de votre réservation (retard sur la route, annulation), veuillez utiliser nos lignes directes :</p>
-                    
-                    <a href="tel:+33188888888" class="comms-btn">
-                        <span class="comms-icon">[ TÉLÉPHONE ]</span>
-                        <span class="comms-val">+33 1 88 88 88 88</span>
-                    </a>
-                    
-                    <a href="mailto:contact@lestudio.fr" class="comms-btn">
-                        <span class="comms-icon">[ EMAIL ]</span>
-                        <span class="comms-val">CONTACT@LESTUDIO.FR</span>
-                    </a>
                 </div>
 
-                <div class="info-block" style="border-left: none; padding-left: 0;">
-                    <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 15px;">
-                        <h3 style="margin-bottom: 0;">ADRESSE DU STUDIO</h3>
-                        <span style="font-size: 9px; color: var(--red); letter-spacing: 2px;">ANGERS, FRANCE</span>
-                    </div>
-                    
-                    <div class="wayfinding-box">
-                        <div class="radar-screen">
-                            <div class="radar-sweep"></div>
-                            <div class="target-dot"></div>
-                            <span style="position: absolute; bottom: 5px; left: 5px; font-size: 8px; color: var(--red); letter-spacing: 2px; background: rgba(0,0,0,0.8); padding: 2px 4px;">LOCALISATION EXACTE</span>
+                <div class="profile-btn"><i class="fa-solid fa-user"></i></div>
+            </header>
+
+            <div class="kpi-row">
+                <div class="kpi-card">
+                    <div class="kpi-header">
+                        <div class="kpi-icon-box"><i class="fa-solid fa-bolt" style="color: var(--accent-primary);"></i>
                         </div>
-                        
-                        <div class="way-step"><span>01_</span> Rendez-vous au Bâtiment 4, Zone Industrielle Sud.</div>
-                        <div class="way-step"><span>02_</span> Cherchez la porte avec l'éclairage rouge.</div>
-                        <div class="way-step"><span>03_</span> Ayez votre réservation prête pour le scan à l'entrée.</div>
+                        <div class="trend-badge good"><i class="fa-solid fa-arrow-down"></i> 15%</div>
+                    </div>
+                    <div class="v-stack">
+                        <span class="t-sub">Total consommé aujourd'hui</span>
+                        <div class="h-stack align-baseline">
+                            <span class="data-huge" id="valConso">12.4</span><span class="data-unit">kWh</span>
+                        </div>
                     </div>
                 </div>
 
-            </div>
-        </div>
+                <div class="kpi-card">
+                    <div class="kpi-header">
+                        <div class="kpi-icon-box"><i class="fa-solid fa-wallet"
+                                style="color: var(--status-success);"></i></div>
+                        <span class="t-mono" style="color: var(--text-tertiary);">BUDGET: 24%</span>
+                    </div>
+                    <div class="v-stack">
+                        <span class="t-sub">Dépense du jour</span>
+                        <div class="h-stack align-baseline">
+                            <span class="data-huge" id="valCost">2,85</span><span class="data-unit">€</span>
+                        </div>
+                    </div>
+                </div>
 
-        <div class="faq-wrapper">
-            <div class="faq-header">
-                <div>
-                    <span class="label-red">FOIRE AUX QUESTIONS</span>
-                    <h2 style="font-family: 'Anton'; font-size: 3.5rem; text-transform: uppercase; line-height: 1;">QUESTIONS<br>FRÉQUENTES.</h2>
+                <div class="kpi-card">
+                    <div class="kpi-header">
+                        <div class="kpi-icon-box"><i class="fa-solid fa-house-chimney"
+                                style="color: var(--accent-primary);"></i></div>
+                        <span class="t-mono" style="color: var(--status-success);">CONFORT</span>
+                    </div>
+                    <div class="v-stack">
+                        <span class="t-sub">Température intérieure</span>
+                        <div class="h-stack align-baseline">
+                            <span class="data-huge">20.5</span><span class="data-unit">°C</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="kpi-card">
+                    <div class="kpi-header">
+                        <div class="kpi-icon-box"><i class="fa-solid fa-location-dot"
+                                style="color: var(--text-secondary);"></i></div>
+                        <span class="t-mono" style="color: var(--text-tertiary);">ST-LAMBERT</span>
+                    </div>
+                    <div class="v-stack">
+                        <span class="t-sub">15 Mars • 13:48</span>
+                        <div class="h-stack align-baseline" style="gap: 8px;">
+                            <span class="data-huge">14°</span>
+                            <i class="fa-solid fa-sun" style="color: var(--status-warning); font-size: 20px;"></i>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <div class="faq-list">
-                <div class="faq-item">
-                    <button class="faq-question"><span>Que se passe-t-il si j'arrive en retard ?</span><span class="faq-icon">[+]</span></button>
-                    <div class="faq-answer"><p>Pour ne pas gâcher l'immersion des autres clients (le son et la lumière sont synchronisés avec les plats), les portes du restaurant sont verrouillées à l'heure pile de la réservation. <strong>Aucun accès n'est possible après le début de l'expérience et aucun remboursement ne sera effectué en cas de retard.</strong> Prévoyez d'arriver 15 minutes à l'avance.</p></div>
-                </div>
-                <div class="faq-item">
-                    <button class="faq-question"><span>Pouvez-vous adapter le menu (allergies, végétarien...) ?</span><span class="faq-icon">[+]</span></button>
-                    <div class="faq-answer"><p>Oui, nos chefs peuvent adapter le menu à vos restrictions alimentaires (allergies, sans gluten, végétarien, vegan). Cependant, vous devez impérativement nous prévenir <strong>au minimum 48 heures avant votre venue</strong> via notre formulaire de contact ou par email.</p></div>
-                </div>
-                <div class="faq-item">
-                    <button class="faq-question"><span>Y a-t-il un code vestimentaire (Dress Code) ?</span><span class="faq-icon">[+]</span></button>
-                    <div class="faq-answer"><p>La salle est plongée dans le noir pour profiter au mieux des écrans et des jeux de lumière. Pour éviter les reflets parasites, nous demandons à nos clients de porter <strong>des vêtements sombres</strong> (noir, bleu marine, gris foncé). Les couleurs claires ou fluorescentes sont à éviter.</p></div>
-                </div>
-                <div class="faq-item">
-                    <button class="faq-question"><span>Puis-je annuler ou donner ma réservation à un ami ?</span><span class="faq-icon">[+]</span></button>
-                    <div class="faq-answer"><p>Les réservations sont fermes et non-remboursables en raison des coûts de préparation de nos menus immersifs. En revanche, vous pouvez tout à fait céder votre place à une autre personne. Il suffit de nous envoyer un email avec le nom de la personne qui vous remplacera au moins 24h avant.</p></div>
-                </div>
-            </div>
-        </div>
+            <div class="bento-bottom">
 
-    </main>
+                <div class="main-card chart-section">
+                    <div class="chart-header">
+                        <div class="v-stack" style="gap: 4px;">
+                            <h2 class="t-h2"><i class="fa-solid fa-chart-line"></i> Évolution de la consommation</h2>
+                            <span class="t-sub">Ce que votre maison a consommé récemment.</span>
+                        </div>
+                        <div class="time-filter">
+                            <div class="filter-btn active" onclick="setPeriod('jour', this)">Aujourd'hui</div>
+                            <div class="filter-btn" onclick="setPeriod('semaine', this)">Semaine</div>
+                            <div class="filter-btn" onclick="setPeriod('mois', this)">Mois</div>
+                        </div>
+                    </div>
 
-    <footer>
-        <div class="footer-grid">
-            <div class="f-col">
-                <h4>LE STUDIO.</h4>
-                <p>Le premier restaurant immersif de France.<br>Nous synchronisons la haute gastronomie avec les chefs-d'œuvre du cinéma.</p>
-                <p style="color: var(--red); margin-top: 15px;">BÂTIMENT 4, Z.I. SUD, 49000 ANGERS</p>
+                    <div class="chart-wrapper">
+                        <div class="chart-grid"></div>
+                        <div id="chartContainer">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="main-card action-section">
+                    <div class="h-stack justify-between w-full">
+                        <h2 class="t-h2"><i class="fa-solid fa-layer-group"></i> Raccourcis</h2>
+                        <i class="fa-solid fa-ellipsis" style="color: var(--text-tertiary); cursor: pointer;"></i>
+                    </div>
+
+                    <div class="quick-actions-grid">
+                        <div class="action-btn" onclick="alert('Préparation pour la soirée activée')">
+                            <i class="fa-solid fa-moon action-icon" style="color: var(--accent-primary);"></i>
+                            <span class="t-body">Préparer la soirée</span>
+                        </div>
+                        <div class="action-btn" onclick="alert('Optimisation Solaire activée')">
+                            <i class="fa-solid fa-solar-panel action-icon" style="color: var(--status-warning);"></i>
+                            <span class="t-body">Maximiser le soleil</span>
+                        </div>
+                        <div class="action-btn" onclick="alert('Vérification de sécurité lancée')">
+                            <i class="fa-solid fa-shield-check action-icon" style="color: var(--status-success);"></i>
+                            <span class="t-body">Vérifier la sécurité</span>
+                        </div>
+                        <div class="action-btn" onclick="alert('Extinction générale de la maison')">
+                            <i class="fa-solid fa-power-off action-icon" style="color: var(--status-danger);"></i>
+                            <span class="t-body">Tout éteindre</span>
+                        </div>
+                    </div>
+
+                    <h2 class="t-h2" style="margin-top: 16px;"><i class="fa-solid fa-sparkles"
+                            style="color: var(--accent-primary);"></i> Ce que l'IA fait pour vous</h2>
+                    <div class="ia-log-box" id="iaLog">
+                        <div class="log-entry">
+                            <span class="log-time">11:45</span>
+                            <span class="log-text">Chauffage réduit dans les chambres car personne n'y est.</span>
+                        </div>
+                        <div class="log-entry">
+                            <span class="log-time">12:30</span>
+                            <span class="log-text highlight">Il y a beaucoup de soleil dehors.</span>
+                        </div>
+                        <div class="log-entry">
+                            <span class="log-time">12:31</span>
+                            <span class="log-text" style="color: var(--status-success);">J'ouvre les volets pour
+                                chauffer la maison naturellement avec le soleil.</span>
+                        </div>
+                    </div>
+
+                </div>
+
             </div>
-            <div class="f-col">
-                <h4>NAVIGATION</h4>
-                <ul class="f-links">
-                    <li><a href="#">Le Concept</a></li>
-                    <li><a href="#">Réserver une table</a></li>
-                    <li><a href="#">Nous contacter</a></li>
-                    <li><a href="#">Privatisations (B2B)</a></li>
-                </ul>
-            </div>
-            <div class="f-col">
-                <h4>INFORMATIONS LÉGALES</h4>
-                <ul class="f-links">
-                    <li><a href="#">Conditions Générales de Vente</a></li>
-                    <li><a href="#">Politique de Confidentialité</a></li>
-                    <li><a href="#">Mentions Légales</a></li>
-                </ul>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <span>© 2026 LE STUDIO. TOUS DROITS RÉSERVÉS.</span>
-            <span style="color: var(--red);">SYSTÈME OPÉRATIONNEL</span>
-        </div>
-    </footer>
+
+        </main>
+
+    </div>
 
     <script>
-        // Set real-time date in Header
-        const dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-        document.getElementById('current-date').innerHTML = new Date().toLocaleDateString('fr-FR', dateOptions).toUpperCase() + ' <div class="dot"></div>';
+        const input = document.getElementById('aiInput');
 
-        // TCR CLOCK
-        function updateClock() {
-            const now = new Date();
-            const h = String(now.getHours()).padStart(2, '0');
-            const m = String(now.getMinutes()).padStart(2, '0');
-            const s = String(now.getSeconds()).padStart(2, '0');
-            const ms = String(Math.floor(now.getMilliseconds() / 10)).padStart(2, '0');
-            document.getElementById('clock').innerText = `${h}:${m}:${s}:${ms}`;
-            requestAnimationFrame(updateClock);
-        }
-        updateClock();
+        // Soumission de l'Omnibar
+        function handleEnter(e) { if (e.key === 'Enter') submitPrompt(); }
+        function submitPrompt() {
+            const prompt = input.value.trim();
+            if (prompt !== '') {
+                const logBox = document.getElementById('iaLog');
+                const now = new Date();
+                const time = String(now.getHours()).padStart(2, '0') + ':' + String(now.getMinutes()).padStart(2, '0');
 
-        // FORM SUBMISSION (SPA BEHAVIOR)
-        const form = document.getElementById('comms-form');
-        const logScreen = document.getElementById('success-log');
-        const submitBtn = document.getElementById('submit-btn');
-
-        function processTransmission(e) {
-            e.preventDefault();
-            // Button feedback
-            submitBtn.innerText = "ENVOI EN COURS...";
-            submitBtn.style.color = "var(--bg)";
-
-            // Fake processing delay
-            setTimeout(() => {
-                form.style.display = "none";
-                logScreen.style.display = "flex";
-            }, 600);
+                logBox.innerHTML += `
+                    <div class="log-entry">
+                        <span class="log-time" style="color: var(--text-primary);">${time}</span>
+                        <span class="log-text" style="color: var(--accent-primary);">> ${prompt}</span>
+                    </div>
+                `;
+                logBox.scrollTop = logBox.scrollHeight;
+                input.value = '';
+            }
         }
 
-        function resetTerminal() {
-            logScreen.style.display = "none";
-            form.reset();
-            form.style.display = "block";
-            submitBtn.innerText = "ENVOYER LE MESSAGE";
-            submitBtn.style.color = "var(--red)";
+        // DATA DU DASHBOARD
+        const dashboardData = {
+            jour: {
+                conso: "12.4", cost: "2,85",
+                chart: [{ l: "00h", v: 30 }, { l: "04h", v: 15 }, { l: "08h", v: 60 }, { l: "12h", v: 45 }, { l: "16h", v: 55 }, { l: "20h", v: 85 }, { l: "24h", v: 50 }]
+            },
+            semaine: {
+                conso: "86.2", cost: "19,80",
+                chart: [{ l: "LUN", v: 40 }, { l: "MAR", v: 65 }, { l: "MER", v: 35 }, { l: "JEU", v: 80 }, { l: "VEN", v: 55 }, { l: "SAM", v: 90 }, { l: "DIM", v: 70 }]
+            },
+            mois: {
+                conso: "345.8", cost: "79,50",
+                chart: [{ l: "S1", v: 60 }, { l: "S2", v: 75 }, { l: "S3", v: 50 }, { l: "S4", v: 85 }, { l: "S5", v: 30 }]
+            }
+        };
+
+        function setPeriod(period, btn) {
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            const d = dashboardData[period];
+
+            document.getElementById('valConso').innerText = d.conso;
+            document.getElementById('valCost').innerText = d.cost;
+
+            renderChart(d.chart);
         }
 
-        // ACCORDION FAQ LOGIC
-        const faqItems = document.querySelectorAll('.faq-item');
-        faqItems.forEach(item => {
-            const questionBtn = item.querySelector('.faq-question');
-            questionBtn.addEventListener('click', () => {
-                const isActive = item.classList.contains('active');
-                
-                // Close all
-                faqItems.forEach(i => {
-                    i.classList.remove('active');
-                    i.querySelector('.faq-icon').innerText = '[+]';
-                });
+        function renderChart(chartData) {
+            const container = document.getElementById('chartContainer');
+            container.innerHTML = '';
+            const maxVal = Math.max(...chartData.map(item => item.val || item.v));
 
-                // Open clicked if it wasn't active
-                if (!isActive) {
-                    item.classList.add('active');
-                    item.querySelector('.faq-icon').innerText = '[-]';
-                }
+            chartData.forEach(item => {
+                const val = item.val || item.v;
+                const label = item.label || item.l;
+                let activeClass = val === maxVal ? 'highlight' : '';
+
+                container.innerHTML += `
+                    <div class="chart-col ${activeClass}">
+                        <div class="bar-bg">
+                            <div class="bar-fill" style="height: 0%;" data-h="${(val / maxVal) * 100}%"></div>
+                        </div>
+                        <span class="t-mono" style="color: var(--text-tertiary); margin-top: 8px; font-size: 10px;">${label}</span>
+                        <div class="chart-tooltip">${val} kWh</div>
+                    </div>
+                `;
             });
-        });
+
+            setTimeout(() => {
+                container.querySelectorAll('.bar-fill').forEach(b => b.style.height = b.getAttribute('data-h'));
+            }, 50);
+        }
+
+        // Init
+        renderChart(dashboardData.jour.chart);
     </script>
 </body>
+
 </html>
