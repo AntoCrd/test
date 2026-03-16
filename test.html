@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AURA // Climate & Vitals OS</title>
+    <title>AURA // Spatial Layers OS</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -13,11 +13,13 @@
         :root {
             --bg-base: #030303;        
             --bg-app: #08080A;         
-            --bg-card: #0E0E12;        
-            --bg-input: #141418;       
+            --bg-card: #0E0E11;        
+            --bg-card-hover: #141418;  
+            --bg-input: #121216;       
             
             --border-light: rgba(255, 255, 255, 0.05);
             --border-focus: rgba(255, 255, 255, 0.12);
+            --border-active: rgba(255, 255, 255, 0.2);
             
             --text-p: #FFFFFF;         
             --text-s: #A1A1AA;         
@@ -25,13 +27,13 @@
             
             --accent-purple: #8B5CF6;  
             --accent-green: #10B981;   
-            --accent-blue: #3B82F6; /* Froid */
-            --accent-orange: #F59E0B; /* Chaud */
+            --accent-blue: #3B82F6; 
+            --accent-orange: #F59E0B;
 
             --font-main: 'Inter', sans-serif;
             --font-mono: 'JetBrains Mono', monospace;
 
-            --transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+            --transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; user-select: none; }
@@ -48,11 +50,8 @@
             background: var(--bg-app); border-radius: 32px;
             border: 1px solid var(--border-light);
             display: flex; overflow: hidden; position: relative;
-            box-shadow: 0 0 0 1px rgba(255,255,255,0.01), 0 40px 100px rgba(0,0,0,0.8);
-            /* Léger glow d'ambiance pure (vert/bleu) */
-            background-image: 
-                radial-gradient(circle at 50% 0%, rgba(16, 185, 129, 0.03), transparent 40%),
-                radial-gradient(circle at 50% 100%, rgba(59, 130, 246, 0.03), transparent 40%);
+            box-shadow: 0 0 0 1px rgba(255,255,255,0.02), 0 40px 100px rgba(0,0,0,0.8);
+            background-image: radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.02), transparent 40%);
         }
 
         .v-stack { display: flex; flex-direction: column; }
@@ -76,8 +75,9 @@
             width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; 
             color: var(--text-t); font-size: 18px; cursor: pointer; transition: 0.2s; border: 1px solid transparent;
         }
+        /* L'icône Layers est active */
         .dock-icon.active { 
-            color: var(--accent-green); border-color: rgba(16, 185, 129, 0.3); background: rgba(16, 185, 129, 0.05); box-shadow: 0 4px 24px rgba(16, 185, 129, 0.15);
+            color: var(--text-p); border-color: rgba(255, 255, 255, 0.2); background: rgba(255, 255, 255, 0.08); box-shadow: 0 4px 20px rgba(255, 255, 255, 0.05);
         }
         .dock-icon:hover:not(.active) { color: var(--text-p); background: rgba(255,255,255,0.05); border-color: var(--border-light);}
 
@@ -91,18 +91,18 @@
         .header { display: flex; justify-content: space-between; align-items: center; flex-shrink: 0; margin-bottom: 8px;}
         
         .status-badge { 
-            background: rgba(16, 185, 129, 0.08); border: 1px solid rgba(16, 185, 129, 0.2); 
+            background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); 
             padding: 8px 16px; border-radius: 100px; display: flex; align-items: center; gap: 8px; 
-            font-family: var(--font-mono); font-size: 11px; font-weight: 600; color: var(--accent-green); letter-spacing: 0.05em;
+            font-family: var(--font-mono); font-size: 11px; font-weight: 600; color: var(--text-p); letter-spacing: 0.05em;
         }
-        .status-dot { width: 6px; height: 6px; background: var(--accent-green); border-radius: 50%; box-shadow: 0 0 10px var(--accent-green); animation: pulse 2s infinite; }
+        .status-dot { width: 6px; height: 6px; background: var(--text-p); border-radius: 50%; box-shadow: 0 0 10px rgba(255,255,255,0.5); animation: pulse 2s infinite; }
         @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
 
         .h-context { display: flex; align-items: center; gap: 16px; }
 
         .grid-layout {
             flex: 1; display: grid; 
-            grid-template-columns: 280px 1fr 320px; 
+            grid-template-columns: 260px 1fr 280px; 
             gap: 20px; min-height: 0;
         }
 
@@ -110,164 +110,159 @@
             background: var(--bg-card); border: 1px solid var(--border-light);
             border-radius: 20px; padding: 24px; display: flex; flex-direction: column;
             position: relative; overflow: hidden; transition: var(--transition);
-            box-shadow: inset 0 1px 0 rgba(255,255,255,0.02);
         }
         .card:hover { border-color: var(--border-focus); }
 
         /* ==========================================================================
-           4. GAUCHE : ZONES THERMIQUES
+           4. GAUCHE : LE GESTIONNAIRE DE CALQUES (Layers Panel)
            ========================================================================== */
-        .zones-card { grid-column: 1; gap: 12px; }
+        .layers-card { grid-column: 1; padding: 24px 16px; }
         
-        .zone-item {
-            background: var(--bg-input); border: 1px solid var(--border-light);
-            border-radius: 16px; padding: 16px; display: flex; align-items: center; justify-content: space-between;
-            position: relative; overflow: hidden; cursor: pointer; transition: 0.2s;
-        }
-        .zone-item:hover { border-color: var(--border-focus); transform: translateX(4px);}
-        
-        /* Les micro-gradients qui donnent la sensation de température */
-        .zone-item::after {
-            content: ''; position: absolute; top: 0; bottom: 0; right: 0; width: 60px;
-            background: linear-gradient(90deg, transparent, var(--z-color)); opacity: 0.15;
-            pointer-events: none;
-        }
+        .layers-tree { display: flex; flex-direction: column; gap: 4px; overflow-y: auto; flex: 1;}
+        .layers-tree::-webkit-scrollbar { display: none; }
 
-        .z-info { display: flex; flex-direction: column; gap: 4px; position: relative; z-index: 2;}
-        .z-name { font-size: 14px; font-weight: 500; color: var(--text-p); }
-        .z-status { font-size: 11px; color: var(--text-s); display: flex; align-items: center; gap: 4px;}
-        
-        .z-temp { font-family: var(--font-mono); font-size: 18px; font-weight: 600; color: var(--text-p); position: relative; z-index: 2;}
-        
-        /* Contextes thermiques */
-        .z-warm { --z-color: var(--accent-orange); }
-        .z-cool { --z-color: var(--accent-blue); }
-        .z-eco { --z-color: var(--accent-green); }
-
-        /* Extérieur */
-        .outdoor-box {
-            margin-top: auto; background: rgba(255,255,255,0.02); border: 1px solid var(--border-light);
-            border-radius: 16px; padding: 16px; display: flex; justify-content: space-between; align-items: center;
+        /* Dossier (Étage) */
+        .layer-folder { display: flex; flex-direction: column; margin-bottom: 8px; }
+        .folder-header { 
+            display: flex; align-items: center; gap: 8px; padding: 8px 12px; border-radius: 8px;
+            color: var(--text-s); font-size: 12px; font-weight: 600; cursor: pointer; transition: 0.2s;
         }
-        .weather-icon { width: 40px; height: 40px; border-radius: 12px; background: rgba(245, 158, 11, 0.1); color: var(--accent-orange); display: flex; align-items: center; justify-content: center; font-size: 18px;}
+        .folder-header:hover { color: var(--text-p); }
+        .folder-header i { font-size: 10px; transition: transform 0.2s; }
+        .folder-header.open i.fa-chevron-right { transform: rotate(90deg); }
+
+        /* Fichier (Pièce) */
+        .layer-item {
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 10px 12px 10px 32px; border-radius: 10px; cursor: pointer; transition: var(--transition);
+            border: 1px solid transparent; margin-bottom: 2px;
+        }
+        .layer-item:hover { background: rgba(255,255,255,0.03); }
+        
+        /* État Actif (Le Calque sélectionné) */
+        .layer-item.active {
+            background: rgba(255,255,255,0.08); border-color: var(--border-focus);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+        
+        .l-name { font-size: 13px; font-weight: 500; color: var(--text-s); display: flex; align-items: center; gap: 10px;}
+        .layer-item.active .l-name { color: var(--text-p); font-weight: 600;}
+        .l-name i { font-size: 12px; color: var(--text-t); width: 16px; text-align: center;}
+        .layer-item.active .l-name i { color: var(--text-p); }
+        
+        .l-status { width: 6px; height: 6px; border-radius: 50%; background: var(--text-t); }
+        .l-status.on { background: var(--accent-green); box-shadow: 0 0 8px var(--accent-green);}
+
+        /* Bouton Ajouter un calque */
+        .btn-add-layer {
+            margin-top: auto; background: transparent; border: 1px dashed var(--border-focus);
+            padding: 12px; border-radius: 12px; color: var(--text-t); font-size: 12px; font-weight: 500;
+            display: flex; align-items: center; justify-content: center; gap: 8px; cursor: pointer; transition: 0.2s;
+        }
+        .btn-add-layer:hover { border-color: var(--text-s); color: var(--text-p); background: rgba(255,255,255,0.02);}
 
         /* ==========================================================================
-           5. CENTRE : QUALITÉ DE L'AIR (THE HERO)
+           5. CENTRE : LA MATRICE D'APPAREILS (Canvas)
            ========================================================================== */
-        .air-card { 
-            grid-column: 2; padding: 40px; align-items: center; 
-            border-color: rgba(16, 185, 129, 0.15); 
-            background: linear-gradient(180deg, rgba(16, 185, 129, 0.04) 0%, var(--bg-card) 100%);
+        .canvas-card { 
+            grid-column: 2; padding: 32px; background: #000; border-color: var(--border-light);
+            background-image: radial-gradient(rgba(255,255,255,0.04) 1px, transparent 1px);
+            background-size: 20px 20px;
         }
 
-        /* L'Anneau AQI */
-        .aqi-ring {
-            position: relative; width: 220px; height: 220px; border-radius: 50%;
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
-            box-shadow: inset 0 0 40px rgba(16, 185, 129, 0.05); margin-bottom: 40px;
+        .canvas-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 32px;}
+        .c-title { font-size: 24px; font-weight: 600; color: var(--text-p); letter-spacing: -0.02em; display: flex; align-items: center; gap: 12px;}
+        .c-title i { color: var(--text-t); }
+        .c-subtitle { font-family: var(--font-mono); font-size: 11px; color: var(--text-s); margin-top: 4px; display: block;}
+        
+        /* Master Switch pour tout le calque */
+        .master-switch {
+            background: rgba(255,255,255,0.05); border: 1px solid var(--border-focus);
+            padding: 8px 16px; border-radius: 100px; display: flex; align-items: center; gap: 10px;
+            color: var(--text-p); font-size: 12px; font-weight: 600; cursor: pointer; transition: 0.2s;
         }
-        
-        /* Les cercles animés */
-        .aqi-circle { position: absolute; inset: 0; border-radius: 50%; border: 2px solid var(--accent-green); opacity: 0.2;}
-        .aqi-circle.c1 { transform: scale(1); animation: breathRing 4s infinite ease-in-out; }
-        .aqi-circle.c2 { transform: scale(1.15); animation: breathRing 4s infinite ease-in-out 1s; opacity: 0.1;}
-        .aqi-circle.c3 { transform: scale(1.3); border: 1px dashed var(--accent-green); opacity: 0.3; animation: spin 20s linear infinite;}
+        .master-switch:hover { background: rgba(255,255,255,0.1); border-color: var(--text-p); }
+        .master-switch i { color: var(--text-t); }
 
-        @keyframes breathRing { 0%, 100% { transform: scale(1); opacity: 0.1;} 50% { transform: scale(1.05); opacity: 0.4;} }
-        @keyframes spin { 100% { transform: scale(1.3) rotate(360deg); } }
-
-        /* Le centre du Ring */
-        .aqi-value { font-size: 64px; font-weight: 300; letter-spacing: -0.05em; color: var(--text-p); line-height: 1; z-index: 10;}
-        .aqi-label { font-size: 14px; font-weight: 600; color: var(--accent-green); letter-spacing: 0.1em; margin-top: 8px; z-index: 10;}
-        .aqi-sub { font-size: 11px; color: var(--text-t); font-family: var(--font-mono); margin-top: 4px; z-index: 10;}
-
-        /* Les Datas Détaillées */
-        .air-data-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; width: 100%; margin-bottom: auto;}
-        
-        .data-box { background: var(--bg-input); border: 1px solid var(--border-light); border-radius: 16px; padding: 16px; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 8px;}
-        .db-icon { color: var(--text-t); font-size: 16px; margin-bottom: 4px;}
-        .db-val { font-family: var(--font-mono); font-size: 16px; font-weight: 600; color: var(--text-p); }
-        .db-lbl { font-size: 11px; color: var(--text-s); }
-
-        /* Bouton Action (Purification) */
-        .btn-purify {
-            background: linear-gradient(180deg, rgba(16, 185, 129, 0.15) 0%, rgba(16, 185, 129, 0.05) 100%);
-            border: 1px solid var(--accent-green); width: 100%; max-width: 320px;
-            padding: 16px; border-radius: 16px; display: flex; align-items: center; justify-content: center; gap: 12px;
-            color: var(--accent-green); font-size: 14px; font-weight: 600; cursor: pointer; transition: 0.2s;
-            box-shadow: inset 0 1px 0 rgba(255,255,255,0.2), 0 8px 24px rgba(16, 185, 129, 0.15);
+        /* Grille d'appareils */
+        .device-grid {
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 16px;
+            animation: fadeIn 0.4s ease;
         }
-        .btn-purify:hover { background: rgba(16, 185, 129, 0.2); filter: brightness(1.2); }
-        
-        /* Animation quand on force la purification */
-        .purifying .aqi-circle.c1 { animation: pump 1s infinite alternate; border-color: var(--accent-blue);}
-        .purifying .aqi-circle.c2 { animation: pump 1s infinite alternate 0.5s; border-color: var(--accent-blue);}
-        .purifying .aqi-circle.c3 { border-color: var(--accent-blue); animation: spinFast 2s linear infinite;}
-        .purifying .aqi-value { color: var(--accent-blue); }
-        .purifying .aqi-label { color: var(--accent-blue); }
-        
-        @keyframes pump { 0% { transform: scale(0.95); opacity: 0.4;} 100% { transform: scale(1.1); opacity: 0.8;} }
-        @keyframes spinFast { 100% { transform: scale(1.3) rotate(360deg); } }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* ==========================================================================
-           6. DROITE : CONTRÔLE CVC & IA THERMIQUE
-           ========================================================================== */
-        .hvac-card { grid-column: 3; display: flex; flex-direction: column;}
-        
-        /* Thermostat Master */
-        .master-thermostat {
-            background: rgba(255,255,255,0.02); border: 1px solid var(--border-light);
-            border-radius: 20px; padding: 24px; display: flex; flex-direction: column; align-items: center; gap: 16px; margin-bottom: 24px;
+        /* Carte Appareil (Design très technique/SaaS) */
+        .dev-card {
+            background: var(--bg-card); border: 1px solid var(--border-light);
+            border-radius: 16px; padding: 16px; display: flex; flex-direction: column; gap: 16px;
+            transition: var(--transition); position: relative; overflow: hidden;
         }
-        
-        .t-target-val { font-size: 40px; font-weight: 300; letter-spacing: -0.04em; color: var(--text-p); line-height: 1;}
-        .t-target-lbl { font-size: 12px; color: var(--text-t); text-transform: uppercase; letter-spacing: 0.1em;}
-        
-        .t-slider-wrap { width: 100%; display: flex; align-items: center; gap: 12px; margin-top: 8px;}
-        .t-slider { -webkit-appearance: none; flex: 1; height: 6px; background: var(--border-focus); border-radius: 4px; outline: none; cursor: pointer; background: linear-gradient(90deg, var(--accent-blue) 0%, var(--border-focus) 40%, var(--accent-orange) 100%);}
-        .t-slider::-webkit-slider-thumb { -webkit-appearance: none; width: 24px; height: 24px; border-radius: 50%; background: #FFF; box-shadow: 0 4px 12px rgba(0,0,0,0.5); cursor: pointer; border: 2px solid var(--border-light);}
+        .dev-card:hover { border-color: var(--border-focus); background: var(--bg-card-hover); transform: translateY(-2px);}
+        .dev-card.active { border-color: rgba(255,255,255,0.2); background: rgba(255,255,255,0.03); }
 
-        /* Bloc IA Anticipation */
-        .ai-anticipation {
-            background: var(--bg-input); border: 1px solid var(--border-focus);
-            border-radius: 16px; padding: 20px; display: flex; flex-direction: column; gap: 12px;
-        }
+        .dev-top { display: flex; justify-content: space-between; align-items: flex-start; }
+        .dev-icon { width: 32px; height: 32px; border-radius: 8px; background: var(--bg-input); border: 1px solid var(--border-light); color: var(--text-t); display: flex; align-items: center; justify-content: center; font-size: 14px; transition: 0.3s;}
+        .dev-card.active .dev-icon { background: var(--text-p); color: #000; border-color: var(--text-p); box-shadow: 0 4px 12px rgba(255,255,255,0.2);}
         
-        .ai-a-header { display: flex; justify-content: space-between; align-items: flex-start; }
-        .ai-a-title { font-size: 13px; font-weight: 600; color: var(--accent-purple); display: flex; align-items: center; gap: 8px;}
-        
-        /* Toggle iOS style */
+        .dev-info { display: flex; flex-direction: column; gap: 4px; }
+        .dev-name { font-size: 13px; font-weight: 500; color: var(--text-p); }
+        .dev-state { font-family: var(--font-mono); font-size: 10px; color: var(--text-s); }
+        .dev-card.active .dev-state { color: var(--accent-green); font-weight: 600;}
+
+        /* Toggle interne */
         .toggle { position: relative; width: 36px; height: 20px; flex-shrink: 0; }
         .toggle input { opacity: 0; width: 0; height: 0; position: absolute; }
-        .t-slider-tg { position: absolute; cursor: pointer; inset: 0; background-color: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.05); transition: .3s; border-radius: 24px; }
-        .t-slider-tg:before { position: absolute; content: ""; height: 14px; width: 14px; left: 2px; bottom: 2px; background-color: var(--text-s); transition: .3s; border-radius: 50%; box-shadow: 0 2px 4px rgba(0,0,0,0.3);}
-        input:checked + .t-slider-tg { background-color: var(--accent-purple); border-color: var(--accent-purple); }
-        input:checked + .t-slider-tg:before { transform: translateX(16px); background-color: #FFF;}
+        .t-slider { position: absolute; cursor: pointer; inset: 0; background-color: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.05); transition: .3s; border-radius: 24px; }
+        .t-slider:before { position: absolute; content: ""; height: 14px; width: 14px; left: 2px; bottom: 2px; background-color: var(--text-s); transition: .3s; border-radius: 50%; box-shadow: 0 2px 4px rgba(0,0,0,0.3);}
+        input:checked + .t-slider { background-color: var(--text-p); border-color: var(--text-p); }
+        input:checked + .t-slider:before { transform: translateX(16px); background-color: #000;}
 
-        .ai-a-desc { font-size: 12px; color: var(--text-s); line-height: 1.5; }
+        /* Slider interne (Lumière/Volet) */
+        .dev-slider { -webkit-appearance: none; width: 100%; height: 4px; background: rgba(255,255,255,0.1); border-radius: 2px; outline: none; cursor: pointer;}
+        .dev-slider::-webkit-slider-thumb { -webkit-appearance: none; width: 12px; height: 12px; border-radius: 50%; background: #FFF; cursor: pointer; box-shadow: 0 0 8px rgba(255,255,255,0.5); }
+        .dev-slider.active-track { background: linear-gradient(90deg, var(--text-p) 50%, rgba(255,255,255,0.1) 50%); }
+
+        /* ==========================================================================
+           6. DROITE : PROPRIÉTÉS DU CALQUE (Inspector)
+           ========================================================================== */
+        .inspector-card { grid-column: 3; gap: 24px; background: var(--bg-card);}
         
-        .ai-a-action { display: flex; align-items: center; gap: 8px; background: rgba(139, 92, 246, 0.1); padding: 8px 12px; border-radius: 8px; width: fit-content; margin-top: 4px; border: 1px solid rgba(139, 92, 246, 0.2);}
-        .ai-a-action i { color: var(--accent-purple); font-size: 12px;}
-        .ai-a-action span { font-family: var(--font-mono); font-size: 10px; color: var(--accent-purple); font-weight: 600;}
+        .prop-group { display: flex; flex-direction: column; gap: 12px; }
+        
+        /* Variables d'environnement */
+        .env-box { background: var(--bg-input); border: 1px solid var(--border-light); border-radius: 12px; padding: 12px 16px; display: flex; justify-content: space-between; align-items: center;}
+        .env-lbl { font-size: 12px; color: var(--text-s); display: flex; align-items: center; gap: 8px;}
+        .env-val { font-family: var(--font-mono); font-size: 13px; font-weight: 600; color: var(--text-p); }
 
-        /* Quick Modes */
-        .quick-modes { display: flex; gap: 12px; margin-top: auto;}
-        .qm-btn { flex: 1; background: var(--bg-input); border: 1px solid var(--border-light); padding: 12px; border-radius: 12px; color: var(--text-p); font-size: 12px; font-weight: 500; cursor: pointer; transition: 0.2s; text-align: center;}
-        .qm-btn:hover { background: rgba(255,255,255,0.05); border-color: var(--border-focus); }
-        .qm-btn.active { background: rgba(16, 185, 129, 0.1); border-color: rgba(16, 185, 129, 0.3); color: var(--accent-green); }
+        /* Scènes du calque (Routines locales) */
+        .scene-btn {
+            background: rgba(255,255,255,0.02); border: 1px solid var(--border-light);
+            padding: 12px 16px; border-radius: 12px; display: flex; align-items: center; justify-content: space-between;
+            cursor: pointer; transition: 0.2s;
+        }
+        .scene-btn:hover { background: rgba(255,255,255,0.06); border-color: var(--border-focus); }
+        .s-info { display: flex; align-items: center; gap: 12px; }
+        .s-icon { color: var(--text-t); font-size: 14px; width: 20px; text-align: center;}
+        .s-name { font-size: 13px; font-weight: 500; color: var(--text-p); }
+        .scene-btn i.fa-play { color: var(--text-s); font-size: 10px; opacity: 0; transition: 0.2s; transform: translateX(-4px);}
+        .scene-btn:hover i.fa-play { opacity: 1; transform: translateX(0);}
+
+        /* Informations système */
+        .sys-info { margin-top: auto; padding-top: 16px; border-top: 1px solid var(--border-light); display: flex; flex-direction: column; gap: 8px;}
+        .sys-row { display: flex; justify-content: space-between; font-family: var(--font-mono); font-size: 10px; color: var(--text-t); }
 
     </style>
 </head>
 <body>
 
-    <div class="app-frame" id="appFrame">
+    <div class="app-frame">
         
         <nav class="dock">
             <div class="logo-mark">A.</div>
             <div class="dock-icon"><i class="fa-solid fa-house"></i></div>
-            <div class="dock-icon active"><i class="fa-solid fa-leaf"></i></div>
-            <div class="dock-icon"><i class="fa-solid fa-layer-group"></i></div>
+            <div class="dock-icon active"><i class="fa-solid fa-layer-group"></i></div>
             <div class="dock-icon"><i class="fa-solid fa-chart-pie"></i></div>
+            <div class="dock-icon"><i class="fa-solid fa-shield-halved"></i></div>
             <div class="dock-icon" style="margin-top: auto;"><i class="fa-solid fa-gear"></i></div>
         </nav>
 
@@ -275,136 +270,220 @@
             
             <header class="header">
                 <div class="v-stack" style="gap: 4px;">
-                    <h1 style="font-size: 24px; font-weight: 600; letter-spacing: -0.02em;">Vitals & Climat</h1>
-                    <span style="font-size: 13px; color: var(--text-s);">Qualité de l'air et gestion thermique</span>
+                    <h1 style="font-size: 24px; font-weight: 600; letter-spacing: -0.02em;">Architecture Spatiale</h1>
+                    <span style="font-size: 13px; color: var(--text-s);">Gestion des calques et assignation des appareils</span>
                 </div>
                 
                 <div class="h-context">
                     <div class="status-badge">
                         <div class="status-dot"></div>
-                        <span>ENVIRONNEMENT SAIN</span>
+                        <span>TOPOLOGIE SYNCHRONISÉE</span>
                     </div>
                     <div style="width: 1px; height: 16px; background: var(--border-light); margin: 0 8px;"></div>
                     <span class="t-mono" style="color: var(--text-t);"><i class="fa-solid fa-location-dot" style="margin-right: 4px;"></i> Angers</span>
-                    <span class="t-mono" style="color: var(--text-p);" id="clock">14:05</span>
+                    <span class="t-mono" style="color: var(--text-p);" id="clock">14:12</span>
                 </div>
             </header>
 
             <div class="grid-layout">
                 
-                <div class="card zones-card">
-                    <span class="t-section"><i class="fa-solid fa-map"></i> Cartographie Thermique</span>
+                <div class="card layers-card">
+                    <span class="t-section"><i class="fa-solid fa-folder-tree"></i> Hiérarchie du foyer</span>
                     
-                    <div class="v-stack" style="gap: 12px; flex: 1;">
+                    <div class="layers-tree">
                         
-                        <div class="zone-item z-warm">
-                            <div class="z-info">
-                                <span class="z-name">Salon & Séjour</span>
-                                <span class="z-status"><i class="fa-solid fa-sun" style="color: var(--accent-orange); font-size: 10px;"></i> Apport solaire actif</span>
+                        <div class="layer-folder">
+                            <div class="folder-header open" onclick="toggleFolder(this)">
+                                <i class="fa-solid fa-chevron-right"></i> Rez-de-chaussée
                             </div>
-                            <span class="z-temp">22.5°</span>
+                            <div class="folder-content">
+                                <div class="layer-item active" onclick="selectLayer(this, 'Salon')">
+                                    <div class="l-name"><i class="fa-solid fa-couch"></i> Salon</div>
+                                    <div class="l-status on"></div>
+                                </div>
+                                <div class="layer-item" onclick="selectLayer(this, 'Cuisine')">
+                                    <div class="l-name"><i class="fa-solid fa-kitchen-set"></i> Cuisine</div>
+                                    <div class="l-status"></div>
+                                </div>
+                                <div class="layer-item" onclick="selectLayer(this, 'Bureau')">
+                                    <div class="l-name"><i class="fa-solid fa-desktop"></i> Bureau</div>
+                                    <div class="l-status"></div>
+                                </div>
+                            </div>
                         </div>
 
-                        <div class="zone-item z-eco" style="border-color: var(--border-focus); background: rgba(255,255,255,0.03);">
-                            <div class="z-info">
-                                <span class="z-name">Chambre Principale</span>
-                                <span class="z-status" style="color: var(--accent-green);"><i class="fa-solid fa-leaf"></i> Optimal</span>
+                        <div class="layer-folder">
+                            <div class="folder-header open" onclick="toggleFolder(this)">
+                                <i class="fa-solid fa-chevron-right"></i> 1er Étage
                             </div>
-                            <span class="z-temp">19.0°</span>
+                            <div class="folder-content">
+                                <div class="layer-item" onclick="selectLayer(this, 'Chambre Master')">
+                                    <div class="l-name"><i class="fa-solid fa-bed"></i> Chambre Master</div>
+                                    <div class="l-status"></div>
+                                </div>
+                                <div class="layer-item" onclick="selectLayer(this, 'Salle de bain')">
+                                    <div class="l-name"><i class="fa-solid fa-bath"></i> Salle de bain</div>
+                                    <div class="l-status"></div>
+                                </div>
+                            </div>
                         </div>
 
-                        <div class="zone-item z-cool">
-                            <div class="z-info">
-                                <span class="z-name">Chambre Amis</span>
-                                <span class="z-status"><i class="fa-solid fa-snowflake" style="color: var(--accent-blue); font-size: 10px;"></i> Chauffage suspendu</span>
+                        <div class="layer-folder">
+                            <div class="folder-header" onclick="toggleFolder(this)">
+                                <i class="fa-solid fa-chevron-right"></i> Extérieur
                             </div>
-                            <span class="z-temp">16.5°</span>
-                        </div>
-
-                        <div class="zone-item z-eco">
-                            <div class="z-info">
-                                <span class="z-name">Salle de Bain</span>
-                                <span class="z-status"><i class="fa-solid fa-droplet" style="color: var(--text-t); font-size: 10px;"></i> Humidité: 45%</span>
+                            <div class="folder-content" style="display: none;">
+                                <div class="layer-item">
+                                    <div class="l-name"><i class="fa-solid fa-tree"></i> Jardin Sud</div>
+                                    <div class="l-status"></div>
+                                </div>
                             </div>
-                            <span class="z-temp">21.0°</span>
                         </div>
 
                     </div>
 
-                    <div class="outdoor-box">
-                        <div class="v-stack" style="gap: 4px;">
-                            <span style="font-size: 11px; font-weight: 600; color: var(--text-t); text-transform: uppercase;">Extérieur</span>
-                            <span style="font-family: var(--font-mono); font-size: 20px; font-weight: 600; color: var(--text-p);">14.2°</span>
-                        </div>
-                        <div class="weather-icon"><i class="fa-solid fa-cloud-sun"></i></div>
-                    </div>
-                </div>
-
-                <div class="card air-card" id="airCard">
-                    <span class="t-section" style="align-self: flex-start; color: var(--accent-green);"><i class="fa-solid fa-wind"></i> Qualité de l'Air (AQI)</span>
-                    
-                    <div class="aqi-ring">
-                        <div class="aqi-circle c1"></div>
-                        <div class="aqi-circle c2"></div>
-                        <div class="aqi-circle c3"></div>
-                        
-                        <span class="aqi-value" id="aqiVal">42</span>
-                        <span class="aqi-label" id="aqiLbl">EXCELLENT</span>
-                        <span class="aqi-sub" id="aqiSub">AIR PURIFIÉ</span>
-                    </div>
-
-                    <div class="air-data-grid">
-                        <div class="data-box">
-                            <i class="fa-solid fa-cloud db-icon"></i>
-                            <span class="db-val">450</span>
-                            <span class="db-lbl">CO2 (ppm)</span>
-                        </div>
-                        <div class="data-box">
-                            <i class="fa-solid fa-droplet db-icon"></i>
-                            <span class="db-val">45%</span>
-                            <span class="db-lbl">Humidité</span>
-                        </div>
-                        <div class="data-box">
-                            <i class="fa-solid fa-biohazard db-icon"></i>
-                            <span class="db-val">12</span>
-                            <span class="db-lbl">COV (µg)</span>
-                        </div>
-                    </div>
-
-                    <button class="btn-purify" id="btnPurify" onclick="togglePurification(this)">
-                        <i class="fa-solid fa-fan" id="fanIcon"></i> <span>Forcer la purification</span>
+                    <button class="btn-add-layer">
+                        <i class="fa-solid fa-plus"></i> Nouveau Calque
                     </button>
                 </div>
 
-                <div class="card hvac-card">
-                    <span class="t-section"><i class="fa-solid fa-temperature-half"></i> Climatisation Centrale</span>
+                <div class="card canvas-card">
                     
-                    <div class="master-thermostat">
-                        <span class="t-target-lbl">CIBLE GLOBALE</span>
-                        <span class="t-target-val" id="targetTemp">20.5°</span>
+                    <div class="canvas-header">
+                        <div class="v-stack">
+                            <h2 class="c-title"><i class="fa-solid fa-couch"></i> <span id="canvasTitle">Salon</span></h2>
+                            <span class="c-subtitle">6 APPAREILS ASSIGNÉS À CE CALQUE</span>
+                        </div>
+                        <div class="master-switch" onclick="masterToggle(this)">
+                            <i class="fa-solid fa-power-off"></i> <span>Désactiver le calque</span>
+                        </div>
+                    </div>
+
+                    <div class="device-grid" id="deviceGrid">
                         
-                        <div class="t-slider-wrap">
-                            <i class="fa-solid fa-minus" style="font-size: 12px; color: var(--text-t); cursor: pointer;" onclick="adjTemp(-0.5)"></i>
-                            <input type="range" class="t-slider" min="15" max="25" step="0.5" value="20.5" oninput="document.getElementById('targetTemp').innerText = this.value + '°'">
-                            <i class="fa-solid fa-plus" style="font-size: 12px; color: var(--text-t); cursor: pointer;" onclick="adjTemp(0.5)"></i>
+                        <div class="dev-card active" id="dev1">
+                            <div class="dev-top">
+                                <div class="dev-icon"><i class="fa-solid fa-lightbulb"></i></div>
+                                <label class="toggle"><input type="checkbox" checked onchange="toggleDevice('dev1')"><span class="t-slider"></span></label>
+                            </div>
+                            <div class="dev-info">
+                                <span class="dev-name">Éclairage Principal</span>
+                                <span class="dev-state">ALLUMÉ • 50%</span>
+                            </div>
+                            <input type="range" class="dev-slider active-track" value="50" oninput="updateSlider(this, 'dev1', 'ALLUMÉ • ')">
+                        </div>
+
+                        <div class="dev-card" id="dev2">
+                            <div class="dev-top">
+                                <div class="dev-icon"><i class="fa-solid fa-tv"></i></div>
+                                <label class="toggle"><input type="checkbox" onchange="toggleDevice('dev2')"><span class="t-slider"></span></label>
+                            </div>
+                            <div class="dev-info">
+                                <span class="dev-name">Ruban LED TV</span>
+                                <span class="dev-state">ÉTEINT</span>
+                            </div>
+                            <input type="range" class="dev-slider" value="0" oninput="updateSlider(this, 'dev2', 'ALLUMÉ • ')">
+                        </div>
+
+                        <div class="dev-card active" id="dev3">
+                            <div class="dev-top">
+                                <div class="dev-icon"><i class="fa-solid fa-person-shelter"></i></div>
+                                <label class="toggle"><input type="checkbox" checked onchange="toggleDevice('dev3')"><span class="t-slider"></span></label>
+                            </div>
+                            <div class="dev-info">
+                                <span class="dev-name">Volet Baie Vitrée</span>
+                                <span class="dev-state">OUVERT • 80%</span>
+                            </div>
+                            <input type="range" class="dev-slider active-track" value="80" style="background: linear-gradient(90deg, var(--text-p) 80%, rgba(255,255,255,0.1) 80%);" oninput="updateSlider(this, 'dev3', 'OUVERT • ')">
+                        </div>
+
+                        <div class="dev-card active" id="dev4">
+                            <div class="dev-top">
+                                <div class="dev-icon"><i class="fa-solid fa-temperature-half"></i></div>
+                                <div style="font-family: var(--font-mono); font-size: 14px; font-weight: 600; color: var(--text-p);">21.5°</div>
+                            </div>
+                            <div class="dev-info" style="margin-top: 8px;">
+                                <span class="dev-name">Vanne Radiateur</span>
+                                <span class="dev-state">CHAUFFE EN COURS</span>
+                            </div>
+                        </div>
+
+                        <div class="dev-card" id="dev5">
+                            <div class="dev-top">
+                                <div class="dev-icon"><i class="fa-brands fa-apple"></i></div>
+                                <label class="toggle"><input type="checkbox" onchange="toggleDevice('dev5')"><span class="t-slider"></span></label>
+                            </div>
+                            <div class="dev-info" style="margin-top: 8px;">
+                                <span class="dev-name">Apple TV 4K</span>
+                                <span class="dev-state">EN VEILLE</span>
+                            </div>
+                        </div>
+
+                        <div class="dev-card active" style="border-style: dashed;">
+                            <div class="dev-top">
+                                <div class="dev-icon" style="background: transparent; border: none; color: var(--accent-green);"><i class="fa-solid fa-eye"></i></div>
+                                <div style="width: 8px; height: 8px; border-radius: 50%; background: var(--accent-green); box-shadow: 0 0 10px var(--accent-green);"></div>
+                            </div>
+                            <div class="dev-info" style="margin-top: 8px;">
+                                <span class="dev-name" style="color: var(--text-s);">Capteur Présence</span>
+                                <span class="dev-state">MOUVEMENT DÉTECTÉ</span>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="card inspector-card">
+                    <span class="t-section"><i class="fa-solid fa-sliders"></i> Propriétés du calque</span>
+                    
+                    <div class="prop-group">
+                        <span style="font-size: 11px; font-weight: 600; color: var(--text-t); text-transform: uppercase;">Variables d'environnement</span>
+                        <div class="env-box">
+                            <span class="env-lbl"><i class="fa-solid fa-temperature-empty"></i> Température moyenne</span>
+                            <span class="env-val">21.5°C</span>
+                        </div>
+                        <div class="env-box">
+                            <span class="env-lbl"><i class="fa-solid fa-droplet"></i> Humidité relative</span>
+                            <span class="env-val">42%</span>
+                        </div>
+                        <div class="env-box">
+                            <span class="env-lbl"><i class="fa-solid fa-sun"></i> Luminosité naturelle</span>
+                            <span class="env-val">650 lx</span>
                         </div>
                     </div>
 
-                    <div class="ai-anticipation">
-                        <div class="ai-a-header">
-                            <span class="ai-a-title"><i class="fa-solid fa-brain"></i> AURA Prédictif</span>
-                            <label class="toggle"><input type="checkbox" checked><span class="t-slider-tg"></span></label>
+                    <div class="prop-group" style="margin-top: 16px;">
+                        <span style="font-size: 11px; font-weight: 600; color: var(--text-t); text-transform: uppercase;">Scènes applicables</span>
+                        
+                        <div class="scene-btn" onclick="playScene(this, 'Soirée Cinéma')">
+                            <div class="s-info">
+                                <i class="fa-solid fa-film s-icon"></i>
+                                <span class="s-name">Soirée Cinéma</span>
+                            </div>
+                            <i class="fa-solid fa-play"></i>
                         </div>
-                        <p class="ai-a-desc">Une chute de température à 5°C est prévue cette nuit. Je vais utiliser l'inertie de la maison.</p>
-                        <div class="ai-a-action">
-                            <i class="fa-solid fa-clock"></i> <span>PRÉ-CHAUFFAGE À 02H00 (HC)</span>
+                        
+                        <div class="scene-btn" onclick="playScene(this, 'Lecture')">
+                            <div class="s-info">
+                                <i class="fa-solid fa-book-open s-icon"></i>
+                                <span class="s-name">Ambiance Lecture</span>
+                            </div>
+                            <i class="fa-solid fa-play"></i>
+                        </div>
+
+                        <div class="scene-btn" onclick="playScene(this, 'Extinction')">
+                            <div class="s-info">
+                                <i class="fa-solid fa-power-off s-icon"></i>
+                                <span class="s-name">Extinction du calque</span>
+                            </div>
+                            <i class="fa-solid fa-play"></i>
                         </div>
                     </div>
 
-                    <div class="quick-modes">
-                        <button class="qm-btn active">Auto</button>
-                        <button class="qm-btn">Chauffage</button>
-                        <button class="qm-btn">Off</button>
+                    <div class="sys-info">
+                        <div class="sys-row"><span>ID CALQUE</span><span>LYR-0482-SLN</span></div>
+                        <div class="sys-row"><span>ROUTAGE MESH</span><span>OPTIMISÉ</span></div>
+                        <div class="sys-row"><span>SÉCURITÉ</span><span>ARMEMENT PARTIEL</span></div>
                     </div>
 
                 </div>
@@ -414,75 +493,131 @@
     </div>
 
     <script>
-        // Horloge
-        document.getElementById('clock').innerText = "14:05";
+        // Horloge contextuelle
+        document.getElementById('clock').innerText = "14:12";
 
-        // Ajustement température (Boutons +/-)
-        function adjTemp(val) {
-            const slider = document.querySelector('.t-slider');
-            let current = parseFloat(slider.value);
-            current += val;
-            if(current >= 15 && current <= 25) {
-                slider.value = current;
-                document.getElementById('targetTemp').innerText = current.toFixed(1) + '°';
+        // Gérer les dossiers (Accordéon)
+        function toggleFolder(element) {
+            element.classList.toggle('open');
+            const content = element.nextElementSibling;
+            if (content.style.display === "none") {
+                content.style.display = "block";
+            } else {
+                content.style.display = "none";
             }
         }
 
-        // L'effet "Wow" : La Purification Active
-        let isPurifying = false;
-        function togglePurification(btn) {
-            const card = document.getElementById('airCard');
-            const fan = document.getElementById('fanIcon');
-            const val = document.getElementById('aqiVal');
-            const lbl = document.getElementById('aqiLbl');
-            const sub = document.getElementById('aqiSub');
+        // Sélection d'un Calque
+        function selectLayer(element, name) {
+            // Retirer l'état actif de tous les items
+            document.querySelectorAll('.layer-item').forEach(el => el.classList.remove('active'));
+            // Ajouter à l'élément cliqué
+            element.classList.add('active');
             
-            isPurifying = !isPurifying;
+            // Mettre à jour le titre central avec animation
+            const title = document.getElementById('canvasTitle');
+            const grid = document.getElementById('deviceGrid');
+            
+            grid.style.opacity = '0';
+            
+            setTimeout(() => {
+                title.innerText = name;
+                // Simulation : on pourrait charger d'autres devices ici
+                grid.style.opacity = '1';
+                grid.style.animation = 'none';
+                grid.offsetHeight; /* trigger reflow */
+                grid.style.animation = null; 
+            }, 200);
+        }
 
-            if(isPurifying) {
-                // UI Changes to "Active Mode" (Bleu dynamique)
-                card.classList.add('purifying');
-                fan.classList.add('fa-spin');
-                
-                btn.style.background = "var(--accent-blue)";
-                btn.style.borderColor = "var(--accent-blue)";
-                btn.style.color = "#FFF";
-                btn.style.boxShadow = "0 8px 24px rgba(59, 130, 246, 0.3)";
-                btn.querySelector('span').innerText = "Purification en cours...";
-                
-                lbl.innerText = "RENOUVELLEMENT";
-                sub.innerText = "VMC VITESSE MAX";
+        // Interactions Appareils (Toggle)
+        function toggleDevice(devId) {
+            const card = document.getElementById(devId);
+            const isChecked = card.querySelector('input[type="checkbox"]').checked;
+            const stateText = card.querySelector('.dev-state');
+            const slider = card.querySelector('.dev-slider');
 
-                // Simulation de la baisse de l'AQI
-                let currentAqi = 42;
-                let interval = setInterval(() => {
-                    if(!isPurifying || currentAqi <= 15) { clearInterval(interval); return; }
-                    currentAqi -= 1;
-                    val.innerText = currentAqi;
-                }, 200);
-
+            if(isChecked) {
+                card.classList.add('active');
+                if(slider) {
+                    slider.value = 50;
+                    slider.style.background = "linear-gradient(90deg, var(--text-p) 50%, rgba(255,255,255,0.1) 50%)";
+                    stateText.innerText = "ALLUMÉ • 50%";
+                } else {
+                    stateText.innerText = "ACTIF";
+                }
             } else {
-                // Return to "Eco Mode" (Vert calme)
-                card.classList.remove('purifying');
-                fan.classList.remove('fa-spin');
-                
-                btn.style.background = "linear-gradient(180deg, rgba(16, 185, 129, 0.15) 0%, rgba(16, 185, 129, 0.05) 100%)";
-                btn.style.borderColor = "var(--accent-green)";
-                btn.style.color = "var(--accent-green)";
-                btn.style.boxShadow = "inset 0 1px 0 rgba(255,255,255,0.2), 0 8px 24px rgba(16, 185, 129, 0.15)";
-                btn.querySelector('span').innerText = "Forcer la purification";
-                
-                lbl.innerText = "EXCELLENT";
-                sub.innerText = "AIR PURIFIÉ";
-                
-                // L'AQI remonte doucement
-                let currentAqi = parseInt(val.innerText);
-                let interval = setInterval(() => {
-                    if(isPurifying || currentAqi >= 42) { clearInterval(interval); return; }
-                    currentAqi += 1;
-                    val.innerText = currentAqi;
-                }, 500);
+                card.classList.remove('active');
+                if(slider) {
+                    slider.value = 0;
+                    slider.style.background = "rgba(255,255,255,0.1)";
+                    stateText.innerText = "ÉTEINT";
+                } else {
+                    stateText.innerText = "INACTIF";
+                }
             }
+        }
+
+        // Slider mise à jour
+        function updateSlider(slider, devId, prefix) {
+            const card = document.getElementById(devId);
+            const val = slider.value;
+            slider.style.background = `linear-gradient(90deg, var(--text-p) ${val}%, rgba(255,255,255,0.1) ${val}%)`;
+            
+            // Forcer le toggle à ON si on bouge le slider
+            const checkbox = card.querySelector('input[type="checkbox"]');
+            if(val > 0 && !checkbox.checked) {
+                checkbox.checked = true;
+                card.classList.add('active');
+            } else if (val == 0 && checkbox.checked) {
+                checkbox.checked = false;
+                card.classList.remove('active');
+                card.querySelector('.dev-state').innerText = "ÉTEINT";
+                return;
+            }
+            
+            if(val > 0) {
+                card.querySelector('.dev-state').innerText = prefix + val + "%";
+            }
+        }
+
+        // Master Switch
+        let layerActive = true;
+        function masterToggle(btn) {
+            layerActive = !layerActive;
+            const grid = document.getElementById('deviceGrid');
+            
+            if(!layerActive) {
+                btn.style.color = "var(--text-t)";
+                btn.querySelector('span').innerText = "Calque désactivé";
+                // Éteindre tout
+                grid.querySelectorAll('.dev-card').forEach(card => {
+                    const cb = card.querySelector('input[type="checkbox"]');
+                    if(cb) { cb.checked = false; toggleDevice(card.id); }
+                });
+            } else {
+                btn.style.color = "var(--text-p)";
+                btn.querySelector('span').innerText = "Désactiver le calque";
+                // Rallumer dev1 par défaut pour l'exemple
+                const cb = document.getElementById('dev1').querySelector('input[type="checkbox"]');
+                cb.checked = true; toggleDevice('dev1');
+            }
+        }
+
+        // Jouer une scène
+        function playScene(btn, name) {
+            const originalIcon = btn.querySelector('.fa-play').className;
+            btn.querySelector('.fa-play').className = "fa-solid fa-circle-notch fa-spin";
+            
+            setTimeout(() => {
+                btn.querySelector('.fa-spin').className = "fa-solid fa-check";
+                btn.style.borderColor = "var(--text-p)";
+                
+                setTimeout(() => {
+                    btn.querySelector('.fa-check').className = originalIcon;
+                    btn.style.borderColor = "var(--border-light)";
+                }, 2000);
+            }, 600);
         }
     </script>
 </body>
