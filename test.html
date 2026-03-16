@@ -1,35 +1,33 @@
 <!DOCTYPE html>
 <html lang="fr">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AURA // Access OS (Icon Feed)</title>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap"
-        rel="stylesheet">
+    <title>AURA // AI Control Room (Actionable)</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         /* ==========================================================================
-           1. DESIGN TOKENS (STRICT DA MATCH)
+           1. DESIGN TOKENS (PREMIUM SAAS DA - VERCEL/LINEAR INSPIRED)
            ========================================================================== */
         :root {
-            --bg-base: #050505;
-            --bg-app: #0A0A0A;
-            --bg-card: #121212;
-            --bg-input: #18181C;
-
-            --border-light: rgba(255, 255, 255, 0.06);
-            --border-focus: rgba(255, 255, 255, 0.15);
-
-            --text-p: #FFFFFF;
-            --text-s: #A1A1AA;
-            --text-t: #52525B;
-
-            --accent-purple: #8B5CF6;
-            --accent-green: #10B981;
-            --accent-blue: #3B82F6;
-            --accent-yellow: #F59E0B;
+            --bg-base: #030303;        
+            --bg-app: #08080A;         
+            --bg-card: #0A0A0C;        
+            --bg-input: #111114;       
+            
+            --border-light: rgba(255, 255, 255, 0.04);
+            --border-focus: rgba(255, 255, 255, 0.12);
+            
+            --text-p: #FFFFFF;         
+            --text-s: #A1A1AA;         
+            --text-t: #52525B;         
+            
+            --accent-purple: #8B5CF6;  
+            --accent-purple-glow: rgba(139, 92, 246, 0.2);
+            --accent-green: #10B981;   
+            --accent-blue: #3B82F6; 
+            --accent-red: #EF4444;
 
             --font-main: 'Inter', sans-serif;
             --font-mono: 'JetBrains Mono', monospace;
@@ -37,862 +35,353 @@
             --transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
         }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            user-select: none;
-        }
-
-        body {
-            background: var(--bg-base);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-            font-family: var(--font-main);
-            color: var(--text-p);
+        * { box-sizing: border-box; margin: 0; padding: 0; user-select: none; }
+        
+        body { 
+            background: var(--bg-base); display: flex; align-items: center; justify-content: center; 
+            min-height: 100vh; font-family: var(--font-main); color: var(--text-p); 
             -webkit-font-smoothing: antialiased;
         }
 
+        /* FRAME (1194x834) */
         .app-frame {
-            width: 1194px;
-            height: 834px;
-            flex-shrink: 0;
-            background: var(--bg-app);
-            border-radius: 36px;
+            width: 1194px; height: 834px; flex-shrink: 0;
+            background: var(--bg-app); border-radius: 32px;
             border: 1px solid var(--border-light);
-            display: flex;
-            overflow: hidden;
-            position: relative;
-            box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.02), 0 40px 100px rgba(0, 0, 0, 0.8);
+            display: flex; overflow: hidden; position: relative;
+            box-shadow: 0 0 0 1px rgba(255,255,255,0.01), 0 40px 100px rgba(0,0,0,0.9);
+            background-image: radial-gradient(circle at 50% 50%, rgba(139, 92, 246, 0.03), transparent 60%);
         }
 
-        .v-stack {
-            display: flex;
-            flex-direction: column;
-        }
+        .v-stack { display: flex; flex-direction: column; }
+        .h-stack { display: flex; flex-direction: row; align-items: center; }
+        .flex-1 { flex: 1; min-height: 0; min-width: 0; }
 
-        .h-stack {
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-        }
-
-        .flex-1 {
-            flex: 1;
-            min-height: 0;
-            min-width: 0;
-        }
-
-        .text-truncate {
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-        .t-section {
-            font-size: 11px;
-            font-weight: 600;
-            letter-spacing: 0.05em;
-            color: var(--text-t);
-            text-transform: uppercase;
-            margin-bottom: 16px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .t-mono {
-            font-family: var(--font-mono);
-            font-size: 12px;
-            font-weight: 500;
-        }
+        .t-section { font-size: 11px; font-weight: 600; letter-spacing: 0.08em; color: var(--text-t); text-transform: uppercase; margin-bottom: 20px; display: flex; align-items: center; gap: 8px;}
+        .t-mono { font-family: var(--font-mono); font-size: 12px; font-weight: 500; }
 
         /* ==========================================================================
            2. DOCK LATÉRAL
            ========================================================================== */
         .dock {
-            width: 72px;
-            height: 100%;
-            flex-shrink: 0;
-            border-right: 1px solid var(--border-light);
-            background: transparent;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 32px 0;
-            gap: 24px;
-            z-index: 20;
+            width: 72px; height: 100%; flex-shrink: 0;
+            border-right: 1px solid var(--border-light); background: rgba(0,0,0,0.2);
+            display: flex; flex-direction: column; align-items: center; 
+            padding: 32px 0; gap: 24px; z-index: 20; backdrop-filter: blur(20px);
         }
-
-        .logo-mark {
-            font-weight: 800;
-            font-size: 20px;
-            color: var(--text-p);
-            margin-bottom: 16px;
-        }
-
+        .logo-mark { font-weight: 800; font-size: 20px; color: var(--text-p); margin-bottom: 16px;}
+        
         .dock-icon {
-            width: 44px;
-            height: 44px;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--text-t);
-            font-size: 18px;
-            cursor: pointer;
-            transition: 0.2s;
-            border: 1px solid transparent;
+            width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; 
+            color: var(--text-t); font-size: 18px; cursor: pointer; transition: 0.2s; border: 1px solid transparent;
         }
-
-        .dock-icon.active {
-            color: var(--text-p);
-            border-color: rgba(139, 92, 246, 0.4);
-            background: rgba(139, 92, 246, 0.05);
-            box-shadow: 0 4px 20px rgba(139, 92, 246, 0.15);
+        .dock-icon.active { 
+            color: var(--text-p); border-color: rgba(139, 92, 246, 0.4); background: rgba(139, 92, 246, 0.05); box-shadow: 0 4px 20px var(--accent-purple-glow);
         }
-
-        .dock-icon:hover:not(.active) {
-            color: var(--text-p);
-            background: rgba(255, 255, 255, 0.05);
-            border-color: var(--border-light);
-        }
+        .dock-icon:hover:not(.active) { color: var(--text-p); background: rgba(255,255,255,0.05); border-color: var(--border-light);}
 
         /* ==========================================================================
-           3. MAIN LAYOUT & BENTO GRID
+           3. MAIN LAYOUT
            ========================================================================== */
         .main-wrapper {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            padding: 40px;
-            gap: 32px;
-            min-width: 0;
-            z-index: 10;
+            flex: 1; display: flex; flex-direction: column; padding: 40px; gap: 24px; min-width: 0; z-index: 10;
         }
 
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-shrink: 0;
+        .header { display: flex; justify-content: space-between; align-items: center; flex-shrink: 0; margin-bottom: 8px;}
+        
+        .status-badge { 
+            background: rgba(139, 92, 246, 0.08); border: 1px solid rgba(139, 92, 246, 0.2); 
+            padding: 8px 16px; border-radius: 100px; display: flex; align-items: center; gap: 10px; 
+            font-family: var(--font-mono); font-size: 11px; font-weight: 600; color: var(--accent-purple); letter-spacing: 0.05em;
         }
+        .status-dot { width: 6px; height: 6px; background: var(--accent-purple); border-radius: 50%; box-shadow: 0 0 10px var(--accent-purple); animation: pulse 2s infinite; }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
 
-        .status-badge {
-            background: rgba(16, 185, 129, 0.1);
-            border: 1px solid rgba(16, 185, 129, 0.2);
-            padding: 8px 16px;
-            border-radius: 100px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-family: var(--font-mono);
-            font-size: 11px;
-            font-weight: 600;
-            color: var(--accent-green);
-            letter-spacing: 0.05em;
-        }
-
-        .status-dot {
-            width: 6px;
-            height: 6px;
-            background: var(--accent-green);
-            border-radius: 50%;
-            box-shadow: 0 0 10px var(--accent-green);
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-
-            0%,
-            100% {
-                opacity: 1;
-            }
-
-            50% {
-                opacity: 0.4;
-            }
-        }
+        .h-context { display: flex; align-items: center; gap: 16px; }
 
         .grid-layout {
-            flex: 1;
-            display: grid;
-            grid-template-columns: 380px 1fr 1fr;
-            grid-template-rows: 1fr 1fr;
-            gap: 20px;
-            min-height: 0;
+            flex: 1; display: grid; 
+            grid-template-columns: 280px 1fr 320px; 
+            gap: 20px; min-height: 0;
         }
 
         .card {
-            background: var(--bg-card);
-            border: 1px solid var(--border-light);
-            border-radius: 24px;
-            padding: 24px;
-            display: flex;
-            flex-direction: column;
-            position: relative;
-            overflow: hidden;
-            transition: var(--transition);
+            background: var(--bg-card); border: 1px solid var(--border-light);
+            border-radius: 20px; padding: 24px; display: flex; flex-direction: column;
+            position: relative; overflow: hidden; transition: var(--transition);
         }
-
-        .card:hover {
-            border-color: var(--border-focus);
-        }
+        .card:hover { border-color: var(--border-focus); }
 
         /* ==========================================================================
-           4. GAUCHE : INTERCOM / PORTIER VIDÉO (SANS IMAGE)
+           4. GAUCHE : DIRECTIVES IA (Les "Levers" d'action)
            ========================================================================== */
-        .intercom-card {
-            grid-column: 1;
-            grid-row: 1 / 3;
-            padding: 0;
-            border: 1px solid var(--border-light);
-            background: #000;
-            display: flex;
-            flex-direction: column;
+        .directives-card { grid-column: 1; gap: 24px;}
+        
+        /* Segmented Control (Autonomie) */
+        .segmented-control {
+            display: flex; background: var(--bg-input); padding: 4px; border-radius: 12px; border: 1px solid var(--border-light);
         }
-
-        /* Zone Caméra Abstraite */
-        .video-feed {
-            flex: 1;
-            position: relative;
-            background: #000;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-            background-image:
-                linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
-            background-size: 40px 40px;
+        .segment {
+            flex: 1; text-align: center; padding: 10px 0; font-size: 12px; font-weight: 500; color: var(--text-t);
+            cursor: pointer; border-radius: 8px; transition: 0.2s;
         }
+        .segment.active { background: rgba(255,255,255,0.06); color: var(--text-p); box-shadow: 0 2px 8px rgba(0,0,0,0.5); }
 
-        /* L'icône de caméra pulsante au centre */
-        .cam-icon-center {
-            position: relative;
-            z-index: 5;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 16px;
-        }
+        /* Custom Sliders */
+        .slider-group { display: flex; flex-direction: column; gap: 8px; margin-bottom: 8px;}
+        .sl-header { display: flex; justify-content: space-between; font-size: 12px; color: var(--text-s); font-weight: 500;}
+        .sl-value { font-family: var(--font-mono); color: var(--accent-purple); font-weight: 600;}
+        
+        .custom-slider { -webkit-appearance: none; width: 100%; height: 6px; background: var(--border-focus); border-radius: 4px; outline: none; margin: 8px 0; cursor: pointer;}
+        .custom-slider::-webkit-slider-thumb { -webkit-appearance: none; width: 20px; height: 20px; border-radius: 50%; background: #FFF; border: 2px solid var(--accent-purple); cursor: pointer; box-shadow: 0 0 10px rgba(139, 92, 246, 0.4); }
+        
+        .sl-labels { display: flex; justify-content: space-between; font-size: 10px; color: var(--text-t); text-transform: uppercase; font-family: var(--font-mono);}
 
-        .cam-icon-center i {
-            font-size: 56px;
-            color: rgba(255, 255, 255, 0.1);
-            animation: camPulse 2s infinite alternate ease-in-out;
-        }
+        /* Toggles */
+        .rule-row { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid var(--border-light);}
+        .rule-row:last-child { border-bottom: none; padding-bottom: 0;}
+        .rule-info { display: flex; flex-direction: column; gap: 4px; }
+        .rule-title { font-size: 13px; font-weight: 500; color: var(--text-p); }
+        .rule-desc { font-size: 11px; color: var(--text-t); }
 
-        .cam-icon-center .cam-text {
-            font-family: var(--font-mono);
-            font-size: 11px;
-            color: var(--text-t);
-            letter-spacing: 0.1em;
-        }
-
-        @keyframes camPulse {
-            0% {
-                opacity: 0.5;
-                transform: scale(0.95);
-                text-shadow: 0 0 10px transparent;
-                color: rgba(255, 255, 255, 0.15);
-            }
-
-            100% {
-                opacity: 1;
-                transform: scale(1.05);
-                text-shadow: 0 0 20px rgba(16, 185, 129, 0.4);
-                color: rgba(255, 255, 255, 0.4);
-            }
-        }
-
-        /* Ligne de scan horizontal pour faire "Tech" */
-        .scan-line {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, rgba(16, 185, 129, 0.4), transparent);
-            box-shadow: 0 0 20px rgba(16, 185, 129, 0.2);
-            animation: scan 4s linear infinite;
-            z-index: 2;
-            opacity: 0.5;
-        }
-
-        @keyframes scan {
-            0% {
-                top: 0;
-            }
-
-            100% {
-                top: 100%;
-            }
-        }
-
-        /* Les overlays UI sur le flux */
-        .video-overlay {
-            position: absolute;
-            inset: 0;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            padding: 20px;
-            z-index: 10;
-            pointer-events: none;
-        }
-
-        .v-badge {
-            background: rgba(0, 0, 0, 0.8);
-            border: 1px solid var(--border-light);
-            padding: 6px 12px;
-            border-radius: 8px;
-            font-family: var(--font-mono);
-            font-size: 11px;
-            color: var(--text-p);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            width: fit-content;
-        }
-
-        .face-recognition {
-            align-self: center;
-            margin-top: 40px;
-            border: 1px solid var(--accent-purple);
-            background: rgba(139, 92, 246, 0.1);
-            padding: 6px 12px;
-            border-radius: 100px;
-            font-family: var(--font-mono);
-            font-size: 10px;
-            color: var(--accent-purple);
-            font-weight: 600;
-        }
-
-        /* Panneau de contrôle Intercom */
-        .intercom-controls {
-            padding: 24px;
-            background: var(--bg-card);
-            border-top: 1px solid var(--border-light);
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-            z-index: 20;
-        }
-
-        .btn-unlock {
-            background: var(--accent-purple);
-            border: 1px solid var(--accent-purple);
-            padding: 16px;
-            border-radius: 16px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 12px;
-            color: #FFF;
-            font-size: 14px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: 0.2s;
-            width: 100%;
-        }
-
-        .btn-unlock:hover {
-            filter: brightness(1.1);
-            box-shadow: 0 8px 24px rgba(139, 92, 246, 0.2);
-        }
-
-        .btn-unlock.success {
-            background: rgba(16, 185, 129, 0.1);
-            border-color: var(--safe-green);
-            color: var(--safe-green);
-            box-shadow: none;
-            pointer-events: none;
-        }
-
-        .h-actions {
-            display: flex;
-            gap: 12px;
-        }
-
-        .btn-sec {
-            flex: 1;
-            background: var(--bg-input);
-            border: 1px solid var(--border-light);
-            padding: 14px;
-            border-radius: 14px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            color: var(--text-p);
-            font-size: 13px;
-            font-weight: 500;
-            cursor: pointer;
-            transition: 0.2s;
-        }
-
-        .btn-sec:hover {
-            background: rgba(255, 255, 255, 0.05);
-            border-color: var(--border-focus);
-        }
+        .toggle { position: relative; width: 36px; height: 20px; flex-shrink: 0; }
+        .toggle input { opacity: 0; width: 0; height: 0; position: absolute; }
+        .t-slider { position: absolute; cursor: pointer; inset: 0; background-color: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.05); transition: .3s; border-radius: 24px; }
+        .t-slider:before { position: absolute; content: ""; height: 14px; width: 14px; left: 2px; bottom: 2px; background-color: var(--text-s); transition: .3s; border-radius: 50%; box-shadow: 0 2px 4px rgba(0,0,0,0.3);}
+        input:checked + .t-slider { background-color: var(--accent-purple); border-color: var(--accent-purple); }
+        input:checked + .t-slider:before { transform: translateX(16px); background-color: #FFF;}
 
         /* ==========================================================================
-           5. DROITE HAUT : FAMILLE & PRÉSENCE
-           ========================================================================== */
-        .family-card {
-            grid-column: 2 / 4;
-            grid-row: 1;
-            display: flex;
-            flex-direction: column;
+           5. CENTRE : LE COPILOTE INTERACTIF
+           ========================================================================= */
+        .copilot-card { 
+            grid-column: 2; padding: 32px; display: flex; flex-direction: column; 
+            border-color: rgba(139, 92, 246, 0.2); 
+            background: linear-gradient(180deg, rgba(139, 92, 246, 0.04) 0%, var(--bg-card) 100%);
         }
 
-        .family-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 16px;
-            flex: 1;
+        .chat-area { flex: 1; display: flex; flex-direction: column; gap: 20px; overflow-y: auto; padding-right: 8px;}
+        /* Styled Scrollbar */
+        .chat-area::-webkit-scrollbar { width: 4px; }
+        .chat-area::-webkit-scrollbar-thumb { background: var(--border-focus); border-radius: 2px;}
+
+        /* Suggestion Actionnable */
+        .ai-suggestion {
+            background: rgba(255,255,255,0.03); border: 1px solid var(--border-focus);
+            border-radius: 16px; padding: 20px; display: flex; flex-direction: column; gap: 16px;
+            animation: slideUp 0.4s ease;
+        }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        
+        .sugg-header { display: flex; gap: 16px; align-items: flex-start;}
+        .sugg-icon { width: 32px; height: 32px; border-radius: 50%; background: rgba(139, 92, 246, 0.1); border: 1px solid rgba(139, 92, 246, 0.3); color: var(--accent-purple); display: flex; align-items: center; justify-content: center; font-size: 14px; flex-shrink: 0;}
+        .sugg-text { font-size: 14px; color: var(--text-p); line-height: 1.5; }
+        .sugg-text b { color: var(--accent-purple); font-weight: 600;}
+        
+        .sugg-actions { display: flex; gap: 12px; margin-left: 48px;}
+        .btn-approve { flex: 1; background: var(--text-p); color: #000; border: none; padding: 12px; border-radius: 10px; font-size: 13px; font-weight: 600; cursor: pointer; transition: 0.2s;}
+        .btn-approve:hover { background: var(--accent-purple); color: #FFF; }
+        .btn-reject { flex: 1; background: transparent; border: 1px solid var(--border-light); color: var(--text-s); padding: 12px; border-radius: 10px; font-size: 13px; font-weight: 500; cursor: pointer; transition: 0.2s;}
+        .btn-reject:hover { background: rgba(255,255,255,0.05); color: var(--text-p); }
+
+        /* Message Utilisateur */
+        .user-msg {
+            align-self: flex-end; background: var(--bg-input); border: 1px solid var(--border-light);
+            padding: 12px 16px; border-radius: 16px 16px 4px 16px; font-size: 14px; color: var(--text-p);
+            max-width: 80%; line-height: 1.4;
         }
 
-        .person-item {
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid var(--border-light);
-            border-radius: 16px;
-            padding: 16px;
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            transition: var(--transition);
+        /* Omnibar */
+        .omnibar {
+            margin-top: 20px; background: var(--bg-input); border: 1px solid var(--border-light);
+            border-radius: 16px; padding: 10px 10px 10px 20px; display: flex; align-items: center; gap: 16px;
+            transition: var(--transition); flex-shrink: 0;
         }
-
-        .person-item:hover {
-            border-color: var(--border-focus);
-            background: rgba(255, 255, 255, 0.04);
-        }
-
-        .avatar {
-            width: 48px;
-            height: 48px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 16px;
-            font-weight: 600;
-            color: #FFF;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
-        }
-
-        .av-1 {
-            background: linear-gradient(135deg, #8B5CF6, #3B82F6);
-        }
-
-        .av-2 {
-            background: linear-gradient(135deg, #F59E0B, #EF4444);
-        }
-
-        .av-3 {
-            background: linear-gradient(135deg, #10B981, #059669);
-        }
-
-        .av-4 {
-            background: var(--bg-input);
-            border: 1px dashed var(--text-t);
-            color: var(--text-t);
-            cursor: pointer;
-            transition: 0.2s;
-        }
-
-        .av-4:hover {
-            border-color: var(--text-p);
-            color: var(--text-p);
-            background: rgba(255, 255, 255, 0.05);
-        }
-
-        .p-info {
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-            flex: 1;
-            min-width: 0;
-        }
-
-        .p-name {
-            font-size: 14px;
-            font-weight: 600;
-            color: var(--text-p);
-        }
-
-        .p-loc {
-            font-size: 12px;
-            color: var(--text-s);
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .p-loc i {
-            font-size: 10px;
-        }
-
-        .loc-badge {
-            font-family: var(--font-mono);
-            font-size: 10px;
-            padding: 4px 8px;
-            border-radius: 6px;
-            font-weight: 600;
-        }
-
-        .loc-home {
-            background: rgba(16, 185, 129, 0.1);
-            color: var(--accent-green);
-            border: 1px solid rgba(16, 185, 129, 0.2);
-        }
-
-        .loc-away {
-            background: rgba(255, 255, 255, 0.05);
-            color: var(--text-t);
-            border: 1px solid var(--border-light);
-        }
-
-        .loc-transit {
-            background: rgba(59, 130, 246, 0.1);
-            color: var(--accent-blue);
-            border: 1px solid rgba(59, 130, 246, 0.2);
-        }
+        .omnibar:focus-within { border-color: var(--accent-purple); box-shadow: 0 0 0 1px rgba(139, 92, 246, 0.3), 0 8px 24px var(--accent-purple-glow); }
+        .omnibar input { flex: 1; background: transparent; border: none; outline: none; color: var(--text-p); font-size: 14px; font-family: var(--font-main); }
+        .omnibar input::placeholder { color: var(--text-t); }
+        
+        .btn-submit { width: 36px; height: 36px; border-radius: 10px; background: var(--text-p); color: #000; display: flex; align-items: center; justify-content: center; border: none; cursor: pointer; transition: 0.2s;}
+        .btn-submit:hover { background: var(--accent-purple); color: #FFF; }
 
         /* ==========================================================================
-           6. DROITE BAS : CLÉS NUMÉRIQUES (GUEST ACCESS)
+           6. DROITE : HISTORIQUE ACTIF & OVERRIDES (Undo)
            ========================================================================== */
-        .keys-card {
-            grid-column: 2 / 4;
-            grid-row: 2;
-            display: flex;
-            flex-direction: column;
-        }
+        .history-card { grid-column: 3; display: flex; flex-direction: column;}
+        
+        .history-list { display: flex; flex-direction: column; gap: 16px; margin-top: 8px; flex: 1; overflow-y: auto; padding-right: 8px;}
+        .history-list::-webkit-scrollbar { width: 4px; }
+        .history-list::-webkit-scrollbar-thumb { background: var(--border-focus); border-radius: 2px;}
 
-        .keys-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 16px;
-        }
-
-        .btn-add-key {
-            background: transparent;
-            border: 1px solid var(--border-light);
-            padding: 6px 12px;
-            border-radius: 8px;
-            font-size: 12px;
-            color: var(--text-p);
-            cursor: pointer;
-            transition: 0.2s;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .btn-add-key:hover {
-            background: rgba(255, 255, 255, 0.05);
-            border-color: var(--text-s);
-        }
-
-        .keys-list {
-            display: flex;
-            gap: 16px;
-            flex: 1;
-            overflow-x: auto;
-            padding-bottom: 8px;
-        }
-
-        .keys-list::-webkit-scrollbar {
-            height: 4px;
-        }
-
-        .keys-list::-webkit-scrollbar-thumb {
-            background: var(--border-focus);
-            border-radius: 4px;
-        }
-
-        .key-item {
-            min-width: 240px;
-            background: var(--bg-input);
-            border: 1px solid var(--border-light);
-            border-radius: 16px;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
+        .h-item {
+            background: rgba(255,255,255,0.01); border: 1px solid var(--border-light);
+            border-radius: 16px; padding: 16px; display: flex; flex-direction: column; gap: 12px;
             transition: var(--transition);
         }
-
-        .key-item:hover {
-            border-color: var(--border-focus);
-        }
-
-        .k-top {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-        }
-
-        .k-icon {
-            width: 32px;
-            height: 32px;
-            border-radius: 8px;
-            background: rgba(255, 255, 255, 0.05);
-            color: var(--text-t);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 14px;
-        }
-
-        .k-icon.active {
-            background: rgba(139, 92, 246, 0.1);
-            color: var(--accent-purple);
-        }
-
-        .k-code {
-            font-family: var(--font-mono);
-            font-size: 20px;
-            font-weight: 600;
-            color: var(--text-p);
-            letter-spacing: 0.1em;
-            margin-top: 12px;
-        }
-
-        .k-bottom {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-            margin-top: 16px;
-        }
-
-        .k-name {
-            font-size: 13px;
-            font-weight: 500;
-            color: var(--text-s);
-        }
-
-        .k-progress-bg {
+        .h-item:hover { background: rgba(255,255,255,0.03); border-color: var(--border-focus); }
+        
+        .h-header { display: flex; justify-content: space-between; align-items: center; }
+        .h-title { font-size: 13px; font-weight: 600; color: var(--text-p); display: flex; align-items: center; gap: 8px;}
+        .h-icon { color: var(--accent-purple); }
+        .h-time { font-family: var(--font-mono); font-size: 10px; color: var(--text-t); }
+        
+        .h-desc { font-size: 12px; color: var(--text-s); line-height: 1.4; }
+        
+        /* Bouton UNDO */
+        .btn-undo {
+            background: transparent; border: 1px solid var(--border-focus);
+            padding: 8px 12px; border-radius: 8px; color: var(--text-s); font-size: 11px; font-weight: 600; font-family: var(--font-mono);
+            cursor: pointer; transition: 0.2s; display: flex; align-items: center; justify-content: center; gap: 6px;
             width: 100%;
-            height: 4px;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 2px;
-            overflow: hidden;
         }
+        .btn-undo:hover { background: rgba(255,255,255,0.05); color: var(--text-p); border-color: var(--text-t); }
 
-        .k-progress-fill {
-            height: 100%;
-            background: var(--accent-purple);
-            border-radius: 2px;
-        }
-
-        .k-time-left {
-            font-family: var(--font-mono);
-            font-size: 10px;
-            color: var(--text-t);
-            text-align: right;
-        }
-
-        .key-item.add-new {
-            background: transparent;
-            border: 1px dashed var(--border-focus);
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: 0.2s;
-            gap: 12px;
-            color: var(--text-t);
-        }
-
-        .key-item.add-new:hover {
-            border-color: var(--text-p);
-            color: var(--text-p);
-            background: rgba(255, 255, 255, 0.02);
-        }
     </style>
 </head>
-
 <body>
 
     <div class="app-frame">
-
+        
         <nav class="dock">
             <div class="logo-mark">A.</div>
             <div class="dock-icon"><i class="fa-solid fa-house"></i></div>
+            <div class="dock-icon active"><i class="fa-solid fa-brain"></i></div>
             <div class="dock-icon"><i class="fa-solid fa-layer-group"></i></div>
-            <div class="dock-icon active"><i class="fa-solid fa-key"></i></div>
-            <div class="dock-icon"><i class="fa-solid fa-shield-halved"></i></div>
+            <div class="dock-icon"><i class="fa-solid fa-chart-pie"></i></div>
             <div class="dock-icon" style="margin-top: auto;"><i class="fa-solid fa-gear"></i></div>
         </nav>
 
         <main class="main-wrapper">
-
+            
             <header class="header">
                 <div class="v-stack" style="gap: 4px;">
-                    <h1 style="font-size: 24px; font-weight: 600; letter-spacing: -0.02em;">Accès & Présences</h1>
-                    <span style="font-size: 13px; color: var(--text-s);">Gestion des entrées et clés numériques</span>
+                    <h1 style="font-size: 24px; font-weight: 600; letter-spacing: -0.02em;">AURA Engine</h1>
+                    <span style="font-size: 13px; color: var(--text-s);">Cerveau Domotique & Contrôle Cognitif</span>
                 </div>
-
+                
                 <div class="h-context">
                     <div class="status-badge">
                         <div class="status-dot"></div>
-                        <span>PÉRIMÈTRE ACTIF</span>
+                        <span>MODE COPILOTE</span>
                     </div>
                     <div style="width: 1px; height: 16px; background: var(--border-light); margin: 0 8px;"></div>
-                    <span class="t-mono" style="color: var(--text-t);"><i class="fa-solid fa-location-dot"
-                            style="margin-right: 4px;"></i> Angers</span>
-                    <span class="t-mono" style="color: var(--text-p);" id="clock">21:06</span>
+                    <span class="t-mono" style="color: var(--text-t);"><i class="fa-solid fa-location-dot" style="margin-right: 4px;"></i> Angers</span>
+                    <span class="t-mono" style="color: var(--text-p);" id="clock">12:15</span>
                 </div>
             </header>
 
             <div class="grid-layout">
-
-                <div class="card intercom-card">
-
-                    <div class="video-feed">
-                        <div class="scan-line"></div>
-
-                        <div class="cam-icon-center">
-                            <i class="fa-solid fa-video"></i>
-                            <span class="cam-text">FLUX VIDÉO CHIFFRÉ</span>
-                        </div>
-
-                        <div class="video-overlay">
-                            <div class="h-stack" style="justify-content: space-between;">
-                                <div class="v-badge"
-                                    style="color: var(--accent-green); border-color: rgba(16, 185, 129, 0.3);">
-                                    <div class="status-dot"
-                                        style="width: 6px; height: 6px; box-shadow:none; background: var(--accent-green);">
-                                    </div> EN DIRECT
-                                </div>
-                                <div class="v-badge" style="color: var(--text-t);"><i
-                                        class="fa-solid fa-microphone-slash"></i></div>
-                            </div>
-
-                            <div class="face-recognition">LIVREUR DPD DÉTECTÉ (85%)</div>
-
-                            <div class="v-stack" style="gap: 4px;">
-                                <span style="font-size: 16px; font-weight: 600; color: #FFF;">Portail Principal</span>
-                                <span
-                                    style="font-family: var(--font-mono); font-size: 11px; color: rgba(255,255,255,0.6);">Sonnerie
-                                    détectée il y a 12s</span>
-                            </div>
+                
+                <div class="card directives-card">
+                    <span class="t-section"><i class="fa-solid fa-sliders"></i> Directives AURA</span>
+                    
+                    <div class="v-stack" style="gap: 12px; margin-bottom: 16px;">
+                        <span style="font-size: 13px; font-weight: 500; color: var(--text-p);">Niveau d'autonomie</span>
+                        <div class="segmented-control">
+                            <div class="segment" onclick="setSegment(this)">Manuel</div>
+                            <div class="segment active" onclick="setSegment(this)">Copilote</div>
+                            <div class="segment" onclick="setSegment(this)">Auto</div>
                         </div>
                     </div>
 
-                    <div class="intercom-controls">
-                        <button class="btn-unlock" id="btnUnlock" onclick="unlockDoor(this)">
-                            <i class="fa-solid fa-lock-open"></i> Déverrouiller le portail
-                        </button>
+                    <div class="slider-group">
+                        <div class="sl-header">
+                            <span>Énergie</span>
+                            <span class="sl-value" id="valEco">Équilibré</span>
+                        </div>
+                        <input type="range" class="custom-slider" min="0" max="100" value="50" oninput="updateSlider(this, 'valEco', ['Max Éco', 'Équilibré', 'Max Confort'])" style="background: linear-gradient(90deg, var(--accent-green) 0%, var(--border-focus) 50%, #F59E0B 100%);">
+                        <div class="sl-labels"><span>Priorité Éco</span><span>Priorité Confort</span></div>
+                    </div>
 
-                        <div class="h-actions">
-                            <button class="btn-sec" onclick="triggerAction(this, 'Micro activé', 'fa-microphone')">
-                                <i class="fa-solid fa-microphone"></i> Parler
-                            </button>
-                            <button class="btn-sec" onclick="triggerAction(this, 'Message envoyé', 'fa-check')">
-                                <i class="fa-solid fa-comment-dots"></i> Message auto.
-                            </button>
+                    <div class="slider-group">
+                        <div class="sl-header">
+                            <span>Anticipation Thermique</span>
+                            <span class="sl-value" id="valAnt">Standard</span>
+                        </div>
+                        <input type="range" class="custom-slider" min="0" max="100" value="50" oninput="updateSlider(this, 'valAnt', ['Réactif', 'Standard', 'Prédictif'])" style="background: linear-gradient(90deg, var(--border-focus) 0%, var(--accent-purple) 100%);">
+                        <div class="sl-labels"><span>Réactif</span><span>Prédictif (Météo)</span></div>
+                    </div>
+
+                    <div class="v-stack" style="margin-top: auto; border-top: 1px solid var(--border-light); padding-top: 16px;">
+                        <div class="rule-row">
+                            <div class="rule-info">
+                                <span class="rule-title">Micro-ajustements invisibles</span>
+                                <span class="rule-desc">Modifier lumière < 5%</span>
+                            </div>
+                            <label class="toggle"><input type="checkbox" checked><span class="t-slider"></span></label>
+                        </div>
+                        <div class="rule-row">
+                            <div class="rule-info">
+                                <span class="rule-title">HP Rouges strictes</span>
+                                <span class="rule-desc">Couper gros appareils (Tarif)</span>
+                            </div>
+                            <label class="toggle"><input type="checkbox" checked><span class="t-slider"></span></label>
                         </div>
                     </div>
 
                 </div>
 
-                <div class="card family-card">
-                    <span class="t-section"><i class="fa-solid fa-users"></i> Foyer & Localisation</span>
-
-                    <div class="family-grid">
-                        <div class="person-item">
-                            <div class="avatar av-1">J</div>
-                            <div class="p-info">
-                                <span class="p-name">Julien (Toi)</span>
-                                <span class="p-loc"><i class="fa-solid fa-wifi"></i> Connecté au Wi-Fi</span>
+                <div class="card copilot-card">
+                    
+                    <div class="chat-area" id="chatArea">
+                        
+                        <div class="ai-suggestion" id="sugg1">
+                            <div class="sugg-header">
+                                <div class="sugg-icon"><i class="fa-solid fa-sun"></i></div>
+                                <div class="sugg-text">
+                                    L'ensoleillement sur la baie vitrée du Salon provoque une surchauffe rapide (+2.1°C détectés). <br><br>
+                                    Voulez-vous que je <b>ferme les volets à 45%</b> pour bloquer les rayons directs tout en gardant la luminosité ?
+                                </div>
                             </div>
-                            <div class="loc-badge loc-home">SALON</div>
-                        </div>
-
-                        <div class="person-item">
-                            <div class="avatar av-2">E</div>
-                            <div class="p-info">
-                                <span class="p-name">Emma</span>
-                                <span class="p-loc"><i class="fa-solid fa-car"></i> En voiture (4km)</span>
-                            </div>
-                            <div class="loc-badge loc-transit">ARRIVE (12M)</div>
-                        </div>
-
-                        <div class="person-item">
-                            <div class="avatar av-3">L</div>
-                            <div class="p-info">
-                                <span class="p-name">Lucas</span>
-                                <span class="p-loc"><i class="fa-solid fa-location-dot"></i> Université</span>
-                            </div>
-                            <div class="loc-badge loc-away">ABSENT</div>
-                        </div>
-
-                        <div class="person-item"
-                            style="border-style: dashed; cursor: pointer; background: transparent;">
-                            <div class="avatar av-4"><i class="fa-solid fa-plus"></i></div>
-                            <div class="p-info">
-                                <span class="p-name" style="color: var(--text-t);">Inviter un membre</span>
-                                <span class="p-loc">Donner accès à l'app</span>
+                            <div class="sugg-actions">
+                                <button class="btn-approve" onclick="approveAction('sugg1', 'Volets ajustés à 45% pour limiter la surchauffe.')">Approuver</button>
+                                <button class="btn-reject" onclick="rejectAction('sugg1')">Ignorer</button>
                             </div>
                         </div>
+
                     </div>
+
+                    <div class="omnibar">
+                        <i class="fa-solid fa-sparkles" style="color: var(--accent-purple);"></i>
+                        <input type="text" id="aiInput" placeholder="Demandez un ajustement ou une analyse..." autocomplete="off">
+                        <button class="btn-submit" onclick="submitPrompt()"><i class="fa-solid fa-arrow-up"></i></button>
+                    </div>
+
                 </div>
 
-                <div class="card keys-card">
-                    <div class="keys-header">
-                        <span class="t-section" style="margin: 0;"><i class="fa-solid fa-key"></i> Clés Numériques
-                            (Guest)</span>
-                        <button class="btn-add-key" onclick="generateCode(this)">
-                            <i class="fa-solid fa-plus"></i> Nouveau code
-                        </button>
-                    </div>
-
-                    <div class="keys-list">
-
-                        <div class="key-item">
-                            <div class="k-top">
-                                <div class="k-icon active"><i class="fa-solid fa-box"></i></div>
-                                <span class="loc-badge loc-home"
-                                    style="border-color: rgba(139, 92, 246, 0.3); color: var(--accent-purple); background: rgba(139, 92, 246, 0.1);">ACTIF</span>
+                <div class="card history-card">
+                    <span class="t-section"><i class="fa-solid fa-clock-rotate-left"></i> Actions Récentes & Overrides</span>
+                    
+                    <div class="history-list" id="historyList">
+                        
+                        <div class="h-item" id="hist1">
+                            <div class="h-header">
+                                <span class="h-title"><i class="fa-solid fa-music h-icon"></i> Volume réduit</span>
+                                <span class="h-time">12:05</span>
                             </div>
-                            <div class="k-code">4892</div>
-                            <div class="k-bottom">
-                                <span class="k-name">Livraison Amazon</span>
-                                <div class="v-stack" style="gap: 4px;">
-                                    <div class="k-progress-bg">
-                                        <div class="k-progress-fill" style="width: 65%;"></div>
-                                    </div>
-                                    <span class="k-time-left">Expire à 22:00</span>
-                                </div>
-                            </div>
+                            <span class="h-desc">Volume du HomePod réduit suite à la détection d'un appel téléphonique entrant.</span>
+                            <button class="btn-undo" onclick="undoAction('hist1', 'Volume rétabli.')">
+                                <i class="fa-solid fa-rotate-left"></i> Annuler l'action
+                            </button>
                         </div>
 
-                        <div class="key-item" style="opacity: 0.6;">
-                            <div class="k-top">
-                                <div class="k-icon"><i class="fa-solid fa-broom"></i></div>
-                                <span class="loc-badge loc-away">DEMAIN</span>
+                        <div class="h-item" id="hist2">
+                            <div class="h-header">
+                                <span class="h-title"><i class="fa-solid fa-blinds h-icon"></i> Mode Cinéma</span>
+                                <span class="h-time">11:15</span>
                             </div>
-                            <div class="k-code">••• 7</div>
-                            <div class="k-bottom">
-                                <span class="k-name">Service de ménage</span>
-                                <div class="v-stack" style="gap: 4px;">
-                                    <div class="k-progress-bg">
-                                        <div class="k-progress-fill" style="width: 0%;"></div>
-                                    </div>
-                                    <span class="k-time-left">Valide Mar. 09h-12h</span>
-                                </div>
-                            </div>
+                            <span class="h-desc">Volets fermés et lumières tamisées à 15% (Blanc chaud) dans le Salon.</span>
+                            <button class="btn-undo" onclick="undoAction('hist2', 'Scène Cinéma annulée.')">
+                                <i class="fa-solid fa-rotate-left"></i> Annuler l'action
+                            </button>
                         </div>
 
-                        <div class="key-item add-new" onclick="generateCode(this)">
-                            <i class="fa-solid fa-circle-plus" style="font-size: 24px;"></i>
-                            <span style="font-size: 13px; font-weight: 500;">Générer un accès</span>
+                        <div class="h-item" style="opacity: 0.5;">
+                            <div class="h-header">
+                                <span class="h-title"><i class="fa-solid fa-bolt h-icon"></i> Recharge différée</span>
+                                <span class="h-time">09:00</span>
+                            </div>
+                            <span class="h-desc">Charge de la voiture mise en pause pour laisser la priorité au chauffe-eau.</span>
                         </div>
 
                     </div>
@@ -904,56 +393,148 @@
 
     <script>
         // Horloge contextuelle
-        document.getElementById('clock').innerText = "21:06";
+        document.getElementById('clock').innerText = "12:15";
 
-        // Animation Déverrouillage Portail
-        function unlockDoor(btn) {
-            btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Déverrouillage...';
-            btn.style.pointerEvents = "none";
-            btn.style.opacity = "0.8";
+        // UI : Segmented Control (Gauche)
+        function setSegment(clickedElement) {
+            const parent = clickedElement.parentElement;
+            parent.querySelectorAll('.segment').forEach(seg => seg.classList.remove('active'));
+            clickedElement.classList.add('active');
+        }
 
+        // UI : Slider Labels (Gauche)
+        function updateSlider(slider, labelId, textArray) {
+            const val = slider.value;
+            const label = document.getElementById(labelId);
+            if (val < 33) label.innerText = textArray[0];
+            else if (val < 66) label.innerText = textArray[1];
+            else label.innerText = textArray[2];
+        }
+
+        // UX : Approuver une suggestion de l'IA (Centre)
+        function approveAction(cardId, successText) {
+            const card = document.getElementById(cardId);
+            const btnApprove = card.querySelector('.btn-approve');
+            const actions = card.querySelector('.sugg-actions');
+            
+            btnApprove.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Application...';
+            actions.style.pointerEvents = "none";
+            
             setTimeout(() => {
-                btn.classList.add('success');
-                btn.innerHTML = '<i class="fa-solid fa-check"></i> Portail ouvert (10s)';
-                btn.style.opacity = "1";
+                // Transformer la carte en confirmation
+                card.innerHTML = `
+                    <div class="h-stack" style="gap: 12px;">
+                        <i class="fa-solid fa-check-circle" style="color: var(--accent-green); font-size: 18px;"></i>
+                        <span style="font-size: 14px; font-weight: 500; color: var(--text-p);">${successText}</span>
+                    </div>
+                `;
+                card.style.background = "rgba(16, 185, 129, 0.05)";
+                card.style.borderColor = "rgba(16, 185, 129, 0.2)";
 
-                setTimeout(() => {
-                    btn.classList.remove('success');
-                    btn.innerHTML = '<i class="fa-solid fa-lock-open"></i> Déverrouiller le portail';
-                    btn.style.pointerEvents = "auto";
-                }, 4000);
+                // Ajouter à l'historique à droite
+                addHistoryLog("Volets ajustés", "Action validée par l'utilisateur.", "fa-blinds");
             }, 800);
         }
 
-        // Actions secondaires (Micro, Message)
-        function triggerAction(btn, text, iconClass) {
-            const originalContent = btn.innerHTML;
+        // UX : Refuser une suggestion de l'IA (Centre)
+        function rejectAction(cardId) {
+            const card = document.getElementById(cardId);
+            card.style.opacity = "0";
+            card.style.transform = "scale(0.95)";
+            setTimeout(() => {
+                card.remove();
+            }, 300);
+        }
+
+        // UX : Annuler une action (Undo) dans la colonne de droite
+        function undoAction(itemId, revertText) {
+            const item = document.getElementById(itemId);
+            const btn = item.querySelector('.btn-undo');
+            
             btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i>';
             btn.style.pointerEvents = "none";
 
             setTimeout(() => {
-                btn.innerHTML = `<i class="fa-solid ${iconClass}"></i> ${text}`;
-                btn.style.color = "var(--text-p)";
-
+                item.style.background = "rgba(239, 68, 68, 0.05)";
+                item.style.borderColor = "rgba(239, 68, 68, 0.2)";
+                item.innerHTML = `
+                    <div class="h-header">
+                        <span class="h-title"><i class="fa-solid fa-xmark" style="color: var(--accent-red);"></i> Action annulée</span>
+                        <span class="h-time">À l'instant</span>
+                    </div>
+                    <span class="h-desc" style="color: var(--text-p);">${revertText}</span>
+                `;
                 setTimeout(() => {
-                    btn.innerHTML = originalContent;
-                    btn.style.pointerEvents = "auto";
-                    btn.style.color = "var(--text-p)";
+                    item.style.opacity = "0.5";
                 }, 2000);
             }, 600);
         }
 
-        // Générer un code
-        function generateCode(btn) {
-            const btnOriginal = btn.innerHTML;
-            btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Création...';
+        // UX : Simuler le Prompt (Centre)
+        function submitPrompt() {
+            const input = document.getElementById('aiInput');
+            if(input.value.trim() === '') input.value = "Analyse ma consommation";
+            
+            const btn = document.querySelector('.btn-submit');
+            btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i>';
+            input.disabled = true;
 
             setTimeout(() => {
-                btn.innerHTML = btnOriginal;
-                alert("Nouveau code temporaire généré (PIN: 8319).");
-            }, 600);
+                // Ajouter le message user
+                const chatArea = document.getElementById('chatArea');
+                const userMsg = document.createElement('div');
+                userMsg.className = 'user-msg';
+                userMsg.innerText = input.value;
+                chatArea.appendChild(userMsg);
+
+                input.value = '';
+                btn.innerHTML = '<i class="fa-solid fa-arrow-up"></i>';
+                input.disabled = false;
+
+                // Simuler la réponse de l'IA
+                setTimeout(() => {
+                    const newSugg = document.createElement('div');
+                    newSugg.className = 'ai-suggestion';
+                    newSugg.id = 'sugg2';
+                    newSugg.innerHTML = `
+                        <div class="sugg-header">
+                            <div class="sugg-icon"><i class="fa-solid fa-bolt"></i></div>
+                            <div class="sugg-text">
+                                J'ai analysé la consommation. Le chauffe-eau consomme actuellement 2.2kW en HP. <br><br>
+                                Voulez-vous que je <b>suspende le cycle</b> jusqu'au passage en Heures Creuses (dans 40 min) ? <b>(Économie: 0.18€)</b>.
+                            </div>
+                        </div>
+                        <div class="sugg-actions">
+                            <button class="btn-approve" onclick="approveAction('sugg2', 'Cycle ECS différé.')">Approuver</button>
+                            <button class="btn-reject" onclick="rejectAction('sugg2')">Ignorer</button>
+                        </div>
+                    `;
+                    chatArea.appendChild(newSugg);
+                    chatArea.scrollTop = chatArea.scrollHeight;
+                }, 800);
+
+            }, 500);
         }
+
+        // Helper pour l'historique
+        function addHistoryLog(title, desc, iconClass) {
+            const list = document.getElementById('historyList');
+            const item = document.createElement('div');
+            item.className = 'h-item';
+            item.style.animation = "slideUp 0.4s ease";
+            item.innerHTML = `
+                <div class="h-header">
+                    <span class="h-title"><i class="fa-solid ${iconClass} h-icon"></i> ${title}</span>
+                    <span class="h-time">À l'instant</span>
+                </div>
+                <span class="h-desc">${desc}</span>
+            `;
+            list.insertBefore(item, list.firstChild);
+        }
+
+        document.getElementById('aiInput').addEventListener('keypress', (e) => {
+            if(e.key === 'Enter') submitPrompt();
+        });
     </script>
 </body>
-
 </html>
