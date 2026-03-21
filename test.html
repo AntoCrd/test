@@ -3,62 +3,80 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-<title>RunAlert — Page introuvable</title>
+<title>RunAlert — Modifier profil</title>
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,500;1,600;1,700&display=swap" rel="stylesheet">
 <style>
-:root{--canvas:#F4F5F8;--card:#FFFFFF;--acc:#FF3B30;--acc-glow:rgba(255,59,48,.25);--ink:#0B0F19;--sub:#848A9C;--faint:#B8BCC9;--df:'Outfit',sans-serif;--db:'Plus Jakarta Sans',sans-serif}
-*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}body{font-family:var(--db);background:var(--canvas);color:var(--ink);-webkit-font-smoothing:antialiased;max-width:430px;margin:0 auto;min-height:100vh;display:flex;flex-direction:column}a{text-decoration:none;color:inherit}button{font-family:var(--db);cursor:pointer;border:none;background:none;color:inherit}
-@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
-@keyframes fadeIn{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+:root{--canvas:#F4F5F8;--card:#FFFFFF;--acc:#FF3B30;--acc-glow:rgba(255,59,48,.25);--ink:#0B0F19;--sub:#848A9C;--faint:#B8BCC9;--line:#ECEDF1;--shadow:0 4px 24px rgba(11,15,25,.06),0 1px 4px rgba(11,15,25,.04);--df:'Outfit',sans-serif;--db:'Plus Jakarta Sans',sans-serif}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}body{font-family:var(--db);background:var(--canvas);color:var(--ink);-webkit-font-smoothing:antialiased;max-width:430px;margin:0 auto;min-height:100vh;padding-bottom:20px}a{text-decoration:none;color:inherit}button{font-family:var(--db);cursor:pointer;border:none;background:none;color:inherit}::-webkit-scrollbar{display:none}
+input,select,textarea{font-family:var(--db);font-size:15px;font-weight:500;color:var(--ink);background:var(--canvas);border:none;border-radius:16px;outline:none;padding:14px 18px;width:100%;resize:none;transition:background .2s}
+input:focus,textarea:focus{background:#ECEDF1}input::placeholder,textarea::placeholder{color:var(--faint)}
+label{font-size:13px;font-weight:600;color:var(--ink);display:block;margin-bottom:6px}
+@keyframes rise{from{transform:translateY(16px);opacity:0}to{transform:translateY(0);opacity:1}}.r{animation:rise .5s cubic-bezier(.22,1,.36,1) both}.d1{animation-delay:50ms}.d2{animation-delay:100ms}.d3{animation-delay:150ms}
 </style>
 </head>
 <body>
 
-<!-- Logo -->
-<div style="padding:20px 22px 0">
-  <a href="index.html" style="display:flex;align-items:center;gap:10px">
-    <div style="width:36px;height:36px;border-radius:10px;background:var(--acc);display:flex;align-items:center;justify-content:center">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+<!-- Header -->
+<div style="padding:16px 22px 0;display:flex;align-items:center;justify-content:space-between" class="r">
+  <div style="display:flex;align-items:center;gap:12px">
+    <a href="profile.html" style="width:42px;height:42px;border-radius:50%;background:var(--card);box-shadow:var(--shadow);display:flex;align-items:center;justify-content:center">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--sub)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg>
+    </a>
+    <h1 style="font-family:var(--df);font-size:22px;font-weight:900;letter-spacing:-.03em">Modifier profil<span style="color:var(--acc)">.</span></h1>
+  </div>
+  <button onclick="alert('Profil sauvegardé !')" style="color:var(--acc);font-size:14px;font-weight:700">Sauver</button>
+</div>
+
+<!-- Avatar -->
+<div class="r d1" style="text-align:center;padding:28px 22px 0">
+  <div style="position:relative;display:inline-block">
+    <div style="width:90px;height:90px;border-radius:50%;background:var(--acc);display:flex;align-items:center;justify-content:center;box-shadow:0 8px 28px var(--acc-glow)">
+      <span style="font-family:var(--df);font-size:30px;font-weight:900;color:#fff">LD</span>
     </div>
-    <span style="font-family:var(--df);font-size:20px;font-weight:900;letter-spacing:-.03em">Run<span style="color:var(--acc)">Alert</span></span>
-  </a>
+    <button style="position:absolute;bottom:-2px;right:-2px;width:32px;height:32px;border-radius:50%;background:var(--card);box-shadow:var(--shadow);display:flex;align-items:center;justify-content:center">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--acc)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/><circle cx="12" cy="13" r="3"/></svg>
+    </button>
+  </div>
+  <p style="color:var(--sub);font-size:13px;font-weight:500;margin-top:12px">Changer la photo</p>
 </div>
 
-<!-- Content -->
-<div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px 32px;text-align:center">
-
-  <!-- Animated icon -->
-  <div style="width:120px;height:120px;border-radius:36px;background:rgba(255,59,48,.06);display:flex;align-items:center;justify-content:center;margin-bottom:32px;animation:bounce 2.5s ease-in-out infinite">
-    <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="var(--acc)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
-      <circle cx="12" cy="12" r="10"/>
-      <path d="M16 16s-1.5-2-4-2-4 2-4 2"/>
-      <line x1="9" x2="9.01" y1="9" y2="9" stroke-width="2.5"/>
-      <line x1="15" x2="15.01" y1="9" y2="9" stroke-width="2.5"/>
-    </svg>
-  </div>
-
-  <!-- 404 number -->
-  <p style="font-family:var(--df);font-size:72px;font-weight:900;font-style:italic;color:var(--acc);letter-spacing:-.06em;line-height:1;opacity:.15;margin-bottom:-10px;animation:fadeIn .5s both">404</p>
-
-  <h1 style="font-family:var(--df);font-size:26px;font-weight:900;letter-spacing:-.04em;line-height:1.15;margin-bottom:12px;animation:fadeIn .5s .1s both">Mauvais parcours<span style="color:var(--acc)">.</span></h1>
-
-  <p style="color:var(--sub);font-size:15px;font-weight:500;line-height:1.6;max-width:280px;margin-bottom:32px;animation:fadeIn .5s .2s both">Cette page n'existe pas ou a été déplacée. Pas de panique, on vous remet sur la bonne route.</p>
-
-  <div style="display:flex;flex-direction:column;gap:10px;width:100%;max-width:260px;animation:fadeIn .5s .3s both">
-    <a href="index.html" style="display:flex;align-items:center;justify-content:center;gap:7px;padding:15px 24px;border-radius:50px;background:var(--acc);font-size:14px;font-weight:700;color:#fff;box-shadow:0 4px 16px var(--acc-glow)">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-      Retour à l'accueil
-    </a>
-    <a href="explore.html" style="display:flex;align-items:center;justify-content:center;gap:7px;padding:15px 24px;border-radius:50px;background:var(--card);font-size:14px;font-weight:600;color:var(--ink);box-shadow:0 4px 24px rgba(11,15,25,.06)">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-      Explorer les courses
-    </a>
+<!-- Form -->
+<div class="r d2" style="padding:28px 22px 0">
+  <div style="border-radius:24px;padding:24px;background:var(--card);box-shadow:var(--shadow)">
+    <p style="font-family:var(--df);font-size:15px;font-weight:800;color:var(--sub);letter-spacing:.04em;text-transform:uppercase;margin-bottom:18px;font-size:11px">Informations personnelles</p>
+    <div style="display:flex;gap:12px;margin-bottom:16px">
+      <div style="flex:1"><label>Prénom</label><input value="Lucas"></div>
+      <div style="flex:1"><label>Nom</label><input value="Dupont"></div>
+    </div>
+    <div style="margin-bottom:16px"><label>Pseudo</label><input value="Lucas D."></div>
+    <div style="margin-bottom:16px"><label>Email</label><input type="email" value="lucas.dupont@email.com"></div>
+    <div style="margin-bottom:16px"><label>Bio</label><textarea rows="3" placeholder="Parlez de vous…">Coureur passionné, objectif marathon sous 3h30.</textarea></div>
   </div>
 </div>
 
-<!-- Footer -->
-<div style="padding:20px;text-align:center">
-  <p style="color:var(--faint);font-size:11px;font-weight:500">RunAlert — Ne ratez plus aucune course</p>
+<div class="r d3" style="padding:18px 22px 0">
+  <div style="border-radius:24px;padding:24px;background:var(--card);box-shadow:var(--shadow)">
+    <p style="font-family:var(--df);font-size:15px;font-weight:800;color:var(--sub);letter-spacing:.04em;text-transform:uppercase;margin-bottom:18px;font-size:11px">Course à pied</p>
+    <div style="display:flex;gap:12px;margin-bottom:16px">
+      <div style="flex:1"><label>Ville</label><input value="Lyon"></div>
+      <div style="flex:1"><label>Code postal</label><input value="69001"></div>
+    </div>
+    <div style="margin-bottom:16px">
+      <label>Niveau</label>
+      <select style="font-family:var(--db);font-size:15px;font-weight:500;color:var(--ink);background:var(--canvas);border:none;border-radius:16px;padding:14px 18px;width:100%;outline:none;appearance:none;background-image:url('data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%2212%22 height=%2212%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22%23848A9C%22 stroke-width=%222%22><path d=%22m6 9 6 6 6-6%22/></svg>');background-repeat:no-repeat;background-position:right 16px center">
+        <option>Débutant</option>
+        <option selected>Intermédiaire</option>
+        <option>Confirmé</option>
+        <option>Élite</option>
+      </select>
+    </div>
+    <div style="margin-bottom:16px"><label>Téléphone</label><input type="tel" placeholder="+33 6 00 00 00 00"></div>
+  </div>
+</div>
+
+<!-- Save -->
+<div style="padding:24px 22px">
+  <button onclick="alert('Profil sauvegardé !')" style="width:100%;padding:16px;border-radius:50px;background:var(--acc);font-size:15px;font-weight:700;color:#fff;box-shadow:0 4px 16px var(--acc-glow)">Enregistrer les modifications</button>
 </div>
 
 </body>
