@@ -3,173 +3,124 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-<title>RunAlert — Nouvelle course</title>
+<title>RunAlert — Calendrier</title>
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,500;1,600;1,700&display=swap" rel="stylesheet">
 <style>
 :root{--canvas:#F4F5F8;--card:#FFFFFF;--acc:#FF3B30;--acc-glow:rgba(255,59,48,.25);--ink:#0B0F19;--sub:#848A9C;--faint:#B8BCC9;--mute:#D4D7E0;--line:#ECEDF1;--shadow:0 4px 24px rgba(11,15,25,.06),0 1px 4px rgba(11,15,25,.04);--df:'Outfit',sans-serif;--db:'Plus Jakarta Sans',sans-serif}
-*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}body{font-family:var(--db);background:var(--canvas);color:var(--ink);-webkit-font-smoothing:antialiased;max-width:430px;margin:0 auto;min-height:100vh;padding-bottom:20px}a{text-decoration:none;color:inherit}button{font-family:var(--db);cursor:pointer;border:none;background:none;color:inherit}::-webkit-scrollbar{display:none}
-input,select,textarea{font-family:var(--db);font-size:15px;font-weight:500;color:var(--ink);background:var(--canvas);border:none;border-radius:16px;outline:none;padding:14px 18px;width:100%;transition:background .2s;resize:none}
-input:focus,select:focus,textarea:focus{background:#ECEDF1}
-input::placeholder,textarea::placeholder{color:var(--faint)}
-label{font-size:13px;font-weight:600;color:var(--ink);display:block;margin-bottom:6px}
-.step-dot{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--df);font-size:13px;font-weight:800;flex-shrink:0;transition:all .3s}
-.step-dot.active{background:var(--acc);color:#fff;box-shadow:0 2px 10px var(--acc-glow)}
-.step-dot.done{background:#10B981;color:#fff}
-.step-dot.pending{background:var(--line);color:var(--sub)}
-.step-line{flex:1;height:2px;border-radius:1px;transition:background .3s}
-.form-card{border-radius:24px;padding:24px;background:var(--card);box-shadow:var(--shadow);margin:0 22px}
-.field{margin-bottom:18px}
-.row{display:flex;gap:12px}
-.row .field{flex:1}
-.check-row{display:flex;flex-wrap:wrap;gap:8px}
-.check-item{display:flex;align-items:center;gap:7px;padding:9px 16px;border-radius:50px;background:var(--canvas);font-size:13px;font-weight:500;color:var(--sub);cursor:pointer;transition:all .2s}
-.check-item.on{background:rgba(255,59,48,.08);color:var(--acc);font-weight:600}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}body{font-family:var(--db);background:var(--canvas);color:var(--ink);-webkit-font-smoothing:antialiased;max-width:430px;margin:0 auto;min-height:100vh;padding-bottom:96px}a{text-decoration:none;color:inherit}button{font-family:var(--db);cursor:pointer;border:none;background:none;color:inherit}::-webkit-scrollbar{display:none}
+@keyframes rise{from{transform:translateY(16px);opacity:0}to{transform:translateY(0);opacity:1}}.r{animation:rise .5s cubic-bezier(.22,1,.36,1) both}.d1{animation-delay:50ms}.d2{animation-delay:100ms}.d3{animation-delay:150ms}
+.bottom-nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:430px;z-index:50;padding:0 16px 10px}.bottom-nav-inner{border-radius:50px;padding:6px 8px;display:flex;justify-content:space-around;background:rgba(255,255,255,.75);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);box-shadow:0 -2px 20px rgba(11,15,25,.06)}.nav-item{display:flex;flex-direction:column;align-items:center;gap:3px;padding:8px 14px;border-radius:50px;position:relative}.nav-label{font-size:10px;font-weight:500;color:var(--sub)}.nav-badge{position:absolute;top:2px;right:4px;min-width:16px;height:16px;border-radius:50px;background:var(--acc);color:#fff;font-size:9px;font-weight:700;display:flex;align-items:center;justify-content:center;padding:0 4px;box-shadow:0 0 8px var(--acc-glow)}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);text-align:center;gap:2px}
+.cal-head{font-size:11px;font-weight:600;color:var(--sub);padding:8px 0}
+.cal-day{position:relative;padding:10px 0;border-radius:14px;font-size:14px;font-weight:500;color:var(--ink);transition:all .2s}
+.cal-day.empty{color:transparent}
+.cal-day.today{background:var(--acc);color:#fff;font-weight:700;border-radius:14px;box-shadow:0 2px 8px var(--acc-glow)}
+.cal-day.has-race::after{content:'';position:absolute;bottom:4px;left:50%;transform:translateX(-50%);width:5px;height:5px;border-radius:50%}
+.cal-day.race-orange::after{background:#FF3B30}
+.cal-day.race-green::after{background:#10B981}
+.cal-day.race-purple::after{background:#8B5CF6}
+.cal-day.race-blue::after{background:#0EA5E9}
 </style>
 </head>
 <body>
 
-<!-- Header -->
-<div style="padding:16px 22px 0;display:flex;align-items:center;gap:12px">
-  <a href="organizer.html" style="width:42px;height:42px;border-radius:50%;background:var(--card);box-shadow:var(--shadow);display:flex;align-items:center;justify-content:center">
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--sub)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg>
-  </a>
-  <h1 style="font-family:var(--df);font-size:22px;font-weight:900;letter-spacing:-.03em">Nouvelle course<span style="color:var(--acc)">.</span></h1>
+<div style="padding:20px 22px 0" class="r">
+  <h1 style="font-family:var(--df);font-size:28px;font-weight:900;letter-spacing:-.04em">Calendrier<span style="color:var(--acc)">.</span></h1>
+  <p style="color:var(--sub);font-size:13px;font-weight:500;margin-top:2px">Vos courses à venir</p>
 </div>
 
-<!-- Stepper -->
-<div style="display:flex;align-items:center;gap:0;padding:24px 30px 0" id="stepper">
-  <div class="step-dot active" id="dot0">1</div>
-  <div class="step-line" id="line0" style="background:var(--line)"></div>
-  <div class="step-dot pending" id="dot1">2</div>
-  <div class="step-line" id="line1" style="background:var(--line)"></div>
-  <div class="step-dot pending" id="dot2">3</div>
-  <div class="step-line" id="line2" style="background:var(--line)"></div>
-  <div class="step-dot pending" id="dot3">4</div>
-</div>
-<div style="display:flex;justify-content:space-between;padding:6px 22px 0">
-  <span style="font-size:10px;font-weight:600;color:var(--acc);width:25%;text-align:center" id="label0">Infos</span>
-  <span style="font-size:10px;font-weight:500;color:var(--faint);width:25%;text-align:center" id="label1">Lieu</span>
-  <span style="font-size:10px;font-weight:500;color:var(--faint);width:25%;text-align:center" id="label2">Détails</span>
-  <span style="font-size:10px;font-weight:500;color:var(--faint);width:25%;text-align:center" id="label3">Inscription</span>
-</div>
-
-<!-- Step 0: Infos -->
-<div id="step0" style="padding-top:24px">
-  <div class="form-card">
-    <div class="field"><label>Nom de la course *</label><input placeholder="Marathon de Lyon 2026"></div>
-    <div class="field"><label>Description courte</label><input placeholder="En une phrase (max 300 car.)"></div>
-    <div class="field"><label>Description complète</label><textarea rows="4" placeholder="Décrivez votre course en détail…"></textarea></div>
-    <div class="row">
-      <div class="field"><label>Type</label><select><option>Route</option><option>Trail</option><option>Mixte</option></select></div>
-      <div class="field"><label>Catégorie</label><select><option>Marathon</option><option>Semi</option><option>10 km</option><option>5 km</option><option>Trail</option><option>Ultra</option><option>Autre</option></select></div>
-    </div>
-    <div class="row">
-      <div class="field"><label>Niveau</label><select><option>Tous niveaux</option><option>Débutant</option><option>Intermédiaire</option><option>Confirmé</option><option>Élite</option></select></div>
-      <div class="field"><label>Dénivelé (m)</label><input type="number" placeholder="800"></div>
-    </div>
-  </div>
-</div>
-
-<!-- Step 1: Lieu -->
-<div id="step1" style="padding-top:24px;display:none">
-  <div class="form-card">
-    <div class="field"><label>Ville *</label><input placeholder="Lyon"></div>
-    <div class="row">
-      <div class="field"><label>Code postal</label><input placeholder="69001"></div>
-      <div class="field"><label>Département</label><input placeholder="Rhône"></div>
-    </div>
-    <div class="field"><label>Lieu de départ</label><input placeholder="Place Bellecour"></div>
-    <div class="field"><label>Région</label><input placeholder="Auvergne-Rhône-Alpes"></div>
-    <div class="row">
-      <div class="field"><label>Latitude</label><input type="number" placeholder="45.7578" step="any"></div>
-      <div class="field"><label>Longitude</label><input type="number" placeholder="4.832" step="any"></div>
-    </div>
-  </div>
-</div>
-
-<!-- Step 2: Détails -->
-<div id="step2" style="padding-top:24px;display:none">
-  <div class="form-card">
-    <div class="row">
-      <div class="field"><label>Date *</label><input type="date"></div>
-      <div class="field"><label>Heure</label><input type="time"></div>
-    </div>
-    <div class="field">
-      <label>Distances</label>
-      <div style="border-radius:16px;border:2px dashed var(--line);padding:16px;margin-bottom:10px">
-        <div class="row" style="margin-bottom:10px">
-          <input placeholder="Nom" style="flex:2">
-          <input placeholder="km" type="number" style="flex:1">
-          <input placeholder="€" type="number" style="flex:1">
-        </div>
-        <button style="display:flex;align-items:center;gap:5px;color:var(--acc);font-size:13px;font-weight:600">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 12h8"/><path d="M12 8v8"/></svg>
-          Ajouter une distance
-        </button>
-      </div>
-    </div>
-    <div class="field">
-      <label>Options</label>
-      <div class="check-row">
-        <span class="check-item" onclick="this.classList.toggle('on')">Nocturne</span>
-        <span class="check-item" onclick="this.classList.toggle('on')">Caritative</span>
-        <span class="check-item" onclick="this.classList.toggle('on')">Familiale</span>
-        <span class="check-item" onclick="this.classList.toggle('on')">Chrono officiel</span>
-        <span class="check-item" onclick="this.classList.toggle('on')">Qualificative</span>
-        <span class="check-item" onclick="this.classList.toggle('on')">Relais</span>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- Step 3: Inscription -->
-<div id="step3" style="padding-top:24px;display:none">
-  <div class="form-card">
-    <div class="field"><label>Lien d'inscription</label><input placeholder="https://..."></div>
-    <div class="row">
-      <div class="field"><label>Ouverture</label><input type="date"></div>
-      <div class="field"><label>Fermeture</label><input type="date"></div>
-    </div>
-    <div class="row">
-      <div class="field"><label>Nombre de places</label><input type="number" placeholder="1000"></div>
-      <div class="field"><label>Tarif principal (€)</label><input type="number" placeholder="30"></div>
-    </div>
-    <div class="field"><label>Documents requis</label><textarea rows="2" placeholder="Certificat médical, licence…"></textarea></div>
-    <div class="field"><label>Infos retrait dossard</label><textarea rows="2" placeholder="Lieu, dates et horaires…"></textarea></div>
-  </div>
-  <!-- Final CTA -->
-  <div style="padding:24px 22px;display:flex;gap:10px">
-    <button style="flex:1;padding:15px;border-radius:50px;background:var(--card);box-shadow:var(--shadow);font-size:14px;font-weight:600;color:var(--sub)">Brouillon</button>
-    <button style="flex:1;padding:15px;border-radius:50px;background:var(--acc);font-size:14px;font-weight:700;color:#fff;box-shadow:0 4px 16px var(--acc-glow)">Soumettre</button>
-  </div>
-</div>
-
-<!-- Navigation buttons -->
-<div style="display:flex;justify-content:space-between;padding:20px 22px" id="navBtns">
-  <button id="prevBtn" onclick="prevStep()" style="padding:13px 24px;border-radius:50px;font-size:14px;font-weight:600;color:var(--sub);visibility:hidden">Précédent</button>
-  <button id="nextBtn" onclick="nextStep()" style="padding:13px 28px;border-radius:50px;background:var(--acc);font-size:14px;font-weight:700;color:#fff;box-shadow:0 2px 12px var(--acc-glow);display:flex;align-items:center;gap:5px">
-    Suivant <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+<!-- Month selector -->
+<div class="r d1" style="display:flex;align-items:center;justify-content:space-between;padding:24px 22px 0">
+  <button style="width:40px;height:40px;border-radius:50%;background:var(--card);box-shadow:var(--shadow);display:flex;align-items:center;justify-content:center">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--sub)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+  </button>
+  <h2 style="font-family:var(--df);font-size:20px;font-weight:800;letter-spacing:-.02em">Avril 2026</h2>
+  <button style="width:40px;height:40px;border-radius:50%;background:var(--card);box-shadow:var(--shadow);display:flex;align-items:center;justify-content:center">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--sub)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
   </button>
 </div>
 
-<script>
-let current=0;
-const total=4;
-function showStep(n){
-  for(let i=0;i<total;i++){
-    document.getElementById('step'+i).style.display=i===n?'block':'none';
-    const dot=document.getElementById('dot'+i);
-    const label=document.getElementById('label'+i);
-    if(i<n){dot.className='step-dot done';dot.innerHTML='<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';label.style.color='#10B981';label.style.fontWeight='600'}
-    else if(i===n){dot.className='step-dot active';dot.textContent=i+1;label.style.color='var(--acc)';label.style.fontWeight='600'}
-    else{dot.className='step-dot pending';dot.textContent=i+1;label.style.color='var(--faint)';label.style.fontWeight='500'}
-    if(i<total-1){document.getElementById('line'+i).style.background=i<n?'#10B981':'var(--line)'}
-  }
-  document.getElementById('prevBtn').style.visibility=n===0?'hidden':'visible';
-  if(n===total-1){document.getElementById('nextBtn').style.display='none'}else{document.getElementById('nextBtn').style.display='flex'}
-}
-function nextStep(){if(current<total-1){current++;showStep(current)}}
-function prevStep(){if(current>0){current--;showStep(current)}}
-</script>
+<!-- Calendar grid -->
+<div class="r d2" style="padding:20px 22px 0">
+  <div style="border-radius:24px;padding:16px;background:var(--card);box-shadow:var(--shadow)">
+    <div class="cal-grid">
+      <span class="cal-head">Lun</span><span class="cal-head">Mar</span><span class="cal-head">Mer</span><span class="cal-head">Jeu</span><span class="cal-head">Ven</span><span class="cal-head">Sam</span><span class="cal-head">Dim</span>
+      <span class="cal-day empty">.</span><span class="cal-day empty">.</span><span class="cal-day">1</span><span class="cal-day">2</span><span class="cal-day">3</span><span class="cal-day">4</span><span class="cal-day">5</span>
+      <span class="cal-day">6</span><span class="cal-day">7</span><span class="cal-day">8</span><span class="cal-day">9</span><span class="cal-day">10</span><span class="cal-day">11</span><span class="cal-day has-race race-orange">12</span>
+      <span class="cal-day">13</span><span class="cal-day">14</span><span class="cal-day">15</span><span class="cal-day">16</span><span class="cal-day">17</span><span class="cal-day">18</span><span class="cal-day">19</span>
+      <span class="cal-day">20</span><span class="cal-day today">21</span><span class="cal-day">22</span><span class="cal-day">23</span><span class="cal-day">24</span><span class="cal-day">25</span><span class="cal-day">26</span>
+      <span class="cal-day">27</span><span class="cal-day">28</span><span class="cal-day">29</span><span class="cal-day">30</span><span class="cal-day empty">.</span><span class="cal-day empty">.</span><span class="cal-day empty">.</span>
+    </div>
+  </div>
+</div>
+
+<!-- Legend -->
+<div class="r d2" style="display:flex;gap:16px;padding:16px 22px 0;justify-content:center">
+  <span style="display:flex;align-items:center;gap:5px;font-size:11px;color:var(--sub);font-weight:500"><span style="width:8px;height:8px;border-radius:50%;background:var(--acc)"></span>Course</span>
+  <span style="display:flex;align-items:center;gap:5px;font-size:11px;color:var(--sub);font-weight:500"><span style="width:8px;height:8px;border-radius:50%;background:var(--acc);box-shadow:0 0 0 3px var(--canvas),0 0 0 4px var(--acc)"></span>Aujourd'hui</span>
+</div>
+
+<!-- Upcoming this month -->
+<div class="r d3" style="padding:28px 22px 0">
+  <h3 style="font-family:var(--df);font-size:18px;font-weight:800;letter-spacing:-.025em;margin-bottom:14px">Ce mois-ci</h3>
+
+  <a href="detail.html" style="display:flex;gap:16px;padding:18px;border-radius:24px;background:var(--card);box-shadow:var(--shadow);align-items:center;margin-bottom:12px">
+    <div style="width:52px;height:52px;border-radius:16px;background:rgba(255,59,48,.08);display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0">
+      <span style="font-family:var(--df);font-size:18px;font-weight:900;color:var(--acc);line-height:1">12</span>
+      <span style="font-size:10px;font-weight:600;color:var(--acc);text-transform:uppercase">avr</span>
+    </div>
+    <div style="flex:1;min-width:0">
+      <h4 style="font-family:var(--df);font-size:16px;font-weight:800;letter-spacing:-.015em;margin-bottom:3px">Marathon de Paris</h4>
+      <p style="color:var(--sub);font-size:12px;font-weight:500;display:flex;align-items:center;gap:4px">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+        Paris · 09:00
+      </p>
+    </div>
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--mute)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+  </a>
+</div>
+
+<!-- Upcoming months -->
+<div class="r d3" style="padding:20px 22px 0">
+  <h3 style="font-family:var(--df);font-size:18px;font-weight:800;letter-spacing:-.025em;margin-bottom:14px">À venir</h3>
+
+  <a href="detail.html" style="display:flex;gap:16px;padding:18px;border-radius:24px;background:var(--card);box-shadow:var(--shadow);align-items:center;margin-bottom:12px">
+    <div style="width:52px;height:52px;border-radius:16px;background:rgba(139,92,246,.08);display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0">
+      <span style="font-family:var(--df);font-size:18px;font-weight:900;color:#8B5CF6;line-height:1">13</span>
+      <span style="font-size:10px;font-weight:600;color:#8B5CF6;text-transform:uppercase">juin</span>
+    </div>
+    <div style="flex:1;min-width:0">
+      <h4 style="font-family:var(--df);font-size:16px;font-weight:800;letter-spacing:-.015em;margin-bottom:3px">10 km Nocturne de Lyon</h4>
+      <p style="color:var(--sub);font-size:12px;font-weight:500;display:flex;align-items:center;gap:4px">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+        Lyon · 21:00
+      </p>
+    </div>
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--mute)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+  </a>
+
+  <a href="detail.html" style="display:flex;gap:16px;padding:18px;border-radius:24px;background:var(--card);box-shadow:var(--shadow);align-items:center">
+    <div style="width:52px;height:52px;border-radius:16px;background:rgba(16,185,129,.08);display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0">
+      <span style="font-family:var(--df);font-size:18px;font-weight:900;color:#10B981;line-height:1">18</span>
+      <span style="font-size:10px;font-weight:600;color:#10B981;text-transform:uppercase">juil</span>
+    </div>
+    <div style="flex:1;min-width:0">
+      <h4 style="font-family:var(--df);font-size:16px;font-weight:800;letter-spacing:-.015em;margin-bottom:3px">Trail des Aiguilles Rouges</h4>
+      <p style="color:var(--sub);font-size:12px;font-weight:500;display:flex;align-items:center;gap:4px">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+        Chamonix · 06:00
+      </p>
+    </div>
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--mute)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+  </a>
+</div>
+
+<nav class="bottom-nav"><div class="bottom-nav-inner">
+  <a href="index.html" class="nav-item"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#848A9C" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg><span class="nav-label">Accueil</span></a>
+  <a href="explore.html" class="nav-item"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#848A9C" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg><span class="nav-label">Explorer</span></a>
+  <a href="favorites.html" class="nav-item"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#848A9C" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg><span class="nav-label">Favoris</span></a>
+  <a href="notifications.html" class="nav-item"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#848A9C" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg><span class="nav-label">Alertes</span><span class="nav-badge">2</span></a>
+  <a href="profile.html" class="nav-item"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#848A9C" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="5"/><path d="M20 21a8 8 0 0 0-16 0"/></svg><span class="nav-label">Profil</span></a>
+</div></nav>
 </body>
 </html>
