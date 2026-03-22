@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>À PROPOS — STUDIO</title>
+<title>404 — PERDU ? — STUDIO</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&family=Unbounded:wght@700;800;900&display=swap" rel="stylesheet">
@@ -12,17 +12,15 @@
 :root{
   --bg:#F4F5F6;--white:#FFFFFF;--black:#0A0A0A;
   --blue:#0A3CFF;--lime:#CCFF00;
-  --pill:100px;--card:36px;--card-lg:40px;
+  --pill:100px;--card:36px;
   --b:3px solid var(--black);--b4:4px solid var(--black);
   --sh:8px 8px 0px var(--black);--sh-lg:12px 12px 0px var(--black);--sh-sm:5px 5px 0px var(--black);
 }
 html{scroll-behavior:smooth;}
-body{font-family:'Manrope',sans-serif;background:var(--bg);color:var(--black);overflow-x:hidden;line-height:1.5;font-weight:500;cursor:none;}
+body{font-family:'Manrope',sans-serif;background:var(--bg);color:var(--black);overflow-x:hidden;line-height:1.5;font-weight:500;cursor:none;min-height:100vh;display:flex;flex-direction:column;}
 a{text-decoration:none;color:inherit;cursor:none;}
-button{cursor:none;border:none;background:none;font-family:inherit;}
 ::selection{background:var(--blue);color:var(--white);}
 .label{font-family:'Space Mono',monospace;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;}
-.label--dim{opacity:0.4;}
 
 /* CURSOR */
 .cur-d,.cur-r{position:fixed;border-radius:50%;pointer-events:none;z-index:99999;transform:translate(-50%,-50%);}
@@ -32,263 +30,137 @@ body.ch .cur-d{background:var(--lime);transform:translate(-50%,-50%) scale(1.5);
 body.ch .cur-r{width:64px;height:64px;background:rgba(10,60,255,.08);border-color:var(--blue);}
 
 /* NAV */
-.nav{position:fixed;top:0;left:0;width:100%;z-index:9000;padding:14px 48px;display:flex;align-items:center;justify-content:space-between;background:var(--bg);border-bottom:var(--b);transition:background .3s;}
+.nav{position:fixed;top:0;left:0;width:100%;z-index:9000;padding:14px 48px;display:flex;align-items:center;justify-content:space-between;background:var(--bg);border-bottom:var(--b);}
 .nav__logo{font-family:'Unbounded',sans-serif;font-weight:900;font-size:20px;text-transform:uppercase;letter-spacing:-0.04em;}
 .nav__logo em{font-style:normal;color:var(--blue);}
-.nav__center{display:flex;align-items:center;gap:8px;position:absolute;left:50%;transform:translateX(-50%);}
-.nav__dot{width:8px;height:8px;background:var(--lime);border-radius:50%;border:2px solid var(--black);animation:blink 2s infinite;}
-@keyframes blink{0%,100%{opacity:1;}50%{opacity:.35;}}
-.nav__links{display:flex;align-items:center;gap:8px;}
-.nl{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.02em;padding:10px 20px;border-radius:var(--pill);border:var(--b);background:var(--white);box-shadow:4px 4px 0 var(--black);transition:transform .15s,box-shadow .15s,background .15s,color .15s;}
-.nl:hover{transform:translate(4px,4px);box-shadow:0 0 0 var(--black);}
-.nl--active{background:var(--black);color:var(--white);}
-.nl--cta{background:var(--blue);color:var(--white);}
-.nl--cta:hover{background:var(--lime);color:var(--black);transform:translate(4px,4px);box-shadow:0 0 0 var(--black);}
+.nl{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.02em;padding:10px 20px;border-radius:var(--pill);border:var(--b);background:var(--blue);color:var(--white);box-shadow:4px 4px 0 var(--black);transition:transform .15s,box-shadow .15s,background .15s,color .15s;}
+.nl:hover{transform:translate(4px,4px);box-shadow:0 0 0 var(--black);background:var(--lime);color:var(--black);}
 
-/* TAGS / BTN */
-.tag{font-family:'Space Mono',monospace;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;padding:6px 14px;border-radius:var(--pill);border:2px solid var(--black);background:var(--bg);display:inline-block;}
-.tag--bl{background:var(--blue);color:var(--white);border-color:var(--blue);}
-.tag--lm{background:var(--lime);color:var(--black);border-color:var(--black);}
-.tag--dk{border-color:rgba(255,255,255,.2);background:rgba(255,255,255,.08);color:var(--white);}
+/* =========================================
+   404 MAIN
+   ========================================= */
+.error-page{
+  flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:140px 48px 80px;text-align:center;position:relative;overflow:hidden;
+}
+
+/* Background decorative shapes */
+.error-page__deco{position:absolute;border:var(--b);border-radius:24px;opacity:.06;pointer-events:none;}
+.deco-1{width:300px;height:200px;top:10%;left:-60px;transform:rotate(-12deg);}
+.deco-2{width:200px;height:300px;bottom:5%;right:-40px;transform:rotate(8deg);}
+.deco-3{width:150px;height:150px;top:25%;right:10%;transform:rotate(-5deg);border-radius:50%;}
+.deco-4{width:250px;height:100px;bottom:20%;left:8%;transform:rotate(3deg);}
+
+/* Glitch 404 number */
+.error-num{
+  font-family:'Unbounded',sans-serif;font-weight:900;
+  font-size:clamp(120px,22vw,300px);text-transform:uppercase;
+  letter-spacing:-0.06em;line-height:.78;
+  color:var(--black);position:relative;
+  animation:entrance .8s cubic-bezier(.16,1,.3,1) forwards;
+  opacity:0;transform:translateY(60px);
+}
+@keyframes entrance{to{opacity:1;transform:translateY(0);}}
+
+/* Glitch layers */
+.error-num::before,.error-num::after{
+  content:'404';position:absolute;top:0;left:0;width:100%;height:100%;
+}
+.error-num::before{color:var(--blue);clip-path:inset(0 0 65% 0);animation:glitch-top 3s infinite;}
+.error-num::after{color:var(--lime);clip-path:inset(65% 0 0 0);animation:glitch-bottom 3s infinite;}
+@keyframes glitch-top{
+  0%,92%,100%{transform:translate(0);}
+  93%{transform:translate(-8px,-2px);}
+  95%{transform:translate(6px,1px);}
+  97%{transform:translate(-4px,0);}
+}
+@keyframes glitch-bottom{
+  0%,92%,100%{transform:translate(0);}
+  94%{transform:translate(8px,2px);}
+  96%{transform:translate(-6px,-1px);}
+  98%{transform:translate(3px,0);}
+}
+
+/* Error tag */
+.error-tag{
+  display:inline-flex;align-items:center;gap:8px;
+  background:var(--white);border:var(--b);border-radius:var(--pill);
+  padding:10px 22px;box-shadow:var(--sh);margin-top:24px;
+  animation:entrance .8s .15s cubic-bezier(.16,1,.3,1) forwards;
+  opacity:0;transform:translateY(40px);
+}
+.error-tag__dot{width:8px;height:8px;background:#ff3b30;border-radius:50%;border:2px solid var(--black);}
+.error-tag__text{font-family:'Space Mono',monospace;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;}
+
+/* Message */
+.error-msg{
+  font-family:'Unbounded',sans-serif;font-weight:900;
+  font-size:clamp(20px,3vw,36px);text-transform:uppercase;
+  letter-spacing:-0.03em;line-height:.92;
+  margin-top:32px;max-width:600px;
+  animation:entrance .8s .25s cubic-bezier(.16,1,.3,1) forwards;
+  opacity:0;transform:translateY(40px);
+}
+.error-msg .bl{color:var(--blue);}
+
+.error-sub{
+  font-size:16px;font-weight:600;color:rgba(10,10,10,.4);
+  margin-top:14px;max-width:420px;
+  animation:entrance .8s .35s cubic-bezier(.16,1,.3,1) forwards;
+  opacity:0;transform:translateY(40px);
+}
+
+/* Buttons */
+.error-btns{
+  display:flex;gap:14px;margin-top:36px;flex-wrap:wrap;justify-content:center;
+  animation:entrance .8s .45s cubic-bezier(.16,1,.3,1) forwards;
+  opacity:0;transform:translateY(40px);
+}
 .btn{display:inline-flex;align-items:center;gap:10px;font-family:'Manrope',sans-serif;font-size:14px;font-weight:800;text-transform:uppercase;letter-spacing:.02em;padding:14px 28px;border-radius:var(--pill);border:var(--b);background:var(--black);color:var(--white);box-shadow:6px 6px 0 var(--black);transition:transform .15s,box-shadow .15s,background .15s,color .15s;}
 .btn:hover{transform:translate(4px,4px);box-shadow:0 0 0 var(--black);background:var(--blue);}
 .btn--lime{background:var(--lime);color:var(--black);box-shadow:6px 6px 0 var(--blue);}
 .btn--lime:hover{transform:translate(4px,4px);box-shadow:0 0 0 var(--blue);}
-.btn--white{background:var(--white);color:var(--black);}
-.btn--white:hover{background:var(--blue);color:var(--white);transform:translate(4px,4px);box-shadow:0 0 0 var(--black);}
 .ba{font-size:18px;transition:transform .2s;}
 .btn:hover .ba{transform:translateX(4px);}
 
-/* =========================================
-   HERO — Big split
-   ========================================= */
-.hero{padding:130px 48px 0;display:grid;grid-template-columns:1fr 1fr;gap:44px;align-items:center;min-height:92vh;}
-
-/* Left */
-.hero__left{display:flex;flex-direction:column;justify-content:center;}
-.hero__bread{display:flex;align-items:center;gap:8px;margin-bottom:24px;}
-.hero__bread a:hover{color:var(--blue);}
-.hero__bread .sep{opacity:.2;}
-.hero__title{font-family:'Unbounded',sans-serif;font-weight:900;font-size:clamp(38px,5.5vw,84px);text-transform:uppercase;letter-spacing:-0.05em;line-height:.82;}
-.hero__title .bl{color:var(--blue);}
-.hero__title .lm{background:var(--lime);padding:0 .1em;border-radius:6px;border:var(--b);color:var(--black);display:inline-block;}
-
-/* Summary block */
-.hero__summary{
-  font-family:'Unbounded',sans-serif;font-weight:800;font-size:clamp(15px,1.4vw,19px);
-  text-transform:uppercase;letter-spacing:-0.02em;line-height:1.25;
-  margin-top:28px;color:var(--black);max-width:480px;
+/* Fun counter */
+.error-counter{
+  margin-top:48px;display:flex;align-items:center;gap:16px;
+  animation:entrance .8s .55s cubic-bezier(.16,1,.3,1) forwards;
+  opacity:0;transform:translateY(40px);
 }
-.hero__summary .hl{color:var(--blue);}
-.hero__btns{display:flex;gap:12px;margin-top:28px;flex-wrap:wrap;}
-
-/* Right — Photo */
-.hero__photo{
-  border:var(--b4);border-radius:var(--card-lg);overflow:hidden;
-  box-shadow:var(--sh-lg);position:relative;height:clamp(380px,52vw,620px);
+.error-counter__card{
+  background:var(--white);border:var(--b);border-radius:16px;
+  padding:14px 20px;box-shadow:var(--sh-sm);text-align:center;
 }
-.hero__photo-fill{position:absolute;inset:0;background:linear-gradient(160deg,var(--blue) 0%,#4f5fff 60%,#7b8aff 100%);}
-.hero__photo-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.05) 1px,transparent 1px);background-size:36px 36px;}
-.hero__photo-emoji{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:110px;opacity:.15;filter:grayscale(1);}
-.hero__photo-tag{position:absolute;bottom:20px;left:20px;}
-.hero__photo-loc{position:absolute;top:20px;right:20px;font-family:'Space Mono',monospace;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,.3);}
+.error-counter__n{font-family:'Unbounded',sans-serif;font-weight:900;font-size:24px;letter-spacing:-0.04em;color:var(--blue);line-height:1;}
+.error-counter__l{font-family:'Space Mono',monospace;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;opacity:.35;margin-top:3px;}
 
 /* =========================================
-   PERSONAL TEXT BLOCK
+   MARQUEE (bottom)
    ========================================= */
-.personal{
-  margin:60px 48px 0;
-  background:var(--black);color:var(--white);
-  border:var(--b4);border-radius:var(--card-lg);
-  box-shadow:var(--sh-lg);padding:52px 48px;
-  display:grid;grid-template-columns:.35fr .65fr;gap:48px;align-items:start;
+.mband{
+  padding:10px 0;overflow:hidden;border-top:var(--b);border-bottom:var(--b);
+  background:var(--black);margin:0 -10px;transform:rotate(-1.2deg);
+  position:relative;z-index:10;
 }
-.personal__label-side{
-  font-family:'Unbounded',sans-serif;font-weight:900;
-  font-size:clamp(20px,2.5vw,36px);text-transform:uppercase;
-  letter-spacing:-0.04em;line-height:.88;
-  position:sticky;top:100px;
-}
-.personal__label-side .lm{color:var(--lime);}
-.personal__text{font-size:16px;font-weight:500;line-height:1.8;color:rgba(255,255,255,.55);}
-.personal__text strong{color:var(--white);font-weight:700;}
-.personal__text p+p{margin-top:16px;}
-
-/* =========================================
-   STATS STRIP
-   ========================================= */
-.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border:var(--b);border-radius:var(--card);overflow:hidden;box-shadow:var(--sh);margin:48px 48px 0;}
-.stat{background:var(--white);padding:28px 20px;text-align:center;border-right:var(--b);transition:background .25s;}
-.stat:last-child{border-right:none;}
-.stat:hover{background:var(--lime);}
-.stat__n{font-family:'Unbounded',sans-serif;font-weight:900;font-size:clamp(26px,3vw,44px);letter-spacing:-0.04em;line-height:1;color:var(--blue);}
-.stat:hover .stat__n{color:var(--black);}
-.stat__l{margin-top:6px;}
-
-/* =========================================
-   SECTION DIVIDER
-   ========================================= */
-.divider{display:flex;align-items:center;gap:16px;padding:80px 48px 28px;}
-.divider__num{font-family:'Unbounded',sans-serif;font-weight:900;font-size:13px;width:36px;height:36px;border-radius:50%;border:var(--b);background:var(--white);box-shadow:var(--sh-sm);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
-.divider__line{flex:1;height:3px;background:var(--black);}
-.divider__title{font-family:'Unbounded',sans-serif;font-weight:900;font-size:clamp(14px,1.6vw,18px);text-transform:uppercase;letter-spacing:-0.02em;}
-
-/* =========================================
-   TIMELINE (shared for XP & Formation)
-   ========================================= */
-.tl{padding:0 48px;display:flex;flex-direction:column;}
-.tl-item{display:grid;grid-template-columns:100px 52px 1fr;align-items:start;}
-.tl-year{font-family:'Unbounded',sans-serif;font-weight:900;font-size:24px;letter-spacing:-0.04em;line-height:1;color:var(--blue);padding-top:22px;text-align:right;padding-right:16px;}
-.tl-axis{display:flex;flex-direction:column;align-items:center;}
-.tl-dot{width:14px;height:14px;border-radius:50%;border:var(--b);background:var(--white);box-shadow:var(--sh-sm);margin-top:24px;z-index:2;transition:background .2s;}
-.tl-item:hover .tl-dot{background:var(--lime);}
-.tl-stem{width:3px;background:var(--black);flex:1;min-height:100%;}
-.tl-item:last-child .tl-stem{background:linear-gradient(var(--black) 60%,transparent);}
-.tl-card{
-  background:var(--white);border:var(--b);border-radius:22px;
-  padding:22px 24px;margin:10px 0;box-shadow:var(--sh);
-  transition:transform .25s,box-shadow .25s;
-}
-.tl-card:hover{transform:translateX(6px);box-shadow:12px 12px 0 var(--blue);}
-.tl-card--dk{background:var(--black);color:var(--white);}
-.tl-card--dk:hover{box-shadow:12px 12px 0 var(--lime);}
-.tl-card__top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;}
-.tl-card__title{font-family:'Unbounded',sans-serif;font-weight:900;font-size:15px;text-transform:uppercase;letter-spacing:-0.02em;line-height:.95;}
-.tl-card__badge{flex-shrink:0;}
-.tl-card__place{font-size:14px;font-weight:700;color:var(--blue);margin-top:5px;}
-.tl-card--dk .tl-card__place{color:var(--lime);}
-.tl-card__desc{font-size:13px;font-weight:600;line-height:1.55;opacity:.4;margin-top:6px;}
-.tl-card--dk .tl-card__desc{color:rgba(255,255,255,.35);}
-.tl-card__tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px;}
-
-/* =========================================
-   TOOLS
-   ========================================= */
-.tools{padding:0 48px;display:grid;grid-template-columns:repeat(6,1fr);gap:14px;}
-.tool{
-  background:var(--white);border:var(--b);border-radius:20px;
-  padding:20px 14px;text-align:center;box-shadow:var(--sh-sm);
-  transition:transform .2s,box-shadow .2s,background .2s;
-  display:flex;flex-direction:column;align-items:center;gap:10px;
-}
-.tool:hover{transform:translateY(-4px);box-shadow:8px 8px 0 var(--blue);}
-.tool:nth-child(odd):hover{background:var(--lime);}
-.tool__icon{font-size:26px;width:50px;height:50px;border-radius:14px;border:var(--b);background:var(--bg);display:flex;align-items:center;justify-content:center;box-shadow:3px 3px 0 var(--black);}
-.tool__name{font-family:'Manrope',sans-serif;font-weight:800;font-size:11px;text-transform:uppercase;letter-spacing:.02em;}
-.tool__level{font-family:'Space Mono',monospace;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;opacity:.3;}
-
-/* =========================================
-   VALUES
-   ========================================= */
-.values{padding:0 48px;display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
-.val{border:var(--b);border-radius:var(--card);padding:36px 28px;box-shadow:var(--sh);transition:transform .25s,box-shadow .25s,background .25s;display:flex;flex-direction:column;gap:14px;}
-.val:nth-child(1){background:var(--white);}
-.val:nth-child(2){background:var(--blue);color:var(--white);}
-.val:nth-child(3){background:var(--black);color:var(--white);}
-.val:hover{transform:translateY(-4px);}
-.val:nth-child(1):hover{box-shadow:12px 12px 0 var(--blue);}
-.val:nth-child(2):hover{box-shadow:12px 12px 0 var(--lime);}
-.val:nth-child(3):hover{box-shadow:12px 12px 0 var(--lime);}
-.val__icon{font-size:32px;}
-.val__title{font-family:'Unbounded',sans-serif;font-weight:900;font-size:18px;text-transform:uppercase;letter-spacing:-0.03em;line-height:.92;}
-.val__text{font-size:14px;font-weight:600;line-height:1.6;opacity:.45;}
-.val:nth-child(2) .val__text,.val:nth-child(3) .val__text{opacity:.55;}
-
-/* =========================================
-   HOBBIES
-   ========================================= */
-.hobbies{padding:0 48px;display:grid;grid-template-columns:repeat(4,1fr);gap:20px;}
-.hobby{
-  border:var(--b);border-radius:28px;overflow:hidden;
-  box-shadow:var(--sh);transition:transform .3s,box-shadow .3s;
-  position:relative;
-}
-.hobby:hover{transform:translateY(-5px);box-shadow:12px 12px 0 var(--blue);}
-.hobby:nth-child(even):hover{box-shadow:12px 12px 0 var(--lime);}
-.hobby__visual{
-  height:180px;position:relative;overflow:hidden;border-bottom:var(--b);
-}
-.hobby__fill{position:absolute;inset:0;transition:transform .5s cubic-bezier(.25,.8,.25,1);}
-.hobby:hover .hobby__fill{transform:scale(1.06);}
-.hf1{background:linear-gradient(135deg,#0A0A0A,#333);}
-.hf2{background:linear-gradient(135deg,var(--blue),#4f5fff);}
-.hf3{background:linear-gradient(135deg,var(--lime),#90b800);}
-.hf4{background:linear-gradient(135deg,#ff6b35,#ff3864);}
-.hobby__grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.05) 1px,transparent 1px);background-size:28px 28px;}
-.hobby__emoji{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:52px;filter:grayscale(.3);opacity:.6;}
-.hobby__info{padding:18px 20px;background:var(--white);}
-.hobby__name{font-family:'Unbounded',sans-serif;font-weight:900;font-size:14px;text-transform:uppercase;letter-spacing:-0.02em;line-height:1;}
-.hobby__desc{font-size:12px;font-weight:600;line-height:1.5;opacity:.4;margin-top:5px;}
-
-/* =========================================
-   CTA
-   ========================================= */
-.cta{margin:80px 48px 0;background:var(--black);color:var(--white);border:var(--b4);border-radius:var(--card-lg);box-shadow:var(--sh-lg);padding:64px 48px;display:flex;align-items:center;justify-content:space-between;gap:40px;position:relative;overflow:hidden;}
-.cta::before{content:'↗';position:absolute;right:40px;top:-20px;font-family:'Unbounded',sans-serif;font-weight:900;font-size:180px;color:rgba(255,255,255,.025);pointer-events:none;}
-.cta__left{max-width:480px;}
-.cta__title{font-family:'Unbounded',sans-serif;font-weight:900;font-size:clamp(26px,3.2vw,44px);text-transform:uppercase;letter-spacing:-0.05em;line-height:.88;}
-.cta__title .bl{color:var(--blue);}
-.cta__title .lm{color:var(--lime);}
-.cta__sub{font-size:15px;font-weight:600;color:rgba(255,255,255,.35);margin-top:12px;}
-.cta__btns{display:flex;gap:12px;flex-shrink:0;flex-wrap:wrap;}
-
-/* MARQUEES */
-.mband{padding:10px 0;overflow:hidden;border-top:var(--b);border-bottom:var(--b);margin:0 -10px;position:relative;z-index:10;}
-.mband--lime{background:var(--lime);transform:rotate(-1.2deg);}
-.mband--black{background:var(--black);transform:rotate(1deg);}
-.mq{display:flex;animation:ms 22s linear infinite;width:max-content;}
-.mq--rev{animation-direction:reverse;}
-.mt{font-family:'Unbounded',sans-serif;font-weight:900;font-size:18px;text-transform:uppercase;letter-spacing:.02em;white-space:nowrap;padding:5px 0;display:flex;align-items:center;gap:24px;}
-.mband--lime .mt{color:var(--black);}
-.mband--black .mt{color:var(--white);}
-.mdd-b{width:10px;height:10px;background:var(--blue);border-radius:50%;flex-shrink:0;}
-.mdd-l{width:10px;height:10px;background:var(--lime);border-radius:50%;flex-shrink:0;}
+.mq{display:flex;animation:ms 18s linear infinite;width:max-content;}
+.mt{font-family:'Unbounded',sans-serif;font-weight:900;font-size:18px;text-transform:uppercase;letter-spacing:.02em;color:var(--white);white-space:nowrap;padding:5px 0;display:flex;align-items:center;gap:24px;}
+.mdd{width:10px;height:10px;background:var(--lime);border-radius:50%;flex-shrink:0;}
 @keyframes ms{0%{transform:translateX(0);}100%{transform:translateX(-50%);}}
 
 /* FOOTER */
-.footer{padding:28px 48px;display:flex;justify-content:space-between;align-items:center;border-top:var(--b);margin-top:40px;}
-.footer__copy{font-family:'Space Mono',monospace;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;opacity:.25;}
-.footer__btop{width:42px;height:42px;border-radius:50%;border:var(--b);background:var(--white);box-shadow:var(--sh-sm);display:flex;align-items:center;justify-content:center;transition:transform .15s,box-shadow .15s;}
-.footer__btop:hover{transform:translate(4px,4px);box-shadow:0 0 0 var(--black);}
-.footer__btop svg{width:16px;height:16px;transform:rotate(180deg);}
-
-/* REVEAL */
-.rv{opacity:0;transform:translateY(36px);transition:opacity .7s ease,transform .7s ease;}
-.rv.v{opacity:1;transform:translateY(0);}
-.rv-d1{transition-delay:.1s;}.rv-d2{transition-delay:.15s;}.rv-d3{transition-delay:.2s;}.rv-d4{transition-delay:.25s;}
+.footer{padding:20px 48px;display:flex;justify-content:space-between;align-items:center;}
+.footer__copy{font-family:'Space Mono',monospace;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;opacity:.2;}
 
 /* RESPONSIVE */
-@media(max-width:1024px){
-  .hero{grid-template-columns:1fr;min-height:auto;gap:28px;}
-  .hero__photo{height:clamp(280px,45vw,440px);}
-  .personal{grid-template-columns:1fr;gap:20px;}
-  .personal__label-side{position:static;}
-  .stats{grid-template-columns:1fr 1fr;}
-  .stat:nth-child(2){border-right:none;}
-  .stat:nth-child(n+3){border-top:var(--b);}
-  .tools{grid-template-columns:repeat(4,1fr);}
-  .values{grid-template-columns:1fr;}
-  .hobbies{grid-template-columns:1fr 1fr;}
-  .cta{flex-direction:column;text-align:center;align-items:center;}
-}
 @media(max-width:768px){
   .nav{padding:12px 16px;}
-  .nav__center{display:none;}
-  .nl{font-size:11px;padding:8px 12px;box-shadow:3px 3px 0 var(--black);}
-  .hero{padding:110px 20px 0;}
-  .personal{margin:40px 20px 0;padding:32px 20px;}
-  .stats{margin:32px 20px 0;}
-  .tools,.values,.hobbies{padding:0 20px;}
-  .stats{grid-template-columns:1fr 1fr;}
-  .tools{grid-template-columns:repeat(3,1fr);gap:10px;}
-  .hobbies{grid-template-columns:1fr 1fr;}
-  .tl{padding:0 20px;}
-  .tl-item{grid-template-columns:60px 36px 1fr;}
-  .tl-year{font-size:18px;padding-right:8px;}
-  .divider{padding:60px 20px 20px;}
-  .cta{margin:60px 20px 0;padding:36px 20px;}
-  .cta__btns{flex-direction:column;align-items:center;}
-  .footer{flex-direction:column;gap:12px;text-align:center;padding:24px 20px;}
+  .nl{font-size:11px;padding:8px 14px;box-shadow:3px 3px 0 var(--black);}
+  .error-page{padding:120px 20px 60px;}
+  .error-btns{flex-direction:column;align-items:center;}
+  .error-counter{flex-direction:row;flex-wrap:wrap;justify-content:center;gap:10px;}
+  .footer{flex-direction:column;gap:8px;text-align:center;padding:16px 20px;}
   .cur-d,.cur-r{display:none;}
 }
 </style>
@@ -299,255 +171,61 @@ body.ch .cur-r{width:64px;height:64px;background:rgba(10,60,255,.08);border-colo
 <div class="cur-r" id="cR"></div>
 
 <!-- NAV -->
-<nav class="nav" id="nav">
+<nav class="nav">
   <a href="index.html" class="nav__logo">STUDIO<em>.</em></a>
-  <div class="nav__center"><span class="nav__dot"></span><span class="label">Disponible pour projets</span></div>
-  <div class="nav__links">
-    <a href="projects.html" class="nl">Projets</a>
-    <a href="#" class="nl nl--active">À propos</a>
-    <a href="#contact" class="nl nl--cta">Contact ↗</a>
-  </div>
+  <a href="index.html" class="nl">Retour à l'accueil ↗</a>
 </nav>
 
-<!-- ==================== HERO ==================== -->
-<section class="hero">
-  <div class="hero__left rv">
-    <div class="hero__bread">
-      <a href="index.html" class="label label--dim">Accueil</a>
-      <span class="label label--dim sep">/</span>
-      <span class="label">À propos</span>
-    </div>
-    <h1 class="hero__title">JE SUIS<br><span class="bl">GRAPHISTE</span><br>& WEB<span class="lm">DESIGNER</span></h1>
-    <p class="hero__summary">Basé à Paris, je conçois des <span class="hl">identités visuelles</span> et des <span class="hl">sites web</span> qui marquent — avec un goût prononcé pour la typographie brute et les partis pris forts.</p>
-    <div class="hero__btns">
-      <a href="#contact" class="btn btn--lime">Me contacter <span class="ba">→</span></a>
-      <a href="#" class="btn btn--white">Télécharger mon CV <span class="ba">↗</span></a>
-    </div>
-  </div>
-  <div class="hero__photo rv rv-d1">
-    <div class="hero__photo-fill"><div class="hero__photo-grid"></div></div>
-    <span class="hero__photo-emoji">👨‍🎨</span>
-    <span class="hero__photo-tag tag tag--dk">Votre photo ici</span>
-    <span class="hero__photo-loc">Paris, FR</span>
-  </div>
-</section>
+<!-- ==================== 404 ==================== -->
+<main class="error-page">
+  <!-- Deco shapes -->
+  <div class="error-page__deco deco-1"></div>
+  <div class="error-page__deco deco-2"></div>
+  <div class="error-page__deco deco-3"></div>
+  <div class="error-page__deco deco-4"></div>
 
-<!-- ==================== PERSONAL TEXT ==================== -->
-<div class="personal rv">
-  <div class="personal__label-side">UN PEU<br>PLUS SUR<br><span class="lm">MOI</span></div>
-  <div class="personal__text">
-    <p>J'ai grandi entouré de magazines de design et de pochettes de vinyles. C'est comme ça que j'ai attrapé le virus : <strong>la typo, les compositions audacieuses, les couleurs qui claquent</strong>. Après des études en design graphique à l'École Estienne, j'ai fait mes armes en agence avant de me lancer en freelance.</p>
-    <p>Aujourd'hui, je travaille avec des <strong>startups, des marques et des créatifs</strong> qui veulent sortir du lot. Mon truc, c'est de mélanger une approche graphique forte — un peu brute, un peu éditoriale — avec une rigueur technique qui tient la route. <strong>Je dessine, je code, et je m'assure que chaque détail a sa raison d'être.</strong></p>
-    <p>Quand je ne suis pas derrière un écran, vous me trouverez probablement en train de chiner des affiches dans les marchés aux puces ou de tester un nouveau café de spécialité.</p>
-  </div>
-</div>
+  <div class="error-num">404</div>
 
-<!-- STATS -->
-<div class="stats rv">
-  <div class="stat"><div class="stat__n" data-count="47" data-prefix="+">+0</div><div class="stat__l label">Projets</div></div>
-  <div class="stat"><div class="stat__n" data-count="6">0</div><div class="stat__l label">Ans d'XP</div></div>
-  <div class="stat"><div class="stat__n" data-count="32">0</div><div class="stat__l label">Clients</div></div>
-  <div class="stat"><div class="stat__n" data-count="100" data-suffix="%">0</div><div class="stat__l label">Indépendant</div></div>
-</div>
+  <div class="error-tag">
+    <span class="error-tag__dot"></span>
+    <span class="error-tag__text">Erreur — Page introuvable</span>
+  </div>
+
+  <h1 class="error-msg">CETTE PAGE A<br>ÉTÉ <span class="bl">SUPPRIMÉE</span>,<br>DÉPLACÉE OU N'EXISTE PAS</h1>
+
+  <p class="error-sub">Pas de panique, même les meilleurs designs ont des impasses. Revenez à l'accueil ou explorez mes projets.</p>
+
+  <div class="error-btns">
+    <a href="index.html" class="btn">Retour à l'accueil <span class="ba">←</span></a>
+    <a href="projects.html" class="btn btn--lime">Voir les projets <span class="ba">→</span></a>
+  </div>
+
+  <div class="error-counter">
+    <div class="error-counter__card">
+      <div class="error-counter__n" id="timeH">00</div>
+      <div class="error-counter__l">Heures</div>
+    </div>
+    <div class="error-counter__card">
+      <div class="error-counter__n" id="timeM">00</div>
+      <div class="error-counter__l">Minutes</div>
+    </div>
+    <div class="error-counter__card">
+      <div class="error-counter__n" id="timeS">00</div>
+      <div class="error-counter__l">Secondes</div>
+    </div>
+    <span class="label" style="opacity:.25;">perdues sur cette page</span>
+  </div>
+</main>
 
 <!-- MARQUEE -->
-<div class="mband mband--lime" style="margin-top:56px;">
-  <div class="mq"><div class="mt"><span>GRAPHISTE</span><span class="mdd-b"></span><span>WEBDESIGNER</span><span class="mdd-b"></span><span>DIRECTEUR ARTISTIQUE</span><span class="mdd-b"></span><span>FREELANCE</span><span class="mdd-b"></span><span>PARIS</span><span class="mdd-b"></span><span>GRAPHISTE</span><span class="mdd-b"></span><span>WEBDESIGNER</span><span class="mdd-b"></span><span>DIRECTEUR ARTISTIQUE</span><span class="mdd-b"></span></div><div class="mt" aria-hidden="true"><span>GRAPHISTE</span><span class="mdd-b"></span><span>WEBDESIGNER</span><span class="mdd-b"></span><span>DIRECTEUR ARTISTIQUE</span><span class="mdd-b"></span><span>FREELANCE</span><span class="mdd-b"></span><span>PARIS</span><span class="mdd-b"></span><span>GRAPHISTE</span><span class="mdd-b"></span><span>WEBDESIGNER</span><span class="mdd-b"></span><span>DIRECTEUR ARTISTIQUE</span><span class="mdd-b"></span></div></div>
+<div class="mband">
+  <div class="mq"><div class="mt"><span>404</span><span class="mdd"></span><span>PAGE NOT FOUND</span><span class="mdd"></span><span>RETOUR À L'ACCUEIL</span><span class="mdd"></span><span>404</span><span class="mdd"></span><span>PAGE NOT FOUND</span><span class="mdd"></span><span>RETOUR À L'ACCUEIL</span><span class="mdd"></span><span>404</span><span class="mdd"></span><span>PAGE NOT FOUND</span><span class="mdd"></span></div><div class="mt" aria-hidden="true"><span>404</span><span class="mdd"></span><span>PAGE NOT FOUND</span><span class="mdd"></span><span>RETOUR À L'ACCUEIL</span><span class="mdd"></span><span>404</span><span class="mdd"></span><span>PAGE NOT FOUND</span><span class="mdd"></span><span>RETOUR À L'ACCUEIL</span><span class="mdd"></span><span>404</span><span class="mdd"></span><span>PAGE NOT FOUND</span><span class="mdd"></span></div></div>
 </div>
-
-<!-- ==================== 01 — EXPÉRIENCES ==================== -->
-<div class="divider rv">
-  <span class="divider__num">01</span>
-  <span class="divider__title">Expériences</span>
-  <span class="divider__line"></span>
-</div>
-
-<div class="tl">
-  <div class="tl-item rv">
-    <div class="tl-year">2020</div>
-    <div class="tl-axis"><div class="tl-dot"></div><div class="tl-stem"></div></div>
-    <div class="tl-card tl-card--dk">
-      <div class="tl-card__top">
-        <div class="tl-card__title">FREELANCE — WEBDESIGNER & GRAPHISTE</div>
-        <span class="tag tag--lm tl-card__badge">Actuel</span>
-      </div>
-      <div class="tl-card__place">Paris — Aujourd'hui</div>
-      <div class="tl-card__desc">Création de sites web et d'identités visuelles pour startups, marques et institutions culturelles.</div>
-      <div class="tl-card__tags"><span class="tag tag--dk">Webdesign</span><span class="tag tag--dk">Branding</span><span class="tag tag--dk">DA</span></div>
-    </div>
-  </div>
-  <div class="tl-item rv rv-d1">
-    <div class="tl-year">2018</div>
-    <div class="tl-axis"><div class="tl-dot"></div><div class="tl-stem"></div></div>
-    <div class="tl-card">
-      <div class="tl-card__top">
-        <div class="tl-card__title">DA JUNIOR — AGENCE BETC</div>
-        <span class="tag tl-card__badge">2 ans</span>
-      </div>
-      <div class="tl-card__place">Paris</div>
-      <div class="tl-card__desc">Campagnes 360, branding et digital pour grands comptes luxe, auto et food.</div>
-      <div class="tl-card__tags"><span class="tag">Campagnes</span><span class="tag">Branding</span><span class="tag">Digital</span></div>
-    </div>
-  </div>
-  <div class="tl-item rv rv-d2">
-    <div class="tl-year">2016</div>
-    <div class="tl-axis"><div class="tl-dot"></div><div class="tl-stem"></div></div>
-    <div class="tl-card">
-      <div class="tl-card__top">
-        <div class="tl-card__title">STAGE — STUDIO CREMME</div>
-        <span class="tag tl-card__badge">6 mois</span>
-      </div>
-      <div class="tl-card__place">Madrid, Espagne</div>
-      <div class="tl-card__desc">Branding, édition et packaging pour clients espagnols et internationaux.</div>
-      <div class="tl-card__tags"><span class="tag">Packaging</span><span class="tag">Édition</span></div>
-    </div>
-  </div>
-</div>
-
-<!-- ==================== 02 — FORMATIONS ==================== -->
-<div class="divider rv">
-  <span class="divider__num">02</span>
-  <span class="divider__title">Formations</span>
-  <span class="divider__line"></span>
-</div>
-
-<div class="tl">
-  <div class="tl-item rv">
-    <div class="tl-year">2018</div>
-    <div class="tl-axis"><div class="tl-dot"></div><div class="tl-stem"></div></div>
-    <div class="tl-card tl-card--dk">
-      <div class="tl-card__top">
-        <div class="tl-card__title">DSAA DESIGN GRAPHIQUE</div>
-        <span class="tag tag--lm tl-card__badge">Bac+4</span>
-      </div>
-      <div class="tl-card__place">École Estienne — Paris</div>
-      <div class="tl-card__desc">Spécialisation typographie, identité visuelle et design éditorial.</div>
-    </div>
-  </div>
-  <div class="tl-item rv rv-d1">
-    <div class="tl-year">2016</div>
-    <div class="tl-axis"><div class="tl-dot"></div><div class="tl-stem"></div></div>
-    <div class="tl-card">
-      <div class="tl-card__top">
-        <div class="tl-card__title">DNMADE DESIGN GRAPHIQUE</div>
-        <span class="tag tl-card__badge">Bac+3</span>
-      </div>
-      <div class="tl-card__place">École Estienne — Paris</div>
-      <div class="tl-card__desc">Fondamentaux du design graphique, arts numériques et production print.</div>
-    </div>
-  </div>
-  <div class="tl-item rv rv-d2">
-    <div class="tl-year">2013</div>
-    <div class="tl-axis"><div class="tl-dot"></div><div class="tl-stem"></div></div>
-    <div class="tl-card">
-      <div class="tl-card__top">
-        <div class="tl-card__title">BAC STD2A</div>
-        <span class="tag tl-card__badge">Bac</span>
-      </div>
-      <div class="tl-card__place">Lycée Maximilien Vox — Paris</div>
-      <div class="tl-card__desc">Sciences et technologies du design et des arts appliqués.</div>
-    </div>
-  </div>
-</div>
-
-<!-- ==================== 03 — OUTILS ==================== -->
-<div class="divider rv">
-  <span class="divider__num">03</span>
-  <span class="divider__title">Mes outils</span>
-  <span class="divider__line"></span>
-</div>
-
-<div class="tools">
-  <div class="tool rv"><div class="tool__icon">◈</div><div class="tool__name">Figma</div><div class="tool__level">Quotidien</div></div>
-  <div class="tool rv rv-d1"><div class="tool__icon">▣</div><div class="tool__name">Webflow</div><div class="tool__level">Quotidien</div></div>
-  <div class="tool rv rv-d2"><div class="tool__icon">◎</div><div class="tool__name">Photoshop</div><div class="tool__level">Avancé</div></div>
-  <div class="tool rv rv-d3"><div class="tool__icon">△</div><div class="tool__name">Illustrator</div><div class="tool__level">Avancé</div></div>
-  <div class="tool rv rv-d4"><div class="tool__icon">◇</div><div class="tool__name">After Effects</div><div class="tool__level">Intermédiaire</div></div>
-  <div class="tool rv"><div class="tool__icon">⬡</div><div class="tool__name">Blender</div><div class="tool__level">En cours</div></div>
-  <div class="tool rv rv-d1"><div class="tool__icon">⊞</div><div class="tool__name">Framer</div><div class="tool__level">Avancé</div></div>
-  <div class="tool rv rv-d2"><div class="tool__icon">⟨/⟩</div><div class="tool__name">HTML/CSS</div><div class="tool__level">Avancé</div></div>
-  <div class="tool rv rv-d3"><div class="tool__icon">◐</div><div class="tool__name">Spline 3D</div><div class="tool__level">Intermédiaire</div></div>
-  <div class="tool rv rv-d4"><div class="tool__icon">▶</div><div class="tool__name">Rive</div><div class="tool__level">Intermédiaire</div></div>
-  <div class="tool rv"><div class="tool__icon">■</div><div class="tool__name">Notion</div><div class="tool__level">Quotidien</div></div>
-  <div class="tool rv rv-d1"><div class="tool__icon">✦</div><div class="tool__name">Midjourney</div><div class="tool__level">Courant</div></div>
-</div>
-
-<!-- ==================== 04 — APPROCHE ==================== -->
-<div class="divider rv">
-  <span class="divider__num">04</span>
-  <span class="divider__title">Mon approche</span>
-  <span class="divider__line"></span>
-</div>
-
-<div class="values">
-  <div class="val rv">
-    <div class="val__icon">⚡</div>
-    <h3 class="val__title">AUDACE<br>GRAPHIQUE</h3>
-    <p class="val__text">Le design doit provoquer. Je privilégie les partis pris forts aux compromis tièdes.</p>
-  </div>
-  <div class="val rv rv-d1">
-    <div class="val__icon">🔬</div>
-    <h3 class="val__title">RIGUEUR<br>PIXEL-PERFECT</h3>
-    <p class="val__text">Chaque détail est intentionnel. Du wireframe au code, rien n'est laissé au hasard.</p>
-  </div>
-  <div class="val rv rv-d2">
-    <div class="val__icon">🤝</div>
-    <h3 class="val__title">DIALOGUE<br>DIRECT</h3>
-    <p class="val__text">Communication claire, itérations rapides, pas de jargon inutile. On avance ensemble.</p>
-  </div>
-</div>
-
-<!-- ==================== 05 — HOBBIES ==================== -->
-<div class="divider rv">
-  <span class="divider__num">05</span>
-  <span class="divider__title">En dehors du design</span>
-  <span class="divider__line"></span>
-</div>
-
-<div class="hobbies">
-  <div class="hobby rv">
-    <div class="hobby__visual"><div class="hobby__fill hf1"><div class="hobby__grid"></div></div><span class="hobby__emoji">🎷</span></div>
-    <div class="hobby__info"><div class="hobby__name">JAZZ & VINYLES</div><div class="hobby__desc">Collectionneur d'affiches Blue Note et de vinyles 60s-70s.</div></div>
-  </div>
-  <div class="hobby rv rv-d1">
-    <div class="hobby__visual"><div class="hobby__fill hf2"><div class="hobby__grid"></div></div><span class="hobby__emoji">☕</span></div>
-    <div class="hobby__info"><div class="hobby__name">CAFÉ DE SPÉCIALITÉ</div><div class="hobby__desc">Toujours en quête du meilleur flat white de Paris.</div></div>
-  </div>
-  <div class="hobby rv rv-d2">
-    <div class="hobby__visual"><div class="hobby__fill hf3"><div class="hobby__grid"></div></div><span class="hobby__emoji">📸</span></div>
-    <div class="hobby__info"><div class="hobby__name">PHOTO ARGENTIQUE</div><div class="hobby__desc">Portra 400 dans un vieux Contax T2. Grain > netteté.</div></div>
-  </div>
-  <div class="hobby rv rv-d3">
-    <div class="hobby__visual"><div class="hobby__fill hf4"><div class="hobby__grid"></div></div><span class="hobby__emoji">🏃</span></div>
-    <div class="hobby__info"><div class="hobby__name">RUNNING</div><div class="hobby__desc">Les bords de Seine au lever du soleil, mon reset quotidien.</div></div>
-  </div>
-</div>
-
-<!-- MARQUEE -->
-<div class="mband mband--black" style="margin-top:80px;">
-  <div class="mq mq--rev"><div class="mt"><span>PARLONS DE VOTRE PROJET</span><span class="mdd-l"></span><span>HELLO@STUDIO.DESIGN</span><span class="mdd-l"></span><span>PARLONS DE VOTRE PROJET</span><span class="mdd-l"></span><span>HELLO@STUDIO.DESIGN</span><span class="mdd-l"></span><span>PARLONS DE VOTRE PROJET</span><span class="mdd-l"></span><span>HELLO@STUDIO.DESIGN</span><span class="mdd-l"></span></div><div class="mt" aria-hidden="true"><span>PARLONS DE VOTRE PROJET</span><span class="mdd-l"></span><span>HELLO@STUDIO.DESIGN</span><span class="mdd-l"></span><span>PARLONS DE VOTRE PROJET</span><span class="mdd-l"></span><span>HELLO@STUDIO.DESIGN</span><span class="mdd-l"></span><span>PARLONS DE VOTRE PROJET</span><span class="mdd-l"></span><span>HELLO@STUDIO.DESIGN</span><span class="mdd-l"></span></div></div>
-</div>
-
-<!-- ==================== CTA ==================== -->
-<section id="contact">
-  <div class="cta rv">
-    <div class="cta__left">
-      <h2 class="cta__title">ENVIE DE<br><span class="bl">CRÉER</span><br>ENSEMBLE <span class="lm">?</span></h2>
-      <p class="cta__sub">Toujours ouvert aux projets intéressants et aux belles collaborations.</p>
-    </div>
-    <div class="cta__btns">
-      <a href="mailto:hello@studio.design" class="btn" style="background:var(--blue);box-shadow:6px 6px 0 var(--lime);">Envoyer un mail <span class="ba">→</span></a>
-      <a href="#" class="btn btn--lime">Réserver un call <span class="ba">↗</span></a>
-    </div>
-  </div>
-</section>
 
 <!-- FOOTER -->
 <footer class="footer">
-  <span class="footer__copy">© 2026 STUDIO. DESIGN & CODE À LA MAIN.</span>
-  <a href="#" class="footer__btop" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></svg>
-  </a>
+  <span class="footer__copy">© 2026 STUDIO.</span>
+  <span class="footer__copy">MÊME ICI, LE DESIGN EST SOIGNÉ.</span>
 </footer>
 
 <script>
@@ -556,37 +234,30 @@ const dot=document.getElementById('cD'),ring=document.getElementById('cR');
 let mx=0,my=0,rx=0,ry=0;
 document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;dot.style.left=mx+'px';dot.style.top=my+'px';});
 (function loop(){rx+=(mx-rx)*.1;ry+=(my-ry)*.1;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(loop);})();
-document.querySelectorAll('a,button,.btn,.tool,.aw,.val,.hobby,.tl-card,.nl,.footer__btop').forEach(el=>{
+document.querySelectorAll('a,button,.btn,.nl').forEach(el=>{
   el.addEventListener('mouseenter',()=>document.body.classList.add('ch'));
   el.addEventListener('mouseleave',()=>document.body.classList.remove('ch'));
 });
 
-/* REVEAL */
-const obs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('v');obs.unobserve(e.target);}});},{threshold:.06});
-document.querySelectorAll('.rv').forEach(el=>obs.observe(el));
+/* TIME WASTED COUNTER */
+let seconds=0;
+setInterval(()=>{
+  seconds++;
+  const h=Math.floor(seconds/3600);
+  const m=Math.floor((seconds%3600)/60);
+  const s=seconds%60;
+  document.getElementById('timeH').textContent=String(h).padStart(2,'0');
+  document.getElementById('timeM').textContent=String(m).padStart(2,'0');
+  document.getElementById('timeS').textContent=String(s).padStart(2,'0');
+},1000);
 
-/* COUNTERS */
-function animC(el){const t=parseInt(el.dataset.count);if(isNaN(t))return;const pre=el.dataset.prefix||'',suf=el.dataset.suffix||'';const d=1400,s=performance.now();(function f(ts){const p=Math.min((ts-s)/d,1);el.textContent=pre+Math.floor((1-Math.pow(1-p,3))*t)+suf;if(p<1)requestAnimationFrame(f);})(s);}
-const cObs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.querySelectorAll('[data-count]').forEach(animC);cObs.unobserve(e.target);}});},{threshold:.3});
-document.querySelectorAll('.stats').forEach(el=>cObs.observe(el));
-
-/* NAV */
-window.addEventListener('scroll',()=>{const n=document.getElementById('nav');n.style.background=scrollY>60?'rgba(244,245,246,.92)':'var(--bg)';n.style.backdropFilter=scrollY>60?'blur(12px)':'none';});
-
-/* TILT ON TOOLS */
-document.querySelectorAll('.tool').forEach(t=>{
-  t.addEventListener('mousemove',e=>{const r=t.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;t.style.transform=`translateY(-4px) perspective(600px) rotateY(${x*6}deg) rotateX(${-y*6}deg)`;});
-  t.addEventListener('mouseleave',()=>{t.style.transform='';});
+/* 404 FOLLOWS MOUSE (subtle parallax on the number) */
+const num=document.querySelector('.error-num');
+document.addEventListener('mousemove',e=>{
+  const x=(e.clientX/window.innerWidth-.5)*12;
+  const y=(e.clientY/window.innerHeight-.5)*8;
+  num.style.transform=`translate(${x}px,${y}px)`;
 });
-
-/* PARALLAX ON HOBBIES */
-document.querySelectorAll('.hobby__visual').forEach(v=>{
-  v.addEventListener('mousemove',e=>{const r=v.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;const f=v.querySelector('.hobby__fill');if(f)f.style.transform=`scale(1.06) translate(${x*8}px,${y*8}px)`;});
-  v.addEventListener('mouseleave',()=>{const f=v.querySelector('.hobby__fill');if(f)f.style.transform='';});
-});
-
-/* SMOOTH SCROLL */
-document.querySelectorAll('a[href^="#"]').forEach(a=>{a.addEventListener('click',e=>{const t=document.querySelector(a.getAttribute('href'));if(t){e.preventDefault();t.scrollIntoView({behavior:'smooth',block:'start'});}});});
 </script>
 </body>
 </html>
