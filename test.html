@@ -2,143 +2,689 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-<title>RunAlert — À propos</title>
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,500;1,600;1,700&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>STUDIO — Webdesigner & Graphiste</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&family=Unbounded:wght@700;800;900&display=swap" rel="stylesheet">
 <style>
-:root{--canvas:#F4F5F8;--card:#FFFFFF;--hero:#13151A;--acc:#FF3B30;--acc-glow:rgba(255,59,48,.25);--ink:#0B0F19;--sub:#848A9C;--faint:#B8BCC9;--line:#ECEDF1;--shadow:0 4px 24px rgba(11,15,25,.06),0 1px 4px rgba(11,15,25,.04);--shadow-lg:0 8px 40px rgba(11,15,25,.08),0 2px 8px rgba(11,15,25,.05);--df:'Outfit',sans-serif;--db:'Plus Jakarta Sans',sans-serif}
-*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}body{font-family:var(--db);background:var(--canvas);color:var(--ink);-webkit-font-smoothing:antialiased;max-width:430px;margin:0 auto;min-height:100vh;padding-bottom:96px}a{text-decoration:none;color:inherit}button{font-family:var(--db);cursor:pointer;border:none;background:none;color:inherit}::-webkit-scrollbar{display:none}
-@keyframes rise{from{transform:translateY(16px);opacity:0}to{transform:translateY(0);opacity:1}}.r{animation:rise .5s cubic-bezier(.22,1,.36,1) both}.d1{animation-delay:50ms}.d2{animation-delay:100ms}.d3{animation-delay:150ms}.d4{animation-delay:200ms}.d5{animation-delay:250ms}
-.bottom-nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:430px;z-index:50;padding:0 16px 10px}.bottom-nav-inner{border-radius:50px;padding:6px 8px;display:flex;justify-content:space-around;background:rgba(255,255,255,.75);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);box-shadow:0 -2px 20px rgba(11,15,25,.06)}.nav-item{display:flex;flex-direction:column;align-items:center;gap:3px;padding:8px 14px;border-radius:50px;position:relative}.nav-label{font-size:10px;font-weight:500;color:var(--sub)}.nav-badge{position:absolute;top:2px;right:4px;min-width:16px;height:16px;border-radius:50px;background:var(--acc);color:#fff;font-size:9px;font-weight:700;display:flex;align-items:center;justify-content:center;padding:0 4px;box-shadow:0 0 8px var(--acc-glow)}
+/* ===========================================
+   RESET & TOKENS
+   =========================================== */
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --bg:#F4F5F6;--white:#FFFFFF;--black:#0A0A0A;
+  --blue:#0A3CFF;--lime:#CCFF00;
+  --pill:100px;--card:36px;--card-lg:40px;
+  --b:3px solid var(--black);--b4:4px solid var(--black);
+  --sh:8px 8px 0px var(--black);--sh-lg:12px 12px 0px var(--black);--sh-sm:5px 5px 0px var(--black);
+}
+html{scroll-behavior:smooth;}
+body{font-family:'Manrope',sans-serif;background:var(--bg);color:var(--black);overflow-x:hidden;line-height:1.5;font-weight:500;cursor:none;}
+a{text-decoration:none;color:inherit;cursor:none;}
+button{cursor:none;border:none;background:none;font-family:inherit;}
+::selection{background:var(--blue);color:var(--white);}
+
+/* ===========================================
+   UTILITIES
+   =========================================== */
+.label{font-family:'Space Mono',monospace;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;}
+.label--dim{opacity:0.4;}
+.sp{padding:100px 48px;}
+
+/* ===========================================
+   CUSTOM CURSOR
+   =========================================== */
+.cur-d,.cur-r{position:fixed;border-radius:50%;pointer-events:none;z-index:99999;transform:translate(-50%,-50%);}
+.cur-d{width:10px;height:10px;background:var(--blue);transition:background .2s,transform .2s;}
+.cur-r{width:44px;height:44px;border:2px solid var(--blue);z-index:99998;transition:width .35s cubic-bezier(.25,.8,.25,1),height .35s cubic-bezier(.25,.8,.25,1),background .3s,border-color .3s;}
+body.ch .cur-d{background:var(--lime);transform:translate(-50%,-50%) scale(1.5);}
+body.ch .cur-r{width:64px;height:64px;background:rgba(10,60,255,.08);border-color:var(--blue);}
+
+/* ===========================================
+   NAV
+   =========================================== */
+.nav{position:fixed;top:0;left:0;width:100%;z-index:9000;padding:14px 48px;display:flex;align-items:center;justify-content:space-between;background:var(--bg);border-bottom:var(--b);transition:background .3s;}
+.nav__logo{font-family:'Unbounded',sans-serif;font-weight:900;font-size:20px;text-transform:uppercase;letter-spacing:-0.04em;}
+.nav__logo em{font-style:normal;color:var(--blue);}
+.nav__center{display:flex;align-items:center;gap:8px;position:absolute;left:50%;transform:translateX(-50%);}
+.nav__dot{width:8px;height:8px;background:var(--lime);border-radius:50%;border:2px solid var(--black);animation:blink 2s infinite;}
+@keyframes blink{0%,100%{opacity:1;}50%{opacity:.35;}}
+.nav__links{display:flex;align-items:center;gap:8px;}
+.nl{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.02em;padding:10px 20px;border-radius:var(--pill);border:var(--b);background:var(--white);box-shadow:4px 4px 0 var(--black);transition:transform .15s,box-shadow .15s,background .15s,color .15s;}
+.nl:hover{transform:translate(4px,4px);box-shadow:0 0 0 var(--black);}
+.nl--cta{background:var(--blue);color:var(--white);}
+.nl--cta:hover{background:var(--lime);color:var(--black);transform:translate(4px,4px);box-shadow:0 0 0 var(--black);}
+
+/* ===========================================
+   HERO
+   =========================================== */
+.hero{min-height:100vh;padding:140px 48px 60px;display:flex;flex-direction:column;justify-content:center;}
+.hero__meta{display:flex;justify-content:space-between;margin-bottom:40px;}
+.hero__meta-group{display:flex;gap:32px;}
+.hero__h1{font-family:'Unbounded',sans-serif;font-weight:900;font-size:clamp(52px,9.5vw,158px);text-transform:uppercase;letter-spacing:-0.05em;line-height:.82;}
+.hero__h1 .ln{display:block;overflow:hidden;}
+.hero__h1 .ln span{display:inline-block;animation:su .8s cubic-bezier(.16,1,.3,1) forwards;opacity:0;transform:translateY(100%);}
+.hero__h1 .ln:nth-child(1) span{animation-delay:.1s;}
+.hero__h1 .ln:nth-child(2) span{animation-delay:.2s;}
+.hero__h1 .ln:nth-child(3) span{animation-delay:.3s;}
+@keyframes su{to{opacity:1;transform:translateY(0);}}
+.hero__h1 .indent{padding-left:clamp(50px,7vw,170px);}
+.hero__h1 .bl{color:var(--blue);}
+.hero__h1 .lm{background:var(--lime);padding:0 .12em;border-radius:8px;border:var(--b);color:var(--black);display:inline-block;}
+.hero__bot{display:flex;justify-content:space-between;align-items:flex-end;margin-top:48px;gap:40px;}
+.hero__intro{max-width:460px;font-size:17px;font-weight:600;line-height:1.65;color:rgba(10,10,10,.6);animation:fi 1s .5s forwards;opacity:0;}
+@keyframes fi{to{opacity:1;}}
+.hero__nums{display:flex;gap:18px;animation:fi 1s .7s forwards;opacity:0;}
+.num-box{background:var(--white);border:var(--b);border-radius:20px;padding:16px 22px;box-shadow:var(--sh);text-align:center;min-width:105px;}
+.num-box__v{font-family:'Unbounded',sans-serif;font-weight:900;font-size:30px;letter-spacing:-0.04em;line-height:1;color:var(--blue);}
+.num-box__l{margin-top:4px;}
+.hero__scroll{display:flex;flex-direction:column;align-items:center;gap:8px;animation:fi 1s .9s forwards;opacity:0;}
+.hero__scroll-btn{width:52px;height:52px;border-radius:50%;border:var(--b);background:var(--white);box-shadow:var(--sh-sm);display:flex;align-items:center;justify-content:center;animation:bounce 2.5s infinite;transition:transform .15s,box-shadow .15s;}
+.hero__scroll-btn:hover{transform:translate(4px,4px);box-shadow:0 0 0 var(--black);animation:none;}
+.hero__scroll-btn svg{width:22px;height:22px;}
+@keyframes bounce{0%,100%{transform:translateY(0);}50%{transform:translateY(8px);}}
+
+/* ===========================================
+   MARQUEES
+   =========================================== */
+.mband{padding:10px 0;overflow:hidden;border-top:var(--b);border-bottom:var(--b);background:var(--black);margin:0 -10px;position:relative;z-index:10;}
+.mband--rn{transform:rotate(-1.5deg);}
+.mband--rp{transform:rotate(1.2deg);}
+.mband--rs{transform:rotate(-0.8deg);}
+.mband--lime{background:var(--lime);}
+.mband--lime .mt{color:var(--black);}
+.mband--lime .md{background:var(--blue);}
+.mband--blue{background:var(--blue);}
+.mband--blue .md{background:var(--lime);}
+.mband--white{background:var(--white);}
+.mband--white .mt{color:var(--black);}
+.mband--white .md{background:var(--blue);}
+.mq{display:flex;animation:ms 22s linear infinite;width:max-content;}
+.mq--rev{animation-direction:reverse;}
+.mt{font-family:'Unbounded',sans-serif;font-weight:900;font-size:18px;text-transform:uppercase;letter-spacing:.02em;color:var(--white);white-space:nowrap;padding:5px 0;display:flex;align-items:center;gap:24px;}
+.md{width:10px;height:10px;background:var(--lime);border-radius:50%;flex-shrink:0;}
+@keyframes ms{0%{transform:translateX(0);}100%{transform:translateX(-50%);}}
+
+/* ===========================================
+   SECTION HEADER
+   =========================================== */
+.sh{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:56px;padding-bottom:24px;border-bottom:var(--b);}
+.sh__t{font-family:'Unbounded',sans-serif;font-weight:900;font-size:clamp(36px,5vw,68px);text-transform:uppercase;letter-spacing:-0.05em;line-height:.88;}
+.sh__r{font-family:'Unbounded',sans-serif;font-weight:900;font-size:clamp(36px,5vw,68px);letter-spacing:-0.04em;line-height:.88;color:var(--blue);}
+.sh__sub{font-size:15px;font-weight:600;color:rgba(10,10,10,.5);max-width:400px;margin-top:12px;}
+
+/* ===========================================
+   BUTTONS & TAGS
+   =========================================== */
+.btn{display:inline-flex;align-items:center;gap:10px;font-family:'Manrope',sans-serif;font-size:14px;font-weight:800;text-transform:uppercase;letter-spacing:.02em;padding:14px 28px;border-radius:var(--pill);border:var(--b);background:var(--black);color:var(--white);box-shadow:6px 6px 0 var(--black);transition:transform .15s,box-shadow .15s,background .15s,color .15s;}
+.btn:hover{transform:translate(4px,4px);box-shadow:0 0 0 var(--black);background:var(--blue);}
+.btn--lime{background:var(--lime);color:var(--black);box-shadow:6px 6px 0 var(--blue);}
+.btn--lime:hover{transform:translate(4px,4px);box-shadow:0 0 0 var(--blue);}
+.btn--white{background:var(--white);color:var(--black);}
+.btn--white:hover{background:var(--blue);color:var(--white);transform:translate(4px,4px);box-shadow:0 0 0 var(--black);}
+.btn--ghost{background:transparent;color:var(--black);}
+.btn--ghost:hover{background:var(--black);color:var(--white);transform:translate(4px,4px);box-shadow:0 0 0 var(--black);}
+.ba{font-size:18px;transition:transform .2s;}
+.btn:hover .ba{transform:translateX(4px);}
+.tag{font-family:'Space Mono',monospace;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;padding:6px 14px;border-radius:var(--pill);border:2px solid var(--black);background:var(--bg);display:inline-block;}
+.tag--bl{background:var(--blue);color:var(--white);border-color:var(--blue);}
+.tag--lm{background:var(--lime);color:var(--black);border-color:var(--black);}
+.tag--dk{border-color:rgba(255,255,255,.25);background:rgba(255,255,255,.08);color:var(--white);}
+.tag--ow{border-color:rgba(255,255,255,.3);background:transparent;color:var(--white);}
+
+/* ===========================================
+   PROJECT CARDS — DOSSIER SUSPENDU
+   =========================================== */
+.pg{display:grid;grid-template-columns:1fr 1fr;gap:40px;}
+.pc{position:relative;filter:drop-shadow(10px 10px 0 var(--black));transition:filter .35s,transform .35s;}
+.pc:hover{filter:drop-shadow(14px 14px 0 var(--blue));transform:translateY(-6px);}
+.pc:nth-child(even):hover{filter:drop-shadow(14px 14px 0 var(--lime));}
+.pc--fw{grid-column:1/-1;}
+.pc__tab{display:inline-block;background:var(--white);border:3px solid var(--black);border-bottom:none;border-radius:18px 18px 0 0;padding:9px 22px;margin-left:32px;margin-bottom:-3px;position:relative;z-index:2;}
+.pc--dk .pc__tab{background:var(--black);}
+.pc--dk .pc__tab .label{color:var(--white);}
+.pc--bl .pc__tab{background:var(--blue);}
+.pc--bl .pc__tab .label{color:var(--white);}
+.pc__body{background:var(--white);border:3px solid var(--black);border-radius:var(--card);overflow:hidden;position:relative;z-index:1;}
+.pc--dk .pc__body{background:var(--black);color:var(--white);}
+.pc--bl .pc__body{background:var(--blue);color:var(--white);}
+.pc__in{display:grid;grid-template-columns:1fr 1fr;min-height:420px;}
+.pc--fw .pc__in{min-height:360px;grid-template-columns:1.15fr .85fr;}
+.pc__info{padding:32px 28px;display:flex;flex-direction:column;justify-content:space-between;border-right:3px solid var(--black);}
+.pc--dk .pc__info{border-right-color:rgba(255,255,255,.12);}
+.pc--bl .pc__info{border-right-color:rgba(255,255,255,.18);}
+.pc__n{font-family:'Unbounded',sans-serif;font-weight:900;font-size:72px;letter-spacing:-0.05em;line-height:.8;color:var(--blue);opacity:.12;}
+.pc--dk .pc__n{color:var(--lime);opacity:.2;}
+.pc--bl .pc__n{color:var(--white);opacity:.15;}
+.pc__t{font-family:'Unbounded',sans-serif;font-weight:900;font-size:clamp(22px,2.4vw,36px);text-transform:uppercase;letter-spacing:-0.04em;line-height:.88;margin-top:12px;}
+.pc__d{font-size:14px;font-weight:600;line-height:1.6;opacity:.5;margin-top:14px;}
+.pc__tags{display:flex;flex-wrap:wrap;gap:7px;margin-top:18px;}
+.pc__meta{display:flex;gap:20px;margin-top:14px;}
+.pc__meta-item{display:flex;flex-direction:column;gap:2px;}
+.pc__cta{margin-top:24px;}
+.pc__vis{position:relative;overflow:hidden;background:var(--bg);display:flex;align-items:center;justify-content:center;}
+.pc--dk .pc__vis{background:#111;}
+.pc--bl .pc__vis{background:rgba(0,0,0,.12);}
+
+/* Placeholder visuals */
+.ph{width:84%;height:84%;border-radius:20px;border:var(--b);position:relative;overflow:hidden;transition:transform .4s;}
+.pc:hover .ph{transform:scale(1.03);}
+.ph--1{background:linear-gradient(135deg,var(--blue) 0%,#4f5fff 100%);}
+.ph--2{background:linear-gradient(135deg,var(--lime) 0%,#90b800 100%);}
+.ph--3{background:linear-gradient(135deg,#0A0A0A 0%,#333 100%);}
+.ph--4{background:linear-gradient(135deg,var(--blue) 0%,var(--lime) 100%);}
+.ph--5{background:linear-gradient(135deg,#ff6b35 0%,#ff3864 100%);}
+.ph--6{background:linear-gradient(135deg,#6c3ce0 0%,var(--blue) 100%);}
+.ph__grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.07) 1px,transparent 1px);background-size:32px 32px;}
+.ph__lbl{position:absolute;bottom:14px;left:14px;font-family:'Space Mono',monospace;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--white);background:var(--black);padding:5px 10px;border-radius:var(--pill);border:2px solid var(--black);}
+.ph--2 .ph__lbl{color:var(--black);background:var(--white);}
+.ph__shape{position:absolute;width:55%;height:55%;top:50%;left:50%;transform:translate(-50%,-50%) rotate(12deg);border:3px solid rgba(255,255,255,.15);border-radius:20px;}
+.ph__circle{position:absolute;width:40%;height:0;padding-bottom:40%;border-radius:50%;border:3px solid rgba(255,255,255,.1);top:15%;right:10%;}
+
+/* ===========================================
+   ABOUT — BENTO
+   =========================================== */
+.ab-grid{display:grid;grid-template-columns:1fr 1fr 1fr;grid-template-rows:auto auto auto;gap:24px;}
+
+/* Main card */
+.ab-main{grid-column:1/3;grid-row:1/3;background:var(--black);color:var(--white);border:var(--b);border-radius:var(--card-lg);padding:52px 44px;box-shadow:var(--sh-lg);display:flex;flex-direction:column;justify-content:space-between;}
+.ab-main__t{font-family:'Unbounded',sans-serif;font-weight:900;font-size:clamp(26px,3vw,46px);text-transform:uppercase;letter-spacing:-0.05em;line-height:.88;}
+.ab-main__t .hl{color:var(--lime);}
+.ab-main__p{font-size:16px;font-weight:500;line-height:1.75;color:rgba(255,255,255,.5);margin-top:24px;max-width:540px;}
+.ab-main__p strong{color:rgba(255,255,255,.85);font-weight:700;}
+.ab-main__bottom{display:flex;gap:16px;margin-top:36px;flex-wrap:wrap;}
+
+/* Photo */
+.ab-photo{grid-column:3;grid-row:1;background:var(--blue);border:var(--b);border-radius:var(--card-lg);box-shadow:var(--sh);overflow:hidden;min-height:240px;display:flex;align-items:center;justify-content:center;position:relative;}
+.ab-photo__emoji{font-size:80px;opacity:.2;filter:grayscale(1);}
+.ab-photo__tag{position:absolute;bottom:16px;left:16px;}
+
+/* Stat */
+.ab-stat{background:var(--lime);border:var(--b);border-radius:var(--card-lg);padding:32px 24px;box-shadow:var(--sh);text-align:center;display:flex;flex-direction:column;justify-content:center;align-items:center;}
+.ab-stat__n{font-family:'Unbounded',sans-serif;font-weight:900;font-size:58px;letter-spacing:-0.04em;line-height:.85;}
+.ab-stat__l{margin-top:8px;}
+
+/* Tools */
+.ab-tools{grid-column:1/3;background:var(--white);border:var(--b);border-radius:var(--card-lg);padding:32px 28px;box-shadow:var(--sh);}
+.ab-tools__t{font-family:'Unbounded',sans-serif;font-weight:900;font-size:16px;text-transform:uppercase;letter-spacing:-0.03em;line-height:1;margin-bottom:16px;}
+.ab-tools__wrap{display:flex;flex-wrap:wrap;gap:10px;}
+
+/* Awards */
+.ab-aw{background:var(--black);color:var(--white);border:var(--b);border-radius:var(--card-lg);padding:32px 24px;box-shadow:var(--sh);}
+.ab-aw__t{font-family:'Unbounded',sans-serif;font-weight:900;font-size:16px;text-transform:uppercase;letter-spacing:-0.03em;line-height:1;margin-bottom:16px;color:var(--lime);}
+.aw-row{padding:11px 0;border-bottom:1px solid rgba(255,255,255,.08);display:flex;justify-content:space-between;align-items:center;}
+.aw-row:last-child{border-bottom:none;}
+.aw-row__name{font-weight:700;font-size:13px;}
+.aw-row__yr{font-family:'Space Mono',monospace;font-size:10px;font-weight:700;letter-spacing:.1em;opacity:.35;}
+
+/* Education / Parcours */
+.ab-parcours{grid-column:1/-1;background:var(--white);border:var(--b);border-radius:var(--card-lg);padding:36px 32px;box-shadow:var(--sh);}
+.ab-parcours__t{font-family:'Unbounded',sans-serif;font-weight:900;font-size:16px;text-transform:uppercase;letter-spacing:-0.03em;line-height:1;margin-bottom:24px;}
+.timeline{display:grid;grid-template-columns:repeat(4,1fr);gap:0;}
+.tl-item{border:var(--b);padding:24px 20px;background:var(--white);transition:background .3s;}
+.tl-item:first-child{border-radius:var(--card) 0 0 var(--card);}
+.tl-item:last-child{border-radius:0 var(--card) var(--card) 0;}
+.tl-item:not(:first-child){border-left:none;}
+.tl-item:hover{background:var(--lime);}
+.tl-item__yr{font-family:'Unbounded',sans-serif;font-weight:900;font-size:28px;letter-spacing:-0.04em;line-height:1;color:var(--blue);}
+.tl-item:hover .tl-item__yr{color:var(--black);}
+.tl-item__title{font-family:'Manrope',sans-serif;font-weight:800;font-size:14px;margin-top:10px;text-transform:uppercase;letter-spacing:.01em;}
+.tl-item__place{font-size:13px;font-weight:600;opacity:.45;margin-top:4px;}
+
+/* ===========================================
+   CONTACT CTA
+   =========================================== */
+.cta{background:var(--black);color:var(--white);border:var(--b4);border-radius:var(--card-lg);box-shadow:var(--sh-lg);padding:80px 60px;text-align:center;position:relative;overflow:hidden;}
+.cta::before{content:'↗';position:absolute;top:-40px;right:50px;font-family:'Unbounded',sans-serif;font-weight:900;font-size:220px;color:rgba(255,255,255,.025);pointer-events:none;}
+.cta__t{font-family:'Unbounded',sans-serif;font-weight:900;font-size:clamp(34px,5.5vw,82px);text-transform:uppercase;letter-spacing:-0.05em;line-height:.85;}
+.cta__t .bl{color:var(--blue);}
+.cta__t .lm{color:var(--lime);}
+.cta__sub{font-size:17px;font-weight:600;color:rgba(255,255,255,.4);margin-top:18px;max-width:480px;margin-left:auto;margin-right:auto;}
+.cta__btns{display:flex;gap:16px;justify-content:center;margin-top:36px;flex-wrap:wrap;}
+.cta__info{display:flex;justify-content:center;gap:48px;margin-top:44px;padding-top:28px;border-top:1px solid rgba(255,255,255,.08);}
+.cta__info-item{text-align:center;}
+.cta__info-lbl{margin-bottom:4px;color:rgba(255,255,255,.25);}
+.cta__info-val{font-weight:700;font-size:14px;}
+.cta__socials{display:flex;justify-content:center;gap:12px;margin-top:32px;}
+.cta__social{font-family:'Space Mono',monospace;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;padding:8px 18px;border-radius:var(--pill);border:2px solid rgba(255,255,255,.15);color:rgba(255,255,255,.5);transition:border-color .2s,color .2s,background .2s;}
+.cta__social:hover{border-color:var(--lime);color:var(--lime);background:rgba(204,255,0,.06);}
+
+/* ===========================================
+   FOOTER
+   =========================================== */
+.footer{padding:28px 48px;display:flex;justify-content:space-between;align-items:center;border-top:var(--b);margin-top:40px;}
+.footer__copy{font-family:'Space Mono',monospace;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;opacity:.25;}
+.footer__btop{width:42px;height:42px;border-radius:50%;border:var(--b);background:var(--white);box-shadow:var(--sh-sm);display:flex;align-items:center;justify-content:center;transition:transform .15s,box-shadow .15s;}
+.footer__btop:hover{transform:translate(4px,4px);box-shadow:0 0 0 var(--black);}
+.footer__btop svg{width:16px;height:16px;transform:rotate(180deg);}
+
+/* ===========================================
+   SCROLL REVEAL
+   =========================================== */
+.rv{opacity:0;transform:translateY(44px);transition:opacity .7s ease,transform .7s ease;}
+.rv.v{opacity:1;transform:translateY(0);}
+.rv-d1{transition-delay:.1s;}
+.rv-d2{transition-delay:.2s;}
+.rv-d3{transition-delay:.3s;}
+.rv-d4{transition-delay:.35s;}
+
+/* ===========================================
+   RESPONSIVE
+   =========================================== */
+@media(max-width:1100px){
+  .pg{grid-template-columns:1fr;}
+  .pc--fw{grid-column:1;}
+  .ab-grid{grid-template-columns:1fr 1fr;}
+  .ab-main{grid-column:1/-1;grid-row:auto;}
+  .ab-tools{grid-column:1/-1;}
+  .ab-parcours{grid-column:1/-1;}
+  .timeline{grid-template-columns:1fr 1fr;}
+  .tl-item:nth-child(2){border-radius:0 var(--card) 0 0;border-left:none;}
+  .tl-item:first-child{border-radius:var(--card) 0 0 0;}
+  .tl-item:nth-child(3){border-radius:0;border-top:none;border-radius:0 0 0 var(--card);}
+  .tl-item:last-child{border-radius:0 0 var(--card) 0;border-left:none;border-top:none;}
+}
+@media(max-width:768px){
+  .sp{padding:70px 20px;}
+  .nav{padding:12px 16px;}
+  .nav__center{display:none;}
+  .nl{font-size:11px;padding:8px 12px;box-shadow:3px 3px 0 var(--black);}
+  .hero{padding:120px 20px 40px;}
+  .hero__bot{flex-direction:column;align-items:flex-start;}
+  .hero__nums{flex-wrap:wrap;}
+  .pc__in{grid-template-columns:1fr;}
+  .pc__info{border-right:none;border-bottom:3px solid var(--black);}
+  .pc--dk .pc__info,.pc--bl .pc__info{border-right:none;}
+  .pc__vis{min-height:260px;}
+  .ab-grid{grid-template-columns:1fr;}
+  .ab-main,.ab-tools,.ab-parcours{grid-column:1;}
+  .timeline{grid-template-columns:1fr;}
+  .tl-item{border-radius:0!important;border-left:var(--b)!important;border-top:none!important;}
+  .tl-item:first-child{border-top:var(--b)!important;border-radius:var(--card) var(--card) 0 0!important;}
+  .tl-item:last-child{border-radius:0 0 var(--card) var(--card)!important;}
+  .cta{padding:48px 20px;}
+  .cta__btns{flex-direction:column;align-items:center;}
+  .cta__info{flex-direction:column;gap:16px;}
+  .cta__socials{flex-wrap:wrap;justify-content:center;}
+  .sh{flex-direction:column;align-items:flex-start;gap:12px;}
+  .footer{flex-direction:column;gap:16px;text-align:center;padding:24px 20px;}
+  .cur-d,.cur-r{display:none;}
+}
 </style>
 </head>
 <body>
+<div class="cur-d" id="cD"></div>
+<div class="cur-r" id="cR"></div>
 
-<!-- Back + title -->
-<div style="padding:16px 22px 0;display:flex;align-items:center;gap:12px" class="r">
-  <a href="index.html" style="width:42px;height:42px;border-radius:50%;background:var(--card);box-shadow:var(--shadow);display:flex;align-items:center;justify-content:center">
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--sub)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg>
-  </a>
-  <h1 style="font-family:var(--df);font-size:22px;font-weight:900;letter-spacing:-.03em">À propos<span style="color:var(--acc)">.</span></h1>
-</div>
-
-<!-- Hero brand -->
-<div class="r d1" style="margin:24px 22px 0;border-radius:28px;background:var(--hero);padding:32px 24px;position:relative;overflow:hidden;box-shadow:var(--shadow-lg)">
-  <div style="position:absolute;top:-30px;right:-20px;width:150px;height:150px;border-radius:50%;background:var(--acc);opacity:.08;filter:blur(60px)"></div>
-  <div style="position:absolute;bottom:-40px;left:20px;width:100px;height:100px;border-radius:50%;background:#fff;opacity:.03;filter:blur(40px)"></div>
-  <div style="position:relative;z-index:1">
-    <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px">
-      <div style="width:48px;height:48px;border-radius:16px;background:var(--acc);display:flex;align-items:center;justify-content:center">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-      </div>
-      <div>
-        <p style="font-family:var(--df);font-size:24px;font-weight:900;color:#fff;letter-spacing:-.03em">RunAlert</p>
-        <p style="color:rgba(255,255,255,.4);font-size:12px;font-weight:500">Depuis 2024</p>
-      </div>
-    </div>
-    <h2 style="font-family:var(--df);font-size:24px;font-weight:900;color:#fff;letter-spacing:-.04em;line-height:1.15;margin-bottom:12px">Ne ratez plus<br>jamais une course<span style="color:var(--acc)">.</span></h2>
-    <p style="color:rgba(255,255,255,.5);font-size:14px;line-height:1.6;font-weight:500">RunAlert est né d'une frustration simple : trouver une course fiable près de chez soi ne devrait pas être un parcours du combattant.</p>
+<!-- ===================== NAV ===================== -->
+<nav class="nav" id="nav">
+  <a href="#" class="nav__logo">STUDIO<em>.</em></a>
+  <div class="nav__center"><span class="nav__dot"></span><span class="label">Disponible pour projets</span></div>
+  <div class="nav__links">
+    <a href="#work" class="nl">Projets</a>
+    <a href="#about" class="nl">À propos</a>
+    <a href="#contact" class="nl nl--cta">Contact ↗</a>
   </div>
+</nav>
+
+<!-- ===================== HERO ===================== -->
+<section class="hero" id="top">
+  <div class="hero__meta">
+    <div class="hero__meta-group">
+      <span class="label label--dim">PORTFOLIO — 2026</span>
+      <span class="label label--dim">48.8566° N, 2.3522° E</span>
+    </div>
+    <span class="label label--dim">SCROLL TO EXPLORE ↓</span>
+  </div>
+
+  <h1 class="hero__h1">
+    <span class="ln"><span>WEB</span></span>
+    <span class="ln"><span class="indent"><span class="bl">DESIGNER</span> &</span></span>
+    <span class="ln"><span>GRAPH<span class="lm">ISTE</span></span></span>
+  </h1>
+
+  <div class="hero__bot">
+    <p class="hero__intro">Je suis un créatif basé à Paris. Je conçois des sites web audacieux et des identités graphiques fortes — chaque projet est une occasion de créer quelque chose de mémorable.</p>
+    <div class="hero__nums">
+      <div class="num-box"><div class="num-box__v" data-count="47">0</div><div class="num-box__l label">Projets</div></div>
+      <div class="num-box"><div class="num-box__v" data-count="6">0</div><div class="num-box__l label">Ans d'XP</div></div>
+      <div class="num-box"><div class="num-box__v" data-count="32">0</div><div class="num-box__l label">Clients</div></div>
+    </div>
+    <div class="hero__scroll"><span class="label">Scroll</span><a href="#work" class="hero__scroll-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></svg></a></div>
+  </div>
+</section>
+
+<!-- MARQUEE 1 -->
+<div class="mband mband--rn">
+  <div class="mq"><div class="mt"><span>WEBDESIGN</span><span class="md"></span><span>BRANDING</span><span class="md"></span><span>IDENTITÉ VISUELLE</span><span class="md"></span><span>UI DESIGN</span><span class="md"></span><span>DIRECTION ARTISTIQUE</span><span class="md"></span><span>TYPOGRAPHIE</span><span class="md"></span><span>PACKAGING</span><span class="md"></span><span>MOTION</span><span class="md"></span></div><div class="mt" aria-hidden="true"><span>WEBDESIGN</span><span class="md"></span><span>BRANDING</span><span class="md"></span><span>IDENTITÉ VISUELLE</span><span class="md"></span><span>UI DESIGN</span><span class="md"></span><span>DIRECTION ARTISTIQUE</span><span class="md"></span><span>TYPOGRAPHIE</span><span class="md"></span><span>PACKAGING</span><span class="md"></span><span>MOTION</span><span class="md"></span></div></div>
 </div>
 
-<!-- Mission -->
-<div class="r d2" style="padding:28px 22px 0">
-  <h3 style="font-family:var(--df);font-size:20px;font-weight:800;letter-spacing:-.03em;margin-bottom:14px">Notre mission</h3>
-  <p style="color:var(--sub);font-size:14px;line-height:1.7;font-weight:500;margin-bottom:20px">Centraliser toutes les courses officielles en France, permettre aux coureurs de les trouver en quelques secondes, et s'assurer qu'ils ne ratent plus jamais une inscription grâce à des rappels intelligents.</p>
+<!-- ===================== PROJETS ===================== -->
+<section class="sp" id="work">
+  <div class="sh rv">
+    <div>
+      <h2 class="sh__t">TRAVAUX<br>SÉLECTIONNÉS</h2>
+      <p class="sh__sub">Des projets de webdesign, branding et identité graphique auxquels j'ai donné vie ces dernières années.</p>
+    </div>
+    <span class="sh__r">/06</span>
+  </div>
 
-  <div style="display:flex;flex-direction:column;gap:12px">
-    <div style="display:flex;gap:14px;padding:18px;border-radius:24px;background:var(--card);box-shadow:var(--shadow)">
-      <div style="width:44px;height:44px;border-radius:14px;background:rgba(255,59,48,.06);display:flex;align-items:center;justify-content:center;flex-shrink:0">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--acc)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-      </div>
+  <div class="pg">
+
+    <!-- P1 — Light -->
+    <div class="pc rv rv-d1">
+      <div class="pc__tab"><span class="label">01 — WEBDESIGN</span></div>
+      <div class="pc__body"><div class="pc__in">
+        <div class="pc__info">
+          <div>
+            <div class="pc__n">01</div>
+            <h3 class="pc__t">ARCHFORM<br>STUDIO</h3>
+            <p class="pc__d">Site vitrine Webflow pour un studio d'architecture parisien. Design éditorial brut, animations scroll-based, responsive pixel-perfect.</p>
+            <div class="pc__tags"><span class="tag tag--bl">Webdesign</span><span class="tag">Webflow</span><span class="tag">Responsive</span></div>
+            <div class="pc__meta">
+              <div class="pc__meta-item"><span class="label label--dim">Année</span><span class="label">2025</span></div>
+              <div class="pc__meta-item"><span class="label label--dim">Rôle</span><span class="label">Design & Dev</span></div>
+            </div>
+          </div>
+          <div class="pc__cta"><a href="#" class="btn">Voir le projet <span class="ba">→</span></a></div>
+        </div>
+        <div class="pc__vis"><div class="ph ph--1"><div class="ph__grid"></div><div class="ph__shape"></div><div class="ph__circle"></div><span class="ph__lbl">Homepage.fig</span></div></div>
+      </div></div>
+    </div>
+
+    <!-- P2 — Dark -->
+    <div class="pc pc--dk rv rv-d2">
+      <div class="pc__tab"><span class="label">02 — BRANDING</span></div>
+      <div class="pc__body"><div class="pc__in">
+        <div class="pc__info">
+          <div>
+            <div class="pc__n">02</div>
+            <h3 class="pc__t">PULSE<br>HEALTH</h3>
+            <p class="pc__d">Identité visuelle complète pour une startup health-tech. Logo, charte graphique, système iconographique et déclinaison digitale.</p>
+            <div class="pc__tags"><span class="tag tag--dk">Branding</span><span class="tag tag--dk">Logo</span><span class="tag tag--dk">Charte</span></div>
+            <div class="pc__meta">
+              <div class="pc__meta-item"><span class="label" style="opacity:.3;color:#fff">Année</span><span class="label" style="color:#fff">2025</span></div>
+              <div class="pc__meta-item"><span class="label" style="opacity:.3;color:#fff">Rôle</span><span class="label" style="color:#fff">Graphiste</span></div>
+            </div>
+          </div>
+          <div class="pc__cta"><a href="#" class="btn btn--lime">Explorer <span class="ba">→</span></a></div>
+        </div>
+        <div class="pc__vis"><div class="ph ph--2"><div class="ph__grid"></div><div class="ph__shape"></div><span class="ph__lbl">Brand_book.pdf</span></div></div>
+      </div></div>
+    </div>
+
+    <!-- P3 — Full width / Blue -->
+    <div class="pc pc--fw pc--bl rv">
+      <div class="pc__tab"><span class="label">03 — DIRECTION ARTISTIQUE</span></div>
+      <div class="pc__body"><div class="pc__in">
+        <div class="pc__info">
+          <div>
+            <div class="pc__n">03</div>
+            <h3 class="pc__t">VORTEX<br>FESTIVAL</h3>
+            <p class="pc__d">DA complète pour un festival de musique électronique parisien — identité, campagne d'affichage métro, motion design et signalétique événementielle.</p>
+            <div class="pc__tags"><span class="tag tag--ow">Affiche</span><span class="tag tag--ow">Motion</span><span class="tag tag--ow">Signalétique</span><span class="tag tag--ow">Campagne</span></div>
+            <div class="pc__meta">
+              <div class="pc__meta-item"><span class="label" style="opacity:.3;color:#fff">Année</span><span class="label" style="color:#fff">2024</span></div>
+              <div class="pc__meta-item"><span class="label" style="opacity:.3;color:#fff">Rôle</span><span class="label" style="color:#fff">DA & Graphiste</span></div>
+            </div>
+          </div>
+          <div class="pc__cta"><a href="#" class="btn btn--white">Découvrir <span class="ba">→</span></a></div>
+        </div>
+        <div class="pc__vis"><div class="ph ph--4"><div class="ph__grid"></div><div class="ph__shape"></div><div class="ph__circle"></div><span class="ph__lbl">Campaign.ai</span></div></div>
+      </div></div>
+    </div>
+
+    <!-- P4 — Light -->
+    <div class="pc rv rv-d1">
+      <div class="pc__tab"><span class="label">04 — WEBDESIGN</span></div>
+      <div class="pc__body"><div class="pc__in">
+        <div class="pc__info">
+          <div>
+            <div class="pc__n">04</div>
+            <h3 class="pc__t">MINERAL<br>SKINCARE</h3>
+            <p class="pc__d">E-commerce Webflow pour une marque de cosmétiques naturels haut de gamme. Esthétique luxe minimale, UX orientée conversion, animations fluides.</p>
+            <div class="pc__tags"><span class="tag tag--bl">E-commerce</span><span class="tag">Webflow</span><span class="tag">Luxe</span></div>
+            <div class="pc__meta">
+              <div class="pc__meta-item"><span class="label label--dim">Année</span><span class="label">2024</span></div>
+              <div class="pc__meta-item"><span class="label label--dim">Rôle</span><span class="label">Design & Dev</span></div>
+            </div>
+          </div>
+          <div class="pc__cta"><a href="#" class="btn">Voir le site <span class="ba">↗</span></a></div>
+        </div>
+        <div class="pc__vis"><div class="ph ph--3"><div class="ph__grid"></div><div class="ph__shape"></div><span class="ph__lbl">Ecom_v3.fig</span></div></div>
+      </div></div>
+    </div>
+
+    <!-- P5 — Dark -->
+    <div class="pc pc--dk rv rv-d2">
+      <div class="pc__tab"><span class="label">05 — PACKAGING & BRANDING</span></div>
+      <div class="pc__body"><div class="pc__in">
+        <div class="pc__info">
+          <div>
+            <div class="pc__n">05</div>
+            <h3 class="pc__t">TORRÉFACT<br>COFFEE</h3>
+            <p class="pc__d">Identité et packaging pour un torréfacteur de café de spécialité. Système graphique décliné sur 12 références, mockups 3D et site one-page.</p>
+            <div class="pc__tags"><span class="tag tag--dk">Packaging</span><span class="tag tag--dk">Branding</span><span class="tag tag--dk">3D</span></div>
+            <div class="pc__meta">
+              <div class="pc__meta-item"><span class="label" style="opacity:.3;color:#fff">Année</span><span class="label" style="color:#fff">2024</span></div>
+              <div class="pc__meta-item"><span class="label" style="opacity:.3;color:#fff">Rôle</span><span class="label" style="color:#fff">Graphiste</span></div>
+            </div>
+          </div>
+          <div class="pc__cta"><a href="#" class="btn btn--lime">Explorer <span class="ba">→</span></a></div>
+        </div>
+        <div class="pc__vis"><div class="ph ph--5"><div class="ph__grid"></div><div class="ph__shape"></div><span class="ph__lbl">Pack_3D.psd</span></div></div>
+      </div></div>
+    </div>
+
+    <!-- P6 — Light -->
+    <div class="pc rv rv-d1">
+      <div class="pc__tab"><span class="label">06 — WEBDESIGN & BRANDING</span></div>
+      <div class="pc__body"><div class="pc__in">
+        <div class="pc__info">
+          <div>
+            <div class="pc__n">06</div>
+            <h3 class="pc__t">KAIROS<br>VENTURES</h3>
+            <p class="pc__d">Refonte de site corporate et identité visuelle pour un fonds d'investissement tech. Design haut de gamme, dark mode, animations GSAP.</p>
+            <div class="pc__tags"><span class="tag tag--bl">Corporate</span><span class="tag">Branding</span><span class="tag">GSAP</span></div>
+            <div class="pc__meta">
+              <div class="pc__meta-item"><span class="label label--dim">Année</span><span class="label">2023</span></div>
+              <div class="pc__meta-item"><span class="label label--dim">Rôle</span><span class="label">DA & Webdesign</span></div>
+            </div>
+          </div>
+          <div class="pc__cta"><a href="#" class="btn">Voir le projet <span class="ba">→</span></a></div>
+        </div>
+        <div class="pc__vis"><div class="ph ph--6"><div class="ph__grid"></div><div class="ph__shape"></div><div class="ph__circle"></div><span class="ph__lbl">Kairos_final.fig</span></div></div>
+      </div></div>
+    </div>
+
+  </div>
+
+  <div style="text-align:center;margin-top:56px;" class="rv">
+    <a href="#" class="btn btn--ghost">Voir tous les projets <span class="ba">→</span></a>
+  </div>
+</section>
+
+<!-- MARQUEE 2 -->
+<div class="mband mband--lime mband--rp">
+  <div class="mq mq--rev"><div class="mt"><span>FIGMA</span><span class="md"></span><span>WEBFLOW</span><span class="md"></span><span>PHOTOSHOP</span><span class="md"></span><span>ILLUSTRATOR</span><span class="md"></span><span>AFTER EFFECTS</span><span class="md"></span><span>BLENDER</span><span class="md"></span><span>FRAMER</span><span class="md"></span><span>HTML/CSS</span><span class="md"></span></div><div class="mt" aria-hidden="true"><span>FIGMA</span><span class="md"></span><span>WEBFLOW</span><span class="md"></span><span>PHOTOSHOP</span><span class="md"></span><span>ILLUSTRATOR</span><span class="md"></span><span>AFTER EFFECTS</span><span class="md"></span><span>BLENDER</span><span class="md"></span><span>FRAMER</span><span class="md"></span><span>HTML/CSS</span><span class="md"></span></div></div>
+</div>
+
+<!-- ===================== ABOUT ===================== -->
+<section class="sp" id="about">
+  <div class="sh rv">
+    <div>
+      <h2 class="sh__t">QUI<br>JE SUIS</h2>
+      <p class="sh__sub">Un aperçu de mon parcours, de ma vision du design et des outils avec lesquels je crée au quotidien.</p>
+    </div>
+    <span class="sh__r">↘</span>
+  </div>
+
+  <div class="ab-grid">
+
+    <div class="ab-main rv">
       <div>
-        <p style="font-size:14px;font-weight:700;margin-bottom:2px">Recherche fiable</p>
-        <p style="color:var(--sub);font-size:13px;line-height:1.5;font-weight:500">Chaque course est vérifiée. Filtres avancés par ville, distance, type, date.</p>
+        <h3 class="ab-main__t">JE CONÇOIS<br>DES <span class="hl">EXPÉRIENCES</span><br>QUI MARQUENT</h3>
+        <p class="ab-main__p"><strong>Webdesigner et graphiste basé à Paris</strong>, je suis passionné par la création d'univers visuels forts. Après des études en design graphique et 3 ans en agence comme directeur artistique junior, je me suis lancé en indépendant en 2020.<br><br>Mon approche mêle <strong>brutalisme graphique</strong> et rigueur typographique. Je crois que le design doit provoquer une émotion, pas juste "fonctionner". Je travaille aussi bien sur des <strong>sites web</strong> (Webflow, Framer) que sur des <strong>identités visuelles</strong>, du packaging ou de la direction artistique.<br><br>Quand je ne suis pas sur Figma, je collectionne les affiches de jazz des années 60 et j'essaie de maîtriser Blender.</p>
+      </div>
+      <div class="ab-main__bottom">
+        <a href="#contact" class="btn btn--lime">Me contacter <span class="ba">→</span></a>
+        <a href="#" class="btn" style="background:var(--white);color:var(--black);box-shadow:6px 6px 0 rgba(255,255,255,.2);">Télécharger mon CV <span class="ba">↗</span></a>
       </div>
     </div>
-    <div style="display:flex;gap:14px;padding:18px;border-radius:24px;background:var(--card);box-shadow:var(--shadow)">
-      <div style="width:44px;height:44px;border-radius:14px;background:rgba(16,185,129,.06);display:flex;align-items:center;justify-content:center;flex-shrink:0">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>
-      </div>
-      <div>
-        <p style="font-size:14px;font-weight:700;margin-bottom:2px">Rappels intelligents</p>
-        <p style="color:var(--sub);font-size:13px;line-height:1.5;font-weight:500">J-30, J-7, fermeture inscription, retrait dossard. Vous ne loupez rien.</p>
+
+    <div class="ab-photo rv rv-d1">
+      <span class="ab-photo__emoji">👨‍🎨</span>
+      <span class="ab-photo__tag tag tag--ow">Votre photo ici</span>
+    </div>
+
+    <div class="ab-stat rv rv-d2">
+      <div class="ab-stat__n" data-count="47" data-prefix="+">+0</div>
+      <div class="ab-stat__l label">Projets réalisés<br>depuis 2020</div>
+    </div>
+
+    <div class="ab-tools rv rv-d1">
+      <h4 class="ab-tools__t">MES OUTILS AU QUOTIDIEN</h4>
+      <div class="ab-tools__wrap">
+        <span class="tag">Figma</span>
+        <span class="tag">Webflow</span>
+        <span class="tag">Framer</span>
+        <span class="tag">Photoshop</span>
+        <span class="tag">Illustrator</span>
+        <span class="tag">After Effects</span>
+        <span class="tag">Blender</span>
+        <span class="tag">HTML / CSS / JS</span>
+        <span class="tag">Notion</span>
+        <span class="tag tag--bl">Spline 3D</span>
+        <span class="tag tag--lm">Rive</span>
+        <span class="tag">Midjourney</span>
       </div>
     </div>
-    <div style="display:flex;gap:14px;padding:18px;border-radius:24px;background:var(--card);box-shadow:var(--shadow)">
-      <div style="width:44px;height:44px;border-radius:14px;background:rgba(139,92,246,.06);display:flex;align-items:center;justify-content:center;flex-shrink:0">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#8B5CF6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z"/><path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2"/><path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2"/></svg>
+
+    <div class="ab-aw rv rv-d2">
+      <h4 class="ab-aw__t">RECONNU PAR</h4>
+      <div class="aw-row"><span class="aw-row__name">Awwwards — HOTD</span><span class="aw-row__yr">2025</span></div>
+      <div class="aw-row"><span class="aw-row__name">CSS Design Awards — SOTD</span><span class="aw-row__yr">2024</span></div>
+      <div class="aw-row"><span class="aw-row__name">Behance Featured ×3</span><span class="aw-row__yr">2024</span></div>
+      <div class="aw-row"><span class="aw-row__name">ADC Young Guns</span><span class="aw-row__yr">2023</span></div>
+    </div>
+
+    <div class="ab-parcours rv">
+      <h4 class="ab-parcours__t">MON PARCOURS</h4>
+      <div class="timeline">
+        <div class="tl-item">
+          <div class="tl-item__yr">2020</div>
+          <div class="tl-item__title">Freelance — Webdesigner & Graphiste</div>
+          <div class="tl-item__place">Paris — Aujourd'hui</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-item__yr">2018</div>
+          <div class="tl-item__title">DA Junior — Agence BETC</div>
+          <div class="tl-item__place">Paris — 2020</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-item__yr">2016</div>
+          <div class="tl-item__title">Stage — Studio Cremme</div>
+          <div class="tl-item__place">Madrid — 6 mois</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-item__yr">2013</div>
+          <div class="tl-item__title">DNMADE Design Graphique</div>
+          <div class="tl-item__place">École Estienne — Paris</div>
+        </div>
       </div>
-      <div>
-        <p style="font-size:14px;font-weight:700;margin-bottom:2px">Pour les organisateurs</p>
-        <p style="color:var(--sub);font-size:13px;line-height:1.5;font-weight:500">Déposez votre course, gagnez en visibilité, suivez vos statistiques.</p>
-      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- MARQUEE 3 -->
+<div class="mband mband--blue mband--rs">
+  <div class="mq"><div class="mt"><span>PARLONS DE VOTRE PROJET</span><span class="md"></span><span>HELLO@STUDIO.DESIGN</span><span class="md"></span><span>PARLONS DE VOTRE PROJET</span><span class="md"></span><span>HELLO@STUDIO.DESIGN</span><span class="md"></span><span>PARLONS DE VOTRE PROJET</span><span class="md"></span><span>HELLO@STUDIO.DESIGN</span><span class="md"></span></div><div class="mt" aria-hidden="true"><span>PARLONS DE VOTRE PROJET</span><span class="md"></span><span>HELLO@STUDIO.DESIGN</span><span class="md"></span><span>PARLONS DE VOTRE PROJET</span><span class="md"></span><span>HELLO@STUDIO.DESIGN</span><span class="md"></span><span>PARLONS DE VOTRE PROJET</span><span class="md"></span><span>HELLO@STUDIO.DESIGN</span><span class="md"></span></div></div>
+</div>
+
+<!-- ===================== CTA CONTACT ===================== -->
+<section class="sp" id="contact">
+  <div class="cta rv">
+    <h2 class="cta__t">UN PROJET<br>EN <span class="bl">TÊTE</span> ?<br><span class="lm">PARLONS-EN.</span></h2>
+    <p class="cta__sub">Je suis toujours ouvert aux projets intéressants et aux belles collaborations. Écrivez-moi, on en discute.</p>
+    <div class="cta__btns">
+      <a href="mailto:hello@studio.design" class="btn" style="background:var(--blue);box-shadow:6px 6px 0 var(--lime);">Envoyer un mail <span class="ba">→</span></a>
+      <a href="#" class="btn btn--lime">Réserver un call <span class="ba">↗</span></a>
+    </div>
+    <div class="cta__info">
+      <div class="cta__info-item"><div class="label cta__info-lbl">Email</div><div class="cta__info-val">hello@studio.design</div></div>
+      <div class="cta__info-item"><div class="label cta__info-lbl">Téléphone</div><div class="cta__info-val">+33 6 12 34 56 78</div></div>
+      <div class="cta__info-item"><div class="label cta__info-lbl">Localisation</div><div class="cta__info-val">Paris, France</div></div>
+    </div>
+    <div class="cta__socials">
+      <a href="#" class="cta__social">Behance ↗</a>
+      <a href="#" class="cta__social">Dribbble ↗</a>
+      <a href="#" class="cta__social">Instagram ↗</a>
+      <a href="#" class="cta__social">LinkedIn ↗</a>
+      <a href="#" class="cta__social">Twitter / X ↗</a>
     </div>
   </div>
-</div>
+</section>
 
-<!-- Stats -->
-<div class="r d3" style="padding:28px 22px 0">
-  <h3 style="font-family:var(--df);font-size:20px;font-weight:800;letter-spacing:-.03em;margin-bottom:14px">En chiffres</h3>
-  <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
-    <div style="border-radius:24px;padding:20px;background:var(--card);box-shadow:var(--shadow);text-align:center">
-      <p style="font-family:var(--df);font-size:32px;font-weight:900;font-style:italic;color:var(--acc);letter-spacing:-.04em">2 400<span style="font-size:14px;font-style:normal;color:var(--sub)">+</span></p>
-      <p style="color:var(--sub);font-size:12px;font-weight:500;margin-top:4px">Courses référencées</p>
-    </div>
-    <div style="border-radius:24px;padding:20px;background:var(--card);box-shadow:var(--shadow);text-align:center">
-      <p style="font-family:var(--df);font-size:32px;font-weight:900;font-style:italic;letter-spacing:-.04em">180<span style="font-size:14px;font-style:normal;color:var(--sub)">k</span></p>
-      <p style="color:var(--sub);font-size:12px;font-weight:500;margin-top:4px">Coureurs actifs</p>
-    </div>
-    <div style="border-radius:24px;padding:20px;background:var(--card);box-shadow:var(--shadow);text-align:center">
-      <p style="font-family:var(--df);font-size:32px;font-weight:900;font-style:italic;letter-spacing:-.04em">850</p>
-      <p style="color:var(--sub);font-size:12px;font-weight:500;margin-top:4px">Organisateurs</p>
-    </div>
-    <div style="border-radius:24px;padding:20px;background:var(--card);box-shadow:var(--shadow);text-align:center">
-      <p style="font-family:var(--df);font-size:32px;font-weight:900;font-style:italic;color:#10B981;letter-spacing:-.04em">98<span style="font-size:14px;font-style:normal;color:var(--sub)">%</span></p>
-      <p style="color:var(--sub);font-size:12px;font-weight:500;margin-top:4px">Satisfaction</p>
-    </div>
-  </div>
-</div>
+<!-- ===================== FOOTER ===================== -->
+<footer class="footer">
+  <span class="footer__copy">© 2026 STUDIO. DESIGN & CODE À LA MAIN.</span>
+  <a href="#top" class="footer__btop"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></svg></a>
+</footer>
 
-<!-- Values -->
-<div class="r d4" style="padding:28px 22px 0">
-  <h3 style="font-family:var(--df);font-size:20px;font-weight:800;letter-spacing:-.03em;margin-bottom:14px">Nos valeurs</h3>
-  <div style="border-radius:24px;overflow:hidden;background:var(--card);box-shadow:var(--shadow)">
-    <div style="padding:18px 20px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:14px">
-      <div style="width:36px;height:36px;border-radius:50%;background:rgba(255,59,48,.06);display:flex;align-items:center;justify-content:center;flex-shrink:0">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--acc)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"/></svg>
-      </div>
-      <div><p style="font-size:14px;font-weight:700">Fiabilité</p><p style="color:var(--sub);font-size:12px;margin-top:1px">Données vérifiées, courses contrôlées</p></div>
-    </div>
-    <div style="padding:18px 20px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:14px">
-      <div style="width:36px;height:36px;border-radius:50%;background:rgba(14,165,233,.06);display:flex;align-items:center;justify-content:center;flex-shrink:0">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0EA5E9" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"/></svg>
-      </div>
-      <div><p style="font-size:14px;font-weight:700">Simplicité</p><p style="color:var(--sub);font-size:12px;margin-top:1px">Trouver une course en 10 secondes</p></div>
-    </div>
-    <div style="padding:18px 20px;display:flex;align-items:center;gap:14px">
-      <div style="width:36px;height:36px;border-radius:50%;background:rgba(244,63,94,.06);display:flex;align-items:center;justify-content:center;flex-shrink:0">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#F43F5E" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
-      </div>
-      <div><p style="font-size:14px;font-weight:700">Passion</p><p style="color:var(--sub);font-size:12px;margin-top:1px">Faite par des coureurs, pour des coureurs</p></div>
-    </div>
-  </div>
-</div>
+<!-- ===================== JS ===================== -->
+<script>
+/* ——— CURSOR ——— */
+const dot=document.getElementById('cD'),ring=document.getElementById('cR');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;dot.style.left=mx+'px';dot.style.top=my+'px';});
+(function loop(){rx+=(mx-rx)*.1;ry+=(my-ry)*.1;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(loop);})();
+document.querySelectorAll('a,button,.btn,.pc,.tl-item,.hero__scroll-btn,.footer__btop,.nl,.cta__social').forEach(el=>{
+  el.addEventListener('mouseenter',()=>document.body.classList.add('ch'));
+  el.addEventListener('mouseleave',()=>document.body.classList.remove('ch'));
+});
 
-<!-- CTA -->
-<div class="r d5" style="padding:28px 22px 20px;text-align:center">
-  <a href="login.html" style="display:inline-flex;align-items:center;gap:7px;padding:14px 32px;border-radius:50px;background:var(--acc);font-size:14px;font-weight:700;color:#fff;box-shadow:0 4px 16px var(--acc-glow)">
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-    Rejoindre RunAlert
-  </a>
-</div>
+/* ——— SCROLL REVEAL ——— */
+const obs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('v');obs.unobserve(e.target);}});},{threshold:.1});
+document.querySelectorAll('.rv').forEach(el=>obs.observe(el));
 
-<nav class="bottom-nav"><div class="bottom-nav-inner">
-  <a href="index.html" class="nav-item"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#848A9C" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg><span class="nav-label">Accueil</span></a>
-  <a href="explore.html" class="nav-item"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#848A9C" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg><span class="nav-label">Explorer</span></a>
-  <a href="favorites.html" class="nav-item"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#848A9C" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg><span class="nav-label">Favoris</span></a>
-  <a href="notifications.html" class="nav-item"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#848A9C" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg><span class="nav-label">Alertes</span><span class="nav-badge">2</span></a>
-  <a href="profile.html" class="nav-item"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#848A9C" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="5"/><path d="M20 21a8 8 0 0 0-16 0"/></svg><span class="nav-label">Profil</span></a>
-</div></nav>
+/* ——— COUNTERS ——— */
+function animC(el){
+  const t=parseInt(el.dataset.count),pre=el.dataset.prefix||'',suf=el.dataset.suffix||'';
+  const d=1400,s=performance.now();
+  (function f(ts){const p=Math.min((ts-s)/d,1);el.textContent=pre+Math.floor((1-Math.pow(1-p,3))*t)+suf;if(p<1)requestAnimationFrame(f);})(s);
+}
+const cObs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.querySelectorAll('[data-count]').forEach(animC);cObs.unobserve(e.target);}});},{threshold:.3});
+document.querySelectorAll('.hero__nums,.ab-stat').forEach(el=>cObs.observe(el));
+
+/* ——— NAV BG ——— */
+window.addEventListener('scroll',()=>{const n=document.getElementById('nav');n.style.background=scrollY>60?'rgba(244,245,246,.92)':'var(--bg)';n.style.backdropFilter=scrollY>60?'blur(12px)':'none';});
+
+/* ——— SMOOTH SCROLL ——— */
+document.querySelectorAll('a[href^="#"]').forEach(a=>{a.addEventListener('click',e=>{const t=document.querySelector(a.getAttribute('href'));if(t){e.preventDefault();t.scrollIntoView({behavior:'smooth',block:'start'});}});});
+
+/* ——— PROJECT CARD TILT ——— */
+document.querySelectorAll('.pc').forEach(c=>{
+  c.addEventListener('mousemove',e=>{const r=c.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;c.style.transform=`translateY(-6px) perspective(800px) rotateY(${x*2.5}deg) rotateX(${-y*2.5}deg)`;});
+  c.addEventListener('mouseleave',()=>{c.style.transform='';});
+});
+
+/* ——— MAGNETIC BTN ——— */
+document.querySelectorAll('.btn').forEach(b=>{
+  b.addEventListener('mousemove',e=>{const r=b.getBoundingClientRect(),x=e.clientX-r.left-r.width/2,y=e.clientY-r.top-r.height/2;b.style.transform=`translate(${x*.12}px,${y*.12}px)`;});
+  b.addEventListener('mouseleave',()=>{b.style.transform='';});
+});
+
+/* ——— PARALLAX on PLACEHOLDERS ——— */
+document.querySelectorAll('.pc__vis').forEach(vis=>{
+  vis.addEventListener('mousemove',e=>{
+    const r=vis.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;
+    const ph=vis.querySelector('.ph');
+    if(ph)ph.style.transform=`scale(1.03) translate(${x*8}px,${y*8}px)`;
+  });
+  vis.addEventListener('mouseleave',()=>{const ph=vis.querySelector('.ph');if(ph)ph.style.transform='';});
+});
+</script>
 </body>
 </html>
