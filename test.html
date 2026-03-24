@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bimier Solutions | Catalogue B2B ACEF</title>
+    <title>Connexion | Espace Privé ACEF</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     
     <style>
@@ -14,7 +14,6 @@
             --blue-primary: #2563EB; 
             --blue-hover: #1D4ED8;
             --blue-light: #EFF6FF;
-            --green-eco: #10B981;
             --bg-body: #F8FAFC;
             --bg-white: #FFFFFF;
             --text-dark: #0F172A;
@@ -25,513 +24,326 @@
             --radius-pill: 100px;
             --radius-xl: 32px;
             --radius-lg: 24px;
-            --radius-md: 12px;
+            --radius-md: 16px;
             
-            --transition-smooth: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-            --transition-fast: all 0.2s ease;
+            --transition-smooth: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            --transition-fast: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-        html { scroll-behavior: smooth; }
-        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: var(--bg-body); color: var(--text-dark); line-height: 1.6; overflow-x: hidden; -webkit-font-smoothing: antialiased; }
-        a { text-decoration: none; color: inherit; }
-        ul { list-style: none; }
-        img { max-width: 100%; display: block; object-fit: cover; }
         
-        .container { max-width: 1440px; margin: 0 auto; padding: 0 40px; width: 100%; }
+        body { 
+            font-family: 'Plus Jakarta Sans', sans-serif; 
+            background-color: var(--bg-body); 
+            color: var(--text-dark); 
+            line-height: 1.6; 
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            -webkit-font-smoothing: antialiased;
+            position: relative;
+            overflow-x: hidden;
+            /* Motif de fond subtil pour donner de la texture */
+            background-image: radial-gradient(var(--border-light) 1px, transparent 1px);
+            background-size: 32px 32px;
+        }
 
-        /* Animations */
-        .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease-out, transform 0.6s ease-out; }
-        .reveal.active { opacity: 1; transform: translateY(0); }
+        /* --- LUEUR AMBIANTE ANIMÉE (Dynamic Glow) --- */
+        .ambient-glow {
+            position: absolute;
+            top: 40%; left: 50%;
+            transform: translate(-50%, -50%);
+            width: 800px; height: 800px;
+            background: radial-gradient(circle, rgba(37,99,235,0.06) 0%, transparent 60%);
+            border-radius: 50%;
+            z-index: -1;
+            pointer-events: none;
+            animation: breathe 8s infinite alternate ease-in-out;
+        }
+
+        @keyframes breathe {
+            0% { transform: translate(-50%, -50%) scale(0.9); opacity: 0.6; }
+            100% { transform: translate(-50%, -50%) scale(1.1); opacity: 1; }
+        }
+
+        a { text-decoration: none; color: inherit; }
+        .container { max-width: 1400px; margin: 0 auto; padding: 0 5%; width: 100%; }
+
+        /* --- ANIMATIONS EN CASCADE (Staggered) --- */
+        .fade-up { opacity: 0; animation: slideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        .delay-1 { animation-delay: 0.1s; }
+        .delay-2 { animation-delay: 0.2s; }
+        .delay-3 { animation-delay: 0.3s; }
+        .delay-4 { animation-delay: 0.4s; }
+        .delay-5 { animation-delay: 0.5s; }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
 
         /* ==========================================================================
            2. NAVBAR
            ========================================================================== */
-        .navbar { background: var(--dark-card); padding: 20px 0; position: sticky; top: 0; z-index: 100; color: var(--bg-white); border-bottom: 1px solid rgba(255,255,255,0.1); }
-        .nav-inner { display: flex; justify-content: space-between; align-items: center; }
-        .logo { font-size: 1.5rem; font-weight: 800; letter-spacing: -0.5px; }
+        .navbar { padding: 40px 0; width: 100%; z-index: 10; }
+        .nav-inner { display: flex; justify-content: center; align-items: center; }
+        .logo { font-size: 2rem; font-weight: 800; letter-spacing: -1px; color: var(--text-dark); transition: transform 0.3s ease; cursor: pointer; }
+        .logo:hover { transform: scale(1.05); }
         .logo span { color: var(--blue-primary); }
-        .nav-links { display: flex; gap: 40px; font-weight: 600; font-size: 0.95rem; }
-        .nav-links a { transition: color 0.3s; color: rgba(255,255,255,0.8); }
-        .nav-links a:hover, .nav-links a.active { color: var(--blue-primary); }
 
         /* ==========================================================================
-           3. HERO SEARCH (En-tête)
+           3. LAYOUT CENTRAL MASSIF
            ========================================================================== */
-        .catalog-hero { background: var(--dark-card); color: var(--bg-white); padding: 60px 0 80px; border-bottom-left-radius: 48px; border-bottom-right-radius: 48px; text-align: center; position: relative; overflow: hidden; margin-bottom: 40px; }
-        .catalog-hero::before { content: ''; position: absolute; top: -50%; left: 50%; transform: translateX(-50%); width: 800px; height: 800px; background: radial-gradient(circle, rgba(37,99,235,0.15) 0%, transparent 70%); z-index: 0; pointer-events: none; }
+        .login-wrapper {
+            flex-grow: 1; display: flex; flex-direction: column;
+            align-items: center; justify-content: center; padding: 20px 0 80px; z-index: 1;
+        }
+
+        .login-header { text-align: center; margin-bottom: 50px; max-width: 800px; }
         
-        .hero-content { position: relative; z-index: 1; max-width: 800px; margin: 0 auto; }
-        .catalog-hero h1 { font-size: 3.5rem; font-weight: 800; letter-spacing: -1.5px; margin-bottom: 16px; line-height: 1.1; }
+        .statement-text {
+            font-size: 4rem; font-weight: 800; line-height: 1.1;
+            letter-spacing: -2px; color: var(--text-dark); margin-bottom: 24px;
+        }
         
-        .search-wrapper { position: relative; max-width: 600px; margin: 30px auto 0; }
-        .search-input { width: 100%; padding: 20px 24px 20px 64px; border-radius: var(--radius-pill); border: 2px solid transparent; font-size: 1.1rem; font-family: inherit; font-weight: 500; box-shadow: 0 20px 40px rgba(0,0,0,0.3); outline: none; transition: var(--transition-fast); }
-        .search-input:focus { border-color: var(--blue-primary); }
-        .search-icon { position: absolute; left: 24px; top: 50%; transform: translateY(-50%); font-size: 1.5rem; }
+        .statement-badge {
+            display: inline-block; background-color: var(--blue-primary); color: var(--bg-white);
+            padding: 4px 28px; border-radius: var(--radius-pill); font-weight: 800;
+            vertical-align: middle; margin: 0 8px; line-height: 1.2;
+            box-shadow: 0 10px 20px rgba(37,99,235,0.3);
+            animation: floatBadge 4s infinite ease-in-out; /* Micro-animation du badge */
+        }
+
+        @keyframes floatBadge {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-4px); box-shadow: 0 15px 25px rgba(37,99,235,0.4); }
+        }
+
+        .login-subtitle { font-size: 1.25rem; color: var(--text-muted); font-weight: 500; }
 
         /* ==========================================================================
-           4. TOP BAR (Fils d'ariane & Tri)
+           4. CARTE DE CONNEXION DYNAMIQUE
            ========================================================================== */
-        .top-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px; padding-bottom: 20px; border-bottom: 1px solid var(--border-light); }
-        .breadcrumbs { font-size: 0.9rem; font-weight: 600; color: var(--text-muted); }
-        .breadcrumbs span { color: var(--text-dark); }
-        
-        .sort-wrapper { display: flex; align-items: center; gap: 12px; font-weight: 600; font-size: 0.95rem; }
-        .sort-select { padding: 10px 16px; border-radius: var(--radius-md); border: 1px solid var(--border-light); background: var(--bg-white); font-family: inherit; font-weight: 600; color: var(--text-dark); outline: none; cursor: pointer; }
-        .sort-select:focus { border-color: var(--blue-primary); }
+        .login-card {
+            background: var(--bg-white); width: 100%; max-width: 500px;
+            padding: 48px; border-radius: var(--radius-xl);
+            box-shadow: 0 20px 50px -10px rgba(15, 23, 42, 0.08);
+            border: 1px solid rgba(255,255,255,0.8);
+            backdrop-filter: blur(10px);
+            transition: box-shadow 0.4s ease;
+        }
 
-        /* ==========================================================================
-           5. LAYOUT CATALOGUE (Grid avec Sidebar)
-           ========================================================================== */
-        .catalog-layout { display: grid; grid-template-columns: 280px 1fr; gap: 40px; align-items: start; margin-bottom: 100px; }
+        .login-card:hover { box-shadow: 0 30px 60px -15px rgba(15, 23, 42, 0.12); }
 
-        /* --- SIDEBAR FILTRES AVANCÉS --- */
-        .sidebar { background: var(--bg-white); padding: 32px; border-radius: var(--radius-lg); border: 1px solid var(--border-light); position: sticky; top: 100px; }
+        .form-group { margin-bottom: 24px; position: relative; }
+        .form-group label { display: block; font-weight: 800; font-size: 0.95rem; color: var(--text-dark); margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.5px; transition: color 0.3s; }
         
-        .filter-group { margin-bottom: 24px; padding-bottom: 24px; border-bottom: 1px solid var(--border-light); }
-        .filter-group:last-child { border-bottom: none; padding-bottom: 0; margin-bottom: 0; }
-        .filter-title { font-size: 1.05rem; font-weight: 800; color: var(--text-dark); margin-bottom: 16px; text-transform: uppercase; letter-spacing: 0.5px; }
+        /* Focus-within permet d'animer le label quand l'input est actif */
+        .form-group:focus-within label { color: var(--blue-primary); }
+
+        .input-wrapper { position: relative; }
         
-        /* Checkboxes */
-        .checkbox-label { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; cursor: pointer; font-size: 0.95rem; color: var(--text-muted); font-weight: 500; transition: color 0.2s; }
-        .checkbox-label:hover { color: var(--text-dark); }
-        .checkbox-label input { appearance: none; width: 20px; height: 20px; border: 2px solid var(--border-light); border-radius: 6px; cursor: pointer; position: relative; transition: var(--transition-fast); flex-shrink: 0; }
-        .checkbox-label input:checked { background-color: var(--blue-primary); border-color: var(--blue-primary); }
+        .form-group input {
+            width: 100%; padding: 20px 24px; border-radius: var(--radius-md);
+            border: 2px solid var(--border-light); background: var(--bg-body);
+            font-family: inherit; font-size: 1.1rem; font-weight: 600; color: var(--text-dark);
+            transition: var(--transition-fast); outline: none;
+        }
+
+        /* Micro-interaction sur les inputs : Levitation */
+        .form-group input:focus { 
+            border-color: var(--blue-primary); 
+            background: var(--bg-white); 
+            box-shadow: 0 10px 20px -5px rgba(37,99,235,0.15), 0 0 0 4px var(--blue-light); 
+            transform: translateY(-2px);
+        }
+        .form-group input::placeholder { color: #CBD5E1; font-weight: 500; transition: opacity 0.3s; }
+        .form-group input:focus::placeholder { opacity: 0.5; }
+
+        .toggle-pwd {
+            position: absolute; right: 20px; top: 50%; transform: translateY(-50%);
+            background: none; border: none; color: var(--text-muted);
+            cursor: pointer; font-size: 0.9rem; font-weight: 700; padding: 4px;
+            transition: var(--transition-fast);
+        }
+        .toggle-pwd:hover { color: var(--blue-primary); transform: translateY(-50%) scale(1.05); }
+
+        .form-options { display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px; font-size: 0.95rem; font-weight: 600; }
+
+        /* Checkbox avec animation "Pop" */
+        .checkbox-label { display: flex; align-items: center; gap: 10px; cursor: pointer; color: var(--text-dark); }
+        .checkbox-label input { appearance: none; width: 22px; height: 22px; border: 2px solid var(--border-light); border-radius: 6px; cursor: pointer; position: relative; transition: var(--transition-fast); flex-shrink: 0; }
+        .checkbox-label input:hover { border-color: var(--blue-primary); }
+        .checkbox-label input:checked { background-color: var(--text-dark); border-color: var(--text-dark); animation: pop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
         .checkbox-label input:checked::after { content: '✔'; position: absolute; color: white; font-size: 12px; top: 50%; left: 50%; transform: translate(-50%, -50%); }
-        .count-badge { margin-left: auto; background: #F1F5F9; padding: 2px 8px; border-radius: 10px; font-size: 0.75rem; color: var(--text-muted); }
 
-        /* Toggle Eco-responsable */
-        .toggle-wrapper { display: flex; justify-content: space-between; align-items: center; cursor: pointer; }
-        .toggle-text { font-weight: 600; font-size: 0.95rem; color: var(--text-dark); display: flex; align-items: center; gap: 8px; }
-        .toggle-switch { position: relative; width: 44px; height: 24px; background: var(--border-light); border-radius: 24px; transition: var(--transition-fast); }
-        .toggle-switch::after { content: ''; position: absolute; top: 2px; left: 2px; width: 20px; height: 20px; background: white; border-radius: 50%; transition: var(--transition-fast); box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
-        input[type="checkbox"].eco-toggle { display: none; }
-        input[type="checkbox"].eco-toggle:checked + .toggle-switch { background: var(--green-eco); }
-        input[type="checkbox"].eco-toggle:checked + .toggle-switch::after { transform: translateX(20px); }
+        @keyframes pop { 0% { transform: scale(1); } 50% { transform: scale(0.9); } 100% { transform: scale(1); } }
 
-        /* Slider Prix */
-        .price-slider-wrap { display: flex; flex-direction: column; gap: 12px; }
-        .price-values { display: flex; justify-content: space-between; font-weight: 700; font-size: 0.9rem; color: var(--blue-primary); }
-        input[type=range] { width: 100%; accent-color: var(--blue-primary); cursor: pointer; height: 6px; background: var(--border-light); border-radius: 4px; appearance: none; }
-        input[type=range]::-webkit-slider-thumb { appearance: none; width: 18px; height: 18px; background: var(--blue-primary); border-radius: 50%; border: 2px solid white; box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
-
-        .reset-btn { width: 100%; padding: 12px; background: #F1F5F9; color: var(--text-dark); border: none; border-radius: var(--radius-md); font-weight: 700; cursor: pointer; margin-top: 20px; transition: var(--transition-fast); }
-        .reset-btn:hover { background: #E2E8F0; }
-
-        /* --- GRILLE PRODUITS ENRICHIE --- */
-        .catalog-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; align-content: start; }
-        .results-meta { grid-column: 1 / -1; font-size: 1rem; font-weight: 600; color: var(--text-muted); margin-bottom: 8px; }
-
-        .product-card { background: var(--bg-white); border-radius: var(--radius-lg); padding: 16px; box-shadow: 0 4px 6px -1px rgba(15,23,42,0.03); transition: var(--transition-smooth); display: flex; flex-direction: column; height: 100%; border: 1px solid var(--border-light); position: relative; cursor: pointer; }
-        .product-card:hover { transform: translateY(-6px); box-shadow: 0 20px 40px -10px rgba(37,99,235,0.1); border-color: var(--blue-light); z-index: 2; }
-        
-        .product-img-wrap { background: radial-gradient(50% 50% at 50% 50%, #FFFFFF 0%, #F1F5F9 100%); border-radius: var(--radius-md); height: 260px; display: flex; align-items: center; justify-content: center; margin-bottom: 16px; position: relative; overflow: hidden; }
-        .product-img-wrap img { width: 80%; height: 80%; object-fit: contain; mix-blend-mode: multiply; transition: transform 0.6s ease; filter: drop-shadow(0 10px 20px rgba(0,0,0,0.05)); }
-        .product-card:hover .product-img-wrap img { transform: scale(1.08); }
-        
-        .badges-top { position: absolute; top: 12px; left: 12px; display: flex; flex-direction: column; gap: 6px; z-index: 2; align-items: flex-start; }
-        .badge { font-size: 0.7rem; font-weight: 800; padding: 4px 10px; border-radius: var(--radius-pill); text-transform: uppercase; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
-        .badge-new { background: var(--text-dark); color: white; }
-        .badge-eco { background: var(--green-eco); color: white; }
-
-        .product-moq { font-size: 0.75rem; color: var(--text-muted); font-weight: 600; margin-bottom: 4px; }
-        .product-title { font-size: 1.1rem; font-weight: 800; color: var(--text-dark); letter-spacing: -0.5px; line-height: 1.2; margin-bottom: 12px; }
-        
-        .product-footer { display: flex; justify-content: space-between; align-items: flex-end; margin-top: auto; border-top: 1px solid var(--border-light); padding-top: 12px; }
-        .product-ref { font-size: 0.8rem; font-family: monospace; color: var(--text-muted); }
-        .product-price { display: flex; align-items: flex-end; gap: 4px; color: var(--text-muted); font-weight: 500; font-size: 0.85rem; }
-        .product-price b { color: var(--blue-primary); font-size: 1.4rem; font-weight: 800; line-height: 1; margin-bottom: -2px; }
-
-        /* Pagination */
-        .pagination { grid-column: 1 / -1; display: flex; justify-content: center; margin-top: 40px; }
-        .btn-load-more { background: var(--bg-white); border: 2px solid var(--border-light); color: var(--text-dark); padding: 12px 32px; border-radius: var(--radius-pill); font-weight: 700; cursor: pointer; transition: var(--transition-fast); }
-        .btn-load-more:hover { border-color: var(--blue-primary); color: var(--blue-primary); }
+        .forgot-link { color: var(--text-muted); transition: var(--transition-fast); position: relative; }
+        .forgot-link::after { content: ''; position: absolute; width: 100%; transform: scaleX(0); height: 2px; bottom: -2px; left: 0; background-color: var(--blue-primary); transform-origin: bottom right; transition: transform 0.3s ease-out; }
+        .forgot-link:hover { color: var(--blue-primary); }
+        .forgot-link:hover::after { transform: scaleX(1); transform-origin: bottom left; }
 
         /* ==========================================================================
-           6. SIDE PANEL (Tiroir B2B Enrichi avec Onglets)
+           5. BOUTON D'ACTION (Effet Magnétique)
            ========================================================================== */
-        .panel-backdrop { position: fixed; inset: 0; background: rgba(10, 10, 10, 0.6); backdrop-filter: blur(4px); z-index: 999; opacity: 0; pointer-events: none; transition: opacity 0.4s ease; }
-        .panel-backdrop.active { opacity: 1; pointer-events: auto; }
-
-        .side-panel { position: fixed; top: 0; right: -100%; width: 100%; max-width: 550px; height: 100vh; background: var(--bg-white); z-index: 1000; box-shadow: -20px 0 60px rgba(0,0,0,0.15); transition: right 0.5s cubic-bezier(0.16, 1, 0.3, 1); display: flex; flex-direction: column; overflow-y: auto; }
-        .side-panel.active { right: 0; }
-
-        .panel-header { padding: 24px; border-bottom: 1px solid var(--border-light); display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; background: var(--bg-white); z-index: 10; }
-        .panel-close { background: #F1F5F9; border: none; width: 40px; height: 40px; border-radius: 50%; font-size: 1.5rem; cursor: pointer; transition: var(--transition-fast); }
-        .panel-close:hover { background: #E2E8F0; transform: rotate(90deg); }
-
-        .panel-content { padding: 32px; flex-grow: 1; }
+        .btn-submit {
+            width: 100%; display: flex; align-items: center; justify-content: space-between;
+            background: var(--dark-card); color: var(--bg-white);
+            border: none; padding: 16px 24px; border-radius: var(--radius-pill);
+            font-size: 1.1rem; font-weight: 800; cursor: pointer;
+            transition: var(--transition-smooth); font-family: inherit;
+            position: relative; overflow: hidden;
+        }
         
-        /* Galerie Produit */
-        .panel-img-box { background: #F8FAFC; border-radius: var(--radius-lg); height: 300px; display: flex; align-items: center; justify-content: center; margin-bottom: 16px; border: 1px solid var(--border-light); padding: 20px;}
-        .panel-img-box img { max-height: 100%; mix-blend-mode: multiply; }
-        .panel-thumbnails { display: flex; gap: 12px; margin-bottom: 32px; }
-        .thumb { width: 60px; height: 60px; border-radius: 8px; border: 2px solid var(--border-light); background: #F8FAFC; cursor: pointer; }
-        .thumb.active { border-color: var(--blue-primary); }
+        .btn-submit::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: var(--blue-primary); transform: translateX(-100%);
+            transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1); z-index: 0;
+        }
 
-        .panel-title { font-size: 2rem; font-weight: 800; line-height: 1.1; letter-spacing: -1px; margin-bottom: 8px; }
-        .panel-meta-row { display: flex; gap: 16px; margin-bottom: 24px; font-size: 0.9rem; font-weight: 600; color: var(--text-muted); }
-        .panel-meta-row span { background: #F1F5F9; padding: 4px 10px; border-radius: 6px; }
-
-        /* Système d'onglets (Tabs) */
-        .tabs-header { display: flex; border-bottom: 2px solid var(--border-light); margin-bottom: 24px; }
-        .tab-btn { padding: 12px 20px; font-weight: 700; color: var(--text-muted); cursor: pointer; border-bottom: 2px solid transparent; margin-bottom: -2px; transition: var(--transition-fast); }
-        .tab-btn.active { color: var(--blue-primary); border-bottom-color: var(--blue-primary); }
+        .btn-submit span { position: relative; z-index: 1; transition: transform 0.3s; }
         
-        .tab-content { display: none; font-size: 0.95rem; color: var(--text-muted); line-height: 1.6; }
-        .tab-content.active { display: block; animation: fadeIn 0.4s ease; }
-        @keyframes fadeIn { from { opacity:0; transform: translateY(10px); } to { opacity:1; transform: translateY(0); } }
+        .btn-submit:hover { transform: translateY(-4px); box-shadow: 0 15px 30px rgba(37,99,235,0.3); }
+        .btn-submit:hover::before { transform: translateX(0); }
+        .btn-submit:hover span { transform: translateX(10px); }
 
-        /* Liste des caractéristiques */
-        .tech-list { list-style: none; margin-top: 16px; }
-        .tech-list li { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px dashed var(--border-light); }
-        .tech-list li strong { color: var(--text-dark); }
+        .btn-submit .icon-circle {
+            width: 36px; height: 36px; border-radius: 50%;
+            background-color: var(--bg-white); color: var(--text-dark);
+            display: flex; align-items: center; justify-content: center;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); font-size: 1.2rem;
+            position: relative; z-index: 1;
+        }
+        
+        /* L'icône tourne et sort presque du bouton au hover */
+        .btn-submit:hover .icon-circle { transform: rotate(45deg) scale(1.1); color: var(--blue-primary); box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
 
-        .panel-footer { padding: 24px; border-top: 1px solid var(--border-light); background: var(--bg-white); position: sticky; bottom: 0; }
-        .btn-add-quote { width: 100%; background: var(--dark-card); color: var(--bg-white); border: none; padding: 18px; border-radius: var(--radius-pill); font-size: 1.05rem; font-weight: 800; cursor: pointer; transition: var(--transition-fast); display: flex; justify-content: center; align-items: center; gap: 12px; text-decoration: none; }
-        .btn-add-quote:hover { background: var(--blue-primary); transform: translateY(-2px); box-shadow: 0 10px 20px rgba(37,99,235,0.2); }
+        .btn-submit.loading { background: var(--text-muted); pointer-events: none; justify-content: center; }
+        .btn-submit.loading::before { display: none; }
+        .btn-submit.loading .icon-circle { display: none; }
+        .btn-submit.loading span { transform: none; }
 
         /* ==========================================================================
-           7. FOOTER (Simplifié pour le code)
+           6. BLOC INFO
            ========================================================================== */
-        .footer { background-color: var(--dark-card); color: var(--bg-white); padding: 60px 0 40px; border-top-left-radius: 48px; border-top-right-radius: 48px; }
-        .footer-bottom { margin-top: 40px; padding-top: 24px; border-top: 1px solid rgba(255,255,255,0.1); text-align: center; color: #94A3B8; font-size: 0.85rem; }
+        .no-account-info {
+            margin-top: 40px; padding: 24px; background: rgba(248, 250, 252, 0.5);
+            border-radius: var(--radius-md); text-align: center;
+            border: 1px dashed var(--border-light);
+            transition: var(--transition-fast);
+        }
+        
+        .no-account-info:hover { border-color: var(--blue-primary); background: var(--bg-white); }
+        .no-account-info p { font-size: 0.95rem; color: var(--text-muted); margin-bottom: 8px; font-weight: 500; }
+        .no-account-info a { color: var(--text-dark); font-weight: 800; border-bottom: 2px solid var(--border-light); padding-bottom: 2px; transition: var(--transition-fast); }
+        .no-account-info a:hover { color: var(--blue-primary); border-color: var(--blue-primary); }
 
         /* Responsive */
-        @media (max-width: 1024px) {
-            .catalog-layout { grid-template-columns: 1fr; }
-            .sidebar { position: static; margin-bottom: 40px; }
-            .catalog-grid { grid-template-columns: repeat(2, 1fr); }
-        }
         @media (max-width: 768px) {
-            .catalog-hero h1 { font-size: 2.5rem; }
-            .search-input { padding-left: 50px; }
-            .catalog-grid { grid-template-columns: 1fr; }
-            .side-panel { max-width: 100%; right: -100%; }
-            .top-bar { flex-direction: column; align-items: flex-start; gap: 16px; }
+            .statement-text { font-size: 2.8rem; letter-spacing: -1px; }
+            .login-card { padding: 32px 24px; border-radius: 0; border-left: none; border-right: none; box-shadow: none; background: transparent; }
+            .login-wrapper { padding: 0; justify-content: flex-start; }
+            .ambient-glow { display: none; }
         }
     </style>
 </head>
 <body>
 
-    <nav class="navbar">
+    <div class="ambient-glow"></div>
+
+    <nav class="navbar fade-up">
         <div class="container nav-inner">
-            <div class="logo">Bimier<span>.</span></div>
-            <ul class="nav-links">
-                <li><a href="index.html">Accueil</a></li>
-                <li><a href="#" class="active">Catalogue B2B</a></li>
-            </ul>
+            <a href="index.html" class="logo">Bimier<span>.</span></a>
         </div>
     </nav>
 
-    <header class="catalog-hero">
-        <div class="container hero-content">
-            <h1>Catalogue B2B ACEF.</h1>
-            <p>Plus de 5000 références d'objets et textiles personnalisables.</p>
-            <div class="search-wrapper">
-                <span class="search-icon">🔍</span>
-                <input type="text" id="searchInput" class="search-input" placeholder="Rechercher par mot-clé, référence...">
-            </div>
-        </div>
-    </header>
-
-    <div class="container">
-        <div class="top-bar">
-            <div class="breadcrumbs">Accueil > <span>Catalogue B2B</span></div>
-            <div class="sort-wrapper">
-                <label>Trier par :</label>
-                <select class="sort-select" id="sortSelect">
-                    <option value="pertinence">Pertinence</option>
-                    <option value="prix-asc">Prix Croissant</option>
-                    <option value="prix-desc">Prix Décroissant</option>
-                    <option value="nouveau">Nouveautés</option>
-                </select>
-            </div>
+    <main class="login-wrapper container">
+        
+        <div class="login-header fade-up delay-1">
+            <h1 class="statement-text">Espace <span class="statement-badge">Privé</span> ACEF.</h1>
+            <p class="login-subtitle">Accédez à votre catalogue exclusif, gérez vos devis et suivez vos commandes de goodies.</p>
         </div>
 
-        <div class="catalog-layout">
-            
-            <aside class="sidebar">
+        <div class="login-card fade-up delay-2">
+            <form id="loginForm">
                 
-                <div class="filter-group" style="padding-bottom: 16px;">
-                    <label class="toggle-wrapper">
-                        <span class="toggle-text">🌱 Éco-responsable uniquement</span>
-                        <input type="checkbox" class="eco-toggle" id="ecoFilter">
-                        <div class="toggle-switch"></div>
-                    </label>
+                <div class="form-group fade-up delay-3">
+                    <label for="email">Adresse e-mail pro</label>
+                    <input type="email" id="email" placeholder="jean.dupont@acef.fr" required autocomplete="email">
                 </div>
 
-                <div class="filter-group">
-                    <div class="filter-title">Catégories</div>
-                    <label class="checkbox-label"><input type="checkbox" class="cat-filter" value="Textile"> Textile <span class="count-badge">42</span></label>
-                    <label class="checkbox-label"><input type="checkbox" class="cat-filter" value="Papeterie"> Papeterie <span class="count-badge">18</span></label>
-                    <label class="checkbox-label"><input type="checkbox" class="cat-filter" value="Drinkware"> Drinkware <span class="count-badge">25</span></label>
-                    <label class="checkbox-label"><input type="checkbox" class="cat-filter" value="High-Tech"> High-Tech <span class="count-badge">14</span></label>
-                </div>
-
-                <div class="filter-group">
-                    <div class="filter-title">Matière Principale</div>
-                    <label class="checkbox-label"><input type="checkbox" class="mat-filter" value="Coton Bio"> Coton Bio</label>
-                    <label class="checkbox-label"><input type="checkbox" class="mat-filter" value="rPET"> rPET (Recyclé)</label>
-                    <label class="checkbox-label"><input type="checkbox" class="mat-filter" value="Bois/Bambou"> Bois / Bambou</label>
-                    <label class="checkbox-label"><input type="checkbox" class="mat-filter" value="Inox"> Acier Inox</label>
-                </div>
-
-                <div class="filter-group" style="border:none; padding:0;">
-                    <div class="filter-title">Budget unitaire max</div>
-                    <div class="price-slider-wrap">
-                        <input type="range" id="priceRange" min="1" max="100" value="100">
-                        <div class="price-values">
-                            <span>1€</span>
-                            <span id="priceValueDisplay">100€</span>
-                        </div>
+                <div class="form-group fade-up delay-4">
+                    <label for="password">Mot de passe</label>
+                    <div class="input-wrapper">
+                        <input type="password" id="password" placeholder="••••••••" required autocomplete="current-password">
+                        <button type="button" class="toggle-pwd" id="togglePwd">Afficher</button>
                     </div>
                 </div>
 
-                <button class="reset-btn" id="resetFilters">Effacer les filtres</button>
-            </aside>
-
-            <div>
-                <div class="results-meta" id="resultCount">Affichage de 12 produits</div>
-                <main class="catalog-grid" id="productGrid">
-                    </main>
-                <div class="pagination">
-                    <button class="btn-load-more">Charger plus de produits</button>
+                <div class="form-options fade-up delay-5">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="remember"> Mémoriser
+                    </label>
+                    <a href="#" class="forgot-link">Mot de passe oublié ?</a>
                 </div>
-            </div>
-        </div>
-    </div>
 
-    <div class="panel-backdrop" id="panelBackdrop"></div>
-    <aside class="side-panel" id="sidePanel">
-        <div class="panel-header">
-            <span style="font-weight: 800; font-size: 1.2rem;">Fiche Technique</span>
-            <button class="panel-close" id="closePanel">×</button>
-        </div>
-        
-        <div class="panel-content">
-            <div class="panel-img-box"><img id="sp-img" src="" alt="Produit"></div>
-            <div class="panel-thumbnails">
-                <div class="thumb active"></div>
-                <div class="thumb"></div>
-                <div class="thumb"></div>
-            </div>
+                <button type="submit" class="btn-submit fade-up delay-5" id="submitBtn">
+                    <span>Accéder au portail</span>
+                    <div class="icon-circle">↗</div>
+                </button>
+            </form>
 
-            <h2 class="panel-title" id="sp-title">Nom du produit</h2>
-            <div class="panel-meta-row">
-                <span id="sp-ref">Ref: XXX</span>
-                <span id="sp-moq">MOQ: 50 pcs</span>
-            </div>
-
-            <div class="tabs-header">
-                <div class="tab-btn active" data-target="tab-desc">Description</div>
-                <div class="tab-btn" data-target="tab-tech">Spécificités</div>
-                <div class="tab-btn" data-target="tab-log">Marquage & Logistique</div>
-            </div>
-
-            <div class="tab-content active" id="tab-desc">
-                <p id="sp-desc">Description longue du produit.</p>
-                <p style="margin-top: 16px; color: var(--text-dark); font-weight: 600;">Idéal pour : Welcome packs, Événementiel, Cadeaux clients.</p>
-            </div>
-            
-            <div class="tab-content" id="tab-tech">
-                <ul class="tech-list">
-                    <li>Matière <strong><span id="sp-mat">Inox</span></strong></li>
-                    <li>Dimensions <strong>24 x 6 cm</strong></li>
-                    <li>Poids unitaire <strong>245g</strong></li>
-                    <li>Éco-conçu <strong id="sp-eco-txt">Oui</strong></li>
-                </ul>
-            </div>
-
-            <div class="tab-content" id="tab-log">
-                <ul class="tech-list">
-                    <li>Zones de marquage <strong>Face avant / Dos</strong></li>
-                    <li>Techniques conseillées <strong>Broderie, Gravure</strong></li>
-                    <li>Délai de production <strong>10-15 jours ouvrés</strong></li>
-                    <li>Colisage <strong>Cartons de 50 pcs</strong></li>
-                </ul>
+            <div class="no-account-info fade-up delay-5">
+                <p>L'accès à ce portail est strictement réservé.</p>
+                <p>Pas de compte ? <a href="mailto:contact@bimier-solutions.fr">Contactez votre administrateur</a>.</p>
             </div>
         </div>
 
-        <div class="panel-footer">
-            <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 16px;">
-                <span style="color: var(--text-muted); font-weight: 600; font-size: 0.9rem;">Prix unitaire indicatif<br>(hors marquage)</span>
-                <b id="sp-price" style="font-size: 2.5rem; font-weight: 800; color: var(--blue-primary); line-height: 1;">0.00€</b>
-            </div>
-            <a href="index.html#contact" class="btn-add-quote" id="btnToQuote">
-                Demander un devis pour ce produit <span>↗</span>
-            </a>
-        </div>
-    </aside>
-
-    <footer class="footer">
-        <div class="container">
-            <div class="logo" style="margin-bottom: 10px; color: white;">Bimier<span>.</span></div>
-            <div class="footer-bottom"><div>&copy; 2026 Bimier Solutions. Partenaire ACEF.</div></div>
-        </div>
-    </footer>
+    </main>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             
-            // 1. DATA ENRICHIE (Attributs B2B)
-            const products = [
-                { id: 1, ref: 'TEX-001', name: 'Polo Premium Bio', category: 'Textile', price: 14.50, moq: 50, eco: true, material: 'Coton Bio', isNew: false, image: 'https://images.unsplash.com/photo-1581655353564-df123a1eb820?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80', desc: 'Polo manches courtes coupe ajustée, 100% coton peigné biologique (220g/m²). Maille piquée de haute qualité pour une broderie au rendu exceptionnel.' },
-                { id: 2, ref: 'PAP-045', name: 'Carnet Moleskine A5', category: 'Papeterie', price: 6.90, moq: 100, eco: false, material: 'Similicuir', isNew: false, image: 'https://images.unsplash.com/photo-1531346878377-a5448bc20427?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80', desc: 'Le carnet emblématique. Couverture rigide, fermeture élastique, pochette à soufflet. Papier ivoire 70g/m² sans acide.' },
-                { id: 3, ref: 'DRI-102', name: 'Gourde Isotherme Inox', category: 'Drinkware', price: 11.20, moq: 50, eco: true, material: 'Inox', isNew: true, image: 'https://images.unsplash.com/photo-1602143407151-7111542de6e8?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80', desc: 'Gourde 500ml double paroi sous vide. Conserve le chaud 12h et le froid 24h. Acier inoxydable 304 de qualité alimentaire.' },
-                { id: 4, ref: 'TEC-089', name: 'Batterie MagSafe 10k', category: 'High-Tech', price: 18.00, moq: 25, eco: false, material: 'Plastique ABS', isNew: true, image: 'https://images.unsplash.com/photo-1585338107529-13afc5f02586?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80', desc: 'Powerbank magnétique 10 000 mAh. Fixation parfaite au dos des smartphones récents. Surface soft-touch premium.' },
-                { id: 5, ref: 'TEX-002', name: 'Veste Softshell Pro', category: 'Textile', price: 32.00, moq: 20, eco: false, material: 'Polyester', isNew: false, image: 'https://images.unsplash.com/photo-1591047139829-d91aecb6caea?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80', desc: 'Veste de travail 3 couches (8000mm imperméabilité). Respirante, intérieur micropolaire, 3 poches zippées.' },
-                { id: 6, ref: 'PAP-012', name: 'Stylo Métal Executive', category: 'Papeterie', price: 4.50, moq: 250, eco: false, material: 'Aluminium', isNew: false, image: 'https://images.unsplash.com/photo-1585336261022-680e295ce3fe?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80', desc: 'Stylo à bille rotatif en aluminium brossé. Poids équilibré pour une écriture fluide. Clip en métal brillant.' },
-                { id: 7, ref: 'BAG-001', name: 'Tote Bag Coton Recyclé', category: 'Bagagerie', price: 2.50, moq: 150, eco: true, material: 'Coton Bio', isNew: false, image: 'https://images.unsplash.com/photo-1597484661643-2f5fef640df1?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80', desc: 'Sac shopping 140g/m² tissé à partir de fils de coton recyclés pré-consommation. L\'allié indispensable des salons.' },
-                { id: 8, ref: 'TEC-011', name: 'Clé USB 3.0 Éco-Bois', category: 'High-Tech', price: 5.50, moq: 100, eco: true, material: 'Bois/Bambou', isNew: false, image: 'https://images.unsplash.com/photo-1615655406736-b37c4fabf923?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80', desc: 'Clé USB 32Go intégrée dans une coque en bois d\'érable véritable avec capuchon magnétique.' },
-                { id: 9, ref: 'DRI-045', name: 'Mug Bambou & Inox', category: 'Drinkware', price: 8.80, moq: 50, eco: true, material: 'Bois/Bambou', isNew: true, image: 'https://images.unsplash.com/photo-1514228742587-6b1558fcca3d?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80', desc: 'Mug 300ml avec intérieur inox et revêtement extérieur en bambou naturel. Couvercle anti-éclaboussures.' }
-            ];
+            const pwdInput = document.getElementById('password');
+            const togglePwdBtn = document.getElementById('togglePwd');
+            const loginForm = document.getElementById('loginForm');
+            const submitBtn = document.getElementById('submitBtn');
 
-            // DOM Elements
-            const grid = document.getElementById('productGrid');
-            const searchInput = document.getElementById('searchInput');
-            const resultCount = document.getElementById('resultCount');
-            const priceRange = document.getElementById('priceRange');
-            const priceDisplay = document.getElementById('priceValueDisplay');
-            const catCheckboxes = document.querySelectorAll('.cat-filter');
-            const matCheckboxes = document.querySelectorAll('.mat-filter');
-            const ecoToggle = document.getElementById('ecoFilter');
-            const sortSelect = document.getElementById('sortSelect');
-            
-            const sidePanel = document.getElementById('sidePanel');
-            const backdrop = document.getElementById('panelBackdrop');
-
-            // 2. FONCTION DE RENDU
-            function renderProducts(items) {
-                grid.innerHTML = '';
-                if(items.length === 0) {
-                    grid.innerHTML = '<p style="grid-column: 1/-1; text-align:center; padding: 40px; color:var(--text-muted);">Aucun produit ne correspond à ces critères.</p>';
-                    resultCount.textContent = `0 résultat`;
-                    return;
-                }
-
-                items.forEach((product, index) => {
-                    const card = document.createElement('div');
-                    card.className = 'product-card reveal active';
-                    card.style.animationDelay = `${index * 0.05}s`;
-                    
-                    // Génération des badges
-                    let badgesHTML = '';
-                    if (product.isNew) badgesHTML += `<span class="badge badge-new">Nouveau</span>`;
-                    if (product.eco) badgesHTML += `<span class="badge badge-eco">🌱 Éco</span>`;
-
-                    card.innerHTML = `
-                        <div class="product-img-wrap">
-                            <div class="badges-top">${badgesHTML}</div>
-                            <img src="${product.image}" alt="${product.name}" loading="lazy">
-                        </div>
-                        <div class="product-moq">MOQ : ${product.moq} pcs</div>
-                        <h4 class="product-title">${product.name}</h4>
-                        <div class="product-footer">
-                            <span class="product-ref">${product.ref}</span>
-                            <div class="product-price">Dès <b>${product.price.toFixed(2)}€</b></div>
-                        </div>
-                    `;
-                    card.addEventListener('click', () => openSidePanel(product));
-                    grid.appendChild(card);
-                });
-                resultCount.textContent = `${items.length} produit(s) affiché(s)`;
-            }
-
-            // 3. LOGIQUE DE FILTRAGE ET TRI
-            function updateCatalog() {
-                const searchTerm = searchInput.value.toLowerCase();
-                const maxPrice = parseFloat(priceRange.value);
-                const requireEco = ecoToggle.checked;
-                
-                const checkedCats = Array.from(catCheckboxes).filter(cb => cb.checked).map(cb => cb.value);
-                const checkedMats = Array.from(matCheckboxes).filter(cb => cb.checked).map(cb => cb.value);
-
-                // Filtrage
-                let filtered = products.filter(p => {
-                    const matchesSearch = p.name.toLowerCase().includes(searchTerm) || p.ref.toLowerCase().includes(searchTerm);
-                    const matchesPrice = p.price <= maxPrice;
-                    const matchesEco = requireEco ? p.eco === true : true;
-                    const matchesCat = checkedCats.length === 0 || checkedCats.includes(p.category);
-                    const matchesMat = checkedMats.length === 0 || checkedMats.includes(p.material);
-                    
-                    return matchesSearch && matchesPrice && matchesEco && matchesCat && matchesMat;
-                });
-
-                // Tri
-                const sortType = sortSelect.value;
-                if (sortType === 'prix-asc') filtered.sort((a, b) => a.price - b.price);
-                else if (sortType === 'prix-desc') filtered.sort((a, b) => b.price - a.price);
-                else if (sortType === 'nouveau') filtered.sort((a, b) => (a.isNew === b.isNew) ? 0 : a.isNew ? -1 : 1);
-
-                renderProducts(filtered);
-            }
-
-            // Écouteurs d'événements
-            searchInput.addEventListener('input', updateCatalog);
-            priceRange.addEventListener('input', (e) => { priceDisplay.textContent = `${e.target.value}€`; updateCatalog(); });
-            ecoToggle.addEventListener('change', updateCatalog);
-            sortSelect.addEventListener('change', updateCatalog);
-            catCheckboxes.forEach(cb => cb.addEventListener('change', updateCatalog));
-            matCheckboxes.forEach(cb => cb.addEventListener('change', updateCatalog));
-
-            document.getElementById('resetFilters').addEventListener('click', () => {
-                searchInput.value = '';
-                priceRange.value = 100; priceDisplay.textContent = '100€';
-                ecoToggle.checked = false;
-                sortSelect.value = 'pertinence';
-                catCheckboxes.forEach(cb => cb.checked = false);
-                matCheckboxes.forEach(cb => cb.checked = false);
-                updateCatalog();
+            // Afficher / Masquer le mot de passe
+            togglePwdBtn.addEventListener('click', () => {
+                const type = pwdInput.getAttribute('type') === 'password' ? 'text' : 'password';
+                pwdInput.setAttribute('type', type);
+                togglePwdBtn.textContent = type === 'password' ? 'Afficher' : 'Masquer';
             });
 
-            // 4. SIDE PANEL & ONGLETS
-            function openSidePanel(product) {
-                document.getElementById('sp-img').src = product.image;
-                document.getElementById('sp-title').textContent = product.name;
-                document.getElementById('sp-ref').textContent = `Ref: ${product.ref}`;
-                document.getElementById('sp-moq').textContent = `MOQ: ${product.moq} pcs`;
-                document.getElementById('sp-price').textContent = `${product.price.toFixed(2)}€`;
+            // Focus dynamique pour soulever le bouton "Afficher"
+            pwdInput.addEventListener('focus', () => togglePwdBtn.style.transform = 'translateY(calc(-50% - 2px))');
+            pwdInput.addEventListener('blur', () => togglePwdBtn.style.transform = 'translateY(-50%)');
+
+            // Simulation de connexion
+            loginForm.addEventListener('submit', (e) => {
+                e.preventDefault();
                 
-                document.getElementById('sp-desc').textContent = product.desc;
-                document.getElementById('sp-mat').textContent = product.material;
-                document.getElementById('sp-eco-txt').textContent = product.eco ? 'Oui (Certifié)' : 'Standard';
-                
-                document.getElementById('btnToQuote').href = `index.html?produit=${encodeURIComponent(product.ref)}#contact`;
+                // Animation de chargement
+                submitBtn.classList.add('loading');
+                submitBtn.innerHTML = '<span>Authentification...</span>';
 
-                // Réinitialiser le premier onglet actif
-                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-                document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-                document.querySelector('[data-target="tab-desc"]').classList.add('active');
-                document.getElementById('tab-desc').classList.add('active');
-
-                backdrop.classList.add('active');
-                sidePanel.classList.add('active');
-                document.body.style.overflow = 'hidden';
-            }
-
-            // Gestion des onglets
-            document.querySelectorAll('.tab-btn').forEach(btn => {
-                btn.addEventListener('click', () => {
-                    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-                    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-                    btn.classList.add('active');
-                    document.getElementById(btn.getAttribute('data-target')).classList.add('active');
-                });
+                // Simulation du délai
+                setTimeout(() => {
+                    submitBtn.classList.remove('loading');
+                    submitBtn.style.backgroundColor = '#10B981'; // Vert
+                    submitBtn.innerHTML = '<span>Connexion validée ✓</span>';
+                    
+                    // Redirection
+                    setTimeout(() => {
+                        window.location.href = 'catalogue.html';
+                    }, 800);
+                    
+                }, 1000);
             });
-
-            function closeSidePanel() {
-                sidePanel.classList.remove('active');
-                backdrop.classList.remove('active');
-                document.body.style.overflow = '';
-            }
-
-            document.getElementById('closePanel').addEventListener('click', closeSidePanel);
-            backdrop.addEventListener('click', closeSidePanel);
-
-            // Init
-            updateCatalog();
         });
     </script>
+
 </body>
 </html>
