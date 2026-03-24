@@ -1,263 +1,595 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>404 — PERDU ? — STUDIO</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&family=Unbounded:wght@700;800;900&display=swap" rel="stylesheet">
-<style>
-*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
-:root{
-  --bg:#F4F5F6;--white:#FFFFFF;--black:#0A0A0A;
-  --blue:#0A3CFF;--lime:#CCFF00;
-  --pill:100px;--card:36px;
-  --b:3px solid var(--black);--b4:4px solid var(--black);
-  --sh:8px 8px 0px var(--black);--sh-lg:12px 12px 0px var(--black);--sh-sm:5px 5px 0px var(--black);
-}
-html{scroll-behavior:smooth;}
-body{font-family:'Manrope',sans-serif;background:var(--bg);color:var(--black);overflow-x:hidden;line-height:1.5;font-weight:500;cursor:none;min-height:100vh;display:flex;flex-direction:column;}
-a{text-decoration:none;color:inherit;cursor:none;}
-::selection{background:var(--blue);color:var(--white);}
-.label{font-family:'Space Mono',monospace;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bimier Solutions | Objets Publicitaires ACEF</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        /* ==========================================================================
+           1. VARIABLES CSS & RESET
+           ========================================================================== */
+        :root {
+            --blue-primary: #2563EB; 
+            --blue-hover: #1D4ED8;
+            --blue-light: #EFF6FF;
+            --bg-body: #F8FAFC;
+            --bg-white: #FFFFFF;
+            --text-dark: #0F172A;
+            --text-muted: #64748B;
+            --text-light: #CBD5E1; 
+            --dark-card: #0A0A0A;
+            --border-light: #E2E8F0;
+            
+            --radius-pill: 100px;
+            --radius-xl: 32px;
+            --radius-lg: 24px;
+            --radius-md: 16px;
+            
+            --transition-smooth: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            --transition-fast: all 0.3s ease;
+        }
 
-/* CURSOR */
-.cur-d,.cur-r{position:fixed;border-radius:50%;pointer-events:none;z-index:99999;transform:translate(-50%,-50%);}
-.cur-d{width:10px;height:10px;background:var(--blue);transition:background .2s,transform .2s;}
-.cur-r{width:44px;height:44px;border:2px solid var(--blue);z-index:99998;transition:width .35s cubic-bezier(.25,.8,.25,1),height .35s cubic-bezier(.25,.8,.25,1),background .3s,border-color .3s;}
-body.ch .cur-d{background:var(--lime);transform:translate(-50%,-50%) scale(1.5);}
-body.ch .cur-r{width:64px;height:64px;background:rgba(10,60,255,.08);border-color:var(--blue);}
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
 
-/* NAV */
-.nav{position:fixed;top:0;left:0;width:100%;z-index:9000;padding:14px 48px;display:flex;align-items:center;justify-content:space-between;background:var(--bg);border-bottom:var(--b);}
-.nav__logo{font-family:'Unbounded',sans-serif;font-weight:900;font-size:20px;text-transform:uppercase;letter-spacing:-0.04em;}
-.nav__logo em{font-style:normal;color:var(--blue);}
-.nl{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.02em;padding:10px 20px;border-radius:var(--pill);border:var(--b);background:var(--blue);color:var(--white);box-shadow:4px 4px 0 var(--black);transition:transform .15s,box-shadow .15s,background .15s,color .15s;}
-.nl:hover{transform:translate(4px,4px);box-shadow:0 0 0 var(--black);background:var(--lime);color:var(--black);}
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
 
-/* =========================================
-   404 MAIN
-   ========================================= */
-.error-page{
-  flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;
-  padding:140px 48px 80px;text-align:center;position:relative;overflow:hidden;
-}
+        a { text-decoration: none; color: inherit; }
+        ul { list-style: none; }
+        img { max-width: 100%; display: block; object-fit: cover; }
 
-/* Background decorative shapes */
-.error-page__deco{position:absolute;border:var(--b);border-radius:24px;opacity:.06;pointer-events:none;}
-.deco-1{width:300px;height:200px;top:10%;left:-60px;transform:rotate(-12deg);}
-.deco-2{width:200px;height:300px;bottom:5%;right:-40px;transform:rotate(8deg);}
-.deco-3{width:150px;height:150px;top:25%;right:10%;transform:rotate(-5deg);border-radius:50%;}
-.deco-4{width:250px;height:100px;bottom:20%;left:8%;transform:rotate(3deg);}
+        /* Le conteneur principal qui dicte l'alignement strict gauche/droite */
+        .container { max-width: 1400px; margin: 0 auto; padding: 0 5%; width: 100%; }
 
-/* Glitch 404 number */
-.error-num{
-  font-family:'Unbounded',sans-serif;font-weight:900;
-  font-size:clamp(120px,22vw,300px);text-transform:uppercase;
-  letter-spacing:-0.06em;line-height:.78;
-  color:var(--black);position:relative;
-  animation:entrance .8s cubic-bezier(.16,1,.3,1) forwards;
-  opacity:0;transform:translateY(60px);
-}
-@keyframes entrance{to{opacity:1;transform:translateY(0);}}
+        /* Animations */
+        .reveal { opacity: 0; transform: translateY(40px); transition: opacity 0.8s ease-out, transform 0.8s ease-out; will-change: opacity, transform; }
+        .reveal.active { opacity: 1; transform: translateY(0); }
 
-/* Glitch layers */
-.error-num::before,.error-num::after{
-  content:'404';position:absolute;top:0;left:0;width:100%;height:100%;
-}
-.error-num::before{color:var(--blue);clip-path:inset(0 0 65% 0);animation:glitch-top 3s infinite;}
-.error-num::after{color:var(--lime);clip-path:inset(65% 0 0 0);animation:glitch-bottom 3s infinite;}
-@keyframes glitch-top{
-  0%,92%,100%{transform:translate(0);}
-  93%{transform:translate(-8px,-2px);}
-  95%{transform:translate(6px,1px);}
-  97%{transform:translate(-4px,0);}
-}
-@keyframes glitch-bottom{
-  0%,92%,100%{transform:translate(0);}
-  94%{transform:translate(8px,2px);}
-  96%{transform:translate(-6px,-1px);}
-  98%{transform:translate(3px,0);}
-}
+        /* ==========================================================================
+           2. COMPOSANTS (Boutons alignés au pixel)
+           ========================================================================== */
+        .btn {
+            display: inline-flex; align-items: center; justify-content: center; gap: 16px;
+            padding: 12px 24px; border-radius: var(--radius-pill);
+            font-weight: 700; font-size: 0.95rem; cursor: pointer; border: none;
+            transition: var(--transition-smooth); font-family: inherit; line-height: 1;
+        }
+        
+        .btn-white { background-color: var(--bg-white); color: var(--text-dark); }
+        .btn-white:hover { background-color: var(--text-dark); color: var(--bg-white); }
+        .btn-dark { background-color: var(--dark-card); color: var(--bg-white); }
+        .btn-dark:hover { background-color: var(--blue-primary); transform: translateY(-2px); box-shadow: 0 10px 20px rgba(37,99,235,0.2); }
+        .btn-primary { background-color: var(--blue-primary); color: var(--bg-white); }
+        .btn-primary:hover { background-color: var(--dark-card); transform: translateY(-2px); }
 
-/* Error tag */
-.error-tag{
-  display:inline-flex;align-items:center;gap:8px;
-  background:var(--white);border:var(--b);border-radius:var(--pill);
-  padding:10px 22px;box-shadow:var(--sh);margin-top:24px;
-  animation:entrance .8s .15s cubic-bezier(.16,1,.3,1) forwards;
-  opacity:0;transform:translateY(40px);
-}
-.error-tag__dot{width:8px;height:8px;background:#ff3b30;border-radius:50%;border:2px solid var(--black);}
-.error-tag__text{font-family:'Space Mono',monospace;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;}
+        .icon-circle {
+            width: 32px; height: 32px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            transition: transform 0.4s ease;
+        }
+        
+        .btn-white .icon-circle { background-color: var(--blue-primary); color: var(--bg-white); }
+        .btn-dark .icon-circle, .btn-primary .icon-circle { background-color: var(--bg-white); color: var(--text-dark); }
+        .btn:hover .icon-circle { transform: rotate(45deg); }
+        .btn-white:hover .icon-circle { background-color: var(--bg-white); color: var(--text-dark); }
 
-/* Message */
-.error-msg{
-  font-family:'Unbounded',sans-serif;font-weight:900;
-  font-size:clamp(20px,3vw,36px);text-transform:uppercase;
-  letter-spacing:-0.03em;line-height:.92;
-  margin-top:32px;max-width:600px;
-  animation:entrance .8s .25s cubic-bezier(.16,1,.3,1) forwards;
-  opacity:0;transform:translateY(40px);
-}
-.error-msg .bl{color:var(--blue);}
+        .text-badge { background-color: var(--blue-primary); color: var(--bg-white); padding: 4px 16px; border-radius: var(--radius-pill); display: inline-block; }
 
-.error-sub{
-  font-size:16px;font-weight:600;color:rgba(10,10,10,.4);
-  margin-top:14px;max-width:420px;
-  animation:entrance .8s .35s cubic-bezier(.16,1,.3,1) forwards;
-  opacity:0;transform:translateY(40px);
-}
+        /* ==========================================================================
+           3. NAVBAR
+           ========================================================================== */
+        .navbar { position: absolute; top: 0; left: 0; width: 100%; padding: 24px 0; z-index: 100; color: var(--bg-white); }
+        .nav-inner { display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 1.5rem; font-weight: 800; letter-spacing: -0.5px; }
+        .logo span { color: var(--blue-primary); }
+        .nav-links { display: flex; gap: 40px; font-weight: 600; font-size: 0.95rem; }
+        .nav-links a { transition: color 0.3s; color: rgba(255,255,255,0.8); }
+        .nav-links a:hover { color: var(--blue-primary); }
 
-/* Buttons */
-.error-btns{
-  display:flex;gap:14px;margin-top:36px;flex-wrap:wrap;justify-content:center;
-  animation:entrance .8s .45s cubic-bezier(.16,1,.3,1) forwards;
-  opacity:0;transform:translateY(40px);
-}
-.btn{display:inline-flex;align-items:center;gap:10px;font-family:'Manrope',sans-serif;font-size:14px;font-weight:800;text-transform:uppercase;letter-spacing:.02em;padding:14px 28px;border-radius:var(--pill);border:var(--b);background:var(--black);color:var(--white);box-shadow:6px 6px 0 var(--black);transition:transform .15s,box-shadow .15s,background .15s,color .15s;}
-.btn:hover{transform:translate(4px,4px);box-shadow:0 0 0 var(--black);background:var(--blue);}
-.btn--lime{background:var(--lime);color:var(--black);box-shadow:6px 6px 0 var(--blue);}
-.btn--lime:hover{transform:translate(4px,4px);box-shadow:0 0 0 var(--blue);}
-.ba{font-size:18px;transition:transform .2s;}
-.btn:hover .ba{transform:translateX(4px);}
+        /* ==========================================================================
+           4. HERO SECTION
+           ========================================================================== */
+        .hero {
+            position: relative; min-height: 95vh; display: flex; align-items: center;
+            border-bottom-left-radius: 48px; border-bottom-right-radius: 48px;
+            overflow: hidden; padding-top: 80px;
+        }
+        
+        .hero-bg {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: url('https://images.unsplash.com/photo-1542744094-24638ea0b3b5?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80') center/cover;
+            z-index: -2;
+        }
+        
+        .hero-overlay {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(90deg, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.4) 50%, rgba(0,0,0,0) 100%);
+            z-index: -1;
+        }
 
-/* Fun counter */
-.error-counter{
-  margin-top:48px;display:flex;align-items:center;gap:16px;
-  animation:entrance .8s .55s cubic-bezier(.16,1,.3,1) forwards;
-  opacity:0;transform:translateY(40px);
-}
-.error-counter__card{
-  background:var(--white);border:var(--b);border-radius:16px;
-  padding:14px 20px;box-shadow:var(--sh-sm);text-align:center;
-}
-.error-counter__n{font-family:'Unbounded',sans-serif;font-weight:900;font-size:24px;letter-spacing:-0.04em;color:var(--blue);line-height:1;}
-.error-counter__l{font-family:'Space Mono',monospace;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;opacity:.35;margin-top:3px;}
+        .hero-content { position: relative; z-index: 1; color: var(--bg-white); max-width: 850px; }
+        .hero-text h1 { font-size: 4.5rem; font-weight: 800; line-height: 1.05; margin-bottom: 32px; letter-spacing: -2px; }
+        .hero-text p { font-size: 1.25rem; color: rgba(255,255,255,0.8); margin-bottom: 40px; max-width: 600px; }
 
-/* =========================================
-   MARQUEE (bottom)
-   ========================================= */
-.mband{
-  padding:10px 0;overflow:hidden;border-top:var(--b);border-bottom:var(--b);
-  background:var(--black);margin:0 -10px;transform:rotate(-1.2deg);
-  position:relative;z-index:10;
-}
-.mq{display:flex;animation:ms 18s linear infinite;width:max-content;}
-.mt{font-family:'Unbounded',sans-serif;font-weight:900;font-size:18px;text-transform:uppercase;letter-spacing:.02em;color:var(--white);white-space:nowrap;padding:5px 0;display:flex;align-items:center;gap:24px;}
-.mdd{width:10px;height:10px;background:var(--lime);border-radius:50%;flex-shrink:0;}
-@keyframes ms{0%{transform:translateX(0);}100%{transform:translateX(-50%);}}
+        .hero-reviews { display: flex; align-items: center; gap: 16px; margin-bottom: 40px; }
+        .avatars { display: flex; }
+        .avatars img { width: 48px; height: 48px; border-radius: 50%; border: 3px solid #111; margin-left: -16px; object-fit: cover; }
+        .avatars img:first-child { margin-left: 0; }
+        .review-text { font-size: 0.9rem; color: rgba(255,255,255,0.9); font-weight: 500; }
+        .review-text span { color: #FBBF24; }
 
-/* FOOTER */
-.footer{padding:20px 48px;display:flex;justify-content:space-between;align-items:center;}
-.footer__copy{font-family:'Space Mono',monospace;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;opacity:.2;}
+        /* ==========================================================================
+           5. SECTION STATEMENT (Alignement gauche strict)
+           ========================================================================== */
+        .statement-section { padding: 120px 0; text-align: left; }
+        .statement-text { font-size: 4rem; font-weight: 600; line-height: 1.15; letter-spacing: -2px; color: var(--text-dark); max-width: 1200px; margin: 0; /* Aligné avec la grille */ }
+        .statement-badge { display: inline-block; background-color: var(--dark-card); color: var(--bg-white); padding: 4px 28px; border-radius: var(--radius-pill); font-weight: 600; vertical-align: middle; margin: 0 8px; line-height: 1.2; }
+        .statement-light { color: var(--text-light); }
 
-/* RESPONSIVE */
-@media(max-width:768px){
-  .nav{padding:12px 16px;}
-  .nl{font-size:11px;padding:8px 14px;box-shadow:3px 3px 0 var(--black);}
-  .error-page{padding:120px 20px 60px;}
-  .error-btns{flex-direction:column;align-items:center;}
-  .error-counter{flex-direction:row;flex-wrap:wrap;justify-content:center;gap:10px;}
-  .footer{flex-direction:column;gap:8px;text-align:center;padding:16px 20px;}
-  .cur-d,.cur-r{display:none;}
-}
-</style>
+        /* ==========================================================================
+           6. PRODUITS PHARES (Alignements internes corrigés)
+           ========================================================================== */
+        .section-padding { padding: 100px 0; } /* Rythme vertical unifié */
+        .section-header { margin-bottom: 60px; display: flex; justify-content: space-between; align-items: flex-end; }
+        .section-header h2 { font-size: 3rem; font-weight: 800; line-height: 1.1; letter-spacing: -1px; max-width: 600px; margin: 0; }
+
+        .products-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px; }
+
+        .product-card {
+            background: var(--bg-white); border-radius: var(--radius-xl); padding: 16px;
+            box-shadow: 0 10px 30px -10px rgba(15, 23, 42, 0.05); transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            display: flex; flex-direction: column; height: 100%; border: 1px solid var(--border-light);
+            position: relative;
+        }
+        .product-card:hover { transform: translateY(-12px) scale(1.02); box-shadow: 0 40px 80px -20px rgba(37,99,235,0.15); border-color: var(--blue-light); }
+
+        .product-img-wrap {
+            background: radial-gradient(50% 50% at 50% 50%, #FFFFFF 0%, #F1F5F9 100%);
+            border-radius: var(--radius-lg); height: 320px;
+            display: flex; align-items: center; justify-content: center; margin-bottom: 24px;
+            position: relative; overflow: hidden; border: 1px solid rgba(0,0,0,0.02);
+        }
+        .product-img-wrap img { width: 85%; height: 85%; object-fit: contain; mix-blend-mode: multiply; transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1); filter: drop-shadow(0 10px 20px rgba(0,0,0,0.05)); }
+        .product-card:hover .product-img-wrap img { transform: scale(1.08) translateY(-10px); }
+
+        .badges-top { position: absolute; top: 16px; left: 16px; right: 16px; display: flex; justify-content: space-between; z-index: 2; }
+        .tag-main { background: var(--bg-white); color: var(--text-dark); font-size: 0.75rem; font-weight: 800; padding: 6px 14px; border-radius: var(--radius-pill); text-transform: uppercase; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+        .tag-eco { background: #10B981; color: white; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1rem; box-shadow: 0 4px 10px rgba(16,185,129,0.3); }
+
+        .img-overlay {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(to top, rgba(15, 23, 42, 0.6) 0%, rgba(15, 23, 42, 0) 50%);
+            opacity: 0; transition: opacity 0.4s ease; display: flex; align-items: flex-end; padding: 16px;
+        }
+        .product-card:hover .img-overlay { opacity: 1; }
+
+        .quick-add-btn {
+            width: 100%; background: var(--bg-white); color: var(--text-dark);
+            border: none; padding: 14px; border-radius: var(--radius-pill);
+            font-weight: 800; font-size: 0.95rem; cursor: pointer;
+            transform: translateY(20px); transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            display: flex; justify-content: center; align-items: center; gap: 8px;
+        }
+        .product-card:hover .quick-add-btn { transform: translateY(0); }
+        .quick-add-btn:hover { background: var(--blue-primary); color: var(--bg-white); }
+
+        /* Correction des marges internes pour un alignement vertical absolu avec l'image */
+        .product-info-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px; }
+        .product-title { font-size: 1.25rem; font-weight: 800; color: var(--text-dark); letter-spacing: -0.5px; line-height: 1.2; max-width: 75%; }
+        .product-rating { background: #FFFBEB; color: #D97706; font-size: 0.85rem; font-weight: 700; padding: 4px 10px; border-radius: var(--radius-pill); display: flex; align-items: center; gap: 4px; }
+
+        .product-colors { display: flex; align-items: center; margin-bottom: 24px; }
+        .color-swatch { width: 20px; height: 20px; border-radius: 50%; border: 2px solid var(--bg-white); box-shadow: 0 2px 4px rgba(0,0,0,0.1); margin-right: -6px; transition: transform 0.2s; }
+        .color-swatch:hover { transform: translateY(-2px); z-index: 10 !important; }
+        .color-count { font-size: 0.85rem; font-weight: 600; color: var(--text-muted); margin-left: 12px; }
+
+        .product-price { display: flex; align-items: flex-end; gap: 6px; color: var(--text-muted); font-weight: 500; font-size: 0.95rem; margin-top: auto; }
+        .product-price b { color: var(--blue-primary); font-size: 1.8rem; font-weight: 800; line-height: 1; margin-bottom: -2px; }
+
+        /* ==========================================================================
+           7. CATÉGORIES (Bento Grid)
+           ========================================================================== */
+        .bento-grid { display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(2, 350px); gap: 24px; }
+        .bento-card { position: relative; border-radius: var(--radius-xl); overflow: hidden; display: flex; flex-direction: column; justify-content: flex-end; padding: 40px; color: var(--bg-white); }
+        .bento-card:nth-child(1) { grid-column: span 2; }
+        .bento-card:nth-child(4) { grid-column: span 2; }
+        .bento-bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-size: cover; background-position: center; transition: transform 0.8s ease; z-index: -2; }
+        .bento-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0) 100%); z-index: -1; transition: opacity 0.5s; }
+        .bento-card:hover .bento-bg { transform: scale(1.05); }
+        .bento-card:hover .bento-overlay { background: linear-gradient(to top, rgba(10,10,10,0.95) 0%, rgba(0,0,0,0) 100%); }
+        .bento-content { z-index: 1; display: flex; justify-content: space-between; align-items: flex-end; width: 100%; }
+        .bento-content h3 { font-size: 2rem; font-weight: 800; margin-bottom: 8px; }
+        .bento-content p { color: #E2E8F0; font-weight: 500; }
+        .bento-arrow { width: 48px; height: 48px; border-radius: 50%; background: rgba(255,255,255,0.2); backdrop-filter: blur(5px); display: flex; align-items: center; justify-content: center; border: 1px solid rgba(255,255,255,0.4); transition: var(--transition-smooth); flex-shrink: 0; }
+        .bento-card:hover .bento-arrow { background: var(--blue-primary); border-color: var(--blue-primary); transform: translateX(10px) rotate(-45deg); }
+
+        /* ==========================================================================
+           8. FAQ
+           ========================================================================== */
+        .faq-section { background: var(--bg-white); border-radius: 48px; padding: 100px 5%; margin: 80px 5%; box-shadow: 0 20px 40px rgba(0,0,0,0.02); }
+        .faq-container { max-width: 800px; margin: 0 auto; }
+        .faq-header { text-align: center; margin-bottom: 60px; }
+        .faq-header h2 { font-size: 3rem; font-weight: 800; letter-spacing: -1px; margin: 0; }
+        .faq-item { border-bottom: 1px solid var(--border-light); padding: 30px 0; cursor: pointer; }
+        .faq-question { display: flex; justify-content: space-between; align-items: center; font-size: 1.25rem; font-weight: 700; color: var(--text-dark); transition: color 0.3s; margin: 0; }
+        .faq-item:hover .faq-question { color: var(--blue-primary); }
+        .faq-icon { font-size: 1.5rem; transition: transform 0.4s ease; color: var(--blue-primary); display: flex; align-items: center; justify-content: center; }
+        .faq-item.active .faq-icon { transform: rotate(45deg); }
+        .faq-answer-wrapper { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 0.4s ease; }
+        .faq-item.active .faq-answer-wrapper { grid-template-rows: 1fr; }
+        .faq-answer { overflow: hidden; color: var(--text-muted); font-size: 1rem; line-height: 1.6; }
+        .faq-answer-inner { padding-top: 20px; }
+
+        /* ==========================================================================
+           9. CONTACT & DEVIS
+           ========================================================================== */
+        .contact-grid { display: grid; grid-template-columns: 1fr 1.5fr; gap: 80px; align-items: start; }
+        .contact-info h2 { font-size: 3.5rem; font-weight: 800; line-height: 1.1; margin-bottom: 24px; letter-spacing: -1px; }
+        .contact-info p { font-size: 1.1rem; color: var(--text-muted); margin-bottom: 40px; }
+        .contact-form { background: var(--bg-white); padding: 50px; border-radius: var(--radius-xl); box-shadow: 0 20px 40px rgba(0,0,0,0.05); border: 1px solid var(--border-light); }
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 24px; }
+        .form-group { display: flex; flex-direction: column; gap: 8px; }
+        .form-group.full { grid-column: 1 / -1; }
+        label { font-weight: 600; font-size: 0.95rem; color: var(--text-dark); margin: 0; }
+        input, select, textarea { width: 100%; padding: 16px 20px; border-radius: var(--radius-md); border: 1px solid var(--border-light); background: var(--bg-body); font-family: inherit; font-size: 1rem; transition: var(--transition-fast); }
+        input:focus, select:focus, textarea:focus { outline: none; border-color: var(--blue-primary); background: var(--bg-white); box-shadow: 0 0 0 4px var(--blue-light); }
+        textarea { resize: vertical; min-height: 120px; }
+        .submit-btn { width: 100%; padding: 20px; font-size: 1.1rem; margin-top: 10px; }
+
+        /* ==========================================================================
+           10. FOOTER
+           ========================================================================== */
+        .footer { background-color: var(--dark-card); color: var(--bg-white); padding: 100px 0 40px; border-top-left-radius: 48px; border-top-right-radius: 48px; }
+        .footer-cta { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 80px; margin-bottom: 80px; }
+        .footer-cta h2 { font-size: 4rem; font-weight: 800; max-width: 700px; line-height: 1.1; letter-spacing: -2px; margin: 0; }
+        .giant-btn { width: 120px; height: 120px; background-color: var(--blue-primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; border: none; cursor: pointer; transition: var(--transition-smooth); color: var(--bg-white); }
+        .giant-btn:hover { background-color: var(--bg-white); color: var(--blue-primary); transform: scale(1.05); }
+        .footer-links { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; }
+        .footer-col h4 { font-size: 1.2rem; font-weight: 700; margin-bottom: 24px; }
+        .footer-col p { color: #94A3B8; font-size: 0.95rem; margin-bottom: 32px; max-width: 300px; }
+        .footer-col ul { display: flex; flex-direction: column; gap: 16px; }
+        .footer-col a { color: #94A3B8; transition: color 0.3s; }
+        .footer-col a:hover { color: var(--blue-primary); }
+        .footer-bottom { margin-top: 80px; padding-top: 32px; border-top: 1px solid rgba(255,255,255,0.1); display: flex; justify-content: space-between; color: #94A3B8; font-size: 0.85rem; }
+
+        /* ==========================================================================
+           11. RESPONSIVE
+           ========================================================================== */
+        @media (max-width: 1024px) {
+            .hero-text h1 { font-size: 3.5rem; }
+            .statement-text { font-size: 3rem; }
+            .products-grid { grid-template-columns: repeat(2, 1fr); gap: 24px; }
+            .bento-grid { grid-template-columns: 1fr; grid-template-rows: auto; }
+            .bento-card { height: 350px; }
+            .bento-card:nth-child(n) { grid-column: span 1; }
+            .contact-grid { grid-template-columns: 1fr; gap: 40px; }
+            .footer-cta { flex-direction: column; gap: 40px; text-align: left; align-items: flex-start; }
+            .footer-links { grid-template-columns: 1fr 1fr; }
+        }
+        @media (max-width: 768px) {
+            .hero-text h1 { font-size: 2.5rem; }
+            .hero-text p { font-size: 1.1rem; }
+            .statement-text { font-size: 2.2rem; }
+            .nav-links { display: none; }
+            .products-grid { grid-template-columns: 1fr; }
+            .section-header { flex-direction: column; align-items: flex-start; gap: 20px; }
+            .section-padding { padding: 80px 0; }
+            .faq-section { margin: 40px 0; border-radius: 0; padding: 60px 5%; }
+            .form-row { grid-template-columns: 1fr; }
+            .footer-links { grid-template-columns: 1fr; }
+            .footer-cta h2 { font-size: 2.5rem; }
+            .footer-cta { padding-bottom: 60px; margin-bottom: 60px; }
+            .hero-overlay { background: linear-gradient(180deg, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.8) 100%); }
+        }
+    </style>
 </head>
 <body>
 
-<div class="cur-d" id="cD"></div>
-<div class="cur-r" id="cR"></div>
+    <nav class="navbar">
+        <div class="container nav-inner">
+            <div class="logo">Bimier<span>.</span></div>
+            <ul class="nav-links">
+                <li><a href="#produits">Produits</a></li>
+                <li><a href="#categories">Univers</a></li>
+                <li><a href="#faq">FAQ</a></li>
+            </ul>
+            <a href="#contact" class="btn btn-white" style="padding: 10px 24px;">Demander un devis</a>
+        </div>
+    </nav>
 
-<!-- NAV -->
-<nav class="nav">
-  <a href="index.html" class="nav__logo">STUDIO<em>.</em></a>
-  <a href="index.html" class="nl">Retour à l'accueil ↗</a>
-</nav>
+    <header class="hero reveal">
+        <div class="hero-bg"></div>
+        <div class="hero-overlay"></div>
+        <div class="container hero-content">
+            
+            <div class="hero-reviews">
+                <div class="avatars">
+                    <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=100&q=80" alt="Client 1">
+                    <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=100&q=80" alt="Client 2">
+                    <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=100&q=80" alt="Client 3">
+                </div>
+                <div class="review-text">Noté 4.9/5 par<br>+600 professionnels ACEF</div>
+            </div>
 
-<!-- ==================== 404 ==================== -->
-<main class="error-page">
-  <!-- Deco shapes -->
-  <div class="error-page__deco deco-1"></div>
-  <div class="error-page__deco deco-2"></div>
-  <div class="error-page__deco deco-3"></div>
-  <div class="error-page__deco deco-4"></div>
+            <div class="hero-text">
+                <h1>Donnez vie à votre marque avec des objets de qualité.</h1>
+                <p>Découvrez la sélection exclusive Bimier Solutions pour l'ACEF. Du textile premium à la papeterie durable, marquez les esprits avec style.</p>
+                <a href="#produits" class="btn btn-white">
+                    Explorer le catalogue
+                    <div class="icon-circle">↗</div>
+                </a>
+            </div>
+        </div>
+    </header>
 
-  <div class="error-num">404</div>
+    <section class="statement-section container reveal">
+        <h2 class="statement-text">
+            Libérez tout le potentiel de votre marque avec des 
+            <span class="statement-badge">goodies</span> adaptés à vos objectifs. 
+            Que vous prépariez un salon ou un onboarding d'équipe, nous sommes là pour guider chaque étape de votre 
+            <span class="statement-light">communication.</span>
+        </h2>
+    </section>
 
-  <div class="error-tag">
-    <span class="error-tag__dot"></span>
-    <span class="error-tag__text">Erreur — Page introuvable</span>
-  </div>
+    <section id="produits" class="section-padding container">
+        <div class="section-header reveal">
+            <h2>Les incontournables de notre sélection</h2>
+            <a href="#contact" class="btn btn-dark">Voir tout le catalogue <div class="icon-circle">↗</div></a>
+        </div>
 
-  <h1 class="error-msg">CETTE PAGE A<br>ÉTÉ <span class="bl">SUPPRIMÉE</span>,<br>DÉPLACÉE OU N'EXISTE PAS</h1>
+        <div class="products-grid">
+            
+            <div class="product-card reveal stagger">
+                <div class="product-img-wrap">
+                    <div class="badges-top">
+                        <span class="tag-main">Textile</span>
+                        <span class="tag-eco" title="Coton 100% Bio">🌱</span>
+                    </div>
+                    <img src="https://images.unsplash.com/photo-1581655353564-df123a1eb820?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Polo Premium">
+                    
+                    <div class="img-overlay">
+                        <button class="quick-add-btn" onclick="document.getElementById('ref-produit').value='Polo Premium Coton Bio'; window.location.href='#contact';">
+                            Pré-remplir le devis <span>↗</span>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="product-info-top">
+                    <h4 class="product-title">Polo Premium Coton Bio</h4>
+                    <div class="product-rating">★ 4.9</div>
+                </div>
+                
+                <div class="product-colors">
+                    <div class="color-swatch" style="background-color: #0F172A; z-index: 4;"></div>
+                    <div class="color-swatch" style="background-color: #2563EB; z-index: 3;"></div>
+                    <div class="color-swatch" style="background-color: #DC2626; z-index: 2;"></div>
+                    <div class="color-swatch" style="background-color: #F8FAFC; z-index: 1;"></div>
+                    <span class="color-count">+4 teintes</span>
+                </div>
+                <p class="product-price">Dès <b>14.50€</b> / u</p>
+            </div>
 
-  <p class="error-sub">Pas de panique, même les meilleurs designs ont des impasses. Revenez à l'accueil ou explorez mes projets.</p>
+            <div class="product-card reveal stagger">
+                <div class="product-img-wrap">
+                    <div class="badges-top">
+                        <span class="tag-main">Papeterie</span>
+                    </div>
+                    <img src="https://images.unsplash.com/photo-1531346878377-a5448bc20427?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Carnet Moleskine">
+                    
+                    <div class="img-overlay">
+                        <button class="quick-add-btn" onclick="document.getElementById('ref-produit').value='Carnet Moleskine A5'; window.location.href='#contact';">
+                            Pré-remplir le devis <span>↗</span>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="product-info-top">
+                    <h4 class="product-title">Carnet A5 style Moleskine</h4>
+                    <div class="product-rating">★ 4.8</div>
+                </div>
+                
+                <div class="product-colors">
+                    <div class="color-swatch" style="background-color: #111827; z-index: 3;"></div>
+                    <div class="color-swatch" style="background-color: #047857; z-index: 2;"></div>
+                    <div class="color-swatch" style="background-color: #B91C1C; z-index: 1;"></div>
+                    <span class="color-count">+2 formats</span>
+                </div>
+                <p class="product-price">Dès <b>6.90€</b> / u</p>
+            </div>
 
-  <div class="error-btns">
-    <a href="index.html" class="btn">Retour à l'accueil <span class="ba">←</span></a>
-    <a href="projects.html" class="btn btn--lime">Voir les projets <span class="ba">→</span></a>
-  </div>
+            <div class="product-card reveal stagger">
+                <div class="product-img-wrap">
+                    <div class="badges-top">
+                        <span class="tag-main">Drinkware</span>
+                        <span class="tag-eco" title="Zéro Déchet">♻️</span>
+                    </div>
+                    <img src="https://images.unsplash.com/photo-1602143407151-7111542de6e8?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Gourde Isotherme">
+                    
+                    <div class="img-overlay">
+                        <button class="quick-add-btn" onclick="document.getElementById('ref-produit').value='Gourde Isotherme Inox'; window.location.href='#contact';">
+                            Pré-remplir le devis <span>↗</span>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="product-info-top">
+                    <h4 class="product-title">Gourde Isotherme 500ml</h4>
+                    <div class="product-rating">★ 5.0</div>
+                </div>
+                
+                <div class="product-colors">
+                    <div class="color-swatch" style="background-color: #E5E7EB; z-index: 2;"></div>
+                    <div class="color-swatch" style="background-color: #1F2937; z-index: 1;"></div>
+                    <span class="color-count">Finition Inox</span>
+                </div>
+                <p class="product-price">Dès <b>11.20€</b> / u</p>
+            </div>
 
-  <div class="error-counter">
-    <div class="error-counter__card">
-      <div class="error-counter__n" id="timeH">00</div>
-      <div class="error-counter__l">Heures</div>
-    </div>
-    <div class="error-counter__card">
-      <div class="error-counter__n" id="timeM">00</div>
-      <div class="error-counter__l">Minutes</div>
-    </div>
-    <div class="error-counter__card">
-      <div class="error-counter__n" id="timeS">00</div>
-      <div class="error-counter__l">Secondes</div>
-    </div>
-    <span class="label" style="opacity:.25;">perdues sur cette page</span>
-  </div>
-</main>
+            <div class="product-card reveal stagger">
+                <div class="product-img-wrap">
+                    <div class="badges-top">
+                        <span class="tag-main">High-Tech</span>
+                    </div>
+                    <img src="https://images.unsplash.com/photo-1585338107529-13afc5f02586?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Batterie Externe">
+                    
+                    <div class="img-overlay">
+                        <button class="quick-add-btn" onclick="document.getElementById('ref-produit').value='Batterie Externe 10000mAh'; window.location.href='#contact';">
+                            Pré-remplir le devis <span>↗</span>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="product-info-top">
+                    <h4 class="product-title">Batterie MagSafe 10000mAh</h4>
+                    <div class="product-rating">★ 4.7</div>
+                </div>
+                
+                <div class="product-colors">
+                    <div class="color-swatch" style="background-color: #000000; z-index: 2;"></div>
+                    <div class="color-swatch" style="background-color: #FFFFFF; z-index: 1;"></div>
+                    <span class="color-count">Soft-touch</span>
+                </div>
+                <p class="product-price">Dès <b>18.00€</b> / u</p>
+            </div>
+        </div>
+    </section>
 
-<!-- MARQUEE -->
-<div class="mband">
-  <div class="mq"><div class="mt"><span>404</span><span class="mdd"></span><span>PAGE NOT FOUND</span><span class="mdd"></span><span>RETOUR À L'ACCUEIL</span><span class="mdd"></span><span>404</span><span class="mdd"></span><span>PAGE NOT FOUND</span><span class="mdd"></span><span>RETOUR À L'ACCUEIL</span><span class="mdd"></span><span>404</span><span class="mdd"></span><span>PAGE NOT FOUND</span><span class="mdd"></span></div><div class="mt" aria-hidden="true"><span>404</span><span class="mdd"></span><span>PAGE NOT FOUND</span><span class="mdd"></span><span>RETOUR À L'ACCUEIL</span><span class="mdd"></span><span>404</span><span class="mdd"></span><span>PAGE NOT FOUND</span><span class="mdd"></span><span>RETOUR À L'ACCUEIL</span><span class="mdd"></span><span>404</span><span class="mdd"></span><span>PAGE NOT FOUND</span><span class="mdd"></span></div></div>
-</div>
+    <section id="categories" class="section-padding container">
+        <div class="section-header reveal">
+            <h2>Explorez par univers</h2>
+        </div>
+        <div class="bento-grid">
+            <a href="#contact" class="bento-card reveal stagger">
+                <div class="bento-bg" style="background-image: url('https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80');"></div>
+                <div class="bento-overlay"></div>
+                <div class="bento-content"><div><h3>Textile Corporate</h3><p>Broderie premium & Sur-mesure</p></div><div class="bento-arrow">↗</div></div>
+            </a>
+            <a href="#contact" class="bento-card reveal stagger">
+                <div class="bento-bg" style="background-image: url('https://images.unsplash.com/photo-1583337130417-3346a1be7dee?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80');"></div>
+                <div class="bento-overlay"></div>
+                <div class="bento-content"><div><h3>Papeterie Durable</h3><p>L'essentiel pour vos bureaux</p></div><div class="bento-arrow">↗</div></div>
+            </a>
+            <a href="#contact" class="bento-card reveal stagger">
+                <div class="bento-bg" style="background-image: url('https://images.unsplash.com/photo-1514228742587-6b1558fcca3d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80');"></div>
+                <div class="bento-overlay"></div>
+                <div class="bento-content"><div><h3>Welcome Packs</h3><p>Kits d'intégration mémorables</p></div><div class="bento-arrow">↗</div></div>
+            </a>
+            <a href="#contact" class="bento-card reveal stagger">
+                <div class="bento-bg" style="background-image: url('https://images.unsplash.com/photo-1615655406736-b37c4fabf923?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80');"></div>
+                <div class="bento-overlay"></div>
+                <div class="bento-content"><div><h3>High-Tech & Audio</h3><p>Cadeaux d'affaires & Accessoires</p></div><div class="bento-arrow">↗</div></div>
+            </a>
+        </div>
+    </section>
 
-<!-- FOOTER -->
-<footer class="footer">
-  <span class="footer__copy">© 2026 STUDIO.</span>
-  <span class="footer__copy">MÊME ICI, LE DESIGN EST SOIGNÉ.</span>
-</footer>
+    <section id="faq" class="faq-section reveal">
+        <div class="faq-container">
+            <div class="faq-header"><h2>Questions Fréquentes</h2></div>
+            <div class="faq-item">
+                <div class="faq-question">Quelles sont les méthodes de marquage ? <span class="faq-icon">+</span></div>
+                <div class="faq-answer-wrapper"><div class="faq-answer"><div class="faq-answer-inner">Broderie, sérigraphie, gravure laser et impression UV numérique. Nous sélectionnons la technique la plus adaptée selon le produit pour garantir durabilité et esthétisme.</div></div></div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">Quel est le minimum de commande ? <span class="faq-icon">+</span></div>
+                <div class="faq-answer-wrapper"><div class="faq-answer"><div class="faq-answer-inner">Généralement 50 pièces pour le textile et 100 pour les petits objets. Certains produits premium High-Tech peuvent être commandés dès 25 unités.</div></div></div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">Quels sont les délais de livraison ? <span class="faq-icon">+</span></div>
+                <div class="faq-answer-wrapper"><div class="faq-answer"><div class="faq-answer-inner">Le délai standard est de 10 à 15 jours ouvrés après validation du BAT (Bon à Tirer numérique). Nous proposons un service Express pour les urgences.</div></div></div>
+            </div>
+        </div>
+    </section>
 
-<script>
-/* CURSOR */
-const dot=document.getElementById('cD'),ring=document.getElementById('cR');
-let mx=0,my=0,rx=0,ry=0;
-document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;dot.style.left=mx+'px';dot.style.top=my+'px';});
-(function loop(){rx+=(mx-rx)*.1;ry+=(my-ry)*.1;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(loop);})();
-document.querySelectorAll('a,button,.btn,.nl').forEach(el=>{
-  el.addEventListener('mouseenter',()=>document.body.classList.add('ch'));
-  el.addEventListener('mouseleave',()=>document.body.classList.remove('ch'));
-});
+    <section id="contact" class="section-padding container reveal">
+        <div class="contact-grid">
+            <div class="contact-info">
+                <h2>Concrétisons votre projet.</h2>
+                <p>Nos experts B2B vous répondent sous 24h ouvrées avec un devis détaillé et une simulation visuelle gratuite.</p>
+                <div style="display: flex; gap: 16px; align-items: center; margin-top: 40px; font-weight: 600;"><div class="icon-circle" style="background: var(--dark-card); color: white;">📞</div> 01 23 45 67 89</div>
+                <div style="display: flex; gap: 16px; align-items: center; margin-top: 20px; font-weight: 600;"><div class="icon-circle" style="background: var(--dark-card); color: white;">✉️</div> devis@bimier-solutions.fr</div>
+            </div>
+            <form class="contact-form" onsubmit="event.preventDefault(); alert('Votre demande a bien été envoyée !');">
+                <div class="form-row">
+                    <div class="form-group"><label>Nom & Prénom</label><input type="text" required placeholder="Jean Dupont"></div>
+                    <div class="form-group"><label>Société / Entité ACEF</label><input type="text" required placeholder="Votre organisation"></div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group"><label>Email professionnel</label><input type="email" required placeholder="jean@entreprise.fr"></div>
+                    <div class="form-group"><label>Téléphone</label><input type="tel" placeholder="06 00 00 00 00"></div>
+                </div>
+                <div class="form-group full" style="margin-bottom: 24px;">
+                    <label>Produit souhaité</label>
+                    <input type="text" id="ref-produit" placeholder="Ex: Polo Premium Corporate">
+                </div>
+                <div class="form-row">
+                    <div class="form-group"><label>Quantité estimée</label><input type="number" min="10" placeholder="100"></div>
+                    <div class="form-group"><label>Date de l'événement (optionnel)</label><input type="date"></div>
+                </div>
+                <div class="form-group full">
+                    <label>Détails du projet</label><textarea placeholder="Couleurs souhaitées, technique de marquage, contraintes logistiques..."></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary submit-btn">Envoyer ma demande de devis</button>
+            </form>
+        </div>
+    </section>
 
-/* TIME WASTED COUNTER */
-let seconds=0;
-setInterval(()=>{
-  seconds++;
-  const h=Math.floor(seconds/3600);
-  const m=Math.floor((seconds%3600)/60);
-  const s=seconds%60;
-  document.getElementById('timeH').textContent=String(h).padStart(2,'0');
-  document.getElementById('timeM').textContent=String(m).padStart(2,'0');
-  document.getElementById('timeS').textContent=String(s).padStart(2,'0');
-},1000);
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-cta reveal">
+                <h2>Démarquez-vous avec Bimier Solutions.</h2>
+                <a href="#contact" class="giant-btn"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></a>
+            </div>
+            <div class="footer-links reveal">
+                <div class="footer-col">
+                    <div class="logo" style="margin-bottom: 24px; color: white;">Bimier<span>.</span></div>
+                    <p>Votre partenaire exclusif ACEF pour une communication par l'objet réussie et durable.</p>
+                </div>
+                <div class="footer-col"><h4>Navigation</h4><ul><li><a href="#produits">Produits</a></li><li><a href="#categories">Univers</a></li><li><a href="#faq">FAQ</a></li></ul></div>
+                <div class="footer-col"><h4>Légal</h4><ul><li><a href="#">CGV</a></li><li><a href="#">Mentions Légales</a></li><li><a href="#">Confidentialité</a></li></ul></div>
+            </div>
+            <div class="footer-bottom reveal"><div>&copy; 2026 Bimier Solutions. Partenaire ACEF.</div><div>Design Premium</div></div>
+        </div>
+    </footer>
 
-/* 404 FOLLOWS MOUSE (subtle parallax on the number) */
-const num=document.querySelector('.error-num');
-document.addEventListener('mousemove',e=>{
-  const x=(e.clientX/window.innerWidth-.5)*12;
-  const y=(e.clientY/window.innerHeight-.5)*8;
-  num.style.transform=`translate(${x}px,${y}px)`;
-});
-</script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // ANIMATIONS AU SCROLL
+            const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                        if(entry.target.classList.contains('stagger')) {
+                            const siblings = Array.from(entry.target.parentNode.children);
+                            const index = siblings.indexOf(entry.target);
+                            entry.target.style.transitionDelay = `${index * 0.15}s`;
+                        }
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+            // ACCORDÉON FAQ FLUIDE
+            const faqItems = document.querySelectorAll('.faq-item');
+            faqItems.forEach(item => {
+                item.addEventListener('click', () => {
+                    const isActive = item.classList.contains('active');
+                    faqItems.forEach(el => el.classList.remove('active'));
+                    if (!isActive) item.classList.add('active');
+                });
+            });
+        });
+    </script>
 </body>
 </html>
