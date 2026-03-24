@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Connexion | Espace Privé ACEF</title>
+    <title>Polo Premium Coton Bio | Catalogue Bimier</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     
     <style>
@@ -14,6 +14,8 @@
             --blue-primary: #2563EB; 
             --blue-hover: #1D4ED8;
             --blue-light: #EFF6FF;
+            --green-eco: #10B981;
+            
             --bg-body: #F8FAFC;
             --bg-white: #FFFFFF;
             --text-dark: #0F172A;
@@ -22,328 +24,428 @@
             --border-light: #E2E8F0;
             
             --radius-pill: 100px;
-            --radius-xl: 32px;
-            --radius-lg: 24px;
-            --radius-md: 16px;
+            --radius-xl: 24px;
+            --radius-lg: 16px;
+            --radius-md: 8px;
             
-            --transition-smooth: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-            --transition-fast: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            --transition-fast: all 0.2s ease;
         }
 
         *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-        
-        body { 
-            font-family: 'Plus Jakarta Sans', sans-serif; 
-            background-color: var(--bg-body); 
-            color: var(--text-dark); 
-            line-height: 1.6; 
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            -webkit-font-smoothing: antialiased;
-            position: relative;
-            overflow-x: hidden;
-            /* Motif de fond subtil pour donner de la texture */
-            background-image: radial-gradient(var(--border-light) 1px, transparent 1px);
-            background-size: 32px 32px;
-        }
-
-        /* --- LUEUR AMBIANTE ANIMÉE (Dynamic Glow) --- */
-        .ambient-glow {
-            position: absolute;
-            top: 40%; left: 50%;
-            transform: translate(-50%, -50%);
-            width: 800px; height: 800px;
-            background: radial-gradient(circle, rgba(37,99,235,0.06) 0%, transparent 60%);
-            border-radius: 50%;
-            z-index: -1;
-            pointer-events: none;
-            animation: breathe 8s infinite alternate ease-in-out;
-        }
-
-        @keyframes breathe {
-            0% { transform: translate(-50%, -50%) scale(0.9); opacity: 0.6; }
-            100% { transform: translate(-50%, -50%) scale(1.1); opacity: 1; }
-        }
-
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: var(--bg-body); color: var(--text-dark); line-height: 1.6; -webkit-font-smoothing: antialiased; }
         a { text-decoration: none; color: inherit; }
-        .container { max-width: 1400px; margin: 0 auto; padding: 0 5%; width: 100%; }
-
-        /* --- ANIMATIONS EN CASCADE (Staggered) --- */
-        .fade-up { opacity: 0; animation: slideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
-        .delay-1 { animation-delay: 0.1s; }
-        .delay-2 { animation-delay: 0.2s; }
-        .delay-3 { animation-delay: 0.3s; }
-        .delay-4 { animation-delay: 0.4s; }
-        .delay-5 { animation-delay: 0.5s; }
-
-        @keyframes slideUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+        ul { list-style: none; }
+        img { max-width: 100%; display: block; object-fit: cover; }
+        
+        .container { max-width: 1300px; margin: 0 auto; padding: 0 5%; width: 100%; }
 
         /* ==========================================================================
-           2. NAVBAR
+           2. NAVBAR & BREADCRUMBS
            ========================================================================== */
-        .navbar { padding: 40px 0; width: 100%; z-index: 10; }
-        .nav-inner { display: flex; justify-content: center; align-items: center; }
-        .logo { font-size: 2rem; font-weight: 800; letter-spacing: -1px; color: var(--text-dark); transition: transform 0.3s ease; cursor: pointer; }
-        .logo:hover { transform: scale(1.05); }
+        .navbar { background: var(--bg-white); padding: 20px 0; border-bottom: 1px solid var(--border-light); }
+        .nav-inner { display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 1.5rem; font-weight: 800; letter-spacing: -0.5px; color: var(--text-dark); }
         .logo span { color: var(--blue-primary); }
+        
+        .breadcrumbs { padding: 24px 0; font-size: 0.9rem; font-weight: 600; color: var(--text-muted); }
+        .breadcrumbs a:hover { color: var(--blue-primary); text-decoration: underline; }
+        .breadcrumbs span { color: var(--text-dark); }
 
         /* ==========================================================================
-           3. LAYOUT CENTRAL MASSIF
+           3. PRODUIT: HAUT DE PAGE (Galerie + Achat)
            ========================================================================== */
-        .login-wrapper {
-            flex-grow: 1; display: flex; flex-direction: column;
-            align-items: center; justify-content: center; padding: 20px 0 80px; z-index: 1;
-        }
+        .product-main { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: start; margin-bottom: 80px; }
 
-        .login-header { text-align: center; margin-bottom: 50px; max-width: 800px; }
+        /* --- GALERIE (Gauche) --- */
+        .gallery-wrap { display: flex; flex-direction: column; gap: 16px; }
         
-        .statement-text {
-            font-size: 4rem; font-weight: 800; line-height: 1.1;
-            letter-spacing: -2px; color: var(--text-dark); margin-bottom: 24px;
-        }
+        .gallery-main { background: var(--bg-white); border: 1px solid var(--border-light); border-radius: var(--radius-lg); height: 550px; display: flex; align-items: center; justify-content: center; overflow: hidden; padding: 40px; }
+        .gallery-main img { width: 100%; height: 100%; object-fit: contain; mix-blend-mode: multiply; transition: transform 0.3s; }
         
-        .statement-badge {
-            display: inline-block; background-color: var(--blue-primary); color: var(--bg-white);
-            padding: 4px 28px; border-radius: var(--radius-pill); font-weight: 800;
-            vertical-align: middle; margin: 0 8px; line-height: 1.2;
-            box-shadow: 0 10px 20px rgba(37,99,235,0.3);
-            animation: floatBadge 4s infinite ease-in-out; /* Micro-animation du badge */
-        }
+        .gallery-thumbs { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+        .thumb { background: var(--bg-white); border: 2px solid var(--border-light); border-radius: var(--radius-md); height: 100px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: var(--transition-fast); padding: 10px; }
+        .thumb img { width: 100%; height: 100%; object-fit: contain; mix-blend-mode: multiply; }
+        .thumb:hover { border-color: var(--text-muted); }
+        .thumb.active { border-color: var(--blue-primary); box-shadow: 0 0 0 2px var(--blue-light); }
 
-        @keyframes floatBadge {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-4px); box-shadow: 0 15px 25px rgba(37,99,235,0.4); }
-        }
+        /* --- CONFIGURATEUR (Droite) --- */
+        .product-details { display: flex; flex-direction: column; }
+        
+        /* En-tête produit */
+        .badges { display: flex; gap: 8px; margin-bottom: 16px; }
+        .badge { font-size: 0.75rem; font-weight: 800; padding: 4px 12px; border-radius: var(--radius-pill); text-transform: uppercase; }
+        .badge-cat { background: var(--text-dark); color: var(--bg-white); }
+        .badge-eco { background: var(--green-eco); color: var(--bg-white); }
 
-        .login-subtitle { font-size: 1.25rem; color: var(--text-muted); font-weight: 500; }
+        .p-title { font-size: 2.5rem; font-weight: 800; line-height: 1.2; letter-spacing: -1px; margin-bottom: 8px; color: var(--text-dark); }
+        .p-ref { font-family: monospace; font-size: 1rem; color: var(--text-muted); font-weight: 600; margin-bottom: 24px; }
+        
+        .p-price-wrap { display: flex; align-items: flex-end; gap: 8px; margin-bottom: 32px; padding-bottom: 32px; border-bottom: 1px solid var(--border-light); }
+        .p-price { font-size: 2.5rem; font-weight: 800; color: var(--blue-primary); line-height: 1; }
+        .p-price-tax { font-size: 1rem; color: var(--text-muted); font-weight: 600; padding-bottom: 4px; }
+
+        /* Options */
+        .option-group { margin-bottom: 32px; }
+        .option-label { display: flex; justify-content: space-between; font-weight: 800; font-size: 1rem; margin-bottom: 12px; color: var(--text-dark); text-transform: uppercase; letter-spacing: 0.5px; }
+        .option-val { color: var(--blue-primary); }
+
+        /* Couleurs */
+        .colors-grid { display: flex; gap: 12px; flex-wrap: wrap; }
+        .color-btn { width: 40px; height: 40px; border-radius: 50%; border: 2px solid var(--border-light); cursor: pointer; transition: var(--transition-fast); position: relative; }
+        .color-btn::after { content: ''; position: absolute; inset: -5px; border-radius: 50%; border: 2px solid transparent; transition: var(--transition-fast); }
+        .color-btn.active::after { border-color: var(--text-dark); }
+        .color-btn:hover { transform: scale(1.1); }
+
+        /* Tailles */
+        .sizes-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; }
+        .size-btn { padding: 12px 0; border-radius: var(--radius-md); border: 1px solid var(--border-light); background: var(--bg-white); font-weight: 700; color: var(--text-dark); cursor: pointer; transition: var(--transition-fast); text-align: center; }
+        .size-btn:hover { border-color: var(--text-dark); }
+        .size-btn.active { background: var(--text-dark); color: var(--bg-white); border-color: var(--text-dark); }
+
+        /* CTA & Info Logistique */
+        .action-area { background: var(--bg-white); padding: 32px; border-radius: var(--radius-lg); border: 1px solid var(--border-light); box-shadow: 0 10px 20px rgba(0,0,0,0.02); margin-top: 16px; }
+        
+        .btn-submit { width: 100%; display: flex; align-items: center; justify-content: center; gap: 12px; background: var(--blue-primary); color: var(--bg-white); border: none; padding: 18px; border-radius: var(--radius-pill); font-size: 1.1rem; font-weight: 800; cursor: pointer; transition: var(--transition-fast); font-family: inherit; margin-bottom: 24px; }
+        .btn-submit:hover { background: var(--dark-card); transform: translateY(-2px); box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+        
+        .logistics-list { display: flex; flex-direction: column; gap: 12px; }
+        .log-item { display: flex; align-items: center; gap: 12px; font-size: 0.95rem; font-weight: 600; color: var(--text-muted); }
+        .log-icon { display: flex; align-items: center; justify-content: center; width: 32px; height: 32px; background: var(--bg-body); border-radius: 50%; color: var(--text-dark); font-size: 1rem; }
 
         /* ==========================================================================
-           4. CARTE DE CONNEXION DYNAMIQUE
+           4. ONGLETS D'INFORMATIONS (Hiérarchie stricte)
            ========================================================================== */
-        .login-card {
-            background: var(--bg-white); width: 100%; max-width: 500px;
-            padding: 48px; border-radius: var(--radius-xl);
-            box-shadow: 0 20px 50px -10px rgba(15, 23, 42, 0.08);
-            border: 1px solid rgba(255,255,255,0.8);
-            backdrop-filter: blur(10px);
-            transition: box-shadow 0.4s ease;
-        }
-
-        .login-card:hover { box-shadow: 0 30px 60px -15px rgba(15, 23, 42, 0.12); }
-
-        .form-group { margin-bottom: 24px; position: relative; }
-        .form-group label { display: block; font-weight: 800; font-size: 0.95rem; color: var(--text-dark); margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.5px; transition: color 0.3s; }
+        .product-tabs-section { background: var(--bg-white); border-top: 1px solid var(--border-light); border-bottom: 1px solid var(--border-light); padding: 60px 0; margin-bottom: 60px; }
         
-        /* Focus-within permet d'animer le label quand l'input est actif */
-        .form-group:focus-within label { color: var(--blue-primary); }
+        .tabs-header { display: flex; gap: 40px; border-bottom: 2px solid var(--border-light); margin-bottom: 40px; overflow-x: auto; scrollbar-width: none; }
+        .tab-btn { padding: 0 0 16px 0; font-size: 1.1rem; font-weight: 800; color: var(--text-muted); cursor: pointer; border-bottom: 3px solid transparent; margin-bottom: -2px; transition: var(--transition-fast); white-space: nowrap; }
+        .tab-btn:hover { color: var(--text-dark); }
+        .tab-btn.active { color: var(--blue-primary); border-bottom-color: var(--blue-primary); }
 
-        .input-wrapper { position: relative; }
+        .tab-content { display: none; max-width: 1000px; animation: fadeIn 0.3s ease; }
+        .tab-content.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* Contenu Description */
+        .desc-text { font-size: 1.1rem; color: var(--text-muted); line-height: 1.8; margin-bottom: 24px; }
         
-        .form-group input {
-            width: 100%; padding: 20px 24px; border-radius: var(--radius-md);
-            border: 2px solid var(--border-light); background: var(--bg-body);
-            font-family: inherit; font-size: 1.1rem; font-weight: 600; color: var(--text-dark);
-            transition: var(--transition-fast); outline: none;
+        /* Grilles Spécifications */
+        .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+        .info-block h3 { font-size: 1.2rem; font-weight: 800; color: var(--text-dark); margin-bottom: 20px; text-transform: uppercase; letter-spacing: 0.5px; }
+        .data-list { list-style: none; }
+        .data-list li { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid var(--border-light); font-size: 0.95rem; }
+        .data-list li:last-child { border-bottom: none; }
+        .data-list span { color: var(--text-muted); font-weight: 600; }
+        .data-list strong { color: var(--text-dark); font-weight: 700; text-align: right; max-width: 60%; }
+
+        /* NOUVEAU DESIGN : LISTE DES ZONES DE MARQUAGE */
+        .branding-zones-list { display: flex; flex-direction: column; }
+        
+        .branding-zone-item { 
+            display: flex; align-items: center; gap: 32px; 
+            padding: 32px 0; 
+            border-bottom: 1px solid var(--border-light); 
+        }
+        .branding-zone-item:last-child { border-bottom: none; }
+
+        /* Visualisation (gauche) */
+        .zone-visual { 
+            position: relative; width: 140px; height: 140px; 
+            background: var(--bg-body); border-radius: var(--radius-md); 
+            display: flex; align-items: center; justify-content: center; 
+            flex-shrink: 0; border: 1px solid var(--border-light); 
+        }
+        .zone-visual img { width: 80%; height: 80%; object-fit: contain; mix-blend-mode: multiply; opacity: 0.6; }
+        
+        /* Box de surbrillance Bleu Bimier */
+        .highlight-box { 
+            position: absolute; 
+            background: rgba(37, 99, 235, 0.3); /* Bleu clair transparent */
+            border: 2px solid var(--blue-primary); 
+            border-radius: 4px; z-index: 2; 
         }
 
-        /* Micro-interaction sur les inputs : Levitation */
-        .form-group input:focus { 
-            border-color: var(--blue-primary); 
-            background: var(--bg-white); 
-            box-shadow: 0 10px 20px -5px rgba(37,99,235,0.15), 0 0 0 4px var(--blue-light); 
-            transform: translateY(-2px);
-        }
-        .form-group input::placeholder { color: #CBD5E1; font-weight: 500; transition: opacity 0.3s; }
-        .form-group input:focus::placeholder { opacity: 0.5; }
-
-        .toggle-pwd {
-            position: absolute; right: 20px; top: 50%; transform: translateY(-50%);
-            background: none; border: none; color: var(--text-muted);
-            cursor: pointer; font-size: 0.9rem; font-weight: 700; padding: 4px;
-            transition: var(--transition-fast);
-        }
-        .toggle-pwd:hover { color: var(--blue-primary); transform: translateY(-50%) scale(1.05); }
-
-        .form-options { display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px; font-size: 0.95rem; font-weight: 600; }
-
-        /* Checkbox avec animation "Pop" */
-        .checkbox-label { display: flex; align-items: center; gap: 10px; cursor: pointer; color: var(--text-dark); }
-        .checkbox-label input { appearance: none; width: 22px; height: 22px; border: 2px solid var(--border-light); border-radius: 6px; cursor: pointer; position: relative; transition: var(--transition-fast); flex-shrink: 0; }
-        .checkbox-label input:hover { border-color: var(--blue-primary); }
-        .checkbox-label input:checked { background-color: var(--text-dark); border-color: var(--text-dark); animation: pop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-        .checkbox-label input:checked::after { content: '✔'; position: absolute; color: white; font-size: 12px; top: 50%; left: 50%; transform: translate(-50%, -50%); }
-
-        @keyframes pop { 0% { transform: scale(1); } 50% { transform: scale(0.9); } 100% { transform: scale(1); } }
-
-        .forgot-link { color: var(--text-muted); transition: var(--transition-fast); position: relative; }
-        .forgot-link::after { content: ''; position: absolute; width: 100%; transform: scaleX(0); height: 2px; bottom: -2px; left: 0; background-color: var(--blue-primary); transform-origin: bottom right; transition: transform 0.3s ease-out; }
-        .forgot-link:hover { color: var(--blue-primary); }
-        .forgot-link:hover::after { transform: scaleX(1); transform-origin: bottom left; }
+        /* Texte et options (droite) */
+        .zone-info { flex-grow: 1; }
+        .zone-info h4 { font-size: 1.25rem; font-weight: 800; color: var(--text-dark); margin-bottom: 6px; }
+        .zone-size { font-size: 0.95rem; color: var(--text-muted); font-weight: 600; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+        
+        .zone-techniques { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+        .zone-techniques li { font-size: 0.95rem; color: var(--text-dark); font-weight: 600; display: flex; align-items: center; gap: 12px; }
+        .zone-techniques li::before { content: ''; display: inline-block; width: 6px; height: 6px; background: var(--blue-primary); border-radius: 50%; }
+        .tech-colors { font-weight: 500; color: var(--text-muted); }
 
         /* ==========================================================================
-           5. BOUTON D'ACTION (Effet Magnétique)
+           5. FOOTER
            ========================================================================== */
-        .btn-submit {
-            width: 100%; display: flex; align-items: center; justify-content: space-between;
-            background: var(--dark-card); color: var(--bg-white);
-            border: none; padding: 16px 24px; border-radius: var(--radius-pill);
-            font-size: 1.1rem; font-weight: 800; cursor: pointer;
-            transition: var(--transition-smooth); font-family: inherit;
-            position: relative; overflow: hidden;
-        }
-        
-        .btn-submit::before {
-            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: var(--blue-primary); transform: translateX(-100%);
-            transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1); z-index: 0;
-        }
-
-        .btn-submit span { position: relative; z-index: 1; transition: transform 0.3s; }
-        
-        .btn-submit:hover { transform: translateY(-4px); box-shadow: 0 15px 30px rgba(37,99,235,0.3); }
-        .btn-submit:hover::before { transform: translateX(0); }
-        .btn-submit:hover span { transform: translateX(10px); }
-
-        .btn-submit .icon-circle {
-            width: 36px; height: 36px; border-radius: 50%;
-            background-color: var(--bg-white); color: var(--text-dark);
-            display: flex; align-items: center; justify-content: center;
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); font-size: 1.2rem;
-            position: relative; z-index: 1;
-        }
-        
-        /* L'icône tourne et sort presque du bouton au hover */
-        .btn-submit:hover .icon-circle { transform: rotate(45deg) scale(1.1); color: var(--blue-primary); box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
-
-        .btn-submit.loading { background: var(--text-muted); pointer-events: none; justify-content: center; }
-        .btn-submit.loading::before { display: none; }
-        .btn-submit.loading .icon-circle { display: none; }
-        .btn-submit.loading span { transform: none; }
+        .footer { background: var(--dark-card); color: white; padding: 40px 0; text-align: center; border-top-left-radius: 32px; border-top-right-radius: 32px; }
 
         /* ==========================================================================
-           6. BLOC INFO
+           RESPONSIVE
            ========================================================================== */
-        .no-account-info {
-            margin-top: 40px; padding: 24px; background: rgba(248, 250, 252, 0.5);
-            border-radius: var(--radius-md); text-align: center;
-            border: 1px dashed var(--border-light);
-            transition: var(--transition-fast);
+        @media (max-width: 1024px) {
+            .product-main { grid-template-columns: 1fr; gap: 40px; }
+            .gallery-main { height: 450px; }
+            .info-grid { grid-template-columns: 1fr; gap: 32px; }
         }
-        
-        .no-account-info:hover { border-color: var(--blue-primary); background: var(--bg-white); }
-        .no-account-info p { font-size: 0.95rem; color: var(--text-muted); margin-bottom: 8px; font-weight: 500; }
-        .no-account-info a { color: var(--text-dark); font-weight: 800; border-bottom: 2px solid var(--border-light); padding-bottom: 2px; transition: var(--transition-fast); }
-        .no-account-info a:hover { color: var(--blue-primary); border-color: var(--blue-primary); }
-
-        /* Responsive */
         @media (max-width: 768px) {
-            .statement-text { font-size: 2.8rem; letter-spacing: -1px; }
-            .login-card { padding: 32px 24px; border-radius: 0; border-left: none; border-right: none; box-shadow: none; background: transparent; }
-            .login-wrapper { padding: 0; justify-content: flex-start; }
-            .ambient-glow { display: none; }
+            .p-title { font-size: 2rem; }
+            .gallery-main { height: 350px; padding: 20px; }
+            .gallery-thumbs { gap: 8px; }
+            .thumb { height: 70px; }
+            .sizes-grid { grid-template-columns: repeat(3, 1fr); }
+            .tabs-header { gap: 24px; }
+            .tab-btn { font-size: 1rem; }
+            .branding-zone-item { flex-direction: column; align-items: flex-start; gap: 24px; }
         }
     </style>
 </head>
 <body>
 
-    <div class="ambient-glow"></div>
-
-    <nav class="navbar fade-up">
+    <nav class="navbar">
         <div class="container nav-inner">
             <a href="index.html" class="logo">Bimier<span>.</span></a>
         </div>
     </nav>
 
-    <main class="login-wrapper container">
-        
-        <div class="login-header fade-up delay-1">
-            <h1 class="statement-text">Espace <span class="statement-badge">Privé</span> ACEF.</h1>
-            <p class="login-subtitle">Accédez à votre catalogue exclusif, gérez vos devis et suivez vos commandes de goodies.</p>
+    <div class="container">
+        <div class="breadcrumbs">
+            <a href="index.html">Accueil</a> &gt; <a href="catalogue.html">Catalogue B2B</a> &gt; <a href="#">Textile Corporate</a> &gt; <span>Polo Premium Bio</span>
         </div>
 
-        <div class="login-card fade-up delay-2">
-            <form id="loginForm">
+        <main class="product-main">
+            
+            <div class="gallery-wrap">
+                <div class="gallery-main">
+                    <img id="mainImg" src="https://images.unsplash.com/photo-1581655353564-df123a1eb820?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Polo Premium Face">
+                </div>
+                <div class="gallery-thumbs">
+                    <div class="thumb active" onclick="switchImage('https://images.unsplash.com/photo-1581655353564-df123a1eb820?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80', this)">
+                        <img src="https://images.unsplash.com/photo-1581655353564-df123a1eb820?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80" alt="Face">
+                    </div>
+                    <div class="thumb" onclick="switchImage('https://images.unsplash.com/photo-1576566588028-4147f3842f27?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80', this)">
+                        <img src="https://images.unsplash.com/photo-1576566588028-4147f3842f27?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80" alt="Détail">
+                    </div>
+                    <div class="thumb" onclick="switchImage('https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80', this)">
+                        <img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80" alt="Dos">
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-details">
                 
-                <div class="form-group fade-up delay-3">
-                    <label for="email">Adresse e-mail pro</label>
-                    <input type="email" id="email" placeholder="jean.dupont@acef.fr" required autocomplete="email">
+                <div class="badges">
+                    <span class="badge badge-cat">Textile</span>
+                    <span class="badge badge-eco">Coton 100% Bio</span>
+                </div>
+                
+                <h1 class="p-title">Polo Premium Corporate</h1>
+                <div class="p-ref">Réf: TEX-001</div>
+                
+                <div class="p-price-wrap">
+                    <div class="p-price">14.50€</div>
+                    <div class="p-price-tax">HT / unité</div>
                 </div>
 
-                <div class="form-group fade-up delay-4">
-                    <label for="password">Mot de passe</label>
-                    <div class="input-wrapper">
-                        <input type="password" id="password" placeholder="••••••••" required autocomplete="current-password">
-                        <button type="button" class="toggle-pwd" id="togglePwd">Afficher</button>
+                <div class="option-group">
+                    <div class="option-label">
+                        <span>Couleur</span>
+                        <span class="option-val" id="colorLabel">Bleu Marine</span>
+                    </div>
+                    <div class="colors-grid">
+                        <button class="color-btn active" style="background-color: #0F172A;" onclick="selectColor(this, 'Bleu Marine')" aria-label="Bleu Marine"></button>
+                        <button class="color-btn" style="background-color: #2563EB;" onclick="selectColor(this, 'Bleu Électrique')" aria-label="Bleu Électrique"></button>
+                        <button class="color-btn" style="background-color: #FFFFFF; border: 1px solid #E2E8F0;" onclick="selectColor(this, 'Blanc Pur')" aria-label="Blanc"></button>
+                        <button class="color-btn" style="background-color: #DC2626;" onclick="selectColor(this, 'Rouge Carmin')" aria-label="Rouge"></button>
+                        <button class="color-btn" style="background-color: #10B981;" onclick="selectColor(this, 'Vert Bouteille')" aria-label="Vert"></button>
                     </div>
                 </div>
 
-                <div class="form-options fade-up delay-5">
-                    <label class="checkbox-label">
-                        <input type="checkbox" id="remember"> Mémoriser
-                    </label>
-                    <a href="#" class="forgot-link">Mot de passe oublié ?</a>
+                <div class="option-group">
+                    <div class="option-label">
+                        <span>Tailles (panachage autorisé)</span>
+                    </div>
+                    <div class="sizes-grid">
+                        <button class="size-btn">S</button>
+                        <button class="size-btn active">M</button>
+                        <button class="size-btn">L</button>
+                        <button class="size-btn">XL</button>
+                        <button class="size-btn">XXL</button>
+                    </div>
                 </div>
 
-                <button type="submit" class="btn-submit fade-up delay-5" id="submitBtn">
-                    <span>Accéder au portail</span>
-                    <div class="icon-circle">↗</div>
-                </button>
-            </form>
+                <div class="action-area">
+                    <button class="btn-submit" id="addBtn">
+                        Pré-remplir mon devis
+                    </button>
+                    
+                    <div class="logistics-list">
+                        <div class="log-item">
+                            <div class="log-icon">📦</div>
+                            <span><b>Quantité minimum (MOQ) :</b> 50 pièces</span>
+                        </div>
+                        <div class="log-item">
+                            <div class="log-icon">⏱️</div>
+                            <span><b>Délai de production :</b> 10 à 15 jours ouvrés</span>
+                        </div>
+                    </div>
+                </div>
 
-            <div class="no-account-info fade-up delay-5">
-                <p>L'accès à ce portail est strictement réservé.</p>
-                <p>Pas de compte ? <a href="mailto:contact@bimier-solutions.fr">Contactez votre administrateur</a>.</p>
             </div>
-        </div>
+        </main>
+    </div>
 
-    </main>
+    <section class="product-tabs-section">
+        <div class="container">
+            
+            <div class="tabs-header">
+                <div class="tab-btn active" data-target="tab-desc">Description Produit</div>
+                <div class="tab-btn" data-target="tab-specs">Fiche Technique</div>
+                <div class="tab-btn" data-target="tab-branding">Options de Marquage</div>
+            </div>
+
+            <div class="tab-content active" id="tab-desc">
+                <p class="desc-text">
+                    Ce polo à manches courtes est la référence incontournable pour habiller vos équipes avec élégance et responsabilité. Conçu avec une maille piquée ultra-dense (220g/m²), il garantit une tenue parfaite tout au long de la journée et un rendu exceptionnel pour la broderie de votre logo.
+                </p>
+                <p class="desc-text">
+                    Fabriqué à 100% à partir de coton biologique filé et peigné, il est certifié par les labels écologiques les plus stricts, reflétant ainsi l'engagement RSE de votre entreprise. Idéal pour les salons, l'onboarding de nouveaux collaborateurs ou les tenues de travail quotidiennes.
+                </p>
+            </div>
+
+            <div class="tab-content" id="tab-specs">
+                <div class="info-grid">
+                    <div class="info-block">
+                        <h3>Matière & Coupe</h3>
+                        <ul class="data-list">
+                            <li><span>Composition</span> <strong>100% Coton Biologique</strong></li>
+                            <li><span>Grammage</span> <strong>220 g/m² (Maille Piquée)</strong></li>
+                            <li><span>Coupe</span> <strong>Ajustée (Fitted)</strong></li>
+                            <li><span>Col</span> <strong>Bord côte avec patte 2 boutons</strong></li>
+                        </ul>
+                    </div>
+                    <div class="info-block">
+                        <h3>Logistique & Certifications</h3>
+                        <ul class="data-list">
+                            <li><span>Certifications</span> <strong>GOTS, OEKO-TEX Std 100</strong></li>
+                            <li><span>Origine fabrication</span> <strong>Bangladesh</strong></li>
+                            <li><span>Code douanier</span> <strong>61051000</strong></li>
+                            <li><span>Colisage</span> <strong>Carton de 50 pcs (12.5 kg)</strong></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-content" id="tab-branding">
+                <div class="branding-zones-list">
+                    
+                    <div class="branding-zone-item">
+                        <div class="zone-visual">
+                            <img src="https://images.unsplash.com/photo-1581655353564-df123a1eb820?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Polo Face">
+                            <div class="highlight-box" style="top: 35%; left: 58%; width: 15%; height: 12%;"></div>
+                        </div>
+                        <div class="zone-info">
+                            <h4>Zone d'impression - Cœur (Recommandé)</h4>
+                            <p class="zone-size">Zone de marquage max : 100 x 100 mm</p>
+                            <ul class="zone-techniques">
+                                <li>BRODERIE PREMIUM <span class="tech-colors">(Jusqu'à 15 couleurs de fil)</span></li>
+                                <li>SÉRIGRAPHIE DIRECTE <span class="tech-colors">(De 1 à 4 couleurs Pantone)</span></li>
+                                <li>TRANSFERT THERMIQUE <span class="tech-colors">(Quadrichromie / Fullcolor)</span></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="branding-zone-item">
+                        <div class="zone-visual">
+                            <img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Polo Dos">
+                            <div class="highlight-box" style="top: 25%; left: 30%; width: 40%; height: 45%;"></div>
+                        </div>
+                        <div class="zone-info">
+                            <h4>Zone d'impression - Grand Dos</h4>
+                            <p class="zone-size">Zone de marquage max : 280 x 300 mm</p>
+                            <ul class="zone-techniques">
+                                <li>SÉRIGRAPHIE DIRECTE <span class="tech-colors">(De 1 à 6 couleurs Pantone)</span></li>
+                                <li>TRANSFERT NUMÉRIQUE <span class="tech-colors">(Quadrichromie / Fullcolor)</span></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="branding-zone-item">
+                        <div class="zone-visual">
+                            <img src="https://images.unsplash.com/photo-1581655353564-df123a1eb820?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Polo Manche">
+                            <div class="highlight-box" style="top: 40%; left: 20%; width: 12%; height: 10%;"></div>
+                        </div>
+                        <div class="zone-info">
+                            <h4>Zone d'impression - Manche Gauche/Droite</h4>
+                            <p class="zone-size">Zone de marquage max : 80 x 80 mm</p>
+                            <ul class="zone-techniques">
+                                <li>BRODERIE <span class="tech-colors">(Jusqu'à 8 couleurs de fil)</span></li>
+                                <li>TRANSFERT SÉRIGRAPHIQUE <span class="tech-colors">(1 à 2 couleurs)</span></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <footer class="footer" style="background: var(--dark-card); color: white; padding: 40px 0; text-align: center;">
+        <div class="logo" style="margin-bottom: 10px; font-size: 1.5rem;">Bimier<span>.</span></div>
+        <p style="color: var(--text-muted); font-size: 0.9rem;">&copy; 2026 Bimier Solutions. Réservé aux clients ACEF.</p>
+    </footer>
 
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            
-            const pwdInput = document.getElementById('password');
-            const togglePwdBtn = document.getElementById('togglePwd');
-            const loginForm = document.getElementById('loginForm');
-            const submitBtn = document.getElementById('submitBtn');
+        // 1. Galerie d'images
+        function switchImage(src, thumbElement) {
+            document.getElementById('mainImg').src = src;
+            document.querySelectorAll('.thumb').forEach(t => t.classList.remove('active'));
+            thumbElement.classList.add('active');
+        }
 
-            // Afficher / Masquer le mot de passe
-            togglePwdBtn.addEventListener('click', () => {
-                const type = pwdInput.getAttribute('type') === 'password' ? 'text' : 'password';
-                pwdInput.setAttribute('type', type);
-                togglePwdBtn.textContent = type === 'password' ? 'Afficher' : 'Masquer';
-            });
+        // 2. Sélection de couleur
+        function selectColor(btn, colorName) {
+            document.getElementById('colorLabel').textContent = colorName;
+            document.querySelectorAll('.color-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+        }
 
-            // Focus dynamique pour soulever le bouton "Afficher"
-            pwdInput.addEventListener('focus', () => togglePwdBtn.style.transform = 'translateY(calc(-50% - 2px))');
-            pwdInput.addEventListener('blur', () => togglePwdBtn.style.transform = 'translateY(-50%)');
-
-            // Simulation de connexion
-            loginForm.addEventListener('submit', (e) => {
-                e.preventDefault();
-                
-                // Animation de chargement
-                submitBtn.classList.add('loading');
-                submitBtn.innerHTML = '<span>Authentification...</span>';
-
-                // Simulation du délai
-                setTimeout(() => {
-                    submitBtn.classList.remove('loading');
-                    submitBtn.style.backgroundColor = '#10B981'; // Vert
-                    submitBtn.innerHTML = '<span>Connexion validée ✓</span>';
-                    
-                    // Redirection
-                    setTimeout(() => {
-                        window.location.href = 'catalogue.html';
-                    }, 800);
-                    
-                }, 1000);
+        // 3. Sélection de taille
+        document.querySelectorAll('.size-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.size-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
             });
         });
-    </script>
 
+        // 4. Système d'onglets (Tabs)
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Retirer actif
+                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                
+                // Activer la cible
+                btn.classList.add('active');
+                document.getElementById(btn.getAttribute('data-target')).classList.add('active');
+            });
+        });
+
+        // 5. Bouton Devis
+        const addBtn = document.getElementById('addBtn');
+        addBtn.addEventListener('click', () => {
+            const originalText = addBtn.innerHTML;
+            addBtn.style.backgroundColor = '#10B981'; // Vert succès
+            addBtn.style.color = '#FFFFFF';
+            addBtn.innerHTML = 'Pré-rempli ✓';
+            
+            setTimeout(() => {
+                addBtn.style.backgroundColor = '';
+                addBtn.innerHTML = originalText;
+            }, 2500);
+        });
+    </script>
 </body>
 </html>
