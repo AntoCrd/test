@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>T-shirt Premium - Studio Agence</title>
+    <title>Studio Premium - Expérience Catalogue</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -19,8 +19,7 @@
                     colors: {
                         primary: '#5B45FF',
                         primaryDark: '#4230D1',
-                        accent: '#16628a', // Ton Bleu Élégant
-                        accentHover: '#114a68',
+                        accent: '#D9FF42',
                         darkBg: '#0B0F19',
                         lightBg: '#F4F6F8',
                         surface: '#FFFFFF',
@@ -30,7 +29,17 @@
                     },
                     boxShadow: {
                         'ui': '0 20px 40px -10px rgba(0,0,0,0.08)',
-                        'float': '0 30px 60px -15px rgba(22, 98, 138, 0.3)',
+                        'float': '0 30px 60px -15px rgba(91, 69, 255, 0.4)',
+                        'glow': '0 0 30px rgba(217, 255, 66, 0.4)',
+                    },
+                    animation: {
+                        'marquee': 'marquee 25s linear infinite',
+                    },
+                    keyframes: {
+                        marquee: {
+                            '0%': { transform: 'translateX(0%)' },
+                            '100%': { transform: 'translateX(-50%)' }
+                        }
                     }
                 }
             }
@@ -47,6 +56,7 @@
             -webkit-font-smoothing: antialiased;
         }
 
+        /* Scrollbar personnalisée */
         ::-webkit-scrollbar {
             width: 6px;
         }
@@ -56,7 +66,7 @@
         }
 
         ::-webkit-scrollbar-thumb {
-            background: #16628a;
+            background: #5B45FF;
             border-radius: 10px;
         }
 
@@ -69,665 +79,607 @@
             scrollbar-width: none;
         }
 
+        .page-view {
+            display: none;
+        }
+
+        .page-view.active {
+            display: block;
+            opacity: 1;
+        }
+
+        /* Animation Flottante */
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-12px);
+            }
+        }
+
+        .animate-float {
+            animation: float 5s ease-in-out infinite;
+        }
+
         .img-cover {
             width: 100%;
             height: 100%;
             object-fit: cover;
         }
 
-        details>summary {
-            list-style: none;
+        /* Glassmorphism Flottant pour la barre de filtres */
+        .glass-pill {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.1);
         }
 
-        details>summary::-webkit-details-marker {
-            display: none;
-        }
-
-        /* Selecteur de couleurs */
-        .color-swatch {
-            width: 2rem;
-            height: 2rem;
-            border-radius: 50%;
+        /* Styles spécifiques pour le Hover Reveal du Catalogue */
+        .product-card {
+            position: relative;
+            overflow: hidden;
+            border-radius: 2rem;
+            height: 420px;
             cursor: pointer;
-            border: 2px solid white;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            transition: transform 0.2s, box-shadow 0.2s;
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
         }
 
-        .color-swatch:hover {
+        .product-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 30px 60px -15px rgba(91, 69, 255, 0.3);
+        }
+
+        .product-image {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
+        .product-card:hover .product-image {
             transform: scale(1.1);
         }
 
-        .color-swatch.active {
-            box-shadow: 0 0 0 2px #16628a;
-            transform: scale(1.1);
+        .product-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(11, 15, 25, 0.9) 0%, rgba(11, 15, 25, 0.2) 50%, transparent 100%);
+            transition: background 0.4s ease;
+        }
+
+        .product-card:hover .product-overlay {
+            background: linear-gradient(to top, rgba(91, 69, 255, 0.95) 0%, rgba(91, 69, 255, 0.4) 60%, rgba(91, 69, 255, 0.1) 100%);
+        }
+
+        .product-content {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 2rem;
+            transform: translateY(20px);
+            transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
+        .product-card:hover .product-content {
+            transform: translateY(0);
+        }
+
+        .product-action {
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+            transition-delay: 0.1s;
+        }
+
+        .product-card:hover .product-action {
+            opacity: 1;
+            transform: translateY(0);
         }
     </style>
 </head>
 
-<body class="flex flex-col relative selection:bg-accent selection:text-white min-h-screen pt-28">
+<body class="flex flex-col relative selection:bg-accent selection:text-primaryDark">
 
-    <header class="fixed top-6 left-1/2 transform -translate-x-1/2 w-[95%] max-w-6xl z-50 transition-all duration-300"
-        id="main-header">
-        <div
-            class="bg-white/50 backdrop-blur-xl shadow-sm border border-white/40 rounded-full px-6 py-3 flex items-center justify-between">
+    <div id="app-content" class="flex flex-col min-h-screen relative z-10">
 
-            <div class="font-black text-2xl tracking-tight text-darkBg flex items-center gap-2 cursor-pointer pl-2">
-                Studio<span class="text-accent">.</span>
-            </div>
-
-            <nav class="hidden md:flex items-center gap-8 font-bold text-sm text-gray-800">
-                <a href="#" class="hover:text-accent transition-colors">Accueil</a>
-                <a href="#" class="text-accent transition-colors">Catalogue</a>
-                <a href="#" class="hover:text-accent transition-colors">Notre Vision</a>
-            </nav>
-
-            <div class="flex items-center gap-3">
-                <div class="relative hidden sm:block group">
-                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                        <svg class="w-4 h-4 text-gray-500 group-focus-within:text-accent transition-colors" fill="none"
-                            stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-                        </svg>
-                    </div>
-                    <input type="text" placeholder="Rechercher..."
-                        class="bg-white/60 border border-gray-200 text-darkBg text-sm font-medium rounded-full pl-10 pr-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-accent w-32 focus:w-56 transition-all duration-300 placeholder-gray-500 shadow-inner">
+        <header class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-transparent py-6"
+            id="main-header">
+            <div class="container mx-auto px-6 flex items-center justify-between">
+                <div class="font-black text-3xl tracking-tight text-white flex items-center gap-2 transition-colors duration-300 cursor-pointer"
+                    id="logo-text" onclick="navigate('home')">
+                    Studio<span class="text-accent" id="logo-dot">.</span>
                 </div>
+
+                <nav class="hidden md:flex items-center gap-8 font-bold text-sm text-white transition-colors duration-300"
+                    id="nav-links">
+                    <button onclick="navigate('home')" class="hover:text-accent transition-colors">L'Agence</button>
+                    <button onclick="navigate('catalog')"
+                        class="text-accent hover:text-white transition-colors">Catalogue ✦</button>
+                    <button onclick="navigate('home')" class="hover:text-accent transition-colors">Notre Vision</button>
+                </nav>
 
                 <button
-                    class="font-bold text-sm text-white bg-accent px-6 py-2.5 rounded-full hover:bg-accentHover shadow-md transition-all whitespace-nowrap">
-                    Nous Contacter
+                    class="font-bold text-sm text-primaryDark bg-accent px-6 py-3 rounded-full hover:bg-white hover:shadow-glow transition-all">
+                    Nous contacter
                 </button>
             </div>
-        </div>
-    </header>
+        </header>
 
-    <main class="flex-grow pb-20">
+        <main class="flex-grow">
 
-        <div class="pt-8 pb-8 px-6 container mx-auto">
-            <div class="flex items-center gap-2 text-sm font-bold text-gray-500">
-                <a href="#" class="hover:text-accent transition-colors flex items-center gap-1">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7">
-                        </path>
-                    </svg>
-                    Catalogue
-                </a>
-                <span class="mx-2 text-gray-300">|</span>
-                <span class="text-gray-400">Textile Corporate</span>
-                <span class="mx-2 text-gray-300">|</span>
-                <span class="text-accent">T-shirt Premium Heavyweight</span>
-            </div>
-        </div>
-
-        <div class="container mx-auto px-6 flex flex-col lg:flex-row gap-12 lg:gap-16 mb-24">
-
-            <div class="w-full lg:w-1/2 relative">
-                <div class="sticky top-32 product-image-gsap">
+            <section id="view-home" class="page-view">
+                <div
+                    class="bg-primary pt-32 pb-24 lg:pt-40 lg:pb-40 px-6 rounded-b-[3rem] relative z-10 overflow-hidden">
                     <div
-                        class="w-full aspect-[4/5] rounded-[2.5rem] overflow-hidden shadow-ui relative border-4 border-white bg-white">
-                        <img src="https://images.unsplash.com/photo-1521572163474-6a64f7c588d5?auto=format&fit=crop&q=80&w=1200"
-                            alt="T-shirt Premium Blanc"
-                            class="img-cover hover:scale-105 transition-transform duration-700">
-
-                        <div
-                            class="absolute top-6 left-6 bg-white/90 backdrop-blur-md text-accent font-bold px-4 py-2 rounded-full shadow-sm flex items-center gap-2 border border-gray-100">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                            </svg>
-                            Coton 100% Bio (GOTS)
-                        </div>
-                        <div
-                            class="absolute bottom-6 right-6 bg-darkBg text-white font-bold px-4 py-2 rounded-full shadow-lg">
-                            Best-Seller
-                        </div>
+                        class="absolute right-0 top-0 w-1/2 h-full bg-accent/10 blur-[100px] rounded-full pointer-events-none">
                     </div>
+                    <div class="container mx-auto flex flex-col lg:flex-row items-center gap-16 relative z-10">
+                        <div class="w-full lg:w-1/2 hero-element">
+                            <div
+                                class="inline-block px-4 py-1.5 rounded-full bg-white/10 backdrop-blur-md text-white font-bold text-xs uppercase tracking-widest mb-6 border border-white/20">
+                                Créateurs d'Impact</div>
+                            <h1
+                                class="text-5xl md:text-6xl lg:text-[5.5rem] font-black text-white tracking-tighter leading-[1] mb-8">
+                                Vos objets<br>
+                                <span class="text-accent">remarquables.</span>
+                            </h1>
+                            <p class="text-xl text-white/80 font-medium mb-10 max-w-md leading-relaxed">
+                                Goodies, cadeaux d'affaires et textiles d'entreprise. Des objets d'exception avec un
+                                marquage à la lisibilité absolue.
+                            </p>
+                            <button onclick="navigate('catalog')"
+                                class="bg-accent text-primaryDark font-extrabold text-lg px-8 py-5 rounded-full hover:bg-white transition-all shadow-float flex items-center justify-center gap-3 hover:scale-105">
+                                Ouvrir le catalogue interactif
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                                </svg>
+                            </button>
+                        </div>
 
-                    <div class="flex gap-4 mt-6 overflow-x-auto hide-scrollbar pb-2">
-                        <div
-                            class="w-20 h-20 rounded-2xl overflow-hidden border-2 border-accent cursor-pointer shrink-0">
-                            <img src="https://images.unsplash.com/photo-1521572163474-6a64f7c588d5?auto=format&fit=crop&q=80&w=200"
-                                class="img-cover">
-                        </div>
-                        <div
-                            class="w-20 h-20 rounded-2xl overflow-hidden border-2 border-transparent hover:border-accent/50 cursor-pointer shrink-0 opacity-70 hover:opacity-100 transition-all">
-                            <img src="https://images.unsplash.com/photo-1583336663277-620dc1996580?auto=format&fit=crop&q=80&w=200"
-                                class="img-cover">
-                        </div>
-                        <div
-                            class="w-20 h-20 rounded-2xl overflow-hidden border-2 border-transparent hover:border-accent/50 cursor-pointer shrink-0 opacity-70 hover:opacity-100 transition-all bg-gray-200 flex items-center justify-center">
-                            <svg class="w-6 h-6 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4">
-                                </path>
-                            </svg>
+                        <div class="w-full lg:w-1/2 relative hero-element">
+                            <div
+                                class="w-full aspect-square md:aspect-[4/3] rounded-[2.5rem] overflow-hidden shadow-2xl border-4 border-white/10 relative z-10 bg-darkBg">
+                                <img src="https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&q=80&w=800"
+                                    alt="Cadeaux d'affaires"
+                                    class="img-cover opacity-90 hover:scale-105 transition-transform duration-700">
+                            </div>
+                            <div
+                                class="absolute -left-8 bottom-16 bg-white/90 backdrop-blur-md p-5 rounded-2xl shadow-xl z-20 flex items-center gap-4 animate-float border border-white/40">
+                                <div
+                                    class="w-14 h-14 bg-accent/20 rounded-[1rem] flex items-center justify-center text-primary">
+                                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M5 13l4 4L19 7"></path>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <p class="font-black text-darkBg text-xl leading-none mb-1">Qualité HD</p>
+                                    <p class="text-xs text-primary font-bold uppercase tracking-widest">Marquage
+                                        Inaltérable</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            </section>
 
-            <div class="w-full lg:w-1/2 space-y-10 pb-10 product-details-gsap">
+            <section id="view-catalog" class="page-view active bg-lightBg min-h-screen pb-32">
 
-                <div>
-                    <div class="flex flex-wrap items-center gap-3 mb-4">
-                        <span
-                            class="bg-darkBg text-white font-bold text-xs uppercase tracking-widest px-3 py-1.5 rounded-md">Collection
-                            Textile</span>
-                        <span
-                            class="bg-gray-200 text-gray-600 font-bold text-xs uppercase tracking-widest px-3 py-1.5 rounded-md">Réf:
-                            TS-HVY-01</span>
-                    </div>
-                    <h1 class="text-4xl md:text-5xl font-black text-darkBg tracking-tight mb-4 leading-[1.1]">
-                        T-shirt Premium Heavyweight Bio
-                    </h1>
-
-                    <div class="flex flex-wrap gap-2 mb-6">
-                        <span
-                            class="flex items-center gap-2 text-sm font-bold text-accent bg-accent/10 px-4 py-1.5 rounded-full">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01">
-                                </path>
-                            </svg>
-                            Sérigraphie HD
-                        </span>
-                        <span
-                            class="flex items-center gap-2 text-sm font-bold text-accent bg-accent/10 px-4 py-1.5 rounded-full">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M13 10V3L4 14h7v7l9-11h-7z"></path>
-                            </svg>
-                            Broderie 3D
-                        </span>
+                <div class="bg-darkBg pt-32 pb-16 rounded-b-[3rem] relative z-10 overflow-hidden">
+                    <div class="container mx-auto px-6 text-center relative z-10 mb-10">
+                        <h1 class="text-5xl md:text-7xl font-black text-white tracking-tighter mb-4">La Collection<span
+                                class="text-accent">.</span></h1>
+                        <p class="text-white/60 font-medium text-xl max-w-2xl mx-auto">Parcourez, filtrez et imaginez
+                            votre marque sur nos supports premium.</p>
                     </div>
 
-                    <p class="text-lg text-gray-600 font-medium leading-relaxed">
-                        Un grammage lourd (220g/m²) pour une tenue impeccable et une durabilité exceptionnelle. Sa coupe
-                        moderne unisexe et sa matière dense en font le support idéal pour des marquages premium avec des
-                        contrastes exceptionnels.
-                    </p>
-                </div>
-
-                <div>
-                    <div class="flex justify-between items-end mb-3">
-                        <h3 class="font-bold text-darkBg text-sm uppercase tracking-widest">Couleurs disponibles</h3>
-                        <span class="text-sm font-bold text-gray-400">Blanc Optique</span>
-                    </div>
-                    <div class="flex flex-wrap gap-3 p-4 bg-white rounded-2xl border border-gray-100 shadow-sm">
-                        <div class="color-swatch active" style="background-color: #FFFFFF;" title="Blanc"></div>
-                        <div class="color-swatch" style="background-color: #111827;" title="Noir Profond"></div>
-                        <div class="color-swatch" style="background-color: #16628a;" title="Bleu Océan"></div>
-                        <div class="color-swatch" style="background-color: #047857;" title="Vert Forêt"></div>
-                        <div class="color-swatch" style="background-color: #BE123C;" title="Bordeaux"></div>
-                        <div class="color-swatch" style="background-color: #FBBF24;" title="Moutarde"></div>
-                        <div class="color-swatch flex items-center justify-center bg-gray-100 border-none text-xs font-bold text-gray-500"
-                            title="Voir les 6 autres couleurs">+6</div>
-                    </div>
-                </div>
-
-                <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
-                    <div class="bg-white p-4 rounded-2xl border border-gray-100 text-center shadow-sm">
-                        <div class="text-gray-400 mb-1"><svg class="w-6 h-6 mx-auto" fill="none" stroke="currentColor"
-                                viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path>
-                            </svg></div>
-                        <p class="text-[10px] font-bold uppercase tracking-wider text-gray-400">Quantité Min.</p>
-                        <p class="font-extrabold text-darkBg">50 Pièces</p>
-                    </div>
-                    <div class="bg-white p-4 rounded-2xl border border-gray-100 text-center shadow-sm">
-                        <div class="text-gray-400 mb-1"><svg class="w-6 h-6 mx-auto" fill="none" stroke="currentColor"
-                                viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                            </svg></div>
-                        <p class="text-[10px] font-bold uppercase tracking-wider text-gray-400">Délais</p>
-                        <p class="font-extrabold text-darkBg">10-15 Jours</p>
-                    </div>
-                    <div class="bg-white p-4 rounded-2xl border border-gray-100 text-center shadow-sm">
-                        <div class="text-gray-400 mb-1"><svg class="w-6 h-6 mx-auto" fill="none" stroke="currentColor"
-                                viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M4 6h16M4 10h16M4 14h16M4 18h16"></path>
-                            </svg></div>
-                        <p class="text-[10px] font-bold uppercase tracking-wider text-gray-400">Tailles</p>
-                        <p class="font-extrabold text-darkBg">XS au 3XL</p>
-                    </div>
-                    <div class="bg-white p-4 rounded-2xl border border-gray-100 text-center shadow-sm">
-                        <div class="text-gray-400 mb-1"><svg class="w-6 h-6 mx-auto" fill="none" stroke="currentColor"
-                                viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
-                            </svg></div>
-                        <p class="text-[10px] font-bold uppercase tracking-wider text-gray-400">Coupe</p>
-                        <p class="font-extrabold text-darkBg">Unisexe</p>
-                    </div>
-                </div>
-
-                <div class="bg-darkBg p-8 rounded-[2rem] shadow-float relative overflow-hidden text-white">
                     <div
-                        class="absolute right-0 top-0 w-40 h-40 bg-accent rounded-full blur-3xl opacity-20 transform translate-x-1/2 -translate-y-1/2">
-                    </div>
-
-                    <p class="text-sm font-bold text-gray-400 uppercase tracking-widest mb-2 relative z-10">Tarif B2B
-                        Dégressif</p>
-                    <div class="flex items-end gap-3 mb-2 relative z-10">
-                        <span class="text-5xl font-black text-white">12,50 €</span>
-                        <span class="text-gray-400 font-bold mb-1 text-lg">HT / pièce</span>
-                    </div>
-                    <p class="text-sm text-gray-400 font-medium mb-8 relative z-10">Prix indicatif pour 100 pièces avec
-                        sérigraphie 1 couleur (cœur).</p>
-
-                    <div class="flex flex-col gap-4 relative z-10">
-                        <button
-                            class="w-full bg-accent text-white font-extrabold text-lg rounded-2xl py-4 hover:bg-accentHover transition-colors shadow-lg flex justify-center items-center gap-2 group">
-                            Demander un devis précis
-                            <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none"
-                                stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3"
-                                    d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
-                            </svg>
-                        </button>
-                        <button
-                            class="w-full bg-white/10 border border-white/20 text-white font-bold text-lg rounded-2xl py-4 hover:bg-white/20 transition-colors">
-                            Demander une maquette visuelle (BAT)
-                        </button>
+                        class="bg-primary/20 border-y border-primary/30 py-4 flex whitespace-nowrap overflow-hidden transform -rotate-1 scale-105">
+                        <div
+                            class="animate-marquee flex gap-12 text-accent font-black text-2xl uppercase tracking-widest">
+                            <span>✦ Textiles Biologiques</span> <span>✦ Cadeaux d'affaires</span> <span>✦ Signalétique
+                                PLV</span> <span>✦ Goodies Tech</span>
+                            <span>✦ Textiles Biologiques</span> <span>✦ Cadeaux d'affaires</span> <span>✦ Signalétique
+                                PLV</span> <span>✦ Goodies Tech</span>
+                        </div>
                     </div>
                 </div>
 
-                <div class="bg-white rounded-[2rem] border border-gray-100 overflow-hidden shadow-sm">
-                    <details class="group border-b border-gray-100" open>
-                        <summary
-                            class="px-8 py-6 flex justify-between items-center font-bold text-lg cursor-pointer outline-none text-darkBg hover:bg-gray-50 transition-colors">
-                            Techniques de Marquage
-                            <svg class="w-6 h-6 text-accent transform group-open:rotate-180 transition-transform duration-300"
-                                fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M19 9l-7 7-7-7"></path>
-                            </svg>
-                        </summary>
-                        <div class="px-8 pb-6 text-gray-600 font-medium leading-relaxed bg-white">
-                            <ul class="space-y-4 mt-2">
-                                <li class="flex gap-4">
-                                    <div class="mt-1 bg-accent/10 p-1.5 rounded-lg text-accent">
+                <div class="container mx-auto px-6 mt-12">
+
+                    <div
+                        class="glass-pill p-3 rounded-full flex flex-col md:flex-row items-center justify-between gap-4 mb-16 sticky top-24 z-30 w-full max-w-5xl mx-auto">
+
+                        <div class="flex items-center gap-2 overflow-x-auto w-full md:w-auto hide-scrollbar px-2">
+                            <button
+                                class="filter-btn active bg-darkBg text-white px-6 py-3 rounded-full font-bold text-sm whitespace-nowrap transition-all shadow-md"
+                                data-filter="all">Tout l'univers</button>
+                            <button
+                                class="filter-btn bg-transparent text-gray-600 hover:bg-white px-6 py-3 rounded-full font-bold text-sm whitespace-nowrap transition-all"
+                                data-filter="textile">Textile 👕</button>
+                            <button
+                                class="filter-btn bg-transparent text-gray-600 hover:bg-white px-6 py-3 rounded-full font-bold text-sm whitespace-nowrap transition-all"
+                                data-filter="goodies">Écriture ✍️</button>
+                            <button
+                                class="filter-btn bg-transparent text-gray-600 hover:bg-white px-6 py-3 rounded-full font-bold text-sm whitespace-nowrap transition-all"
+                                data-filter="plv">Espaces 🪧</button>
+                            <button
+                                class="filter-btn bg-transparent text-gray-600 hover:bg-white px-6 py-3 rounded-full font-bold text-sm whitespace-nowrap transition-all"
+                                data-filter="tech">Tech 💻</button>
+                        </div>
+
+                        <div class="w-full md:w-auto pr-2 pb-2 md:pb-0">
+                            <div class="relative">
+                                <input type="text" placeholder="Rechercher..."
+                                    class="w-full md:w-56 bg-white border border-gray-200 rounded-full px-5 py-3 text-sm font-bold text-darkBg focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all shadow-sm">
+                                <svg class="w-5 h-5 absolute right-4 top-3 text-gray-400" fill="none"
+                                    stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8" id="product-grid">
+
+                        <div class="product-item product-card" data-category="textile">
+                            <img src="https://images.unsplash.com/photo-1521572163474-6a64f7c588d5?auto=format&fit=crop&q=80&w=600"
+                                alt="T-shirt" class="product-image">
+                            <div class="product-overlay"></div>
+                            <div
+                                class="absolute top-5 left-5 bg-white/20 backdrop-blur-md border border-white/30 text-white font-bold text-xs px-4 py-2 rounded-full z-10">
+                                Textile Bio</div>
+                            <div class="product-content">
+                                <h3 class="text-white text-2xl font-extrabold mb-1 leading-tight">T-shirt Premium
+                                    Heavyweight</h3>
+                                <p class="text-gray-300 font-medium text-sm mb-4">Sérigraphie HD / Broderie</p>
+                                <div class="product-action flex items-center justify-between">
+                                    <span class="text-accent font-black text-lg">Sur devis</span>
+                                    <button
+                                        class="w-10 h-10 bg-accent text-primaryDark rounded-full flex items-center justify-center hover:scale-110 transition-transform">
                                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3"
-                                                d="M5 13l4 4L19 7"></path>
+                                                d="M12 4v16m8-8H4"></path>
                                         </svg>
-                                    </div>
-                                    <div>
-                                        <strong class="text-darkBg block text-lg">Sérigraphie (Recommandé)</strong>
-                                        Idéal pour les grands logos dans le dos. Contraste et netteté maximaux.
-                                    </div>
-                                </li>
-                                <li class="flex gap-4">
-                                    <div class="mt-1 bg-accent/10 p-1.5 rounded-lg text-accent">
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="product-item product-card" data-category="goodies">
+                            <img src="https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&q=80&w=600"
+                                alt="Carnet" class="product-image">
+                            <div class="product-overlay"></div>
+                            <div
+                                class="absolute top-5 left-5 bg-white/20 backdrop-blur-md border border-white/30 text-white font-bold text-xs px-4 py-2 rounded-full z-10">
+                                Édition</div>
+                            <div class="product-content">
+                                <h3 class="text-white text-2xl font-extrabold mb-1 leading-tight">Carnet A5 Cuir Végétal
+                                </h3>
+                                <p class="text-gray-300 font-medium text-sm mb-4">Embossage à chaud luxe</p>
+                                <div class="product-action flex items-center justify-between">
+                                    <span class="text-accent font-black text-lg">Sur devis</span>
+                                    <button
+                                        class="w-10 h-10 bg-accent text-primaryDark rounded-full flex items-center justify-center hover:scale-110 transition-transform">
                                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3"
-                                                d="M5 13l4 4L19 7"></path>
+                                                d="M12 4v16m8-8H4"></path>
                                         </svg>
-                                    </div>
-                                    <div>
-                                        <strong class="text-darkBg block text-lg">Broderie 3D</strong>
-                                        Parfait pour ce grammage épais. Rendu très haut de gamme et inaltérable.
-                                    </div>
-                                </li>
-                            </ul>
+                                    </button>
+                                </div>
+                            </div>
                         </div>
-                    </details>
 
-                    <details class="group border-b border-gray-100">
-                        <summary
-                            class="px-8 py-6 flex justify-between items-center font-bold text-lg cursor-pointer outline-none text-darkBg hover:bg-gray-50 transition-colors">
-                            Matière & Engagements RSE
-                            <svg class="w-6 h-6 text-accent transform group-open:rotate-180 transition-transform duration-300"
-                                fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M19 9l-7 7-7-7"></path>
-                            </svg>
-                        </summary>
-                        <div class="px-8 pb-6 text-gray-600 font-medium leading-relaxed bg-white">
-                            <p class="mb-4">Ce t-shirt est confectionné à partir de <strong>100% de coton
-                                    biologique</strong>, certifié GOTS. Cette certification garantit le respect de
-                                critères environnementaux stricts.</p>
-                            <p>Certifié OEKO-TEX Standard 100 et approuvé PETA-Approved Vegan.</p>
+                        <div class="product-item product-card" data-category="goodies">
+                            <img src="https://images.unsplash.com/photo-1602143407151-7111542de6e8?auto=format&fit=crop&q=80&w=600"
+                                alt="Gourde" class="product-image">
+                            <div class="product-overlay"></div>
+                            <div
+                                class="absolute top-5 left-5 bg-white/20 backdrop-blur-md border border-white/30 text-white font-bold text-xs px-4 py-2 rounded-full z-10">
+                                Drinkware</div>
+                            <div class="product-content">
+                                <h3 class="text-white text-2xl font-extrabold mb-1 leading-tight">Gourde Isotherme Mat
+                                </h3>
+                                <p class="text-gray-300 font-medium text-sm mb-4">Gravure laser inaltérable</p>
+                                <div class="product-action flex items-center justify-between">
+                                    <span class="text-accent font-black text-lg">Sur devis</span>
+                                    <button
+                                        class="w-10 h-10 bg-accent text-primaryDark rounded-full flex items-center justify-center hover:scale-110 transition-transform">
+                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3"
+                                                d="M12 4v16m8-8H4"></path>
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
                         </div>
-                    </details>
-                </div>
-            </div>
-        </div>
 
-        <div class="container mx-auto px-6 mb-24 gs-reveal">
-            <div
-                class="bg-gradient-to-r from-white to-gray-50 border border-gray-200 rounded-[2rem] p-8 md:p-12 flex flex-col md:flex-row items-center justify-between gap-8 shadow-sm">
-                <div class="flex flex-col sm:flex-row items-center text-center sm:text-left gap-6">
-                    <div
-                        class="w-20 h-20 bg-accent/10 rounded-[1.5rem] flex items-center justify-center text-accent flex-shrink-0">
-                        <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z">
-                            </path>
-                        </svg>
-                    </div>
-                    <div>
-                        <h3 class="text-2xl font-bold text-darkBg mb-2">Besoin de toutes les caractéristiques ?</h3>
-                        <p class="text-gray-600 font-medium">Téléchargez la fiche technique complète pour votre
-                            présentation (PDF - 1.2 Mo).</p>
+                        <div class="product-item product-card" data-category="textile">
+                            <div
+                                class="absolute top-5 right-5 bg-accent text-primaryDark font-black text-xs px-3 py-1.5 rounded-full z-20 shadow-lg">
+                                NEW</div>
+                            <img src="https://images.unsplash.com/photo-1583336663277-620dc1996580?auto=format&fit=crop&q=80&w=600"
+                                alt="Veste" class="product-image">
+                            <div class="product-overlay"></div>
+                            <div
+                                class="absolute top-5 left-5 bg-white/20 backdrop-blur-md border border-white/30 text-white font-bold text-xs px-4 py-2 rounded-full z-10">
+                                Outerwear</div>
+                            <div class="product-content">
+                                <h3 class="text-white text-2xl font-extrabold mb-1 leading-tight">Veste Softshell Pro
+                                </h3>
+                                <p class="text-gray-300 font-medium text-sm mb-4">Broderie 3D Cœur & Dos</p>
+                                <div class="product-action flex items-center justify-between">
+                                    <span class="text-accent font-black text-lg">Sur devis</span>
+                                    <button
+                                        class="w-10 h-10 bg-accent text-primaryDark rounded-full flex items-center justify-center hover:scale-110 transition-transform">
+                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3"
+                                                d="M12 4v16m8-8H4"></path>
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="product-item product-card" data-category="plv">
+                            <img src="https://images.unsplash.com/photo-1540569014015-19a7be504e3a?auto=format&fit=crop&q=80&w=600"
+                                alt="Stand" class="product-image">
+                            <div class="product-overlay"></div>
+                            <div
+                                class="absolute top-5 left-5 bg-white/20 backdrop-blur-md border border-white/30 text-white font-bold text-xs px-4 py-2 rounded-full z-10">
+                                Signalétique</div>
+                            <div class="product-content">
+                                <h3 class="text-white text-2xl font-extrabold mb-1 leading-tight">Mur d'Image Stand
+                                    (3x3m)</h3>
+                                <p class="text-gray-300 font-medium text-sm mb-4">Impression Sublimation HD</p>
+                                <div class="product-action flex items-center justify-between">
+                                    <span class="text-accent font-black text-lg">Sur devis</span>
+                                    <button
+                                        class="w-10 h-10 bg-accent text-primaryDark rounded-full flex items-center justify-center hover:scale-110 transition-transform">
+                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3"
+                                                d="M12 4v16m8-8H4"></path>
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="product-item product-card" data-category="tech">
+                            <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&q=80&w=600"
+                                alt="Casque" class="product-image">
+                            <div class="product-overlay"></div>
+                            <div
+                                class="absolute top-5 left-5 bg-white/20 backdrop-blur-md border border-white/30 text-white font-bold text-xs px-4 py-2 rounded-full z-10">
+                                High-Tech</div>
+                            <div class="product-content">
+                                <h3 class="text-white text-2xl font-extrabold mb-1 leading-tight">Casque Audio Premium
+                                </h3>
+                                <p class="text-gray-300 font-medium text-sm mb-4">Tampographie / Dôme résine</p>
+                                <div class="product-action flex items-center justify-between">
+                                    <span class="text-accent font-black text-lg">Sur devis</span>
+                                    <button
+                                        class="w-10 h-10 bg-accent text-primaryDark rounded-full flex items-center justify-center hover:scale-110 transition-transform">
+                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3"
+                                                d="M12 4v16m8-8H4"></path>
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="product-item product-card" data-category="textile">
+                            <img src="https://images.unsplash.com/photo-1543269865-cbf427effbad?auto=format&fit=crop&q=80&w=600"
+                                alt="Tote Bag" class="product-image">
+                            <div class="product-overlay"></div>
+                            <div
+                                class="absolute top-5 left-5 bg-white/20 backdrop-blur-md border border-white/30 text-white font-bold text-xs px-4 py-2 rounded-full z-10">
+                                Accessoires</div>
+                            <div class="product-content">
+                                <h3 class="text-white text-2xl font-extrabold mb-1 leading-tight">Tote Bag Coton Recyclé
+                                </h3>
+                                <p class="text-gray-300 font-medium text-sm mb-4">Sérigraphie 2 couleurs contrastées</p>
+                                <div class="product-action flex items-center justify-between">
+                                    <span class="text-accent font-black text-lg">Sur devis</span>
+                                    <button
+                                        class="w-10 h-10 bg-accent text-primaryDark rounded-full flex items-center justify-center hover:scale-110 transition-transform">
+                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3"
+                                                d="M12 4v16m8-8H4"></path>
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="product-item product-card" data-category="tech">
+                            <img src="https://images.unsplash.com/photo-1585338107529-13afc5f02586?auto=format&fit=crop&q=80&w=600"
+                                alt="Chargeur" class="product-image">
+                            <div class="product-overlay"></div>
+                            <div
+                                class="absolute top-5 left-5 bg-white/20 backdrop-blur-md border border-white/30 text-white font-bold text-xs px-4 py-2 rounded-full z-10">
+                                High-Tech Eco</div>
+                            <div class="product-content">
+                                <h3 class="text-white text-2xl font-extrabold mb-1 leading-tight">Batterie Externe
+                                    Bambou</h3>
+                                <p class="text-gray-300 font-medium text-sm mb-4">Gravure Laser Inaltérable</p>
+                                <div class="product-action flex items-center justify-between">
+                                    <span class="text-accent font-black text-lg">Sur devis</span>
+                                    <button
+                                        class="w-10 h-10 bg-accent text-primaryDark rounded-full flex items-center justify-center hover:scale-110 transition-transform">
+                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3"
+                                                d="M12 4v16m8-8H4"></path>
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
-                <button
-                    class="bg-white text-accent border border-gray-200 font-bold text-lg px-8 py-4 rounded-2xl hover:bg-gray-50 hover:border-accent transition-all shadow-sm flex items-center gap-3 whitespace-nowrap flex-shrink-0 group">
-                    <svg class="w-5 h-5 group-hover:-translate-y-1 transition-transform" fill="none"
-                        stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
-                    </svg>
-                    Télécharger le PDF
-                </button>
-            </div>
-        </div>
+            </section>
 
-        <div class="bg-darkBg py-24 text-white gs-reveal">
+        </main>
+
+        <footer class="bg-darkBg text-white pt-20 pb-10 border-t-4 border-primary">
             <div class="container mx-auto px-6">
-                <div class="flex flex-col md:flex-row justify-between items-end mb-12">
-                    <div>
-                        <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight mb-4">Inspirations de marquage
-                        </h2>
-                        <p class="text-gray-400 font-medium">Où placer votre logo pour un impact maximal sur ce modèle ?
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
+                    <div class="md:col-span-1">
+                        <div class="font-extrabold text-3xl tracking-tight text-white mb-4">
+                            Studio<span class="text-accent">.</span>
+                        </div>
+                        <p class="text-gray-400 font-medium text-sm leading-relaxed mb-6">
+                            Créateurs d'expériences matérielles. Nous garantissons une lisibilité et une qualité premium
+                            pour vos objets publicitaires.
                         </p>
                     </div>
-                </div>
 
-                <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
-                    <div
-                        class="bg-white/5 border border-white/10 p-8 rounded-[2rem] text-center hover:bg-white/10 transition-colors">
-                        <div
-                            class="w-full h-32 bg-white/5 rounded-xl mb-6 flex items-center justify-center text-accent border border-white/10 border-dashed font-bold">
-                            [ Zone Cœur : 10x10 cm ]
-                        </div>
-                        <h4 class="font-bold text-xl mb-2">Cœur (Classique)</h4>
-                        <p class="text-sm text-gray-400">Idéal pour la broderie. Discret mais professionnel.</p>
-                    </div>
-                    <div
-                        class="bg-white/5 border border-white/10 p-8 rounded-[2rem] text-center hover:bg-white/10 transition-colors">
-                        <div
-                            class="w-full h-32 bg-white/5 rounded-xl mb-6 flex items-center justify-center text-accent border border-white/10 border-dashed font-bold">
-                            [ Zone Dos : 30x35 cm ]
-                        </div>
-                        <h4 class="font-bold text-xl mb-2">Dos (Impact)</h4>
-                        <p class="text-sm text-gray-400">Idéal pour la sérigraphie. Lisibilité maximale lors
-                            d'événements.</p>
-                    </div>
-                    <div
-                        class="bg-white/5 border border-white/10 p-8 rounded-[2rem] text-center hover:bg-white/10 transition-colors">
-                        <div
-                            class="w-full h-32 bg-white/5 rounded-xl mb-6 flex items-center justify-center text-accent border border-white/10 border-dashed font-bold">
-                            [ Manche : 8x8 cm ]
-                        </div>
-                        <h4 class="font-bold text-xl mb-2">Manche (Détail)</h4>
-                        <p class="text-sm text-gray-400">Parfait pour un drapeau ou un sponsor secondaire.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="bg-lightBg py-24 gs-reveal">
-            <div class="container mx-auto px-6">
-                <div class="flex flex-col md:flex-row justify-between items-end mb-12">
                     <div>
-                        <span
-                            class="text-accent font-bold tracking-widest uppercase text-sm mb-2 block">Cross-Selling</span>
-                        <h2 class="text-3xl md:text-4xl font-extrabold text-darkBg tracking-tight">Pour compléter votre
-                            pack</h2>
+                        <h4 class="font-bold text-white mb-6 uppercase tracking-wider text-sm">Collections</h4>
+                        <ul class="space-y-4 text-gray-400 font-medium text-sm">
+                            <li><a href="#" class="hover:text-accent transition-colors">Textiles Corporate</a></li>
+                            <li><a href="#" class="hover:text-accent transition-colors">Cadeaux d'Affaires</a></li>
+                            <li><a href="#" class="hover:text-accent transition-colors">Signalétique & PLV</a></li>
+                        </ul>
                     </div>
-                    <button class="text-primary font-bold hover:underline hidden md:block">Voir tout le catalogue
-                        →</button>
-                </div>
 
-                <div class="grid grid-cols-1 sm:grid-cols-3 gap-8">
-                    <div
-                        class="group cursor-pointer bg-white p-4 rounded-[2.5rem] shadow-sm hover:shadow-ui transition-all border border-gray-100">
-                        <div class="w-full h-64 rounded-3xl overflow-hidden mb-5 relative">
-                            <div class="absolute inset-0 bg-black/5 group-hover:bg-transparent transition-colors z-10">
-                            </div>
-                            <img src="https://images.unsplash.com/photo-1583336663277-620dc1996580?auto=format&fit=crop&q=80&w=400"
-                                alt="Veste Softshell"
-                                class="img-cover group-hover:scale-105 transition-transform duration-700">
-                        </div>
-                        <div class="px-2 pb-2">
-                            <h3 class="text-xl font-bold text-darkBg group-hover:text-primary transition-colors">Veste
-                                Softshell Pro</h3>
-                            <p class="text-gray-500 text-sm font-medium mb-3">Idéale en superposition</p>
-                            <p class="text-accent font-black text-lg">Sur devis</p>
-                        </div>
+                    <div>
+                        <h4 class="font-bold text-white mb-6 uppercase tracking-wider text-sm">Légal</h4>
+                        <ul class="space-y-4 text-gray-400 font-medium text-sm">
+                            <li><a href="#" class="hover:text-accent transition-colors">Mentions Légales</a></li>
+                            <li><a href="#" class="hover:text-accent transition-colors">Confidentialité</a></li>
+                            <li><a href="#" class="hover:text-accent transition-colors">CGV</a></li>
+                        </ul>
                     </div>
-                    <div
-                        class="group cursor-pointer bg-white p-4 rounded-[2.5rem] shadow-sm hover:shadow-ui transition-all border border-gray-100">
-                        <div class="w-full h-64 rounded-3xl overflow-hidden mb-5 relative">
-                            <div class="absolute inset-0 bg-black/5 group-hover:bg-transparent transition-colors z-10">
-                            </div>
-                            <img src="https://images.unsplash.com/photo-1521369909029-2afed882ba28?auto=format&fit=crop&q=80&w=400"
-                                alt="Casquette Trucker"
-                                class="img-cover group-hover:scale-105 transition-transform duration-700">
-                        </div>
-                        <div class="px-2 pb-2">
-                            <h3 class="text-xl font-bold text-darkBg group-hover:text-primary transition-colors">
-                                Casquette Trucker</h3>
-                            <p class="text-gray-500 text-sm font-medium mb-3">Broderie 3D épaisse</p>
-                            <p class="text-accent font-black text-lg">Sur devis</p>
-                        </div>
+
+                    <div>
+                        <h4 class="font-bold text-white mb-6 uppercase tracking-wider text-sm">Ligne Directe</h4>
+                        <p class="text-3xl font-black text-accent mb-2">0800 123 456</p>
+                        <p class="text-gray-500 text-sm font-bold">LUN - VEN (9h-18h)</p>
                     </div>
-                    <div
-                        class="group cursor-pointer bg-white p-4 rounded-[2.5rem] shadow-sm hover:shadow-ui transition-all border border-gray-100">
-                        <div class="w-full h-64 rounded-3xl overflow-hidden mb-5 relative">
-                            <div class="absolute inset-0 bg-black/5 group-hover:bg-transparent transition-colors z-10">
-                            </div>
-                            <img src="https://images.unsplash.com/photo-1543269865-cbf427effbad?auto=format&fit=crop&q=80&w=400"
-                                alt="Tote Bag"
-                                class="img-cover group-hover:scale-105 transition-transform duration-700">
-                        </div>
-                        <div class="px-2 pb-2">
-                            <h3 class="text-xl font-bold text-darkBg group-hover:text-primary transition-colors">Tote
-                                Bag Coton Recyclé</h3>
-                            <p class="text-gray-500 text-sm font-medium mb-3">Parfait pour vos événements</p>
-                            <p class="text-accent font-black text-lg">Sur devis</p>
-                        </div>
-                    </div>
+                </div>
+                <div class="border-t border-white/10 pt-8 text-center text-sm font-bold text-gray-600">
+                    <p>&copy; 2026 Studio. Accès Réservé.</p>
                 </div>
             </div>
-        </div>
-
-    </main>
-
-    <footer class="bg-darkBg text-white relative overflow-hidden pt-32 pb-8">
-
-        <div
-            class="absolute top-0 right-0 w-[600px] h-[600px] bg-accent/20 rounded-full blur-[120px] pointer-events-none transform translate-x-1/3 -translate-y-1/3 z-0">
-        </div>
-
-        <div
-            class="absolute -bottom-24 left-0 right-0 overflow-hidden flex justify-center pointer-events-none select-none z-0">
-            <span
-                class="font-black text-[18vw] leading-none text-white opacity-[0.03] whitespace-nowrap tracking-tighter">STUDIO.</span>
-        </div>
-
-        <div class="container mx-auto px-6 relative z-10">
-
-            <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-12 mb-24 gs-reveal">
-                <div class="w-full lg:w-1/2">
-                    <h2 class="text-5xl md:text-[5.5rem] font-black tracking-tighter leading-[1.05] mb-6">
-                        Travaillons<br>
-                        <span class="text-accent">ensemble.</span>
-                    </h2>
-                    <p class="text-xl text-gray-400 font-medium leading-relaxed max-w-lg">Laissez-nous votre email pour
-                        démarrer votre projet ou recevoir notre catalogue privé.</p>
-                </div>
-
-                <div class="w-full lg:w-1/2 max-w-xl">
-                    <form class="relative group" onsubmit="event.preventDefault();">
-                        <div class="absolute inset-y-0 left-0 pl-6 flex items-center pointer-events-none">
-                            <svg class="w-6 h-6 text-gray-400 group-focus-within:text-accent transition-colors"
-                                fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z">
-                                </path>
-                            </svg>
-                        </div>
-                        <input type="email" placeholder="Votre email professionnel..."
-                            class="w-full bg-white/5 border border-white/20 text-white placeholder-gray-500 rounded-full pl-14 pr-40 py-6 focus:outline-none focus:border-accent focus:bg-white/10 transition-all font-medium text-lg shadow-inner">
-                        <button type="submit"
-                            class="absolute right-2 top-2 bottom-2 bg-accent text-white font-bold rounded-full px-8 hover:bg-accentHover transition-colors flex items-center justify-center shadow-md">
-                            Démarrer
-                            <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3"
-                                    d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
-                            </svg>
-                        </button>
-                    </form>
-                    <p class="text-sm text-gray-500 font-medium mt-4 ml-6 flex items-center gap-2">
-                        <svg class="w-4 h-4 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7">
-                            </path>
-                        </svg>
-                        Nous vous recontacterons sous 24h ouvrées.
-                    </p>
-                </div>
-            </div>
-
-            <div class="w-full h-px bg-white/10 mb-16"></div>
-
-            <div class="grid grid-cols-1 md:grid-cols-12 gap-12 mb-16">
-                <div class="md:col-span-4">
-                    <div class="font-black text-3xl tracking-tight text-white mb-6">
-                        Studio<span class="text-accent">.</span>
-                    </div>
-                    <p class="text-gray-400 font-medium text-sm leading-relaxed mb-8 max-w-xs">
-                        L'agence experte en communication par l'objet. Nous garantissons une lisibilité et une qualité
-                        premium pour vos marques exigeantes.
-                    </p>
-                    <div class="flex gap-4">
-                        <a href="#"
-                            class="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:bg-accent hover:border-accent transition-colors font-bold text-sm text-gray-300">in</a>
-                        <a href="#"
-                            class="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:bg-accent hover:border-accent transition-colors font-bold text-sm text-gray-300">ig</a>
-                    </div>
-                </div>
-
-                <div class="md:col-span-2">
-                    <h4 class="font-bold text-white mb-6 uppercase tracking-wider text-sm">Navigation</h4>
-                    <ul class="space-y-4 text-gray-400 font-medium text-sm">
-                        <li><a href="#" class="hover:text-white hover:pl-2 transition-all flex items-center group"><span
-                                    class="opacity-0 group-hover:opacity-100 text-accent mr-2 transition-opacity">→</span>
-                                Accueil</a></li>
-                        <li><a href="#" class="hover:text-white hover:pl-2 transition-all flex items-center group"><span
-                                    class="opacity-0 group-hover:opacity-100 text-accent mr-2 transition-opacity">→</span>
-                                Le Catalogue</a></li>
-                        <li><a href="#" class="hover:text-white hover:pl-2 transition-all flex items-center group"><span
-                                    class="opacity-0 group-hover:opacity-100 text-accent mr-2 transition-opacity">→</span>
-                                Notre Vision</a></li>
-                    </ul>
-                </div>
-
-                <div class="md:col-span-2">
-                    <h4 class="font-bold text-white mb-6 uppercase tracking-wider text-sm">Légal</h4>
-                    <ul class="space-y-4 text-gray-400 font-medium text-sm">
-                        <li><a href="#" class="hover:text-white hover:pl-2 transition-all flex items-center group"><span
-                                    class="opacity-0 group-hover:opacity-100 text-accent mr-2 transition-opacity">→</span>
-                                Mentions Légales</a></li>
-                        <li><a href="#" class="hover:text-white hover:pl-2 transition-all flex items-center group"><span
-                                    class="opacity-0 group-hover:opacity-100 text-accent mr-2 transition-opacity">→</span>
-                                CGV</a></li>
-                        <li><a href="#" class="hover:text-white hover:pl-2 transition-all flex items-center group"><span
-                                    class="opacity-0 group-hover:opacity-100 text-accent mr-2 transition-opacity">→</span>
-                                Confidentialité</a></li>
-                    </ul>
-                </div>
-
-                <div class="md:col-span-4 lg:col-span-4">
-                    <h4 class="font-bold text-white mb-6 uppercase tracking-wider text-sm">Ligne Directe</h4>
-                    <p class="text-4xl font-black text-white mb-2 hover:text-accent transition-colors cursor-pointer">
-                        0800 123 456</p>
-                    <p class="text-gray-500 text-sm font-medium mb-6">Lundi au Vendredi (9h-18h)</p>
-                    <a href="mailto:hello@studio-creatif.fr"
-                        class="inline-flex items-center gap-3 text-white font-bold text-lg hover:text-accent transition-colors group">
-                        hello@studio-creatif.fr
-                        <span
-                            class="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center group-hover:bg-accent transition-colors">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
-                            </svg>
-                        </span>
-                    </a>
-                </div>
-            </div>
-
-            <div
-                class="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center text-sm font-medium text-gray-500">
-                <p>&copy; 2026 Studio. Accès Réservé.</p>
-                <p class="mt-4 md:mt-0">UI Design par Partenaire de Code</p>
-            </div>
-        </div>
-    </footer>
+        </footer>
+    </div>
 
     <script>
         gsap.registerPlugin(ScrollTrigger);
 
-        // Header Hide/Show au scroll
         const mainHeader = document.getElementById('main-header');
-        let lastScroll = 0;
+        const logoText = document.getElementById('logo-text');
+        const logoDot = document.getElementById('logo-dot');
+        const navLinks = document.getElementById('nav-links');
 
+        // Gestion Header dynamique
         window.addEventListener('scroll', () => {
-            const currentScroll = window.pageYOffset;
-
-            // Header devient un peu plus opaque si on descend
-            if (currentScroll > 20) {
-                mainHeader.firstElementChild.classList.remove('bg-white/50', 'border-white/40');
-                mainHeader.firstElementChild.classList.add('bg-white/90', 'border-gray-200');
+            if (window.scrollY > 50) {
+                mainHeader.classList.remove('bg-transparent', 'py-6');
+                mainHeader.classList.add('bg-white/90', 'backdrop-blur-md', 'shadow-sm', 'py-4', 'border-b', 'border-gray-100');
+                logoText.classList.remove('text-white');
+                logoText.classList.add('text-darkBg');
+                logoDot.classList.remove('text-accent');
+                logoDot.classList.add('text-primary');
+                navLinks.classList.remove('text-white');
+                navLinks.classList.add('text-gray-600');
             } else {
-                mainHeader.firstElementChild.classList.add('bg-white/50', 'border-white/40');
-                mainHeader.firstElementChild.classList.remove('bg-white/90', 'border-gray-200');
-            }
+                mainHeader.classList.add('bg-transparent', 'py-6');
+                mainHeader.classList.remove('bg-white/90', 'backdrop-blur-md', 'shadow-sm', 'py-4', 'border-b', 'border-gray-100');
 
-            // Cache le header en scrollant vers le bas
-            if (currentScroll > 100 && currentScroll > lastScroll) {
-                mainHeader.style.transform = 'translate(-50%, -150%)';
-            } else {
-                mainHeader.style.transform = 'translate(-50%, 0)';
+                const isHome = document.getElementById('view-home').classList.contains('active');
+                if (isHome) {
+                    logoText.classList.add('text-white');
+                    logoText.classList.remove('text-darkBg');
+                    navLinks.classList.add('text-white');
+                    navLinks.classList.remove('text-gray-600');
+                } else {
+                    logoText.classList.add('text-white');
+                    logoText.classList.remove('text-darkBg');
+                    navLinks.classList.add('text-white');
+                    navLinks.classList.remove('text-gray-600');
+                }
+
+                logoDot.classList.add('text-accent');
+                logoDot.classList.remove('text-primary');
             }
-            lastScroll = currentScroll;
         });
 
-        // Color Swatches
-        const swatches = document.querySelectorAll('.color-swatch');
-        swatches.forEach(swatch => {
-            swatch.addEventListener('click', () => {
-                if (swatch.classList.contains('flex')) return;
-                swatches.forEach(s => s.classList.remove('active'));
-                swatch.classList.add('active');
-            });
-        });
+        // Logique de Filtrage avec Animations GSAP chorégraphiées
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const productItems = document.querySelectorAll('.product-item');
 
-        // Animations GSAP
-        window.addEventListener('DOMContentLoaded', () => {
-            gsap.fromTo(".product-image-gsap",
-                { opacity: 0, x: -40 },
-                { opacity: 1, x: 0, duration: 1, ease: "power3.out", delay: 0.2 }
-            );
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Style des boutons
+                filterBtns.forEach(b => {
+                    b.classList.remove('bg-darkBg', 'text-white', 'active', 'shadow-md');
+                    b.classList.add('bg-transparent', 'text-gray-600');
+                });
+                btn.classList.remove('bg-transparent', 'text-gray-600');
+                btn.classList.add('bg-darkBg', 'text-white', 'active', 'shadow-md');
 
-            gsap.fromTo(".product-details-gsap > div",
-                { opacity: 0, y: 30 },
-                { opacity: 1, y: 0, duration: 0.8, stagger: 0.1, ease: "power2.out", delay: 0.3 }
-            );
+                const filterValue = btn.dataset.filter;
 
-            gsap.utils.toArray('.gs-reveal').forEach(section => {
-                gsap.fromTo(section,
-                    { opacity: 0, y: 40 },
-                    { opacity: 1, y: 0, duration: 0.8, ease: "power2.out", scrollTrigger: { trigger: section, start: "top 85%" } }
+                // Animation de tri
+                let itemsToShow = [];
+                productItems.forEach(item => {
+                    if (filterValue === 'all' || item.dataset.category === filterValue) {
+                        itemsToShow.push(item);
+                        item.style.display = 'block';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+
+                // GSAP Stagger sur les items filtrés
+                gsap.fromTo(itemsToShow,
+                    { opacity: 0, scale: 0.9, y: 30 },
+                    { opacity: 1, scale: 1, y: 0, duration: 0.5, stagger: 0.05, ease: "back.out(1.2)" }
                 );
             });
+        });
+
+        // Navigation SPA
+        function navigate(pageId) {
+            document.querySelectorAll('.page-view').forEach(view => {
+                view.classList.remove('active');
+                view.style.opacity = 0;
+            });
+            const targetView = document.getElementById(`view-${pageId}`);
+            if (targetView) {
+                targetView.classList.add('active');
+                gsap.to(targetView, { opacity: 1, duration: 0.5 });
+                window.scrollTo(0, 0);
+
+                // Relancer animation grille si catalogue
+                if (pageId === 'catalog') {
+                    gsap.fromTo(".product-item",
+                        { opacity: 0, scale: 0.9, y: 40 },
+                        { opacity: 1, scale: 1, y: 0, duration: 0.6, stagger: 0.1, ease: "power3.out", delay: 0.2 }
+                    );
+                }
+            }
+        }
+
+        // Init direct au chargement
+        window.addEventListener('DOMContentLoaded', () => {
+            // Démarre directement sur la page catalogue (plus de login)
+            navigate('catalog');
         });
     </script>
 </body>
