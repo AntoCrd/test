@@ -1,749 +1,227 @@
 <!DOCTYPE html>
-<html lang="fr" class="scroll-smooth">
-
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Studio Premium - Agence d'Objets Publicitaires</title>
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
-        rel="stylesheet">
-
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        primary: '#16628A',
-                        primaryDark: '#0E405A',
-                        accent: '#D9FF42',
-                        darkBg: '#111827',
-                        lightBg: '#F8FAFC',
-                        surface: '#FFFFFF',
-                    },
-                    fontFamily: {
-                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
-                    },
-                    boxShadow: {
-                        'ui': '0 20px 40px -10px rgba(0,0,0,0.08)',
-                        'float': '0 30px 60px -15px rgba(91, 69, 255, 0.25)',
-                    }
-                }
-            }
-        }
-    </script>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-
+    <title>CRITICAL OVERRIDE | LE STUDIO</title>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Mono:wght@400;700&family=Playfair+Display:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
     <style>
-        body {
-            background-color: #F8FAFC;
-            color: #111827;
-            -webkit-font-smoothing: antialiased;
+        /* ==========================================================================
+           1. FONDATION DU SYSTÈME
+           ========================================================================== */
+        :root {
+            --bg: #030303;
+            --txt: #FFFFFF;
+            --red: #FF0000;
+            --border: #222222;
+            --dim: rgba(255, 255, 255, 0.4);
+            --grid: rgba(255, 255, 255, 0.02);
         }
 
-        /* Scrollbar globale */
-        ::-webkit-scrollbar {
-            width: 8px;
+        * { margin: 0; padding: 0; box-sizing: border-box; cursor: crosshair; }
+        
+        body { 
+            background-color: var(--bg); color: var(--txt); 
+            font-family: 'Space Mono', monospace; line-height: 1.4;
+            display: flex; align-items: center; justify-content: center; height: 100vh;
+            background-image: linear-gradient(var(--grid) 1px, transparent 1px), linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+            background-size: 50px 50px;
+            overflow: hidden; 
         }
 
-        ::-webkit-scrollbar-track {
-            background: #F8FAFC;
+        .scanline { position: fixed; inset: 0; background: linear-gradient(to bottom, transparent 50%, rgba(255,255,255,0.02) 50%); background-size: 100% 4px; pointer-events: none; z-index: 1000; }
+
+        /* ==========================================================================
+           2. OVERLAY ET BOÎTE DE LA MODALE
+           ========================================================================== */
+        .modal-overlay { 
+            position: fixed; inset: 0; background: rgba(0,0,0,0.92); backdrop-filter: blur(10px); 
+            z-index: 20000; display: flex; align-items: center; justify-content: center; 
+            opacity: 0; transition: opacity 0.5s ease; padding: 20px;
+        }
+        .modal-overlay.active { opacity: 1; }
+        
+        .modal-box { 
+            width: 100%; max-width: 700px; background: #050505; border: 1px solid var(--border); 
+            box-shadow: 0 30px 80px rgba(255,0,0,0.15); position: relative;
+            transform: translateY(30px) scale(0.95); transition: transform 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
+            background-image: radial-gradient(rgba(255,255,255,0.03) 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+        .modal-overlay.active .modal-box { transform: translateY(0) scale(1); }
+
+        /* Crochets de ciblage (Corners Blueprint) */
+        .modal-box::before, .modal-box::after {
+            content: ''; position: absolute; width: 30px; height: 30px; border: 2px solid var(--red); pointer-events: none; z-index: 10;
+        }
+        .modal-box::before { top: -2px; left: -2px; border-bottom: none; border-right: none; }
+        .modal-box::after { bottom: -2px; right: -2px; border-top: none; border-left: none; }
+
+        /* ==========================================================================
+           3. HEADER TECHNIQUE
+           ========================================================================== */
+        .modal-header { 
+            background: var(--red); color: var(--txt); padding: 10px 25px; 
+            font-size: 9px; font-weight: bold; letter-spacing: 4px; 
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .blink-warning { animation: blink 1s infinite; display: flex; align-items: center; gap: 10px;}
+        .warning-icon { width: 10px; height: 10px; background: var(--txt); border-radius: 50%; }
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+
+        /* ==========================================================================
+           4. CORPS ET TYPOGRAPHIE
+           ========================================================================== */
+        .modal-body { padding: 60px 50px; text-align: center; position: relative; }
+        
+        .label-red { 
+            display: inline-block; border: 1px solid var(--red); color: var(--red); 
+            padding: 4px 12px; font-size: 9px; text-transform: uppercase; margin-bottom: 25px; 
+            letter-spacing: 3px; font-weight: bold; background: rgba(255,0,0,0.05);
         }
 
-        ::-webkit-scrollbar-thumb {
-            background: #CBD5E1;
-            border-radius: 10px;
+        .modal-title { 
+            font-family: 'Anton'; font-size: 3.5rem; color: var(--txt); 
+            margin-bottom: 20px; line-height: 0.9; text-transform: uppercase; letter-spacing: 1px;
+        }
+        
+        .modal-text { 
+            font-family: 'Playfair Display'; font-size: 18px; color: var(--dim); 
+            margin-bottom: 40px; font-style: italic; line-height: 1.5; max-width: 500px; margin-inline: auto;
         }
 
-        /* Masquer la scrollbar spécifiquement pour le slider */
-        .hide-scrollbar::-webkit-scrollbar {
-            display: none;
+        /* ==========================================================================
+           5. DATA LOSS PREVIEW (LA PERTE)
+           ========================================================================== */
+        .data-loss-preview {
+            border: 1px dashed var(--border); background: rgba(0,0,0,0.5); padding: 25px;
+            margin-bottom: 50px; text-align: left; display: grid; grid-template-columns: 1fr 1fr; gap: 20px;
+            position: relative;
         }
+        
+        .loss-item { display: flex; flex-direction: column; gap: 5px; border-left: 2px solid var(--red); padding-left: 15px; }
+        .loss-item label { font-size: 8px; color: var(--dim); letter-spacing: 2px; text-transform: uppercase; }
+        .loss-item span { font-size: 16px; font-weight: bold; color: var(--txt); font-family: 'Space Mono'; }
+        
+        /* Jauge de purge */
+        .purge-container { grid-column: span 2; margin-top: 10px; }
+        .purge-labels { display: flex; justify-content: space-between; font-size: 9px; margin-bottom: 8px; letter-spacing: 1px; }
+        .purge-labels span:first-child { color: var(--red); }
+        .purge-labels span:last-child { color: var(--txt); animation: blink 1s infinite; }
+        
+        .purge-bar-bg { width: 100%; height: 2px; background: var(--border); position: relative; overflow: hidden; }
+        .purge-bar-fill { position: absolute; top: 0; left: 0; height: 100%; width: 100%; background: var(--red); transform-origin: left; box-shadow: 0 0 10px var(--red); }
+        
+        /* Animation déclenchée en JS */
+        .purge-active { animation: purge-drain 10s linear forwards; }
+        @keyframes purge-drain { 0% { transform: scaleX(1); } 100% { transform: scaleX(0); } }
 
-        .hide-scrollbar {
-            -ms-overflow-style: none;
-            scrollbar-width: none;
+        /* ==========================================================================
+           6. ACTIONS
+           ========================================================================== */
+        .modal-actions { display: flex; gap: 20px; justify-content: center; }
+
+        /* Action Positive : Bouton Massif */
+        .btn-modal-primary { 
+            background: var(--txt); color: var(--bg); border: 1px solid var(--txt); 
+            font-family: 'Anton'; font-size: 1.5rem; padding: 15px 30px; 
+            cursor: pointer; transition: 0.3s; text-transform: uppercase; flex-grow: 1.5; 
+            letter-spacing: 1px; position: relative; overflow: hidden; z-index: 1;
         }
-
-        .page-view {
-            display: none;
+        .btn-modal-primary::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 0%; height: 100%;
+            background: var(--red); z-index: -1; transition: 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
         }
+        .btn-modal-primary:hover { border-color: var(--red); color: var(--txt); }
+        .btn-modal-primary:hover::before { width: 100%; }
 
-        .page-view.active {
-            display: block;
+        /* Action Destructive : Bouton Discret */
+        .btn-modal-secondary { 
+            background: transparent; color: var(--dim); border: 1px solid var(--border); 
+            font-family: 'Space Mono'; font-size: 11px; padding: 15px 20px; 
+            cursor: pointer; transition: 0.3s; text-transform: uppercase; letter-spacing: 2px; flex-grow: 1; 
         }
+        .btn-modal-secondary:hover { border-color: var(--txt); color: var(--txt); }
 
-        @keyframes float {
-
-            0%,
-            100% {
-                transform: translateY(0);
-            }
-
-            50% {
-                transform: translateY(-10px);
-            }
-        }
-
-        .animate-float {
-            animation: float 5s ease-in-out infinite;
-        }
-
-        .img-cover {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        details>summary {
-            list-style: none;
-        }
-
-        details>summary::-webkit-details-marker {
-            display: none;
+        @media (max-width: 700px) {
+            .modal-body { padding: 40px 20px; }
+            .modal-actions { flex-direction: column-reverse; gap: 15px; }
+            .data-loss-preview { grid-template-columns: 1fr; gap: 30px; }
+            .purge-container { grid-column: span 1; }
+            .modal-title { font-size: 2.5rem; }
+            .btn-modal-primary { font-size: 1.2rem; }
         }
     </style>
 </head>
+<body>
 
-<body class="flex flex-col relative selection:bg-accent selection:text-primaryDark">
+    <div class="scanline"></div>
 
-    <div id="app-content" class="flex flex-col min-h-screen relative z-10">
-
-        <header class="fixed top-0 left-0 right-0 z-40 transition-all duration-300 bg-transparent py-6"
-            id="main-header">
-            <div class="container mx-auto px-6 flex items-center justify-between">
-                <div class="font-extrabold text-2xl tracking-tight text-white flex items-center gap-2 transition-colors duration-300 cursor-pointer"
-                    id="logo-text" onclick="navigate('home')">
-                    Studio<span class="text-accent" id="logo-dot">.</span>
-                </div>
-
-                <nav class="hidden md:flex items-center gap-8 font-bold text-sm text-white transition-colors duration-300"
-                    id="nav-links">
-                    <button onclick="navigate('home')" class="hover:text-accent transition-colors">Agence</button>
-                    <button onclick="navigate('catalog')" class="hover:text-accent transition-colors">Catalogue
-                        Goodies</button>
-                    <button onclick="navigate('about')" class="hover:text-accent transition-colors">Notre
-                        Expertise</button>
-                </nav>
-
-                <button
-                    class="font-bold text-sm text-primaryDark bg-accent px-6 py-3 rounded-full hover:bg-white transition-colors shadow-lg">
-                    Nous contacter
-                </button>
+    <div id="abort-modal" class="modal-overlay">
+        <div class="modal-box">
+            
+            <div class="modal-header">
+                <span class="blink-warning"><div class="warning-icon"></div> OVERRIDE_INITIATED</span>
+                <span>SYS_ERR: 404</span>
             </div>
-        </header>
+            
+            <div class="modal-body">
+                <span class="label-red">INTERRUPTION DÉTECTÉE</span>
+                <h2 class="modal-title">ANNULER LA RÉSERVATION ?</h2>
+                <p class="modal-text">
+                    Le verrouillage de votre canal est sur le point d'être levé. Vos accès seront purgés et immédiatement réattribués.
+                </p>
 
-        <main class="flex-grow">
-
-            <section id="view-home" class="page-view active">
-
-                <div class="bg-primary pt-32 pb-24 lg:pt-40 lg:pb-32 px-6 rounded-b-[3rem] relative z-10">
-                    <div class="container mx-auto flex flex-col lg:flex-row items-center gap-16">
-
-                        <div class="w-full lg:w-1/2 hero-element">
-                            <h1
-                                class="text-5xl md:text-6xl lg:text-[5rem] font-extrabold text-white tracking-tight leading-[1.05] mb-6">
-                                L'objet publicitaire<br>
-                                qui marque<br>
-                                <span class="text-accent">les esprits.</span>
-                            </h1>
-                            <p class="text-lg text-white/80 font-medium mb-10 max-w-md leading-relaxed">
-                                Goodies, cadeaux d'affaires et textiles d'entreprise. Nous sourçons et personnalisons
-                                des objets d'exception avec un marquage à la lisibilité absolue.
-                            </p>
-                            <div class="flex flex-col sm:flex-row gap-4">
-                                <button onclick="navigate('catalog')"
-                                    class="bg-accent text-primaryDark font-bold text-lg px-8 py-4 rounded-full hover:bg-white transition-colors shadow-float flex items-center justify-center gap-2">
-                                    Explorer le catalogue
-                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
-                                    </svg>
-                                </button>
-                            </div>
+                <div class="data-loss-preview">
+                    <div class="loss-item">
+                        <label>SÉQUENCE EN COURS</label>
+                        <span id="loss-movie-name">BLADE RUNNER</span>
+                    </div>
+                    <div class="loss-item">
+                        <label>UNITÉS RÉSERVÉES</label>
+                        <span id="loss-pax">02 PAX</span>
+                    </div>
+                    
+                    <div class="purge-container">
+                        <div class="purge-labels">
+                            <span>EXPIRATION DU VERROUILLAGE</span>
+                            <span>PURGE IMMINENTE...</span>
                         </div>
-
-                        <div class="w-full lg:w-1/2 relative hero-element">
-                            <div
-                                class="w-full aspect-[4/3] rounded-[2rem] overflow-hidden shadow-2xl border-4 border-white/10 relative z-10 bg-black/20">
-                                <img src="https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&q=80&w=800"
-                                    alt="Cadeaux d'affaires et Goodies personnalisés"
-                                    class="img-cover opacity-90 hover:scale-105 transition-transform duration-700">
-                            </div>
-                            <div
-                                class="absolute -left-6 bottom-12 bg-white p-4 rounded-2xl shadow-xl z-20 flex items-center gap-4 animate-float border border-gray-100 hidden sm:flex">
-                                <div
-                                    class="w-12 h-12 bg-accent/20 rounded-full flex items-center justify-center text-primary">
-                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M5 13l4 4L19 7"></path>
-                                    </svg>
-                                </div>
-                                <div>
-                                    <p class="font-extrabold text-darkBg text-lg leading-none mb-1">Qualité HD</p>
-                                    <p class="text-xs text-gray-500 font-bold uppercase tracking-wider">Marquage
-                                        Inaltérable</p>
-                                </div>
-                            </div>
-                        </div>
-
+                        <div class="purge-bar-bg"><div class="purge-bar-fill" id="purge-bar"></div></div>
                     </div>
                 </div>
 
-                <div class="bg-white py-24 border-b border-gray-100 relative z-0">
-                    <div class="container mx-auto px-6 gs-reveal">
-                        <div class="flex flex-col md:flex-row justify-between items-end mb-12 gap-6">
-                            <div>
-                                <span
-                                    class="text-primary font-bold tracking-widest uppercase text-sm mb-2 block">Best-Sellers</span>
-                                <h2 class="text-4xl md:text-5xl font-extrabold text-darkBg tracking-tight">Nos Produits
-                                    Phares</h2>
-                            </div>
-                            <div class="flex gap-4">
-                                <button id="slider-prev"
-                                    class="w-12 h-12 rounded-full border border-gray-200 flex items-center justify-center text-darkBg hover:bg-primary hover:text-white hover:border-primary transition-colors">
-                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M15 19l-7-7 7-7"></path>
-                                    </svg>
-                                </button>
-                                <button id="slider-next"
-                                    class="w-12 h-12 rounded-full border border-gray-200 flex items-center justify-center text-darkBg hover:bg-primary hover:text-white hover:border-primary transition-colors">
-                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M9 5l7 7-7 7"></path>
-                                    </svg>
-                                </button>
-                            </div>
-                        </div>
-
-                        <div id="product-slider"
-                            class="flex gap-8 overflow-x-auto snap-x snap-mandatory hide-scrollbar pb-10">
-
-                            <div class="w-[85vw] sm:w-[400px] shrink-0 snap-center group cursor-pointer">
-                                <div
-                                    class="w-full h-[320px] rounded-[2rem] overflow-hidden mb-6 shadow-md relative border border-gray-100">
-                                    <div
-                                        class="absolute inset-0 bg-black/5 group-hover:bg-transparent transition-colors z-10">
-                                    </div>
-                                    <div
-                                        class="absolute top-4 right-4 bg-white/90 backdrop-blur-sm text-darkBg font-bold text-xs px-3 py-1.5 rounded-full z-20 shadow-sm border border-gray-100">
-                                        Le plus demandé</div>
-                                    <img src="https://images.unsplash.com/photo-1543269865-cbf427effbad?auto=format&fit=crop&q=80&w=600"
-                                        alt="Tote Bag"
-                                        class="img-cover group-hover:scale-105 transition-transform duration-700">
-                                </div>
-                                <h3
-                                    class="text-2xl font-extrabold text-darkBg mb-1 group-hover:text-primary transition-colors">
-                                    Tote Bag Coton Bio</h3>
-                                <p class="text-gray-500 font-medium">Sérigraphie haute résistance</p>
-                            </div>
-
-                            <div class="w-[85vw] sm:w-[400px] shrink-0 snap-center group cursor-pointer">
-                                <div
-                                    class="w-full h-[320px] rounded-[2rem] overflow-hidden mb-6 shadow-md relative border border-gray-100">
-                                    <div
-                                        class="absolute inset-0 bg-black/5 group-hover:bg-transparent transition-colors z-10">
-                                    </div>
-                                    <img src="https://images.unsplash.com/photo-1583336663277-620dc1996580?auto=format&fit=crop&q=80&w=600"
-                                        alt="Polo brodé"
-                                        class="img-cover group-hover:scale-105 transition-transform duration-700">
-                                </div>
-                                <h3
-                                    class="text-2xl font-extrabold text-darkBg mb-1 group-hover:text-primary transition-colors">
-                                    Polo Corporate Premium</h3>
-                                <p class="text-gray-500 font-medium">Broderie 3D cœur</p>
-                            </div>
-
-                            <div class="w-[85vw] sm:w-[400px] shrink-0 snap-center group cursor-pointer">
-                                <div
-                                    class="w-full h-[320px] rounded-[2rem] overflow-hidden mb-6 shadow-md relative border border-gray-100">
-                                    <div
-                                        class="absolute inset-0 bg-black/5 group-hover:bg-transparent transition-colors z-10">
-                                    </div>
-                                    <img src="https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&q=80&w=800"
-                                        alt="Carnet"
-                                        class="img-cover group-hover:scale-105 transition-transform duration-700">
-                                </div>
-                                <h3
-                                    class="text-2xl font-extrabold text-darkBg mb-1 group-hover:text-primary transition-colors">
-                                    Carnet A5 Cuir Recyclé</h3>
-                                <p class="text-gray-500 font-medium">Embossage à chaud</p>
-                            </div>
-
-                            <div class="w-[85vw] sm:w-[400px] shrink-0 snap-center group cursor-pointer">
-                                <div
-                                    class="w-full h-[320px] rounded-[2rem] overflow-hidden mb-6 shadow-md relative border border-gray-100">
-                                    <div
-                                        class="absolute inset-0 bg-black/5 group-hover:bg-transparent transition-colors z-10">
-                                    </div>
-                                    <img src="https://images.unsplash.com/photo-1602143407151-7111542de6e8?auto=format&fit=crop&q=80&w=600"
-                                        alt="Gourde"
-                                        class="img-cover group-hover:scale-105 transition-transform duration-700">
-                                </div>
-                                <h3
-                                    class="text-2xl font-extrabold text-darkBg mb-1 group-hover:text-primary transition-colors">
-                                    Gourde Isotherme Inox</h3>
-                                <p class="text-gray-500 font-medium">Gravure laser inaltérable</p>
-                            </div>
-
-                            <div class="w-[85vw] sm:w-[400px] shrink-0 snap-center group cursor-pointer pr-6">
-                                <div
-                                    class="w-full h-[320px] rounded-[2rem] overflow-hidden mb-6 shadow-md relative border border-gray-100">
-                                    <div
-                                        class="absolute inset-0 bg-black/5 group-hover:bg-transparent transition-colors z-10">
-                                    </div>
-                                    <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&q=80&w=600"
-                                        alt="Casque"
-                                        class="img-cover group-hover:scale-105 transition-transform duration-700">
-                                </div>
-                                <h3
-                                    class="text-2xl font-extrabold text-darkBg mb-1 group-hover:text-primary transition-colors">
-                                    Casque Audio Premium</h3>
-                                <p class="text-gray-500 font-medium">Tampographie haute précision</p>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-
-                <div class="bg-lightBg py-24">
-                    <div class="container mx-auto px-6">
-                        <div class="text-center mb-16 gs-reveal">
-                            <h2 class="text-4xl md:text-5xl font-extrabold text-darkBg tracking-tight mb-6">Nos Univers
-                                Produits</h2>
-                            <p class="text-gray-500 font-medium text-lg max-w-2xl mx-auto">De l'équipement de vos
-                                équipes aux cadeaux de fin d'année, nous sourçons l'article parfait pour chaque besoin.
-                            </p>
-                        </div>
-
-                        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-
-                            <div
-                                class="relative group h-[400px] rounded-[2rem] overflow-hidden shadow-ui gs-reveal hover:-translate-y-2 transition-transform duration-300 cursor-pointer">
-                                <img src="https://images.unsplash.com/photo-1576566588028-4147f3842f27?auto=format&fit=crop&q=80&w=600"
-                                    alt="Vêtements d'Image"
-                                    class="absolute inset-0 img-cover group-hover:scale-110 transition-transform duration-700">
-
-                                <div
-                                    class="absolute inset-0 bg-gradient-to-t from-darkBg/90 via-darkBg/60 to-transparent group-hover:from-black group-hover:via-black/70 transition-colors duration-300">
-                                </div>
-
-                                <div
-                                    class="absolute bottom-0 left-0 right-0 p-10 flex flex-col justify-end h-full relative z-10">
-                                    <h3 class="text-3xl font-bold text-white mb-4 tracking-tight">Vêtements d'Image</h3>
-
-                                    <div
-                                        class="max-h-0 opacity-0 group-hover:max-h-96 group-hover:opacity-100 group-hover:mb-4 transition-all duration-500 ease-in-out overflow-hidden">
-                                        <p class="text-white/80 font-medium leading-relaxed">Polos, softshells,
-                                            casquettes et
-                                            tote bags. Personnalisation en broderie ou sérigraphie de haute tenue pour
-                                            équiper
-                                            vos collaborateurs avec prestance.</p>
-                                    </div>
-
-                                    <span class="text-accent font-bold group-hover:underline">Découvrir la collection
-                                        →</span>
-                                </div>
-                            </div>
-
-                            <div
-                                class="relative group h-[400px] rounded-[2rem] overflow-hidden shadow-ui gs-reveal hover:-translate-y-2 transition-transform duration-300 cursor-pointer">
-                                <img src="https://images.unsplash.com/photo-1516387208681-943f2533080c?auto=format&fit=crop&q=80&w=600"
-                                    alt="Cadeaux d'Affaires"
-                                    class="absolute inset-0 img-cover group-hover:scale-110 transition-transform duration-700">
-
-                                <div
-                                    class="absolute inset-0 bg-gradient-to-t from-darkBg/90 via-darkBg/60 to-transparent group-hover:from-black group-hover:via-black/70 transition-colors duration-300">
-                                </div>
-
-                                <div
-                                    class="absolute bottom-0 left-0 right-0 p-10 flex flex-col justify-end h-full relative z-10">
-                                    <h3 class="text-3xl font-bold text-white mb-4 tracking-tight">Cadeaux d'Affaires
-                                    </h3>
-
-                                    <div
-                                        class="max-h-0 opacity-0 group-hover:max-h-96 group-hover:opacity-100 group-hover:mb-4 transition-all duration-500 ease-in-out overflow-hidden">
-                                        <p class="text-white/80 font-medium leading-relaxed">Carnets de notes, stylos
-                                            premium,
-                                            objets connectés (tech) et drinkware. Des articles valorisants marqués par
-                                            tampographie ou gravure laser.</p>
-                                    </div>
-
-                                    <span class="text-accent font-bold group-hover:underline">Découvrir la collection
-                                        →</span>
-                                </div>
-                            </div>
-
-                            <div
-                                class="relative group h-[400px] rounded-[2rem] overflow-hidden shadow-ui gs-reveal hover:-translate-y-2 transition-transform duration-300 cursor-pointer">
-                                <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&q=80&w=600"
-                                    alt="PLV & Événementiel"
-                                    class="absolute inset-0 img-cover group-hover:scale-110 transition-transform duration-700">
-
-                                <div
-                                    class="absolute inset-0 bg-gradient-to-t from-darkBg/90 via-darkBg/60 to-transparent group-hover:from-black group-hover:via-black/70 transition-colors duration-300">
-                                </div>
-
-                                <div
-                                    class="absolute bottom-0 left-0 right-0 p-10 flex flex-col justify-end h-full relative z-10">
-                                    <h3 class="text-3xl font-bold text-white mb-4 tracking-tight">PLV & Événementiel
-                                    </h3>
-
-                                    <div
-                                        class="max-h-0 opacity-0 group-hover:max-h-96 group-hover:opacity-100 group-hover:mb-4 transition-all duration-500 ease-in-out overflow-hidden">
-                                        <p class="text-white/80 font-medium leading-relaxed">Habillez vos stands.
-                                            Roll-ups,
-                                            drapeaux publicitaires, lanyards et tentes. Une impression grand format
-                                            pensée pour
-                                            attirer l'œil dans la foule.</p>
-                                    </div>
-
-                                    <span class="text-accent font-bold group-hover:underline">Découvrir la collection
-                                        →</span>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-
-                <div class="bg-white py-24 border-y border-gray-100">
-                    <div class="container mx-auto px-6 gs-reveal">
-                        <div class="flex flex-col lg:flex-row gap-16 items-start">
-                            <div class="w-full lg:w-5/12">
-                                <span class="text-primary font-bold tracking-widest uppercase text-sm mb-4 block">Notre
-                                    approche</span>
-                                <h2
-                                    class="text-4xl md:text-5xl font-extrabold text-darkBg tracking-tight leading-tight">
-                                    Plus qu'un simple objet, <span class="text-primary">un ambassadeur.</span>
-                                </h2>
-                            </div>
-
-                            <div class="w-full lg:w-7/12 space-y-6 text-lg text-gray-600 font-medium leading-relaxed">
-                                <p>
-                                    Le produit promotionnel est le seul média qui s'invite sur le bureau ou dans la
-                                    maison de vos clients. Il doit être le reflet exact du prestige de votre marque. Un
-                                    logo illisible ou un produit qui s'abîme vite, c'est votre image qui en pâtit.
-                                </p>
-                                <p>
-                                    Notre agence sélectionne minutieusement des articles durables. Surtout, nous plaçons
-                                    l'exigence de la lisibilité au centre de notre processus : nous optimisons les
-                                    fichiers graphiques, choisissons les meilleures techniques et garantissons des
-                                    contrastes forts pour que votre nom soit vu par tous, instantanément.
-                                </p>
-
-                                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 pt-8 mt-8 border-t border-gray-200">
-                                    <div>
-                                        <div class="flex items-center gap-3 mb-3">
-                                            <div
-                                                class="w-8 h-8 rounded-full bg-accent/30 text-primaryDark flex items-center justify-center">
-                                                <svg class="w-4 h-4" fill="none" stroke="currentColor"
-                                                    viewBox="0 0 24 24">
-                                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                                        stroke-width="3" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
-                                                </svg>
-                                            </div>
-                                            <h4 class="font-bold text-darkBg text-xl">Impact Mémoriel</h4>
-                                        </div>
-                                        <p class="text-sm">Un objet utile est conservé en moyenne 8 mois par vos
-                                            prospects.</p>
-                                    </div>
-                                    <div>
-                                        <div class="flex items-center gap-3 mb-3">
-                                            <div
-                                                class="w-8 h-8 rounded-full bg-accent/30 text-primaryDark flex items-center justify-center">
-                                                <svg class="w-4 h-4" fill="none" stroke="currentColor"
-                                                    viewBox="0 0 24 24">
-                                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                                        stroke-width="3" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                                        stroke-width="3"
-                                                        d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z">
-                                                    </path>
-                                                </svg>
-                                            </div>
-                                            <h4 class="font-bold text-darkBg text-xl">Lisibilité Maximale</h4>
-                                        </div>
-                                        <p class="text-sm">Des contrastes étudiés pour une identification immédiate de
-                                            votre logo.</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="bg-darkBg text-white py-24">
-                    <div class="container mx-auto px-6">
-                        <div class="text-center mb-20 gs-reveal">
-                            <h2 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-4">De l'idée à la livraison
-                            </h2>
-                            <p class="text-gray-400 font-medium max-w-2xl mx-auto text-lg">Un process B2B fluide pour
-                                équiper vos équipes sans stress.</p>
-                        </div>
-
-                        <div class="grid grid-cols-1 md:grid-cols-3 gap-12 pt-8 relative">
-                            <div
-                                class="hidden md:block absolute top-16 left-[16%] right-[16%] h-px bg-white/10 mt-6 z-0">
-                            </div>
-
-                            <div class="relative z-10 gs-reveal">
-                                <div
-                                    class="w-14 h-14 bg-white/5 rounded-2xl flex items-center justify-center text-accent font-extrabold text-xl mb-6 border border-white/10">
-                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-                                    </svg>
-                                </div>
-                                <h3 class="text-2xl font-bold mb-3">1. Sourcing & Devis</h3>
-                                <p class="text-gray-400 font-medium leading-relaxed">Définissez vos besoins. Nous vous
-                                    proposons la meilleure sélection d'objets ou de textiles et un chiffrage rapide sous
-                                    24h.</p>
-                            </div>
-
-                            <div class="relative z-10 gs-reveal">
-                                <div
-                                    class="w-14 h-14 bg-white/5 rounded-2xl flex items-center justify-center text-accent font-extrabold text-xl mb-6 border border-white/10">
-                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z">
-                                        </path>
-                                    </svg>
-                                </div>
-                                <h3 class="text-2xl font-bold mb-3">2. Maquette & BAT</h3>
-                                <p class="text-gray-400 font-medium leading-relaxed">Notre studio graphique adapte votre
-                                    logo au support. Vous recevez un Bon À Tirer visuel (BAT) pour valider le rendu
-                                    avant lancement.</p>
-                            </div>
-
-                            <div class="relative z-10 gs-reveal">
-                                <div
-                                    class="w-14 h-14 bg-white/5 rounded-2xl flex items-center justify-center text-accent font-extrabold text-xl mb-6 border border-white/10">
-                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4">
-                                        </path>
-                                    </svg>
-                                </div>
-                                <h3 class="text-2xl font-bold mb-3">3. Marquage & Expédition</h3>
-                                <p class="text-gray-400 font-medium leading-relaxed">Personnalisation dans nos ateliers
-                                    de confiance. Nous gérons le contrôle qualité et organisons la livraison multi-sites
-                                    si nécessaire.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="bg-primary text-white py-24">
-                    <div class="container mx-auto px-6 flex flex-col lg:flex-row gap-16">
-                        <div class="w-full lg:w-1/3 gs-reveal">
-                            <h2 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-6">Questions Fréquentes
-                            </h2>
-                            <p class="text-white/80 font-medium text-lg">Retrouvez les réponses aux interrogations de
-                                nos clients B2B.</p>
-                        </div>
-
-                        <div class="w-full lg:w-2/3 space-y-4 gs-reveal">
-                            <details
-                                class="group bg-white/10 rounded-2xl border border-white/20 overflow-hidden cursor-pointer"
-                                open>
-                                <summary
-                                    class="px-8 py-6 flex justify-between items-center font-bold text-lg md:text-xl outline-none">
-                                    Quel est le minimum de commande (MOQ) ?
-                                    <span
-                                        class="text-accent group-open:rotate-45 transition-transform duration-300 text-3xl font-light">+</span>
-                                </summary>
-                                <div class="px-8 pb-6 text-white/80 font-medium leading-relaxed">
-                                    Le minimum varie selon l'objet. Généralement de 50 à 100 pièces pour des goodies
-                                    classiques (stylos, carnets), nous pouvons réaliser des marquages à partir de 10
-                                    pièces sur certains textiles premium.
-                                </div>
-                            </details>
-
-                            <details
-                                class="group bg-white/10 rounded-2xl border border-white/20 overflow-hidden cursor-pointer">
-                                <summary
-                                    class="px-8 py-6 flex justify-between items-center font-bold text-lg md:text-xl outline-none">
-                                    Quelles techniques de marquage utilisez-vous ?
-                                    <span
-                                        class="text-accent group-open:rotate-45 transition-transform duration-300 text-3xl font-light">+</span>
-                                </summary>
-                                <div class="px-8 pb-6 text-white/80 font-medium leading-relaxed">
-                                    Nous maîtrisons la sérigraphie (textiles), la broderie (rendu luxe sur
-                                    polos/vestes), la tampographie (objets incurvés), la gravure laser (bois/métal) et
-                                    l'impression numérique directe.
-                                </div>
-                            </details>
-
-                            <details
-                                class="group bg-white/10 rounded-2xl border border-white/20 overflow-hidden cursor-pointer">
-                                <summary
-                                    class="px-8 py-6 flex justify-between items-center font-bold text-lg md:text-xl outline-none">
-                                    Proposez-vous des objets écologiques (RSE) ?
-                                    <span
-                                        class="text-accent group-open:rotate-45 transition-transform duration-300 text-3xl font-light">+</span>
-                                </summary>
-                                <div class="px-8 pb-6 text-white/80 font-medium leading-relaxed">
-                                    Oui, nous proposons un vaste catalogue d'objets éco-conçus (bois FSC, RPET) et du
-                                    textile labellisé (Oeko-Tex, GOTS) pour aligner votre communication avec vos
-                                    engagements RSE.
-                                </div>
-                            </details>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="container mx-auto px-6 py-24 gs-reveal">
-                    <div
-                        class="bg-lightBg rounded-[2.5rem] p-12 md:p-20 flex flex-col items-center text-center border border-gray-200 relative overflow-hidden">
-                        <div class="absolute inset-0 opacity-5"
-                            style="background-image: radial-gradient(circle at 2px 2px, black 1px, transparent 0); background-size: 24px 24px;">
-                        </div>
-
-                        <h2 class="text-4xl md:text-5xl font-extrabold text-darkBg tracking-tight mb-6 relative z-10">
-                            Un événement à préparer ?
-                        </h2>
-                        <p class="text-xl text-gray-600 font-medium mb-10 max-w-2xl relative z-10">
-                            Passez commande de vos objets publicitaires ou textiles dès aujourd'hui en demandant un
-                            accès à notre catalogue privé.
-                        </p>
-                        <button onclick="navigate('catalog')"
-                            class="relative z-10 bg-accent text-primaryDark font-extrabold text-lg rounded-full py-5 px-10 hover:scale-105 transition-transform duration-300 shadow-lg flex items-center gap-3">
-                            Demander un Devis ou Accès
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
-                            </svg>
-                        </button>
-                    </div>
-                </div>
-
-            </section>
-        </main>
-
-        <footer class="bg-white border-t border-gray-200 pt-16 pb-8">
-            <div class="container mx-auto px-6">
-                <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
-                    <div class="md:col-span-1">
-                        <div class="font-extrabold text-2xl tracking-tight text-darkBg mb-4">
-                            Studio<span class="text-primary">.</span>
-                        </div>
-                        <p class="text-gray-500 font-medium text-sm leading-relaxed">
-                            Votre agence spécialisée en communication par l'objet. Goodies, cadeaux d'affaires et
-                            textiles corporate.
-                        </p>
-                    </div>
-
-                    <div>
-                        <h4 class="font-bold text-darkBg mb-6">Expertise</h4>
-                        <ul class="space-y-4 text-gray-500 font-medium text-sm">
-                            <li><a href="#" class="hover:text-primary transition-colors">Broderie & Sérigraphie</a></li>
-                            <li><a href="#" class="hover:text-primary transition-colors">Objets RSE (Éco)</a></li>
-                            <li><a href="#" class="hover:text-primary transition-colors">Welcome Packs</a></li>
-                        </ul>
-                    </div>
-
-                    <div>
-                        <h4 class="font-bold text-darkBg mb-6">Légal</h4>
-                        <ul class="space-y-4 text-gray-500 font-medium text-sm">
-                            <li><a href="#" class="hover:text-primary transition-colors">Mentions Légales</a></li>
-                            <li><a href="#" class="hover:text-primary transition-colors">Confidentialité</a></li>
-                            <li><a href="#" class="hover:text-primary transition-colors">CGV</a></li>
-                        </ul>
-                    </div>
-
-                    <div>
-                        <h4 class="font-bold text-darkBg mb-6">Contact VIP</h4>
-                        <p class="text-2xl font-black text-primary mb-2">0800 123 456</p>
-                        <p class="text-gray-500 text-sm font-medium">Lundi au Vendredi (9h-18h)</p>
-                    </div>
-                </div>
-
-                <div class="border-t border-gray-100 pt-8 text-center text-sm font-medium text-gray-400">
-                    <p>&copy; 2026 Studio. Tous droits réservés.</p>
+                <div class="modal-actions">
+                    <button class="btn-modal-secondary" onclick="actionDetruire()">OUI, TOUT ANNULER</button>
+                    <button class="btn-modal-primary" onclick="actionSauver()">NON, REPRENDRE LA RÉSERVATION</button>
                 </div>
             </div>
-        </footer>
+
+        </div>
     </div>
 
     <script>
-        gsap.registerPlugin(ScrollTrigger);
-
-        const mainHeader = document.getElementById('main-header');
-        const logoText = document.getElementById('logo-text');
-        const logoDot = document.getElementById('logo-dot');
-        const navLinks = document.getElementById('nav-links');
-
-        // Gestion du Header
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 50) {
-                mainHeader.classList.remove('bg-transparent', 'py-6');
-                mainHeader.classList.add('bg-white/95', 'backdrop-blur-md', 'shadow-sm', 'py-4', 'border-b', 'border-gray-100');
-                logoText.classList.remove('text-white');
-                logoText.classList.add('text-darkBg');
-                logoDot.classList.remove('text-accent');
-                logoDot.classList.add('text-primary');
-                navLinks.classList.remove('text-white');
-                navLinks.classList.add('text-gray-600');
-            } else {
-                mainHeader.classList.add('bg-transparent', 'py-6');
-                mainHeader.classList.remove('bg-white/95', 'backdrop-blur-md', 'shadow-sm', 'py-4', 'border-b', 'border-gray-100');
-                logoText.classList.add('text-white');
-                logoText.classList.remove('text-darkBg');
-                logoDot.classList.add('text-accent');
-                logoDot.classList.remove('text-primary');
-                navLinks.classList.add('text-white');
-                navLinks.classList.remove('text-gray-600');
-            }
+        // Déclenchement automatique et fluide au chargement
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                const modal = document.getElementById('abort-modal');
+                const purgeBar = document.getElementById('purge-bar');
+                
+                modal.classList.add('active');
+                purgeBar.classList.add('purge-active'); // Lance le compte à rebours visuel
+            }, 300); // Petit délai pour laisser la grille de fond apparaître
         });
 
-        // Slider Navigation Logic
-        const sliderTrack = document.getElementById('product-slider');
-        const btnNext = document.getElementById('slider-next');
-        const btnPrev = document.getElementById('slider-prev');
-
-        if (sliderTrack && btnNext && btnPrev) {
-            btnNext.addEventListener('click', () => {
-                sliderTrack.scrollBy({ left: 432, behavior: 'smooth' });
-            });
-            btnPrev.addEventListener('click', () => {
-                sliderTrack.scrollBy({ left: -432, behavior: 'smooth' });
-            });
+        function actionSauver() {
+            document.getElementById('abort-modal').classList.remove('active');
+            // En production : Retour au formulaire de réservation
         }
 
-        // Initialize GSAP Animations when the DOM is loaded
-        window.addEventListener('DOMContentLoaded', () => {
-            initAnimations();
-        });
-
-        // GSAP Animations
-        function initAnimations() {
-            ScrollTrigger.getAll().forEach(trigger => trigger.kill());
-
-            gsap.from(".hero-element", {
-                opacity: 0, y: 30, duration: 1, stagger: 0.2, ease: "power3.out", delay: 0.2
-            });
-
-            gsap.utils.toArray('.gs-reveal').forEach(section => {
-                gsap.fromTo(section,
-                    { opacity: 0, y: 40 },
-                    {
-                        opacity: 1, y: 0, duration: 0.8, ease: "power2.out",
-                        scrollTrigger: {
-                            trigger: section,
-                            start: "top 85%",
-                        }
-                    }
-                );
-            });
+        function actionDetruire() {
+            document.getElementById('abort-modal').classList.remove('active');
+            // En production : Redirection vers l'accueil et reset des données
+            setTimeout(() => alert("Système purgé. Retour au Monitoring des canaux."), 400); 
         }
     </script>
 </body>
-
 </html>
