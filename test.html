@@ -3,17 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ecorina - L'Annuaire des Professionnels</title>
+    <title>Ecorina - Fiche Artisan : Atelier du Copeau</title>
     <style>
         /* --- THEME "ACCUEIL 3 - LUXURY EDITORIAL" --- */
         :root {
             --bg-page: #F3F5F2; 
             --bg-card: #FFFFFF;
-            --bg-card-alt: #FAFBFA;
             
             --text-main: #131E17; 
             --text-muted: #596B60; 
-            --text-light: #8E9E95;
             
             --primary: #167D3D; 
             --primary-hover: #116330;
@@ -27,12 +25,12 @@
             --shadow-md: 0 12px 32px rgba(19, 30, 23, 0.06);
             --shadow-lg: 0 24px 64px rgba(19, 30, 23, 0.08);
             
-            --radius-xl: 40px;
+            --radius-xl: 32px;
             --radius-lg: 24px;
             --radius-md: 16px;
             
             --font-main: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Segoe UI", Roboto, sans-serif;
-            --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            --transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         /* --- RESET --- */
@@ -41,115 +39,109 @@
         body { font-family: var(--font-main); color: var(--text-main); line-height: 1.6; overflow-x: hidden; -webkit-font-smoothing: antialiased; }
         .site-wrapper { overflow-x: hidden; width: 100%; position: relative; }
         a { text-decoration: none; color: inherit; transition: var(--transition); }
-        ul { list-style: none; }
         img, svg { max-width: 100%; display: block; }
 
-        /* --- LAYOUT --- */
-        .container { max-width: 1240px; margin: 0 auto; padding: 0 clamp(24px, 5vw, 48px); }
-        .section { padding: clamp(80px, 10vw, 120px) 0; }
-        .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 32px; }
-        .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
+        /* --- LAYOUT GLOBAL --- */
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 clamp(24px, 5vw, 48px); }
+        
+        /* Grille de contenu (sous le header) */
+        .main-grid { display: grid; grid-template-columns: 1fr 380px; gap: clamp(32px, 5vw, 64px); align-items: start; margin-top: 48px; padding-bottom: 120px; }
 
         /* --- TYPOGRAPHIE --- */
-        h1 { font-size: clamp(3rem, 7vw, 5rem); line-height: 0.95; letter-spacing: -0.04em; margin-bottom: 24px; font-weight: 500; }
-        h1 span { color: var(--primary); font-style: italic; font-weight: 400; }
-        h2 { font-size: clamp(2rem, 4vw, 3rem); line-height: 1.05; letter-spacing: -0.03em; margin-bottom: 16px; font-weight: 500; }
-        h3 { font-size: clamp(1.35rem, 2.5vw, 1.75rem); margin-bottom: 12px; font-weight: 600; letter-spacing: -0.01em; }
-        h4 { font-size: 1.125rem; font-weight: 600; margin-bottom: 8px; }
+        h1 { font-size: clamp(2.25rem, 4vw, 3rem); line-height: 1.1; letter-spacing: -0.03em; margin: 0 0 12px 0; font-weight: 600; color: var(--text-main); }
+        h2 { font-size: clamp(1.75rem, 3vw, 2.25rem); line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 32px; font-weight: 600; }
+        h3 { font-size: 1.25rem; margin-bottom: 8px; font-weight: 600; color: var(--text-main); }
         
-        p.lead { font-size: clamp(1.15rem, 2vw, 1.35rem); color: var(--text-muted); max-width: 750px; margin-bottom: 40px; font-weight: 400; line-height: 1.6; }
-        p { font-size: 1rem; color: var(--text-muted); margin-bottom: 16px; }
+        p { font-size: 1.05rem; color: var(--text-muted); margin-bottom: 20px; line-height: 1.7; }
+        p.lead { font-size: clamp(1.15rem, 2vw, 1.25rem); color: var(--text-main); margin-bottom: 32px; font-weight: 400; line-height: 1.6; }
         
-        .pill { display: inline-flex; align-items: center; padding: 8px 24px; border-radius: 50px; font-size: 0.85rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; background: var(--bg-card); border: 1px solid var(--border); box-shadow: var(--shadow-sm); margin-bottom: 32px; color: var(--text-main); }
-        .breadcrumb { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 40px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; }
+        .breadcrumb { font-size: 0.85rem; color: var(--text-muted); margin-top: 40px; margin-bottom: 40px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; }
         .breadcrumb span { color: var(--primary); margin: 0 8px; }
 
-        /* --- NAVIGATION --- */
-        nav { display: flex; justify-content: space-between; align-items: center; padding: 32px 0; border-bottom: 1px solid rgba(22, 125, 61, 0.1); margin-bottom: 32px; }
-        .logo { font-size: 1.5rem; font-weight: 700; letter-spacing: -0.05em; color: var(--text-main); display: flex; align-items: center; gap: 8px; }
-        .logo span { color: var(--primary); }
-        .nav-links { display: flex; gap: 40px; font-size: 0.9rem; font-weight: 500; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; }
-        .nav-links a:hover { color: var(--primary); }
-
-        /* --- BOUTONS --- */
-        .btn { display: inline-flex; justify-content: center; align-items: center; padding: 16px 32px; border-radius: 100px; font-weight: 600; font-size: 0.95rem; transition: var(--transition); cursor: pointer; border: 1px solid transparent; letter-spacing: 0.02em; }
-        .btn-primary { background: var(--text-main); color: white; }
-        .btn-primary:hover { background: var(--primary); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(22, 125, 61, 0.2); }
-        .btn-outline { background: transparent; color: var(--text-main); border-color: var(--border); }
-        .btn-outline:hover { background: var(--bg-card); border-color: var(--text-main); transform: translateY(-2px); }
-
-        /* --- HERO --- */
-        .hero { display: flex; flex-direction: column; align-items: center; text-align: center; padding-top: 40px; padding-bottom: 64px; position: relative; }
-        .hero::after { content: ''; position: absolute; width: 60vw; height: 60vw; background: radial-gradient(circle, rgba(22, 125, 61, 0.06) 0%, transparent 60%); top: -20%; z-index: -1; pointer-events: none; }
-
-        /* --- MOTEUR DE RECHERCHE FLOTTANT (UI Senior) --- */
-        .search-bar { background: var(--bg-card); border-radius: 100px; padding: 12px; box-shadow: var(--shadow-md); border: 1px solid var(--border); display: flex; gap: 12px; max-width: 900px; margin: 0 auto 64px auto; position: relative; z-index: 10; }
-        .search-group { display: flex; align-items: center; gap: 12px; padding: 8px 24px; border-right: 1px solid var(--border); flex: 1; }
-        .search-group:last-of-type { border-right: none; }
-        .search-group svg { width: 24px; height: 24px; stroke: var(--primary); fill: none; stroke-width: 2; flex-shrink: 0; }
-        .search-select { border: none; background: transparent; font-family: var(--font-main); font-size: 1.05rem; color: var(--text-main); outline: none; width: 100%; cursor: pointer; appearance: none; font-weight: 500; }
-        .search-select option { color: var(--text-main); }
-        .btn-search { background: var(--primary); color: white; border: none; border-radius: 100px; padding: 16px 40px; font-weight: 600; font-size: 1rem; cursor: pointer; transition: var(--transition); }
-        .btn-search:hover { background: var(--primary-hover); box-shadow: 0 4px 15px rgba(22, 125, 61, 0.3); }
-
-        /* --- PACTE DE QUALITÉ (Trust Signals) --- */
-        .trust-banner { background: var(--bg-page); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 48px 0; margin-bottom: 80px; }
-        .trust-grid { display: flex; justify-content: space-between; gap: 40px; }
-        .trust-item { display: flex; align-items: center; gap: 20px; }
-        .trust-icon { width: 48px; height: 48px; border-radius: 12px; background: var(--bg-card); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; box-shadow: var(--shadow-sm); flex-shrink: 0; }
-        .trust-icon svg { width: 24px; height: 24px; stroke: var(--primary); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
-        .trust-item h4 { margin-bottom: 4px; font-size: 1.05rem; }
-        .trust-item p { margin: 0; font-size: 0.9rem; color: var(--text-muted); }
-
-        /* --- GRILLE DES PROS --- */
-        .pro-card { background: var(--bg-card); border-radius: var(--radius-lg); border: 1px solid var(--border); box-shadow: var(--shadow-sm); overflow: hidden; transition: var(--transition); display: flex; flex-direction: column; }
-        .pro-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-md); border-color: var(--primary); }
-        
-        .pro-header { padding: 32px 32px 24px 32px; display: flex; gap: 20px; align-items: flex-start; border-bottom: 1px solid var(--bg-page); }
-        .pro-avatar { width: 72px; height: 72px; border-radius: 16px; background: var(--primary-light); display: flex; align-items: center; justify-content: center; flex-shrink: 0; border: 1px solid rgba(22, 125, 61, 0.1); }
-        .pro-avatar svg { width: 32px; height: 32px; stroke: var(--primary); fill: none; stroke-width: 1.5; }
-        
-        .pro-info h3 { font-size: 1.35rem; margin-bottom: 4px; }
-        .pro-type { display: inline-block; font-size: 0.75rem; text-transform: uppercase; font-weight: 700; letter-spacing: 0.05em; color: var(--text-muted); margin-bottom: 8px; }
-        .pro-location { display: flex; align-items: center; gap: 6px; font-size: 0.9rem; color: var(--text-muted); font-weight: 500; }
-        .pro-location svg { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 2; }
-
-        .pro-body { padding: 24px 32px; flex-grow: 1; }
-        .pro-desc { font-size: 0.95rem; color: var(--text-muted); margin-bottom: 24px; line-height: 1.5; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
-        
-        .pro-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 32px; }
-        .tag { padding: 6px 12px; border-radius: 8px; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; }
+        /* --- TAGS --- */
+        .tag-group { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 24px; }
+        .tag { padding: 6px 14px; border-radius: 8px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; display: inline-flex; align-items: center; justify-content: center; height: 32px; }
         .tag.sciure { background: var(--accent-wood-light); color: var(--accent-wood); }
         .tag.sep { background: var(--primary-light); color: var(--primary); }
         .tag.archi { background: var(--bg-page); color: var(--text-main); border: 1px solid var(--border); }
 
-        .pro-footer { padding: 24px 32px; background: var(--bg-card-alt); border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
-        .verified { display: flex; align-items: center; gap: 6px; font-size: 0.85rem; font-weight: 600; color: var(--primary); }
-        .verified svg { width: 18px; height: 18px; fill: var(--primary-light); stroke: var(--primary); stroke-width: 2; }
+        /* --- BOUTONS --- */
+        .btn { display: inline-flex; justify-content: center; align-items: center; padding: 16px 32px; border-radius: 100px; font-weight: 600; font-size: 1rem; transition: var(--transition); cursor: pointer; border: 1px solid transparent; letter-spacing: 0.02em; width: 100%; height: 56px; }
+        .btn-primary { background: var(--text-main); color: white; }
+        .btn-primary:hover { background: var(--primary); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(22, 125, 61, 0.2); }
+        .btn-outline { background: transparent; color: var(--text-main); border-color: var(--border); }
+        .btn-outline:hover { background: var(--bg-card); border-color: var(--text-main); transform: translateY(-2px); box-shadow: var(--shadow-sm); }
 
-        /* --- REJOINDRE L'ANNUAIRE (CTA B2B) --- */
-        .b2b-banner { background: var(--text-main); border-radius: var(--radius-xl); padding: clamp(48px, 8vw, 80px); color: white; display: flex; align-items: center; justify-content: space-between; gap: 48px; margin-top: 80px; box-shadow: var(--shadow-lg); position: relative; overflow: hidden; }
-        .b2b-banner::after { content: ''; position: absolute; width: 400px; height: 400px; background: radial-gradient(circle, rgba(22, 125, 61, 0.4) 0%, transparent 70%); right: -100px; top: -100px; pointer-events: none; border-radius: 50%; }
-        .b2b-content { max-width: 600px; position: relative; z-index: 2; }
-        .b2b-content h2 { color: white; margin-bottom: 16px; }
-        .b2b-content p { color: rgba(255,255,255,0.7); font-size: 1.125rem; }
+        /* --- NAVIGATION --- */
+        nav { display: flex; justify-content: space-between; align-items: center; padding: 32px 0; border-bottom: 1px solid rgba(22, 125, 61, 0.1); }
+        .logo { font-size: 1.5rem; font-weight: 700; letter-spacing: -0.05em; color: var(--text-main); display: flex; align-items: center; gap: 8px; }
+        .logo span { color: var(--primary); }
+        .nav-links { display: flex; gap: 40px; font-size: 0.9rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; }
+        .nav-links a:hover { color: var(--primary); }
+
+        /* --- HEADER PROFIL (Pleine largeur, propre et posé) --- */
+        .profile-banner { background: var(--bg-card); border-radius: var(--radius-xl); padding: clamp(40px, 6vw, 64px); box-shadow: var(--shadow-sm); border: 1px solid var(--border); display: flex; gap: 48px; align-items: center; position: relative; }
+        
+        .pb-avatar { width: 160px; height: 160px; border-radius: var(--radius-lg); background: var(--bg-page); display: flex; align-items: center; justify-content: center; flex-shrink: 0; border: 1px solid var(--border); }
+        .pb-avatar svg { width: 64px; height: 64px; stroke: var(--primary); fill: none; stroke-width: 1.5; }
+        
+        .pb-content { flex-grow: 1; }
+        .pb-type { color: var(--text-muted); font-weight: 700; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.1em; display: block; margin-bottom: 12px; }
+        
+        .verified-badge { position: absolute; top: 40px; right: 40px; display: inline-flex; align-items: center; gap: 8px; background: var(--primary-light); color: var(--primary); padding: 10px 20px; border-radius: 50px; font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; }
+        .verified-badge svg { width: 16px; height: 16px; fill: var(--primary); }
+
+        /* --- COLONNE GAUCHE (Le contenu) --- */
+        .content-section { margin-bottom: 80px; }
+        .content-section:last-child { margin-bottom: 0; }
+        
+        /* Bento des Prestations */
+        .services-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+        .service-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 40px; box-shadow: var(--shadow-sm); transition: var(--transition); }
+        .service-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); border-color: var(--primary); }
+        .s-icon { width: 56px; height: 56px; border-radius: 16px; background: var(--bg-page); display: flex; align-items: center; justify-content: center; margin-bottom: 24px; border: 1px solid var(--border); }
+        .s-icon svg { width: 28px; height: 28px; stroke: var(--text-main); fill: none; stroke-width: 1.5; }
+        
+        /* Portfolio Grid */
+        .portfolio-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+        .p-image { aspect-ratio: 4/3; background: var(--bg-card); border-radius: var(--radius-lg); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; overflow: hidden; box-shadow: var(--shadow-sm); }
+        .p-image svg { width: 48px; height: 48px; stroke: var(--border); stroke-width: 1.5; fill: none; }
+
+        /* --- COLONNE DROITE (Sidebar) --- */
+        .sidebar { position: sticky; top: 40px; display: flex; flex-direction: column; gap: 32px; }
+        
+        /* Carte de contact propre */
+        .contact-card { background: var(--bg-card); border-radius: var(--radius-xl); padding: 40px; border: 1px solid var(--border); box-shadow: var(--shadow-sm); }
+        .contact-card h3 { margin-bottom: 16px; font-size: 1.5rem; }
+        
+        .contact-list { margin-top: 32px; display: flex; flex-direction: column; gap: 24px; }
+        .c-item { display: flex; gap: 16px; align-items: flex-start; }
+        .c-item svg { width: 24px; height: 24px; stroke: var(--text-muted); fill: none; stroke-width: 2; flex-shrink: 0; }
+        .c-text { font-size: 1rem; color: var(--text-main); font-weight: 500; line-height: 1.5; }
+        .c-text span { display: block; font-size: 0.9rem; color: var(--text-muted); font-weight: 400; margin-top: 4px; }
+
+        /* Avis Ecorina (Rupture visuelle) */
+        .ecorina-note { background: var(--text-main); color: white; border-radius: var(--radius-xl); padding: 40px; box-shadow: var(--shadow-lg); }
+        .ecorina-note h4 { color: var(--primary-light); margin-bottom: 16px; display: flex; align-items: center; gap: 12px; font-size: 1.125rem; }
+        .ecorina-note p { color: rgba(255,255,255,0.8); margin: 0; font-size: 1rem; line-height: 1.6; }
 
         /* --- FOOTER --- */
-        footer { padding: 64px 0 32px 0; margin-top: 80px; text-align: center; border-top: 1px solid var(--border); }
-        .footer-content { display: flex; justify-content: space-between; align-items: center; padding-top: 24px; font-size: 0.85rem; color: var(--text-muted); }
+        footer { padding: 48px 0; border-top: 1px solid var(--border); text-align: center; }
+        .footer-content { display: flex; justify-content: space-between; align-items: center; font-size: 0.85rem; color: var(--text-muted); }
 
         /* --- RESPONSIVE --- */
         @media (max-width: 1024px) {
-            .trust-grid { flex-direction: column; gap: 24px; }
-            .grid-2 { grid-template-columns: 1fr; }
-            .b2b-banner { flex-direction: column; text-align: center; align-items: center; }
+            .main-grid { grid-template-columns: 1fr; gap: 64px; }
+            .sidebar { position: relative; top: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 32px; align-items: stretch; }
+            .contact-card, .ecorina-note { height: 100%; }
         }
+
         @media (max-width: 768px) {
             .nav-links { display: none; }
-            .search-bar { flex-direction: column; border-radius: 24px; padding: 24px; }
-            .search-group { border-right: none; border-bottom: 1px solid var(--border); padding: 16px 0; }
-            .search-group:last-of-type { border-bottom: none; }
-            .btn-search { width: 100%; border-radius: 12px; margin-top: 16px; }
+            .profile-banner { flex-direction: column; text-align: center; padding: 40px 24px; gap: 32px; }
+            .verified-badge { position: relative; top: 0; right: 0; margin-bottom: 24px; }
+            .tag-group { justify-content: center; }
+            .services-grid, .portfolio-grid, .sidebar { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -163,232 +155,133 @@
                 ecorina
             </div>
             <div class="nav-links">
+                <a href="#">Annuaire</a>
                 <a href="#">Guides</a>
                 <a href="#">Comparatif</a>
-                <a href="#">Simulateur</a>
             </div>
-            <a href="#rejoindre" class="btn btn-outline" style="padding: 10px 24px; font-size: 0.9rem;">Espace Professionnels</a>
+            <a href="#" class="btn-outline" style="padding: 10px 24px; border-radius: 50px; font-size: 0.85rem; font-weight: 600; display: inline-flex; align-items: center; width: auto; height: auto;">Retour à la recherche</a>
         </nav>
     </div>
 
-    <header class="container hero">
-        <div class="breadcrumb">Accueil <span>/</span> L'Annuaire des Pros</div>
-        <div class="pill">Réseau de Confiance</div>
-        <h1>L'excellence de la <br><span>transition sanitaire.</span></h1>
-        <p class="lead">Fabricants, installateurs, architectes. Parce qu'une bonne technologie ne vaut rien sans un bon artisan, nous avons sélectionné les experts de l'assainissement écologique en France.</p>
-    </header>
-
     <div class="container">
-        <div class="search-bar">
-            <div class="search-group">
-                <svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="7.5 4.21 12 6.81 16.5 4.21"></polyline><polyline points="7.5 19.79 7.5 14.6 3 12"></polyline><polyline points="21 12 16.5 14.6 16.5 19.79"></polyline><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
-                <select class="search-select">
-                    <option value="">Tous les métiers</option>
-                    <option value="fab">Fabricants / Créateurs</option>
-                    <option value="inst">Installateurs / Plombiers</option>
-                    <option value="archi">Bureaux d'études / Architectes</option>
-                </select>
+        <div class="breadcrumb">Accueil <span>/</span> Annuaire des pros <span>/</span> Fabricants <span>/</span> Atelier du Copeau</div>
+        
+        <header class="profile-banner">
+            <div class="verified-badge">
+                <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path><polyline points="9 12 11 14 15 10" stroke="currentColor" stroke-width="2" fill="none"></polyline></svg>
+                Expert Vérifié
             </div>
-            <div class="search-group">
-                <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
-                <select class="search-select">
-                    <option value="">Toute la France</option>
-                    <option value="idf">Île-de-France</option>
-                    <option value="bre">Bretagne</option>
-                    <option value="occ">Occitanie</option>
-                    <option value="ara">Auvergne-Rhône-Alpes</option>
-                </select>
-            </div>
-            <button class="btn-search">Trouver un expert</button>
-        </div>
-    </div>
 
-    <div class="trust-banner">
-        <div class="container trust-grid">
-            <div class="trust-item">
-                <div class="trust-icon"><svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg></div>
-                <div>
-                    <h4>Indépendance totale</h4>
-                    <p>Aucun pro ne paie pour être bien classé.</p>
-                </div>
+            <div class="pb-avatar">
+                <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path></svg>
             </div>
-            <div class="trust-item">
-                <div class="trust-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="7"></circle><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline></svg></div>
-                <div>
-                    <h4>Expertise vérifiée</h4>
-                    <p>Siren contrôlé et références exigées.</p>
-                </div>
-            </div>
-            <div class="trust-item">
-                <div class="trust-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg></div>
-                <div>
-                    <h4>Respect des normes</h4>
-                    <p>Maîtrise de l'Arrêté ANC de 2009.</p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <section class="container" style="padding-bottom: 80px;">
-        <div style="margin-bottom: 48px; display: flex; justify-content: space-between; align-items: flex-end;">
-            <div>
-                <h2>Les experts certifiés</h2>
-                <p style="margin: 0;">124 professionnels vérifiés par notre équipe.</p>
-            </div>
-        </div>
-
-        <div class="grid-2">
             
-            <div class="pro-card">
-                <div class="pro-header">
-                    <div class="pro-avatar">
-                        <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path></svg>
+            <div class="pb-content">
+                <span class="pb-type">Menuiserie & Fabrication</span>
+                <h1>Atelier du Copeau</h1>
+                <p style="margin: 0; font-size: 1.125rem; color: var(--text-main);">Créateurs de mobilier sanitaire écologique haut de gamme.</p>
+                
+                <div class="tag-group">
+                    <span class="tag sciure">TLB à Sciure</span>
+                    <span class="tag archi">Design Intérieur</span>
+                    <span class="tag sep">Sur-mesure</span>
+                </div>
+            </div>
+        </header>
+
+        <div class="main-grid">
+            
+            <main>
+                <section class="content-section">
+                    <h2>Notre Histoire</h2>
+                    <p class="lead">L'Atelier du Copeau est né de la volonté de réconcilier l'esthétique de la salle de bain moderne avec les principes de la toilette écologique.</p>
+                    <p>Fondée par deux artisans menuisiers bretons, notre structure fabrique à la main des meubles sanitaires conçus pour s'intégrer dans les maisons principales, sans faire de compromis sur le design. Nous utilisons exclusivement des bois issus de forêts locales (châtaignier, frêne, chêne) traités avec des huiles écologiques hydrofuges pour résister à l'humidité de la salle d'eau.</p>
+                    <p>Notre philosophie : une toilette sans eau ne doit plus ressembler à une "cabane au fond du jardin", elle doit être le meuble le plus élégant de votre pièce.</p>
+                </section>
+
+                <section class="content-section">
+                    <h2>Notre Expertise</h2>
+                    <div class="services-grid">
+                        <div class="service-card">
+                            <div class="s-icon">
+                                <svg viewBox="0 0 24 24"><path d="M20 14.66V20a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h5.34"></path><polygon points="18 2 22 6 12 16 8 16 8 12 18 2"></polygon></svg>
+                            </div>
+                            <h3>Fabrication sur-mesure</h3>
+                            <p style="font-size: 0.95rem; margin: 0;">Création de meubles sanitaires adaptés aux dimensions exactes de votre pièce, avec choix des essences de bois locales.</p>
+                        </div>
+                        <div class="service-card">
+                            <div class="s-icon">
+                                <svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2" ry="2"></rect><rect x="9" y="9" width="6" height="6"></rect><line x1="9" y1="1" x2="9" y2="4"></line><line x1="15" y1="1" x2="15" y2="4"></line><line x1="9" y1="20" x2="9" y2="23"></line><line x1="15" y1="20" x2="15" y2="23"></line><line x1="20" y1="9" x2="23" y2="9"></line><line x1="20" y1="14" x2="23" y2="14"></line></svg>
+                            </div>
+                            <h3>Modules à séparation</h3>
+                            <p style="font-size: 0.95rem; margin: 0;">Intégration d'inserts séparateurs d'urine dans des coffrages en bois noble pour un confort maximal au quotidien.</p>
+                        </div>
                     </div>
-                    <div class="pro-info">
-                        <span class="pro-type">Fabricant</span>
-                        <h3>Atelier du Copeau</h3>
-                        <div class="pro-location">
+                </section>
+
+                <section class="content-section">
+                    <h2>Nos Réalisations</h2>
+                    <p>Découvrez nos modèles installés en résidence principale.</p>
+                    <div class="portfolio-grid">
+                        <div class="p-image"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg></div>
+                        <div class="p-image"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg></div>
+                        <div class="p-image"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg></div>
+                        <div class="p-image"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg></div>
+                    </div>
+                </section>
+            </main>
+
+            <aside class="sidebar">
+                
+                <div class="contact-card">
+                    <h3>Discuter du projet</h3>
+                    <p style="font-size: 0.95rem; margin-bottom: 24px;">L'Atelier livre ses créations dans toute la France. Demandez un devis ou des conseils.</p>
+                    
+                    <a href="#" class="btn btn-primary">Contacter l'artisan</a>
+                    
+                    <div class="contact-list">
+                        <div class="c-item">
                             <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
-                            Bretagne (Livraison France)
+                            <div class="c-text">
+                                Basé en Bretagne
+                                <span>Livraison sur toute la France métropolitaine</span>
+                            </div>
+                        </div>
+                        <div class="c-item">
+                            <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+                            <div class="c-text">02 97 45 XX XX</div>
+                        </div>
+                        <div class="c-item">
+                            <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                            <div class="c-text">contact@atelierducopeau.fr</div>
                         </div>
                     </div>
                 </div>
-                <div class="pro-body">
-                    <p class="pro-desc">Menuiserie artisanale spécialisée dans la création de meubles en bois massif pour toilettes à litière bio-maîtrisée. Essences locales et finitions haut de gamme pour l'intérieur.</p>
-                    <div class="pro-tags">
-                        <span class="tag sciure">TLB à Sciure</span>
-                        <span class="tag archi">Design Intérieur</span>
-                    </div>
-                </div>
-                <div class="pro-footer">
-                    <div class="verified">
-                        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-                        Artisan Recommandé
-                    </div>
-                    <a href="#" class="btn btn-outline" style="padding: 10px 24px; font-size: 0.9rem;">Contacter</a>
-                </div>
-            </div>
 
-            <div class="pro-card">
-                <div class="pro-header">
-                    <div class="pro-avatar">
-                        <svg viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path></svg>
-                    </div>
-                    <div class="pro-info">
-                        <span class="pro-type">Installateur / Plomberie</span>
-                        <h3>Éco-Sanit Ingénierie</h3>
-                        <div class="pro-location">
-                            <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
-                            Île-de-France & Région Centre
-                        </div>
-                    </div>
+                <div class="ecorina-note">
+                    <h4>
+                        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+                        L'Avis d'Ecorina
+                    </h4>
+                    <p>Nous recommandons cet atelier pour la qualité exceptionnelle de ses finitions. Leurs modèles font de vos sanitaires un véritable meuble de menuiserie, parfait pour l'exigence d'une maison principale.</p>
                 </div>
-                <div class="pro-body">
-                    <p class="pro-desc">Entreprise de plomberie spécialisée dans la transition écologique de l'habitat. Pose de systèmes à séparation d'urine, carottage pour gaines de ventilation et raccordement aux eaux grises.</p>
-                    <div class="pro-tags">
-                        <span class="tag sep">WC Séparation</span>
-                        <span class="tag archi">Plomberie</span>
-                    </div>
-                </div>
-                <div class="pro-footer">
-                    <div class="verified">
-                        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-                        Artisan Recommandé
-                    </div>
-                    <a href="#" class="btn btn-outline" style="padding: 10px 24px; font-size: 0.9rem;">Contacter</a>
-                </div>
-            </div>
 
-            <div class="pro-card">
-                <div class="pro-header">
-                    <div class="pro-avatar">
-                        <svg viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>
-                    </div>
-                    <div class="pro-info">
-                        <span class="pro-type">Bureau d'études</span>
-                        <h3>Cabinet Archi-Verte</h3>
-                        <div class="pro-location">
-                            <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
-                            National (Consulting)
-                        </div>
-                    </div>
-                </div>
-                <div class="pro-body">
-                    <p class="pro-desc">Bureau d'études environnementales accompagnant les professionnels et ERP (campings, écoles, bureaux) dans le dimensionnement de lombricomposteurs géants et le dépôt de dossiers SPANC.</p>
-                    <div class="pro-tags">
-                        <span class="tag archi">Réglementation ANC</span>
-                        <span class="tag sep">ERP & Collectivité</span>
-                    </div>
-                </div>
-                <div class="pro-footer">
-                    <div class="verified">
-                        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-                        Expert Recommandé
-                    </div>
-                    <a href="#" class="btn btn-outline" style="padding: 10px 24px; font-size: 0.9rem;">Contacter</a>
-                </div>
-            </div>
-
-            <div class="pro-card">
-                <div class="pro-header">
-                    <div class="pro-avatar">
-                        <svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2" ry="2"></rect><rect x="9" y="9" width="6" height="6"></rect><line x1="9" y1="1" x2="9" y2="4"></line><line x1="15" y1="1" x2="15" y2="4"></line><line x1="9" y1="20" x2="9" y2="23"></line><line x1="15" y1="20" x2="15" y2="23"></line><line x1="20" y1="9" x2="23" y2="9"></line><line x1="20" y1="14" x2="23" y2="14"></line><line x1="1" y1="9" x2="4" y2="9"></line><line x1="1" y1="14" x2="4" y2="14"></line></svg>
-                    </div>
-                    <div class="pro-info">
-                        <span class="pro-type">Fabricant</span>
-                        <h3>Separa-Tech France</h3>
-                        <div class="pro-location">
-                            <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
-                            Occitanie (Livraison France)
-                        </div>
-                    </div>
-                </div>
-                <div class="pro-body">
-                    <p class="pro-desc">Fabricant français d'inserts séparateurs d'urine en plastique recyclé et d'extracteurs d'air 12V ultra-silencieux. La solution idéale pour les auto-constructeurs de Tiny Houses.</p>
-                    <div class="pro-tags">
-                        <span class="tag sep">Pièces & Inserts</span>
-                        <span class="tag sciure">Auto-construction</span>
-                    </div>
-                </div>
-                <div class="pro-footer">
-                    <div class="verified">
-                        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-                        Fabricant Recommandé
-                    </div>
-                    <a href="#" class="btn btn-outline" style="padding: 10px 24px; font-size: 0.9rem;">Contacter</a>
-                </div>
-            </div>
-
+            </aside>
         </div>
-
-        <div style="text-align: center; margin-top: 64px;">
-            <a href="#" class="btn btn-outline">Charger plus de résultats</a>
-        </div>
-    </section>
-
-    <section id="rejoindre" class="container" style="padding-bottom: 80px;">
-        <div class="b2b-banner">
-            <div class="b2b-content">
-                <span class="pill" style="color: var(--primary); margin-bottom: 24px; border: none;">Espace Professionnels</span>
-                <h2 style="font-size: clamp(2rem, 4vw, 3rem);">Vous êtes un expert de l'assainissement écologique ?</h2>
-                <p>Fabricants, plombiers spécialisés, architectes ou bureaux d'études : rejoignez la plateforme de référence pour toucher une clientèle qualifiée, consciente des enjeux, et prête à sauter le pas.</p>
-            </div>
-            <div>
-                <a href="#" class="btn btn-primary" style="background: white; color: var(--text-main); white-space: nowrap;">Demander à être référencé</a>
-                <p style="font-size: 0.85rem; color: rgba(255,255,255,0.5); text-align: center; margin-top: 16px;">Examen du dossier sous 48h.</p>
-            </div>
-        </div>
-    </section>
+    </div>
 
     <footer>
         <div class="container">
-            <div class="logo" style="justify-content: center; margin-bottom: 16px; color: var(--text-main);">eco<span style="color: var(--primary);">rina.</span></div>
-            <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 24px;">Le réseau des acteurs de la transition sanitaire.</p>
-            <div style="font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em;">
-                © 2026 Ecorina • Zéro JavaScript • Accessible RGAA
+            <div class="footer-content">
+                <div class="logo" style="font-size: 1.25rem;">eco<span style="color: var(--primary);">rina.</span></div>
+                <div>L'Annuaire des acteurs de la transition sanitaire.</div>
+                <div style="font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: var(--primary);">
+                    © 2026 • Zéro JS
+                </div>
             </div>
         </div>
     </footer>
 
-</div> </body>
+</div>
+</body>
 </html>
