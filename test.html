@@ -3,12 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ecorina - Fiche Artisan : Atelier du Copeau</title>
+    <title>Ecorina - Réglementation ANC 2026</title>
     <style>
-        /* --- THEME "ACCUEIL 3 - LUXURY EDITORIAL" --- */
+        /* --- THEME "ACCUEIL 3 - FULL WIDTH EDITORIAL" --- */
         :root {
             --bg-page: #F3F5F2; 
             --bg-card: #FFFFFF;
+            --bg-card-alt: #FAFBFA;
             
             --text-main: #131E17; 
             --text-muted: #596B60; 
@@ -16,9 +17,6 @@
             --primary: #167D3D; 
             --primary-hover: #116330;
             --primary-light: #EBF2EC; 
-            
-            --accent-wood: #D97746; 
-            --accent-wood-light: #FDF4EF;
             
             --border: #E1E6E2;
             --shadow-sm: 0 4px 12px rgba(19, 30, 23, 0.03);
@@ -35,113 +33,160 @@
 
         /* --- RESET --- */
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        html { scroll-behavior: smooth; background: var(--bg-page); }
+        html { scroll-behavior: smooth; background: var(--bg-page); overflow-x: hidden; }
         body { font-family: var(--font-main); color: var(--text-main); line-height: 1.6; overflow-x: hidden; -webkit-font-smoothing: antialiased; }
         .site-wrapper { overflow-x: hidden; width: 100%; position: relative; }
         a { text-decoration: none; color: inherit; transition: var(--transition); }
+        ul, ol { list-style: none; padding: 0; }
         img, svg { max-width: 100%; display: block; }
 
-        /* --- LAYOUT GLOBAL --- */
-        .container { max-width: 1200px; margin: 0 auto; padding: 0 clamp(24px, 5vw, 48px); }
+        /* --- LAYOUT GLOBAL (Extra Large) --- */
+        .container { max-width: 1400px; margin: 0 auto; padding: 0 clamp(24px, 5vw, 64px); }
         
-        /* Grille de contenu (sous le header) */
-        .main-grid { display: grid; grid-template-columns: 1fr 380px; gap: clamp(32px, 5vw, 64px); align-items: start; margin-top: 48px; padding-bottom: 120px; }
+        /* IMAGE FULL BLEED (Bord à bord de l'écran) */
+        .full-bleed { width: 100vw; position: relative; left: 50%; right: 50%; margin-left: -50vw; margin-right: -50vw; }
 
         /* --- TYPOGRAPHIE --- */
-        h1 { font-size: clamp(2.25rem, 4vw, 3rem); line-height: 1.1; letter-spacing: -0.03em; margin: 0 0 12px 0; font-weight: 600; color: var(--text-main); }
-        h2 { font-size: clamp(1.75rem, 3vw, 2.25rem); line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 32px; font-weight: 600; }
-        h3 { font-size: 1.25rem; margin-bottom: 8px; font-weight: 600; color: var(--text-main); }
+        h1 { font-size: clamp(3rem, 6vw, 5.5rem); line-height: 1; letter-spacing: -0.03em; margin-bottom: 32px; font-weight: 600; color: var(--text-main); max-width: 1200px; }
+        h2 { font-size: clamp(2rem, 4vw, 3.5rem); line-height: 1.1; letter-spacing: -0.02em; font-weight: 600; color: var(--text-main); margin-top: 80px; margin-bottom: 32px; padding-bottom: 24px; border-bottom: 2px solid var(--text-main); display: flex; gap: 24px; align-items: baseline; }
+        h2 span { color: var(--primary); font-weight: 300; }
+        h3 { font-size: 1.5rem; font-weight: 600; color: var(--text-main); margin-bottom: 16px; }
         
-        p { font-size: 1.05rem; color: var(--text-muted); margin-bottom: 20px; line-height: 1.7; }
-        p.lead { font-size: clamp(1.15rem, 2vw, 1.25rem); color: var(--text-main); margin-bottom: 32px; font-weight: 400; line-height: 1.6; }
-        
-        .breadcrumb { font-size: 0.85rem; color: var(--text-muted); margin-top: 40px; margin-bottom: 40px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; }
+        .pill { display: inline-flex; align-items: center; padding: 8px 24px; border-radius: 50px; font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; background: var(--text-main); color: white; margin-bottom: 40px; }
+        .breadcrumb { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 40px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; }
         .breadcrumb span { color: var(--primary); margin: 0 8px; }
 
-        /* --- TAGS --- */
-        .tag-group { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 24px; }
-        .tag { padding: 6px 14px; border-radius: 8px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; display: inline-flex; align-items: center; justify-content: center; height: 32px; }
-        .tag.sciure { background: var(--accent-wood-light); color: var(--accent-wood); }
-        .tag.sep { background: var(--primary-light); color: var(--primary); }
-        .tag.archi { background: var(--bg-page); color: var(--text-main); border: 1px solid var(--border); }
-
         /* --- BOUTONS --- */
-        .btn { display: inline-flex; justify-content: center; align-items: center; padding: 16px 32px; border-radius: 100px; font-weight: 600; font-size: 1rem; transition: var(--transition); cursor: pointer; border: 1px solid transparent; letter-spacing: 0.02em; width: 100%; height: 56px; }
+        .btn { display: inline-flex; justify-content: center; align-items: center; padding: 18px 40px; border-radius: 100px; font-weight: 600; font-size: 1.05rem; transition: var(--transition); cursor: pointer; border: 1px solid transparent; letter-spacing: 0.02em; }
         .btn-primary { background: var(--text-main); color: white; }
         .btn-primary:hover { background: var(--primary); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(22, 125, 61, 0.2); }
         .btn-outline { background: transparent; color: var(--text-main); border-color: var(--border); }
         .btn-outline:hover { background: var(--bg-card); border-color: var(--text-main); transform: translateY(-2px); box-shadow: var(--shadow-sm); }
 
         /* --- NAVIGATION --- */
-        nav { display: flex; justify-content: space-between; align-items: center; padding: 32px 0; border-bottom: 1px solid rgba(22, 125, 61, 0.1); }
+        nav { display: flex; justify-content: space-between; align-items: center; padding: 32px 0; border-bottom: 1px solid rgba(22, 125, 61, 0.1); margin-bottom: 48px; }
         .logo { font-size: 1.5rem; font-weight: 700; letter-spacing: -0.05em; color: var(--text-main); display: flex; align-items: center; gap: 8px; }
         .logo span { color: var(--primary); }
         .nav-links { display: flex; gap: 40px; font-size: 0.9rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; }
         .nav-links a:hover { color: var(--primary); }
 
-        /* --- HEADER PROFIL (Pleine largeur, propre et posé) --- */
-        .profile-banner { background: var(--bg-card); border-radius: var(--radius-xl); padding: clamp(40px, 6vw, 64px); box-shadow: var(--shadow-sm); border: 1px solid var(--border); display: flex; gap: 48px; align-items: center; position: relative; }
+        /* --- EN-TÊTE ARTICLE (Aligné à gauche, Pleine largeur) --- */
+        .article-header { padding-top: 40px; padding-bottom: 64px; }
+        .article-header p.lead { font-size: clamp(1.25rem, 3vw, 1.75rem); color: var(--text-muted); margin: 0 0 48px 0; line-height: 1.5; max-width: 1200px; }
         
-        .pb-avatar { width: 160px; height: 160px; border-radius: var(--radius-lg); background: var(--bg-page); display: flex; align-items: center; justify-content: center; flex-shrink: 0; border: 1px solid var(--border); }
-        .pb-avatar svg { width: 64px; height: 64px; stroke: var(--primary); fill: none; stroke-width: 1.5; }
+        .article-meta { display: flex; align-items: center; gap: 24px; font-size: 1rem; color: var(--text-muted); font-weight: 500; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 24px 0; flex-wrap: wrap; }
+        .article-meta .author { display: flex; align-items: center; gap: 16px; color: var(--text-main); font-weight: 600; }
+        .author-avatar { width: 48px; height: 48px; border-radius: 50%; background: var(--primary-light); display: flex; align-items: center; justify-content: center; }
+        .author-avatar svg { width: 24px; height: 24px; fill: var(--primary); }
+        .article-meta .dot { color: var(--border); }
         
-        .pb-content { flex-grow: 1; }
-        .pb-type { color: var(--text-muted); font-weight: 700; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.1em; display: block; margin-bottom: 12px; }
-        
-        .verified-badge { position: absolute; top: 40px; right: 40px; display: inline-flex; align-items: center; gap: 8px; background: var(--primary-light); color: var(--primary); padding: 10px 20px; border-radius: 50px; font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; }
-        .verified-badge svg { width: 16px; height: 16px; fill: var(--primary); }
+        /* IMAGE HERO BORD A BORD */
+        .hero-image { aspect-ratio: 21/9; max-height: 600px; background: var(--bg-card); display: flex; align-items: center; justify-content: center; overflow: hidden; position: relative; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); margin-bottom: 80px; }
+        .hero-image::after { content: ''; position: absolute; width: 100%; height: 100%; background: radial-gradient(circle at center, rgba(22,125,61,0.05) 0%, transparent 70%); }
+        .hero-image svg { width: 120px; height: 120px; stroke: var(--border); stroke-width: 1.5; fill: none; z-index: 1; }
 
-        /* --- COLONNE GAUCHE (Le contenu) --- */
-        .content-section { margin-bottom: 80px; }
-        .content-section:last-child { margin-bottom: 0; }
+        /* --- CORPS DE L'ARTICLE (Pleine largeur) --- */
+        .article-content { padding-bottom: 80px; }
         
-        /* Bento des Prestations */
-        .services-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
-        .service-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 40px; box-shadow: var(--shadow-sm); transition: var(--transition); }
-        .service-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); border-color: var(--primary); }
-        .s-icon { width: 56px; height: 56px; border-radius: 16px; background: var(--bg-page); display: flex; align-items: center; justify-content: center; margin-bottom: 24px; border: 1px solid var(--border); }
-        .s-icon svg { width: 28px; height: 28px; stroke: var(--text-main); fill: none; stroke-width: 1.5; }
-        
-        /* Portfolio Grid */
-        .portfolio-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
-        .p-image { aspect-ratio: 4/3; background: var(--bg-card); border-radius: var(--radius-lg); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; overflow: hidden; box-shadow: var(--shadow-sm); }
-        .p-image svg { width: 48px; height: 48px; stroke: var(--border); stroke-width: 1.5; fill: none; }
+        /* Sommaire pleine largeur */
+        .toc-full { background: var(--primary-light); padding: 64px; border-radius: var(--radius-xl); margin-bottom: 80px; border: 1px solid rgba(22, 125, 61, 0.1); }
+        .toc-full h4 { font-size: 1rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--primary); margin-bottom: 32px; display: flex; align-items: center; gap: 12px; }
+        .toc-full h4 svg { width: 20px; height: 20px; stroke: currentColor; fill: none; stroke-width: 2; }
+        .toc-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; }
+        .toc-grid a { font-size: 1.125rem; color: var(--text-main); font-weight: 600; padding: 24px; background: var(--bg-card); border-radius: var(--radius-md); border: 1px solid var(--border); transition: var(--transition); display: flex; align-items: center; justify-content: space-between; }
+        .toc-grid a::after { content: '→'; color: var(--border); font-family: monospace; font-size: 1.5rem; transition: var(--transition); }
+        .toc-grid a:hover { border-color: var(--primary); color: var(--primary); box-shadow: var(--shadow-sm); transform: translateY(-4px); }
+        .toc-grid a:hover::after { color: var(--primary); transform: translateX(4px); }
 
-        /* --- COLONNE DROITE (Sidebar) --- */
-        .sidebar { position: sticky; top: 40px; display: flex; flex-direction: column; gap: 32px; }
+        /* Textes courants adaptés à la pleine largeur (Police plus grande) */
+        .article-content p { font-size: 1.25rem; color: var(--text-main); margin-bottom: 40px; line-height: 1.8; font-weight: 400; }
         
-        /* Carte de contact propre */
-        .contact-card { background: var(--bg-card); border-radius: var(--radius-xl); padding: 40px; border: 1px solid var(--border); box-shadow: var(--shadow-sm); }
-        .contact-card h3 { margin-bottom: 16px; font-size: 1.5rem; }
+        /* Lettrine (Dropcap) */
+        .article-content > p:first-of-type::first-letter { float: left; font-size: 7rem; line-height: 0.7; padding-top: 16px; padding-right: 24px; color: var(--primary); font-family: Georgia, serif; font-weight: bold; }
         
-        .contact-list { margin-top: 32px; display: flex; flex-direction: column; gap: 24px; }
-        .c-item { display: flex; gap: 16px; align-items: flex-start; }
-        .c-item svg { width: 24px; height: 24px; stroke: var(--text-muted); fill: none; stroke-width: 2; flex-shrink: 0; }
-        .c-text { font-size: 1rem; color: var(--text-main); font-weight: 500; line-height: 1.5; }
-        .c-text span { display: block; font-size: 0.9rem; color: var(--text-muted); font-weight: 400; margin-top: 4px; }
+        /* Citations pleine largeur */
+        .article-content blockquote { margin: 80px 0; padding: 64px; background: var(--bg-card); border-top: 4px solid var(--primary); border-bottom: 4px solid var(--primary); text-align: center; }
+        .article-content blockquote p { font-size: 2rem; font-style: italic; margin-bottom: 0; color: var(--text-main); line-height: 1.4; font-weight: 300; }
+        
+        /* Listes */
+        .article-content ul { margin-bottom: 48px; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 32px; }
+        .article-content ul li { font-size: 1.15rem; line-height: 1.6; color: var(--text-main); background: var(--bg-card); padding: 32px; border-radius: var(--radius-lg); border: 1px solid var(--border); box-shadow: var(--shadow-sm); }
+        .article-content ul li strong { display: block; font-size: 1.25rem; color: var(--primary); margin-bottom: 12px; }
+        
+        /* Box info pleine largeur */
+        .article-content .info-box { background: var(--text-main); color: white; border-radius: var(--radius-xl); padding: 64px; margin: 80px 0; box-shadow: var(--shadow-lg); }
+        .article-content .info-box h4 { display: flex; align-items: center; gap: 12px; color: var(--primary-light); font-size: 1.125rem; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 24px; }
+        .article-content .info-box p { font-size: 1.25rem; margin-bottom: 0; color: rgba(255,255,255,0.9); }
+        
+        /* Images dans le texte */
+        .article-content figure { margin: 80px 0; }
+        .article-content .img-placeholder { width: 100%; aspect-ratio: 21/9; background: var(--bg-page); border-radius: var(--radius-xl); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; }
+        .article-content .img-placeholder svg { width: 64px; height: 64px; stroke: var(--text-muted); stroke-width: 1.5; fill: none; opacity: 0.3; }
+        .article-content figcaption { text-align: left; font-size: 1rem; color: var(--text-muted); margin-top: 16px; font-weight: 500; border-left: 2px solid var(--primary); padding-left: 16px; }
 
-        /* Avis Ecorina (Rupture visuelle) */
-        .ecorina-note { background: var(--text-main); color: white; border-radius: var(--radius-xl); padding: 40px; box-shadow: var(--shadow-lg); }
-        .ecorina-note h4 { color: var(--primary-light); margin-bottom: 16px; display: flex; align-items: center; gap: 12px; font-size: 1.125rem; }
-        .ecorina-note p { color: rgba(255,255,255,0.8); margin: 0; font-size: 1rem; line-height: 1.6; }
+        .article-content strong { font-weight: 600; color: var(--text-main); }
+
+        /* --- BAS DE L'ARTICLE --- */
+        .end-mark { display: block; width: 100%; height: 2px; background: var(--border); margin: 80px 0; position: relative; }
+        .end-mark::after { content: ''; position: absolute; width: 60px; height: 6px; background: var(--primary); top: -2px; left: 0; }
+
+        /* Partage Pleine largeur */
+        .share-full { display: flex; align-items: center; justify-content: flex-start; gap: 24px; margin-bottom: 80px; padding: 40px; background: var(--bg-card); border-radius: var(--radius-lg); border: 1px solid var(--border); }
+        .share-full span { font-size: 1.125rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-main); margin-right: 16px; }
+        .share-btn { width: 56px; height: 56px; border-radius: 50%; background: var(--bg-page); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; transition: var(--transition); cursor: pointer; }
+        .share-btn:hover { border-color: var(--primary); background: var(--primary-light); transform: translateY(-4px); }
+        .share-btn svg { width: 24px; height: 24px; fill: var(--text-main); transition: var(--transition); }
+        .share-btn:hover svg { fill: var(--primary); }
+
+        /* Appel à l'action Pleine Largeur */
+        .cta-full { background: var(--bg-card-alt); border-radius: var(--radius-xl); padding: 80px; border: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; gap: 64px; box-shadow: var(--shadow-sm); }
+        .cta-full h3 { font-size: 2.5rem; margin-bottom: 16px; margin-top: 0; }
+        .cta-full p { font-size: 1.25rem; color: var(--text-muted); margin-bottom: 0; max-width: 600px; }
+
+        /* --- ARTICLES SIMILAIRES --- */
+        .related-section { padding-top: 80px; }
+        .article-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; margin-top: 48px; }
+        .article-card { background: var(--bg-card); border-radius: var(--radius-xl); border: 1px solid var(--border); overflow: hidden; box-shadow: var(--shadow-sm); transition: var(--transition); display: flex; flex-direction: column; cursor: pointer; }
+        .article-card:hover { transform: translateY(-8px); box-shadow: var(--shadow-md); border-color: var(--primary); }
+        .a-image { height: 240px; background: var(--bg-page); border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: center; }
+        .a-image svg { width: 64px; height: 64px; stroke: var(--border); stroke-width: 1.5; fill: none; }
+        .a-content { padding: 40px; flex-grow: 1; display: flex; flex-direction: column; justify-content: space-between; }
+        .a-meta { font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--primary); margin-bottom: 16px; display: block; }
+        .a-content h3 { font-size: 1.35rem; margin-bottom: 0; line-height: 1.4; }
+
+        /* --- NEWSLETTER --- */
+        .newsletter-box { background: var(--text-main); color: white; border-radius: var(--radius-xl); padding: clamp(64px, 8vw, 100px); display: flex; align-items: center; justify-content: space-between; gap: 64px; margin-top: 120px; box-shadow: var(--shadow-lg); }
+        .n-content h2 { font-size: clamp(2rem, 4vw, 3rem); margin-top: 0; margin-bottom: 16px; color: white; border: none; padding: 0; }
+        .n-content p { color: rgba(255,255,255,0.7); margin: 0; font-size: 1.15rem; max-width: 500px; }
+        .n-form { display: flex; gap: 16px; width: 100%; max-width: 500px; }
+        .n-input { flex-grow: 1; padding: 20px 32px; border-radius: 100px; border: 1px solid rgba(255,255,255,0.2); background: rgba(255,255,255,0.05); color: white; font-size: 1.125rem; outline: none; transition: var(--transition); }
+        .n-input:focus { border-color: var(--primary); background: rgba(255,255,255,0.1); }
+        .n-submit { padding: 20px 40px; border-radius: 100px; background: var(--primary); color: white; border: none; font-weight: 600; font-size: 1.125rem; cursor: pointer; transition: var(--transition); }
+        .n-submit:hover { background: var(--primary-hover); }
 
         /* --- FOOTER --- */
-        footer { padding: 48px 0; border-top: 1px solid var(--border); text-align: center; }
-        .footer-content { display: flex; justify-content: space-between; align-items: center; font-size: 0.85rem; color: var(--text-muted); }
+        footer { padding: 64px 0 32px 0; margin-top: 80px; border-top: 1px solid var(--border); }
+        .footer-content { display: flex; justify-content: space-between; align-items: center; font-size: 0.95rem; color: var(--text-muted); }
 
         /* --- RESPONSIVE --- */
         @media (max-width: 1024px) {
-            .main-grid { grid-template-columns: 1fr; gap: 64px; }
-            .sidebar { position: relative; top: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 32px; align-items: stretch; }
-            .contact-card, .ecorina-note { height: 100%; }
+            .cta-full { flex-direction: column; text-align: center; gap: 40px; padding: 64px 32px; }
+            .article-grid { grid-template-columns: repeat(2, 1fr); }
+            .newsletter-box { flex-direction: column; text-align: center; }
+            .n-content p { margin: 0 auto; }
         }
-
         @media (max-width: 768px) {
             .nav-links { display: none; }
-            .profile-banner { flex-direction: column; text-align: center; padding: 40px 24px; gap: 32px; }
-            .verified-badge { position: relative; top: 0; right: 0; margin-bottom: 24px; }
-            .tag-group { justify-content: center; }
-            .services-grid, .portfolio-grid, .sidebar { grid-template-columns: 1fr; }
+            .article-header { padding-top: 24px; padding-bottom: 40px; }
+            h2 { flex-direction: column; gap: 8px; border-bottom: none; }
+            .toc-full { padding: 32px; }
+            .article-content ul { grid-template-columns: 1fr; gap: 16px; }
+            .article-content blockquote { padding: 40px 24px; }
+            .article-content .info-box { padding: 40px 24px; }
+            .share-full { flex-wrap: wrap; justify-content: center; }
+            .article-grid { grid-template-columns: 1fr; }
+            .n-form { flex-direction: column; }
+            .n-submit { width: 100%; }
         }
     </style>
 </head>
@@ -155,127 +200,155 @@
                 ecorina
             </div>
             <div class="nav-links">
-                <a href="#">Annuaire</a>
                 <a href="#">Guides</a>
-                <a href="#">Comparatif</a>
+                <a href="#">Réglementation</a>
+                <a href="#">Témoignages</a>
             </div>
-            <a href="#" class="btn-outline" style="padding: 10px 24px; border-radius: 50px; font-size: 0.85rem; font-weight: 600; display: inline-flex; align-items: center; width: auto; height: auto;">Retour à la recherche</a>
+            <a href="#" class="btn-outline" style="padding: 10px 24px; border-radius: 50px; font-size: 0.85rem; font-weight: 600; display: inline-flex; align-items: center;">Retour au Mag</a>
         </nav>
     </div>
 
-    <div class="container">
-        <div class="breadcrumb">Accueil <span>/</span> Annuaire des pros <span>/</span> Fabricants <span>/</span> Atelier du Copeau</div>
+    <header class="container article-header">
+        <div class="breadcrumb">Le Mag Ecorina <span>/</span> Législation</div>
+        <span class="pill">Dossier Juridique</span>
         
-        <header class="profile-banner">
-            <div class="verified-badge">
-                <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path><polyline points="9 12 11 14 15 10" stroke="currentColor" stroke-width="2" fill="none"></polyline></svg>
-                Expert Vérifié
+        <h1>Réglementation ANC 2026 : Ce qui change pour les toilettes sans eau.</h1>
+        <p class="lead">L'arrêté de 2009 sur l'Assainissement Non Collectif connaît sa première grande révision. Est-ce la fin du flou juridique pour l'installation de modèles à séparation en maison principale ?</p>
+        
+        <div class="article-meta">
+            <div class="author">
+                <div class="author-avatar"><svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg></div>
+                La Rédaction Ecorina
             </div>
-
-            <div class="pb-avatar">
-                <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path></svg>
-            </div>
-            
-            <div class="pb-content">
-                <span class="pb-type">Menuiserie & Fabrication</span>
-                <h1>Atelier du Copeau</h1>
-                <p style="margin: 0; font-size: 1.125rem; color: var(--text-main);">Créateurs de mobilier sanitaire écologique haut de gamme.</p>
-                
-                <div class="tag-group">
-                    <span class="tag sciure">TLB à Sciure</span>
-                    <span class="tag archi">Design Intérieur</span>
-                    <span class="tag sep">Sur-mesure</span>
-                </div>
-            </div>
-        </header>
-
-        <div class="main-grid">
-            
-            <main>
-                <section class="content-section">
-                    <h2>Notre Histoire</h2>
-                    <p class="lead">L'Atelier du Copeau est né de la volonté de réconcilier l'esthétique de la salle de bain moderne avec les principes de la toilette écologique.</p>
-                    <p>Fondée par deux artisans menuisiers bretons, notre structure fabrique à la main des meubles sanitaires conçus pour s'intégrer dans les maisons principales, sans faire de compromis sur le design. Nous utilisons exclusivement des bois issus de forêts locales (châtaignier, frêne, chêne) traités avec des huiles écologiques hydrofuges pour résister à l'humidité de la salle d'eau.</p>
-                    <p>Notre philosophie : une toilette sans eau ne doit plus ressembler à une "cabane au fond du jardin", elle doit être le meuble le plus élégant de votre pièce.</p>
-                </section>
-
-                <section class="content-section">
-                    <h2>Notre Expertise</h2>
-                    <div class="services-grid">
-                        <div class="service-card">
-                            <div class="s-icon">
-                                <svg viewBox="0 0 24 24"><path d="M20 14.66V20a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h5.34"></path><polygon points="18 2 22 6 12 16 8 16 8 12 18 2"></polygon></svg>
-                            </div>
-                            <h3>Fabrication sur-mesure</h3>
-                            <p style="font-size: 0.95rem; margin: 0;">Création de meubles sanitaires adaptés aux dimensions exactes de votre pièce, avec choix des essences de bois locales.</p>
-                        </div>
-                        <div class="service-card">
-                            <div class="s-icon">
-                                <svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2" ry="2"></rect><rect x="9" y="9" width="6" height="6"></rect><line x1="9" y1="1" x2="9" y2="4"></line><line x1="15" y1="1" x2="15" y2="4"></line><line x1="9" y1="20" x2="9" y2="23"></line><line x1="15" y1="20" x2="15" y2="23"></line><line x1="20" y1="9" x2="23" y2="9"></line><line x1="20" y1="14" x2="23" y2="14"></line></svg>
-                            </div>
-                            <h3>Modules à séparation</h3>
-                            <p style="font-size: 0.95rem; margin: 0;">Intégration d'inserts séparateurs d'urine dans des coffrages en bois noble pour un confort maximal au quotidien.</p>
-                        </div>
-                    </div>
-                </section>
-
-                <section class="content-section">
-                    <h2>Nos Réalisations</h2>
-                    <p>Découvrez nos modèles installés en résidence principale.</p>
-                    <div class="portfolio-grid">
-                        <div class="p-image"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg></div>
-                        <div class="p-image"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg></div>
-                        <div class="p-image"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg></div>
-                        <div class="p-image"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg></div>
-                    </div>
-                </section>
-            </main>
-
-            <aside class="sidebar">
-                
-                <div class="contact-card">
-                    <h3>Discuter du projet</h3>
-                    <p style="font-size: 0.95rem; margin-bottom: 24px;">L'Atelier livre ses créations dans toute la France. Demandez un devis ou des conseils.</p>
-                    
-                    <a href="#" class="btn btn-primary">Contacter l'artisan</a>
-                    
-                    <div class="contact-list">
-                        <div class="c-item">
-                            <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
-                            <div class="c-text">
-                                Basé en Bretagne
-                                <span>Livraison sur toute la France métropolitaine</span>
-                            </div>
-                        </div>
-                        <div class="c-item">
-                            <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
-                            <div class="c-text">02 97 45 XX XX</div>
-                        </div>
-                        <div class="c-item">
-                            <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
-                            <div class="c-text">contact@atelierducopeau.fr</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="ecorina-note">
-                    <h4>
-                        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
-                        L'Avis d'Ecorina
-                    </h4>
-                    <p>Nous recommandons cet atelier pour la qualité exceptionnelle de ses finitions. Leurs modèles font de vos sanitaires un véritable meuble de menuiserie, parfait pour l'exigence d'une maison principale.</p>
-                </div>
-
-            </aside>
+            <span class="dot">•</span>
+            <span>Publié le 12 Mars 2026</span>
+            <span class="dot">•</span>
+            <span>Lecture : 6 min</span>
         </div>
+    </header>
+
+    <div class="full-bleed hero-image">
+        <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
     </div>
+
+    <main class="container article-content">
+        
+        <div class="toc-full">
+            <h4><svg viewBox="0 0 24 24"><line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line><line x1="3" y1="6" x2="3.01" y2="6"></line><line x1="3" y1="12" x2="3.01" y2="12"></line><line x1="3" y1="18" x2="3.01" y2="18"></line></svg> Sommaire du dossier</h4>
+            <div class="toc-grid">
+                <a href="#section1">1. La fin du flou juridique</a>
+                <a href="#section2">2. Les 3 conditions obligatoires</a>
+                <a href="#section3">3. Le cas des appartements</a>
+                <a href="#section4">Conclusion de l'expert</a>
+            </div>
+        </div>
+
+        <p>Depuis la publication de l'Arrêté du 7 septembre 2009, l'installation de toilettes sèches en France est légalement reconnue, mais souvent mal comprise par les SPANC (Services Publics d'Assainissement Non Collectif). La nouvelle directive prévue pour 2026 promet de simplifier les démarches, en particulier pour les modèles modernes d'intérieur.</p>
+
+        <h2 id="section1"><span>01.</span> La fin du flou sur la "Séparation d'urine"</h2>
+        <p>Historiquement, la législation française ne reconnaissait formellement qu'un seul type de sanitaire sans eau : les Toilettes à Litière Bio-maîtrisée (TLB), c'est-à-dire les modèles à sciure. Le texte exigeait que les urines et les fèces soient mélangées à une matière carbonée.</p>
+        <p>Cette formulation posait un problème majeur pour les modèles scandinaves récents (les toilettes à séparation), qui dévient l'urine à la source sans utiliser de sciure. Avec la directive de 2026, le législateur intègre enfin officiellement la "séparation à la source" comme une méthode d'assainissement conforme.</p>
+
+        <blockquote>
+            <p>"La loi ne punit pas l'innovation, elle cherche simplement à protéger les sols. En reconnaissant formellement la séparation des flux, nous alignons le droit français sur les standards environnementaux nord-européens."</p>
+        </blockquote>
+
+        <p>C'est une excellente nouvelle pour les propriétaires souhaitant rénover leur maison principale avec des systèmes plus confortables, car les agents de contrôle n'auront plus le pouvoir de refuser ces dispositifs pour des questions de sémantique.</p>
+
+        <h2 id="section2"><span>02.</span> Les 3 conditions obligatoires en 2026</h2>
+        <p>Que vous optiez pour la sciure ou la séparation, les règles de traitement des résidus restent très strictes. Pour être aux normes et valider le contrôle de votre assainissement, le design pleine largeur de la loi impose de respecter ces trois piliers :</p>
+
+        <ul>
+            <li><strong>L'aire étanche</strong> Vous devez disposer d'un bac à compost extérieur dont la base est imperméable pour protéger la nappe phréatique.</li>
+            <li><strong>La double cuve</strong> La loi exige une maturation du compost d'au moins deux ans. Vous devez donc avoir deux bacs d'alternance.</li>
+            <li><strong>Le traitement liquide</strong> L'urine déviée doit être valorisée au jardin (diluée), ou envoyée vers votre filière de traitement des eaux grises.</li>
+        </ul>
+
+        <figure>
+            <div class="img-placeholder full-bleed" style="width: 100%; margin: 0; border-radius: 0; border-left: none; border-right: none;">
+                <svg viewBox="0 0 24 24"><path d="M4 22h14a2 2 0 0 0 2-2V7.5L14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+            </div>
+            <figcaption>Schéma type d'une installation d'aire de compostage conforme à la norme ANC 2026.</figcaption>
+        </figure>
+
+        <h2 id="section3"><span>03.</span> Appartements : Toujours dans l'impasse ?</h2>
+        <p>C'est la question la plus fréquente posée sur nos forums : <em>"Puis-je installer une toilette sèche dans mon appartement parisien ?"</em></p>
+        <p>Malgré les assouplissements prévus pour 2026, la réponse reste techniquement <strong>non</strong>, pour des raisons logistiques évidentes. Puisque le compostage sur aire étanche reste obligatoire, l'absence de jardin privé rend le respect de la loi impossible. Jeter le contenu d'un seau dans les poubelles ménagères classiques est une infraction sanitaire.</p>
+
+        <div class="info-box">
+            <h4><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg> L'Exception urbaine</h4>
+            <p>Certains éco-quartiers urbains testent actuellement des réseaux de collecte de matière organique dédiés. Dans ce cadre très spécifique (approuvé par la mairie), l'installation en immeuble devient légale et encouragée.</p>
+        </div>
+
+        <h2 id="section4"><span>04.</span> Conclusion : Faut-il attendre ?</h2>
+        <p>Inutile de retarder vos travaux de rénovation. Les SPANC locaux sont de plus en plus tolérants envers les modèles à séparation, anticipant les futures directives. Si votre aire de compostage est propre et conforme, et que le traitement de vos eaux grises est aux normes, aucun contrôleur ne vous pénalisera pour votre engagement écologique.</p>
+        
+        <span class="end-mark"></span>
+
+        <div class="share-full">
+            <span>Partager ce dossier</span>
+            <div class="share-btn" title="Copier le lien"><svg viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></div>
+            <div class="share-btn" title="Email"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg></div>
+            <div class="share-btn" title="LinkedIn"><svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg></div>
+        </div>
+
+        <div class="cta-full">
+            <div>
+                <h3>Dossier SPANC complexe ?</h3>
+                <p>Ne prenez pas de risque avec les normes. Trouvez un bureau d'études ou un artisan qualifié dans notre annuaire national.</p>
+            </div>
+            <a href="#" class="btn btn-primary">Consulter l'Annuaire</a>
+        </div>
+
+    </main>
+
+    <section class="container related-section">
+        <h2 style="margin-top: 0; border: none; padding: 0;">Poursuivre la lecture</h2>
+        
+        <div class="article-grid">
+            <article class="article-card">
+                <div class="a-image"><svg viewBox="0 0 24 24"><path d="M12 22a7 7 0 0 0 7-7c0-2-1-3.9-3-5.5s-3.5-4-4-6.5c-.5 2.5-2 4.9-4 6.5C6 11.1 5 13 5 15a7 7 0 0 0 7 7z"></path></svg></div>
+                <div class="a-content">
+                    <span class="a-meta">Législation</span>
+                    <h3>Quelles aides financières pour l'installation ?</h3>
+                </div>
+            </article>
+            <article class="article-card">
+                <div class="a-image"><svg viewBox="0 0 24 24"><rect x="4" y="2" width="16" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg></div>
+                <div class="a-content">
+                    <span class="a-meta">Guides Techniques</span>
+                    <h3>Toilettes à séparation : Le Top 3 des modèles.</h3>
+                </div>
+            </article>
+            <article class="article-card">
+                <div class="a-image"><svg viewBox="0 0 24 24"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline></svg></div>
+                <div class="a-content">
+                    <span class="a-meta">Pratique</span>
+                    <h3>Sciure de bois : Les erreurs qui ruinent le compost.</h3>
+                </div>
+            </article>
+        </div>
+    </section>
+
+    <section class="container">
+        <div class="newsletter-box">
+            <div class="n-content">
+                <h2>Restez à la pointe.</h2>
+                <p>Recevez notre sélection d'articles et d'évolutions de la loi directement dans votre boîte de réception.</p>
+            </div>
+            <form class="n-form" onsubmit="event.preventDefault();">
+                <input type="email" class="n-input" placeholder="Votre adresse email..." required>
+                <button type="submit" class="n-submit">S'inscrire</button>
+            </form>
+        </div>
+    </section>
 
     <footer>
         <div class="container">
             <div class="footer-content">
-                <div class="logo" style="font-size: 1.25rem;">eco<span style="color: var(--primary);">rina.</span></div>
-                <div>L'Annuaire des acteurs de la transition sanitaire.</div>
-                <div style="font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: var(--primary);">
+                <div class="logo" style="font-size: 1.5rem; color: var(--text-main); font-weight: 800; letter-spacing: -0.05em;">eco<span style="color: var(--primary);">rina.</span></div>
+                <div>Le Journal de la transition sanitaire.</div>
+                <div style="font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--primary);">
                     © 2026 • Zéro JS
                 </div>
             </div>
