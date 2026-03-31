@@ -3,35 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ecorina - Le Comparatif Ultime : Sciure vs Séparation</title>
+    <title>Ecorina - Notre Mission et notre Histoire</title>
     <style>
         /* --- THEME "ACCUEIL 3 - LUXURY EDITORIAL" --- */
         :root {
-            /* Couleurs de fond */
             --bg-page: #F3F5F2; 
             --bg-card: #FFFFFF;
             --bg-card-alt: #FAFBFA;
             
-            /* Textes */
             --text-main: #131E17; 
             --text-muted: #596B60; 
             --text-light: #8E9E95;
             
-            /* Accents (Séparation = Vert, Sciure = Terre Cuite) */
             --primary: #167D3D; 
             --primary-hover: #116330;
             --primary-light: #EBF2EC; 
             
-            --accent-wood: #D97746; 
-            --accent-wood-light: #FDF4EF;
-            
-            /* UI Elements & Ombres */
             --border: #E1E6E2;
             --shadow-sm: 0 4px 12px rgba(19, 30, 23, 0.03);
             --shadow-md: 0 12px 32px rgba(19, 30, 23, 0.06);
             --shadow-lg: 0 24px 64px rgba(19, 30, 23, 0.08);
             
-            /* Arrondis */
             --radius-xl: 40px;
             --radius-lg: 24px;
             --radius-md: 16px;
@@ -50,9 +42,11 @@
         img, svg { max-width: 100%; display: block; }
 
         /* --- LAYOUT GLOBAL --- */
-        .container { max-width: 1200px; margin: 0 auto; padding: 0 clamp(24px, 5vw, 48px); }
+        .container { max-width: 1000px; margin: 0 auto; padding: 0 clamp(24px, 5vw, 48px); }
+        .container-large { max-width: 1200px; margin: 0 auto; padding: 0 clamp(24px, 5vw, 48px); }
         .section { padding: clamp(80px, 10vw, 140px) 0; }
-        .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: clamp(40px, 6vw, 64px); align-items: stretch; }
+        .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: clamp(40px, 6vw, 64px); align-items: center; }
+        .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
 
         /* --- TYPOGRAPHIE --- */
         h1 { font-size: clamp(3rem, 7vw, 5.5rem); line-height: 0.95; letter-spacing: -0.04em; margin-bottom: 24px; font-weight: 500; }
@@ -67,6 +61,8 @@
         .pill { display: inline-flex; align-items: center; padding: 8px 24px; border-radius: 50px; font-size: 0.85rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; background: var(--bg-card); border: 1px solid var(--border); box-shadow: var(--shadow-sm); margin-bottom: 32px; color: var(--text-main); }
         .breadcrumb { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 40px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; }
         .breadcrumb span { color: var(--primary); margin: 0 8px; }
+        .surtitle { display: inline-flex; align-items: center; gap: 12px; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--primary); margin-bottom: 24px; font-weight: 700; }
+        .surtitle::before { content: ''; display: block; width: 24px; height: 1px; background: var(--primary); }
 
         /* --- BOUTONS --- */
         .btn { display: inline-flex; justify-content: center; align-items: center; padding: 18px 40px; border-radius: 100px; font-weight: 500; font-size: 1.05rem; transition: var(--transition); cursor: pointer; border: 1px solid transparent; letter-spacing: 0.01em; }
@@ -76,470 +72,273 @@
         .btn-outline:hover { background: var(--bg-card); border-color: var(--text-main); transform: translateY(-4px); box-shadow: var(--shadow-md); }
 
         /* --- MENU PRINCIPAL --- */
-        nav { display: flex; justify-content: space-between; align-items: center; padding: 32px 0; border-bottom: 1px solid rgba(22, 125, 61, 0.1); margin-bottom: 32px; }
+        nav { display: flex; justify-content: space-between; align-items: center; padding: 32px 0; border-bottom: 1px solid rgba(22, 125, 61, 0.1); margin-bottom: 64px; }
         .logo { font-size: 1.75rem; font-weight: 700; letter-spacing: -0.05em; color: var(--text-main); display: flex; align-items: center; gap: 8px; }
         .logo span { color: var(--primary); }
         .nav-links { display: flex; gap: 40px; font-size: 0.9rem; font-weight: 500; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; }
         .nav-links a:hover { color: var(--primary); }
 
-        /* --- SOUS-MENU STICKY (UI/UX Avancé) --- */
-        .sticky-nav { position: sticky; top: 24px; z-index: 100; display: flex; justify-content: center; margin-bottom: 64px; pointer-events: none; }
-        .sticky-menu { background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid var(--border); padding: 8px; border-radius: 100px; box-shadow: var(--shadow-md); display: inline-flex; gap: 8px; pointer-events: auto; }
-        .sticky-menu a { padding: 12px 24px; border-radius: 50px; font-size: 0.875rem; font-weight: 600; color: var(--text-muted); transition: var(--transition); }
-        .sticky-menu a:hover { background: var(--bg-page); color: var(--text-main); }
-
         /* --- HERO --- */
         .hero { display: flex; flex-direction: column; align-items: center; text-align: center; padding-top: 40px; padding-bottom: 80px; position: relative; }
-        .hero::after { content: ''; position: absolute; width: 80vw; height: 80vw; background: radial-gradient(circle, rgba(22, 125, 61, 0.05) 0%, transparent 60%); top: -40%; z-index: -1; pointer-events: none; }
+        .hero::after { content: ''; position: absolute; width: 60vw; height: 60vw; background: radial-gradient(circle, rgba(22, 125, 61, 0.08) 0%, transparent 60%); top: -20%; z-index: -1; pointer-events: none; }
 
-        /* --- FICHES IDENTITÉ (Les 2 écoles) --- */
-        .id-card { background: var(--bg-card); border-radius: var(--radius-xl); padding: clamp(40px, 6vw, 64px); box-shadow: var(--shadow-md); border: 1px solid var(--border); display: flex; flex-direction: column; position: relative; overflow: hidden; transition: var(--transition); }
-        .id-card:hover { transform: translateY(-8px); box-shadow: var(--shadow-lg); }
-        
-        .id-header { margin-bottom: 40px; padding-bottom: 40px; border-bottom: 1px solid var(--border); }
-        .id-tag { display: inline-flex; padding: 8px 20px; border-radius: 50px; font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 24px; }
-        
-        /* Spécificités Couleurs par technologie */
-        .id-card.wood { border-top: 8px solid var(--accent-wood); }
-        .id-card.wood .id-tag { background: var(--accent-wood-light); color: var(--accent-wood); }
-        
-        .id-card.tech { border-top: 8px solid var(--primary); }
-        .id-card.tech .id-tag { background: var(--primary-light); color: var(--primary); }
+        /* --- L'HISTOIRE (La Genèse) --- */
+        .story-block { background: var(--bg-card); border-radius: var(--radius-xl); padding: clamp(48px, 8vw, 80px); box-shadow: var(--shadow-md); border: 1px solid var(--border); position: relative; }
+        .dropcap { float: left; font-size: 5rem; line-height: 0.8; padding-top: 8px; padding-right: 16px; color: var(--primary); font-family: Georgia, serif; font-weight: bold; }
+        .story-content p { font-size: 1.125rem; margin-bottom: 24px; color: var(--text-main); line-height: 1.7; }
 
-        /* Data Grid dans la carte */
-        .id-data { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 48px; }
-        .data-point { background: var(--bg-page); padding: 24px; border-radius: var(--radius-md); border: 1px solid var(--border); }
-        .data-point span { display: block; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-muted); margin-bottom: 8px; font-weight: 600; }
-        .data-point strong { font-size: 1.5rem; font-weight: 500; color: var(--text-main); line-height: 1.2; display: block; }
+        /* --- LE MANIFESTE (Bloc Citation) --- */
+        .manifesto-box { margin-top: 80px; text-align: center; position: relative; padding: 48px 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+        .manifesto-text { font-size: clamp(1.5rem, 3vw, 2.5rem); font-weight: 500; line-height: 1.3; color: var(--text-main); margin-bottom: 32px; letter-spacing: -0.02em; font-style: italic; }
+        .manifesto-author { font-size: 1.125rem; color: var(--primary); font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; }
 
-        /* Listes Avantages condensées */
-        .feature-list { list-style: none; margin-bottom: 48px; flex-grow: 1; }
-        .feature-list li { display: flex; align-items: flex-start; gap: 16px; margin-bottom: 24px; font-size: 1.05rem; color: var(--text-main); }
-        .feature-list svg { width: 24px; height: 24px; flex-shrink: 0; margin-top: 2px; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
-        .id-card.wood .feature-list svg { stroke: var(--accent-wood); }
-        .id-card.tech .feature-list svg { stroke: var(--primary); }
+        /* --- MÉTHODOLOGIE (Notre Approche) --- */
+        .method-card { background: var(--bg-page); border-left: 2px solid var(--primary); padding: 32px 40px; margin-bottom: 24px; transition: var(--transition); }
+        .method-card:hover { background: var(--bg-card); box-shadow: var(--shadow-sm); transform: translateX(8px); }
+        .method-num { font-size: 0.85rem; font-weight: 700; color: var(--primary); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 8px; display: block; }
+        
+        /* --- LE PACTE DE CONFIANCE (Bento Grid) --- */
+        .values-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; margin-top: 48px; }
+        .v-card { background: var(--bg-card); border-radius: var(--radius-lg); padding: 48px; border: 1px solid var(--border); box-shadow: var(--shadow-sm); display: flex; flex-direction: column; transition: var(--transition); }
+        .v-card:hover { transform: translateY(-8px); box-shadow: var(--shadow-md); border-color: var(--primary); }
+        .v-icon { width: 64px; height: 64px; background: var(--bg-page); border-radius: 16px; display: flex; align-items: center; justify-content: center; margin-bottom: 32px; flex-shrink: 0; }
+        .v-icon svg { width: 32px; height: 32px; stroke: var(--primary); fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+        .v-card.large { grid-column: 1 / -1; flex-direction: row; align-items: center; gap: 48px; background: var(--primary-light); border-color: transparent; }
+        .v-card.large .v-icon { background: var(--bg-card); }
+        .v-card.large h3 { color: var(--primary-hover); }
 
-        /* --- TABLEAU COMPARATIF CATÉGORISÉ --- */
-        .table-wrapper { background: var(--bg-card); border-radius: var(--radius-xl); box-shadow: var(--shadow-md); border: 1px solid var(--border); overflow: hidden; margin-top: 48px; }
-        .table-container { overflow-x: auto; -webkit-overflow-scrolling: touch; }
-        table { width: 100%; border-collapse: collapse; text-align: left; min-width: 900px; }
-        
-        th, td { padding: clamp(24px, 4vw, 40px); border-bottom: 1px solid var(--border); vertical-align: top; }
-        th { font-weight: 600; font-size: 1.25rem; color: var(--text-main); background: var(--bg-card-alt); border-bottom: 2px solid var(--border); }
-        
-        /* En-têtes de colonnes */
-        .col-crit { width: 34%; }
-        .col-wood { border-left: 1px solid var(--border); border-right: 1px solid var(--border); width: 33%; }
-        .col-tech { width: 33%; background: var(--primary-light); }
-        
-        th.col-wood { color: var(--accent-wood); }
-        th.col-tech { color: var(--primary); background: rgba(22, 125, 61, 0.1); }
-        
-        /* En-têtes de catégories (Lignes grises) */
-        tr.category-row th { background: var(--text-main); color: white; padding: 16px 40px; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.1em; border: none; }
+        /* --- POUR QUI ? (Audiences) --- */
+        .audience-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 64px; }
+        .a-card { background: var(--bg-card); border-radius: var(--radius-lg); padding: 40px; border: 1px solid var(--border); box-shadow: var(--shadow-sm); text-align: center; }
+        .a-icon { width: 56px; height: 56px; border-radius: 50%; background: var(--bg-page); display: flex; align-items: center; justify-content: center; margin: 0 auto 24px auto; }
+        .a-icon svg { width: 28px; height: 28px; stroke: var(--text-main); fill: none; stroke-width: 1.5; }
 
-        /* Contenu Cellules */
-        .crit-title { font-weight: 600; font-size: 1.125rem; margin-bottom: 8px; display: block; color: var(--text-main); }
-        .crit-desc { font-size: 0.9rem; color: var(--text-muted); line-height: 1.4; }
+        /* --- ECO-CONCEPTION (Black UI Rupture) --- */
+        .eco-wrapper { background: var(--text-main); border-radius: var(--radius-xl); padding: clamp(64px, 8vw, 100px); color: white; margin-top: 80px; box-shadow: var(--shadow-lg); }
+        .eco-wrapper h2 { color: white; }
+        .eco-wrapper p.lead { color: rgba(255,255,255,0.7); }
         
-        .td-value { font-weight: 500; font-size: 1.05rem; display: flex; align-items: flex-start; gap: 12px; }
-        .td-value svg { width: 24px; height: 24px; flex-shrink: 0; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; margin-top: 2px; }
-        .icon-check { stroke: var(--primary); }
-        .icon-warn { stroke: var(--accent-wood); }
-        .icon-neutral { stroke: var(--text-light); }
+        .eco-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; margin-top: 64px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 64px; }
+        .e-stat { border-left: 2px solid var(--primary); padding-left: 24px; }
+        .e-stat strong { display: block; font-size: 3rem; font-weight: 300; color: white; line-height: 1; margin-bottom: 8px; }
+        .e-stat span { display: block; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--primary); font-weight: 700; margin-bottom: 12px; }
+        .e-stat p { color: #A0AAB2; font-size: 0.95rem; margin: 0; }
 
-        /* --- SCÉNARIOS DE VIE (Usages) --- */
-        .scenario-card { background: var(--bg-card); border-radius: var(--radius-lg); padding: 48px; border: 1px solid var(--border); box-shadow: var(--shadow-sm); display: flex; flex-direction: column; transition: var(--transition); }
-        .scenario-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); border-color: var(--primary); }
-        
-        .s-header { display: flex; align-items: center; gap: 24px; margin-bottom: 32px; border-bottom: 1px solid var(--border); padding-bottom: 32px; }
-        .s-icon { width: 72px; height: 72px; background: var(--bg-page); border-radius: 20px; display: flex; align-items: center; justify-content: center; border: 1px solid var(--border); flex-shrink: 0; }
-        .s-icon svg { width: 32px; height: 32px; stroke: var(--text-main); fill: none; stroke-width: 1.5; }
-        
-        .winner-box { margin-top: auto; padding-top: 32px; display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
-        .w-badge { display: inline-flex; align-items: center; gap: 8px; font-size: 0.85rem; font-weight: 700; padding: 8px 16px; border-radius: 12px; text-transform: uppercase; letter-spacing: 0.05em; }
-        .w-badge.wood { background: var(--accent-wood-light); color: var(--accent-wood); }
-        .w-badge.tech { background: var(--primary-light); color: var(--primary); }
-
-        /* --- LES 3 ERREURS (Design Rupture Noir) --- */
-        .mistake-wrapper { background: var(--text-main); border-radius: var(--radius-xl); padding: clamp(64px, 8vw, 100px); color: white; margin-top: 80px; box-shadow: var(--shadow-lg); position: relative; overflow: hidden; }
-        .mistake-wrapper::before { content: '!'; position: absolute; top: -50px; right: 40px; font-size: 300px; font-weight: 800; color: rgba(255,255,255,0.03); line-height: 1; pointer-events: none; }
-        .mistake-wrapper h2 { color: white; }
-        .mistake-wrapper p.lead { color: rgba(255,255,255,0.7); }
-        
-        .mistake-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; margin-top: 64px; }
-        .m-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 24px; padding: 40px; transition: var(--transition); }
-        .m-card:hover { background: rgba(255,255,255,0.06); transform: translateY(-4px); border-color: rgba(255,255,255,0.2); }
-        .m-num { font-size: 3rem; font-weight: 300; color: var(--primary-light); line-height: 1; margin-bottom: 24px; font-style: italic; }
-        .m-card h4 { color: white; font-size: 1.25rem; margin-bottom: 16px; }
-        .m-card p { color: #A0AAB2; margin: 0; font-size: 0.95rem; }
+        /* --- FAQ TRANSPARENCE --- */
+        .faq-wrapper { max-width: 800px; margin: 48px auto 0 auto; }
+        details { background: var(--bg-card); border-radius: var(--radius-md); margin-bottom: 16px; box-shadow: var(--shadow-sm); border: 1px solid var(--border); transition: var(--transition); }
+        details:hover { border-color: var(--primary); }
+        summary { padding: 24px 32px; font-size: 1.125rem; font-weight: 600; cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center; color: var(--text-main); }
+        summary::-webkit-details-marker { display: none; }
+        summary::after { content: '+'; font-size: 1.5rem; color: var(--primary); font-weight: 400; transition: transform 0.3s ease; }
+        details[open] summary::after { transform: rotate(45deg); }
+        details p { padding: 0 32px 32px 32px; margin: 0; color: var(--text-muted); line-height: 1.6; }
 
         /* --- FOOTER --- */
         footer { padding: 64px 0 32px 0; margin-top: 80px; text-align: center; border-top: 1px solid var(--border); }
 
         /* --- RESPONSIVE --- */
         @media (max-width: 1024px) {
-            .grid-2 { grid-template-columns: 1fr; }
-            .mistake-grid { grid-template-columns: 1fr; }
-            .id-data { grid-template-columns: 1fr; }
+            .v-card.large { flex-direction: column; align-items: flex-start; gap: 24px; }
+            .grid-2 { grid-template-columns: 1fr; gap: 48px; }
         }
 
         @media (max-width: 768px) {
             .nav-links { display: none; }
-            .sticky-nav { display: none; }
-            .s-header { flex-direction: column; align-items: flex-start; text-align: left; }
-            .winner-box { flex-direction: column; align-items: flex-start; }
-            tr.category-row th { padding: 16px 24px; }
+            .eco-stats, .audience-grid, .values-grid { grid-template-columns: 1fr; }
+            .btn-group { flex-direction: column; width: 100%; }
+            .btn { width: 100%; }
         }
     </style>
 </head>
 <body>
 <div class="site-wrapper">
 
-    <div class="container">
+    <div class="container-large">
         <nav>
             <div class="logo">
                 <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
                 ecorina
             </div>
             <div class="nav-links">
-                <a href="#fiches">Profils techniques</a>
-                <a href="#tableau">Tableau détaillé</a>
-                <a href="#scenarios">Usages</a>
-                <a href="#erreurs">Erreurs de choix</a>
+                <a href="#histoire">L'Histoire</a>
+                <a href="#methodologie">Méthodologie</a>
+                <a href="#independance">Le Pacte</a>
+                <a href="#eco-conception">Le Site (Zéro JS)</a>
             </div>
-            <a href="#" class="btn btn-outline" style="padding: 10px 24px; font-size: 0.9rem;">Trouver mon modèle</a>
+            <a href="#" class="btn btn-outline" style="padding: 10px 24px; font-size: 0.9rem;">Accéder aux guides</a>
         </nav>
     </div>
 
     <header class="container hero">
-        <div class="breadcrumb">Guides <span>/</span> Comparatif <span>/</span> Sciure vs Séparation</div>
-        <div class="pill">Le Grand Comparatif 2026</div>
-        <h1>L'art de faire le <span>bon choix.</span></h1>
-        <p class="lead">Sciure ou Séparation ? Il n'y a pas de mauvaise solution écologique, uniquement des modèles inadaptés à votre quotidien. Plongez dans notre analyse objective pour trouver votre idéal sanitaire.</p>
+        <div class="breadcrumb">Accueil <span>/</span> La Mission Ecorina</div>
+        <div class="pill">Qui sommes-nous ?</div>
+        <h1>Au commencement,<br><span>une aberration de 36 litres.</span></h1>
+        <p class="lead">Ecorina est née d'un constat simple et douloureux : en France, nous utilisons chaque jour 36 litres d'eau potable, purifiée à grands frais, uniquement pour évacuer nos déchets. Il était temps de rendre l'alternative évidente et désirable.</p>
     </header>
 
-    <div class="sticky-nav">
-        <div class="sticky-menu">
-            <a href="#fiches">1. Les Profils</a>
-            <a href="#tableau">2. Le Tableau</a>
-            <a href="#scenarios">3. Les Scénarios</a>
-            <a href="#erreurs">4. Pièges à éviter</a>
-        </div>
-    </div>
-
-    <section id="fiches" class="container section" style="padding-top: 0;">
-        <div style="text-align: center; margin-bottom: 64px;">
-            <h2>Présentation des candidats.</h2>
-            <p class="lead" style="margin: 0 auto;">Avant de décortiquer les détails techniques, faisons les présentations officielles des deux technologies qui dominent le marché.</p>
+    <section id="histoire" class="container">
+        <div class="story-block">
+            <span class="surtitle">La Genèse</span>
+            <h2>L'écologie ne doit plus ressembler à une punition.</h2>
+            
+            <div class="story-content">
+                <p><span class="dropcap">T</span>out a commencé par une frustration. Lors de la rénovation d'une maison de campagne, nous avons voulu installer des sanitaires écologiques. La volonté était là, mais le parcours du combattant commençait.</p>
+                <p>En ligne, nous trouvions soit des forums de passionnés ultra-techniques (où la sciure est une religion), soit des catalogues de fabricants très opaques, soit des préjugés tenaces sur les odeurs et l'hygiène. Surtout, le design était le grand absent : on nous proposait de remplacer notre WC en porcelaine par des "boîtes en bois rustiques" dignes du Moyen-Âge.</p>
+                <p><strong>C'est là qu'est née la vision d'Ecorina.</strong> Nous avons compris que pour que les foyers abandonnent la chasse d'eau classique, il fallait démystifier la technologie (la séparation, l'assèchement), comparer objectivement les modèles existants, et prouver que l'on pouvait allier confort absolu, design d'intérieur haut de gamme, et respect total de l'environnement.</p>
+            </div>
         </div>
 
+        <div class="manifesto-box">
+            <p class="manifesto-text">"Pour sauver l'eau potable, l'alternative sanitaire doit être simple à comprendre, belle à regarder, et sans contrainte cachée."</p>
+            <div class="manifesto-author">— Le Manifeste Ecorina</div>
+        </div>
+    </section>
+
+    <section id="methodologie" class="container-large section">
         <div class="grid-2">
-            <div class="id-card wood">
-                <div class="id-header">
-                    <span class="id-tag">La Méthode Traditionnelle</span>
-                    <h3 style="font-size: 2.5rem; margin-bottom: 16px;">WC Sèche à sciure</h3>
-                    <p style="margin:0;">Aussi appelé TLB (Toilette à litière bio-maîtrisée). Un fonctionnement rustique et naturel, sans aucune installation complexe.</p>
-                </div>
-                
-                <div class="id-data">
-                    <div class="data-point">
-                        <span>Travaux requis</span>
-                        <strong>0, prêt à poser</strong>
-                    </div>
-                    <div class="data-point">
-                        <span>Budget moyen</span>
-                        <strong>150€ - 300€</strong>
-                    </div>
-                    <div class="data-point">
-                        <span>Vidange (2 pers.)</span>
-                        <strong style="color: var(--accent-wood);">Tous les 3 jours</strong>
-                    </div>
-                    <div class="data-point">
-                        <span>Autonomie réseau</span>
-                        <strong>100%</strong>
-                    </div>
-                </div>
-
-                <ul class="feature-list">
-                    <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg> <div><strong>Le principe :</strong> Un seau unique. On recouvre d'une louche de copeaux de bois après chaque passage pour bloquer l'humidité.</div></li>
-                    <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg> <div><strong>Le grand avantage :</strong> Se pose partout, instantanément. Impossible de tomber en panne (zéro mécanique).</div></li>
-                    <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg> <div><strong>Le point faible :</strong> Une logistique lourde au quotidien (acheter de la sciure, vider le seau très souvent).</div></li>
-                </ul>
+            <div>
+                <span class="surtitle">Comment nous travaillons</span>
+                <h2>De l'information à l'action.</h2>
+                <p class="lead">Nous ne sommes pas des vendeurs. Nous sommes des analystes de la transition écologique. Voici comment nous produisons nos contenus.</p>
+                <a href="#" class="btn btn-primary" style="margin-top: 24px;">Voir nos comparatifs</a>
             </div>
 
-            <div class="id-card tech">
-                <div class="id-header">
-                    <span class="id-tag">L'Ingénierie Moderne</span>
-                    <h3 style="font-size: 2.5rem; margin-bottom: 16px;">WC à Séparation</h3>
-                    <p style="margin:0;">Le confort absolu. L'innovation scandinave au service du quotidien pour remplacer définitivement un WC à eau.</p>
+            <div>
+                <div class="method-card">
+                    <span class="method-num">Étape 01</span>
+                    <h3>Veille & Analyse scientifique</h3>
+                    <p style="margin:0; font-size: 0.95rem; color: var(--text-muted);">Nous étudions les principes chimiques (rapport carbone/azote) et la législation française (Arrêté de 2009 sur l'ANC) pour vous fournir des données irréfutables.</p>
                 </div>
-                
-                <div class="id-data">
-                    <div class="data-point">
-                        <span>Travaux requis</span>
-                        <strong>Gaine + Tuyau</strong>
-                    </div>
-                    <div class="data-point">
-                        <span>Budget moyen</span>
-                        <strong>600€ - 1500€</strong>
-                    </div>
-                    <div class="data-point">
-                        <span>Vidange (2 pers.)</span>
-                        <strong style="color: var(--primary);">Toutes les 6 sem.</strong>
-                    </div>
-                    <div class="data-point">
-                        <span>Électricité requise</span>
-                        <strong>Oui (Micro-Ventilo)</strong>
-                    </div>
+                <div class="method-card">
+                    <span class="method-num">Étape 02</span>
+                    <h3>Comparaison hors-catalogue</h3>
+                    <p style="margin:0; font-size: 0.95rem; color: var(--text-muted);">Nous décortiquons les technologies (Sciure vs Séparation vs Lombricompostage) en nous basant sur le quotidien réel des utilisateurs, et non sur les plaquettes commerciales des fabricants.</p>
                 </div>
-
-                <ul class="feature-list">
-                    <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg> <div><strong>Le principe :</strong> L'urine est déviée à l'avant vers les eaux grises. Le solide tombe à l'arrière et est ventilé en continu. Pas de sciure.</div></li>
-                    <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg> <div><strong>Le grand avantage :</strong> S'utilise exactement comme un WC normal. La corvée de vidange disparaît presque.</div></li>
-                    <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg> <div><strong>Le point faible :</strong> Demande des travaux d'installation initiaux (évacuation, mur à percer pour l'air) et un budget conséquent.</div></li>
-                </ul>
+                <div class="method-card">
+                    <span class="method-num">Étape 03</span>
+                    <h3>Vulgarisation & Design</h3>
+                    <p style="margin:0; font-size: 0.95rem; color: var(--text-muted);">Nous traduisons le jargon technique en guides interactifs, tableaux de bord et simulateurs ergonomiques pour vous permettre de faire le bon choix en 5 minutes.</p>
+                </div>
             </div>
         </div>
     </section>
 
-    <section id="tableau" class="container section" style="padding-top: 0;">
+    <section class="container section" style="padding-top: 0;">
         <div style="text-align: center; margin-bottom: 48px;">
-            <div class="surtitle" style="justify-content: center;">Analyse Point par Point</div>
-            <h2>Le Tableau Détaillé</h2>
-            <p class="lead" style="margin: 0 auto;">Passez au crible tous les aspects de la vie quotidienne. Nous avons structuré les données pour faciliter votre choix final.</p>
+            <span class="surtitle" style="justify-content: center;">Notre Public</span>
+            <h2>Pour qui écrivons-nous ?</h2>
         </div>
 
-        <div class="table-wrapper">
-            <div class="table-container">
-                <table>
-                    <thead>
-                        <tr>
-                            <th class="col-crit">Critères d'évaluation</th>
-                            <th class="col-wood">WC à Sciure</th>
-                            <th class="col-tech">WC à Séparation</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr class="category-row">
-                            <th colspan="3">1. Budget & Installation</th>
-                        </tr>
-                        <tr>
-                            <td class="col-crit">
-                                <span class="crit-title">Travaux nécessaires</span>
-                                <span class="crit-desc">Impact sur le bâti existant.</span>
-                            </td>
-                            <td class="col-wood">
-                                <div class="td-value">
-                                    <svg class="icon-check" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                                    <span>Aucun. Meuble autonome à poser.</span>
-                                </div>
-                            </td>
-                            <td class="col-tech">
-                                <div class="td-value">
-                                    <svg class="icon-neutral" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><line x1="8" y1="12" x2="16" y2="12"></line></svg>
-                                    <span>Raccordement du tuyau d'urine + Percement mur/toit pour la gaine d'aération.</span>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="col-crit">
-                                <span class="crit-title">Besoins électriques</span>
-                            </td>
-                            <td class="col-wood">
-                                <div class="td-value">
-                                    <svg class="icon-check" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                                    <span>100% Autonome (0 Watt).</span>
-                                </div>
-                            </td>
-                            <td class="col-tech">
-                                <div class="td-value">
-                                    <svg class="icon-neutral" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><line x1="8" y1="12" x2="16" y2="12"></line></svg>
-                                    <span>Prise 220V ou 12V (Solaire) pour le petit ventilateur d'extraction (2W constant).</span>
-                                </div>
-                            </td>
-                        </tr>
-
-                        <tr class="category-row">
-                            <th colspan="3">2. Quotidien & Confort</th>
-                        </tr>
-                        <tr>
-                            <td class="col-crit">
-                                <span class="crit-title">Gestion des odeurs</span>
-                                <span class="crit-desc">Comment le système empêche la création d'ammoniac.</span>
-                            </td>
-                            <td class="col-wood">
-                                <div class="td-value">
-                                    <svg class="icon-check" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                                    <span>Parole à l'utilisateur : Assèchement manuel par ajout de litière après chaque passage.</span>
-                                </div>
-                            </td>
-                            <td class="col-tech">
-                                <div class="td-value">
-                                    <svg class="icon-check" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                                    <span>Automatique : Séparation des flux à la source + Micro-ventilation continue.</span>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="col-crit">
-                                <span class="crit-title">Expérience Visiteurs</span>
-                                <span class="crit-desc">Facilité d'utilisation pour des invités non-initiés.</span>
-                            </td>
-                            <td class="col-wood">
-                                <div class="td-value">
-                                    <svg class="icon-warn" viewBox="0 0 24 24"><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line><circle cx="12" cy="12" r="10"></circle></svg>
-                                    <span>Demande un panneau explicatif (concept de la louche de sciure). Aspect rustique.</span>
-                                </div>
-                            </td>
-                            <td class="col-tech">
-                                <div class="td-value">
-                                    <svg class="icon-check" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                                    <span>Excellente. Design classique type WC à eau. Les hommes doivent simplement s'asseoir.</span>
-                                </div>
-                            </td>
-                        </tr>
-
-                        <tr class="category-row">
-                            <th colspan="3">3. Logistique & Entretien</th>
-                        </tr>
-                        <tr>
-                            <td class="col-crit">
-                                <span class="crit-title">Consommables à gérer</span>
-                                <span class="crit-desc">Ce qu'il faut acheter/stocker en permanence.</span>
-                            </td>
-                            <td class="col-wood">
-                                <div class="td-value">
-                                    <svg class="icon-warn" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
-                                    <span>Papier toilette + Un stock permanent de sciure propre au sec.</span>
-                                </div>
-                            </td>
-                            <td class="col-tech">
-                                <div class="td-value">
-                                    <svg class="icon-check" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                                    <span>Papier toilette uniquement (zéro manipulation de sciure).</span>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="col-crit">
-                                <span class="crit-title">Composteur jardin requis ?</span>
-                                <span class="crit-desc">Pour traiter les résidus selon la loi.</span>
-                            </td>
-                            <td class="col-wood">
-                                <div class="td-value">
-                                    <svg class="icon-neutral" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><line x1="8" y1="12" x2="16" y2="12"></line></svg>
-                                    <span>Oui. Un grand bac (min. 1m³) est indispensable vu le volume généré.</span>
-                                </div>
-                            </td>
-                            <td class="col-tech">
-                                <div class="td-value">
-                                    <svg class="icon-check" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                                    <span>Oui, mais un tout petit bac suffit car la matière est déjà déshydratée (volume divisé par 10).</span>
-                                </div>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+        <div class="audience-grid">
+            <div class="a-card">
+                <div class="a-icon"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg></div>
+                <h4>Les Particuliers</h4>
+                <p style="font-size: 0.95rem; color: var(--text-muted); margin: 0;">Que vous rénoviez une salle de bain de maison principale ou aménagiez un cabanon de jardin, nous vous évitons les erreurs de casting coûteuses.</p>
+            </div>
+            <div class="a-card">
+                <div class="a-icon"><svg viewBox="0 0 24 24"><path d="M12 2l10 6.5v7L12 22 2 15.5v-7L12 2zM12 22v-6.5"></path><path d="M22 8.5l-10 7-10-7"></path><path d="M2 15.5l10-7 10 7"></path></svg></div>
+                <h4>Les Constructeurs</h4>
+                <p style="font-size: 0.95rem; color: var(--text-muted); margin: 0;">Artisans de Tiny Houses, architectes d'intérieur ou constructeurs bois. Trouvez ici les arguments pour rassurer et convaincre vos clients.</p>
+            </div>
+            <div class="a-card">
+                <div class="a-icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg></div>
+                <h4>Les Collectivités</h4>
+                <p style="font-size: 0.95rem; color: var(--text-muted); margin: 0;">Communes, parcs naturels ou campings. Comprenez les enjeux du compostage à grande échelle et des réglementations sanitaires ERP.</p>
             </div>
         </div>
     </section>
 
-    <section id="scenarios" class="container section" style="padding-top: 0;">
-        <div style="margin-bottom: 48px;">
-            <div class="surtitle">Cas Pratiques</div>
-            <h2>Quelle toilette selon votre projet ?</h2>
-            <p class="lead">Le contexte dicte la technologie. L'erreur la plus commune est d'installer un modèle adapté au camping dans une salle de bain principale pour des raisons de coût.</p>
+    <section id="independance" class="container section" style="padding-top: 0;">
+        <div style="text-align: center; margin-bottom: 48px;">
+            <span class="surtitle" style="justify-content: center;">Éthique</span>
+            <h2>Notre pacte de confiance.</h2>
         </div>
 
-        <div style="display: grid; grid-template-columns: 1fr; gap: 32px;">
-            
-            <div class="scenario-card">
-                <div class="s-header">
-                    <div class="s-icon"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg></div>
-                    <div>
-                        <h3>La Maison Familiale (4 personnes)</h3>
-                        <p style="margin: 0; color: var(--text-muted); font-size: 1.05rem;">Remplacement du WC à eau, utilisation intensive et quotidienne.</p>
-                    </div>
+        <div class="values-grid">
+            <div class="v-card large">
+                <div class="v-icon">
+                    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
                 </div>
-                <p>Dans ce contexte, <strong>le confort prime sur tout le reste</strong>. Avec 4 personnes, un seau à sciure classique se remplirait en moins de 48 heures, rendant la vidange épuisante à la longue (surtout l'hiver sous la pluie). L'esthétique scandinave en porcelaine d'un système à séparation rassurera les enfants, les invités, et maintiendra la valeur de votre bien immobilier.</p>
-                <div class="winner-box">
-                    <span class="w-badge tech"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg> Vainqueur Absolu : WC à Séparation</span>
-                    <span style="font-size: 0.95rem; color: var(--text-muted);">Pour le confort, le design, et la très faible maintenance.</span>
+                <div>
+                    <h3>100% Indépendants</h3>
+                    <p style="margin: 0; color: var(--text-muted); font-size: 1.125rem;"><strong>Ecorina ne fabrique et ne vend aucune toilette.</strong> Nous sommes une plateforme d'information tierce. Notre seul objectif est de vous orienter vers la technologie la plus adaptée à votre contexte de vie. Nous ne sommes sponsorisés par aucune marque scandinave ou française.</p>
                 </div>
             </div>
 
-            <div class="scenario-card">
-                <div class="s-header">
-                    <div class="s-icon"><svg viewBox="0 0 24 24"><path d="M3 22l9-18 9 18"></path><path d="M12 15v7"></path><path d="M8 22l4-7 4 7"></path></svg></div>
-                    <div>
-                        <h3>Le Cabanon / La Cabane au fond du jardin</h3>
-                        <p style="margin: 0; color: var(--text-muted); font-size: 1.05rem;">Usage intermittent estival, peu ou pas de raccordement électrique stable.</p>
-                    </div>
+            <div class="v-card">
+                <div class="v-icon">
+                    <svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="7.5 4.21 12 6.81 16.5 4.21"></polyline><polyline points="7.5 19.79 7.5 14.6 3 12"></polyline><polyline points="21 12 16.5 14.6 16.5 19.79"></polyline><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
                 </div>
-                <p>Ici, <strong>la rusticité est une force majeure</strong>. Il est souvent impossible (ou trop coûteux) de raccorder une évacuation d'urine ou de garantir du 12V constant pour une ventilation. Le modèle à sciure s'impose comme une évidence : il ne coûte presque rien, s'installe en 5 minutes. La vidange n'est pas une contrainte car l'usage est ponctuel et le bac à compost est souvent à quelques mètres.</p>
-                <div class="winner-box">
-                    <span class="w-badge wood"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg> Vainqueur Absolu : WC à Sciure</span>
-                    <span style="font-size: 0.95rem; color: var(--text-muted);">Pour l'autonomie totale et l'absence absolue de travaux.</span>
-                </div>
+                <h3>Pédagogie sans dogme</h3>
+                <p style="margin: 0;">Pas de culpabilisation écologique. Nous expliquons avec clarté les avantages, mais surtout les contraintes de chaque modèle. L'honnêteté crée l'adoption.</p>
             </div>
 
-            <div class="scenario-card">
-                <div class="s-header">
-                    <div class="s-icon"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg></div>
-                    <div>
-                        <h3>Bureaux / Petites Entreprises</h3>
-                        <p style="margin: 0; color: var(--text-muted); font-size: 1.05rem;">Usage en journée par les employés, entretien par une société de ménage.</p>
-                    </div>
+            <div class="v-card">
+                <div class="v-icon">
+                    <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"></path><path d="M2 17l10 5 10-5"></path><path d="M2 12l10 5 10-5"></path></svg>
                 </div>
-                <p>Attention ! Les deux systèmes "domestiques" précédents montrent très vite leurs limites en milieu professionnel. Le personnel de ménage ne peut pas gérer les vidanges manuelles de bacs pleins, et une séparation d'urine avec de nombreux passages quotidiens demande un entretien minutieux.</p>
-                <div class="winner-box">
-                    <span class="w-badge" style="background: var(--bg-page); color: var(--text-main); border: 1px solid var(--border);"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg> Hors-Catégorie : Lombricompostage Sous-Plancher</span>
-                    <span style="font-size: 0.95rem; color: var(--text-muted);">Maintenance professionnelle requise (système continu).</span>
-                </div>
+                <h3>L'exigence du Design</h3>
+                <p style="margin: 0;">Nous croyons que l'écologie doit être belle pour être acceptée. Le design UX de ce site n'est pas un luxe, c'est un outil pour rendre la transition désirable.</p>
             </div>
         </div>
     </section>
 
-    <section id="erreurs" class="container">
-        <div class="mistake-wrapper">
-            <h2>Les 3 pièges de l'acheteur débutant.</h2>
-            <p class="lead">L'écologie c'est bien, le bon sens c'est mieux. Évitez ces erreurs classiques qui transforment un beau projet de transition en abandon pur et simple.</p>
+    <section id="eco-conception" class="container-large">
+        <div class="eco-wrapper">
+            <div class="surtitle" style="color: var(--primary-light); background: rgba(255,255,255,0.1); border-radius: 50px; padding: 6px 16px;">Engagement Numérique</div>
+            <h2>Un site qui applique ce qu'il prêche.</h2>
+            <p class="lead">L'écologie ne s'arrête pas aux tuyaux de plomberie. Le numérique pollue massivement. C'est pourquoi nous avons conçu et codé Ecorina selon les règles les plus strictes de l'éco-conception web (Green IT).</p>
 
-            <div class="mistake-grid">
-                <div class="m-card">
-                    <div class="m-num">01.</div>
-                    <h4>Acheter "Sciure" pour le prix (en maison)</h4>
-                    <p>Beaucoup choisissent la sciure car c'est 4 fois moins cher, pour l'installer en résidence principale. Dès le premier hiver, sortir sous la pluie vider le seau lourd tous les 3 jours devient une source de conflit familial. Investissez dans la séparation pour la maison, c'est la garantie de ne jamais faire marche arrière.</p>
+            <div class="eco-stats">
+                <div class="e-stat">
+                    <strong>0 Ko</strong>
+                    <span>De JavaScript</span>
+                    <p>Ce site est codé à 100% en HTML et CSS natifs. Aucune bibliothèque lourde (pas de React, pas de jQuery), aucune animation gourmande qui vide la batterie de votre téléphone ou sollicite les serveurs inutilement.</p>
                 </div>
                 
-                <div class="m-card">
-                    <div class="m-num">02.</div>
-                    <h4>Oublier l'aire de compostage</h4>
-                    <p>C'est la base de la loi. Aucun de ces deux modèles ne fonctionne si vous n'avez pas un bout de jardin pour composter la matière pendant 2 ans. Si vous êtes en appartement pur sans jardin privé ou accès à un composteur collectif certifié, ce projet est illégal et ingérable.</p>
+                <div class="e-stat">
+                    <strong>SVG</strong>
+                    <span>Format Vectoriel Pur</span>
+                    <p>Nous n'utilisons aucune image PNG ou JPG lourde. Toutes nos illustrations sont des tracés mathématiques (SVG). Le poids de cette page entière est inférieur au poids d'une seule photo sur un site classique.</p>
                 </div>
 
-                <div class="m-card">
-                    <div class="m-num">03.</div>
-                    <h4>Croire qu'un modèle "sent plus" que l'autre</h4>
-                    <p>C'est le mythe le plus tenace. L'assèchement (sciure) et la ventilation (séparation) sont deux méthodes scientifiques infaillibles. Une toilette écologique bien utilisée est totalement inodore. Si ça sent mauvais, c'est que la sciure manque, que le ventilateur est coupé, ou que le seau déborde.</p>
+                <div class="e-stat">
+                    <strong>A+</strong>
+                    <span>Hébergement & RGAA</span>
+                    <p>L'accessibilité est de l'écologie sociale. Le site est conçu avec de forts contrastes et une hiérarchie lisible (RGAA). Notre hébergement est localisé en France, optimisant les trajets de la donnée.</p>
                 </div>
             </div>
-            
-            <div style="text-align: center; margin-top: 80px; padding-top: 64px; border-top: 1px solid rgba(255,255,255,0.1);">
-                <p style="font-size: 1.35rem; margin-bottom: 24px; font-weight: 500; color: white;">Le tableau vous laisse encore perplexe ?</p>
-                <p style="color: rgba(255,255,255,0.7); max-width: 600px; margin: 0 auto 32px auto;">Répondez à 5 questions rapides sur votre logement et vos habitudes, notre algorithme vous guidera vers le modèle exact qu'il vous faut.</p>
-                <a href="#" class="btn btn-primary" style="background: white; color: var(--text-main); font-size: 1.125rem; padding: 20px 48px;">Lancer le simulateur de choix (Gratuit)</a>
-            </div>
+        </div>
+    </section>
+
+    <section class="container section">
+        <div style="text-align: center; margin-bottom: 48px;">
+            <h2>Questions sur le projet.</h2>
+        </div>
+
+        <div class="faq-wrapper">
+            <details>
+                <summary>Comment Ecorina se finance-t-il si vous ne vendez rien ?</summary>
+                <p>Le projet Ecorina est actuellement une initiative pédagogique auto-financée. À terme, nous envisageons de proposer la mise en relation avec des artisans installateurs qualifiés de notre annuaire, ou de l'affiliation transparente et déclarée sur certains modèles que nous recommandons technologiquement. Mais la consultation de nos guides et du simulateur restera toujours 100% gratuite.</p>
+            </details>
+            <details>
+                <summary>Qui écrit les guides et les comparatifs ?</summary>
+                <p>Les contenus sont rédigés par des passionnés de l'habitat léger, d'éco-construction et des professionnels du design. Chaque guide technique est recoupé avec la législation française en vigueur (notamment les règles du SPANC pour l'assainissement non collectif) pour garantir l'exactitude des informations.</p>
+            </details>
+            <details>
+                <summary>Puis-je utiliser vos données pour un projet ?</summary>
+                <p>Oui. Ecorina s'inscrit dans une démarche de partage de la connaissance. Sauf mention contraire, vous pouvez citer nos comparatifs ou utiliser notre simulateur comme base de travail, à condition de citer la source (Lien vers Ecorina.fr).</p>
+            </details>
         </div>
     </section>
 
     <footer>
-        <div class="container" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 24px;">
+        <div class="container-large" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 24px; padding-top: 32px;">
             <div class="logo" style="font-size: 1.5rem;">eco<span>rina.</span></div>
-            <p style="font-size: 0.95rem; color: var(--text-muted); margin: 0;">Plateforme pédagogique - Aide au choix & Transition sanitaire</p>
+            <p style="font-size: 0.95rem; color: var(--text-muted); margin: 0;">Plateforme pédagogique de la transition sanitaire.</p>
             <div style="font-size: 0.85rem; font-weight: 600; color: var(--primary); text-transform: uppercase; letter-spacing: 0.05em; background: var(--primary-light); padding: 8px 16px; border-radius: 50px;">
-                Éco-conçu · Zéro JS
+                © 2026
             </div>
         </div>
     </footer>
