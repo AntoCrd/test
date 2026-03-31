@@ -3,18 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ecorina - Notre Mission et notre Histoire</title>
+    <title>Ecorina - Le Journal de la Transition</title>
     <style>
         /* --- THEME "ACCUEIL 3 - LUXURY EDITORIAL" --- */
         :root {
+            /* Couleurs de fond */
             --bg-page: #F3F5F2; 
             --bg-card: #FFFFFF;
             --bg-card-alt: #FAFBFA;
             
+            /* Textes */
             --text-main: #131E17; 
             --text-muted: #596B60; 
             --text-light: #8E9E95;
             
+            /* Accents */
             --primary: #167D3D; 
             --primary-hover: #116330;
             --primary-light: #EBF2EC; 
@@ -24,6 +27,7 @@
             --shadow-md: 0 12px 32px rgba(19, 30, 23, 0.06);
             --shadow-lg: 0 24px 64px rgba(19, 30, 23, 0.08);
             
+            /* Arrondis */
             --radius-xl: 40px;
             --radius-lg: 24px;
             --radius-md: 16px;
@@ -32,313 +36,273 @@
             --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        /* --- RESET & SECURITE --- */
+        /* --- RESET --- */
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html { scroll-behavior: smooth; background: var(--bg-page); }
         body { font-family: var(--font-main); color: var(--text-main); line-height: 1.6; overflow-x: hidden; -webkit-font-smoothing: antialiased; }
         .site-wrapper { overflow-x: hidden; width: 100%; position: relative; }
         a { text-decoration: none; color: inherit; transition: var(--transition); }
-        ul, ol { list-style: none; }
+        ul { list-style: none; }
         img, svg { max-width: 100%; display: block; }
 
-        /* --- LAYOUT GLOBAL --- */
-        .container { max-width: 1000px; margin: 0 auto; padding: 0 clamp(24px, 5vw, 48px); }
-        .container-large { max-width: 1200px; margin: 0 auto; padding: 0 clamp(24px, 5vw, 48px); }
-        .section { padding: clamp(80px, 10vw, 140px) 0; }
-        .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: clamp(40px, 6vw, 64px); align-items: center; }
-        .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
+        /* --- LAYOUT --- */
+        .container { max-width: 1240px; margin: 0 auto; padding: 0 clamp(24px, 5vw, 48px); }
+        .section { padding: clamp(60px, 8vw, 100px) 0; }
 
         /* --- TYPOGRAPHIE --- */
         h1 { font-size: clamp(3rem, 7vw, 5.5rem); line-height: 0.95; letter-spacing: -0.04em; margin-bottom: 24px; font-weight: 500; }
         h1 span { color: var(--primary); font-style: italic; font-weight: 400; display: block; }
-        h2 { font-size: clamp(2.25rem, 5vw, 4rem); line-height: 1.05; letter-spacing: -0.03em; margin-bottom: 24px; font-weight: 500; max-width: 900px; }
-        h3 { font-size: clamp(1.5rem, 3vw, 2.25rem); margin-bottom: 12px; font-weight: 500; letter-spacing: -0.02em; color: var(--text-main); }
-        h4 { font-size: 1.125rem; font-weight: 600; margin-bottom: 8px; color: var(--text-main); }
+        h2 { font-size: clamp(2rem, 4vw, 3rem); line-height: 1.05; letter-spacing: -0.03em; margin-bottom: 16px; font-weight: 500; }
+        h3 { font-size: clamp(1.25rem, 2vw, 1.5rem); margin-bottom: 12px; font-weight: 600; line-height: 1.3; letter-spacing: -0.01em; color: var(--text-main); }
         
-        p.lead { font-size: clamp(1.15rem, 2.5vw, 1.35rem); color: var(--text-muted); max-width: 750px; margin-bottom: 40px; font-weight: 400; line-height: 1.6; }
-        p { font-size: 1.05rem; color: var(--text-muted); margin-bottom: 16px; }
+        p.lead { font-size: clamp(1.15rem, 2vw, 1.35rem); color: var(--text-muted); max-width: 700px; margin-bottom: 40px; font-weight: 400; line-height: 1.6; }
+        p.excerpt { font-size: 1rem; color: var(--text-muted); margin-bottom: 24px; line-height: 1.5; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
         
         .pill { display: inline-flex; align-items: center; padding: 8px 24px; border-radius: 50px; font-size: 0.85rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; background: var(--bg-card); border: 1px solid var(--border); box-shadow: var(--shadow-sm); margin-bottom: 32px; color: var(--text-main); }
-        .breadcrumb { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 40px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; }
-        .breadcrumb span { color: var(--primary); margin: 0 8px; }
-        .surtitle { display: inline-flex; align-items: center; gap: 12px; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--primary); margin-bottom: 24px; font-weight: 700; }
-        .surtitle::before { content: ''; display: block; width: 24px; height: 1px; background: var(--primary); }
+        
+        .meta { display: flex; align-items: center; gap: 16px; font-size: 0.85rem; font-weight: 600; color: var(--primary); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 16px; }
+        .meta span.time { color: var(--text-light); }
+        .meta span.dot { color: var(--border); }
 
         /* --- BOUTONS --- */
-        .btn { display: inline-flex; justify-content: center; align-items: center; padding: 18px 40px; border-radius: 100px; font-weight: 500; font-size: 1.05rem; transition: var(--transition); cursor: pointer; border: 1px solid transparent; letter-spacing: 0.01em; }
-        .btn-primary { background: var(--primary); color: white; box-shadow: 0 8px 24px rgba(22, 125, 61, 0.25); }
-        .btn-primary:hover { background: var(--primary-hover); transform: translateY(-4px); box-shadow: 0 12px 32px rgba(22, 125, 61, 0.35); }
-        .btn-outline { background: transparent; color: var(--text-main); border-color: var(--border); box-shadow: var(--shadow-sm); }
-        .btn-outline:hover { background: var(--bg-card); border-color: var(--text-main); transform: translateY(-4px); box-shadow: var(--shadow-md); }
+        .btn { display: inline-flex; justify-content: center; align-items: center; padding: 16px 32px; border-radius: 100px; font-weight: 600; font-size: 0.95rem; transition: var(--transition); cursor: pointer; border: 1px solid transparent; letter-spacing: 0.02em; }
+        .btn-primary { background: var(--text-main); color: white; }
+        .btn-primary:hover { background: var(--primary); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(22, 125, 61, 0.2); }
+        .btn-outline { background: transparent; color: var(--text-main); border-color: var(--border); }
+        .btn-outline:hover { background: var(--bg-card); border-color: var(--text-main); transform: translateY(-2px); }
 
-        /* --- MENU PRINCIPAL --- */
-        nav { display: flex; justify-content: space-between; align-items: center; padding: 32px 0; border-bottom: 1px solid rgba(22, 125, 61, 0.1); margin-bottom: 64px; }
-        .logo { font-size: 1.75rem; font-weight: 700; letter-spacing: -0.05em; color: var(--text-main); display: flex; align-items: center; gap: 8px; }
+        /* --- NAVIGATION --- */
+        nav { display: flex; justify-content: space-between; align-items: center; padding: 32px 0; border-bottom: 1px solid rgba(22, 125, 61, 0.1); margin-bottom: 48px; }
+        .logo { font-size: 1.5rem; font-weight: 700; letter-spacing: -0.05em; color: var(--text-main); display: flex; align-items: center; gap: 8px; }
         .logo span { color: var(--primary); }
-        .nav-links { display: flex; gap: 40px; font-size: 0.9rem; font-weight: 500; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; }
+        .nav-links { display: flex; gap: 40px; font-size: 0.9rem; font-weight: 500; color: var(--text-muted); }
         .nav-links a:hover { color: var(--primary); }
 
-        /* --- HERO --- */
-        .hero { display: flex; flex-direction: column; align-items: center; text-align: center; padding-top: 40px; padding-bottom: 80px; position: relative; }
-        .hero::after { content: ''; position: absolute; width: 60vw; height: 60vw; background: radial-gradient(circle, rgba(22, 125, 61, 0.08) 0%, transparent 60%); top: -20%; z-index: -1; pointer-events: none; }
+        /* --- FILTRES DE CATÉGORIES (CSS) --- */
+        .filter-row { display: flex; gap: 12px; overflow-x: auto; padding-bottom: 16px; margin-bottom: 48px; -webkit-overflow-scrolling: touch; }
+        .filter-row::-webkit-scrollbar { display: none; }
+        .filter-tag { padding: 10px 24px; border-radius: 50px; background: transparent; border: 1px solid var(--border); color: var(--text-muted); font-size: 0.9rem; font-weight: 500; cursor: pointer; transition: var(--transition); white-space: nowrap; }
+        .filter-tag:hover { border-color: var(--text-main); color: var(--text-main); }
+        .filter-tag.active { background: var(--text-main); color: white; border-color: var(--text-main); }
 
-        /* --- L'HISTOIRE (La Genèse) --- */
-        .story-block { background: var(--bg-card); border-radius: var(--radius-xl); padding: clamp(48px, 8vw, 80px); box-shadow: var(--shadow-md); border: 1px solid var(--border); position: relative; }
-        .dropcap { float: left; font-size: 5rem; line-height: 0.8; padding-top: 8px; padding-right: 16px; color: var(--primary); font-family: Georgia, serif; font-weight: bold; }
-        .story-content p { font-size: 1.125rem; margin-bottom: 24px; color: var(--text-main); line-height: 1.7; }
-
-        /* --- LE MANIFESTE (Bloc Citation) --- */
-        .manifesto-box { margin-top: 80px; text-align: center; position: relative; padding: 48px 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
-        .manifesto-text { font-size: clamp(1.5rem, 3vw, 2.5rem); font-weight: 500; line-height: 1.3; color: var(--text-main); margin-bottom: 32px; letter-spacing: -0.02em; font-style: italic; }
-        .manifesto-author { font-size: 1.125rem; color: var(--primary); font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; }
-
-        /* --- MÉTHODOLOGIE (Notre Approche) --- */
-        .method-card { background: var(--bg-page); border-left: 2px solid var(--primary); padding: 32px 40px; margin-bottom: 24px; transition: var(--transition); }
-        .method-card:hover { background: var(--bg-card); box-shadow: var(--shadow-sm); transform: translateX(8px); }
-        .method-num { font-size: 0.85rem; font-weight: 700; color: var(--primary); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 8px; display: block; }
+        /* --- ARTICLE A LA UNE (FEATURED) --- */
+        .featured-post { background: var(--bg-card); border-radius: var(--radius-xl); box-shadow: var(--shadow-md); border: 1px solid var(--border); overflow: hidden; display: flex; transition: var(--transition); margin-bottom: 64px; }
+        .featured-post:hover { box-shadow: var(--shadow-lg); transform: translateY(-4px); }
+        .f-image { width: 55%; background: var(--primary-light); position: relative; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+        /* Placeholder SVG Premium */
+        .f-image::after { content: ''; position: absolute; width: 100%; height: 100%; background: radial-gradient(circle at top left, rgba(22,125,61,0.1) 0%, transparent 70%); }
+        .f-image svg { width: 120px; height: 120px; stroke: rgba(22,125,61,0.2); stroke-width: 1; fill: none; }
         
-        /* --- LE PACTE DE CONFIANCE (Bento Grid) --- */
-        .values-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; margin-top: 48px; }
-        .v-card { background: var(--bg-card); border-radius: var(--radius-lg); padding: 48px; border: 1px solid var(--border); box-shadow: var(--shadow-sm); display: flex; flex-direction: column; transition: var(--transition); }
-        .v-card:hover { transform: translateY(-8px); box-shadow: var(--shadow-md); border-color: var(--primary); }
-        .v-icon { width: 64px; height: 64px; background: var(--bg-page); border-radius: 16px; display: flex; align-items: center; justify-content: center; margin-bottom: 32px; flex-shrink: 0; }
-        .v-icon svg { width: 32px; height: 32px; stroke: var(--primary); fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
-        .v-card.large { grid-column: 1 / -1; flex-direction: row; align-items: center; gap: 48px; background: var(--primary-light); border-color: transparent; }
-        .v-card.large .v-icon { background: var(--bg-card); }
-        .v-card.large h3 { color: var(--primary-hover); }
+        .f-content { width: 45%; padding: clamp(40px, 5vw, 64px); display: flex; flex-direction: column; justify-content: center; }
 
-        /* --- POUR QUI ? (Audiences) --- */
-        .audience-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 64px; }
-        .a-card { background: var(--bg-card); border-radius: var(--radius-lg); padding: 40px; border: 1px solid var(--border); box-shadow: var(--shadow-sm); text-align: center; }
-        .a-icon { width: 56px; height: 56px; border-radius: 50%; background: var(--bg-page); display: flex; align-items: center; justify-content: center; margin: 0 auto 24px auto; }
-        .a-icon svg { width: 28px; height: 28px; stroke: var(--text-main); fill: none; stroke-width: 1.5; }
-
-        /* --- ECO-CONCEPTION (Black UI Rupture) --- */
-        .eco-wrapper { background: var(--text-main); border-radius: var(--radius-xl); padding: clamp(64px, 8vw, 100px); color: white; margin-top: 80px; box-shadow: var(--shadow-lg); }
-        .eco-wrapper h2 { color: white; }
-        .eco-wrapper p.lead { color: rgba(255,255,255,0.7); }
+        /* --- GRILLE D'ARTICLES --- */
+        .article-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
+        .article-card { background: var(--bg-card); border-radius: var(--radius-lg); border: 1px solid var(--border); overflow: hidden; box-shadow: var(--shadow-sm); transition: var(--transition); display: flex; flex-direction: column; cursor: pointer; }
+        .article-card:hover { transform: translateY(-8px); box-shadow: var(--shadow-md); border-color: var(--primary); }
+        .article-card:hover .a-image svg { transform: scale(1.05); }
         
-        .eco-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; margin-top: 64px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 64px; }
-        .e-stat { border-left: 2px solid var(--primary); padding-left: 24px; }
-        .e-stat strong { display: block; font-size: 3rem; font-weight: 300; color: white; line-height: 1; margin-bottom: 8px; }
-        .e-stat span { display: block; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--primary); font-weight: 700; margin-bottom: 12px; }
-        .e-stat p { color: #A0AAB2; font-size: 0.95rem; margin: 0; }
+        .a-image { height: 220px; background: var(--bg-page); border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: center; overflow: hidden; position: relative; }
+        .a-image svg { width: 64px; height: 64px; stroke: var(--border); stroke-width: 1.5; fill: none; transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
+        
+        /* Variantes de couleurs pour les images abstract */
+        .a-image.c1 { background: #FDF4EF; } .a-image.c1 svg { stroke: #D97746; opacity: 0.3; }
+        .a-image.c2 { background: #EBF5F4; } .a-image.c2 svg { stroke: #248277; opacity: 0.3; }
+        .a-image.c3 { background: #F4F6F9; } .a-image.c3 svg { stroke: #475569; opacity: 0.3; }
+        .a-image.c4 { background: #FAF5FF; } .a-image.c4 svg { stroke: #7C3AED; opacity: 0.3; }
 
-        /* --- FAQ TRANSPARENCE --- */
-        .faq-wrapper { max-width: 800px; margin: 48px auto 0 auto; }
-        details { background: var(--bg-card); border-radius: var(--radius-md); margin-bottom: 16px; box-shadow: var(--shadow-sm); border: 1px solid var(--border); transition: var(--transition); }
-        details:hover { border-color: var(--primary); }
-        summary { padding: 24px 32px; font-size: 1.125rem; font-weight: 600; cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center; color: var(--text-main); }
-        summary::-webkit-details-marker { display: none; }
-        summary::after { content: '+'; font-size: 1.5rem; color: var(--primary); font-weight: 400; transition: transform 0.3s ease; }
-        details[open] summary::after { transform: rotate(45deg); }
-        details p { padding: 0 32px 32px 32px; margin: 0; color: var(--text-muted); line-height: 1.6; }
+        .a-content { padding: 32px; flex-grow: 1; display: flex; flex-direction: column; }
+        .a-content .excerpt { margin-bottom: 32px; flex-grow: 1; }
+        .read-more { font-weight: 600; font-size: 0.9rem; color: var(--text-main); display: inline-flex; align-items: center; gap: 8px; text-transform: uppercase; letter-spacing: 0.05em; transition: var(--transition); }
+        .article-card:hover .read-more { color: var(--primary); gap: 12px; }
+
+        /* --- NEWSLETTER BANNER --- */
+        .newsletter-box { background: var(--text-main); border-radius: var(--radius-xl); padding: clamp(48px, 8vw, 80px); color: white; display: flex; align-items: center; justify-content: space-between; gap: 48px; margin-top: 80px; box-shadow: var(--shadow-lg); position: relative; overflow: hidden; }
+        .newsletter-box::before { content: ''; position: absolute; width: 400px; height: 400px; border-radius: 50%; background: radial-gradient(circle, rgba(22, 125, 61, 0.4) 0%, transparent 70%); right: -100px; top: -100px; pointer-events: none; }
+        
+        .n-content { max-width: 500px; position: relative; z-index: 2; }
+        .n-content h2 { color: white; margin-bottom: 16px; }
+        .n-content p { color: rgba(255,255,255,0.7); }
+        
+        .n-form { display: flex; gap: 12px; width: 100%; max-width: 450px; position: relative; z-index: 2; }
+        .n-input { flex-grow: 1; padding: 18px 24px; border-radius: 100px; border: 1px solid rgba(255,255,255,0.2); background: rgba(255,255,255,0.05); color: white; font-size: 1rem; outline: none; transition: var(--transition); }
+        .n-input::placeholder { color: rgba(255,255,255,0.4); }
+        .n-input:focus { border-color: var(--primary); background: rgba(255,255,255,0.1); }
+        .n-submit { padding: 18px 32px; border-radius: 100px; background: var(--primary); color: white; border: none; font-weight: 600; font-size: 1rem; cursor: pointer; transition: var(--transition); }
+        .n-submit:hover { background: var(--primary-hover); }
 
         /* --- FOOTER --- */
-        footer { padding: 64px 0 32px 0; margin-top: 80px; text-align: center; border-top: 1px solid var(--border); }
+        footer { padding: 48px 0; margin-top: 80px; text-align: center; border-top: 1px solid var(--border); }
+        .footer-content { display: flex; justify-content: space-between; align-items: center; padding-top: 24px; font-size: 0.85rem; color: var(--text-muted); }
 
         /* --- RESPONSIVE --- */
         @media (max-width: 1024px) {
-            .v-card.large { flex-direction: column; align-items: flex-start; gap: 24px; }
-            .grid-2 { grid-template-columns: 1fr; gap: 48px; }
+            .featured-post { flex-direction: column; }
+            .f-image { width: 100%; height: 300px; }
+            .f-content { width: 100%; }
+            .article-grid { grid-template-columns: repeat(2, 1fr); }
+            .newsletter-box { flex-direction: column; text-align: center; }
+            .n-content { max-width: 100%; }
+            .n-form { margin: 0 auto; }
         }
-
         @media (max-width: 768px) {
             .nav-links { display: none; }
-            .eco-stats, .audience-grid, .values-grid { grid-template-columns: 1fr; }
-            .btn-group { flex-direction: column; width: 100%; }
-            .btn { width: 100%; }
+            .article-grid { grid-template-columns: 1fr; }
+            .n-form { flex-direction: column; }
+            .n-submit { width: 100%; }
+            .filter-row { padding-bottom: 24px; }
         }
     </style>
 </head>
 <body>
 <div class="site-wrapper">
 
-    <div class="container-large">
+    <div class="container">
         <nav>
             <div class="logo">
                 <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
                 ecorina
             </div>
             <div class="nav-links">
-                <a href="#histoire">L'Histoire</a>
-                <a href="#methodologie">Méthodologie</a>
-                <a href="#independance">Le Pacte</a>
-                <a href="#eco-conception">Le Site (Zéro JS)</a>
+                <a href="#">Guides Techniques</a>
+                <a href="#">Réglementation</a>
+                <a href="#">Témoignages</a>
+                <a href="#">Simulateur</a>
             </div>
-            <a href="#" class="btn btn-outline" style="padding: 10px 24px; font-size: 0.9rem;">Accéder aux guides</a>
+            <a href="#" class="btn btn-outline" style="padding: 10px 24px; font-size: 0.9rem;">Chercher un artisan</a>
         </nav>
     </div>
 
-    <header class="container hero">
-        <div class="breadcrumb">Accueil <span>/</span> La Mission Ecorina</div>
-        <div class="pill">Qui sommes-nous ?</div>
-        <h1>Au commencement,<br><span>une aberration de 36 litres.</span></h1>
-        <p class="lead">Ecorina est née d'un constat simple et douloureux : en France, nous utilisons chaque jour 36 litres d'eau potable, purifiée à grands frais, uniquement pour évacuer nos déchets. Il était temps de rendre l'alternative évidente et désirable.</p>
+    <header class="container" style="padding-top: 32px; padding-bottom: 48px;">
+        <div class="pill">Le Mag Ecorina</div>
+        <h1 style="font-size: clamp(3rem, 6vw, 4.5rem);">Ressources & <span>Décryptages.</span></h1>
+        <p class="lead">Bienvenue dans notre espace éditorial. Découvrez nos analyses techniques, nos retours d'expérience et nos décryptages de la législation pour réussir votre transition sanitaire en toute sérénité.</p>
+        
+        <div class="filter-row">
+            <button class="filter-tag active">Tous les articles</button>
+            <button class="filter-tag">Guides Pratiques</button>
+            <button class="filter-tag">Témoignages</button>
+            <button class="filter-tag">Législation</button>
+            <button class="filter-tag">Écologie</button>
+        </div>
     </header>
 
-    <section id="histoire" class="container">
-        <div class="story-block">
-            <span class="surtitle">La Genèse</span>
-            <h2>L'écologie ne doit plus ressembler à une punition.</h2>
-            
-            <div class="story-content">
-                <p><span class="dropcap">T</span>out a commencé par une frustration. Lors de la rénovation d'une maison de campagne, nous avons voulu installer des sanitaires écologiques. La volonté était là, mais le parcours du combattant commençait.</p>
-                <p>En ligne, nous trouvions soit des forums de passionnés ultra-techniques (où la sciure est une religion), soit des catalogues de fabricants très opaques, soit des préjugés tenaces sur les odeurs et l'hygiène. Surtout, le design était le grand absent : on nous proposait de remplacer notre WC en porcelaine par des "boîtes en bois rustiques" dignes du Moyen-Âge.</p>
-                <p><strong>C'est là qu'est née la vision d'Ecorina.</strong> Nous avons compris que pour que les foyers abandonnent la chasse d'eau classique, il fallait démystifier la technologie (la séparation, l'assèchement), comparer objectivement les modèles existants, et prouver que l'on pouvait allier confort absolu, design d'intérieur haut de gamme, et respect total de l'environnement.</p>
+    <section class="container">
+        <article class="featured-post">
+            <div class="f-image">
+                <svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="40"/><path d="M50 10 L50 90 M10 50 L90 50"/></svg>
             </div>
-        </div>
-
-        <div class="manifesto-box">
-            <p class="manifesto-text">"Pour sauver l'eau potable, l'alternative sanitaire doit être simple à comprendre, belle à regarder, et sans contrainte cachée."</p>
-            <div class="manifesto-author">— Le Manifeste Ecorina</div>
-        </div>
-    </section>
-
-    <section id="methodologie" class="container-large section">
-        <div class="grid-2">
-            <div>
-                <span class="surtitle">Comment nous travaillons</span>
-                <h2>De l'information à l'action.</h2>
-                <p class="lead">Nous ne sommes pas des vendeurs. Nous sommes des analystes de la transition écologique. Voici comment nous produisons nos contenus.</p>
-                <a href="#" class="btn btn-primary" style="margin-top: 24px;">Voir nos comparatifs</a>
+            <div class="f-content">
+                <div class="meta">
+                    Législation <span class="dot">•</span> <span class="time">Lecture 6 min</span>
+                </div>
+                <h2 style="font-size: clamp(2rem, 3vw, 2.5rem); margin-bottom: 24px;">Réglementation ANC 2026 : Ce qui change pour les toilettes sans eau.</h2>
+                <p class="excerpt" style="-webkit-line-clamp: 4; font-size: 1.125rem;">L'arrêté de 2009 sur l'Assainissement Non Collectif (ANC) connaît sa première grande révision. Est-ce la fin du flou juridique pour l'installation de modèles à séparation en maison principale ? Décryptage des nouvelles normes d'épuration.</p>
+                <a href="#" class="btn btn-primary" style="align-self: flex-start; margin-top: 16px;">Lire l'analyse complète</a>
             </div>
-
-            <div>
-                <div class="method-card">
-                    <span class="method-num">Étape 01</span>
-                    <h3>Veille & Analyse scientifique</h3>
-                    <p style="margin:0; font-size: 0.95rem; color: var(--text-muted);">Nous étudions les principes chimiques (rapport carbone/azote) et la législation française (Arrêté de 2009 sur l'ANC) pour vous fournir des données irréfutables.</p>
-                </div>
-                <div class="method-card">
-                    <span class="method-num">Étape 02</span>
-                    <h3>Comparaison hors-catalogue</h3>
-                    <p style="margin:0; font-size: 0.95rem; color: var(--text-muted);">Nous décortiquons les technologies (Sciure vs Séparation vs Lombricompostage) en nous basant sur le quotidien réel des utilisateurs, et non sur les plaquettes commerciales des fabricants.</p>
-                </div>
-                <div class="method-card">
-                    <span class="method-num">Étape 03</span>
-                    <h3>Vulgarisation & Design</h3>
-                    <p style="margin:0; font-size: 0.95rem; color: var(--text-muted);">Nous traduisons le jargon technique en guides interactifs, tableaux de bord et simulateurs ergonomiques pour vous permettre de faire le bon choix en 5 minutes.</p>
-                </div>
-            </div>
-        </div>
+        </article>
     </section>
 
     <section class="container section" style="padding-top: 0;">
-        <div style="text-align: center; margin-bottom: 48px;">
-            <span class="surtitle" style="justify-content: center;">Notre Public</span>
-            <h2>Pour qui écrivons-nous ?</h2>
+        <div class="article-grid">
+            
+            <article class="article-card">
+                <div class="a-image c1">
+                    <svg viewBox="0 0 24 24"><path d="M3 22l9-18 9 18"></path><path d="M12 15v7"></path></svg>
+                </div>
+                <div class="a-content">
+                    <div class="meta">Témoignage <span class="dot">•</span> <span class="time">4 min</span></div>
+                    <h3>"Nous avons installé une TLB en famille, voici notre bilan après 1 an."</h3>
+                    <p class="excerpt">Julie et Thomas ont sauté le pas de la toilette à sciure dans leur maison rénovée. Entre la logistique de la sciure, les odeurs (ou leur absence) et le regard des amis, ils racontent tout sans filtre.</p>
+                    <a href="#" class="read-more">Lire l'article <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></a>
+                </div>
+            </article>
+
+            <article class="article-card">
+                <div class="a-image c2">
+                    <svg viewBox="0 0 24 24"><rect x="4" y="2" width="16" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg>
+                </div>
+                <div class="a-content">
+                    <div class="meta">Guide <span class="dot">•</span> <span class="time">8 min</span></div>
+                    <h3>Toilettes à séparation : Notre Top 3 des modèles scandinaves.</h3>
+                    <p class="excerpt">La Suède est la pionnière incontestée du sanitaire à séparation d'urine. Design en porcelaine, ventilateur silencieux, caches visuels... Nous avons testé les 3 leaders du marché pour votre intérieur.</p>
+                    <a href="#" class="read-more">Lire l'article <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></a>
+                </div>
+            </article>
+
+            <article class="article-card">
+                <div class="a-image c3">
+                    <svg viewBox="0 0 24 24"><path d="M12 22a7 7 0 0 0 7-7c0-2-1-3.9-3-5.5s-3.5-4-4-6.5c-.5 2.5-2 4.9-4 6.5C6 11.1 5 13 5 15a7 7 0 0 0 7 7z"></path></svg>
+                </div>
+                <div class="a-content">
+                    <div class="meta">Écologie <span class="dot">•</span> <span class="time">5 min</span></div>
+                    <h3>Le scandale silencieux : L'impact de l'urine sur nos rivières.</h3>
+                    <p class="excerpt">Pourquoi mélanger l'urine à l'eau potable est un non-sens absolu ? L'azote et le phosphore contenus dans nos fluides saturent les stations d'épuration et créent l'eutrophisation des cours d'eau.</p>
+                    <a href="#" class="read-more">Lire l'article <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></a>
+                </div>
+            </article>
+
+            <article class="article-card">
+                <div class="a-image c4">
+                    <svg viewBox="0 0 24 24"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
+                </div>
+                <div class="a-content">
+                    <div class="meta">Pratique <span class="dot">•</span> <span class="time">3 min</span></div>
+                    <h3>Sciure de bois : Les 4 erreurs qui ruinent votre compost.</h3>
+                    <p class="excerpt">Toutes les sciures ne se valent pas. Bois traité, poussière trop fine, copeaux humides... Voici la check-list indispensable pour garantir un assèchement parfait et un compost stérile.</p>
+                    <a href="#" class="read-more">Lire l'article <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></a>
+                </div>
+            </article>
+
+            <article class="article-card">
+                <div class="a-image c1">
+                    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><path d="M12 8l4 4-4 4M8 12h8"></path></svg>
+                </div>
+                <div class="a-content">
+                    <div class="meta">Témoignage <span class="dot">•</span> <span class="time">6 min</span></div>
+                    <h3>Comment convaincre ses invités d'utiliser une toilette sèche ?</h3>
+                    <p class="excerpt">Recevoir du monde avec des WC alternatifs peut générer de l'anxiété. Voici nos astuces d'aménagement, les petits mots d'explication humoristiques, et le matériel pour rassurer les plus sceptiques.</p>
+                    <a href="#" class="read-more">Lire l'article <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></a>
+                </div>
+            </article>
+
+            <article class="article-card">
+                <div class="a-image c2">
+                    <svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+                </div>
+                <div class="a-content">
+                    <div class="meta">Législation <span class="dot">•</span> <span class="time">4 min</span></div>
+                    <h3>Quelles aides financières pour installer des WC écologiques ?</h3>
+                    <p class="excerpt">Les Agences de l'Eau subventionnent de plus en plus l'installation de sanitaires sans eau pour préserver les nappes phréatiques. Découvrez si votre projet est éligible aux primes régionales.</p>
+                    <a href="#" class="read-more">Lire l'article <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></a>
+                </div>
+            </article>
+
         </div>
-
-        <div class="audience-grid">
-            <div class="a-card">
-                <div class="a-icon"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg></div>
-                <h4>Les Particuliers</h4>
-                <p style="font-size: 0.95rem; color: var(--text-muted); margin: 0;">Que vous rénoviez une salle de bain de maison principale ou aménagiez un cabanon de jardin, nous vous évitons les erreurs de casting coûteuses.</p>
-            </div>
-            <div class="a-card">
-                <div class="a-icon"><svg viewBox="0 0 24 24"><path d="M12 2l10 6.5v7L12 22 2 15.5v-7L12 2zM12 22v-6.5"></path><path d="M22 8.5l-10 7-10-7"></path><path d="M2 15.5l10-7 10 7"></path></svg></div>
-                <h4>Les Constructeurs</h4>
-                <p style="font-size: 0.95rem; color: var(--text-muted); margin: 0;">Artisans de Tiny Houses, architectes d'intérieur ou constructeurs bois. Trouvez ici les arguments pour rassurer et convaincre vos clients.</p>
-            </div>
-            <div class="a-card">
-                <div class="a-icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg></div>
-                <h4>Les Collectivités</h4>
-                <p style="font-size: 0.95rem; color: var(--text-muted); margin: 0;">Communes, parcs naturels ou campings. Comprenez les enjeux du compostage à grande échelle et des réglementations sanitaires ERP.</p>
-            </div>
-        </div>
-    </section>
-
-    <section id="independance" class="container section" style="padding-top: 0;">
-        <div style="text-align: center; margin-bottom: 48px;">
-            <span class="surtitle" style="justify-content: center;">Éthique</span>
-            <h2>Notre pacte de confiance.</h2>
-        </div>
-
-        <div class="values-grid">
-            <div class="v-card large">
-                <div class="v-icon">
-                    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
-                </div>
-                <div>
-                    <h3>100% Indépendants</h3>
-                    <p style="margin: 0; color: var(--text-muted); font-size: 1.125rem;"><strong>Ecorina ne fabrique et ne vend aucune toilette.</strong> Nous sommes une plateforme d'information tierce. Notre seul objectif est de vous orienter vers la technologie la plus adaptée à votre contexte de vie. Nous ne sommes sponsorisés par aucune marque scandinave ou française.</p>
-                </div>
-            </div>
-
-            <div class="v-card">
-                <div class="v-icon">
-                    <svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="7.5 4.21 12 6.81 16.5 4.21"></polyline><polyline points="7.5 19.79 7.5 14.6 3 12"></polyline><polyline points="21 12 16.5 14.6 16.5 19.79"></polyline><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
-                </div>
-                <h3>Pédagogie sans dogme</h3>
-                <p style="margin: 0;">Pas de culpabilisation écologique. Nous expliquons avec clarté les avantages, mais surtout les contraintes de chaque modèle. L'honnêteté crée l'adoption.</p>
-            </div>
-
-            <div class="v-card">
-                <div class="v-icon">
-                    <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"></path><path d="M2 17l10 5 10-5"></path><path d="M2 12l10 5 10-5"></path></svg>
-                </div>
-                <h3>L'exigence du Design</h3>
-                <p style="margin: 0;">Nous croyons que l'écologie doit être belle pour être acceptée. Le design UX de ce site n'est pas un luxe, c'est un outil pour rendre la transition désirable.</p>
-            </div>
-        </div>
-    </section>
-
-    <section id="eco-conception" class="container-large">
-        <div class="eco-wrapper">
-            <div class="surtitle" style="color: var(--primary-light); background: rgba(255,255,255,0.1); border-radius: 50px; padding: 6px 16px;">Engagement Numérique</div>
-            <h2>Un site qui applique ce qu'il prêche.</h2>
-            <p class="lead">L'écologie ne s'arrête pas aux tuyaux de plomberie. Le numérique pollue massivement. C'est pourquoi nous avons conçu et codé Ecorina selon les règles les plus strictes de l'éco-conception web (Green IT).</p>
-
-            <div class="eco-stats">
-                <div class="e-stat">
-                    <strong>0 Ko</strong>
-                    <span>De JavaScript</span>
-                    <p>Ce site est codé à 100% en HTML et CSS natifs. Aucune bibliothèque lourde (pas de React, pas de jQuery), aucune animation gourmande qui vide la batterie de votre téléphone ou sollicite les serveurs inutilement.</p>
-                </div>
-                
-                <div class="e-stat">
-                    <strong>SVG</strong>
-                    <span>Format Vectoriel Pur</span>
-                    <p>Nous n'utilisons aucune image PNG ou JPG lourde. Toutes nos illustrations sont des tracés mathématiques (SVG). Le poids de cette page entière est inférieur au poids d'une seule photo sur un site classique.</p>
-                </div>
-
-                <div class="e-stat">
-                    <strong>A+</strong>
-                    <span>Hébergement & RGAA</span>
-                    <p>L'accessibilité est de l'écologie sociale. Le site est conçu avec de forts contrastes et une hiérarchie lisible (RGAA). Notre hébergement est localisé en France, optimisant les trajets de la donnée.</p>
-                </div>
-            </div>
+        
+        <div style="text-align: center; margin-top: 64px;">
+            <a href="#" class="btn btn-outline">Charger plus d'articles</a>
         </div>
     </section>
 
-    <section class="container section">
-        <div style="text-align: center; margin-bottom: 48px;">
-            <h2>Questions sur le projet.</h2>
-        </div>
-
-        <div class="faq-wrapper">
-            <details>
-                <summary>Comment Ecorina se finance-t-il si vous ne vendez rien ?</summary>
-                <p>Le projet Ecorina est actuellement une initiative pédagogique auto-financée. À terme, nous envisageons de proposer la mise en relation avec des artisans installateurs qualifiés de notre annuaire, ou de l'affiliation transparente et déclarée sur certains modèles que nous recommandons technologiquement. Mais la consultation de nos guides et du simulateur restera toujours 100% gratuite.</p>
-            </details>
-            <details>
-                <summary>Qui écrit les guides et les comparatifs ?</summary>
-                <p>Les contenus sont rédigés par des passionnés de l'habitat léger, d'éco-construction et des professionnels du design. Chaque guide technique est recoupé avec la législation française en vigueur (notamment les règles du SPANC pour l'assainissement non collectif) pour garantir l'exactitude des informations.</p>
-            </details>
-            <details>
-                <summary>Puis-je utiliser vos données pour un projet ?</summary>
-                <p>Oui. Ecorina s'inscrit dans une démarche de partage de la connaissance. Sauf mention contraire, vous pouvez citer nos comparatifs ou utiliser notre simulateur comme base de travail, à condition de citer la source (Lien vers Ecorina.fr).</p>
-            </details>
+    <section class="container">
+        <div class="newsletter-box">
+            <div class="n-content">
+                <h2 style="font-size: clamp(2rem, 3vw, 2.5rem);">Restez à la pointe.</h2>
+                <p>Pas de spam. Juste une sélection mensuelle de nos meilleurs dossiers, des évolutions de la loi et des nouveautés technologiques pour votre habitat.</p>
+            </div>
+            <form class="n-form" onsubmit="event.preventDefault();">
+                <input type="email" class="n-input" placeholder="Votre adresse email..." required>
+                <button type="submit" class="n-submit">S'inscrire</button>
+            </form>
         </div>
     </section>
 
     <footer>
-        <div class="container-large" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 24px; padding-top: 32px;">
-            <div class="logo" style="font-size: 1.5rem;">eco<span>rina.</span></div>
-            <p style="font-size: 0.95rem; color: var(--text-muted); margin: 0;">Plateforme pédagogique de la transition sanitaire.</p>
-            <div style="font-size: 0.85rem; font-weight: 600; color: var(--primary); text-transform: uppercase; letter-spacing: 0.05em; background: var(--primary-light); padding: 8px 16px; border-radius: 50px;">
-                © 2026
+        <div class="container">
+            <div class="footer-content">
+                <div class="logo" style="font-size: 1.5rem; color: var(--text-main);">eco<span style="color: var(--primary);">rina.</span></div>
+                <div>Projet pédagogique éco-conçu • Zéro JS</div>
+                <div>© 2026 Ecorina</div>
             </div>
         </div>
     </footer>
