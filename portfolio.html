@@ -2294,20 +2294,7 @@
 
 <body>
 
-    <!-- ══ LOADER ══ -->
-    <div id="loader">
-        <div class="loader-title" id="loaderWord"></div>
-        <div class="loader-bar-wrap">
-            <div class="loader-bar-fill" id="lFill"></div>
-        </div>
-        <div class="loader-pct" id="lPct">000</div>
-        <div class="loader-cmjn">
-            <div class="cmjn-dot c"></div>
-            <div class="cmjn-dot m"></div>
-            <div class="cmjn-dot j"></div>
-            <div class="cmjn-dot n"></div>
-        </div>
-    </div>
+    <!-- Loader supprimé -->
 
     <!-- ══ NAV ISLAND ══ -->
     <header>
@@ -3127,27 +3114,7 @@
     </footer>
 
     <script>
-        /* LOADER */
-        (function () {
-            const word = 'Portfolio';
-            const el = document.getElementById('loaderWord');
-            word.split('').forEach((ch, i) => {
-                const s = document.createElement('span');
-                s.textContent = ch;
-                s.style.animationDelay = (i * 0.05) + 's';
-                el.appendChild(s);
-            });
-            const fill = document.getElementById('lFill');
-            const pct = document.getElementById('lPct');
-            const loader = document.getElementById('loader');
-            let p = 0;
-            const iv = setInterval(() => {
-                p += Math.random() * 10 + 3;
-                if (p >= 100) { p = 100; clearInterval(iv); setTimeout(() => { loader.classList.add('out'); setTimeout(() => loader.style.display = 'none', 800); }, 250); }
-                fill.style.width = p + '%';
-                pct.textContent = String(Math.floor(p)).padStart(3, '0');
-            }, 55);
-        })();
+        /* LOADER (supprimé) */
 
         /* SCROLL REVEAL */
         const obs = new IntersectionObserver(entries => {
