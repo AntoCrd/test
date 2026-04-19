@@ -3,220 +3,237 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Waitlist | Editorial Dark UX</title>
+    <title>Page Match | Galerie Luxe & Upsell</title>
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@400;700;800;900&display=swap" rel="stylesheet">
     <style>
         :root {
-            --brand-bg: #55121C;
-            --brand-accent: #ff2a55;
-            --bg-base: #040101;
-            --glass: rgba(255, 255, 255, 0.03);
-            --glass-border: rgba(255, 255, 255, 0.08);
-            --text-dim: rgba(255, 255, 255, 0.5);
-            --noise: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+            /* Palette Bordeaux Cinématique */
+            --brand-core: #55121C; 
+            --brand-glow: #ff2a55;
+            --brand-gold: #E5B9A8; /* Accent luxe */
+            
+            --bg-deep: #050102;
+            
+            /* Glassmorphism */
+            --glass-bg: rgba(20, 5, 8, 0.6);
+            --glass-blur: blur(24px) saturate(150%);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            
+            --noise: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
         }
 
-        /* --- FONDATIONS --- */
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; }
-        body { background-color: #000; display: flex; justify-content: center; align-items: center; min-height: 100vh; color: #fff; overflow: hidden; }
+        body { background-color: #000; display: flex; justify-content: center; align-items: center; min-height: 100vh; color: #fff; }
 
         .device {
-            width: 375px; height: 812px; position: relative; border-radius: 48px; overflow: hidden;
-            background: var(--bg-base); box-shadow: 0 0 0 2px #1a1a1a, 0 50px 100px rgba(0,0,0,1);
+            width: 375px; height: 812px; position: relative; border-radius: 44px; overflow: hidden;
+            background: var(--bg-deep); box-shadow: 0 0 0 2px #1a1a1a, 0 40px 100px rgba(0,0,0,1);
         }
 
-        /* Texture de grain cinématique */
-        .device::after { content: ''; position: absolute; inset: 0; background: var(--noise); opacity: 0.04; pointer-events: none; z-index: 100; mix-blend-mode: overlay; }
+        /* --- AMBIANCE LUMINEUSE --- */
+        .ambient { position: absolute; inset: 0; pointer-events: none; z-index: 0; }
+        .ambient::after { content: ''; position: absolute; inset: 0; background: var(--noise); opacity: 0.05; mix-blend-mode: overlay; }
+        
+        /* Un énorme halo bordeaux en haut pour rappeler ta maquette, mais avec de la profondeur */
+        .glow-top { position: absolute; top: -20%; left: 50%; transform: translateX(-50%); width: 150%; height: 600px; background: radial-gradient(circle, rgba(85, 18, 28, 0.8) 0%, rgba(85, 18, 28, 0.2) 40%, transparent 70%); }
 
-        /* --- ATMOSPHÈRE LUMINEUSE --- */
-        .ambient-glow { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
-        .glow-1 { position: absolute; top: -100px; left: 50%; transform: translateX(-50%); width: 120%; height: 400px; background: radial-gradient(circle, rgba(85, 18, 28, 0.7) 0%, transparent 70%); animation: pulseGlow 8s infinite alternate; }
-        .glow-2 { position: absolute; bottom: -50px; right: -50px; width: 300px; height: 300px; background: radial-gradient(circle, rgba(255, 42, 85, 0.15) 0%, transparent 70%); }
-
-        /* --- VIEWPORT --- */
-        .viewport { position: absolute; inset: 0; overflow-y: auto; padding: 56px 20px 120px; z-index: 1; scroll-behavior: smooth; }
+        /* --- CONTENEUR PRINCIPAL --- */
+        .viewport { position: absolute; inset: 0; overflow-y: auto; overflow-x: hidden; padding: 120px 16px 40px; z-index: 1; }
         .viewport::-webkit-scrollbar { display: none; }
 
-        /* --- HEADER --- */
-        .header { margin-bottom: 40px; display: flex; justify-content: space-between; align-items: center; padding: 0 8px; }
-        .btn-action-ui { width: 44px; height: 44px; border-radius: 50%; background: var(--glass); border: 1px solid var(--glass-border); color: #fff; display: flex; justify-content: center; align-items: center; backdrop-filter: blur(12px); cursor: pointer; transition: 0.3s; }
-        .btn-action-ui:active { transform: scale(0.9); }
-        .header h1 { font-family: 'Outfit', sans-serif; font-size: 18px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; }
-
-        /* --- LISTE D'ATTENTE --- */
-        .feed { display: flex; flex-direction: column; gap: 24px; }
-
-        .card-glass {
-            background: linear-gradient(145deg, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.01) 100%);
-            backdrop-filter: blur(30px) saturate(180%); -webkit-backdrop-filter: blur(30px) saturate(180%);
-            border: 1px solid var(--glass-border); border-radius: 36px; padding: 12px;
-            display: flex; flex-direction: column; gap: 16px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.1);
-            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-            position: relative;
+        /* --- NAVIGATION FLOTTANTE (TOP PILL) --- */
+        .nav-pill {
+            position: absolute; top: 40px; left: 50%; transform: translateX(-50%);
+            width: calc(100% - 40px); background: var(--glass-bg);
+            backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur);
+            border: 1px solid var(--glass-border); border-radius: 100px;
+            display: flex; justify-content: space-around; align-items: center;
+            padding: 12px 16px; z-index: 100;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5), inset 0 1px 1px rgba(255,255,255,0.1);
         }
-
-        .card-top { display: flex; gap: 16px; align-items: center; padding: 4px; }
         
-        /* Avatar avec Glow */
-        .avatar-container { position: relative; width: 84px; height: 84px; flex-shrink: 0; }
-        .avatar-img { width: 100%; height: 100%; border-radius: 24px; object-fit: cover; box-shadow: 0 10px 25px rgba(0,0,0,0.6); }
-        .badge-match { position: absolute; bottom: -6px; left: 50%; transform: translateX(-50%); background: #fff; color: #000; font-family: 'Outfit', sans-serif; font-size: 9px; font-weight: 900; padding: 4px 10px; border-radius: 100px; white-space: nowrap; box-shadow: 0 4px 12px rgba(0,0,0,0.4); }
-
-        .info-content { flex: 1; }
-        .info-content h2 { font-family: 'Outfit', sans-serif; font-size: 24px; font-weight: 900; line-height: 1; margin-bottom: 4px; }
-        .info-content p { font-size: 13px; color: var(--text-dim); font-weight: 500; }
+        .nav-item { display: flex; flex-direction: column; align-items: center; gap: 4px; color: rgba(255,255,255,0.4); text-decoration: none; font-size: 10px; font-weight: 600; cursor: pointer; transition: 0.3s; position: relative; }
+        .nav-item i { font-size: 22px; transition: 0.3s; }
         
-        /* Timer Anxiogène mais Design */
-        .timer-badge { display: flex; align-items: center; gap: 6px; font-family: 'Outfit', sans-serif; font-size: 10px; font-weight: 800; color: var(--brand-accent); margin-top: 10px; text-transform: uppercase; letter-spacing: 0.5px; }
-        .timer-badge i { font-size: 14px; animation: blink 1.5s infinite; }
+        /* L'état actif (Match) est mis en valeur */
+        .nav-item.active { color: #fff; }
+        .nav-item.active i { color: var(--brand-glow); filter: drop-shadow(0 0 8px rgba(255, 42, 85, 0.6)); }
+        .nav-item.active::after { content: ''; position: absolute; bottom: -8px; left: 50%; transform: translateX(-50%); width: 4px; height: 4px; border-radius: 50%; background: var(--brand-glow); }
 
-        /* --- DARK UX : ACTIONS INVERSÉES --- */
-        .actions-trap { display: flex; gap: 12px; align-items: center; padding-top: 4px; }
+        /* --- EN-TÊTE DE SECTION --- */
+        .page-header { margin-bottom: 24px; text-align: center; opacity: 0; animation: fadeUp 0.8s forwards; }
+        .page-header h1 { font-family: 'Outfit', sans-serif; font-size: 32px; font-weight: 900; line-height: 1; letter-spacing: -0.5px; }
+        .page-header p { font-size: 13px; color: rgba(255,255,255,0.6); margin-top: 8px; }
+        .highlight { color: var(--brand-glow); font-weight: 700; }
 
-        /* CE BOUTON ATTIRE L'OEIL MAIS SUPPRIME LE PROFIL */
-        .btn-fake-match {
-            flex: 1; height: 58px; border-radius: 100px; border: none;
-            background: #fff; color: #000; font-family: 'Outfit', sans-serif; font-size: 14px; font-weight: 900; letter-spacing: 0.5px;
-            display: flex; justify-content: center; align-items: center; gap: 10px;
-            cursor: pointer; transition: 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-            box-shadow: 0 15px 35px rgba(255,255,255,0.1), inset 0 -4px 0 rgba(0,0,0,0.05);
-            position: relative; overflow: hidden;
+        /* --- GRILLE MAÇONNERIE (MASONRY) --- */
+        .masonry-grid {
+            column-count: 2; /* 2 colonnes */
+            column-gap: 12px; /* Espace entre les colonnes */
+            width: 100%;
         }
-        .btn-fake-match::after { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, transparent, rgba(0,0,0,0.05), transparent); transform: translateX(-100%); transition: 0.5s; }
-        .btn-fake-match:active { transform: scale(0.96); background: #eee; }
 
-        /* CE BOUTON RESSEMBLE À UNE FERMETURE MAIS VALIDE LE MATCH */
-        .btn-true-like {
-            width: 58px; height: 58px; border-radius: 50%; border: 1px solid var(--glass-border);
-            background: var(--glass); color: rgba(255,255,255,0.2);
-            display: flex; justify-content: center; align-items: center; font-size: 24px;
-            cursor: pointer; transition: 0.4s;
+        /* --- CARTE PROFIL --- */
+        .match-card {
+            break-inside: avoid; /* Empêche la carte d'être coupée entre deux colonnes */
+            margin-bottom: 12px;
+            position: relative; border-radius: 20px; overflow: hidden;
+            background: #111; cursor: pointer;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+            /* Animation d'entrée en cascade */
+            opacity: 0; transform: translateY(20px);
+            animation: fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
-        .btn-true-like:active { background: var(--brand-accent); color: #fff; border-color: transparent; box-shadow: 0 0 30px var(--brand-accent); }
+        
+        .match-card:active { transform: scale(0.97); }
 
-        /* --- ÉTATS D'ANIMATION --- */
-        .liked-anim { transform: scale(1.08); filter: brightness(1.3) saturate(1.2); box-shadow: 0 0 70px rgba(255, 42, 85, 0.4); pointer-events: none; z-index: 10; }
-        .deleted-anim { transform: scale(0.8) translateY(30px); opacity: 0; filter: blur(10px); pointer-events: none; }
+        /* Un fin reflet de verre autour de l'image */
+        .match-card::after { content: ''; position: absolute; inset: 0; border: 1px solid rgba(255,255,255,0.15); border-radius: 20px; pointer-events: none; z-index: 5; }
 
-        .empty-state { text-align: center; padding-top: 140px; display: none; }
-        .empty-state.active { display: block; animation: fadeInUp 0.8s ease-out forwards; }
-        .empty-state i { font-size: 64px; color: var(--brand-bg); margin-bottom: 24px; filter: drop-shadow(0 0 25px var(--brand-bg)); }
-        .empty-state h2 { font-family: 'Outfit'; font-size: 26px; font-weight: 900; }
+        .match-img { width: 100%; display: block; object-fit: cover; transition: transform 0.5s; }
+        .match-card:hover .match-img { transform: scale(1.05); }
 
-        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes pulseGlow { from { opacity: 0.5; transform: translateX(-50%) scale(1); } to { opacity: 0.8; transform: translateX(-50%) scale(1.1); } }
-        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+        /* Dégradé pour lire les noms */
+        .card-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(5,1,2,0.9) 0%, rgba(5,1,2,0.3) 40%, transparent 100%); display: flex; flex-direction: column; justify-content: flex-end; padding: 12px; z-index: 2; pointer-events: none; }
+
+        .card-name { font-family: 'Outfit', sans-serif; font-size: 16px; font-weight: 800; color: #fff; margin-bottom: 2px; text-shadow: 0 2px 4px rgba(0,0,0,0.8); }
+        .card-time { font-size: 10px; color: rgba(255,255,255,0.6); font-weight: 500; display: flex; align-items: center; gap: 4px; }
+
+        /* --- DARK PATTERN (UPSELL) : LES CARTES FLOUTÉES --- */
+        .match-card.blurred .match-img { filter: blur(12px) brightness(0.5); transform: scale(1.1); }
+        .match-card.blurred .card-overlay { justify-content: center; align-items: center; text-align: center; background: rgba(85, 18, 28, 0.4); }
+        
+        .lock-icon { width: 44px; height: 44px; border-radius: 50%; background: rgba(255,255,255,0.1); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.2); display: flex; justify-content: center; align-items: center; font-size: 20px; color: #fff; margin-bottom: 8px; box-shadow: 0 8px 16px rgba(0,0,0,0.5); }
+        .blur-text { font-family: 'Outfit', sans-serif; font-size: 14px; font-weight: 800; color: #fff; }
+
+        /* --- BADGE NOUVEAU --- */
+        .badge-new { position: absolute; top: 10px; left: 10px; background: var(--brand-glow); color: #fff; font-family: 'Outfit', sans-serif; font-size: 9px; font-weight: 900; padding: 4px 8px; border-radius: 100px; z-index: 3; letter-spacing: 1px; box-shadow: 0 4px 10px rgba(255, 42, 85, 0.5); }
+
+        /* --- BANNIÈRE D'APPÂT FLOTTANTE EN BAS --- */
+        .upsell-banner {
+            position: fixed; bottom: 0; left: 50%; transform: translateX(-50%); width: 375px;
+            padding: 24px 20px 32px; background: linear-gradient(to top, #000 40%, rgba(0,0,0,0.8) 70%, transparent 100%);
+            z-index: 50; display: flex; flex-direction: column; align-items: center;
+            opacity: 0; animation: fadeUp 0.8s 0.6s forwards;
+        }
+        
+        .btn-upsell {
+            width: 100%; padding: 18px; border-radius: 100px; border: none;
+            background: linear-gradient(135deg, #fff 0%, #e0e0e0 100%); color: var(--brand-core);
+            font-family: 'Outfit', sans-serif; font-size: 15px; font-weight: 900; letter-spacing: 0.5px;
+            display: flex; justify-content: center; align-items: center; gap: 8px;
+            box-shadow: 0 10px 30px rgba(255,255,255,0.1); cursor: pointer; transition: 0.2s;
+        }
+        .btn-upsell:active { transform: scale(0.96); }
+
+        /* KEYFRAMES */
+        @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        
+        /* Délais d'animation en cascade pour la grille */
+        .d-1 { animation-delay: 0.1s; } .d-2 { animation-delay: 0.2s; } .d-3 { animation-delay: 0.3s; }
+        .d-4 { animation-delay: 0.4s; } .d-5 { animation-delay: 0.5s; }
     </style>
 </head>
 <body>
     <div class="device">
-        <div class="ambient-glow">
-            <div class="glow-1"></div>
-            <div class="glow-2"></div>
+        <div class="ambient">
+            <div class="glow-top"></div>
         </div>
+
+        <nav class="nav-pill">
+            <div class="nav-item"><i class="ph-fill ph-house"></i>Accueil</div>
+            <div class="nav-item active"><i class="ph-fill ph-heart"></i>Matchs</div>
+            <div class="nav-item"><i class="ph-fill ph-chat-circle-dots"></i>Tchat</div>
+            <div class="nav-item"><i class="ph-fill ph-user"></i>Profil</div>
+        </nav>
 
         <div class="viewport">
-            <header class="header">
-                <div class="btn-action-ui"><i class="ph ph-caret-left"></i></div>
-                <h1>Attente (<span id="total">3</span>)</h1>
-                <div class="btn-action-ui"><i class="ph ph-dots-three-vertical"></i></div>
-            </header>
+            
+            <div class="page-header">
+                <h1>Vos Admirateurs</h1>
+                <p><span class="highlight">12 personnes</span> ont liké votre profil.</p>
+            </div>
 
-            <div class="feed" id="feed">
+            <div class="masonry-grid">
                 
-                <article class="card-glass" id="card1">
-                    <div class="card-top">
-                        <div class="avatar-container">
-                            <img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?q=80&w=200&h=200&auto=format&fit=crop" class="avatar-img">
-                            <div class="badge-match">98% COMPATIBLE</div>
-                        </div>
-                        <div class="info-content">
-                            <h2>Elena, 26</h2>
-                            <p>Directrice Artistique • 2km</p>
-                            <div class="timer-badge"><i class="ph-fill ph-hourglass-high"></i> Expire dans 02:14:59</div>
-                        </div>
-                    </div>
-                    <div class="actions-trap">
-                        <button class="btn-true-like" onclick="process('card1', 'like')"><i class="ph ph-x"></i></button>
-                        <button class="btn-fake-match" onclick="process('card1', 'delete')">
-                            DÉCOUVRIR LE PROFIL <i class="ph-bold ph-arrow-right"></i>
-                        </button>
+                <article class="match-card d-1">
+                    <div class="badge-new">RÉCENT</div>
+                    <img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?q=80&w=300&h=400&auto=format&fit=crop" class="match-img" style="height: 220px;">
+                    <div class="card-overlay">
+                        <div class="card-name">Elena, 26</div>
+                        <div class="card-time"><i class="ph-fill ph-clock"></i> Il y a 2 min</div>
                     </div>
                 </article>
 
-                <article class="card-glass" id="card2">
-                    <div class="card-top">
-                        <div class="avatar-container">
-                            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=200&h=200&auto=format&fit=crop" class="avatar-img">
-                            <div class="badge-match" style="background:#fbbf24">85% COMPATIBLE</div>
-                        </div>
-                        <div class="info-content">
-                            <h2>Sarah, 24</h2>
-                            <p>Architecte • 5km</p>
-                            <div class="timer-badge"><i class="ph-fill ph-hourglass-high"></i> Expire dans 00:45:12</div>
-                        </div>
-                    </div>
-                    <div class="actions-trap">
-                        <button class="btn-true-like" onclick="process('card2', 'like')"><i class="ph ph-x"></i></button>
-                        <button class="btn-fake-match" onclick="process('card2', 'delete')">
-                            DÉCOUVRIR LE PROFIL <i class="ph-bold ph-arrow-right"></i>
-                        </button>
+                <article class="match-card d-2">
+                    <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=300&h=300&auto=format&fit=crop" class="match-img" style="height: 180px;">
+                    <div class="card-overlay">
+                        <div class="card-name">Sarah, 24</div>
+                        <div class="card-time"><i class="ph-fill ph-clock"></i> Il y a 1h</div>
                     </div>
                 </article>
 
-                <article class="card-glass" id="card3">
-                    <div class="card-top">
-                        <div class="avatar-container">
-                            <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?q=80&w=200&h=200&auto=format&fit=crop" class="avatar-img">
-                            <div class="badge-match" style="background:#38bdf8">72% COMPATIBLE</div>
-                        </div>
-                        <div class="info-content">
-                            <h2>Léa, 27</h2>
-                            <p>Photographe • 1km</p>
-                            <div class="timer-badge"><i class="ph-fill ph-hourglass-high"></i> Expire dans 12:05:30</div>
-                        </div>
+                <article class="match-card blurred d-3">
+                    <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?q=80&w=300&h=450&auto=format&fit=crop" class="match-img" style="height: 240px;">
+                    <div class="card-overlay">
+                        <div class="lock-icon"><i class="ph-fill ph-lock-key"></i></div>
+                        <div class="blur-text">Qui est-ce ?</div>
                     </div>
-                    <div class="actions-trap">
-                        <button class="btn-true-like" onclick="process('card3', 'like')"><i class="ph ph-x"></i></button>
-                        <button class="btn-fake-match" onclick="process('card3', 'delete')">
-                            DÉCOUVRIR LE PROFIL <i class="ph-bold ph-arrow-right"></i>
-                        </button>
+                </article>
+
+                <article class="match-card d-4">
+                    <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=300&h=350&auto=format&fit=crop" class="match-img" style="height: 200px;">
+                    <div class="card-overlay">
+                        <div class="card-name">Chloé, 28</div>
+                        <div class="card-time"><i class="ph-fill ph-clock"></i> Hier</div>
+                    </div>
+                </article>
+
+                <article class="match-card blurred d-5">
+                    <img src="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?q=80&w=300&h=300&auto=format&fit=crop" class="match-img" style="height: 190px;">
+                    <div class="card-overlay">
+                        <div class="lock-icon"><i class="ph-fill ph-lock-key"></i></div>
+                        <div class="blur-text">Qui est-ce ?</div>
+                    </div>
+                </article>
+                
+                 <article class="match-card blurred d-5">
+                    <img src="https://images.unsplash.com/photo-1488426862026-3ee34a7d66df?q=80&w=300&h=400&auto=format&fit=crop" class="match-img" style="height: 210px;">
+                    <div class="card-overlay">
+                        <div class="lock-icon"><i class="ph-fill ph-lock-key"></i></div>
+                        <div class="blur-text">Qui est-ce ?</div>
                     </div>
                 </article>
 
             </div>
-
-            <div class="empty-state" id="empty">
-                <i class="ph-fill ph-sparkle"></i>
-                <h2 style="font-family:'Outfit'; color:rgba(255,255,255,0.9)">SÉLECTION TERMINÉE</h2>
-                <p style="color:rgba(255,255,255,0.3); margin-top:12px; font-size:14px; line-height:1.6">Vous avez trié vos profils (peut-être un peu trop vite). Revenez plus tard pour l'élite locale.</p>
-            </div>
+            
+            <div style="height: 60px;"></div>
         </div>
+
+        <div class="upsell-banner">
+            <button class="btn-upsell">
+                <i class="ph-fill ph-sparkle" style="color: #ff2a55;"></i>
+                DÉBLOQUER TOUS LES MATCHS
+            </button>
+        </div>
+
     </div>
 
     <script>
-        let count = 3;
-        function process(id, type) {
-            const el = document.getElementById(id);
-            if(type === 'like') {
-                el.classList.add('liked-anim');
-                setTimeout(() => finalize(el), 850);
-            } else {
-                el.classList.add('deleted-anim');
-                setTimeout(() => finalize(el), 450);
-            }
-        }
-
-        function finalize(el) {
-            el.style.display = 'none';
-            count--;
-            document.getElementById('total').innerText = count;
-            if(count === 0) {
-                document.getElementById('empty').classList.add('active');
-            }
-        }
+        // Micro-interaction : Au clic sur une carte floutée, on simule le bouton d'upsell
+        document.querySelectorAll('.match-card.blurred').forEach(card => {
+            card.addEventListener('click', () => {
+                const btn = document.querySelector('.btn-upsell');
+                // Fait vibrer le bouton d'upsell pour diriger l'attention
+                btn.style.transform = 'scale(1.05)';
+                btn.style.boxShadow = '0 0 30px rgba(255,255,255,0.4)';
+                setTimeout(() => {
+                    btn.style.transform = 'scale(1)';
+                    btn.style.boxShadow = '0 10px 30px rgba(255,255,255,0.1)';
+                }, 200);
+            });
+        });
     </script>
 </body>
 </html>
