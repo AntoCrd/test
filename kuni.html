@@ -3,314 +3,220 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>04 - Abonnement | Masterclass Awwwards</title>
+    <title>Waitlist | Editorial Dark UX</title>
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@300;400;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@700;800;900&display=swap" rel="stylesheet">
     <style>
         :root {
-            /* Palette Maîtresse */
-            --brand-core: #55121C; /* Le Bordeaux profond */
-            --brand-light: #FF4D6D; /* Éclat lumineux */
-            --brand-luxury: #E5B9A8; /* Or Rose / Cuivre pour le luxe */
-            
-            --bg-abyss: #040101; /* Noir abyssal teinté de bordeaux */
-            
-            /* Matériaux Avancés (Glass & Metal) */
-            --glass-surface: rgba(85, 18, 28, 0.12);
-            --glass-active: rgba(85, 18, 28, 0.4);
-            --border-subtle: rgba(255, 255, 255, 0.04);
-            
-            /* Typographie */
-            --text-pure: #FFFFFF;
-            --text-muted: rgba(255, 255, 255, 0.5);
-            --text-ghost: rgba(255, 255, 255, 0.15); /* Pour le Dark Pattern */
-            
-            /* Texture pellicule cinématique */
+            --brand-bg: #55121C;
+            --brand-accent: #ff2a55;
+            --bg-base: #040101;
+            --glass: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --text-dim: rgba(255, 255, 255, 0.5);
             --noise: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
         }
 
-        /* --- RESET & FONDATIONS --- */
+        /* --- FONDATIONS --- */
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; }
-        body { background-color: #000; display: flex; justify-content: center; align-items: center; min-height: 100vh; color: var(--text-pure); }
-        
-        /* Le "Téléphone" */
+        body { background-color: #000; display: flex; justify-content: center; align-items: center; min-height: 100vh; color: #fff; overflow: hidden; }
+
         .device {
-            width: 375px; height: 812px; position: relative; border-radius: 44px; overflow: hidden;
-            background: var(--bg-abyss);
-            box-shadow: 0 0 0 2px #1a1a1a, 0 50px 100px rgba(0,0,0,0.9), inset 0 0 20px rgba(0,0,0,1);
+            width: 375px; height: 812px; position: relative; border-radius: 48px; overflow: hidden;
+            background: var(--bg-base); box-shadow: 0 0 0 2px #1a1a1a, 0 50px 100px rgba(0,0,0,1);
         }
-        
-        /* Bruit visuel global pour l'aspect "Matière" */
-        .device::before { content: ''; position: absolute; inset: 0; background: var(--noise); opacity: 0.04; pointer-events: none; z-index: 99; mix-blend-mode: overlay; }
 
-        /* --- LUMIÈRES VOLUMÉTRIQUES --- */
-        .lighting-rig { position: absolute; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
-        /* Spot principal bordeaux */
-        .spot-1 { position: absolute; top: -10%; left: -20%; width: 400px; height: 400px; background: var(--brand-core); border-radius: 50%; filter: blur(100px); opacity: 0.6; animation: breathe 12s ease-in-out infinite alternate; mix-blend-mode: screen; }
-        /* Spot secondaire éclatant */
-        .spot-2 { position: absolute; bottom: 20%; right: -30%; width: 350px; height: 350px; background: #8A1A2E; border-radius: 50%; filter: blur(120px); opacity: 0.4; animation: breathe 15s ease-in-out infinite alternate-reverse; mix-blend-mode: screen; }
+        /* Texture de grain cinématique */
+        .device::after { content: ''; position: absolute; inset: 0; background: var(--noise); opacity: 0.04; pointer-events: none; z-index: 100; mix-blend-mode: overlay; }
 
-        /* --- SCROLL AREA --- */
-        .viewport { position: absolute; inset: 0; overflow-y: auto; overflow-x: hidden; padding: 48px 24px 180px; z-index: 1; }
+        /* --- ATMOSPHÈRE LUMINEUSE --- */
+        .ambient-glow { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
+        .glow-1 { position: absolute; top: -100px; left: 50%; transform: translateX(-50%); width: 120%; height: 400px; background: radial-gradient(circle, rgba(85, 18, 28, 0.7) 0%, transparent 70%); animation: pulseGlow 8s infinite alternate; }
+        .glow-2 { position: absolute; bottom: -50px; right: -50px; width: 300px; height: 300px; background: radial-gradient(circle, rgba(255, 42, 85, 0.15) 0%, transparent 70%); }
+
+        /* --- VIEWPORT --- */
+        .viewport { position: absolute; inset: 0; overflow-y: auto; padding: 56px 20px 120px; z-index: 1; scroll-behavior: smooth; }
         .viewport::-webkit-scrollbar { display: none; }
 
-        /* --- EN-TÊTE --- */
-        .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 32px; }
-        .btn-close { width: 40px; height: 40px; border-radius: 50%; background: var(--glass-surface); border: 1px solid var(--border-subtle); backdrop-filter: blur(10px); color: var(--text-muted); display: flex; justify-content: center; align-items: center; font-size: 18px; cursor: pointer; transition: 0.3s; }
-        .btn-close:active { transform: scale(0.9); color: var(--text-pure); }
-        .status-badge { font-family: 'Outfit', sans-serif; font-size: 10px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; color: var(--brand-luxury); background: rgba(229, 185, 168, 0.1); padding: 6px 12px; border-radius: 100px; border: 1px solid rgba(229, 185, 168, 0.2); }
+        /* --- HEADER --- */
+        .header { margin-bottom: 40px; display: flex; justify-content: space-between; align-items: center; padding: 0 8px; }
+        .btn-action-ui { width: 44px; height: 44px; border-radius: 50%; background: var(--glass); border: 1px solid var(--glass-border); color: #fff; display: flex; justify-content: center; align-items: center; backdrop-filter: blur(12px); cursor: pointer; transition: 0.3s; }
+        .btn-action-ui:active { transform: scale(0.9); }
+        .header h1 { font-family: 'Outfit', sans-serif; font-size: 18px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; }
 
-        /* --- HERO SECTION --- */
-        .hero { text-align: center; margin-bottom: 48px; }
-        .hero h1 { 
-            font-family: 'Outfit', sans-serif; font-size: 42px; font-weight: 900; line-height: 1; margin-bottom: 16px; letter-spacing: -1.5px;
-            /* Effet texte métallique */
-            background: linear-gradient(180deg, #FFFFFF 0%, rgba(255,255,255,0.6) 100%);
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-        }
-        .hero p { font-size: 13px; color: var(--text-muted); line-height: 1.6; padding: 0 10px; font-weight: 400; }
+        /* --- LISTE D'ATTENTE --- */
+        .feed { display: flex; flex-direction: column; gap: 24px; }
 
-        /* --- SÉLECTEUR DE PRIX (GRILLE 3D) --- */
-        .pricing-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 40px; position: relative; }
-        
-        .plan-card {
-            background: var(--glass-surface); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-            border-radius: 28px; padding: 24px 16px; text-align: center; position: relative; cursor: pointer;
+        .card-glass {
+            background: linear-gradient(145deg, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.01) 100%);
+            backdrop-filter: blur(30px) saturate(180%); -webkit-backdrop-filter: blur(30px) saturate(180%);
+            border: 1px solid var(--glass-border); border-radius: 36px; padding: 12px;
+            display: flex; flex-direction: column; gap: 16px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.1);
             transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-            /* Bordure subtile par défaut */
-            box-shadow: inset 0 0 0 1px var(--border-subtle), 0 10px 30px rgba(0,0,0,0.5);
+            position: relative;
         }
+
+        .card-top { display: flex; gap: 16px; align-items: center; padding: 4px; }
         
-        /* L'état ACTIF : Le chef-d'œuvre visuel */
-        .plan-card.active {
-            background: var(--glass-active);
-            transform: translateY(-8px);
-            /* Double lueur : interne et externe */
-            box-shadow: 
-                0 20px 40px rgba(85, 18, 28, 0.5), 
-                inset 0 0 0 1px rgba(255, 77, 109, 0.5),
-                inset 0 20px 40px rgba(255, 77, 109, 0.1);
-        }
+        /* Avatar avec Glow */
+        .avatar-container { position: relative; width: 84px; height: 84px; flex-shrink: 0; }
+        .avatar-img { width: 100%; height: 100%; border-radius: 24px; object-fit: cover; box-shadow: 0 10px 25px rgba(0,0,0,0.6); }
+        .badge-match { position: absolute; bottom: -6px; left: 50%; transform: translateX(-50%); background: #fff; color: #000; font-family: 'Outfit', sans-serif; font-size: 9px; font-weight: 900; padding: 4px 10px; border-radius: 100px; white-space: nowrap; box-shadow: 0 4px 12px rgba(0,0,0,0.4); }
 
-        /* Effet de balayage lumineux (Shimmer) sur la carte active */
-        .plan-card.active::before {
-            content: ''; position: absolute; top: 0; left: -100%; width: 50%; height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
-            transform: skewX(-20deg); animation: shimmer 3s infinite; pointer-events: none;
-        }
-
-        .popular-tag { position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: var(--brand-luxury); color: #000; font-family: 'Outfit', sans-serif; font-size: 9px; font-weight: 900; text-transform: uppercase; padding: 6px 14px; border-radius: 100px; letter-spacing: 1.5px; opacity: 0; transition: 0.3s; box-shadow: 0 8px 16px rgba(229, 185, 168, 0.3); white-space: nowrap; }
-        .plan-card.active .popular-tag { opacity: 1; top: -12px; }
-
-        .plan-name { font-family: 'Outfit', sans-serif; font-size: 13px; font-weight: 700; color: var(--text-muted); margin-bottom: 12px; margin-top: 8px; text-transform: uppercase; letter-spacing: 1px; transition: 0.3s; }
-        .plan-card.active .plan-name { color: var(--brand-luxury); }
-
-        .plan-price { font-family: 'Outfit', sans-serif; font-size: 36px; font-weight: 900; line-height: 1; color: var(--text-pure); display: flex; justify-content: center; align-items: flex-start; margin-bottom: 4px; }
-        .plan-price span { font-size: 16px; margin-top: 4px; margin-left: 2px; color: var(--text-muted); }
-        .plan-period { font-size: 10px; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; }
+        .info-content { flex: 1; }
+        .info-content h2 { font-family: 'Outfit', sans-serif; font-size: 24px; font-weight: 900; line-height: 1; margin-bottom: 4px; }
+        .info-content p { font-size: 13px; color: var(--text-dim); font-weight: 500; }
         
-        /* Dark pattern text */
-        .plan-trap { font-size: 8px; color: var(--text-trap); margin-top: 16px; line-height: 1.3; transition: 0.3s; }
-        .plan-card.active .plan-trap { color: rgba(255,255,255,0.3); }
+        /* Timer Anxiogène mais Design */
+        .timer-badge { display: flex; align-items: center; gap: 6px; font-family: 'Outfit', sans-serif; font-size: 10px; font-weight: 800; color: var(--brand-accent); margin-top: 10px; text-transform: uppercase; letter-spacing: 0.5px; }
+        .timer-badge i { font-size: 14px; animation: blink 1.5s infinite; }
 
-        /* --- LISTE DES PRIVILÈGES --- */
-        .feature-container { position: relative; min-height: 220px; }
-        .feature-item {
-            display: flex; align-items: center; gap: 16px; padding: 18px 20px; margin-bottom: 12px;
-            background: linear-gradient(90deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.01) 100%);
-            border: 1px solid var(--border-subtle); border-radius: 20px;
-            backdrop-filter: blur(10px);
-            transform: translateY(0); opacity: 1; transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        /* --- DARK UX : ACTIONS INVERSÉES --- */
+        .actions-trap { display: flex; gap: 12px; align-items: center; padding-top: 4px; }
+
+        /* CE BOUTON ATTIRE L'OEIL MAIS SUPPRIME LE PROFIL */
+        .btn-fake-match {
+            flex: 1; height: 58px; border-radius: 100px; border: none;
+            background: #fff; color: #000; font-family: 'Outfit', sans-serif; font-size: 14px; font-weight: 900; letter-spacing: 0.5px;
+            display: flex; justify-content: center; align-items: center; gap: 10px;
+            cursor: pointer; transition: 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: 0 15px 35px rgba(255,255,255,0.1), inset 0 -4px 0 rgba(0,0,0,0.05);
+            position: relative; overflow: hidden;
         }
-        .icon-box { width: 40px; height: 40px; border-radius: 12px; background: rgba(85, 18, 28, 0.6); display: flex; justify-content: center; align-items: center; box-shadow: inset 0 0 0 1px rgba(255,77,109,0.3), 0 4px 12px rgba(0,0,0,0.3); }
-        .icon-box i { color: var(--brand-light); font-size: 20px; }
-        .feature-text { font-family: 'Outfit', sans-serif; font-size: 14px; font-weight: 500; color: var(--text-pure); letter-spacing: 0.3px; }
+        .btn-fake-match::after { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, transparent, rgba(0,0,0,0.05), transparent); transform: translateX(-100%); transition: 0.5s; }
+        .btn-fake-match:active { transform: scale(0.96); background: #eee; }
 
-        /* Animation classes for JS */
-        .feature-out { transform: translateY(-10px); opacity: 0; }
-        .feature-in { animation: slideIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
-
-        /* --- STICKY FOOTER & CTA --- */
-        .footer-action {
-            position: absolute; bottom: 0; left: 0; width: 100%; padding: 24px 24px 36px;
-            background: linear-gradient(to top, rgba(4,1,1,1) 50%, rgba(4,1,1,0.8) 80%, transparent 100%);
-            z-index: 10; display: flex; flex-direction: column; align-items: center;
+        /* CE BOUTON RESSEMBLE À UNE FERMETURE MAIS VALIDE LE MATCH */
+        .btn-true-like {
+            width: 58px; height: 58px; border-radius: 50%; border: 1px solid var(--glass-border);
+            background: var(--glass); color: rgba(255,255,255,0.2);
+            display: flex; justify-content: center; align-items: center; font-size: 24px;
+            cursor: pointer; transition: 0.4s;
         }
-        
-        .timer-row { display: flex; align-items: center; gap: 8px; font-family: 'Outfit', sans-serif; font-size: 12px; font-weight: 700; color: var(--brand-light); margin-bottom: 16px; animation: pulseText 2s infinite alternate; }
-        
-        .btn-cta {
-            width: 100%; padding: 20px; border-radius: 100px;
-            /* Bouton Métallique Ultra-Premium */
-            background: linear-gradient(135deg, #FFFFFF 0%, #E2E2E2 100%);
-            color: var(--brand-core); border: none;
-            font-family: 'Outfit', sans-serif; font-size: 16px; font-weight: 900; letter-spacing: 0.5px;
-            box-shadow: 0 16px 32px rgba(255,255,255,0.15), inset 0 -4px 10px rgba(0,0,0,0.1);
-            cursor: pointer; transition: 0.2s; display: flex; justify-content: center; align-items: center; gap: 10px;
-        }
-        .btn-cta:active { transform: scale(0.96); box-shadow: 0 8px 16px rgba(255,255,255,0.1); }
+        .btn-true-like:active { background: var(--brand-accent); color: #fff; border-color: transparent; box-shadow: 0 0 30px var(--brand-accent); }
 
-        .legal-trap-text { font-size: 9px; color: var(--text-trap); text-align: center; margin-top: 16px; line-height: 1.5; padding: 0 10px; }
-        .cancel-link { font-size: 11px; color: var(--text-muted); text-decoration: underline; text-decoration-color: rgba(255,255,255,0.1); margin-top: 20px; cursor: pointer; transition: 0.2s; }
+        /* --- ÉTATS D'ANIMATION --- */
+        .liked-anim { transform: scale(1.08); filter: brightness(1.3) saturate(1.2); box-shadow: 0 0 70px rgba(255, 42, 85, 0.4); pointer-events: none; z-index: 10; }
+        .deleted-anim { transform: scale(0.8) translateY(30px); opacity: 0; filter: blur(10px); pointer-events: none; }
 
-        /* --- KEYFRAMES --- */
-        @keyframes breathe { to { transform: scale(1.1) translate(20px, -20px); } }
-        @keyframes shimmer { 0% { left: -100%; } 20% { left: 200%; } 100% { left: 200%; } }
-        @keyframes slideIn { from { transform: translateY(10px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
-        @keyframes pulseText { from { opacity: 0.7; filter: drop-shadow(0 0 2px rgba(255,77,109,0)); } to { opacity: 1; filter: drop-shadow(0 0 8px rgba(255,77,109,0.5)); } }
-        
-        /* Chorégraphie d'entrée */
-        .reveal { opacity: 0; transform: translateY(20px); animation: revealAnim 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
-        .d-1 { animation-delay: 0.1s; } .d-2 { animation-delay: 0.2s; } .d-3 { animation-delay: 0.3s; } .d-4 { animation-delay: 0.4s; }
-        @keyframes revealAnim { to { opacity: 1; transform: translateY(0); } }
+        .empty-state { text-align: center; padding-top: 140px; display: none; }
+        .empty-state.active { display: block; animation: fadeInUp 0.8s ease-out forwards; }
+        .empty-state i { font-size: 64px; color: var(--brand-bg); margin-bottom: 24px; filter: drop-shadow(0 0 25px var(--brand-bg)); }
+        .empty-state h2 { font-family: 'Outfit'; font-size: 26px; font-weight: 900; }
+
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes pulseGlow { from { opacity: 0.5; transform: translateX(-50%) scale(1); } to { opacity: 0.8; transform: translateX(-50%) scale(1.1); } }
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
     </style>
 </head>
 <body>
     <div class="device">
-        <div class="lighting-rig">
-            <div class="spot-1"></div>
-            <div class="spot-2"></div>
+        <div class="ambient-glow">
+            <div class="glow-1"></div>
+            <div class="glow-2"></div>
         </div>
 
         <div class="viewport">
-            <header class="header reveal">
-                <button class="btn-close"><i class="ph ph-x"></i></button>
-                <div class="status-badge"><i class="ph-fill ph-shield-check"></i> Sécurisé</div>
+            <header class="header">
+                <div class="btn-action-ui"><i class="ph ph-caret-left"></i></div>
+                <h1>Attente (<span id="total">3</span>)</h1>
+                <div class="btn-action-ui"><i class="ph ph-dots-three-vertical"></i></div>
             </header>
 
-            <section class="hero reveal d-1">
-                <h1 id="hero-title">Passez en<br>mode Ultra.</h1>
-                <p id="hero-desc">L'algorithme s'efface, vous reprenez le contrôle total de vos rencontres.</p>
-            </section>
+            <div class="feed" id="feed">
+                
+                <article class="card-glass" id="card1">
+                    <div class="card-top">
+                        <div class="avatar-container">
+                            <img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?q=80&w=200&h=200&auto=format&fit=crop" class="avatar-img">
+                            <div class="badge-match">98% COMPATIBLE</div>
+                        </div>
+                        <div class="info-content">
+                            <h2>Elena, 26</h2>
+                            <p>Directrice Artistique • 2km</p>
+                            <div class="timer-badge"><i class="ph-fill ph-hourglass-high"></i> Expire dans 02:14:59</div>
+                        </div>
+                    </div>
+                    <div class="actions-trap">
+                        <button class="btn-true-like" onclick="process('card1', 'like')"><i class="ph ph-x"></i></button>
+                        <button class="btn-fake-match" onclick="process('card1', 'delete')">
+                            DÉCOUVRIR LE PROFIL <i class="ph-bold ph-arrow-right"></i>
+                        </button>
+                    </div>
+                </article>
 
-            <div class="pricing-grid reveal d-2">
-                <div class="plan-card" onclick="selectPlan('premium', this)">
-                    <div class="popular-tag">Inclus</div>
-                    <div class="plan-name">Premium</div>
-                    <div class="plan-price">15<span>€</span></div>
-                    <div class="plan-period">/ mois</div>
-                    <div class="plan-trap">Payé mensuellement. Annulable sous 14j.</div>
-                </div>
+                <article class="card-glass" id="card2">
+                    <div class="card-top">
+                        <div class="avatar-container">
+                            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=200&h=200&auto=format&fit=crop" class="avatar-img">
+                            <div class="badge-match" style="background:#fbbf24">85% COMPATIBLE</div>
+                        </div>
+                        <div class="info-content">
+                            <h2>Sarah, 24</h2>
+                            <p>Architecte • 5km</p>
+                            <div class="timer-badge"><i class="ph-fill ph-hourglass-high"></i> Expire dans 00:45:12</div>
+                        </div>
+                    </div>
+                    <div class="actions-trap">
+                        <button class="btn-true-like" onclick="process('card2', 'like')"><i class="ph ph-x"></i></button>
+                        <button class="btn-fake-match" onclick="process('card2', 'delete')">
+                            DÉCOUVRIR LE PROFIL <i class="ph-bold ph-arrow-right"></i>
+                        </button>
+                    </div>
+                </article>
 
-                <div class="plan-card active" onclick="selectPlan('ultra', this)">
-                    <div class="popular-tag"><i class="ph-fill ph-fire"></i> Le plus choisi</div>
-                    <div class="plan-name">Ultra VIP</div>
-                    <div class="plan-price">1,19<span>€</span></div>
-                    <div class="plan-period">/ jour</div>
-                    <div class="plan-trap">Facturé 450€ aujourd'hui en 1 seul prélèvement.</div>
-                </div>
+                <article class="card-glass" id="card3">
+                    <div class="card-top">
+                        <div class="avatar-container">
+                            <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?q=80&w=200&h=200&auto=format&fit=crop" class="avatar-img">
+                            <div class="badge-match" style="background:#38bdf8">72% COMPATIBLE</div>
+                        </div>
+                        <div class="info-content">
+                            <h2>Léa, 27</h2>
+                            <p>Photographe • 1km</p>
+                            <div class="timer-badge"><i class="ph-fill ph-hourglass-high"></i> Expire dans 12:05:30</div>
+                        </div>
+                    </div>
+                    <div class="actions-trap">
+                        <button class="btn-true-like" onclick="process('card3', 'like')"><i class="ph ph-x"></i></button>
+                        <button class="btn-fake-match" onclick="process('card3', 'delete')">
+                            DÉCOUVRIR LE PROFIL <i class="ph-bold ph-arrow-right"></i>
+                        </button>
+                    </div>
+                </article>
+
             </div>
 
-            <div class="feature-container reveal d-3" id="features-box">
-                </div>
-            
-            <div style="height: 50px;"></div>
-        </div>
-
-        <div class="footer-action reveal d-4">
-            <div class="timer-row">
-                <i class="ph-bold ph-clock"></i> ACCÈS PRIORITAIRE FERME DANS <span id="timer">14:59</span>
+            <div class="empty-state" id="empty">
+                <i class="ph-fill ph-sparkle"></i>
+                <h2 style="font-family:'Outfit'; color:rgba(255,255,255,0.9)">SÉLECTION TERMINÉE</h2>
+                <p style="color:rgba(255,255,255,0.3); margin-top:12px; font-size:14px; line-height:1.6">Vous avez trié vos profils (peut-être un peu trop vite). Revenez plus tard pour l'élite locale.</p>
             </div>
-
-            <button class="btn-cta" id="cta-btn">
-                ACTIVER MON STATUT ULTRA <i class="ph-bold ph-arrow-right"></i>
-            </button>
-            
-            <div class="legal-trap-text" id="legal-txt">
-                Période d'essai de 1h12. Passé ce délai, facturation annuelle de 450€ non remboursable.
-            </div>
-
-            <div class="cancel-link">Continuer avec la version basique</div>
         </div>
     </div>
 
     <script>
-        // Données des plans
-        const planData = {
-            ultra: {
-                title: "Passez en<br>mode Ultra.",
-                desc: "L'algorithme s'efface, vous reprenez le contrôle total de vos rencontres.",
-                btn: "ACTIVER MON STATUT ULTRA",
-                legal: "Période d'essai de 1h12. Passé ce délai, facturation annuelle de 450€ non remboursable.",
-                features: [
-                    { icon: 'ph-infinity', text: 'Conversations 100% illimitées' },
-                    { icon: 'ph-ghost', text: 'Incognito : Naviguez sans trace' },
-                    { icon: 'ph-crown', text: 'Top visibilité : Vu en premier' }
-                ]
-            },
-            premium: {
-                title: "Une expérience<br>classique.",
-                desc: "Débloquez les fonctionnalités de base pour faciliter vos connexions.",
-                btn: "ACTIVER MON STATUT PREMIUM",
-                legal: "Engagement mensuel de 15€. Résiliation possible selon nos CGV.",
-                features: [
-                    { icon: 'ph-chat-circle', text: '50 messages par jour' },
-                    { icon: 'ph-eye-slash', text: 'Interface sans publicité' },
-                    { icon: 'ph-star', text: '1 Boost de profil mensuel' }
-                ]
+        let count = 3;
+        function process(id, type) {
+            const el = document.getElementById(id);
+            if(type === 'like') {
+                el.classList.add('liked-anim');
+                setTimeout(() => finalize(el), 850);
+            } else {
+                el.classList.add('deleted-anim');
+                setTimeout(() => finalize(el), 450);
             }
-        };
-
-        const domFeatures = document.getElementById('features-box');
-        const heroTitle = document.getElementById('hero-title');
-        const heroDesc = document.getElementById('hero-desc');
-        const ctaBtn = document.getElementById('cta-btn');
-        const legalTxt = document.getElementById('legal-txt');
-
-        // Fonction de rendu des features avec animation
-        function renderFeatures(planId) {
-            const data = planData[planId];
-            
-            // 1. Animation de sortie
-            const currentItems = domFeatures.querySelectorAll('.feature-item');
-            currentItems.forEach(item => item.classList.add('feature-out'));
-
-            // 2. Remplacement des données (après le fade out)
-            setTimeout(() => {
-                domFeatures.innerHTML = '';
-                data.features.forEach((f, index) => {
-                    // Délai en cascade pour l'apparition
-                    const delay = index * 0.1;
-                    domFeatures.innerHTML += `
-                        <div class="feature-item feature-in" style="animation-delay: ${delay}s">
-                            <div class="icon-box"><i class="ph-fill ${f.icon}"></i></div>
-                            <div class="feature-text">${f.text}</div>
-                        </div>
-                    `;
-                });
-
-                // MAJ des textes principaux
-                heroTitle.innerHTML = data.title;
-                heroDesc.innerHTML = data.desc;
-                ctaBtn.innerHTML = `${data.btn} <i class="ph-bold ph-arrow-right"></i>`;
-                legalTxt.innerHTML = data.legal;
-            }, 300);
         }
 
-        // Init au chargement
-        renderFeatures('ultra');
-
-        // Écouteur de clic sur les cartes
-        function selectPlan(planId, element) {
-            // Empêche le clic si la carte est déjà active
-            if(element.classList.contains('active')) return;
-
-            document.querySelectorAll('.plan-card').forEach(c => c.classList.remove('active'));
-            element.classList.add('active');
-            
-            renderFeatures(planId);
+        function finalize(el) {
+            el.style.display = 'none';
+            count--;
+            document.getElementById('total').innerText = count;
+            if(count === 0) {
+                document.getElementById('empty').classList.add('active');
+            }
         }
-
-        // Timer anxiogène (Fake Scarcity)
-        let time = 899; // 14m 59s
-        const timerEl = document.getElementById('timer');
-        setInterval(() => {
-            time--;
-            if(time < 0) time = 899; 
-            const m = Math.floor(time / 60).toString().padStart(2, '0');
-            const s = (time % 60).toString().padStart(2, '0');
-            timerEl.innerText = `${m}:${s}`;
-        }, 1000);
     </script>
 </body>
 </html>
