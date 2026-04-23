@@ -3,222 +3,176 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>01 - Connexion | Luxe & Élitisme</title>
+    <title>06 - Confirmation | Accès Élite & Privilèges</title>
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@400;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@600;700;800;900&display=swap" rel="stylesheet">
     <style>
         :root {
             --brand-core: #55121C; 
-            --brand-accent: #ff2a55;
+            --brand-glow: #FF2A55;
             --brand-gold: #E5B9A8;
+            --bg-deep: #050102;
             
-            --bg-base: #040101;
+            --glass: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.1);
             
-            /* Verre et Matériaux */
-            --glass-input: rgba(255, 255, 255, 0.03);
-            --glass-border: rgba(255, 255, 255, 0.08);
-            --glass-border-focus: rgba(255, 42, 85, 0.5);
-            
-            --text-pure: #FFFFFF;
-            --text-dim: rgba(255, 255, 255, 0.5);
-            
-            --noise: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+            --noise: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
         }
 
-        /* --- FONDATIONS --- */
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; }
-        body { background-color: #000; display: flex; justify-content: center; align-items: center; min-height: 100vh; color: var(--text-pure); overflow: hidden; }
+        body { background-color: #000; display: flex; justify-content: center; align-items: center; min-height: 100vh; color: #fff; overflow: hidden; }
 
         .device {
-            width: 375px; height: 812px; position: relative; border-radius: 48px; overflow: hidden;
-            background: var(--bg-base); box-shadow: 0 0 0 2px #1a1a1a, 0 50px 100px rgba(0,0,0,1);
+            width: 375px; height: 812px; position: relative; border-radius: 44px; overflow: hidden;
+            background: var(--bg-deep); box-shadow: 0 0 0 2px #1a1a1a, 0 50px 100px rgba(0,0,0,1);
         }
 
-        .device::after { content: ''; position: absolute; inset: 0; background: var(--noise); opacity: 0.04; pointer-events: none; z-index: 100; mix-blend-mode: overlay; }
+        .device::after { content: ''; position: absolute; inset: 0; background: var(--noise); opacity: 0.05; pointer-events: none; z-index: 100; mix-blend-mode: overlay; }
 
-        /* --- ATMOSPHÈRE LUMINEUSE --- */
-        .ambient-glow { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
-        .glow-1 { position: absolute; top: -150px; left: 50%; transform: translateX(-50%); width: 150%; height: 500px; background: radial-gradient(circle, rgba(85, 18, 28, 0.8) 0%, transparent 70%); animation: pulseGlow 10s infinite alternate; }
-        .glow-2 { position: absolute; bottom: -100px; right: -50px; width: 300px; height: 300px; background: radial-gradient(circle, rgba(255, 42, 85, 0.1) 0%, transparent 70%); }
+        /* --- EFFETS LUMINEUX --- */
+        .ambient { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
+        .glow-main { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 140%; height: 600px; background: radial-gradient(circle, rgba(85, 18, 28, 0.9) 0%, transparent 65%); animation: pulseEntry 4s infinite alternate; }
+        .glow-accent { position: absolute; bottom: -50px; width: 100%; height: 200px; background: radial-gradient(ellipse at bottom, rgba(255, 42, 85, 0.2) 0%, transparent 70%); }
 
-        /* --- VIEWPORT --- */
-        .viewport { position: absolute; inset: 0; display: flex; flex-direction: column; padding: 64px 24px 48px; z-index: 1; }
+        /* --- CONTENU --- */
+        .viewport { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; padding: 56px 24px 40px; z-index: 10; text-align: center; }
 
-        /* --- LOGO & TITRE --- */
-        .hero-section { text-align: center; margin-bottom: 48px; margin-top: 40px; opacity: 0; animation: fadeUp 0.8s forwards; }
-        
-        .logo-icon { width: 64px; height: 64px; border-radius: 20px; background: linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.01) 100%); border: 1px solid var(--glass-border); display: flex; justify-content: center; align-items: center; font-size: 32px; color: var(--text-pure); margin: 0 auto 24px; box-shadow: 0 16px 32px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.1); backdrop-filter: blur(20px); }
-        .logo-icon i { filter: drop-shadow(0 0 10px rgba(255, 42, 85, 0.6)); color: var(--brand-accent); }
-
-        .hero-section h1 { font-family: 'Outfit', sans-serif; font-size: 36px; font-weight: 900; letter-spacing: -1px; line-height: 1.1; margin-bottom: 8px; }
-        .hero-section p { font-size: 14px; color: var(--text-dim); }
-
-        /* --- FORMULAIRE --- */
-        .form-container { display: flex; flex-direction: column; gap: 16px; opacity: 0; animation: fadeUp 0.8s 0.1s forwards; }
-
-        .input-group { position: relative; display: flex; flex-direction: column; }
-        .input-group i { position: absolute; left: 20px; top: 50%; transform: translateY(-50%); color: var(--text-dim); font-size: 20px; transition: 0.3s; pointer-events: none; }
-        
-        .glass-input {
-            width: 100%; height: 60px; background: var(--glass-input); border: 1px solid var(--glass-border);
-            border-radius: 20px; padding: 0 20px 0 52px; color: var(--text-pure);
-            font-family: 'Inter', sans-serif; font-size: 15px; outline: none; transition: all 0.3s;
-            backdrop-filter: blur(12px); box-shadow: inset 0 2px 10px rgba(0,0,0,0.2);
+        /* --- LE SCEAU ULTRA --- */
+        .success-seal {
+            position: relative; width: 88px; height: 88px; margin-bottom: 24px;
+            display: flex; justify-content: center; align-items: center;
+            opacity: 0; transform: scale(0.5); animation: sealReveal 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
-        .glass-input::placeholder { color: rgba(255,255,255,0.2); }
+        .seal-bg { position: absolute; inset: 0; background: var(--brand-core); border-radius: 35% 65% 70% 30% / 30% 30% 70% 70%; animation: blobify 8s linear infinite; filter: blur(2px); opacity: 0.8; }
+        .seal-icon { position: relative; z-index: 2; font-size: 48px; color: #fff; filter: drop-shadow(0 0 15px var(--brand-glow)); }
+
+        /* --- TEXTES --- */
+        .msg-reveal { opacity: 0; transform: translateY(20px); animation: fadeUp 0.8s 0.2s forwards; margin-bottom: 32px; }
+        .viewport h1 { font-family: 'Outfit', sans-serif; font-size: 34px; font-weight: 900; line-height: 1.1; margin-bottom: 12px; letter-spacing: -1px; }
+        .viewport p { font-size: 13px; color: rgba(255,255,255,0.6); line-height: 1.5; padding: 0 16px; }
+
+        /* --- LISTE DES PRIVILÈGES (Les 3 Fonctionnalités) --- */
+        .feature-list {
+            width: 100%; display: flex; flex-direction: column; gap: 12px; margin-bottom: 24px;
+            opacity: 0; animation: fadeUp 0.8s 0.4s forwards;
+        }
         
-        /* État focus : Le bordeaux/néon s'allume */
-        .glass-input:focus { border-color: var(--glass-border-focus); background: rgba(255, 42, 85, 0.05); box-shadow: 0 0 20px rgba(255, 42, 85, 0.15), inset 0 2px 10px rgba(0,0,0,0.2); }
-        .glass-input:focus + i { color: var(--brand-accent); }
+        .feature-item {
+            background: linear-gradient(90deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.01) 100%);
+            backdrop-filter: blur(20px); border: 1px solid var(--glass-border);
+            border-radius: 20px; padding: 16px 20px; display: flex; align-items: center; gap: 16px;
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.05); text-align: left;
+        }
+        
+        .f-icon { width: 36px; height: 36px; border-radius: 12px; background: rgba(85, 18, 28, 0.5); display: flex; justify-content: center; align-items: center; font-size: 18px; color: var(--brand-glow); border: 1px solid rgba(255, 42, 85, 0.2); }
+        .f-text h3 { font-family: 'Outfit', sans-serif; font-size: 15px; font-weight: 800; color: #fff; margin-bottom: 2px; }
+        .f-text p { font-size: 11px; color: rgba(255,255,255,0.5); }
 
-        /* Dark Pattern : Mot de passe oublié (Minuscule et terne) */
-        .forgot-link { align-self: flex-end; font-size: 11px; color: var(--text-dim); text-decoration: none; margin-top: -4px; margin-bottom: 8px; transition: 0.2s; }
-        .forgot-link:active { color: var(--text-pure); }
+        /* --- LIEN "ET BIEN D'AUTRES" --- */
+        .see-more-link {
+            display: inline-flex; align-items: center; gap: 6px;
+            font-family: 'Outfit', sans-serif; font-size: 12px; font-weight: 700; color: var(--brand-gold);
+            text-decoration: none; padding: 8px 16px; border-radius: 100px;
+            background: rgba(229, 185, 168, 0.1); border: 1px solid rgba(229, 185, 168, 0.2);
+            transition: 0.3s; margin-bottom: auto; opacity: 0; animation: fadeUp 0.8s 0.6s forwards;
+        }
+        .see-more-link:active { transform: scale(0.95); background: rgba(229, 185, 168, 0.2); color: #fff; }
+        .see-more-link i { font-size: 14px; }
 
-        /* Dark Pattern : Checkbox pré-cochée pour l'upsell marketing */
-        .sneaky-optin { display: flex; align-items: flex-start; gap: 12px; padding: 0 4px; margin-bottom: 24px; cursor: pointer; }
-        .checkbox { width: 20px; height: 20px; border-radius: 6px; border: 1px solid var(--brand-accent); background: rgba(255, 42, 85, 0.1); display: flex; justify-content: center; align-items: center; flex-shrink: 0; transition: 0.2s; }
-        .checkbox i { font-size: 14px; color: var(--brand-accent); opacity: 1; transition: 0.2s; }
-        .sneaky-optin.unchecked .checkbox { border-color: var(--glass-border); background: var(--glass-input); }
-        .sneaky-optin.unchecked .checkbox i { opacity: 0; }
-        .optin-text { font-size: 11px; color: var(--text-dim); line-height: 1.4; }
-        .optin-text span { color: var(--text-pure); font-weight: 600; }
-
-        /* --- CTA PRINCIPAL (L'Appât) --- */
-        .btn-primary {
-            width: 100%; height: 60px; border-radius: 100px; border: none;
-            background: linear-gradient(135deg, #FFFFFF 0%, #E2E2E2 100%); color: var(--bg-base);
-            font-family: 'Outfit', sans-serif; font-size: 15px; font-weight: 900; letter-spacing: 1px;
-            display: flex; justify-content: center; align-items: center; gap: 10px;
+        /* --- BOUTON ENTRER --- */
+        .btn-enter {
+            width: 100%; height: 60px; border-radius: 100px; border: none; margin-top: 32px;
+            background: #fff; color: #000; font-family: 'Outfit', sans-serif; font-size: 15px; font-weight: 900; letter-spacing: 0.5px;
             box-shadow: 0 16px 32px rgba(255,255,255,0.15), inset 0 -4px 10px rgba(0,0,0,0.1);
             cursor: pointer; transition: 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-            position: relative; overflow: hidden;
-        }
-        .btn-primary i { font-size: 20px; color: var(--brand-core); }
-        .btn-primary::after { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.8), transparent); transform: translateX(-100%) skewX(-20deg); transition: 0.5s; }
-        .btn-primary:active { transform: scale(0.96); box-shadow: 0 8px 16px rgba(255,255,255,0.1); }
-
-        /* --- SOCIAL LOGIN --- */
-        .separator { display: flex; align-items: center; gap: 16px; margin: 32px 0; opacity: 0; animation: fadeUp 0.8s 0.2s forwards; }
-        .separator::before, .separator::after { content: ''; flex: 1; height: 1px; background: var(--glass-border); }
-        .separator span { font-size: 10px; font-weight: 600; color: var(--text-dim); text-transform: uppercase; letter-spacing: 1px; }
-
-        .social-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; opacity: 0; animation: fadeUp 0.8s 0.3s forwards; }
-        .btn-social {
-            height: 56px; border-radius: 20px; background: var(--glass-input); border: 1px solid var(--glass-border);
-            color: var(--text-pure); font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 600;
             display: flex; justify-content: center; align-items: center; gap: 10px;
-            backdrop-filter: blur(12px); cursor: pointer; transition: 0.2s;
+            opacity: 0; animation: fadeUp 0.8s 0.8s forwards;
         }
-        .btn-social i { font-size: 24px; }
-        .btn-social:active { transform: scale(0.96); background: rgba(255,255,255,0.05); }
-
-        /* --- FOOTER (Dark Pattern Élitisme) --- */
-        .footer { margin-top: auto; text-align: center; opacity: 0; animation: fadeUp 0.8s 0.4s forwards; }
-        .footer p { font-size: 13px; color: var(--text-dim); }
-        .footer a { color: var(--brand-accent); font-weight: 600; text-decoration: none; padding-bottom: 2px; border-bottom: 1px solid rgba(255, 42, 85, 0.3); transition: 0.2s; }
-        .footer a:active { color: #fff; border-color: #fff; }
+        .btn-enter:active { transform: scale(0.96); box-shadow: 0 8px 16px rgba(255,255,255,0.1); }
+        .btn-enter i { font-size: 20px; color: var(--brand-core); }
 
         /* --- ANIMATIONS --- */
-        @keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes pulseGlow { from { opacity: 0.6; transform: translateX(-50%) scale(1); } to { opacity: 0.9; transform: translateX(-50%) scale(1.05); } }
-        @keyframes spin { to { transform: rotate(360deg); } }
-
-        .loading i { animation: spin 1s linear infinite; }
+        @keyframes sealReveal { to { opacity: 1; transform: scale(1); } }
+        @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+        @keyframes pulseEntry { from { opacity: 0.6; transform: translate(-50%, -50%) scale(1); } to { opacity: 1; transform: translate(-50%, -50%) scale(1.1); } }
+        @keyframes blobify { 
+            0%, 100% { border-radius: 35% 65% 70% 30% / 30% 30% 70% 70%; }
+            50% { border-radius: 50% 50% 30% 70% / 50% 60% 40% 50%; }
+        }
     </style>
 </head>
 <body>
     <div class="device">
-        <div class="ambient-glow">
-            <div class="glow-1"></div>
-            <div class="glow-2"></div>
+        <div class="ambient">
+            <div class="glow-main"></div>
+            <div class="glow-accent"></div>
         </div>
 
         <div class="viewport">
             
-            <div class="hero-section">
-                <div class="logo-icon"><i class="ph-fill ph-infinity"></i></div>
-                <h1>L'Élite.</h1>
-                <p>Connectez-vous pour accéder à votre sélection.</p>
+            <div class="success-seal">
+                <div class="seal-bg"></div>
+                <div class="seal-icon"><i class="ph-fill ph-crown"></i></div>
             </div>
 
-            <div class="form-container">
-                <div class="input-group">
-                    <input type="email" class="glass-input" placeholder="Adresse e-mail" id="email" required>
-                    <i class="ph ph-envelope-simple"></i>
+            <div class="msg-reveal">
+                <h1>Statut Ultra<br>Déverrouillé.</h1>
+                <p>Bienvenue dans l'élite. Vous possédez désormais le contrôle total sur l'algorithme.</p>
+            </div>
+
+            <div class="feature-list">
+                <div class="feature-item">
+                    <div class="f-icon"><i class="ph-fill ph-ghost"></i></div>
+                    <div class="f-text">
+                        <h3>Mode Fantôme</h3>
+                        <p>Naviguez et observez sans aucune trace.</p>
+                    </div>
+                </div>
+                
+                <div class="feature-item">
+                    <div class="f-icon"><i class="ph-fill ph-sparkle"></i></div>
+                    <div class="f-text">
+                        <h3>Visibilité Top 1%</h3>
+                        <p>Priorité absolue. Soyez toujours vu en premier.</p>
+                    </div>
                 </div>
 
-                <div class="input-group">
-                    <input type="password" class="glass-input" placeholder="Mot de passe" id="password" required>
-                    <i class="ph ph-lock-key"></i>
+                <div class="feature-item">
+                    <div class="f-icon"><i class="ph-fill ph-infinity"></i></div>
+                    <div class="f-text">
+                        <h3>Pouvoir Absolu</h3>
+                        <p>Messages illimités. Interagissez sans limite.</p>
+                    </div>
                 </div>
-
-                <a href="#" class="forgot-link">Mot de passe oublié ?</a>
-
-                <div class="sneaky-optin" id="optin">
-                    <div class="checkbox"><i class="ph-bold ph-check"></i></div>
-                    <div class="optin-text">Rester connecté et recevoir les opportunités <span>Ultra VIP</span> en avant-première.</div>
-                </div>
-
-                <button class="btn-primary" id="login-btn">
-                    ACCÉDER AU CLUB <i class="ph-bold ph-arrow-right"></i>
-                </button>
             </div>
 
-            <div class="separator"><span>OUVERTURE SÉCURISÉE</span></div>
+            <a href="#" class="see-more-link">
+                ...et 12 autres privilèges exclusifs <i class="ph-bold ph-caret-right"></i>
+            </a>
 
-            <div class="social-grid">
-                <button class="btn-social">
-                    <i class="ph-fill ph-apple-logo"></i> Apple
-                </button>
-                <button class="btn-social">
-                    <i class="ph-fill ph-google-logo" style="color: #fff;"></i> Google
-                </button>
-            </div>
-
-            <div class="footer">
-                <p>Vous n'êtes pas encore membre ? <a href="#">Postuler ici.</a></p>
-            </div>
+            <button class="btn-enter">
+                PROFITER DE MON STATUT <i class="ph-bold ph-arrow-right"></i>
+            </button>
 
         </div>
     </div>
 
     <script>
-        // Logique de la checkbox (Dark Pattern)
-        const optin = document.getElementById('optin');
-        optin.addEventListener('click', () => {
-            optin.classList.toggle('unchecked');
+        // Micro-interaction
+        document.querySelector('.see-more-link').addEventListener('click', function(e) {
+            e.preventDefault();
+            // Simule l'ouverture d'une modale listant toutes les fonctionnalités
+            alert("Ouverture de la liste complète des privilèges Ultra VIP...");
         });
 
-        // Animation de chargement sur le bouton
-        const loginBtn = document.getElementById('login-btn');
-        loginBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
-
-            if(email && password) {
-                // Change l'état du bouton
-                loginBtn.innerHTML = '<i class="ph-bold ph-circle-notch"></i> VÉRIFICATION...';
-                loginBtn.classList.add('loading');
-                loginBtn.style.pointerEvents = 'none';
-
-                // Simule une requête réseau
-                setTimeout(() => {
-                    loginBtn.innerHTML = '<i class="ph-bold ph-check"></i> ACCÈS AUTORISÉ';
-                    loginBtn.classList.remove('loading');
-                    loginBtn.style.background = 'linear-gradient(135deg, #4ade80 0%, #22c55e 100%)';
-                    loginBtn.style.color = '#fff';
-                    
-                    // Ici on redirigerait vers la page d'accueil (ou l'upsell !)
-                }, 2000);
-            } else {
-                // Petit feedback visuel si champs vides
-                loginBtn.style.transform = 'translateX(5px)';
-                setTimeout(() => loginBtn.style.transform = 'translateX(-5px)', 50);
-                setTimeout(() => loginBtn.style.transform = 'translateX(5px)', 100);
-                setTimeout(() => loginBtn.style.transform = 'translateX(0)', 150);
-            }
+        document.querySelector('.btn-enter').addEventListener('click', function() {
+            this.style.background = '#4ade80';
+            this.style.color = '#fff';
+            this.innerHTML = '<i class="ph-bold ph-check"></i> REDIRECTION...';
+            
+            setTimeout(() => {
+                alert("Ouverture de l'application en mode Ultra.");
+            }, 1000);
         });
     </script>
 </body>
