@@ -4,21 +4,15 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ACEF — Objets de communication B2B qui marquent les esprits</title>
+  <title>Catalogue — ACEF Objets de communication</title>
   <meta name="description"
-    content="ACEF crée vos objets publicitaires personnalisés. Goodies, textile, trophées, PLV. +3500 clients. Devis gratuit sous 4h.">
+    content="Parcourez notre catalogue de 5 000+ objets publicitaires personnalisables. Filtres par catégorie, budget et technique d'impression.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
     href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap"
     rel="stylesheet">
   <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css">
-  <style>
-    /* Overrides hero pour cette page */
-    .hero-left {
-      padding: 64px 28px 56px;
-    }
-  </style>
   <style>
     /* ============================================================
    ACEF — v5 · Bold & Energetic B2B
@@ -3236,18 +3230,14 @@
 
 <body>
 
-  <div class="cursor-dot" id="cursorDot" aria-hidden="true"></div>
-  <div class="cursor-ring" id="cursorRing" aria-hidden="true"></div>
-
+  <!-- ══ HEADER ══ -->
   <header class="site-header" role="banner">
     <div class="container nav-inner">
-      <a href="index.html" class="logo" aria-label="ACEF accueil">
-        <span class="logo-ac">AC</span><span class="logo-ef">EF</span>
-      </a>
+      <a href="index.html" class="logo" aria-label="ACEF accueil"><span class="logo-ac">AC</span><span
+          class="logo-ef">EF</span></a>
       <nav class="nav-links" role="navigation" aria-label="Navigation principale">
-        <a href="index.html" class="active">Accueil</a>
-        <a href="catalogue.html">Catalogue</a>
-        <a href="produit.html">Produit</a>
+        <a href="index.html">Accueil</a>
+        <a href="catalogue.html" class="active">Catalogue</a>
         <a href="qui-sommes-nous.html">À propos</a>
         <a href="contact.html">Contact</a>
       </nav>
@@ -3267,432 +3257,396 @@
   </header>
 
   <nav id="mobileMenu" class="mobile-menu" aria-label="Menu mobile">
-    <a href="index.html"><i class="ph ph-house"></i> Accueil</a>
-    <a href="catalogue.html"><i class="ph ph-squares-four"></i> Catalogue</a>
-    <a href="produit.html"><i class="ph ph-tag"></i> Produit</a>
-    <a href="qui-sommes-nous.html"><i class="ph ph-info"></i> À propos</a>
-    <a href="contact.html"><i class="ph ph-envelope"></i> Contact</a>
-    <a href="login.html" class="btn btn-primary"><i class="ph ph-user"></i> Espace client</a>
+    <a href="index.html"><i class="ph ph-house" aria-hidden="true"></i> Accueil</a>
+    <a href="catalogue.html"><i class="ph ph-squares-four" aria-hidden="true"></i> Catalogue</a>
+    <a href="qui-sommes-nous.html"><i class="ph ph-info" aria-hidden="true"></i> À propos</a>
+    <a href="contact.html"><i class="ph ph-envelope" aria-hidden="true"></i> Contact</a>
+    <a href="login.html" class="btn btn-primary"><i class="ph ph-user" aria-hidden="true"></i> Espace client</a>
   </nav>
 
+  <!-- ══ PAGE HEADER ══ -->
+  <div class="page-header" role="banner">
+    <div class="container">
+      <nav class="breadcrumb" aria-label="Fil d'Ariane">
+        <a href="index.html">Accueil</a>
+        <span class="breadcrumb-sep" aria-hidden="true">/</span>
+        <span aria-current="page">Catalogue</span>
+      </nav>
+      <h1>Notre catalogue</h1>
+      <p>5 000+ références personnalisables. Filtrez par catégorie, budget ou technique d'impression.</p>
+    </div>
+  </div>
+
   <main>
+    <section style="padding: 40px 0 72px;">
+      <div class="container">
+        <div class="catalogue-layout">
 
-    <!-- HERO -->
-    <section class="hero" aria-label="Présentation ACEF">
-      <div class="hero-mesh" aria-hidden="true"></div>
-      <div class="hero-grain" aria-hidden="true"></div>
-      <div class="hero-vline" aria-hidden="true"></div>
-      <div class="hero-inner container">
+          <!-- ── FILTRES ── -->
+          <aside id="filtersSidebar" class="filters-sidebar" aria-label="Filtres produits">
+            <div class="filters-header" id="filtersToggle" role="button" aria-expanded="false"
+              aria-controls="filtersBody" tabindex="0">
+              <h3><i class="ph ph-funnel" aria-hidden="true"></i> Filtres</h3>
+              <i class="ph ph-caret-down filters-toggle-icon" aria-hidden="true"></i>
+            </div>
+            <div class="filters-body" id="filtersBody">
 
-        <div class="hero-left">
-          <p class="hero-eyebrow">
-            <span class="eye-dot" aria-hidden="true"></span>
-            Spécialiste B2B · Depuis 1998
-          </p>
-          <h1 class="hero-title">
-            Vos objets.<br>
-            Votre <span class="word-cycle" id="wordCycle">marque</span>.<br>
-            Mémorables.
-          </h1>
-          <p class="hero-desc">
-            Goodies, textile, stylos, trophées, PLV — ACEF transforme votre identité en objets qui restent dans les
-            mains et les mémoires de vos clients.
-          </p>
-          <div class="hero-cta">
-            <a href="catalogue.html" class="btn btn-primary btn-lg">
-              Explorer le catalogue <i class="ph ph-arrow-right"></i>
-            </a>
-            <a href="contact.html" class="btn btn-ghost btn-lg">
-              <i class="ph ph-chat-dots"></i> Devis gratuit
-            </a>
-          </div>
-          <div class="hero-stats" role="list">
-            <div class="hero-stat" role="listitem">
-              <div class="hero-stat-num"><span id="countYears">25</span><sup>ans</sup></div>
-              <div class="hero-stat-label">d'expertise B2B</div>
-            </div>
-            <div class="hero-stat" role="listitem">
-              <div class="hero-stat-num"><span id="countClients">3 500</span><sup>+</sup></div>
-              <div class="hero-stat-label">clients actifs</div>
-            </div>
-            <div class="hero-stat" role="listitem">
-              <div class="hero-stat-num"><span id="countSat">98</span><sup>%</sup></div>
-              <div class="hero-stat-label">de satisfaction</div>
-            </div>
-          </div>
-          <div class="hero-scroll-indicator" aria-hidden="true">
-            <div class="scroll-mouse">
-              <div class="scroll-wheel"></div>
-            </div>
-            <span>Scroll</span>
-          </div>
-        </div>
+              <!-- Catégories -->
+              <div class="filter-group">
+                <h4>Catégories</h4>
+                <div class="filter-options" role="group" aria-label="Filtrer par catégorie">
+                  <label class="filter-option">
+                    <input type="checkbox" name="cat" value="stylos"> Stylos & Écriture <span
+                      class="filter-count">312</span>
+                  </label>
+                  <label class="filter-option">
+                    <input type="checkbox" name="cat" value="textile"> Textile <span class="filter-count">485</span>
+                  </label>
+                  <label class="filter-option">
+                    <input type="checkbox" name="cat" value="sacs"> Sacs <span class="filter-count">198</span>
+                  </label>
+                  <label class="filter-option">
+                    <input type="checkbox" name="cat" value="trophees"> Trophées <span class="filter-count">124</span>
+                  </label>
+                  <label class="filter-option">
+                    <input type="checkbox" name="cat" value="plv"> PLV & Signalétique <span
+                      class="filter-count">267</span>
+                  </label>
+                  <label class="filter-option">
+                    <input type="checkbox" name="cat" value="kits"> Coffrets cadeaux <span
+                      class="filter-count">89</span>
+                  </label>
+                  <label class="filter-option">
+                    <input type="checkbox" name="cat" value="tech"> High-Tech <span class="filter-count">156</span>
+                  </label>
+                  <label class="filter-option">
+                    <input type="checkbox" name="cat" value="eco"> Éco-responsable <span class="filter-count">214</span>
+                  </label>
+                </div>
+              </div>
 
-        <div class="hero-right" aria-hidden="true">
-          <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80"
-            alt="Objets de communication ACEF" loading="eager">
-          <div class="hero-float-badge">
-            <div class="badge-icon"><i class="ph ph-star-four"></i></div>
-            <div class="badge-text">
-              <strong>4,8/5 satisfaction</strong>
-              <span>142 avis vérifiés</span>
-            </div>
-          </div>
-        </div>
+              <!-- Budget -->
+              <div class="filter-group">
+                <h4>Budget unitaire</h4>
+                <div class="filter-range-wrap">
+                  <input type="range" id="priceRange" class="filter-range" min="0" max="100" value="100" step="1"
+                    aria-label="Budget maximum">
+                  <div class="filter-range-labels">
+                    <span>0 €</span>
+                    <span id="priceVal">100 €</span>
+                  </div>
+                </div>
+              </div>
 
+              <!-- Impression -->
+              <div class="filter-group">
+                <h4>Technique d'impression</h4>
+                <div class="filter-options" role="group" aria-label="Filtrer par technique">
+                  <label class="filter-option">
+                    <input type="checkbox" name="tech" value="seri"> Sérigraphie
+                  </label>
+                  <label class="filter-option">
+                    <input type="checkbox" name="tech" value="laser"> Gravure laser
+                  </label>
+                  <label class="filter-option">
+                    <input type="checkbox" name="tech" value="brode"> Broderie
+                  </label>
+                  <label class="filter-option">
+                    <input type="checkbox" name="tech" value="numeri"> Impression numérique
+                  </label>
+                  <label class="filter-option">
+                    <input type="checkbox" name="tech" value="tampo"> Tampographie
+                  </label>
+                </div>
+              </div>
+
+              <!-- Quantité minimale -->
+              <div class="filter-group">
+                <h4>Quantité minimale</h4>
+                <div class="filter-tags" role="group" aria-label="Quantité minimale">
+                  <button class="filter-tag active" data-qty="all">Toutes</button>
+                  <button class="filter-tag" data-qty="1">1+</button>
+                  <button class="filter-tag" data-qty="10">10+</button>
+                  <button class="filter-tag" data-qty="50">50+</button>
+                  <button class="filter-tag" data-qty="100">100+</button>
+                  <button class="filter-tag" data-qty="500">500+</button>
+                </div>
+              </div>
+
+              <div class="filters-footer">
+                <button class="btn btn-secondary" style="width:100%;justify-content:center" id="resetFilters">
+                  <i class="ph ph-arrow-counter-clockwise" aria-hidden="true"></i> Réinitialiser
+                </button>
+              </div>
+            </div>
+          </aside>
+
+          <!-- ── RÉSULTATS ── -->
+          <div class="catalogue-results">
+
+            <div class="results-bar">
+              <p class="results-count"><strong id="resultsCount">48</strong> produits trouvés</p>
+              <div class="results-sort">
+                <label for="sortSelect" class="sr-only">Trier par</label>
+                <select id="sortSelect" aria-label="Trier les résultats">
+                  <option value="popular">Les plus populaires</option>
+                  <option value="price-asc">Prix croissant</option>
+                  <option value="price-desc">Prix décroissant</option>
+                  <option value="new">Nouveautés</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="catalogue-grid" id="productGrid" role="list">
+
+              <!-- Produits du catalogue -->
+
+              <article class="product-card" role="listitem" data-animate>
+                <div class="product-img">
+                  <img src="https://picsum.photos/seed/c1/400/300" alt="Stylo bille executive" loading="lazy">
+                  <span class="product-badge popular">Populaire</span>
+                  <div class="product-actions">
+                    <button class="product-action-btn"
+                      onclick="openProductModal({id:'c1',name:'Stylo Executive',price:'0.85',img:'https://picsum.photos/seed/c1/600/400',cat:'Stylos',desc:'Stylo bille plastique ABS. Logo en tampographie 1 couleur. Encre bleue ou noire. À partir de 250 unités.'})"
+                      aria-label="Voir détail">
+                      <i class="ph ph-eye" aria-hidden="true"></i>
+                    </button>
+                    <button class="product-action-btn"
+                      onclick="Cart.addItem({id:'c1',name:'Stylo Executive',price:'0.85',img:'https://picsum.photos/seed/c1/80/80',cat:'Stylos',qty:250}); showToast('Ajouté !')"
+                      aria-label="Ajouter au devis">
+                      <i class="ph ph-plus" aria-hidden="true"></i>
+                    </button>
+                  </div>
+                </div>
+                <div class="product-info">
+                  <p class="product-cat">Stylos & Écriture</p>
+                  <h3 class="product-name">Stylo Executive</h3>
+                  <p class="product-desc">Plastique ABS recyclé, tampographie 1 couleur.</p>
+                  <div class="product-footer">
+                    <div class="product-price">À partir de 0,85 € <span class="price-note">HT (min. 250 ex.)</span>
+                    </div>
+                    <button class="btn btn-primary btn-sm">Devis</button>
+                  </div>
+                </div>
+              </article>
+
+              <article class="product-card" role="listitem" data-animate data-animate-delay="1">
+                <div class="product-img">
+                  <img src="https://picsum.photos/seed/c2/400/300" alt="T-shirt 100% coton" loading="lazy">
+                  <span class="product-badge new">Nouveau</span>
+                  <div class="product-actions">
+                    <button class="product-action-btn"
+                      onclick="openProductModal({id:'c2',name:'T-Shirt Unisexe Bio',price:'8.50',img:'https://picsum.photos/seed/c2/600/400',cat:'Textile',desc:'T-shirt 100% coton bio 180g, impression DTG pleine couleur. Disponible S à 4XL, 12 coloris.'})"
+                      aria-label="Voir détail"><i class="ph ph-eye" aria-hidden="true"></i></button>
+                    <button class="product-action-btn"
+                      onclick="Cart.addItem({id:'c2',name:'T-Shirt Unisexe Bio',price:'8.50',img:'https://picsum.photos/seed/c2/80/80',cat:'Textile',qty:20}); showToast('Ajouté !')"
+                      aria-label="Ajouter"><i class="ph ph-plus" aria-hidden="true"></i></button>
+                  </div>
+                </div>
+                <div class="product-info">
+                  <p class="product-cat">Textile</p>
+                  <h3 class="product-name">T-Shirt Unisexe Bio</h3>
+                  <p class="product-desc">Coton bio 180g, impression DTG pleine couleur, 12 coloris.</p>
+                  <div class="product-footer">
+                    <div class="product-price">À partir de 8,50 € <span class="price-note">HT (min. 20 ex.)</span></div>
+                    <button class="btn btn-primary btn-sm">Devis</button>
+                  </div>
+                </div>
+              </article>
+
+              <article class="product-card" role="listitem" data-animate data-animate-delay="2">
+                <div class="product-img">
+                  <img src="https://picsum.photos/seed/c3/400/300" alt="Carnet moleskine personnalisé" loading="lazy">
+                  <div class="product-actions">
+                    <button class="product-action-btn"
+                      onclick="openProductModal({id:'c3',name:'Carnet Cuir Personnalisé',price:'6.90',img:'https://picsum.photos/seed/c3/600/400',cat:'Écriture',desc:'Carnet A5 couverture similicuir, 96 pages lignées. Gaufrage ou dorure à chaud de votre logo.'})"
+                      aria-label="Voir détail"><i class="ph ph-eye" aria-hidden="true"></i></button>
+                    <button class="product-action-btn"
+                      onclick="Cart.addItem({id:'c3',name:'Carnet Cuir Personnalisé',price:'6.90',img:'https://picsum.photos/seed/c3/80/80',cat:'Écriture',qty:50}); showToast('Ajouté !')"
+                      aria-label="Ajouter"><i class="ph ph-plus" aria-hidden="true"></i></button>
+                  </div>
+                </div>
+                <div class="product-info">
+                  <p class="product-cat">Écriture</p>
+                  <h3 class="product-name">Carnet Cuir Personnalisé</h3>
+                  <p class="product-desc">Similicuir, 96 pages, gaufrage ou dorure à chaud.</p>
+                  <div class="product-footer">
+                    <div class="product-price">À partir de 6,90 € <span class="price-note">HT (min. 50 ex.)</span></div>
+                    <button class="btn btn-primary btn-sm">Devis</button>
+                  </div>
+                </div>
+              </article>
+
+              <article class="product-card" role="listitem" data-animate>
+                <div class="product-img">
+                  <img src="https://picsum.photos/seed/c4/400/300" alt="Mug céramique 330ml" loading="lazy">
+                  <span class="product-badge popular">Populaire</span>
+                  <div class="product-actions">
+                    <button class="product-action-btn"
+                      onclick="openProductModal({id:'c4',name:'Mug Céramique 330ml',price:'3.20',img:'https://picsum.photos/seed/c4/600/400',cat:'Accessoires',desc:'Mug céramique 330ml, impression sublimatoire pleine couleur 360°. Passe au lave-vaisselle.'})"
+                      aria-label="Voir détail"><i class="ph ph-eye" aria-hidden="true"></i></button>
+                    <button class="product-action-btn"
+                      onclick="Cart.addItem({id:'c4',name:'Mug Céramique 330ml',price:'3.20',img:'https://picsum.photos/seed/c4/80/80',cat:'Accessoires',qty:72}); showToast('Ajouté !')"
+                      aria-label="Ajouter"><i class="ph ph-plus" aria-hidden="true"></i></button>
+                  </div>
+                </div>
+                <div class="product-info">
+                  <p class="product-cat">Accessoires</p>
+                  <h3 class="product-name">Mug Céramique 330ml</h3>
+                  <p class="product-desc">Sublimatoire pleine couleur 360°, passe au lave-vaisselle.</p>
+                  <div class="product-footer">
+                    <div class="product-price">À partir de 3,20 € <span class="price-note">HT (min. 72 ex.)</span></div>
+                    <button class="btn btn-primary btn-sm">Devis</button>
+                  </div>
+                </div>
+              </article>
+
+              <article class="product-card" role="listitem" data-animate data-animate-delay="1">
+                <div class="product-img">
+                  <img src="https://picsum.photos/seed/c5/400/300" alt="Clé USB personnalisée 32 Go" loading="lazy">
+                  <div class="product-actions">
+                    <button class="product-action-btn"
+                      onclick="openProductModal({id:'c5',name:'Clé USB 32 Go',price:'5.90',img:'https://picsum.photos/seed/c5/600/400',cat:'High-Tech',desc:'Clé USB 32 Go corps aluminium. Sérigraphie ou gravure laser. Préchargement de données possible.'})"
+                      aria-label="Voir détail"><i class="ph ph-eye" aria-hidden="true"></i></button>
+                    <button class="product-action-btn"
+                      onclick="Cart.addItem({id:'c5',name:'Clé USB 32 Go',price:'5.90',img:'https://picsum.photos/seed/c5/80/80',cat:'High-Tech',qty:100}); showToast('Ajouté !')"
+                      aria-label="Ajouter"><i class="ph ph-plus" aria-hidden="true"></i></button>
+                  </div>
+                </div>
+                <div class="product-info">
+                  <p class="product-cat">High-Tech</p>
+                  <h3 class="product-name">Clé USB 32 Go</h3>
+                  <p class="product-desc">Aluminium brossé, gravure laser, préchargement données possible.</p>
+                  <div class="product-footer">
+                    <div class="product-price">À partir de 5,90 € <span class="price-note">HT (min. 100 ex.)</span>
+                    </div>
+                    <button class="btn btn-primary btn-sm">Devis</button>
+                  </div>
+                </div>
+              </article>
+
+              <article class="product-card" role="listitem" data-animate data-animate-delay="2">
+                <div class="product-img">
+                  <img src="https://picsum.photos/seed/c6/400/300" alt="Roll-up 85x200 cm" loading="lazy">
+                  <div class="product-actions">
+                    <button class="product-action-btn"
+                      onclick="openProductModal({id:'c6',name:'Roll-Up 85×200 cm',price:'89.00',img:'https://picsum.photos/seed/c6/600/400',cat:'PLV',desc:'Roll-up 85×200 cm avec cassette aluminium. Impression HD pleine couleur. Livré avec housse.'})"
+                      aria-label="Voir détail"><i class="ph ph-eye" aria-hidden="true"></i></button>
+                    <button class="product-action-btn"
+                      onclick="Cart.addItem({id:'c6',name:'Roll-Up 85×200 cm',price:'89.00',img:'https://picsum.photos/seed/c6/80/80',cat:'PLV',qty:1}); showToast('Ajouté !')"
+                      aria-label="Ajouter"><i class="ph ph-plus" aria-hidden="true"></i></button>
+                  </div>
+                </div>
+                <div class="product-info">
+                  <p class="product-cat">PLV & Signalétique</p>
+                  <h3 class="product-name">Roll-Up 85×200 cm</h3>
+                  <p class="product-desc">Cassette aluminium, impression HD, housse incluse.</p>
+                  <div class="product-footer">
+                    <div class="product-price">À partir de 89,00 € <span class="price-note">HT / unité</span></div>
+                    <button class="btn btn-primary btn-sm">Devis</button>
+                  </div>
+                </div>
+              </article>
+
+              <article class="product-card" role="listitem" data-animate>
+                <div class="product-img">
+                  <img src="https://picsum.photos/seed/c7/400/300" alt="Veste softshell brodée" loading="lazy">
+                  <div class="product-actions">
+                    <button class="product-action-btn"
+                      onclick="openProductModal({id:'c7',name:'Veste Softshell Corporate',price:'42.00',img:'https://picsum.photos/seed/c7/600/400',cat:'Textile',desc:'Veste softshell 3 couches, broderie digitale logo. Coupe moderne, traitement déperlant.'})"
+                      aria-label="Voir détail"><i class="ph ph-eye" aria-hidden="true"></i></button>
+                    <button class="product-action-btn"
+                      onclick="Cart.addItem({id:'c7',name:'Veste Softshell',price:'42.00',img:'https://picsum.photos/seed/c7/80/80',cat:'Textile',qty:10}); showToast('Ajouté !')"
+                      aria-label="Ajouter"><i class="ph ph-plus" aria-hidden="true"></i></button>
+                  </div>
+                </div>
+                <div class="product-info">
+                  <p class="product-cat">Textile</p>
+                  <h3 class="product-name">Veste Softshell Corporate</h3>
+                  <p class="product-desc">3 couches, traitement déperlant, broderie digitale.</p>
+                  <div class="product-footer">
+                    <div class="product-price">À partir de 42,00 € <span class="price-note">HT (min. 10 ex.)</span>
+                    </div>
+                    <button class="btn btn-primary btn-sm">Devis</button>
+                  </div>
+                </div>
+              </article>
+
+              <article class="product-card" role="listitem" data-animate data-animate-delay="1">
+                <div class="product-img">
+                  <img src="https://picsum.photos/seed/c8/400/300" alt="Gourde isotherme 500ml" loading="lazy">
+                  <span class="product-badge new">Nouveau</span>
+                  <div class="product-actions">
+                    <button class="product-action-btn"
+                      onclick="openProductModal({id:'c8',name:'Gourde Isotherme 500ml',price:'12.90',img:'https://picsum.photos/seed/c8/600/400',cat:'Eco-responsable',desc:'Gourde isotherme inox 500ml, gravure laser. Garde chaud 12h, froid 24h. Sans BPA.'})"
+                      aria-label="Voir détail"><i class="ph ph-eye" aria-hidden="true"></i></button>
+                    <button class="product-action-btn"
+                      onclick="Cart.addItem({id:'c8',name:'Gourde Isotherme 500ml',price:'12.90',img:'https://picsum.photos/seed/c8/80/80',cat:'Eco',qty:50}); showToast('Ajouté !')"
+                      aria-label="Ajouter"><i class="ph ph-plus" aria-hidden="true"></i></button>
+                  </div>
+                </div>
+                <div class="product-info">
+                  <p class="product-cat">Éco-responsable</p>
+                  <h3 class="product-name">Gourde Isotherme 500ml</h3>
+                  <p class="product-desc">Inox 18/8, sans BPA, gravure laser, 12h chaud / 24h froid.</p>
+                  <div class="product-footer">
+                    <div class="product-price">À partir de 12,90 € <span class="price-note">HT (min. 50 ex.)</span>
+                    </div>
+                    <button class="btn btn-primary btn-sm">Devis</button>
+                  </div>
+                </div>
+              </article>
+
+              <article class="product-card" role="listitem" data-animate data-animate-delay="2">
+                <div class="product-img">
+                  <img src="https://picsum.photos/seed/c9/400/300" alt="Sac à dos sport personnalisé" loading="lazy">
+                  <div class="product-actions">
+                    <button class="product-action-btn"
+                      onclick="openProductModal({id:'c9',name:'Sac à dos Sport 25L',price:'24.50',img:'https://picsum.photos/seed/c9/600/400',cat:'Sacs',desc:'Sac à dos 25L polyester 600D, broderie ou sérigraphie. Compartiment laptop 15\"
+                      . 8 coloris.'})" aria-label="Voir détail"><i class="ph ph-eye" aria-hidden="true"></i></button>
+                    <button class="product-action-btn"
+                      onclick="Cart.addItem({id:'c9',name:'Sac à dos Sport 25L',price:'24.50',img:'https://picsum.photos/seed/c9/80/80',cat:'Sacs',qty:25}); showToast('Ajouté !')"
+                      aria-label="Ajouter"><i class="ph ph-plus" aria-hidden="true"></i></button>
+                  </div>
+                </div>
+                <div class="product-info">
+                  <p class="product-cat">Sacs</p>
+                  <h3 class="product-name">Sac à dos Sport 25L</h3>
+                  <p class="product-desc">Polyester 600D, compartiment laptop 15", 8 coloris.</p>
+                  <div class="product-footer">
+                    <div class="product-price">À partir de 24,50 € <span class="price-note">HT (min. 25 ex.)</span>
+                    </div>
+                    <button class="btn btn-primary btn-sm">Devis</button>
+                  </div>
+                </div>
+              </article>
+
+            </div><!-- /catalogue-grid -->
+
+            <!-- Pagination -->
+            <nav class="pagination" aria-label="Pagination">
+              <button class="page-btn active" aria-current="page" aria-label="Page 1">1</button>
+              <button class="page-btn" aria-label="Page 2">2</button>
+              <button class="page-btn" aria-label="Page 3">3</button>
+              <button class="page-btn" aria-label="Page 4">4</button>
+              <button class="page-btn" aria-label="Page suivante">
+                <i class="ph ph-arrow-right" aria-hidden="true"></i>
+              </button>
+            </nav>
+
+          </div><!-- /catalogue-results -->
+
+        </div><!-- /catalogue-layout -->
       </div>
     </section>
-
-    <!-- TICKER -->
-    <div class="ticker-bar" aria-hidden="true">
-      <div class="ticker-inner">
-        <span class="ticker-item">Goodies personnalisés <span class="ticker-sep">·</span></span>
-        <span class="ticker-item">Textile brodé <span class="ticker-sep">·</span></span>
-        <span class="ticker-item">Trophées gravés <span class="ticker-sep">·</span></span>
-        <span class="ticker-item">PLV sur-mesure <span class="ticker-sep">·</span></span>
-        <span class="ticker-item">Stylos premium <span class="ticker-sep">·</span></span>
-        <span class="ticker-item">Kits d'accueil <span class="ticker-sep">·</span></span>
-        <span class="ticker-item">Devis sous 4h <span class="ticker-sep">·</span></span>
-        <span class="ticker-item">BAT inclus <span class="ticker-sep">·</span></span>
-        <span class="ticker-item">Livraison express <span class="ticker-sep">·</span></span>
-        <span class="ticker-item">Goodies personnalisés <span class="ticker-sep">·</span></span>
-        <span class="ticker-item">Textile brodé <span class="ticker-sep">·</span></span>
-        <span class="ticker-item">Trophées gravés <span class="ticker-sep">·</span></span>
-        <span class="ticker-item">PLV sur-mesure <span class="ticker-sep">·</span></span>
-        <span class="ticker-item">Stylos premium <span class="ticker-sep">·</span></span>
-        <span class="ticker-item">Kits d'accueil <span class="ticker-sep">·</span></span>
-        <span class="ticker-item">Devis sous 4h <span class="ticker-sep">·</span></span>
-        <span class="ticker-item">BAT inclus <span class="ticker-sep">·</span></span>
-        <span class="ticker-item">Livraison express <span class="ticker-sep">·</span></span>
-      </div>
-    </div>
-
-    <!-- SERVICES -->
-    <section class="services-section" aria-labelledby="services-title">
-      <div class="container">
-        <header class="section-header">
-          <span class="section-kicker">Nos expertises</span>
-          <h2 id="services-title">Tout ce dont vous<br>avez besoin.</h2>
-          <p>Du stylo le plus simple au dispositif PLV complet, nous concevons, sourcions et personnalisons avec la même
-            exigence.</p>
-        </header>
-        <div class="services-grid">
-          <article class="service-card" data-animate>
-            <div class="service-icon"><i class="ph ph-pen-nib"></i></div>
-            <span class="service-num" aria-hidden="true">01</span>
-            <h3>Stylos & Écriture</h3>
-            <p>Bille, roller, feutres. Gravure laser, sérigraphie ou tampographie.</p>
-            <i class="ph ph-arrow-up-right service-arrow" aria-hidden="true"></i>
-          </article>
-          <article class="service-card" data-animate data-animate-delay="1">
-            <div class="service-icon"><i class="ph ph-t-shirt"></i></div>
-            <span class="service-num" aria-hidden="true">02</span>
-            <h3>Textile & Vêtements</h3>
-            <p>T-shirts, polos, vestes. Broderie digitale, transfert ou DTG. XS à 4XL.</p>
-            <i class="ph ph-arrow-up-right service-arrow" aria-hidden="true"></i>
-          </article>
-          <article class="service-card" data-animate data-animate-delay="2">
-            <div class="service-icon"><i class="ph ph-bag"></i></div>
-            <span class="service-num" aria-hidden="true">03</span>
-            <h3>Sacs & Maroquinerie</h3>
-            <p>Tote bags, sacs à dos, trousses. Matières recyclées ou premium.</p>
-            <i class="ph ph-arrow-up-right service-arrow" aria-hidden="true"></i>
-          </article>
-          <article class="service-card" data-animate data-animate-delay="3">
-            <div class="service-icon"><i class="ph ph-trophy"></i></div>
-            <span class="service-num" aria-hidden="true">04</span>
-            <h3>Trophées & Récompenses</h3>
-            <p>Cristal, métal, bois. Gravure 2D et 3D. Incentives et événements.</p>
-            <i class="ph ph-arrow-up-right service-arrow" aria-hidden="true"></i>
-          </article>
-          <article class="service-card" data-animate data-animate-delay="4">
-            <div class="service-icon"><i class="ph ph-frame-corners"></i></div>
-            <span class="service-num" aria-hidden="true">05</span>
-            <h3>PLV & Signalétique</h3>
-            <p>Roll-ups, kakémonos, présentoirs. Impression grand format.</p>
-            <i class="ph ph-arrow-up-right service-arrow" aria-hidden="true"></i>
-          </article>
-          <article class="service-card" data-animate data-animate-delay="5">
-            <div class="service-icon"><i class="ph ph-gift"></i></div>
-            <span class="service-num" aria-hidden="true">06</span>
-            <h3>Coffrets & Kits</h3>
-            <p>Assemblage sur-mesure, packaging premium, kits d'accueil.</p>
-            <i class="ph ph-arrow-up-right service-arrow" aria-hidden="true"></i>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <!-- PRODUITS -->
-    <section class="products-section" aria-labelledby="products-title">
-      <div class="container">
-        <div class="products-header">
-          <header>
-            <span class="section-kicker">Sélection</span>
-            <h2 id="products-title">Produits phares</h2>
-          </header>
-          <a href="catalogue.html" class="btn btn-outline">Voir tout <i class="ph ph-arrow-right"></i></a>
-        </div>
-        <div class="products-grid">
-
-          <article class="product-card" data-animate>
-            <div class="product-img">
-              <img src="https://images.unsplash.com/photo-1583947581924-860bda6a26df?w=400&q=75"
-                alt="Stylo Twist Premium" loading="lazy">
-              <div class="product-img-overlay"></div>
-              <span class="product-badge popular">Bestseller</span>
-              <div class="product-actions">
-                <button class="product-action-btn"
-                  onclick="openProductModal({id:'p1',name:'Stylo Twist Aluminium',price:'1.20',img:'https://images.unsplash.com/photo-1583947581924-860bda6a26df?w=600',cat:'Stylos',desc:'Corps aluminium brossé, gravure laser de votre logo. À partir de 100 unités.'})"
-                  aria-label="Aperçu rapide"><i class="ph ph-eye"></i></button>
-                <button class="product-action-btn"
-                  onclick="Cart.addItem({id:'p1',name:'Stylo Twist Aluminium',price:'1.20',img:'https://images.unsplash.com/photo-1583947581924-860bda6a26df?w=80',cat:'Stylos',qty:100}); showToast('Ajouté au devis !')"
-                  aria-label="Ajouter"><i class="ph ph-plus"></i></button>
-              </div>
-            </div>
-            <div class="product-info">
-              <p class="product-cat">Stylos & Écriture</p>
-              <h3 class="product-name">Stylo Twist Aluminium</h3>
-              <p class="product-desc">Corps aluminium brossé, gravure laser, mécanisme twist précis.</p>
-              <div class="product-footer">
-                <div class="product-price">Dès 1,20 €<span class="price-note">HT / unité — min. 100</span></div>
-                <a href="produit.html" class="btn btn-primary btn-xs">Voir</a>
-              </div>
-            </div>
-          </article>
-
-          <article class="product-card" data-animate data-animate-delay="1">
-            <div class="product-img">
-              <img src="https://images.unsplash.com/photo-1618354691792-d1d42acfd860?w=400&q=75" alt="Tote bag bio"
-                loading="lazy">
-              <div class="product-img-overlay"></div>
-              <span class="product-badge new">Nouveau</span>
-              <div class="product-actions">
-                <button class="product-action-btn"
-                  onclick="openProductModal({id:'p2',name:'Tote Bag Coton Bio',price:'2.80',img:'https://images.unsplash.com/photo-1618354691792-d1d42acfd860?w=600',cat:'Sacs',desc:'100% coton bio certifié GOTS. Sérigraphie 1 à 4 couleurs. Capacité 12L.'})"
-                  aria-label="Aperçu rapide"><i class="ph ph-eye"></i></button>
-                <button class="product-action-btn"
-                  onclick="Cart.addItem({id:'p2',name:'Tote Bag Coton Bio',price:'2.80',img:'https://images.unsplash.com/photo-1618354691792-d1d42acfd860?w=80',cat:'Sacs',qty:50}); showToast('Ajouté au devis !')"
-                  aria-label="Ajouter"><i class="ph ph-plus"></i></button>
-              </div>
-            </div>
-            <div class="product-info">
-              <p class="product-cat">Sacs</p>
-              <h3 class="product-name">Tote Bag Coton Bio</h3>
-              <p class="product-desc">Coton bio certifié GOTS. Sérigraphie jusqu'à 4 couleurs.</p>
-              <div class="product-footer">
-                <div class="product-price">Dès 2,80 €<span class="price-note">HT / unité — min. 50</span></div>
-                <a href="produit.html" class="btn btn-primary btn-xs">Voir</a>
-              </div>
-            </div>
-          </article>
-
-          <article class="product-card" data-animate data-animate-delay="2">
-            <div class="product-img">
-              <img src="https://images.unsplash.com/photo-1523381210434-271e8be1f52b?w=400&q=75" alt="Polo brodé"
-                loading="lazy">
-              <div class="product-img-overlay"></div>
-              <div class="product-actions">
-                <button class="product-action-btn"
-                  onclick="openProductModal({id:'p3',name:'Polo Brodé Corporate',price:'18.50',img:'https://images.unsplash.com/photo-1523381210434-271e8be1f52b?w=600',cat:'Textile',desc:'Coton piqué 220g, broderie digitale précise. Tailles XS à 4XL, 12 coloris.'})"
-                  aria-label="Aperçu rapide"><i class="ph ph-eye"></i></button>
-                <button class="product-action-btn"
-                  onclick="Cart.addItem({id:'p3',name:'Polo Brodé Corporate',price:'18.50',img:'https://images.unsplash.com/photo-1523381210434-271e8be1f52b?w=80',cat:'Textile',qty:10}); showToast('Ajouté au devis !')"
-                  aria-label="Ajouter"><i class="ph ph-plus"></i></button>
-              </div>
-            </div>
-            <div class="product-info">
-              <p class="product-cat">Textile</p>
-              <h3 class="product-name">Polo Brodé Corporate</h3>
-              <p class="product-desc">Piqué 220g, broderie digitale. 12 coloris, XS à 4XL.</p>
-              <div class="product-footer">
-                <div class="product-price">Dès 18,50 €<span class="price-note">HT / unité — min. 10</span></div>
-                <a href="produit.html" class="btn btn-primary btn-xs">Voir</a>
-              </div>
-            </div>
-          </article>
-
-          <article class="product-card" data-animate data-animate-delay="3">
-            <div class="product-img">
-              <img src="https://images.unsplash.com/photo-1592921870789-04563d55041c?w=400&q=75" alt="Trophée cristal"
-                loading="lazy">
-              <div class="product-img-overlay"></div>
-              <div class="product-actions">
-                <button class="product-action-btn"
-                  onclick="openProductModal({id:'p4',name:'Trophée Cristal Prestige',price:'35.00',img:'https://images.unsplash.com/photo-1592921870789-04563d55041c?w=600',cat:'Trophées',desc:'Cristal optique, gravure laser 3D de votre logo. Livré en coffret velours.'})"
-                  aria-label="Aperçu rapide"><i class="ph ph-eye"></i></button>
-                <button class="product-action-btn"
-                  onclick="Cart.addItem({id:'p4',name:'Trophée Cristal Prestige',price:'35.00',img:'https://images.unsplash.com/photo-1592921870789-04563d55041c?w=80',cat:'Trophées',qty:1}); showToast('Ajouté au devis !')"
-                  aria-label="Ajouter"><i class="ph ph-plus"></i></button>
-              </div>
-            </div>
-            <div class="product-info">
-              <p class="product-cat">Trophées</p>
-              <h3 class="product-name">Trophée Cristal Prestige</h3>
-              <p class="product-desc">Cristal optique, gravure 3D, coffret velours inclus.</p>
-              <div class="product-footer">
-                <div class="product-price">Dès 35,00 €<span class="price-note">HT / unité — sans minimum</span></div>
-                <a href="produit.html" class="btn btn-primary btn-xs">Voir</a>
-              </div>
-            </div>
-          </article>
-
-        </div>
-      </div>
-    </section>
-
-    <!-- CHIFFRES -->
-    <section class="numbers-section" aria-labelledby="numbers-title">
-      <div class="container">
-        <h2 id="numbers-title" style="color:#fff;margin-bottom:40px;font-size:clamp(1.6rem,3vw,2.2rem)">ACEF en chiffres
-        </h2>
-        <div class="numbers-grid">
-          <div class="number-cell" data-animate>
-            <div class="number-val">25<span>ans</span></div>
-            <div class="number-label">d'expertise B2B dans les objets de communication</div>
-          </div>
-          <div class="number-cell" data-animate data-animate-delay="1">
-            <div class="number-val">3 500<span>+</span></div>
-            <div class="number-label">clients actifs, des PME aux grands groupes</div>
-          </div>
-          <div class="number-cell" data-animate data-animate-delay="2">
-            <div class="number-val">5 000<span>+</span></div>
-            <div class="number-label">références personnalisables dans notre catalogue</div>
-          </div>
-          <div class="number-cell" data-animate data-animate-delay="3">
-            <div class="number-val">98<span>%</span></div>
-            <div class="number-label">de satisfaction client mesurée annuellement</div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- PROCESSUS -->
-    <section class="process-section" aria-labelledby="process-title">
-      <div class="container">
-        <header class="section-header">
-          <span class="section-kicker">Comment ça marche</span>
-          <h2 id="process-title">Simple. Rapide.<br>Sans mauvaise surprise.</h2>
-          <p>De votre demande à la livraison, chaque étape est transparente et confirmée par écrit.</p>
-        </header>
-        <div class="process-steps">
-          <div class="process-step" data-animate>
-            <span class="step-num">01</span>
-            <div class="step-content">
-              <h4>Choisissez vos produits</h4>
-              <p>Parcourez nos 5 000+ références ou décrivez votre besoin. Réponse sous 4 heures.</p>
-            </div>
-          </div>
-          <div class="process-step" data-animate data-animate-delay="1">
-            <span class="step-num">02</span>
-            <div class="step-content">
-              <h4>Transmettez votre logo</h4>
-              <p>Envoyez votre fichier. Notre studio prépare le bon à tirer sous 24–48h.</p>
-            </div>
-          </div>
-          <div class="process-step" data-animate data-animate-delay="2">
-            <span class="step-num">03</span>
-            <div class="step-content">
-              <h4>Validez le BAT</h4>
-              <p>Simulation visuelle exacte. Aucune production sans votre accord écrit.</p>
-            </div>
-          </div>
-          <div class="process-step" data-animate data-animate-delay="3">
-            <span class="step-num">04</span>
-            <div class="step-content">
-              <h4>On livre, vous brillez</h4>
-              <p>Express 5 jours ou standard 15 jours. France et international.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- CTA -->
-    <div class="cta-banner" aria-label="Appel à l'action">
-      <div class="container">
-        <div class="cta-banner-inner">
-          <div>
-            <h2>Prêt à lancer votre<br><em>prochaine commande</em> ?</h2>
-            <p style="margin-top:16px">Notre équipe vous répond en moins de 4h. Devis 100% gratuit, sans engagement.</p>
-          </div>
-          <div class="cta-actions">
-            <a href="contact.html" class="btn btn-white btn-lg">
-              <i class="ph ph-paper-plane-tilt"></i> Demander un devis
-            </a>
-            <a href="tel:+33123456789" class="btn btn-ghost btn-lg">
-              <i class="ph ph-phone"></i> 01 23 45 67 89
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- TÉMOIGNAGES -->
-    <section class="testimonials-section" aria-labelledby="testimonials-title">
-      <div class="container">
-        <header class="section-header centered">
-          <span class="section-kicker">Avis clients</span>
-          <h2 id="testimonials-title">Ce qu'ils disent</h2>
-          <p>142 avis vérifiés · Note moyenne 4,8/5</p>
-        </header>
-        <div class="testimonials-grid">
-          <blockquote class="testimonial-card" data-animate>
-            <div class="t-quote" aria-hidden="true">"</div>
-            <div class="testimonial-stars" aria-label="5 étoiles sur 5">
-              <i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i
-                class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i>
-            </div>
-            <p class="testimonial-quote">ACEF nous accompagne depuis 8 ans. Qualité irréprochable, délais toujours
-              tenus. Je recommande sans hésiter à quiconque cherche un partenaire fiable.</p>
-            <footer class="testimonial-author">
-              <div class="author-avatar" aria-hidden="true">ML</div>
-              <div><cite class="author-name">Marie-Laure Fontaine</cite>
-                <p class="author-role">Dir. Marketing · Veolia</p>
-              </div>
-            </footer>
-          </blockquote>
-          <blockquote class="testimonial-card" data-animate data-animate-delay="1">
-            <div class="t-quote" aria-hidden="true">"</div>
-            <div class="testimonial-stars" aria-label="5 étoiles sur 5">
-              <i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i
-                class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i>
-            </div>
-            <p class="testimonial-quote">2000 tote bags livrés en 8 jours pour notre salon annuel. Le BAT numérique est
-              un vrai plus. Aucune mauvaise surprise à la livraison.</p>
-            <footer class="testimonial-author">
-              <div class="author-avatar" aria-hidden="true">TD</div>
-              <div><cite class="author-name">Thomas Devaux</cite>
-                <p class="author-role">Resp. Événements · BNP Paribas</p>
-              </div>
-            </footer>
-          </blockquote>
-          <blockquote class="testimonial-card" data-animate data-animate-delay="2">
-            <div class="t-quote" aria-hidden="true">"</div>
-            <div class="testimonial-stars" aria-label="5 étoiles sur 5">
-              <i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i
-                class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i>
-            </div>
-            <p class="testimonial-quote">À l'écoute de nos contraintes budgétaires, des solutions créatives pour notre
-              kit d'accueil. Notre interlocuteur est toujours disponible.</p>
-            <footer class="testimonial-author">
-              <div class="author-avatar" aria-hidden="true">SM</div>
-              <div><cite class="author-name">Sophie Marchand</cite>
-                <p class="author-role">DRH · Sodexo France</p>
-              </div>
-            </footer>
-          </blockquote>
-        </div>
-      </div>
-    </section>
-
   </main>
 
+  <!-- ══ FOOTER ══ -->
   <footer class="site-footer" role="contentinfo">
     <div class="container">
       <div class="footer-grid">
         <div class="footer-brand">
-          <a href="index.html" class="logo"><span class="logo-ac">AC</span><span class="logo-ef">EF</span></a>
+          <p class="logo"><span class="logo-ac">AC</span><span class="logo-ef">EF</span></p>
           <p>Votre partenaire en objets de communication personnalisés depuis 1998.</p>
           <div class="footer-socials">
             <a href="#" class="social-btn" aria-label="LinkedIn"><i class="ph ph-linkedin-logo"></i></a>
@@ -3700,17 +3654,17 @@
             <a href="#" class="social-btn" aria-label="Instagram"><i class="ph ph-instagram-logo"></i></a>
           </div>
         </div>
-        <nav class="footer-col" aria-label="Catalogue">
+        <nav class="footer-col" aria-label="Navigation catalogue">
           <h5>Catalogue</h5>
           <ul>
-            <li><a href="catalogue.html">Stylos & Écriture</a></li>
-            <li><a href="catalogue.html">Textile</a></li>
-            <li><a href="catalogue.html">Sacs</a></li>
-            <li><a href="catalogue.html">Trophées</a></li>
-            <li><a href="catalogue.html">PLV</a></li>
+            <li><a href="#">Stylos & Écriture</a></li>
+            <li><a href="#">Textile</a></li>
+            <li><a href="#">Sacs</a></li>
+            <li><a href="#">Trophées</a></li>
+            <li><a href="#">PLV</a></li>
           </ul>
         </nav>
-        <nav class="footer-col" aria-label="Entreprise">
+        <nav class="footer-col" aria-label="Navigation entreprise">
           <h5>Entreprise</h5>
           <ul>
             <li><a href="qui-sommes-nous.html">À propos</a></li>
@@ -3721,49 +3675,46 @@
         <div class="footer-col">
           <h5>Contact</h5>
           <div class="footer-contact">
-            <div class="footer-contact-item"><i class="ph ph-map-pin"></i><span>12 rue des Entrepreneurs · 75015
-                Paris</span></div>
             <div class="footer-contact-item"><i class="ph ph-phone"></i><span><a href="tel:+33123456789">01 23 45 67
                   89</a></span></div>
             <div class="footer-contact-item"><i class="ph ph-envelope"></i><span><a
                   href="mailto:contact@acef.fr">contact@acef.fr</a></span></div>
-            <div class="footer-contact-item"><i class="ph ph-clock"></i><span>Lun–Ven · 9h – 18h</span></div>
           </div>
         </div>
       </div>
       <div class="footer-bottom">
         <p>© 2025 ACEF — Tous droits réservés</p>
-        <nav class="footer-bottom-links"><a href="#">Mentions légales</a><a href="#">Confidentialité</a><a
-            href="#">CGV</a></nav>
+        <nav class="footer-bottom-links"><a href="#">Mentions légales</a><a href="#">CGV</a></nav>
       </div>
     </div>
   </footer>
 
-  <!-- Panier -->
+  <!-- Panier Sheet -->
   <div id="cartOverlay" class="cart-overlay"></div>
-  <aside id="cartSheet" class="cart-sheet" aria-label="Mon devis">
+  <aside id="cartSheet" class="cart-sheet">
     <div class="cart-sheet-handle" aria-hidden="true"></div>
     <div class="cart-sheet-header">
-      <h3><i class="ph ph-briefcase"></i> Mon devis</h3>
-      <button id="closeCart" class="close-cart" aria-label="Fermer"><i class="ph ph-x"></i></button>
+      <h3><i class="ph ph-briefcase" aria-hidden="true"></i> Mon devis</h3>
+      <button id="closeCart" class="close-cart" aria-label="Fermer"><i class="ph ph-x" aria-hidden="true"></i></button>
     </div>
-    <div id="cartEmpty" class="cart-empty"><i class="ph ph-shopping-cart"></i>
-      <p>Votre devis est vide.<br><a href="catalogue.html" style="color:var(--blue)">Parcourir le catalogue</a></p>
+    <div id="cartEmpty" class="cart-empty">
+      <i class="ph ph-shopping-cart" aria-hidden="true"></i>
+      <p>Votre devis est vide.</p>
     </div>
     <div id="cartItems" class="cart-items"></div>
     <div id="cartFooter" class="cart-footer" style="display:none">
       <div class="cart-total"><span>Total estimé</span><strong id="cartTotal">0,00 € HT</strong></div>
-      <a href="contact.html" class="btn btn-primary" style="width:100%;justify-content:center"><i
-          class="ph ph-paper-plane-tilt"></i> Envoyer le devis</a>
+      <a href="contact.html" class="btn btn-primary" style="width:100%;justify-content:center">Envoyer le devis</a>
     </div>
   </aside>
 
-  <!-- Modale -->
+  <!-- Modal Produit -->
   <div id="productModal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
     <div class="modal">
       <div class="modal-header">
         <h3 id="modalTitle"></h3>
-        <button id="closeModal" class="modal-close" aria-label="Fermer"><i class="ph ph-x"></i></button>
+        <button id="closeModal" class="modal-close" aria-label="Fermer"><i class="ph ph-x"
+            aria-hidden="true"></i></button>
       </div>
       <div class="modal-img" id="modalImg"><img src="" alt="" loading="lazy"></div>
       <div class="modal-price" id="modalPrice"></div>
@@ -3777,55 +3728,48 @@
         </div>
       </div>
       <button id="modalAddBtn" class="btn btn-primary" style="width:100%;justify-content:center">
-        <i class="ph ph-plus"></i> Ajouter au devis
+        <i class="ph ph-plus" aria-hidden="true"></i> Ajouter au devis
       </button>
     </div>
   </div>
 
   <script src="main.js"></script>
   <script>
-    /* Cursor personnalisé */
-    (function () {
-      const dot = document.getElementById('cursorDot');
-      const ring = document.getElementById('cursorRing');
-      if (!dot || !ring || window.matchMedia('(hover:none)').matches) return;
-      let mx = 0, my = 0, rx = 0, ry = 0;
-      document.addEventListener('mousemove', e => {
-        mx = e.clientX; my = e.clientY;
-        dot.style.left = mx + 'px'; dot.style.top = my + 'px';
+    /* ── Filtre tags quantité ── */
+    document.querySelectorAll('.filter-tag').forEach(btn => {
+      btn.addEventListener('click', () => {
+        btn.closest('.filter-tags').querySelectorAll('.filter-tag').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
       });
-      (function loop() {
-        rx += (mx - rx) * .12; ry += (my - ry) * .12;
-        ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
-        requestAnimationFrame(loop);
-      })();
-      document.querySelectorAll('a,button,.product-card,.service-card').forEach(el => {
-        el.addEventListener('mouseenter', () => { ring.style.width = '58px'; ring.style.height = '58px'; ring.style.opacity = '.22' });
-        el.addEventListener('mouseleave', () => { ring.style.width = '36px'; ring.style.height = '36px'; ring.style.opacity = '.5' });
-      });
-    })();
+    });
 
-    /* Mot rotatif */
-    (function () {
-      const el = document.getElementById('wordCycle');
-      if (!el) return;
-      const words = ['marque', 'image', 'valeur', 'message', 'impact'];
-      let i = 0;
-      el.style.cssText = 'display:inline-block;transition:opacity .3s,transform .3s';
-      setInterval(() => {
-        el.style.opacity = '0'; el.style.transform = 'translateY(-10px)';
-        setTimeout(() => {
-          i = (i + 1) % words.length;
-          el.textContent = words[i];
-          el.style.opacity = '1'; el.style.transform = 'translateY(0)';
-        }, 320);
-      }, 2600);
-    })();
+    /* ── Slider prix ── */
+    const priceRange = document.getElementById('priceRange');
+    const priceVal = document.getElementById('priceVal');
+    if (priceRange && priceVal) {
+      priceRange.addEventListener('input', () => { priceVal.textContent = priceRange.value + ' €'; });
+    }
+
+    /* ── Reset filtres ── */
+    document.getElementById('resetFilters')?.addEventListener('click', () => {
+      document.querySelectorAll('.filter-option input').forEach(inp => inp.checked = false);
+      document.querySelectorAll('.filter-tag').forEach((btn, i) => btn.classList.toggle('active', i === 0));
+      if (priceRange) { priceRange.value = 100; priceVal.textContent = '100 €'; }
+    });
+
+    /* ── Pagination ── */
+    document.querySelectorAll('.page-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.page-btn').forEach(b => { b.classList.remove('active'); b.removeAttribute('aria-current'); });
+        if (!btn.querySelector('i')) { btn.classList.add('active'); btn.setAttribute('aria-current', 'page'); }
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    });
 
     /**
-     * ACEF — main.js
-     * JS global partagé : navigation, panier/devis, guards, animations
-     */
+ * ACEF — main.js
+ * JS global partagé : navigation, panier/devis, guards, animations
+ */
 
     /* ──────────────────────────────
        1. HEADER SCROLL
