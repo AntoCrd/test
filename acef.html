@@ -14,30 +14,8 @@
     rel="stylesheet">
   <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css">
   <style>
-    /* ── Styles spécifiques page produit ── */
-    .product-page-wrap {
-      padding: 40px 0 88px;
-    }
+    /* ─── PAGE PRODUIT — styles spécifiques ─── */
 
-    /* Layout deux colonnes sticky */
-    .product-layout {
-      display: flex;
-      flex-direction: column;
-      gap: 32px;
-      align-items: flex-start;
-    }
-
-    /* Colonne galerie */
-    .product-gallery-col {
-      width: 100%;
-    }
-
-    /* Colonne config — sticky sur desktop */
-    .product-config-col {
-      width: 100%;
-    }
-
-    /* Bandeau livraison en haut */
     .delivery-banner {
       background: var(--night);
       padding: 10px 0;
@@ -50,10 +28,29 @@
     }
 
     .delivery-banner strong {
-      color: var(--sun);
+      color: var(--amber);
     }
 
-    /* Notation / badges */
+    .product-page-wrap {
+      padding: 40px 0 88px;
+    }
+
+    .product-layout {
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+      align-items: flex-start;
+    }
+
+    .product-gallery-col {
+      width: 100%;
+    }
+
+    .product-config-col {
+      width: 100%;
+    }
+
+    /* ── Notation ── */
     .product-meta-bar {
       display: flex;
       align-items: center;
@@ -65,20 +62,20 @@
     .rating-stars {
       display: flex;
       gap: 2px;
-      color: var(--sun);
+      color: var(--amber);
       font-size: .9rem;
     }
 
     .rating-count {
       font-size: .78rem;
-      color: var(--muted);
+      color: var(--gray4);
       font-family: var(--f-disp);
     }
 
     .meta-divider {
       width: 1px;
       height: 16px;
-      background: var(--cream3);
+      background: var(--gray2);
     }
 
     .stock-badge {
@@ -88,8 +85,8 @@
       font-family: var(--f-disp);
       font-size: .72rem;
       font-weight: 700;
-      color: var(--sage);
-      background: rgba(61, 122, 89, .1);
+      color: var(--green);
+      background: rgba(0, 194, 122, .1);
       padding: 4px 10px;
       border-radius: var(--r-pill);
     }
@@ -98,19 +95,841 @@
       width: 6px;
       height: 6px;
       border-radius: 50%;
-      background: var(--sage);
+      background: var(--green);
     }
 
-    /* Accordéon "Voir plus" spécifications */
-    .specs-accordion {
-      border: 1px solid var(--cream3);
+    /* ── Galerie ── */
+    .product-gallery {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .gallery-main {
       border-radius: var(--r-xl);
       overflow: hidden;
-      margin-top: 16px;
+      aspect-ratio: 1/1;
+      background: var(--gray1);
+      border: 1.5px solid var(--gray2);
+      position: relative;
+    }
+
+    .gallery-main img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .gallery-main-badge {
+      position: absolute;
+      top: 16px;
+      left: 16px;
+      font-family: var(--f-disp);
+      font-size: .62rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      padding: 5px 12px;
+      border-radius: var(--r-pill);
+      background: var(--blue);
+      color: #fff;
+    }
+
+    .gallery-zoom {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, .92);
+      backdrop-filter: blur(4px);
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--ink);
+      font-size: 1rem;
+      transition: var(--t);
+    }
+
+    .gallery-zoom:hover {
+      background: #fff;
+      box-shadow: var(--sh-sm);
+    }
+
+    .gallery-thumbs {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding-bottom: 4px;
+    }
+
+    .gallery-thumbs::-webkit-scrollbar {
+      height: 3px;
+    }
+
+    .gallery-thumbs::-webkit-scrollbar-thumb {
+      background: var(--gray2);
+      border-radius: 2px;
+    }
+
+    .thumb {
+      flex-shrink: 0;
+      width: 76px;
+      height: 76px;
+      border-radius: var(--r-lg);
+      overflow: hidden;
+      border: 2px solid transparent;
+      cursor: pointer;
+      transition: var(--t);
+      background: var(--gray1);
+    }
+
+    .thumb:hover,
+    .thumb.active {
+      border-color: var(--blue);
+    }
+
+    .thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* ── Info produit ── */
+    .product-breadcrumb {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--f-disp);
+      font-size: .72rem;
+      font-weight: 500;
+      color: var(--gray4);
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+
+    .product-breadcrumb a {
+      color: var(--gray4);
+      transition: var(--t);
+    }
+
+    .product-breadcrumb a:hover {
+      color: var(--blue);
+    }
+
+    .product-breadcrumb-sep {
+      opacity: .4;
+    }
+
+    .product-breadcrumb span {
+      color: var(--ink);
+      font-weight: 600;
+    }
+
+    .product-title-area {
+      margin-bottom: 20px;
+    }
+
+    .product-page-cat {
+      font-family: var(--f-disp);
+      font-size: .65rem;
+      font-weight: 700;
+      color: var(--blue);
+      text-transform: uppercase;
+      letter-spacing: .14em;
+      margin-bottom: 8px;
+      display: block;
+    }
+
+    .product-page-title {
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      margin-bottom: 10px;
+      line-height: 1.08;
+      letter-spacing: -.04em;
+    }
+
+    .product-page-ref {
+      font-size: .78rem;
+      color: var(--gray4);
+      font-family: var(--f-disp);
+    }
+
+    /* ── Prix dégressifs ── */
+    .product-pricing-block {
+      background: var(--gray1);
+      border-radius: var(--r-xl);
+      padding: 20px;
+      margin-bottom: 20px;
+      border: 1.5px solid var(--gray2);
+    }
+
+    .pricing-label {
+      font-family: var(--f-disp);
+      font-size: .68rem;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--gray4);
+      margin-bottom: 12px;
+      display: block;
+    }
+
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+      background: var(--gray2);
+      border-radius: var(--r-lg);
+      overflow: hidden;
+      margin-bottom: 10px;
+    }
+
+    .pricing-tier {
+      background: #fff;
+      padding: 12px 10px;
+      text-align: center;
+      cursor: pointer;
+      transition: var(--t);
+      border: 2px solid transparent;
+    }
+
+    .pricing-tier:hover {
+      background: var(--blue-soft);
+    }
+
+    .pricing-tier.active {
+      background: #fff;
+      border-color: var(--blue);
+      border-radius: var(--r-md);
+      z-index: 1;
+    }
+
+    .tier-qty {
+      font-family: var(--f-disp);
+      font-size: .68rem;
+      font-weight: 700;
+      color: var(--gray4);
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+
+    .tier-price {
+      font-family: var(--f-disp);
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: var(--ink);
+      letter-spacing: -.03em;
+      line-height: 1;
+    }
+
+    .pricing-tier.active .tier-price {
+      color: var(--blue);
+    }
+
+    .tier-price small {
+      font-size: .55em;
+      font-weight: 500;
+      color: var(--gray4);
+    }
+
+    .pricing-note {
+      font-size: .74rem;
+      color: var(--gray4);
+      text-align: center;
+    }
+
+    /* ── Quantité ── */
+    .qty-section {
+      margin-bottom: 18px;
+    }
+
+    .qty-section-label {
+      font-family: var(--f-disp);
+      font-size: .68rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .12em;
+      color: var(--gray4);
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .qty-section-label span {
+      font-weight: 500;
+      text-transform: none;
+      letter-spacing: 0;
+      font-size: .8rem;
+      color: var(--blue);
+    }
+
+    .qty-input-wrap {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      background: #fff;
+      border: 1.5px solid var(--gray2);
+      border-radius: var(--r-pill);
+      overflow: hidden;
+      width: fit-content;
+    }
+
+    .qty-dec,
+    .qty-inc {
+      width: 44px;
+      height: 44px;
+      border: none;
+      background: none;
+      cursor: pointer;
+      font-size: 1.2rem;
+      color: var(--ink);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: var(--t);
+      flex-shrink: 0;
+      font-weight: 300;
+    }
+
+    .qty-dec:hover {
+      background: var(--gray1);
+      color: var(--blue);
+    }
+
+    .qty-inc:hover {
+      background: var(--blue);
+      color: #fff;
+    }
+
+    .qty-field {
+      width: 70px;
+      height: 44px;
+      border: none;
+      text-align: center;
+      font-family: var(--f-disp);
+      font-weight: 700;
+      font-size: 1rem;
+      letter-spacing: -.02em;
+      color: var(--ink);
+      background: none;
+      border-left: 1px solid var(--gray2);
+      border-right: 1px solid var(--gray2);
+    }
+
+    .qty-field:focus {
+      outline: none;
+    }
+
+    .qty-msg {
+      font-size: .74rem;
+      color: var(--blue);
+      margin-top: 6px;
+      font-family: var(--f-disp);
+      font-weight: 600;
+      display: block;
+    }
+
+    /* ── Zones de marquage ── */
+    .marking-section {
+      margin-bottom: 20px;
+    }
+
+    .marking-section-label,
+    .techniques-section-label,
+    .colors-section-label {
+      font-family: var(--f-disp);
+      font-size: .68rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .12em;
+      color: var(--gray4);
+      margin-bottom: 12px;
+      display: block;
+    }
+
+    .marking-zones {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .marking-zone {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 16px;
+      border: 1.5px solid var(--gray2);
+      border-radius: var(--r-lg);
+      cursor: pointer;
+      transition: var(--t);
+      background: #fff;
+    }
+
+    .marking-zone:hover {
+      border-color: var(--blue);
+      background: var(--blue-soft);
+    }
+
+    .marking-zone.selected {
+      border-color: var(--blue);
+      background: var(--blue-soft);
+    }
+
+    .zone-radio {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      border: 2px solid var(--gray2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: var(--t);
+    }
+
+    .marking-zone.selected .zone-radio {
+      border-color: var(--blue);
+    }
+
+    .zone-radio-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--blue);
+      transform: scale(0);
+      transition: var(--t);
+    }
+
+    .marking-zone.selected .zone-radio-dot {
+      transform: scale(1);
+    }
+
+    .zone-info {
+      flex: 1;
+    }
+
+    .zone-name {
+      font-family: var(--f-disp);
+      font-size: .88rem;
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: 1px;
+    }
+
+    .zone-detail {
+      font-size: .74rem;
+      color: var(--gray4);
+    }
+
+    .zone-tag {
+      font-family: var(--f-disp);
+      font-size: .6rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      padding: 3px 10px;
+      border-radius: var(--r-pill);
+      background: var(--blue);
+      color: #fff;
+    }
+
+    /* ── Techniques ── */
+    .techniques-section {
+      margin-bottom: 20px;
+    }
+
+    .techniques-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+    }
+
+    .technique-chip {
+      font-family: var(--f-disp);
+      font-size: .76rem;
+      font-weight: 600;
+      padding: 8px 14px;
+      border-radius: var(--r-pill);
+      border: 1.5px solid var(--gray2);
+      background: #fff;
+      cursor: pointer;
+      transition: var(--t);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--ink);
+    }
+
+    .technique-chip i {
+      font-size: .85rem;
+      color: var(--gray4);
+    }
+
+    .technique-chip:hover {
+      border-color: var(--blue);
+      color: var(--blue);
+    }
+
+    .technique-chip.selected {
+      background: var(--blue);
+      color: #fff;
+      border-color: var(--blue);
+    }
+
+    .technique-chip.selected i {
+      color: rgba(255, 255, 255, .7);
+    }
+
+    .tech-info-text {
+      font-size: .74rem;
+      color: var(--gray4);
+      margin-top: 8px;
+      display: block;
+    }
+
+    /* ── Couleurs ── */
+    .colors-section {
+      margin-bottom: 20px;
+    }
+
+    .colors-section-label {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .color-selected-name {
+      font-weight: 600;
+      color: var(--blue);
+      text-transform: none;
+      letter-spacing: 0;
+      font-size: .8rem;
+    }
+
+    .colors-swatches {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .color-swatch {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      cursor: pointer;
+      border: 2.5px solid transparent;
+      transition: var(--t);
+      position: relative;
+      flex-shrink: 0;
+    }
+
+    .color-swatch:hover {
+      transform: scale(1.12);
+    }
+
+    .color-swatch.selected {
+      outline: 3px solid var(--ink);
+      outline-offset: 2px;
+    }
+
+    .swatch-tooltip {
+      position: absolute;
+      bottom: calc(100% + 6px);
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--night);
+      color: #fff;
+      font-family: var(--f-disp);
+      font-size: .65rem;
+      font-weight: 600;
+      padding: 4px 8px;
+      border-radius: var(--r-sm);
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      transition: var(--t);
+    }
+
+    .color-swatch:hover .swatch-tooltip {
+      opacity: 1;
+    }
+
+    /* ── Estimation prix ── */
+    .estimate-block {
+      background: var(--blue-soft);
+      border-radius: var(--r-xl);
+      padding: 18px 20px;
+      margin-bottom: 18px;
+      border: 1.5px solid rgba(0, 82, 255, .2);
+    }
+
+    .estimate-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 4px;
+    }
+
+    .estimate-label {
+      font-family: var(--f-disp);
+      font-size: .78rem;
+      font-weight: 600;
+      color: var(--blue);
+    }
+
+    .estimate-price {
+      font-family: var(--f-disp);
+      font-size: 1.7rem;
+      font-weight: 800;
+      color: var(--ink);
+      letter-spacing: -.04em;
+    }
+
+    .estimate-note {
+      font-size: .72rem;
+      color: var(--blue);
+    }
+
+    /* ── CTA ── */
+    .product-cta-block {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .product-cta-block .btn {
+      justify-content: center;
+      width: 100%;
+    }
+
+    /* ── Délais ── */
+    .product-delays {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+
+    .delay-card {
+      padding: 14px 16px;
+      background: #fff;
+      border-radius: var(--r-lg);
+      border: 1.5px solid var(--gray2);
+      text-align: center;
+    }
+
+    .delay-badge {
+      display: inline-block;
+      font-family: var(--f-disp);
+      font-size: .6rem;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      padding: 2px 8px;
+      border-radius: var(--r-pill);
+      margin-bottom: 6px;
+    }
+
+    .delay-badge.express {
+      background: rgba(255, 153, 0, .15);
+      color: #b36b00;
+    }
+
+    .delay-badge.standard {
+      background: var(--gray1);
+      color: var(--gray4);
+    }
+
+    .delay-days {
+      font-family: var(--f-disp);
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--ink);
+      letter-spacing: -.04em;
+      line-height: 1;
+    }
+
+    .delay-label {
+      font-size: .7rem;
+      color: var(--gray4);
+      margin-top: 3px;
+    }
+
+    /* ── Garanties ── */
+    .product-guarantees {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      padding-top: 18px;
+      border-top: 1.5px solid var(--gray2);
+      margin-bottom: 16px;
+    }
+
+    .guarantee-item {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      font-size: .78rem;
+      color: var(--ink);
+      font-family: var(--f-disp);
+      font-weight: 500;
+    }
+
+    .guarantee-item i {
+      color: var(--blue);
+      font-size: .95rem;
+      flex-shrink: 0;
+    }
+
+    /* ── Contact block ── */
+    .contact-strip {
+      background: var(--night);
+      border-radius: var(--r-xl);
+      padding: 20px;
+      display: flex;
+      gap: 14px;
+      align-items: center;
+    }
+
+    .contact-strip-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, .1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+
+    .contact-strip-sub {
+      font-family: var(--f-disp);
+      font-size: .78rem;
+      font-weight: 600;
+      color: rgba(255, 255, 255, .5);
+      margin-bottom: 2px;
+    }
+
+    .contact-strip-tel {
+      font-family: var(--f-disp);
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: #fff;
+      letter-spacing: -.02em;
+    }
+
+    .contact-strip-hours {
+      font-size: .7rem;
+      color: rgba(255, 255, 255, .35);
+      margin-top: 2px;
+    }
+
+    /* ── Onglets ── */
+    .product-tabs {
+      margin-top: 48px;
+    }
+
+    .tabs-nav {
+      display: flex;
+      gap: 0;
+      border-bottom: 2px solid var(--gray2);
+      overflow-x: auto;
+    }
+
+    .tabs-nav::-webkit-scrollbar {
+      height: 0;
+    }
+
+    .tab-btn {
+      font-family: var(--f-disp);
+      font-size: .84rem;
+      font-weight: 600;
+      padding: 14px 22px;
+      border: none;
+      background: none;
+      cursor: pointer;
+      color: var(--gray4);
+      border-bottom: 3px solid transparent;
+      margin-bottom: -2px;
+      white-space: nowrap;
+      transition: var(--t);
+    }
+
+    .tab-btn:hover {
+      color: var(--ink);
+    }
+
+    .tab-btn.active {
+      color: var(--blue);
+      border-bottom-color: var(--blue);
+    }
+
+    .tab-panel {
+      display: none;
+      padding: 28px 0;
+    }
+
+    .tab-panel.active {
+      display: block;
+    }
+
+    /* ── Tables specs ── */
+    .specs-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .specs-table tr {
+      border-bottom: 1px solid var(--gray2);
+    }
+
+    .specs-table tr:last-child {
+      border-bottom: none;
+    }
+
+    .specs-table th {
+      text-align: left;
+      padding: 12px 16px;
+      font-family: var(--f-disp);
+      font-size: .7rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--gray4);
+      background: var(--gray1);
+      width: 38%;
+      border-radius: var(--r-sm) 0 0 var(--r-sm);
+    }
+
+    .specs-table td {
+      padding: 12px 16px;
+      font-size: .88rem;
+      color: var(--ink);
+      font-weight: 500;
+    }
+
+    .specs-table tr:nth-child(even) th {
+      background: var(--gray1);
+    }
+
+    /* ── Accordéon ── */
+    .specs-accordion {
+      border: 1.5px solid var(--gray2);
+      border-radius: var(--r-xl);
+      overflow: hidden;
+      margin-top: 0;
     }
 
     .accordion-item {
-      border-bottom: 1px solid var(--cream3);
+      border-bottom: 1px solid var(--gray2);
     }
 
     .accordion-item:last-child {
@@ -129,25 +948,31 @@
       font-family: var(--f-disp);
       font-size: .9rem;
       font-weight: 700;
-      color: var(--night);
+      color: var(--ink);
       text-align: left;
-      transition: var(--t-fast);
+      transition: var(--t);
       min-height: 52px;
     }
 
     .accordion-trigger:hover {
-      background: var(--cream);
+      background: var(--gray1);
     }
 
-    .accordion-trigger i.chevron {
+    .accordion-trigger.open {
+      background: var(--blue-soft);
+      color: var(--blue);
+    }
+
+    .chevron {
       font-size: 1rem;
-      color: var(--muted);
-      transition: transform .22s var(--ease-out);
+      color: var(--gray4);
+      transition: transform .22s var(--ease);
       flex-shrink: 0;
     }
 
-    .accordion-trigger.open i.chevron {
+    .accordion-trigger.open .chevron {
       transform: rotate(180deg);
+      color: var(--blue);
     }
 
     .accordion-body {
@@ -160,7 +985,7 @@
       display: block;
     }
 
-    /* Tableau dimensions zone de marquage */
+    /* ── Tableau zones de marquage ── */
     .zone-table {
       width: 100%;
       border-collapse: collapse;
@@ -169,18 +994,18 @@
 
     .zone-table thead th {
       padding: 10px 12px;
-      background: var(--cream);
+      background: var(--gray1);
       font-family: var(--f-disp);
       font-size: .68rem;
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: .1em;
-      color: var(--muted);
+      color: var(--gray4);
       text-align: left;
     }
 
     .zone-table tbody tr {
-      border-bottom: 1px solid var(--cream3);
+      border-bottom: 1px solid var(--gray2);
     }
 
     .zone-table tbody tr:last-child {
@@ -189,53 +1014,52 @@
 
     .zone-table tbody td {
       padding: 11px 12px;
-      color: var(--night);
+      color: var(--ink);
       font-weight: 500;
     }
 
-    .zone-table .zone-name-td {
+    .zone-name-td {
       font-family: var(--f-disp);
       font-weight: 700;
       font-size: .86rem;
     }
 
-    .zone-table .available {
-      color: var(--sage);
+    .zone-available {
+      color: var(--green);
       font-weight: 700;
     }
 
-    .zone-table .unavailable {
-      color: var(--muted);
+    .zone-unavailable {
+      color: var(--gray3);
     }
 
-    /* Schéma de marquage — placeholder SVG */
+    /* ── Schéma marquage ── */
     .marking-schema {
-      background: var(--cream);
+      background: var(--gray1);
       border-radius: var(--r-lg);
       padding: 24px;
       text-align: center;
-      position: relative;
-      border: 1px solid var(--cream3);
-      margin-bottom: 16px;
+      border: 1.5px solid var(--gray2);
+      margin-bottom: 20px;
     }
 
     .marking-schema svg {
-      max-width: 280px;
+      max-width: 300px;
       width: 100%;
     }
 
-    /* Grille couleurs détaillée */
+    /* ── Couleurs détail ── */
     .color-detail-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
-      gap: 8px;
+      gap: 10px;
     }
 
     .color-detail-item {
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 5px;
+      gap: 6px;
       cursor: pointer;
     }
 
@@ -243,28 +1067,30 @@
       width: 40px;
       height: 40px;
       border-radius: 50%;
-      border: 2.5px solid var(--cream3);
-      transition: var(--t-fast);
+      border: 2.5px solid var(--gray2);
+      transition: var(--t);
     }
 
     .color-detail-item:hover .color-detail-swatch,
     .color-detail-item.active .color-detail-swatch {
-      border-color: var(--night);
+      border-color: var(--ink);
       transform: scale(1.1);
     }
 
     .color-detail-name {
       font-family: var(--f-disp);
-      font-size: .64rem;
+      font-size: .65rem;
       font-weight: 600;
-      color: var(--warm3);
+      color: var(--gray4);
       text-align: center;
       line-height: 1.2;
     }
 
-    /* Avis clients */
+    /* ── Avis ── */
     .reviews-section {
-      margin-top: 48px;
+      margin-top: 56px;
+      padding-top: 40px;
+      border-top: 1.5px solid var(--gray2);
     }
 
     .reviews-summary {
@@ -286,13 +1112,13 @@
       font-weight: 800;
       line-height: 1;
       letter-spacing: -.04em;
-      color: var(--night);
+      color: var(--ink);
     }
 
     .score-stars {
       display: flex;
       gap: 3px;
-      color: var(--sun);
+      color: var(--amber);
       font-size: 1.1rem;
       justify-content: center;
       margin: 6px 0;
@@ -300,7 +1126,7 @@
 
     .score-total {
       font-size: .78rem;
-      color: var(--muted);
+      color: var(--gray4);
       font-family: var(--f-disp);
     }
 
@@ -317,7 +1143,7 @@
       align-items: center;
       gap: 8px;
       font-size: .78rem;
-      color: var(--muted);
+      color: var(--gray4);
       font-family: var(--f-disp);
       font-weight: 500;
     }
@@ -331,14 +1157,14 @@
     .bar-track {
       flex: 1;
       height: 6px;
-      background: var(--cream3);
+      background: var(--gray2);
       border-radius: var(--r-pill);
       overflow: hidden;
     }
 
     .bar-fill {
       height: 100%;
-      background: var(--sun);
+      background: var(--amber);
       border-radius: var(--r-pill);
     }
 
@@ -356,7 +1182,7 @@
 
     .review-card {
       background: #fff;
-      border: 1px solid var(--cream3);
+      border: 1.5px solid var(--gray2);
       border-radius: var(--r-xl);
       padding: 22px;
     }
@@ -379,7 +1205,7 @@
       width: 38px;
       height: 38px;
       border-radius: 50%;
-      background: var(--blue-pale);
+      background: var(--blue-soft);
       color: var(--blue);
       font-family: var(--f-disp);
       font-weight: 700;
@@ -399,26 +1225,27 @@
 
     .reviewer-company {
       font-size: .74rem;
-      color: var(--muted);
+      color: var(--gray4);
     }
 
     .review-date {
       font-size: .72rem;
-      color: var(--muted);
+      color: var(--gray4);
       font-family: var(--f-disp);
+      white-space: nowrap;
     }
 
     .review-stars {
       display: flex;
       gap: 2px;
-      color: var(--sun);
+      color: var(--amber);
       font-size: .8rem;
       margin-bottom: 10px;
     }
 
     .review-text {
       font-size: .88rem;
-      color: var(--warm2);
+      color: var(--ink);
       line-height: 1.7;
       max-width: 100%;
     }
@@ -428,25 +1255,149 @@
       align-items: center;
       gap: 4px;
       font-size: .7rem;
-      color: var(--sage);
+      color: var(--green);
       font-family: var(--f-disp);
       font-weight: 600;
       margin-top: 10px;
     }
 
-    /* Produits similaires grid */
+    /* ── Produits similaires ── */
+    .similar-products {
+      padding-top: 56px;
+      border-top: 1.5px solid var(--gray2);
+      margin-top: 56px;
+    }
+
+    .similar-products h3 {
+      margin-bottom: 24px;
+    }
+
     .similar-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 14px;
     }
 
-    /* Sticky config col on desktop */
-    @media(min-width: 768px) {
+    /* ── Info box ── */
+    .info-box {
+      display: flex;
+      gap: 12px;
+      padding: 16px 18px;
+      border-radius: var(--r-lg);
+      margin-top: 16px;
+    }
+
+    .info-box.blue {
+      background: var(--blue-soft);
+      border: 1px solid rgba(0, 82, 255, .15);
+    }
+
+    .info-box.green {
+      background: rgba(0, 194, 122, .08);
+      border: 1px solid rgba(0, 194, 122, .2);
+    }
+
+    .info-box i {
+      font-size: 1.1rem;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .info-box.blue i {
+      color: var(--blue);
+    }
+
+    .info-box.green i {
+      color: var(--green);
+    }
+
+    .info-box-title {
+      font-family: var(--f-disp);
+      font-size: .82rem;
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: 4px;
+    }
+
+    .info-box p {
+      font-size: .82rem;
+      color: var(--gray4);
+      max-width: 100%;
+      margin: 0;
+    }
+
+    /* ── Fichiers ── */
+    .file-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .file-item {
+      background: #fff;
+      border-radius: var(--r-lg);
+      padding: 14px 18px;
+      border: 1.5px solid var(--gray2);
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .file-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: var(--r-sm);
+      background: var(--blue-soft);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--blue);
+      font-size: 1.1rem;
+      flex-shrink: 0;
+    }
+
+    .file-name {
+      font-family: var(--f-disp);
+      font-weight: 700;
+      font-size: .88rem;
+      margin-bottom: 1px;
+    }
+
+    .file-meta {
+      font-size: .74rem;
+      color: var(--gray4);
+    }
+
+    /* ── Format chips ── */
+    .format-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 14px;
+    }
+
+    .format-chip {
+      font-family: var(--f-disp);
+      font-size: .72rem;
+      font-weight: 700;
+      padding: 5px 12px;
+      border-radius: var(--r-pill);
+      border: 1.5px solid var(--gray2);
+      background: #fff;
+      color: var(--ink);
+    }
+
+    .format-chip.soft {
+      color: var(--gray4);
+      background: var(--gray1);
+    }
+
+    /* ── Responsive ── */
+    @media(min-width:768px) {
       .product-layout {
         flex-direction: row;
         gap: 48px;
-        align-items: flex-start;
       }
 
       .product-gallery-col {
@@ -462,17 +1413,12 @@
         padding-right: 4px;
       }
 
-      /* Scrollbar discret */
       .product-config-col::-webkit-scrollbar {
         width: 3px;
       }
 
-      .product-config-col::-webkit-scrollbar-track {
-        background: transparent;
-      }
-
       .product-config-col::-webkit-scrollbar-thumb {
-        background: var(--cream3);
+        background: var(--gray2);
         border-radius: 4px;
       }
 
@@ -481,17 +1427,13 @@
       }
     }
 
-    @media(min-width: 1200px) {
+    @media(min-width:1200px) {
       .product-layout {
         gap: 64px;
       }
-
-      .product-gallery-col {
-        flex: 1.1;
-      }
     }
-  </style>
-  <style>
+
+
     /* ============================================================
    ACEF — v5 · Bold & Energetic B2B
    Bricolage Grotesque · Blanc/Noir/Bleu vif
@@ -3914,7 +4856,7 @@
                         <span class="color-detail-name">Bronze</span>
                       </div>
                     </div>
-                    <p style="font-size:.78rem;color:var(--muted);margin-top:14px">
+                    <p style="font-size:.78rem;color:var(--gray4);margin-top:14px">
                       <i class="ph ph-info" style="margin-right:4px"></i>
                       Couleurs sur-mesure RAL disponibles à partir de 500 pièces (surcoût selon nuance).
                     </p>
@@ -4091,17 +5033,17 @@
                 <h4 style="font-size:.9rem;margin-bottom:12px">Fichiers acceptés pour la personnalisation</h4>
                 <div style="display:flex;flex-wrap:wrap;gap:6px">
                   <span
-                    style="font-family:var(--f-disp);font-size:.74rem;font-weight:700;padding:5px 12px;background:#fff;border:1.5px solid var(--cream3);border-radius:var(--r-pill)">PDF
+                    style="font-family:var(--f-disp);font-size:.74rem;font-weight:700;padding:5px 12px;background:#fff;border:1.5px solid var(--gray2);border-radius:var(--r-pill)">PDF
                     vectoriel</span>
                   <span
-                    style="font-family:var(--f-disp);font-size:.74rem;font-weight:700;padding:5px 12px;background:#fff;border:1.5px solid var(--cream3);border-radius:var(--r-pill)">.AI
+                    style="font-family:var(--f-disp);font-size:.74rem;font-weight:700;padding:5px 12px;background:#fff;border:1.5px solid var(--gray2);border-radius:var(--r-pill)">.AI
                     (Illustrator)</span>
                   <span
-                    style="font-family:var(--f-disp);font-size:.74rem;font-weight:700;padding:5px 12px;background:#fff;border:1.5px solid var(--cream3);border-radius:var(--r-pill)">.EPS</span>
+                    style="font-family:var(--f-disp);font-size:.74rem;font-weight:700;padding:5px 12px;background:#fff;border:1.5px solid var(--gray2);border-radius:var(--r-pill)">.EPS</span>
                   <span
-                    style="font-family:var(--f-disp);font-size:.74rem;font-weight:700;padding:5px 12px;background:#fff;border:1.5px solid var(--cream3);border-radius:var(--r-pill)">.SVG</span>
+                    style="font-family:var(--f-disp);font-size:.74rem;font-weight:700;padding:5px 12px;background:#fff;border:1.5px solid var(--gray2);border-radius:var(--r-pill)">.SVG</span>
                   <span
-                    style="font-family:var(--f-disp);font-size:.74rem;font-weight:600;padding:5px 12px;background:var(--cream);border:1.5px solid var(--cream3);border-radius:var(--r-pill);color:var(--muted)">PNG
+                    style="font-family:var(--f-disp);font-size:.74rem;font-weight:600;padding:5px 12px;background:var(--gray1);border:1.5px solid var(--gray2);border-radius:var(--r-pill);color:var(--gray4)">PNG
                     300 dpi (acceptable)</span>
                 </div>
               </div>
@@ -4112,24 +5054,24 @@
             <div class="tab-panel" id="tab-delivery" role="tabpanel">
               <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:24px">
                 <div
-                  style="background:#fff;border-radius:var(--r-xl);padding:20px;border:2px solid var(--sun);text-align:center">
+                  style="background:#fff;border-radius:var(--r-xl);padding:20px;border:2px solid var(--amber);text-align:center">
                   <span
                     style="background:rgba(255,186,0,.15);color:#a07800;font-family:var(--f-disp);font-size:.62rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:3px 10px;border-radius:var(--r-pill);display:inline-block;margin-bottom:8px">Express</span>
                   <div
                     style="font-family:var(--f-disp);font-size:2.5rem;font-weight:800;color:var(--night);letter-spacing:-.04em;line-height:1">
                     5 j.</div>
-                  <div style="font-size:.78rem;color:var(--muted);margin-top:4px">après validation BAT</div>
+                  <div style="font-size:.78rem;color:var(--gray4);margin-top:4px">après validation BAT</div>
                   <div style="font-size:.78rem;color:var(--warm3);margin-top:8px">Supplément +15 %</div>
                 </div>
                 <div
-                  style="background:#fff;border-radius:var(--r-xl);padding:20px;border:1px solid var(--cream3);text-align:center">
+                  style="background:#fff;border-radius:var(--r-xl);padding:20px;border:1px solid var(--gray2);text-align:center">
                   <span
-                    style="background:var(--cream);color:var(--muted);font-family:var(--f-disp);font-size:.62rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:3px 10px;border-radius:var(--r-pill);display:inline-block;margin-bottom:8px">Standard</span>
+                    style="background:var(--gray1);color:var(--gray4);font-family:var(--f-disp);font-size:.62rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:3px 10px;border-radius:var(--r-pill);display:inline-block;margin-bottom:8px">Standard</span>
                   <div
                     style="font-family:var(--f-disp);font-size:2.5rem;font-weight:800;color:var(--night);letter-spacing:-.04em;line-height:1">
                     15 j.</div>
-                  <div style="font-size:.78rem;color:var(--muted);margin-top:4px">après validation BAT</div>
-                  <div style="font-size:.78rem;color:var(--sage);margin-top:8px;font-weight:600">Tarif de base</div>
+                  <div style="font-size:.78rem;color:var(--gray4);margin-top:4px">après validation BAT</div>
+                  <div style="font-size:.78rem;color:var(--green);margin-top:8px;font-weight:600">Tarif de base</div>
                 </div>
               </div>
 
@@ -4173,7 +5115,7 @@
               <div
                 style="background:rgba(61,122,89,.08);border-radius:var(--r-lg);padding:16px 18px;display:flex;gap:12px">
                 <i class="ph ph-clock-countdown"
-                  style="color:var(--sage);font-size:1.2rem;flex-shrink:0;margin-top:2px"></i>
+                  style="color:var(--green);font-size:1.2rem;flex-shrink:0;margin-top:2px"></i>
                 <div>
                   <p
                     style="font-family:var(--f-disp);font-size:.82rem;font-weight:700;color:var(--night);margin-bottom:4px">
@@ -4199,38 +5141,41 @@
 
               <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:24px">
                 <div
-                  style="background:#fff;border-radius:var(--r-lg);padding:14px 18px;border:1px solid var(--cream3);display:flex;align-items:center;gap:14px">
+                  style="background:#fff;border-radius:var(--r-lg);padding:14px 18px;border:1px solid var(--gray2);display:flex;align-items:center;gap:14px">
                   <div
                     style="width:40px;height:40px;border-radius:var(--r-sm);background:var(--blue-pale);display:flex;align-items:center;justify-content:center;color:var(--blue);font-size:1.1rem;flex-shrink:0">
-                    <i class="ph ph-file-pdf"></i></div>
+                    <i class="ph ph-file-pdf"></i>
+                  </div>
                   <div style="flex:1">
                     <div style="font-family:var(--f-disp);font-weight:700;font-size:.88rem;margin-bottom:1px">Gabarit de
                       marquage — Zone A</div>
-                    <div style="font-size:.74rem;color:var(--muted)">PDF vectoriel · 245 Ko</div>
+                    <div style="font-size:.74rem;color:var(--gray4)">PDF vectoriel · 245 Ko</div>
                   </div>
                   <a href="#" class="btn btn-outline btn-sm"><i class="ph ph-download-simple"></i> Télécharger</a>
                 </div>
                 <div
-                  style="background:#fff;border-radius:var(--r-lg);padding:14px 18px;border:1px solid var(--cream3);display:flex;align-items:center;gap:14px">
+                  style="background:#fff;border-radius:var(--r-lg);padding:14px 18px;border:1px solid var(--gray2);display:flex;align-items:center;gap:14px">
                   <div
                     style="width:40px;height:40px;border-radius:var(--r-sm);background:var(--blue-pale);display:flex;align-items:center;justify-content:center;color:var(--blue);font-size:1.1rem;flex-shrink:0">
-                    <i class="ph ph-file-svg"></i></div>
+                    <i class="ph ph-file-svg"></i>
+                  </div>
                   <div style="flex:1">
                     <div style="font-family:var(--f-disp);font-weight:700;font-size:.88rem;margin-bottom:1px">Gabarit de
                       marquage — Zones A + B</div>
-                    <div style="font-size:.74rem;color:var(--muted)">PDF vectoriel · 318 Ko</div>
+                    <div style="font-size:.74rem;color:var(--gray4)">PDF vectoriel · 318 Ko</div>
                   </div>
                   <a href="#" class="btn btn-outline btn-sm"><i class="ph ph-download-simple"></i> Télécharger</a>
                 </div>
                 <div
-                  style="background:#fff;border-radius:var(--r-lg);padding:14px 18px;border:1px solid var(--cream3);display:flex;align-items:center;gap:14px">
+                  style="background:#fff;border-radius:var(--r-lg);padding:14px 18px;border:1px solid var(--gray2);display:flex;align-items:center;gap:14px">
                   <div
                     style="width:40px;height:40px;border-radius:var(--r-sm);background:var(--blue-pale);display:flex;align-items:center;justify-content:center;color:var(--blue);font-size:1.1rem;flex-shrink:0">
-                    <i class="ph ph-file-image"></i></div>
+                    <i class="ph ph-file-image"></i>
+                  </div>
                   <div style="flex:1">
                     <div style="font-family:var(--f-disp);font-weight:700;font-size:.88rem;margin-bottom:1px">Fiche
                       technique produit complète</div>
-                    <div style="font-size:.74rem;color:var(--muted)">PDF · 1,2 Mo</div>
+                    <div style="font-size:.74rem;color:var(--gray4)">PDF · 1,2 Mo</div>
                   </div>
                   <a href="#" class="btn btn-outline btn-sm"><i class="ph ph-download-simple"></i> Télécharger</a>
                 </div>
@@ -4428,7 +5373,7 @@
           <!-- Grille de prix progressive -->
           <div class="product-pricing-block">
             <p
-              style="font-family:var(--f-disp);font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:10px">
+              style="font-family:var(--f-disp);font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gray4);margin-bottom:10px">
               Tarif dégressif HT / unité</p>
             <div class="pricing-grid" role="radiogroup" aria-label="Choisir une quantité">
               <div class="pricing-tier active" role="radio" aria-checked="true" data-qty="100" tabindex="0">
@@ -4515,7 +5460,7 @@
                 <i class="ph ph-paint-roller" aria-hidden="true"></i> Sérigraphie
               </button>
             </div>
-            <p style="font-size:.74rem;color:var(--muted);margin-top:8px">
+            <p style="font-size:.74rem;color:var(--gray4);margin-top:8px">
               <i class="ph ph-info" style="margin-right:4px"></i>
               <span id="techInfo">Gravure laser : rendu métal brillant permanent, pas de couleur ajoutée. Idéal logos
                 épurés.</span>
@@ -4837,7 +5782,7 @@
     /* ── Couleurs ── */
     document.querySelectorAll('.color-swatch').forEach(sw => {
       sw.addEventListener('click', () => {
-        document.querySelectorAll('.color-swatch').forEach(s => { s.classList.remove('selected'); s.style.borderColor = 'var(--cream3)'; });
+        document.querySelectorAll('.color-swatch').forEach(s => { s.classList.remove('selected'); s.style.borderColor = 'var(--gray2)'; });
         sw.classList.add('selected'); sw.style.borderColor = 'var(--night)';
         const nameEl = document.getElementById('selectedColorName');
         if (nameEl) nameEl.textContent = sw.dataset.color;
