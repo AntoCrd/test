@@ -4,15 +4,493 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Catalogue — ACEF Objets de communication</title>
+  <title>Stylo Twist Aluminium Premium — ACEF</title>
   <meta name="description"
-    content="Parcourez notre catalogue de 5 000+ objets publicitaires personnalisables. Filtres par catégorie, budget et technique d'impression.">
+    content="Stylo bille rétractable en aluminium brossé. Gravure laser, tampographie, personnalisation sur-mesure. Devis en 4h. À partir de 1,20 € HT.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
     href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap"
     rel="stylesheet">
   <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css">
+  <style>
+    /* ── Styles spécifiques page produit ── */
+    .product-page-wrap {
+      padding: 40px 0 88px;
+    }
+
+    /* Layout deux colonnes sticky */
+    .product-layout {
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+      align-items: flex-start;
+    }
+
+    /* Colonne galerie */
+    .product-gallery-col {
+      width: 100%;
+    }
+
+    /* Colonne config — sticky sur desktop */
+    .product-config-col {
+      width: 100%;
+    }
+
+    /* Bandeau livraison en haut */
+    .delivery-banner {
+      background: var(--night);
+      padding: 10px 0;
+      text-align: center;
+      font-family: var(--f-disp);
+      font-size: .78rem;
+      font-weight: 600;
+      color: rgba(255, 255, 255, .7);
+      letter-spacing: .04em;
+    }
+
+    .delivery-banner strong {
+      color: var(--sun);
+    }
+
+    /* Notation / badges */
+    .product-meta-bar {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 18px;
+    }
+
+    .rating-stars {
+      display: flex;
+      gap: 2px;
+      color: var(--sun);
+      font-size: .9rem;
+    }
+
+    .rating-count {
+      font-size: .78rem;
+      color: var(--muted);
+      font-family: var(--f-disp);
+    }
+
+    .meta-divider {
+      width: 1px;
+      height: 16px;
+      background: var(--cream3);
+    }
+
+    .stock-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-family: var(--f-disp);
+      font-size: .72rem;
+      font-weight: 700;
+      color: var(--sage);
+      background: rgba(61, 122, 89, .1);
+      padding: 4px 10px;
+      border-radius: var(--r-pill);
+    }
+
+    .stock-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--sage);
+    }
+
+    /* Accordéon "Voir plus" spécifications */
+    .specs-accordion {
+      border: 1px solid var(--cream3);
+      border-radius: var(--r-xl);
+      overflow: hidden;
+      margin-top: 16px;
+    }
+
+    .accordion-item {
+      border-bottom: 1px solid var(--cream3);
+    }
+
+    .accordion-item:last-child {
+      border-bottom: none;
+    }
+
+    .accordion-trigger {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 20px;
+      background: #fff;
+      border: none;
+      cursor: pointer;
+      font-family: var(--f-disp);
+      font-size: .9rem;
+      font-weight: 700;
+      color: var(--night);
+      text-align: left;
+      transition: var(--t-fast);
+      min-height: 52px;
+    }
+
+    .accordion-trigger:hover {
+      background: var(--cream);
+    }
+
+    .accordion-trigger i.chevron {
+      font-size: 1rem;
+      color: var(--muted);
+      transition: transform .22s var(--ease-out);
+      flex-shrink: 0;
+    }
+
+    .accordion-trigger.open i.chevron {
+      transform: rotate(180deg);
+    }
+
+    .accordion-body {
+      display: none;
+      padding: 0 20px 20px;
+      background: #fff;
+    }
+
+    .accordion-trigger.open+.accordion-body {
+      display: block;
+    }
+
+    /* Tableau dimensions zone de marquage */
+    .zone-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: .84rem;
+    }
+
+    .zone-table thead th {
+      padding: 10px 12px;
+      background: var(--cream);
+      font-family: var(--f-disp);
+      font-size: .68rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      color: var(--muted);
+      text-align: left;
+    }
+
+    .zone-table tbody tr {
+      border-bottom: 1px solid var(--cream3);
+    }
+
+    .zone-table tbody tr:last-child {
+      border-bottom: none;
+    }
+
+    .zone-table tbody td {
+      padding: 11px 12px;
+      color: var(--night);
+      font-weight: 500;
+    }
+
+    .zone-table .zone-name-td {
+      font-family: var(--f-disp);
+      font-weight: 700;
+      font-size: .86rem;
+    }
+
+    .zone-table .available {
+      color: var(--sage);
+      font-weight: 700;
+    }
+
+    .zone-table .unavailable {
+      color: var(--muted);
+    }
+
+    /* Schéma de marquage — placeholder SVG */
+    .marking-schema {
+      background: var(--cream);
+      border-radius: var(--r-lg);
+      padding: 24px;
+      text-align: center;
+      position: relative;
+      border: 1px solid var(--cream3);
+      margin-bottom: 16px;
+    }
+
+    .marking-schema svg {
+      max-width: 280px;
+      width: 100%;
+    }
+
+    /* Grille couleurs détaillée */
+    .color-detail-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+      gap: 8px;
+    }
+
+    .color-detail-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 5px;
+      cursor: pointer;
+    }
+
+    .color-detail-swatch {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: 2.5px solid var(--cream3);
+      transition: var(--t-fast);
+    }
+
+    .color-detail-item:hover .color-detail-swatch,
+    .color-detail-item.active .color-detail-swatch {
+      border-color: var(--night);
+      transform: scale(1.1);
+    }
+
+    .color-detail-name {
+      font-family: var(--f-disp);
+      font-size: .64rem;
+      font-weight: 600;
+      color: var(--warm3);
+      text-align: center;
+      line-height: 1.2;
+    }
+
+    /* Avis clients */
+    .reviews-section {
+      margin-top: 48px;
+    }
+
+    .reviews-summary {
+      display: flex;
+      gap: 32px;
+      align-items: center;
+      margin-bottom: 28px;
+      flex-wrap: wrap;
+    }
+
+    .reviews-score {
+      text-align: center;
+      flex-shrink: 0;
+    }
+
+    .score-big {
+      font-family: var(--f-disp);
+      font-size: 4rem;
+      font-weight: 800;
+      line-height: 1;
+      letter-spacing: -.04em;
+      color: var(--night);
+    }
+
+    .score-stars {
+      display: flex;
+      gap: 3px;
+      color: var(--sun);
+      font-size: 1.1rem;
+      justify-content: center;
+      margin: 6px 0;
+    }
+
+    .score-total {
+      font-size: .78rem;
+      color: var(--muted);
+      font-family: var(--f-disp);
+    }
+
+    .reviews-bars {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      min-width: 200px;
+    }
+
+    .bar-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: .78rem;
+      color: var(--muted);
+      font-family: var(--f-disp);
+      font-weight: 500;
+    }
+
+    .bar-label {
+      width: 14px;
+      text-align: right;
+      flex-shrink: 0;
+    }
+
+    .bar-track {
+      flex: 1;
+      height: 6px;
+      background: var(--cream3);
+      border-radius: var(--r-pill);
+      overflow: hidden;
+    }
+
+    .bar-fill {
+      height: 100%;
+      background: var(--sun);
+      border-radius: var(--r-pill);
+    }
+
+    .bar-count {
+      width: 24px;
+      text-align: right;
+      flex-shrink: 0;
+    }
+
+    .review-cards {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .review-card {
+      background: #fff;
+      border: 1px solid var(--cream3);
+      border-radius: var(--r-xl);
+      padding: 22px;
+    }
+
+    .review-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .reviewer-info {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .reviewer-av {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: var(--blue-pale);
+      color: var(--blue);
+      font-family: var(--f-disp);
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: .88rem;
+      flex-shrink: 0;
+    }
+
+    .reviewer-name {
+      font-family: var(--f-disp);
+      font-weight: 700;
+      font-size: .88rem;
+      margin-bottom: 1px;
+    }
+
+    .reviewer-company {
+      font-size: .74rem;
+      color: var(--muted);
+    }
+
+    .review-date {
+      font-size: .72rem;
+      color: var(--muted);
+      font-family: var(--f-disp);
+    }
+
+    .review-stars {
+      display: flex;
+      gap: 2px;
+      color: var(--sun);
+      font-size: .8rem;
+      margin-bottom: 10px;
+    }
+
+    .review-text {
+      font-size: .88rem;
+      color: var(--warm2);
+      line-height: 1.7;
+      max-width: 100%;
+    }
+
+    .review-verified {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: .7rem;
+      color: var(--sage);
+      font-family: var(--f-disp);
+      font-weight: 600;
+      margin-top: 10px;
+    }
+
+    /* Produits similaires grid */
+    .similar-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    /* Sticky config col on desktop */
+    @media(min-width: 768px) {
+      .product-layout {
+        flex-direction: row;
+        gap: 48px;
+        align-items: flex-start;
+      }
+
+      .product-gallery-col {
+        flex: 1;
+      }
+
+      .product-config-col {
+        flex: 1;
+        position: sticky;
+        top: calc(var(--nav-h) + 16px);
+        max-height: calc(100vh - var(--nav-h) - 32px);
+        overflow-y: auto;
+        padding-right: 4px;
+      }
+
+      /* Scrollbar discret */
+      .product-config-col::-webkit-scrollbar {
+        width: 3px;
+      }
+
+      .product-config-col::-webkit-scrollbar-track {
+        background: transparent;
+      }
+
+      .product-config-col::-webkit-scrollbar-thumb {
+        background: var(--cream3);
+        border-radius: 4px;
+      }
+
+      .similar-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+
+    @media(min-width: 1200px) {
+      .product-layout {
+        gap: 64px;
+      }
+
+      .product-gallery-col {
+        flex: 1.1;
+      }
+    }
+  </style>
   <style>
     /* ============================================================
    ACEF — v5 · Bold & Energetic B2B
@@ -3230,11 +3708,17 @@
 
 <body>
 
+  <!-- Bandeau livraison -->
+  <div class="delivery-banner">
+    <strong>Livraison express 5 jours</strong> · Devis gratuit sous 4 h · BAT numérique inclus
+  </div>
+
   <!-- ══ HEADER ══ -->
   <header class="site-header" role="banner">
     <div class="container nav-inner">
-      <a href="index.html" class="logo" aria-label="ACEF accueil"><span class="logo-ac">AC</span><span
-          class="logo-ef">EF</span></a>
+      <a href="index.html" class="logo" aria-label="ACEF accueil">
+        <span class="logo-ac">AC</span><span class="logo-ef">EF</span>
+      </a>
       <nav class="nav-links" role="navigation" aria-label="Navigation principale">
         <a href="index.html">Accueil</a>
         <a href="catalogue.html" class="active">Catalogue</a>
@@ -3257,388 +3741,914 @@
   </header>
 
   <nav id="mobileMenu" class="mobile-menu" aria-label="Menu mobile">
-    <a href="index.html"><i class="ph ph-house" aria-hidden="true"></i> Accueil</a>
-    <a href="catalogue.html"><i class="ph ph-squares-four" aria-hidden="true"></i> Catalogue</a>
-    <a href="qui-sommes-nous.html"><i class="ph ph-info" aria-hidden="true"></i> À propos</a>
-    <a href="contact.html"><i class="ph ph-envelope" aria-hidden="true"></i> Contact</a>
-    <a href="login.html" class="btn btn-primary"><i class="ph ph-user" aria-hidden="true"></i> Espace client</a>
+    <a href="index.html"><i class="ph ph-house"></i> Accueil</a>
+    <a href="catalogue.html"><i class="ph ph-squares-four"></i> Catalogue</a>
+    <a href="qui-sommes-nous.html"><i class="ph ph-info"></i> À propos</a>
+    <a href="contact.html"><i class="ph ph-envelope"></i> Contact</a>
+    <a href="login.html" class="btn btn-primary"><i class="ph ph-user"></i> Espace client</a>
   </nav>
 
-  <!-- ══ PAGE HEADER ══ -->
-  <div class="page-header" role="banner">
+  <main class="product-page-wrap">
     <div class="container">
-      <nav class="breadcrumb" aria-label="Fil d'Ariane">
+
+      <!-- Fil d'Ariane -->
+      <nav class="product-breadcrumb" aria-label="Fil d'Ariane">
         <a href="index.html">Accueil</a>
-        <span class="breadcrumb-sep" aria-hidden="true">/</span>
-        <span aria-current="page">Catalogue</span>
+        <span class="product-breadcrumb-sep" aria-hidden="true">/</span>
+        <a href="catalogue.html">Catalogue</a>
+        <span class="product-breadcrumb-sep" aria-hidden="true">/</span>
+        <a href="catalogue.html?cat=stylos">Stylos & Écriture</a>
+        <span class="product-breadcrumb-sep" aria-hidden="true">/</span>
+        <span>Stylo Twist Aluminium Premium</span>
       </nav>
-      <h1>Notre catalogue</h1>
-      <p>5 000+ références personnalisables. Filtrez par catégorie, budget ou technique d'impression.</p>
-    </div>
-  </div>
 
-  <main>
-    <section style="padding: 40px 0 72px;">
-      <div class="container">
-        <div class="catalogue-layout">
+      <!-- ══ LAYOUT PRINCIPAL ══ -->
+      <div class="product-layout">
 
-          <!-- ── FILTRES ── -->
-          <aside id="filtersSidebar" class="filters-sidebar" aria-label="Filtres produits">
-            <div class="filters-header" id="filtersToggle" role="button" aria-expanded="false"
-              aria-controls="filtersBody" tabindex="0">
-              <h3><i class="ph ph-funnel" aria-hidden="true"></i> Filtres</h3>
-              <i class="ph ph-caret-down filters-toggle-icon" aria-hidden="true"></i>
-            </div>
-            <div class="filters-body" id="filtersBody">
+        <!-- ─── GALERIE ─── -->
+        <div class="product-gallery-col">
+          <div class="product-gallery">
 
-              <!-- Catégories -->
-              <div class="filter-group">
-                <h4>Catégories</h4>
-                <div class="filter-options" role="group" aria-label="Filtrer par catégorie">
-                  <label class="filter-option">
-                    <input type="checkbox" name="cat" value="stylos"> Stylos & Écriture <span
-                      class="filter-count">312</span>
-                  </label>
-                  <label class="filter-option">
-                    <input type="checkbox" name="cat" value="textile"> Textile <span class="filter-count">485</span>
-                  </label>
-                  <label class="filter-option">
-                    <input type="checkbox" name="cat" value="sacs"> Sacs <span class="filter-count">198</span>
-                  </label>
-                  <label class="filter-option">
-                    <input type="checkbox" name="cat" value="trophees"> Trophées <span class="filter-count">124</span>
-                  </label>
-                  <label class="filter-option">
-                    <input type="checkbox" name="cat" value="plv"> PLV & Signalétique <span
-                      class="filter-count">267</span>
-                  </label>
-                  <label class="filter-option">
-                    <input type="checkbox" name="cat" value="kits"> Coffrets cadeaux <span
-                      class="filter-count">89</span>
-                  </label>
-                  <label class="filter-option">
-                    <input type="checkbox" name="cat" value="tech"> High-Tech <span class="filter-count">156</span>
-                  </label>
-                  <label class="filter-option">
-                    <input type="checkbox" name="cat" value="eco"> Éco-responsable <span class="filter-count">214</span>
-                  </label>
-                </div>
-              </div>
-
-              <!-- Budget -->
-              <div class="filter-group">
-                <h4>Budget unitaire</h4>
-                <div class="filter-range-wrap">
-                  <input type="range" id="priceRange" class="filter-range" min="0" max="100" value="100" step="1"
-                    aria-label="Budget maximum">
-                  <div class="filter-range-labels">
-                    <span>0 €</span>
-                    <span id="priceVal">100 €</span>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Impression -->
-              <div class="filter-group">
-                <h4>Technique d'impression</h4>
-                <div class="filter-options" role="group" aria-label="Filtrer par technique">
-                  <label class="filter-option">
-                    <input type="checkbox" name="tech" value="seri"> Sérigraphie
-                  </label>
-                  <label class="filter-option">
-                    <input type="checkbox" name="tech" value="laser"> Gravure laser
-                  </label>
-                  <label class="filter-option">
-                    <input type="checkbox" name="tech" value="brode"> Broderie
-                  </label>
-                  <label class="filter-option">
-                    <input type="checkbox" name="tech" value="numeri"> Impression numérique
-                  </label>
-                  <label class="filter-option">
-                    <input type="checkbox" name="tech" value="tampo"> Tampographie
-                  </label>
-                </div>
-              </div>
-
-              <!-- Quantité minimale -->
-              <div class="filter-group">
-                <h4>Quantité minimale</h4>
-                <div class="filter-tags" role="group" aria-label="Quantité minimale">
-                  <button class="filter-tag active" data-qty="all">Toutes</button>
-                  <button class="filter-tag" data-qty="1">1+</button>
-                  <button class="filter-tag" data-qty="10">10+</button>
-                  <button class="filter-tag" data-qty="50">50+</button>
-                  <button class="filter-tag" data-qty="100">100+</button>
-                  <button class="filter-tag" data-qty="500">500+</button>
-                </div>
-              </div>
-
-              <div class="filters-footer">
-                <button class="btn btn-secondary" style="width:100%;justify-content:center" id="resetFilters">
-                  <i class="ph ph-arrow-counter-clockwise" aria-hidden="true"></i> Réinitialiser
-                </button>
-              </div>
-            </div>
-          </aside>
-
-          <!-- ── RÉSULTATS ── -->
-          <div class="catalogue-results">
-
-            <div class="results-bar">
-              <p class="results-count"><strong id="resultsCount">48</strong> produits trouvés</p>
-              <div class="results-sort">
-                <label for="sortSelect" class="sr-only">Trier par</label>
-                <select id="sortSelect" aria-label="Trier les résultats">
-                  <option value="popular">Les plus populaires</option>
-                  <option value="price-asc">Prix croissant</option>
-                  <option value="price-desc">Prix décroissant</option>
-                  <option value="new">Nouveautés</option>
-                </select>
-              </div>
-            </div>
-
-            <div class="catalogue-grid" id="productGrid" role="list">
-
-              <!-- Produits du catalogue -->
-
-              <article class="product-card" role="listitem" data-animate>
-                <div class="product-img">
-                  <img src="https://picsum.photos/seed/c1/400/300" alt="Stylo bille executive" loading="lazy">
-                  <span class="product-badge popular">Populaire</span>
-                  <div class="product-actions">
-                    <button class="product-action-btn"
-                      onclick="openProductModal({id:'c1',name:'Stylo Executive',price:'0.85',img:'https://picsum.photos/seed/c1/600/400',cat:'Stylos',desc:'Stylo bille plastique ABS. Logo en tampographie 1 couleur. Encre bleue ou noire. À partir de 250 unités.'})"
-                      aria-label="Voir détail">
-                      <i class="ph ph-eye" aria-hidden="true"></i>
-                    </button>
-                    <button class="product-action-btn"
-                      onclick="Cart.addItem({id:'c1',name:'Stylo Executive',price:'0.85',img:'https://picsum.photos/seed/c1/80/80',cat:'Stylos',qty:250}); showToast('Ajouté !')"
-                      aria-label="Ajouter au devis">
-                      <i class="ph ph-plus" aria-hidden="true"></i>
-                    </button>
-                  </div>
-                </div>
-                <div class="product-info">
-                  <p class="product-cat">Stylos & Écriture</p>
-                  <h3 class="product-name">Stylo Executive</h3>
-                  <p class="product-desc">Plastique ABS recyclé, tampographie 1 couleur.</p>
-                  <div class="product-footer">
-                    <div class="product-price">À partir de 0,85 € <span class="price-note">HT (min. 250 ex.)</span>
-                    </div>
-                    <button class="btn btn-primary btn-sm">Devis</button>
-                  </div>
-                </div>
-              </article>
-
-              <article class="product-card" role="listitem" data-animate data-animate-delay="1">
-                <div class="product-img">
-                  <img src="https://picsum.photos/seed/c2/400/300" alt="T-shirt 100% coton" loading="lazy">
-                  <span class="product-badge new">Nouveau</span>
-                  <div class="product-actions">
-                    <button class="product-action-btn"
-                      onclick="openProductModal({id:'c2',name:'T-Shirt Unisexe Bio',price:'8.50',img:'https://picsum.photos/seed/c2/600/400',cat:'Textile',desc:'T-shirt 100% coton bio 180g, impression DTG pleine couleur. Disponible S à 4XL, 12 coloris.'})"
-                      aria-label="Voir détail"><i class="ph ph-eye" aria-hidden="true"></i></button>
-                    <button class="product-action-btn"
-                      onclick="Cart.addItem({id:'c2',name:'T-Shirt Unisexe Bio',price:'8.50',img:'https://picsum.photos/seed/c2/80/80',cat:'Textile',qty:20}); showToast('Ajouté !')"
-                      aria-label="Ajouter"><i class="ph ph-plus" aria-hidden="true"></i></button>
-                  </div>
-                </div>
-                <div class="product-info">
-                  <p class="product-cat">Textile</p>
-                  <h3 class="product-name">T-Shirt Unisexe Bio</h3>
-                  <p class="product-desc">Coton bio 180g, impression DTG pleine couleur, 12 coloris.</p>
-                  <div class="product-footer">
-                    <div class="product-price">À partir de 8,50 € <span class="price-note">HT (min. 20 ex.)</span></div>
-                    <button class="btn btn-primary btn-sm">Devis</button>
-                  </div>
-                </div>
-              </article>
-
-              <article class="product-card" role="listitem" data-animate data-animate-delay="2">
-                <div class="product-img">
-                  <img src="https://picsum.photos/seed/c3/400/300" alt="Carnet moleskine personnalisé" loading="lazy">
-                  <div class="product-actions">
-                    <button class="product-action-btn"
-                      onclick="openProductModal({id:'c3',name:'Carnet Cuir Personnalisé',price:'6.90',img:'https://picsum.photos/seed/c3/600/400',cat:'Écriture',desc:'Carnet A5 couverture similicuir, 96 pages lignées. Gaufrage ou dorure à chaud de votre logo.'})"
-                      aria-label="Voir détail"><i class="ph ph-eye" aria-hidden="true"></i></button>
-                    <button class="product-action-btn"
-                      onclick="Cart.addItem({id:'c3',name:'Carnet Cuir Personnalisé',price:'6.90',img:'https://picsum.photos/seed/c3/80/80',cat:'Écriture',qty:50}); showToast('Ajouté !')"
-                      aria-label="Ajouter"><i class="ph ph-plus" aria-hidden="true"></i></button>
-                  </div>
-                </div>
-                <div class="product-info">
-                  <p class="product-cat">Écriture</p>
-                  <h3 class="product-name">Carnet Cuir Personnalisé</h3>
-                  <p class="product-desc">Similicuir, 96 pages, gaufrage ou dorure à chaud.</p>
-                  <div class="product-footer">
-                    <div class="product-price">À partir de 6,90 € <span class="price-note">HT (min. 50 ex.)</span></div>
-                    <button class="btn btn-primary btn-sm">Devis</button>
-                  </div>
-                </div>
-              </article>
-
-              <article class="product-card" role="listitem" data-animate>
-                <div class="product-img">
-                  <img src="https://picsum.photos/seed/c4/400/300" alt="Mug céramique 330ml" loading="lazy">
-                  <span class="product-badge popular">Populaire</span>
-                  <div class="product-actions">
-                    <button class="product-action-btn"
-                      onclick="openProductModal({id:'c4',name:'Mug Céramique 330ml',price:'3.20',img:'https://picsum.photos/seed/c4/600/400',cat:'Accessoires',desc:'Mug céramique 330ml, impression sublimatoire pleine couleur 360°. Passe au lave-vaisselle.'})"
-                      aria-label="Voir détail"><i class="ph ph-eye" aria-hidden="true"></i></button>
-                    <button class="product-action-btn"
-                      onclick="Cart.addItem({id:'c4',name:'Mug Céramique 330ml',price:'3.20',img:'https://picsum.photos/seed/c4/80/80',cat:'Accessoires',qty:72}); showToast('Ajouté !')"
-                      aria-label="Ajouter"><i class="ph ph-plus" aria-hidden="true"></i></button>
-                  </div>
-                </div>
-                <div class="product-info">
-                  <p class="product-cat">Accessoires</p>
-                  <h3 class="product-name">Mug Céramique 330ml</h3>
-                  <p class="product-desc">Sublimatoire pleine couleur 360°, passe au lave-vaisselle.</p>
-                  <div class="product-footer">
-                    <div class="product-price">À partir de 3,20 € <span class="price-note">HT (min. 72 ex.)</span></div>
-                    <button class="btn btn-primary btn-sm">Devis</button>
-                  </div>
-                </div>
-              </article>
-
-              <article class="product-card" role="listitem" data-animate data-animate-delay="1">
-                <div class="product-img">
-                  <img src="https://picsum.photos/seed/c5/400/300" alt="Clé USB personnalisée 32 Go" loading="lazy">
-                  <div class="product-actions">
-                    <button class="product-action-btn"
-                      onclick="openProductModal({id:'c5',name:'Clé USB 32 Go',price:'5.90',img:'https://picsum.photos/seed/c5/600/400',cat:'High-Tech',desc:'Clé USB 32 Go corps aluminium. Sérigraphie ou gravure laser. Préchargement de données possible.'})"
-                      aria-label="Voir détail"><i class="ph ph-eye" aria-hidden="true"></i></button>
-                    <button class="product-action-btn"
-                      onclick="Cart.addItem({id:'c5',name:'Clé USB 32 Go',price:'5.90',img:'https://picsum.photos/seed/c5/80/80',cat:'High-Tech',qty:100}); showToast('Ajouté !')"
-                      aria-label="Ajouter"><i class="ph ph-plus" aria-hidden="true"></i></button>
-                  </div>
-                </div>
-                <div class="product-info">
-                  <p class="product-cat">High-Tech</p>
-                  <h3 class="product-name">Clé USB 32 Go</h3>
-                  <p class="product-desc">Aluminium brossé, gravure laser, préchargement données possible.</p>
-                  <div class="product-footer">
-                    <div class="product-price">À partir de 5,90 € <span class="price-note">HT (min. 100 ex.)</span>
-                    </div>
-                    <button class="btn btn-primary btn-sm">Devis</button>
-                  </div>
-                </div>
-              </article>
-
-              <article class="product-card" role="listitem" data-animate data-animate-delay="2">
-                <div class="product-img">
-                  <img src="https://picsum.photos/seed/c6/400/300" alt="Roll-up 85x200 cm" loading="lazy">
-                  <div class="product-actions">
-                    <button class="product-action-btn"
-                      onclick="openProductModal({id:'c6',name:'Roll-Up 85×200 cm',price:'89.00',img:'https://picsum.photos/seed/c6/600/400',cat:'PLV',desc:'Roll-up 85×200 cm avec cassette aluminium. Impression HD pleine couleur. Livré avec housse.'})"
-                      aria-label="Voir détail"><i class="ph ph-eye" aria-hidden="true"></i></button>
-                    <button class="product-action-btn"
-                      onclick="Cart.addItem({id:'c6',name:'Roll-Up 85×200 cm',price:'89.00',img:'https://picsum.photos/seed/c6/80/80',cat:'PLV',qty:1}); showToast('Ajouté !')"
-                      aria-label="Ajouter"><i class="ph ph-plus" aria-hidden="true"></i></button>
-                  </div>
-                </div>
-                <div class="product-info">
-                  <p class="product-cat">PLV & Signalétique</p>
-                  <h3 class="product-name">Roll-Up 85×200 cm</h3>
-                  <p class="product-desc">Cassette aluminium, impression HD, housse incluse.</p>
-                  <div class="product-footer">
-                    <div class="product-price">À partir de 89,00 € <span class="price-note">HT / unité</span></div>
-                    <button class="btn btn-primary btn-sm">Devis</button>
-                  </div>
-                </div>
-              </article>
-
-              <article class="product-card" role="listitem" data-animate>
-                <div class="product-img">
-                  <img src="https://picsum.photos/seed/c7/400/300" alt="Veste softshell brodée" loading="lazy">
-                  <div class="product-actions">
-                    <button class="product-action-btn"
-                      onclick="openProductModal({id:'c7',name:'Veste Softshell Corporate',price:'42.00',img:'https://picsum.photos/seed/c7/600/400',cat:'Textile',desc:'Veste softshell 3 couches, broderie digitale logo. Coupe moderne, traitement déperlant.'})"
-                      aria-label="Voir détail"><i class="ph ph-eye" aria-hidden="true"></i></button>
-                    <button class="product-action-btn"
-                      onclick="Cart.addItem({id:'c7',name:'Veste Softshell',price:'42.00',img:'https://picsum.photos/seed/c7/80/80',cat:'Textile',qty:10}); showToast('Ajouté !')"
-                      aria-label="Ajouter"><i class="ph ph-plus" aria-hidden="true"></i></button>
-                  </div>
-                </div>
-                <div class="product-info">
-                  <p class="product-cat">Textile</p>
-                  <h3 class="product-name">Veste Softshell Corporate</h3>
-                  <p class="product-desc">3 couches, traitement déperlant, broderie digitale.</p>
-                  <div class="product-footer">
-                    <div class="product-price">À partir de 42,00 € <span class="price-note">HT (min. 10 ex.)</span>
-                    </div>
-                    <button class="btn btn-primary btn-sm">Devis</button>
-                  </div>
-                </div>
-              </article>
-
-              <article class="product-card" role="listitem" data-animate data-animate-delay="1">
-                <div class="product-img">
-                  <img src="https://picsum.photos/seed/c8/400/300" alt="Gourde isotherme 500ml" loading="lazy">
-                  <span class="product-badge new">Nouveau</span>
-                  <div class="product-actions">
-                    <button class="product-action-btn"
-                      onclick="openProductModal({id:'c8',name:'Gourde Isotherme 500ml',price:'12.90',img:'https://picsum.photos/seed/c8/600/400',cat:'Eco-responsable',desc:'Gourde isotherme inox 500ml, gravure laser. Garde chaud 12h, froid 24h. Sans BPA.'})"
-                      aria-label="Voir détail"><i class="ph ph-eye" aria-hidden="true"></i></button>
-                    <button class="product-action-btn"
-                      onclick="Cart.addItem({id:'c8',name:'Gourde Isotherme 500ml',price:'12.90',img:'https://picsum.photos/seed/c8/80/80',cat:'Eco',qty:50}); showToast('Ajouté !')"
-                      aria-label="Ajouter"><i class="ph ph-plus" aria-hidden="true"></i></button>
-                  </div>
-                </div>
-                <div class="product-info">
-                  <p class="product-cat">Éco-responsable</p>
-                  <h3 class="product-name">Gourde Isotherme 500ml</h3>
-                  <p class="product-desc">Inox 18/8, sans BPA, gravure laser, 12h chaud / 24h froid.</p>
-                  <div class="product-footer">
-                    <div class="product-price">À partir de 12,90 € <span class="price-note">HT (min. 50 ex.)</span>
-                    </div>
-                    <button class="btn btn-primary btn-sm">Devis</button>
-                  </div>
-                </div>
-              </article>
-
-              <article class="product-card" role="listitem" data-animate data-animate-delay="2">
-                <div class="product-img">
-                  <img src="https://picsum.photos/seed/c9/400/300" alt="Sac à dos sport personnalisé" loading="lazy">
-                  <div class="product-actions">
-                    <button class="product-action-btn"
-                      onclick="openProductModal({id:'c9',name:'Sac à dos Sport 25L',price:'24.50',img:'https://picsum.photos/seed/c9/600/400',cat:'Sacs',desc:'Sac à dos 25L polyester 600D, broderie ou sérigraphie. Compartiment laptop 15\"
-                      . 8 coloris.'})" aria-label="Voir détail"><i class="ph ph-eye" aria-hidden="true"></i></button>
-                    <button class="product-action-btn"
-                      onclick="Cart.addItem({id:'c9',name:'Sac à dos Sport 25L',price:'24.50',img:'https://picsum.photos/seed/c9/80/80',cat:'Sacs',qty:25}); showToast('Ajouté !')"
-                      aria-label="Ajouter"><i class="ph ph-plus" aria-hidden="true"></i></button>
-                  </div>
-                </div>
-                <div class="product-info">
-                  <p class="product-cat">Sacs</p>
-                  <h3 class="product-name">Sac à dos Sport 25L</h3>
-                  <p class="product-desc">Polyester 600D, compartiment laptop 15", 8 coloris.</p>
-                  <div class="product-footer">
-                    <div class="product-price">À partir de 24,50 € <span class="price-note">HT (min. 25 ex.)</span>
-                    </div>
-                    <button class="btn btn-primary btn-sm">Devis</button>
-                  </div>
-                </div>
-              </article>
-
-            </div><!-- /catalogue-grid -->
-
-            <!-- Pagination -->
-            <nav class="pagination" aria-label="Pagination">
-              <button class="page-btn active" aria-current="page" aria-label="Page 1">1</button>
-              <button class="page-btn" aria-label="Page 2">2</button>
-              <button class="page-btn" aria-label="Page 3">3</button>
-              <button class="page-btn" aria-label="Page 4">4</button>
-              <button class="page-btn" aria-label="Page suivante">
-                <i class="ph ph-arrow-right" aria-hidden="true"></i>
+            <!-- Image principale -->
+            <div class="gallery-main" id="galleryMain">
+              <img id="mainImg" src="https://picsum.photos/seed/stylo-main/700/700"
+                alt="Stylo Twist Aluminium Premium — vue principale">
+              <span class="gallery-main-badge">Bestseller</span>
+              <button class="gallery-zoom" id="zoomBtn" aria-label="Agrandir l'image">
+                <i class="ph ph-arrows-out" aria-hidden="true"></i>
               </button>
+            </div>
+
+            <!-- Miniatures -->
+            <div class="gallery-thumbs" role="list" aria-label="Vues supplémentaires">
+              <div class="thumb active" role="listitem" data-src="https://picsum.photos/seed/stylo-main/700/700"
+                tabindex="0" aria-label="Vue 1">
+                <img src="https://picsum.photos/seed/stylo-main/150/150" alt="Vue 1">
+              </div>
+              <div class="thumb" role="listitem" data-src="https://picsum.photos/seed/stylo-2/700/700" tabindex="0"
+                aria-label="Vue 2">
+                <img src="https://picsum.photos/seed/stylo-2/150/150" alt="Vue 2 — détail clip">
+              </div>
+              <div class="thumb" role="listitem" data-src="https://picsum.photos/seed/stylo-3/700/700" tabindex="0"
+                aria-label="Vue 3">
+                <img src="https://picsum.photos/seed/stylo-3/150/150" alt="Vue 3 — personnalisation">
+              </div>
+              <div class="thumb" role="listitem" data-src="https://picsum.photos/seed/stylo-4/700/700" tabindex="0"
+                aria-label="Vue 4">
+                <img src="https://picsum.photos/seed/stylo-4/150/150" alt="Vue 4 — coloris">
+              </div>
+              <div class="thumb" role="listitem" data-src="https://picsum.photos/seed/stylo-5/700/700" tabindex="0"
+                aria-label="Vue 5">
+                <img src="https://picsum.photos/seed/stylo-5/150/150" alt="Vue 5 — packaging">
+              </div>
+            </div>
+          </div>
+
+          <!-- ── ONGLETS TECHNIQUES ── -->
+          <div class="product-tabs" id="productTabs">
+            <nav class="tabs-nav" role="tablist">
+              <button class="tab-btn active" role="tab" aria-selected="true" data-tab="specs">Caractéristiques</button>
+              <button class="tab-btn" role="tab" aria-selected="false" data-tab="marking">Zones de marquage</button>
+              <button class="tab-btn" role="tab" aria-selected="false" data-tab="delivery">Délais & Livraison</button>
+              <button class="tab-btn" role="tab" aria-selected="false" data-tab="files">Fichiers & BAT</button>
             </nav>
 
-          </div><!-- /catalogue-results -->
+            <!-- ── Caractéristiques ── -->
+            <div class="tab-panel active" id="tab-specs" role="tabpanel">
+              <div class="specs-accordion">
 
-        </div><!-- /catalogue-layout -->
-      </div>
-    </section>
+                <div class="accordion-item">
+                  <button class="accordion-trigger open" id="acc-general" aria-expanded="true"
+                    aria-controls="acc-general-body">
+                    <span><i class="ph ph-info" style="margin-right:8px;color:var(--blue)"></i>Informations
+                      générales</span>
+                    <i class="ph ph-caret-down chevron" style="transform:rotate(180deg)" aria-hidden="true"></i>
+                  </button>
+                  <div class="accordion-body" id="acc-general-body" style="display:block">
+                    <table class="specs-table">
+                      <tbody>
+                        <tr>
+                          <th>Référence</th>
+                          <td>STY-ALU-001</td>
+                        </tr>
+                        <tr>
+                          <th>Matière corps</th>
+                          <td>Aluminium brossé grade A</td>
+                        </tr>
+                        <tr>
+                          <th>Clip</th>
+                          <td>Acier inoxydable chromé</td>
+                        </tr>
+                        <tr>
+                          <th>Mécanisme</th>
+                          <td>Rétractable twist (vissé)</td>
+                        </tr>
+                        <tr>
+                          <th>Type d'encre</th>
+                          <td>Bille bleue / noire / rouge (au choix)</td>
+                        </tr>
+                        <tr>
+                          <th>Pointe</th>
+                          <td>0,7 mm — écriture fine et précise</td>
+                        </tr>
+                        <tr>
+                          <th>Recharge</th>
+                          <td>Compatible Schmidt P900 (standard)</td>
+                        </tr>
+                        <tr>
+                          <th>Longueur</th>
+                          <td>140 mm</td>
+                        </tr>
+                        <tr>
+                          <th>Diamètre</th>
+                          <td>11 mm</td>
+                        </tr>
+                        <tr>
+                          <th>Poids</th>
+                          <td>23 g</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+
+                <div class="accordion-item">
+                  <button class="accordion-trigger" id="acc-colors" aria-expanded="false"
+                    aria-controls="acc-colors-body">
+                    <span><i class="ph ph-palette" style="margin-right:8px;color:var(--blue)"></i>Coloris
+                      disponibles</span>
+                    <i class="ph ph-caret-down chevron" aria-hidden="true"></i>
+                  </button>
+                  <div class="accordion-body" id="acc-colors-body">
+                    <div class="color-detail-grid">
+                      <div class="color-detail-item active" data-color="Argent brossé">
+                        <div class="color-detail-swatch" style="background:#C0C0C0"></div>
+                        <span class="color-detail-name">Argent brossé</span>
+                      </div>
+                      <div class="color-detail-item" data-color="Noir mat">
+                        <div class="color-detail-swatch" style="background:#1a1a1a"></div>
+                        <span class="color-detail-name">Noir mat</span>
+                      </div>
+                      <div class="color-detail-item" data-color="Or brossé">
+                        <div class="color-detail-swatch" style="background:#CFB53B"></div>
+                        <span class="color-detail-name">Or brossé</span>
+                      </div>
+                      <div class="color-detail-item" data-color="Bleu nuit">
+                        <div class="color-detail-swatch" style="background:#1B3A6B"></div>
+                        <span class="color-detail-name">Bleu nuit</span>
+                      </div>
+                      <div class="color-detail-item" data-color="Rouge bordeaux">
+                        <div class="color-detail-swatch" style="background:#7B1F3A"></div>
+                        <span class="color-detail-name">Rouge bordeaux</span>
+                      </div>
+                      <div class="color-detail-item" data-color="Vert forêt">
+                        <div class="color-detail-swatch" style="background:#2D5A3D"></div>
+                        <span class="color-detail-name">Vert forêt</span>
+                      </div>
+                      <div class="color-detail-item" data-color="Gris anthracite">
+                        <div class="color-detail-swatch" style="background:#4A4A4A"></div>
+                        <span class="color-detail-name">Gris anthracite</span>
+                      </div>
+                      <div class="color-detail-item" data-color="Bronze">
+                        <div class="color-detail-swatch" style="background:#8B6914"></div>
+                        <span class="color-detail-name">Bronze</span>
+                      </div>
+                    </div>
+                    <p style="font-size:.78rem;color:var(--muted);margin-top:14px">
+                      <i class="ph ph-info" style="margin-right:4px"></i>
+                      Couleurs sur-mesure RAL disponibles à partir de 500 pièces (surcoût selon nuance).
+                    </p>
+                  </div>
+                </div>
+
+                <div class="accordion-item">
+                  <button class="accordion-trigger" id="acc-packaging" aria-expanded="false"
+                    aria-controls="acc-packaging-body">
+                    <span><i class="ph ph-package" style="margin-right:8px;color:var(--blue)"></i>Packaging &
+                      Conditionnement</span>
+                    <i class="ph ph-caret-down chevron" aria-hidden="true"></i>
+                  </button>
+                  <div class="accordion-body" id="acc-packaging-body">
+                    <table class="specs-table">
+                      <tbody>
+                        <tr>
+                          <th>Conditionnement</th>
+                          <td>Vrac (250 / boîte) ou individuel (coffret velours)</td>
+                        </tr>
+                        <tr>
+                          <th>Coffret velours</th>
+                          <td>Option +0,45 € / unité — noir ou bordeaux</td>
+                        </tr>
+                        <tr>
+                          <th>Étui transparent</th>
+                          <td>Option +0,15 € / unité</td>
+                        </tr>
+                        <tr>
+                          <th>Personnalisation emballage</th>
+                          <td>Sticker logo possible dès 100 unités</td>
+                        </tr>
+                        <tr>
+                          <th>Dimensions carton</th>
+                          <td>40 × 30 × 25 cm (250 unités)</td>
+                        </tr>
+                        <tr>
+                          <th>Poids brut (250 u.)</th>
+                          <td>≈ 8,5 kg</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+
+                <div class="accordion-item">
+                  <button class="accordion-trigger" id="acc-certif" aria-expanded="false"
+                    aria-controls="acc-certif-body">
+                    <span><i class="ph ph-shield-check" style="margin-right:8px;color:var(--blue)"></i>Certifications &
+                      Conformité</span>
+                    <i class="ph ph-caret-down chevron" aria-hidden="true"></i>
+                  </button>
+                  <div class="accordion-body" id="acc-certif-body">
+                    <table class="specs-table">
+                      <tbody>
+                        <tr>
+                          <th>Normes</th>
+                          <td>CE, REACH, RoHS</td>
+                        </tr>
+                        <tr>
+                          <th>Origine</th>
+                          <td>Europe (Allemagne / Autriche) ou Asie certifiée</td>
+                        </tr>
+                        <tr>
+                          <th>Encre</th>
+                          <td>Non toxique, certifiée EN 71-9</td>
+                        </tr>
+                        <tr>
+                          <th>Recyclabilité</th>
+                          <td>Corps aluminium 100 % recyclable</td>
+                        </tr>
+                        <tr>
+                          <th>Documents</th>
+                          <td>Fiche de conformité disponible sur demande</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+
+              </div><!-- /specs-accordion -->
+            </div>
+
+            <!-- ── Zones de marquage ── -->
+            <div class="tab-panel" id="tab-marking" role="tabpanel">
+
+              <!-- Schéma SVG simplifié du stylo -->
+              <div class="marking-schema">
+                <svg viewBox="0 0 300 80" fill="none" xmlns="http://www.w3.org/2000/svg"
+                  aria-label="Schéma des zones de marquage du stylo">
+                  <!-- Corps du stylo -->
+                  <rect x="20" y="30" width="220" height="20" rx="10" fill="#C0C0C0" stroke="#999" stroke-width="1" />
+                  <!-- Pointe -->
+                  <path d="M20 35 L8 40 L20 45 Z" fill="#888" />
+                  <!-- Clip -->
+                  <rect x="210" y="27" width="4" height="26" rx="2" fill="#888" />
+                  <!-- Zone A — corps principal -->
+                  <rect x="50" y="24" width="120" height="32" rx="4" fill="none" stroke="#0047FF" stroke-width="1.5"
+                    stroke-dasharray="4 3" />
+                  <text x="110" y="22" text-anchor="middle" font-size="9" fill="#0047FF" font-family="sans-serif"
+                    font-weight="700">Zone A</text>
+                  <!-- Zone B — haut clip -->
+                  <rect x="188" y="24" width="40" height="32" rx="4" fill="none" stroke="#FFBA00" stroke-width="1.5"
+                    stroke-dasharray="4 3" />
+                  <text x="208" y="22" text-anchor="middle" font-size="9" fill="#a07800" font-family="sans-serif"
+                    font-weight="700">Zone B</text>
+                  <!-- Légende -->
+                  <circle cx="22" cy="72" r="5" fill="#0047FF" />
+                  <text x="32" y="75" font-size="8" fill="#333" font-family="sans-serif">Zone A — Corps
+                    (recommandée)</text>
+                  <circle cx="160" cy="72" r="5" fill="#FFBA00" />
+                  <text x="170" y="75" font-size="8" fill="#333" font-family="sans-serif">Zone B — Clip</text>
+                </svg>
+              </div>
+
+              <!-- Tableau des zones -->
+              <div style="overflow-x:auto">
+                <table class="zone-table">
+                  <thead>
+                    <tr>
+                      <th>Zone</th>
+                      <th>Dimensions max</th>
+                      <th>Sérigraphie</th>
+                      <th>Laser</th>
+                      <th>Tampographie</th>
+                      <th>Nb couleurs max</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td class="zone-name-td">Zone A — Corps <span
+                          style="background:var(--blue);color:#fff;font-size:.6rem;padding:2px 7px;border-radius:999px;margin-left:4px;font-weight:700">RECOMMANDÉE</span>
+                      </td>
+                      <td>50 × 12 mm</td>
+                      <td class="available"><i class="ph ph-check-circle"></i> Oui</td>
+                      <td class="available"><i class="ph ph-check-circle"></i> Oui</td>
+                      <td class="available"><i class="ph ph-check-circle"></i> Oui</td>
+                      <td>4 couleurs</td>
+                    </tr>
+                    <tr>
+                      <td class="zone-name-td">Zone B — Clip</td>
+                      <td>18 × 6 mm</td>
+                      <td class="unavailable"><i class="ph ph-x-circle"></i> Non</td>
+                      <td class="available"><i class="ph ph-check-circle"></i> Oui</td>
+                      <td class="available"><i class="ph ph-check-circle"></i> Oui</td>
+                      <td>1 couleur</td>
+                    </tr>
+                    <tr>
+                      <td class="zone-name-td">Zone A + B (combiné)</td>
+                      <td>—</td>
+                      <td class="unavailable"><i class="ph ph-x-circle"></i> Non</td>
+                      <td class="available"><i class="ph ph-check-circle"></i> Oui</td>
+                      <td class="available"><i class="ph ph-check-circle"></i> Oui</td>
+                      <td>2 couleurs</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <div
+                style="background:var(--blue-pale);border-radius:var(--r-lg);padding:16px 18px;margin-top:16px;display:flex;gap:12px">
+                <i class="ph ph-lightbulb" style="color:var(--blue);font-size:1.2rem;flex-shrink:0;margin-top:2px"></i>
+                <div>
+                  <p
+                    style="font-family:var(--f-disp);font-size:.82rem;font-weight:700;color:var(--night);margin-bottom:4px">
+                    Conseil de notre studio</p>
+                  <p style="font-size:.82rem;color:var(--warm3);max-width:100%;margin:0">Pour un rendu premium, nous
+                    recommandons la <strong>gravure laser en Zone A</strong> — elle révèle le métal sous la peinture et
+                    offre un effet sophistiqué qui ne s'efface jamais.</p>
+                </div>
+              </div>
+
+              <div style="margin-top:20px">
+                <h4 style="font-size:.9rem;margin-bottom:12px">Fichiers acceptés pour la personnalisation</h4>
+                <div style="display:flex;flex-wrap:wrap;gap:6px">
+                  <span
+                    style="font-family:var(--f-disp);font-size:.74rem;font-weight:700;padding:5px 12px;background:#fff;border:1.5px solid var(--cream3);border-radius:var(--r-pill)">PDF
+                    vectoriel</span>
+                  <span
+                    style="font-family:var(--f-disp);font-size:.74rem;font-weight:700;padding:5px 12px;background:#fff;border:1.5px solid var(--cream3);border-radius:var(--r-pill)">.AI
+                    (Illustrator)</span>
+                  <span
+                    style="font-family:var(--f-disp);font-size:.74rem;font-weight:700;padding:5px 12px;background:#fff;border:1.5px solid var(--cream3);border-radius:var(--r-pill)">.EPS</span>
+                  <span
+                    style="font-family:var(--f-disp);font-size:.74rem;font-weight:700;padding:5px 12px;background:#fff;border:1.5px solid var(--cream3);border-radius:var(--r-pill)">.SVG</span>
+                  <span
+                    style="font-family:var(--f-disp);font-size:.74rem;font-weight:600;padding:5px 12px;background:var(--cream);border:1.5px solid var(--cream3);border-radius:var(--r-pill);color:var(--muted)">PNG
+                    300 dpi (acceptable)</span>
+                </div>
+              </div>
+
+            </div>
+
+            <!-- ── Délais & Livraison ── -->
+            <div class="tab-panel" id="tab-delivery" role="tabpanel">
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:24px">
+                <div
+                  style="background:#fff;border-radius:var(--r-xl);padding:20px;border:2px solid var(--sun);text-align:center">
+                  <span
+                    style="background:rgba(255,186,0,.15);color:#a07800;font-family:var(--f-disp);font-size:.62rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:3px 10px;border-radius:var(--r-pill);display:inline-block;margin-bottom:8px">Express</span>
+                  <div
+                    style="font-family:var(--f-disp);font-size:2.5rem;font-weight:800;color:var(--night);letter-spacing:-.04em;line-height:1">
+                    5 j.</div>
+                  <div style="font-size:.78rem;color:var(--muted);margin-top:4px">après validation BAT</div>
+                  <div style="font-size:.78rem;color:var(--warm3);margin-top:8px">Supplément +15 %</div>
+                </div>
+                <div
+                  style="background:#fff;border-radius:var(--r-xl);padding:20px;border:1px solid var(--cream3);text-align:center">
+                  <span
+                    style="background:var(--cream);color:var(--muted);font-family:var(--f-disp);font-size:.62rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:3px 10px;border-radius:var(--r-pill);display:inline-block;margin-bottom:8px">Standard</span>
+                  <div
+                    style="font-family:var(--f-disp);font-size:2.5rem;font-weight:800;color:var(--night);letter-spacing:-.04em;line-height:1">
+                    15 j.</div>
+                  <div style="font-size:.78rem;color:var(--muted);margin-top:4px">après validation BAT</div>
+                  <div style="font-size:.78rem;color:var(--sage);margin-top:8px;font-weight:600">Tarif de base</div>
+                </div>
+              </div>
+
+              <table class="specs-table" style="margin-bottom:20px">
+                <tbody>
+                  <tr>
+                    <th>Commande minimum</th>
+                    <td>100 pièces</td>
+                  </tr>
+                  <tr>
+                    <th>Quantité maximum</th>
+                    <td>Illimitée (production en lots)</td>
+                  </tr>
+                  <tr>
+                    <th>Livraison</th>
+                    <td>France métropolitaine, DOM-TOM, Europe, Monde</td>
+                  </tr>
+                  <tr>
+                    <th>Transporteurs</th>
+                    <td>DHL, Chronopost, Colissimo Pro, palettes TNT</td>
+                  </tr>
+                  <tr>
+                    <th>Point de livraison</th>
+                    <td>Adresse unique ou multi-sites (+sur devis)</td>
+                  </tr>
+                  <tr>
+                    <th>Suivi colis</th>
+                    <td>Lien de tracking envoyé par email</td>
+                  </tr>
+                  <tr>
+                    <th>Frais de port</th>
+                    <td>Offerts dès 500 € HT de commande</td>
+                  </tr>
+                  <tr>
+                    <th>Livraison en urgence</th>
+                    <td>Sous 48h possible (tarif spécifique, nous contacter)</td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <div
+                style="background:rgba(61,122,89,.08);border-radius:var(--r-lg);padding:16px 18px;display:flex;gap:12px">
+                <i class="ph ph-clock-countdown"
+                  style="color:var(--sage);font-size:1.2rem;flex-shrink:0;margin-top:2px"></i>
+                <div>
+                  <p
+                    style="font-family:var(--f-disp);font-size:.82rem;font-weight:700;color:var(--night);margin-bottom:4px">
+                    Processus de commande</p>
+                  <ol
+                    style="font-size:.82rem;color:var(--warm3);padding-left:18px;margin:0;display:flex;flex-direction:column;gap:4px">
+                    <li>Demande de devis — réponse sous <strong>4 heures</strong></li>
+                    <li>Validation du devis et envoi de votre logo</li>
+                    <li>Réception du BAT numérique sous <strong>24–48 h</strong></li>
+                    <li>Validation du BAT → lancement production</li>
+                    <li>Livraison selon option choisie</li>
+                  </ol>
+                </div>
+              </div>
+            </div>
+
+            <!-- ── Fichiers & BAT ── -->
+            <div class="tab-panel" id="tab-files" role="tabpanel">
+              <p style="font-size:.9rem;color:var(--warm3);margin-bottom:20px">
+                Un bon à tirer (BAT) numérique vous est envoyé avant toute mise en production. Aucune commande n'est
+                lancée sans votre accord écrit.
+              </p>
+
+              <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:24px">
+                <div
+                  style="background:#fff;border-radius:var(--r-lg);padding:14px 18px;border:1px solid var(--cream3);display:flex;align-items:center;gap:14px">
+                  <div
+                    style="width:40px;height:40px;border-radius:var(--r-sm);background:var(--blue-pale);display:flex;align-items:center;justify-content:center;color:var(--blue);font-size:1.1rem;flex-shrink:0">
+                    <i class="ph ph-file-pdf"></i></div>
+                  <div style="flex:1">
+                    <div style="font-family:var(--f-disp);font-weight:700;font-size:.88rem;margin-bottom:1px">Gabarit de
+                      marquage — Zone A</div>
+                    <div style="font-size:.74rem;color:var(--muted)">PDF vectoriel · 245 Ko</div>
+                  </div>
+                  <a href="#" class="btn btn-outline btn-sm"><i class="ph ph-download-simple"></i> Télécharger</a>
+                </div>
+                <div
+                  style="background:#fff;border-radius:var(--r-lg);padding:14px 18px;border:1px solid var(--cream3);display:flex;align-items:center;gap:14px">
+                  <div
+                    style="width:40px;height:40px;border-radius:var(--r-sm);background:var(--blue-pale);display:flex;align-items:center;justify-content:center;color:var(--blue);font-size:1.1rem;flex-shrink:0">
+                    <i class="ph ph-file-svg"></i></div>
+                  <div style="flex:1">
+                    <div style="font-family:var(--f-disp);font-weight:700;font-size:.88rem;margin-bottom:1px">Gabarit de
+                      marquage — Zones A + B</div>
+                    <div style="font-size:.74rem;color:var(--muted)">PDF vectoriel · 318 Ko</div>
+                  </div>
+                  <a href="#" class="btn btn-outline btn-sm"><i class="ph ph-download-simple"></i> Télécharger</a>
+                </div>
+                <div
+                  style="background:#fff;border-radius:var(--r-lg);padding:14px 18px;border:1px solid var(--cream3);display:flex;align-items:center;gap:14px">
+                  <div
+                    style="width:40px;height:40px;border-radius:var(--r-sm);background:var(--blue-pale);display:flex;align-items:center;justify-content:center;color:var(--blue);font-size:1.1rem;flex-shrink:0">
+                    <i class="ph ph-file-image"></i></div>
+                  <div style="flex:1">
+                    <div style="font-family:var(--f-disp);font-weight:700;font-size:.88rem;margin-bottom:1px">Fiche
+                      technique produit complète</div>
+                    <div style="font-size:.74rem;color:var(--muted)">PDF · 1,2 Mo</div>
+                  </div>
+                  <a href="#" class="btn btn-outline btn-sm"><i class="ph ph-download-simple"></i> Télécharger</a>
+                </div>
+              </div>
+
+              <div style="background:var(--blue-pale);border-radius:var(--r-lg);padding:16px 18px">
+                <p
+                  style="font-family:var(--f-disp);font-size:.82rem;font-weight:700;color:var(--night);margin-bottom:6px">
+                  <i class="ph ph-question" style="margin-right:6px;color:var(--blue)"></i>Pas de fichier vectoriel ?
+                </p>
+                <p style="font-size:.82rem;color:var(--warm3);max-width:100%;margin-bottom:10px">
+                  Notre studio graphique peut vectoriser votre logo à partir d'une image PNG/JPEG de bonne qualité.
+                  Prestation gratuite pour toute commande.
+                </p>
+                <a href="contact.html" class="btn btn-primary btn-sm">
+                  <i class="ph ph-pencil-simple"></i> Envoyer mon logo
+                </a>
+              </div>
+            </div>
+
+          </div><!-- /product-tabs -->
+
+          <!-- ── AVIS CLIENTS ── -->
+          <div class="reviews-section">
+            <h3 style="margin-bottom:24px">Avis clients</h3>
+            <div class="reviews-summary">
+              <div class="reviews-score">
+                <div class="score-big">4,8</div>
+                <div class="score-stars">
+                  <i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i>
+                  <i class="ph-fill ph-star"></i><i class="ph-fill ph-star-half"></i>
+                </div>
+                <div class="score-total">142 avis vérifiés</div>
+              </div>
+              <div class="reviews-bars" aria-label="Répartition des notes">
+                <div class="bar-row"><span class="bar-label">5</span>
+                  <div class="bar-track">
+                    <div class="bar-fill" style="width:78%"></div>
+                  </div><span class="bar-count">111</span>
+                </div>
+                <div class="bar-row"><span class="bar-label">4</span>
+                  <div class="bar-track">
+                    <div class="bar-fill" style="width:14%"></div>
+                  </div><span class="bar-count">20</span>
+                </div>
+                <div class="bar-row"><span class="bar-label">3</span>
+                  <div class="bar-track">
+                    <div class="bar-fill" style="width:5%"></div>
+                  </div><span class="bar-count">7</span>
+                </div>
+                <div class="bar-row"><span class="bar-label">2</span>
+                  <div class="bar-track">
+                    <div class="bar-fill" style="width:2%"></div>
+                  </div><span class="bar-count">3</span>
+                </div>
+                <div class="bar-row"><span class="bar-label">1</span>
+                  <div class="bar-track">
+                    <div class="bar-fill" style="width:1%"></div>
+                  </div><span class="bar-count">1</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="review-cards">
+              <div class="review-card">
+                <div class="review-header">
+                  <div class="reviewer-info">
+                    <div class="reviewer-av">ML</div>
+                    <div>
+                      <div class="reviewer-name">Marie-Laure F.</div>
+                      <div class="reviewer-company">Directrice Marketing · Veolia</div>
+                    </div>
+                  </div>
+                  <span class="review-date">Mars 2024</span>
+                </div>
+                <div class="review-stars"><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i
+                    class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i></div>
+                <p class="review-text">Commandé 500 stylos pour notre séminaire annuel. La gravure laser est d'une
+                  précision remarquable, le rendu sur l'aluminium brossé est vraiment premium. Délai tenu à la journée
+                  près. Notre équipe commerciale est conquise !</p>
+                <div class="review-verified"><i class="ph ph-check-circle"></i> Achat vérifié</div>
+              </div>
+
+              <div class="review-card">
+                <div class="review-header">
+                  <div class="reviewer-info">
+                    <div class="reviewer-av">TD</div>
+                    <div>
+                      <div class="reviewer-name">Thomas D.</div>
+                      <div class="reviewer-company">Responsable Achat · Michelin</div>
+                    </div>
+                  </div>
+                  <span class="review-date">Janvier 2024</span>
+                </div>
+                <div class="review-stars"><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i
+                    class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i></div>
+                <p class="review-text">3ème commande sur ce référence. Le BAT numérique permet de valider exactement
+                  l'emplacement et la taille du logo. Aucune mauvaise surprise à la livraison. Je recommande sans
+                  hésiter pour les cadeaux d'affaires.</p>
+                <div class="review-verified"><i class="ph ph-check-circle"></i> Achat vérifié</div>
+              </div>
+
+              <div class="review-card">
+                <div class="review-header">
+                  <div class="reviewer-info">
+                    <div class="reviewer-av">PB</div>
+                    <div>
+                      <div class="reviewer-name">Philippe B.</div>
+                      <div class="reviewer-company">Gérant · Cabinet comptable B&A</div>
+                    </div>
+                  </div>
+                  <span class="review-date">Novembre 2023</span>
+                </div>
+                <div class="review-stars"><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i
+                    class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph ph-star"></i></div>
+                <p class="review-text">Très bonne qualité pour le prix. Légèrement déçu par le temps de réponse du
+                  service client un vendredi après-midi, mais la qualité du produit final est au rendez-vous. L'encre
+                  glisse parfaitement.</p>
+                <div class="review-verified"><i class="ph ph-check-circle"></i> Achat vérifié</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ── PRODUITS SIMILAIRES ── -->
+          <div class="similar-products">
+            <h3>Dans la même gamme</h3>
+            <div class="similar-grid">
+              <a href="produit.html" class="product-card" style="text-decoration:none">
+                <div class="product-img"><img src="https://picsum.photos/seed/sim1/400/300" alt="Stylo roller acier"
+                    loading="lazy"></div>
+                <div class="product-info">
+                  <p class="product-cat">Stylos</p>
+                  <h3 class="product-name">Stylo Roller Acier</h3>
+                  <div class="product-price">Dès 2,40 € <span class="price-note">HT / unité</span></div>
+                </div>
+              </a>
+              <a href="produit.html" class="product-card" style="text-decoration:none">
+                <div class="product-img"><img src="https://picsum.photos/seed/sim2/400/300" alt="Stylo bille économique"
+                    loading="lazy"></div>
+                <div class="product-info">
+                  <p class="product-cat">Stylos</p>
+                  <h3 class="product-name">Stylo Executive ABS</h3>
+                  <div class="product-price">Dès 0,85 € <span class="price-note">HT / unité</span></div>
+                </div>
+              </a>
+              <a href="produit.html" class="product-card" style="text-decoration:none">
+                <div class="product-img"><img src="https://picsum.photos/seed/sim3/400/300"
+                    alt="Stylo plume personnalisé" loading="lazy"></div>
+                <div class="product-info">
+                  <p class="product-cat">Stylos</p>
+                  <h3 class="product-name">Stylo Plume Prestige</h3>
+                  <div class="product-price">Dès 8,90 € <span class="price-note">HT / unité</span></div>
+                </div>
+              </a>
+              <a href="produit.html" class="product-card" style="text-decoration:none">
+                <div class="product-img"><img src="https://picsum.photos/seed/sim4/400/300" alt="Carnet personnalisé"
+                    loading="lazy"></div>
+                <div class="product-info">
+                  <p class="product-cat">Écriture</p>
+                  <h3 class="product-name">Carnet Cuir A5</h3>
+                  <div class="product-price">Dès 6,90 € <span class="price-note">HT / unité</span></div>
+                </div>
+              </a>
+            </div>
+          </div>
+
+        </div><!-- /gallery-col -->
+
+        <!-- ─── COLONNE CONFIGURATION ─── -->
+        <div class="product-config-col">
+
+          <!-- En-tête produit -->
+          <div class="product-meta-bar">
+            <div class="rating-stars" aria-label="Note 4,8 sur 5">
+              <i class="ph-fill ph-star" aria-hidden="true"></i>
+              <i class="ph-fill ph-star" aria-hidden="true"></i>
+              <i class="ph-fill ph-star" aria-hidden="true"></i>
+              <i class="ph-fill ph-star" aria-hidden="true"></i>
+              <i class="ph-fill ph-star-half" aria-hidden="true"></i>
+            </div>
+            <span class="rating-count">4,8 · 142 avis</span>
+            <span class="meta-divider" aria-hidden="true"></span>
+            <span class="stock-badge">
+              <span class="stock-dot" aria-hidden="true"></span>
+              En stock
+            </span>
+          </div>
+
+          <div class="product-title-area">
+            <span class="product-page-cat">Stylos & Écriture</span>
+            <h1 class="product-page-title">Stylo Twist<br>Aluminium Premium</h1>
+            <p class="product-page-ref">Réf. STY-ALU-001 · Corps aluminium brossé · Mécanisme twist</p>
+          </div>
+
+          <!-- Grille de prix progressive -->
+          <div class="product-pricing-block">
+            <p
+              style="font-family:var(--f-disp);font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:10px">
+              Tarif dégressif HT / unité</p>
+            <div class="pricing-grid" role="radiogroup" aria-label="Choisir une quantité">
+              <div class="pricing-tier active" role="radio" aria-checked="true" data-qty="100" tabindex="0">
+                <div class="tier-qty">100–249</div>
+                <div class="tier-price">1,20 €<small>/u.</small></div>
+              </div>
+              <div class="pricing-tier" role="radio" aria-checked="false" data-qty="250" tabindex="0">
+                <div class="tier-qty">250–499</div>
+                <div class="tier-price">0,98 €<small>/u.</small></div>
+              </div>
+              <div class="pricing-tier" role="radio" aria-checked="false" data-qty="500" tabindex="0">
+                <div class="tier-qty">500+</div>
+                <div class="tier-price">0,82 €<small>/u.</small></div>
+              </div>
+            </div>
+            <p class="pricing-note">Prix HT · hors personnalisation · hors port</p>
+          </div>
+
+          <!-- Quantité -->
+          <div class="qty-section">
+            <h5>Quantité <span
+                style="font-weight:400;text-transform:none;letter-spacing:0;font-size:.8rem;color:var(--blue)">(minimum
+                100)</span></h5>
+            <div class="qty-input-wrap">
+              <button class="qty-dec" id="qtyDec" aria-label="Diminuer la quantité" type="button">−</button>
+              <input type="number" class="qty-field" id="qtyField" value="100" min="100" step="50"
+                aria-label="Quantité">
+              <button class="qty-inc" id="qtyInc" aria-label="Augmenter la quantité" type="button">+</button>
+            </div>
+            <p id="qtyMessage"
+              style="font-size:.76rem;color:var(--blue);margin-top:6px;font-family:var(--f-disp);font-weight:600"></p>
+          </div>
+
+          <!-- Zone de marquage -->
+          <div class="marking-section">
+            <h5>Zone de marquage</h5>
+            <div class="marking-zones" role="radiogroup" aria-label="Choisir une zone de marquage">
+
+              <label class="marking-zone selected" data-zone="A">
+                <div class="zone-radio">
+                  <div class="zone-radio-dot"></div>
+                </div>
+                <div class="zone-info">
+                  <div class="zone-name">Zone A — Corps (recommandée)</div>
+                  <div class="zone-detail">50 × 12 mm · Face principale</div>
+                </div>
+                <span class="zone-tag">Populaire</span>
+              </label>
+
+              <label class="marking-zone" data-zone="B">
+                <div class="zone-radio">
+                  <div class="zone-radio-dot"></div>
+                </div>
+                <div class="zone-info">
+                  <div class="zone-name">Zone B — Clip</div>
+                  <div class="zone-detail">18 × 6 mm · Logo discret</div>
+                </div>
+              </label>
+
+              <label class="marking-zone" data-zone="AB">
+                <div class="zone-radio">
+                  <div class="zone-radio-dot"></div>
+                </div>
+                <div class="zone-info">
+                  <div class="zone-name">Zones A + B (double marquage)</div>
+                  <div class="zone-detail">Corps + Clip · Surcoût +0,20 €/u.</div>
+                </div>
+              </label>
+
+            </div>
+          </div>
+
+          <!-- Technique d'impression -->
+          <div class="techniques-section">
+            <h5>Technique de personnalisation</h5>
+            <div class="techniques-grid" role="radiogroup" aria-label="Technique d'impression">
+              <button class="technique-chip selected" data-tech="laser" type="button">
+                <i class="ph ph-lightning-slash" aria-hidden="true"></i> Gravure laser
+              </button>
+              <button class="technique-chip" data-tech="tampo" type="button">
+                <i class="ph ph-stamp" aria-hidden="true"></i> Tampographie
+              </button>
+              <button class="technique-chip" data-tech="seri" type="button">
+                <i class="ph ph-paint-roller" aria-hidden="true"></i> Sérigraphie
+              </button>
+            </div>
+            <p style="font-size:.74rem;color:var(--muted);margin-top:8px">
+              <i class="ph ph-info" style="margin-right:4px"></i>
+              <span id="techInfo">Gravure laser : rendu métal brillant permanent, pas de couleur ajoutée. Idéal logos
+                épurés.</span>
+            </p>
+          </div>
+
+          <!-- Couleur du stylo -->
+          <div class="colors-section">
+            <h5>
+              Couleur du stylo
+              <span id="selectedColorName">Argent brossé</span>
+            </h5>
+            <div class="colors-swatches" role="radiogroup" aria-label="Couleur du stylo">
+              <button class="color-swatch selected" data-color="Argent brossé"
+                style="background:#C0C0C0;border-color:var(--night)" aria-label="Argent brossé" type="button">
+                <span class="swatch-tooltip">Argent brossé</span>
+              </button>
+              <button class="color-swatch" data-color="Noir mat" style="background:#1a1a1a" aria-label="Noir mat"
+                type="button">
+                <span class="swatch-tooltip">Noir mat</span>
+              </button>
+              <button class="color-swatch" data-color="Or brossé" style="background:#CFB53B" aria-label="Or brossé"
+                type="button">
+                <span class="swatch-tooltip">Or brossé</span>
+              </button>
+              <button class="color-swatch" data-color="Bleu nuit" style="background:#1B3A6B" aria-label="Bleu nuit"
+                type="button">
+                <span class="swatch-tooltip">Bleu nuit</span>
+              </button>
+              <button class="color-swatch" data-color="Rouge bordeaux" style="background:#7B1F3A"
+                aria-label="Rouge bordeaux" type="button">
+                <span class="swatch-tooltip">Rouge bordeaux</span>
+              </button>
+              <button class="color-swatch" data-color="Vert forêt" style="background:#2D5A3D" aria-label="Vert forêt"
+                type="button">
+                <span class="swatch-tooltip">Vert forêt</span>
+              </button>
+              <button class="color-swatch" data-color="Gris anthracite" style="background:#4A4A4A"
+                aria-label="Gris anthracite" type="button">
+                <span class="swatch-tooltip">Gris anthracite</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Estimation prix -->
+          <div
+            style="background:var(--blue-pale);border-radius:var(--r-xl);padding:18px 20px;margin-bottom:18px;border:1.5px solid var(--blue-mid)">
+            <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:4px">
+              <span style="font-family:var(--f-disp);font-size:.78rem;font-weight:600;color:var(--blue)">Estimation pour
+                <span id="estQty">100</span> pièces</span>
+              <span
+                style="font-family:var(--f-disp);font-size:1.6rem;font-weight:800;color:var(--night);letter-spacing:-.03em"
+                id="estTotal">120,00 €</span>
+            </div>
+            <p style="font-size:.72rem;color:var(--blue);margin:0">HT · hors personnalisation · hors port · devis
+              confirmé sous 4h</p>
+          </div>
+
+          <!-- CTA -->
+          <div class="product-cta-block">
+            <a href="contact.html" class="btn btn-primary btn-lg">
+              <i class="ph ph-paper-plane-tilt" aria-hidden="true"></i> Demander un devis gratuit
+            </a>
+            <button class="btn btn-ink btn-lg" id="addToQuote" type="button">
+              <i class="ph ph-briefcase" aria-hidden="true"></i> Ajouter au devis
+            </button>
+          </div>
+
+          <!-- Délais rapides -->
+          <div class="product-delays">
+            <div class="delay-card">
+              <span class="delay-badge express">Express</span>
+              <div class="delay-days">5 j.</div>
+              <div class="delay-label">livraison rapide</div>
+            </div>
+            <div class="delay-card">
+              <span class="delay-badge standard">Standard</span>
+              <div class="delay-days">15 j.</div>
+              <div class="delay-label">livraison classique</div>
+            </div>
+          </div>
+
+          <!-- Garanties -->
+          <div class="product-guarantees">
+            <div class="guarantee-item">
+              <i class="ph ph-shield-check" aria-hidden="true"></i>
+              <span>BAT inclus</span>
+            </div>
+            <div class="guarantee-item">
+              <i class="ph ph-arrows-clockwise" aria-hidden="true"></i>
+              <span>Réassort possible</span>
+            </div>
+            <div class="guarantee-item">
+              <i class="ph ph-phone" aria-hidden="true"></i>
+              <span>Interlocuteur dédié</span>
+            </div>
+            <div class="guarantee-item">
+              <i class="ph ph-truck" aria-hidden="true"></i>
+              <span>Port offert dès 500 €</span>
+            </div>
+            <div class="guarantee-item">
+              <i class="ph ph-recycle" aria-hidden="true"></i>
+              <span>Aluminium recyclable</span>
+            </div>
+            <div class="guarantee-item">
+              <i class="ph ph-certificate" aria-hidden="true"></i>
+              <span>Certifié REACH / CE</span>
+            </div>
+          </div>
+
+          <!-- Contact rapide -->
+          <div
+            style="background:var(--night);border-radius:var(--r-xl);padding:20px;margin-top:6px;display:flex;gap:14px;align-items:center">
+            <div
+              style="width:42px;height:42px;background:rgba(255,255,255,.1);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:1.2rem;flex-shrink:0">
+              <i class="ph ph-phone" aria-hidden="true"></i>
+            </div>
+            <div>
+              <p
+                style="font-family:var(--f-disp);font-size:.8rem;font-weight:700;color:rgba(255,255,255,.6);margin-bottom:2px">
+                Une question ? Appelez-nous</p>
+              <a href="tel:+33123456789"
+                style="font-family:var(--f-disp);font-size:1.1rem;font-weight:800;color:#fff;letter-spacing:-.02em">01
+                23 45 67 89</a>
+              <p style="font-size:.72rem;color:rgba(255,255,255,.4);margin:0">Lun–Ven · 9h–18h</p>
+            </div>
+          </div>
+
+        </div><!-- /config-col -->
+
+      </div><!-- /product-layout -->
+
+    </div><!-- /container -->
   </main>
 
   <!-- ══ FOOTER ══ -->
@@ -3646,7 +4656,7 @@
     <div class="container">
       <div class="footer-grid">
         <div class="footer-brand">
-          <p class="logo"><span class="logo-ac">AC</span><span class="logo-ef">EF</span></p>
+          <a href="index.html" class="logo"><span class="logo-ac">AC</span><span class="logo-ef">EF</span></a>
           <p>Votre partenaire en objets de communication personnalisés depuis 1998.</p>
           <div class="footer-socials">
             <a href="#" class="social-btn" aria-label="LinkedIn"><i class="ph ph-linkedin-logo"></i></a>
@@ -3654,17 +4664,17 @@
             <a href="#" class="social-btn" aria-label="Instagram"><i class="ph ph-instagram-logo"></i></a>
           </div>
         </div>
-        <nav class="footer-col" aria-label="Navigation catalogue">
+        <nav class="footer-col" aria-label="Catalogue">
           <h5>Catalogue</h5>
           <ul>
-            <li><a href="#">Stylos & Écriture</a></li>
-            <li><a href="#">Textile</a></li>
-            <li><a href="#">Sacs</a></li>
-            <li><a href="#">Trophées</a></li>
-            <li><a href="#">PLV</a></li>
+            <li><a href="catalogue.html">Stylos & Écriture</a></li>
+            <li><a href="catalogue.html">Textile</a></li>
+            <li><a href="catalogue.html">Sacs</a></li>
+            <li><a href="catalogue.html">Trophées</a></li>
+            <li><a href="catalogue.html">PLV</a></li>
           </ul>
         </nav>
-        <nav class="footer-col" aria-label="Navigation entreprise">
+        <nav class="footer-col" aria-label="Entreprise">
           <h5>Entreprise</h5>
           <ul>
             <li><a href="qui-sommes-nous.html">À propos</a></li>
@@ -3679,12 +4689,14 @@
                   89</a></span></div>
             <div class="footer-contact-item"><i class="ph ph-envelope"></i><span><a
                   href="mailto:contact@acef.fr">contact@acef.fr</a></span></div>
+            <div class="footer-contact-item"><i class="ph ph-clock"></i><span>Lun–Ven · 9h–18h</span></div>
           </div>
         </div>
       </div>
       <div class="footer-bottom">
         <p>© 2025 ACEF — Tous droits réservés</p>
-        <nav class="footer-bottom-links"><a href="#">Mentions légales</a><a href="#">CGV</a></nav>
+        <nav class="footer-bottom-links"><a href="#">Mentions légales</a><a href="#">CGV</a><a
+            href="#">Confidentialité</a></nav>
       </div>
     </div>
   </footer>
@@ -3694,75 +4706,166 @@
   <aside id="cartSheet" class="cart-sheet">
     <div class="cart-sheet-handle" aria-hidden="true"></div>
     <div class="cart-sheet-header">
-      <h3><i class="ph ph-briefcase" aria-hidden="true"></i> Mon devis</h3>
-      <button id="closeCart" class="close-cart" aria-label="Fermer"><i class="ph ph-x" aria-hidden="true"></i></button>
+      <h3><i class="ph ph-briefcase"></i> Mon devis</h3>
+      <button id="closeCart" class="close-cart" aria-label="Fermer"><i class="ph ph-x"></i></button>
     </div>
-    <div id="cartEmpty" class="cart-empty">
-      <i class="ph ph-shopping-cart" aria-hidden="true"></i>
-      <p>Votre devis est vide.</p>
+    <div id="cartEmpty" class="cart-empty"><i class="ph ph-shopping-cart"></i>
+      <p>Votre devis est vide.<br><a href="catalogue.html" style="color:var(--blue)">Parcourir le catalogue</a></p>
     </div>
     <div id="cartItems" class="cart-items"></div>
     <div id="cartFooter" class="cart-footer" style="display:none">
       <div class="cart-total"><span>Total estimé</span><strong id="cartTotal">0,00 € HT</strong></div>
-      <a href="contact.html" class="btn btn-primary" style="width:100%;justify-content:center">Envoyer le devis</a>
+      <a href="contact.html" class="btn btn-primary" style="width:100%;justify-content:center"><i
+          class="ph ph-paper-plane-tilt"></i> Envoyer le devis</a>
     </div>
   </aside>
 
-  <!-- Modal Produit -->
-  <div id="productModal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
-    <div class="modal">
-      <div class="modal-header">
-        <h3 id="modalTitle"></h3>
-        <button id="closeModal" class="modal-close" aria-label="Fermer"><i class="ph ph-x"
-            aria-hidden="true"></i></button>
-      </div>
-      <div class="modal-img" id="modalImg"><img src="" alt="" loading="lazy"></div>
-      <div class="modal-price" id="modalPrice"></div>
-      <p class="modal-desc" id="modalDesc"></p>
-      <div class="qty-row">
-        <span class="qty-label">Quantité :</span>
-        <div class="qty-control">
-          <button class="qty-btn qty-large" data-qty="dec" aria-label="Diminuer">−</button>
-          <span id="modalQtyVal" class="qty-display">50</span>
-          <button class="qty-btn qty-large" data-qty="inc" aria-label="Augmenter">+</button>
-        </div>
-      </div>
-      <button id="modalAddBtn" class="btn btn-primary" style="width:100%;justify-content:center">
-        <i class="ph ph-plus" aria-hidden="true"></i> Ajouter au devis
-      </button>
-    </div>
-  </div>
-
   <script src="main.js"></script>
   <script>
-    /* ── Filtre tags quantité ── */
-    document.querySelectorAll('.filter-tag').forEach(btn => {
+    /* ── Galerie thumbnails ── */
+    document.querySelectorAll('.thumb').forEach(th => {
+      th.addEventListener('click', () => {
+        document.querySelectorAll('.thumb').forEach(t => t.classList.remove('active'));
+        th.classList.add('active');
+        const main = document.getElementById('mainImg');
+        if (main) { main.src = th.dataset.src; }
+      });
+      th.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') th.click(); });
+    });
+
+    /* ── Onglets ── */
+    document.querySelectorAll('.tab-btn').forEach(btn => {
       btn.addEventListener('click', () => {
-        btn.closest('.filter-tags').querySelectorAll('.filter-tag').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.tab-btn').forEach(b => { b.classList.remove('active'); b.setAttribute('aria-selected', 'false'); });
+        document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
         btn.classList.add('active');
+        btn.setAttribute('aria-selected', 'true');
+        const panel = document.getElementById('tab-' + btn.dataset.tab);
+        if (panel) panel.classList.add('active');
       });
     });
 
-    /* ── Slider prix ── */
-    const priceRange = document.getElementById('priceRange');
-    const priceVal = document.getElementById('priceVal');
-    if (priceRange && priceVal) {
-      priceRange.addEventListener('input', () => { priceVal.textContent = priceRange.value + ' €'; });
-    }
-
-    /* ── Reset filtres ── */
-    document.getElementById('resetFilters')?.addEventListener('click', () => {
-      document.querySelectorAll('.filter-option input').forEach(inp => inp.checked = false);
-      document.querySelectorAll('.filter-tag').forEach((btn, i) => btn.classList.toggle('active', i === 0));
-      if (priceRange) { priceRange.value = 100; priceVal.textContent = '100 €'; }
+    /* ── Accordéon specs ── */
+    document.querySelectorAll('.accordion-trigger').forEach(trigger => {
+      trigger.addEventListener('click', () => {
+        const isOpen = trigger.classList.contains('open');
+        const body = trigger.nextElementSibling;
+        trigger.classList.toggle('open', !isOpen);
+        trigger.setAttribute('aria-expanded', !isOpen);
+        body.style.display = isOpen ? 'none' : 'block';
+      });
     });
 
-    /* ── Pagination ── */
-    document.querySelectorAll('.page-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        document.querySelectorAll('.page-btn').forEach(b => { b.classList.remove('active'); b.removeAttribute('aria-current'); });
-        if (!btn.querySelector('i')) { btn.classList.add('active'); btn.setAttribute('aria-current', 'page'); }
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+    /* ── Quantité + estimation ── */
+    const qtyField = document.getElementById('qtyField');
+    const estQty = document.getElementById('estQty');
+    const estTotal = document.getElementById('estTotal');
+    const qtyMsg = document.getElementById('qtyMessage');
+
+    const tiers = [
+      { min: 100, max: 249, price: 1.20 },
+      { min: 250, max: 499, price: 0.98 },
+      { min: 500, max: Infinity, price: 0.82 }
+    ];
+
+    function getPrice(q) {
+      return (tiers.find(t => q >= t.min && q <= t.max) || tiers[0]).price;
+    }
+
+    function updateEstimate() {
+      const q = parseInt(qtyField.value) || 100;
+      const clamped = Math.max(100, q);
+      const price = getPrice(clamped);
+      const total = (clamped * price).toFixed(2).replace('.', ',');
+      if (estQty) estQty.textContent = clamped;
+      if (estTotal) estTotal.textContent = total.replace(/\B(?=(\d{3})+(?!\d))/g, '\u202f') + ' €';
+      if (qtyMsg) {
+        if (clamped >= 500) qtyMsg.textContent = '✓ Meilleur tarif — 0,82 €/u.';
+        else if (clamped >= 250) qtyMsg.textContent = '→ +250 unités pour bénéficier du tarif 0,82 €';
+        else qtyMsg.textContent = '→ +150 unités pour passer à 0,98 €/u.';
+      }
+      // Sync tier highlight
+      document.querySelectorAll('.pricing-tier').forEach(t => {
+        const q2 = parseInt(t.dataset.qty);
+        const tier = tiers.find(ti => ti.min === q2);
+        t.classList.toggle('active', tier && clamped >= tier.min && clamped <= tier.max);
+        t.setAttribute('aria-checked', t.classList.contains('active'));
+      });
+    }
+
+    document.getElementById('qtyDec')?.addEventListener('click', () => {
+      const v = Math.max(100, (parseInt(qtyField.value) || 100) - 50);
+      qtyField.value = v; updateEstimate();
+    });
+    document.getElementById('qtyInc')?.addEventListener('click', () => {
+      qtyField.value = (parseInt(qtyField.value) || 100) + 50; updateEstimate();
+    });
+    qtyField?.addEventListener('input', updateEstimate);
+    updateEstimate();
+
+    /* ── Pricing tiers click ── */
+    document.querySelectorAll('.pricing-tier').forEach(t => {
+      t.addEventListener('click', () => {
+        qtyField.value = parseInt(t.dataset.qty);
+        updateEstimate();
+      });
+    });
+
+    /* ── Zones de marquage ── */
+    document.querySelectorAll('.marking-zone').forEach(z => {
+      z.addEventListener('click', () => {
+        document.querySelectorAll('.marking-zone').forEach(mz => mz.classList.remove('selected'));
+        z.classList.add('selected');
+      });
+    });
+
+    /* ── Techniques ── */
+    const techInfos = {
+      laser: 'Gravure laser : rendu métal brillant permanent, pas de couleur ajoutée. Idéal logos épurés.',
+      tampo: 'Tampographie : impression de précision 1 à 4 couleurs pantone. Rendu net sur surface courbe.',
+      seri: 'Sérigraphie : couleurs vives, excellente couverture. Recommandé pour les grandes séries.'
+    };
+    document.querySelectorAll('.technique-chip').forEach(chip => {
+      chip.addEventListener('click', () => {
+        document.querySelectorAll('.technique-chip').forEach(c => c.classList.remove('selected'));
+        chip.classList.add('selected');
+        const info = document.getElementById('techInfo');
+        if (info) info.textContent = techInfos[chip.dataset.tech] || '';
+      });
+    });
+
+    /* ── Couleurs ── */
+    document.querySelectorAll('.color-swatch').forEach(sw => {
+      sw.addEventListener('click', () => {
+        document.querySelectorAll('.color-swatch').forEach(s => { s.classList.remove('selected'); s.style.borderColor = 'var(--cream3)'; });
+        sw.classList.add('selected'); sw.style.borderColor = 'var(--night)';
+        const nameEl = document.getElementById('selectedColorName');
+        if (nameEl) nameEl.textContent = sw.dataset.color;
+      });
+    });
+
+    /* ── Ajouter au devis ── */
+    document.getElementById('addToQuote')?.addEventListener('click', () => {
+      const qty = parseInt(qtyField.value) || 100;
+      const color = document.querySelector('.color-swatch.selected')?.dataset.color || '';
+      const zone = document.querySelector('.marking-zone.selected')?.dataset.zone || 'A';
+      Cart.addItem({
+        id: 'stylo-alu-001',
+        name: 'Stylo Twist Aluminium Premium',
+        price: getPrice(qty),
+        img: document.getElementById('mainImg')?.src || '',
+        cat: 'Stylos & Écriture',
+        qty: qty,
+        desc: `${color} · Zone ${zone}`
+      });
+      showToast('Stylo ajouté au devis !', 'success');
+    });
+
+    /* ── Accordion couleurs spéc ── */
+    document.querySelectorAll('.color-detail-item').forEach(item => {
+      item.addEventListener('click', () => {
+        document.querySelectorAll('.color-detail-item').forEach(i => i.classList.remove('active'));
+        item.classList.add('active');
       });
     });
 
