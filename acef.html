@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Wireframe — Fiche Produit | ACEF × Bimier Solutions</title>
+  <title>Wireframe — Page Connexion | ACEF × Bimier Solutions</title>
   <style>
     :root {
       --bg-page:      #F2F2F2;
@@ -24,15 +24,22 @@
       --font-main:   'Helvetica Neue', Helvetica, Arial, sans-serif;
     }
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: var(--font-main); background: var(--bg-page); color: var(--text-label); font-size: 13px; }
+    body {
+      font-family: var(--font-main);
+      background: var(--bg-page);
+      color: var(--text-label);
+      font-size: 13px;
+      min-height: 100vh;
+    }
     body::before {
-      content: "WIREFRAME — FICHE PRODUIT — ACEF × BIMIER SOLUTIONS — 1440px";
+      content: "WIREFRAME — PAGE CONNEXION — ACEF × BIMIER SOLUTIONS — 1440px";
       position: fixed; top: 50%; left: 50%;
       transform: translate(-50%, -50%) rotate(-30deg);
       font-size: 22px; font-weight: 700; color: rgba(0,0,0,0.04);
       white-space: nowrap; pointer-events: none; z-index: 9999; letter-spacing: 4px;
     }
-    .page-wrapper { max-width: 1440px; margin: 0 auto; background: var(--bg-white); box-shadow: 0 0 40px rgba(0,0,0,0.1); }
+
+    .page-wrapper { max-width: 1440px; margin: 0 auto; background: var(--bg-white); box-shadow: 0 0 40px rgba(0,0,0,0.1); min-height: 100vh; display: flex; flex-direction: column; }
 
     .doc-header { background: var(--bg-page); border-bottom: 2px solid var(--stroke-dark); padding: 16px 40px; display: flex; justify-content: space-between; align-items: center; }
     .doc-header-project { font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--text-meta); }
@@ -43,215 +50,194 @@
     .ruler { background: #FFFDE7; border-top: 1px dashed var(--stroke-medium); border-bottom: 1px dashed var(--stroke-medium); padding: 4px 40px; font-size: 9px; color: var(--text-ghost); font-style: italic; display: flex; align-items: center; gap: 8px; }
     .ruler::before { content: '↕'; font-style: normal; }
 
-    .navbar { background: var(--bg-white); border-bottom: 1px solid var(--stroke-light); height: 72px; display: flex; align-items: center; }
-    .navbar-inner { max-width: 1200px; margin: 0 auto; padding: 0 40px; width: 100%; display: grid; grid-template-columns: 180px 1fr auto auto; align-items: center; gap: 40px; }
-    .nav-logo { width: 140px; height: 40px; background: var(--bg-medium); border-radius: var(--radius); display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700; color: var(--text-meta); letter-spacing: 1px; }
-    .nav-links { display: flex; align-items: center; gap: 36px; list-style: none; }
-    .nav-links li { font-size: 13px; color: var(--text-meta); }
-    .nav-links li.active { color: var(--text-label); font-weight: 600; border-bottom: 2px solid var(--accent); padding-bottom: 2px; }
-    .nav-search { width: 200px; height: 36px; border: 1px solid var(--stroke-light); border-radius: var(--radius); background: var(--bg-page); display: flex; align-items: center; padding: 0 12px; gap: 8px; }
-    .nav-search-placeholder { font-size: 11px; color: var(--text-ghost); }
-    .nav-account { display: flex; align-items: center; gap: 8px; padding: 6px 14px; border: 1px solid var(--stroke-light); border-radius: var(--radius); font-size: 12px; color: var(--text-meta); }
-    .nav-account-dot { width: 8px; height: 8px; background: var(--bg-dark); border-radius: 50%; }
-
-    .content-max { max-width: 1200px; margin: 0 auto; padding: 0 40px; }
     .section-label { font-size: 9px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--text-ghost); padding: 4px 8px; background: var(--bg-light); border-left: 3px solid var(--stroke-medium); display: inline-block; margin-bottom: 20px; }
 
-    .breadcrumb { padding: 16px 0; display: flex; align-items: center; gap: 8px; }
-    .breadcrumb-item { font-size: 12px; color: var(--text-meta); }
-    .breadcrumb-sep { font-size: 10px; color: var(--text-ghost); }
-    .breadcrumb-current { font-size: 12px; color: var(--text-label); font-weight: 600; }
-
-    /* ─── Layout produit : 2 colonnes ─── */
-    .product-layout {
-      display: grid;
-      grid-template-columns: 1fr 440px;
-      gap: 60px;
-      padding: 32px 0 80px;
-      align-items: start;
-    }
-
-    /* ─── Colonne gauche : galerie ─── */
-    .gallery { }
-    .gallery-main {
-      width: 100%; aspect-ratio: 1;
-      background: var(--bg-light);
-      border: 1px solid var(--stroke-light);
-      border-radius: var(--radius);
-      display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 8px;
-      margin-bottom: 16px; position: relative;
-    }
-    .gallery-main::before {
-      content: '';
-      position: absolute; inset: 0;
-      background: linear-gradient(135deg, transparent 45%, var(--stroke-light) 45%, var(--stroke-light) 46%, transparent 46%);
-      border-radius: var(--radius);
-    }
-    .gallery-main-label { position: relative; z-index: 1; font-size: 12px; color: var(--text-ghost); text-align: center; }
-    .gallery-main-dim { position: relative; z-index: 1; font-size: 10px; color: var(--text-ghost); }
-
-    /* Navigation galerie */
-    .gallery-nav {
-      position: absolute; top: 50%; transform: translateY(-50%);
-      display: flex; justify-content: space-between; width: 100%; padding: 0 16px;
-    }
-    .gallery-nav-btn {
-      width: 40px; height: 40px;
-      background: var(--bg-white); border: 1px solid var(--stroke-medium);
-      border-radius: 50%; display: flex; align-items: center; justify-content: center;
-      font-size: 14px; color: var(--text-meta); cursor: default;
-      position: relative; z-index: 2;
-    }
-
-    .gallery-thumbs { display: flex; gap: 10px; }
-    .gallery-thumb {
-      width: 72px; height: 72px;
-      background: var(--bg-light); border: 1px solid var(--stroke-light);
-      border-radius: var(--radius); display: flex; align-items: center; justify-content: center;
-      font-size: 9px; color: var(--text-ghost); cursor: default; position: relative;
-    }
-    .gallery-thumb::before {
-      content: ''; position: absolute; inset: 0;
-      background: linear-gradient(135deg, transparent 40%, var(--stroke-medium) 40%, var(--stroke-medium) 42%, transparent 42%);
-      border-radius: var(--radius);
-    }
-    .gallery-thumb.active { border-color: var(--accent); border-width: 2px; }
-
-    /* Badge en haut de galerie */
-    .gallery-badges {
-      display: flex; gap: 8px; margin-bottom: 12px;
-    }
-    .badge {
-      padding: 4px 10px; border-radius: 2px;
-      font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase;
-    }
-    .badge-dark { background: var(--bg-deep); color: white; }
-    .badge-eco { background: var(--bg-dark); color: white; }
-
-    /* Zone marquage preview */
-    .marking-preview {
-      margin-top: 20px;
-      border: 1px solid var(--stroke-light); border-radius: var(--radius); overflow: hidden;
-    }
-    .marking-preview-header {
-      padding: 12px 16px; background: var(--bg-light);
-      font-size: 11px; font-weight: 700; color: var(--text-label);
-      border-bottom: 1px solid var(--stroke-light);
-    }
-    .marking-preview-body { padding: 16px; }
-    .marking-zones { display: flex; gap: 12px; }
-    .marking-zone {
-      flex: 1; padding: 16px 12px;
-      border: 1px dashed var(--stroke-medium); border-radius: var(--radius);
-      text-align: center; cursor: default;
-    }
-    .marking-zone.active { border-color: var(--accent); background: var(--bg-page); }
-    .marking-zone-label { font-size: 10px; font-weight: 600; color: var(--text-meta); margin-bottom: 4px; }
-    .marking-zone-size { font-size: 9px; color: var(--text-ghost); }
-
-    /* ─── Colonne droite : infos produit ─── */
-    .product-info { position: sticky; top: 20px; }
-
-    .product-cat { font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--text-ghost); margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
-    .product-title { font-size: 28px; font-weight: 800; color: var(--text-label); line-height: 1.1; margin-bottom: 6px; letter-spacing: -0.3px; }
-    .product-ref { font-size: 11px; color: var(--text-ghost); margin-bottom: 20px; }
-
-    /* Prix */
-    .product-price-block {
-      padding: 16px 20px; background: var(--bg-light);
-      border-radius: var(--radius); margin-bottom: 24px;
-    }
-    .product-price-main { font-size: 28px; font-weight: 900; color: var(--text-label); }
-    .product-price-unit { font-size: 12px; color: var(--text-meta); margin-top: 2px; }
-
-    /* Tableau dégressif */
-    .price-table { width: 100%; border-collapse: collapse; margin-top: 12px; }
-    .price-table th, .price-table td { padding: 7px 10px; text-align: center; font-size: 11px; border: 1px solid var(--stroke-light); }
-    .price-table th { background: var(--bg-medium); font-weight: 700; color: var(--text-label); }
-    .price-table td { background: var(--bg-white); color: var(--text-meta); }
-    .price-table tr.active td { background: var(--bg-light); font-weight: 700; color: var(--text-label); }
-
-    /* Sélecteur couleur */
-    .option-block { margin-bottom: 20px; }
-    .option-label { font-size: 11px; font-weight: 700; color: var(--text-label); margin-bottom: 10px; display: flex; justify-content: space-between; }
-    .color-swatches { display: flex; gap: 8px; flex-wrap: wrap; }
-    .color-swatch {
-      width: 28px; height: 28px; border-radius: 50%;
-      background: var(--bg-medium); border: 2px solid transparent; cursor: default;
-    }
-    .color-swatch.active { border-color: var(--text-label); }
-    .color-swatch:nth-child(2) { background: var(--bg-dark); }
-    .color-swatch:nth-child(3) { background: var(--bg-deep); }
-    .color-swatch:nth-child(4) { background: var(--bg-light); border: 1px solid var(--stroke-medium); }
-    .color-swatch:nth-child(5) { background: #ccc; }
-
-    /* Sélecteur taille */
-    .size-options { display: flex; gap: 8px; flex-wrap: wrap; }
-    .size-btn {
-      min-width: 44px; height: 36px;
-      border: 1px solid var(--stroke-medium); border-radius: var(--radius);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 12px; font-weight: 600; color: var(--text-meta); cursor: default;
+    /* ─── Navbar minimaliste ─── */
+    .navbar-minimal {
       background: var(--bg-white);
+      border-bottom: 1px solid var(--stroke-light);
+      height: 64px; display: flex; align-items: center; justify-content: space-between;
+      padding: 0 60px;
     }
-    .size-btn.active { border-color: var(--accent); border-width: 2px; color: var(--text-label); background: var(--bg-page); }
+    .nav-logo { width: 140px; height: 40px; background: var(--bg-medium); border-radius: var(--radius); display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700; color: var(--text-meta); letter-spacing: 1px; }
+    .navbar-note { font-size: 11px; color: var(--text-ghost); font-style: italic; }
 
-    /* Quantité */
-    .qty-block { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; }
-    .qty-label { font-size: 11px; font-weight: 700; color: var(--text-label); min-width: 100px; }
-    .qty-input {
-      display: flex; align-items: center;
-      border: 1px solid var(--stroke-medium); border-radius: var(--radius); overflow: hidden;
+    /* ─── Layout login : 2 colonnes ─── */
+    .login-layout {
+      flex: 1;
+      display: grid;
+      grid-template-columns: 1fr 480px;
     }
-    .qty-btn { width: 36px; height: 40px; background: var(--bg-light); display: flex; align-items: center; justify-content: center; font-size: 16px; color: var(--text-meta); cursor: default; }
-    .qty-value { width: 60px; height: 40px; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 700; color: var(--text-label); border-left: 1px solid var(--stroke-light); border-right: 1px solid var(--stroke-light); }
-    .qty-moq { font-size: 10px; color: var(--text-ghost); }
 
-    /* CTA boutons */
-    .cta-buttons { display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px; }
-    .btn-primary { padding: 16px; background: var(--accent); color: white; font-size: 13px; font-weight: 700; text-align: center; border-radius: var(--radius); cursor: default; }
-    .btn-secondary { padding: 15px; background: transparent; border: 2px solid var(--stroke-strong); color: var(--text-label); font-size: 13px; font-weight: 600; text-align: center; border-radius: var(--radius); cursor: default; }
-    .btn-ghost { padding: 12px; background: var(--bg-light); color: var(--text-meta); font-size: 12px; text-align: center; border-radius: var(--radius); cursor: default; }
-
-    /* Infos rapides */
-    .quick-infos { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 24px; }
-    .quick-info {
-      padding: 12px 14px; background: var(--bg-page);
-      border: 1px solid var(--stroke-light); border-radius: var(--radius);
+    /* ─── Panneau gauche : visuel ─── */
+    .login-visual {
+      background: var(--bg-dark);
+      position: relative;
+      display: flex; flex-direction: column;
+      justify-content: space-between;
+      padding: 60px;
+      min-height: 720px;
     }
-    .quick-info-icon { font-size: 16px; margin-bottom: 4px; }
-    .quick-info-label { font-size: 9px; text-transform: uppercase; letter-spacing: 1px; color: var(--text-ghost); }
-    .quick-info-value { font-size: 13px; font-weight: 700; color: var(--text-label); margin-top: 2px; }
 
-    /* ─── Tabs description ─── */
-    .product-tabs-section { padding: 0 0 80px; border-top: 1px solid var(--stroke-light); }
-    .product-tabs { display: flex; border-bottom: 2px solid var(--stroke-light); margin-bottom: 32px; }
-    .product-tab { padding: 14px 24px; font-size: 13px; font-weight: 600; color: var(--text-meta); border-bottom: 2px solid transparent; margin-bottom: -2px; cursor: default; }
-    .product-tab.active { color: var(--text-label); border-bottom-color: var(--accent); }
-
-    .tab-content { }
-    .description-text {
-      max-width: 700px;
-      font-size: 13px; color: var(--text-meta); line-height: 1.8; margin-bottom: 24px;
+    .login-visual-bg {
+      position: absolute; inset: 0;
+      background: var(--bg-dark);
+      display: flex; align-items: center; justify-content: center;
+      flex-direction: column; gap: 8px;
     }
-    .spec-table { width: 100%; border-collapse: collapse; max-width: 700px; }
-    .spec-table tr { border-bottom: 1px solid var(--stroke-light); }
-    .spec-table td { padding: 10px 0; font-size: 12px; }
-    .spec-table td:first-child { width: 40%; font-weight: 600; color: var(--text-label); }
-    .spec-table td:last-child { color: var(--text-meta); }
+    .login-visual-bg-label { font-size: 11px; color: rgba(255,255,255,0.4); }
+    .login-visual-bg-dim { font-size: 10px; color: rgba(255,255,255,0.25); }
+    .login-visual-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(180deg, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.65) 100%);
+    }
 
-    /* ─── Cross-selling ─── */
-    .cross-sell { padding: 60px 0 80px; border-top: 1px solid var(--stroke-light); }
-    .cross-sell-title { font-size: 22px; font-weight: 800; color: var(--text-label); margin-bottom: 24px; }
-    .cross-sell-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
-    .cross-sell-card { border: 1px solid var(--stroke-light); border-radius: var(--radius); overflow: hidden; }
-    .cross-sell-img { height: 120px; background: var(--bg-light); display: flex; align-items: center; justify-content: center; position: relative; }
-    .cross-sell-img::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, transparent 43%, var(--stroke-light) 43%, var(--stroke-light) 45%, transparent 45%); }
-    .cross-sell-img-label { position: relative; font-size: 9px; color: var(--text-ghost); z-index: 1; }
-    .cross-sell-body { padding: 12px; }
-    .cross-sell-name { font-size: 12px; font-weight: 700; color: var(--text-label); margin-bottom: 4px; line-height: 1.3; }
-    .cross-sell-price { font-size: 11px; color: var(--text-meta); margin-bottom: 10px; }
-    .cross-sell-btn { width: 100%; padding: 8px; background: var(--bg-light); font-size: 11px; font-weight: 600; color: var(--text-meta); text-align: center; border-radius: var(--radius); border: 1px solid var(--stroke-medium); cursor: default; }
+    .login-visual-top { position: relative; z-index: 2; }
+    .login-visual-logo { width: 120px; height: 36px; background: rgba(255,255,255,0.15); border-radius: var(--radius); display: flex; align-items: center; justify-content: center; font-size: 9px; font-weight: 700; color: rgba(255,255,255,0.7); letter-spacing: 1px; }
+
+    .login-visual-bottom { position: relative; z-index: 2; }
+    .login-visual-title {
+      font-size: 36px; font-weight: 900; color: #FFFFFF;
+      line-height: 1.1; letter-spacing: -0.5px; margin-bottom: 16px;
+    }
+    .login-visual-title span { color: rgba(255,255,255,0.6); display: block; font-size: 28px; }
+    .login-visual-desc {
+      font-size: 14px; color: rgba(255,255,255,0.7);
+      line-height: 1.6; max-width: 480px; margin-bottom: 32px;
+    }
+
+    /* Arguments / garanties */
+    .login-guarantees { display: flex; flex-direction: column; gap: 12px; }
+    .login-guarantee {
+      display: flex; align-items: center; gap: 14px;
+      padding: 12px 16px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: var(--radius);
+    }
+    .login-guarantee-icon { font-size: 18px; flex-shrink: 0; }
+    .login-guarantee-text { }
+    .login-guarantee-title { font-size: 12px; font-weight: 700; color: rgba(255,255,255,0.9); margin-bottom: 2px; }
+    .login-guarantee-desc { font-size: 11px; color: rgba(255,255,255,0.6); }
+
+    /* ─── Panneau droit : formulaire ─── */
+    .login-form-panel {
+      background: var(--bg-white);
+      border-left: 1px solid var(--stroke-light);
+      display: flex; align-items: center; justify-content: center;
+      padding: 60px 48px;
+    }
+
+    .login-form-inner { width: 100%; max-width: 360px; }
+
+    /* Header formulaire */
+    .form-header { margin-bottom: 36px; text-align: center; }
+    .form-logo { width: 100px; height: 32px; background: var(--bg-medium); border-radius: var(--radius); display: flex; align-items: center; justify-content: center; font-size: 9px; font-weight: 700; color: var(--text-meta); letter-spacing: 1px; margin: 0 auto 20px; }
+    .form-title { font-size: 22px; font-weight: 800; color: var(--text-label); margin-bottom: 8px; }
+    .form-subtitle { font-size: 13px; color: var(--text-meta); line-height: 1.5; }
+
+    /* Badge réservé */
+    .form-badge {
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+      padding: 10px 16px; background: var(--bg-light);
+      border: 1px solid var(--stroke-medium); border-radius: var(--radius);
+      margin-bottom: 28px;
+    }
+    .form-badge-dot { width: 8px; height: 8px; background: var(--bg-deep); border-radius: 50%; }
+    .form-badge-text { font-size: 11px; color: var(--text-meta); font-weight: 600; }
+
+    /* Champs */
+    .form-group { margin-bottom: 18px; }
+    .form-label {
+      display: block; font-size: 11px; font-weight: 700; color: var(--text-label);
+      margin-bottom: 7px; letter-spacing: 0.3px;
+    }
+    .form-input {
+      width: 100%; height: 48px;
+      border: 1.5px solid var(--stroke-medium); border-radius: var(--radius);
+      background: var(--bg-page);
+      display: flex; align-items: center; padding: 0 14px;
+      font-size: 13px; color: var(--text-ghost);
+      gap: 10px;
+    }
+    .form-input.focus { border-color: var(--accent); background: var(--bg-white); }
+    .form-input-icon { font-size: 14px; flex-shrink: 0; }
+
+    /* Oeil MDP */
+    .form-input-eye { margin-left: auto; font-size: 14px; color: var(--text-ghost); cursor: default; }
+
+    /* Options sous le champ MDP */
+    .form-options {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-top: 8px; margin-bottom: 24px;
+    }
+    .form-remember { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--text-meta); }
+    .form-checkbox { width: 16px; height: 16px; border: 1.5px solid var(--stroke-medium); border-radius: 3px; flex-shrink: 0; }
+    .form-forgot { font-size: 12px; color: var(--text-meta); text-decoration: underline; cursor: default; }
+
+    /* Bouton submit */
+    .btn-submit {
+      width: 100%; height: 50px;
+      background: var(--accent); color: white;
+      font-size: 14px; font-weight: 700;
+      border-radius: var(--radius); cursor: default;
+      display: flex; align-items: center; justify-content: center; gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    /* Divider */
+    .form-divider {
+      display: flex; align-items: center; gap: 12px;
+      margin: 24px 0;
+    }
+    .form-divider-line { flex: 1; height: 1px; background: var(--stroke-light); }
+    .form-divider-text { font-size: 11px; color: var(--text-ghost); white-space: nowrap; }
+
+    /* Demande d'accès */
+    .btn-request {
+      width: 100%; height: 48px;
+      background: transparent; border: 1.5px solid var(--stroke-medium);
+      color: var(--text-label); font-size: 13px; font-weight: 600;
+      border-radius: var(--radius); cursor: default;
+      display: flex; align-items: center; justify-content: center; gap: 10px;
+      margin-bottom: 28px;
+    }
+
+    /* Note sécurité */
+    .form-security {
+      display: flex; align-items: flex-start; gap: 10px;
+      padding: 12px 14px;
+      background: var(--bg-page); border: 1px solid var(--stroke-light);
+      border-radius: var(--radius);
+    }
+    .form-security-icon { font-size: 14px; flex-shrink: 0; margin-top: 1px; }
+    .form-security-text { font-size: 11px; color: var(--text-meta); line-height: 1.5; }
+
+    /* Footer form */
+    .form-footer {
+      margin-top: 24px; text-align: center;
+      font-size: 10px; color: var(--text-ghost); line-height: 1.6;
+    }
+    .form-footer a { color: var(--text-ghost); text-decoration: underline; }
+
+    /* États d'erreur / succès */
+    .form-error {
+      display: flex; align-items: center; gap: 8px;
+      padding: 12px 14px; background: #FFF5F5;
+      border: 1px solid #E0AAAA; border-radius: var(--radius);
+      margin-bottom: 20px; font-size: 12px; color: #AA4444;
+    }
+    .form-error-icon { font-size: 14px; }
+
+    /* ─── Footer minimal ─── */
+    .footer-minimal {
+      background: var(--bg-light); border-top: 1px solid var(--stroke-light);
+      padding: 16px 60px;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .footer-minimal-copy { font-size: 10px; color: var(--text-ghost); }
+    .footer-minimal-links { display: flex; gap: 20px; }
+    .footer-minimal-links span { font-size: 10px; color: var(--text-ghost); }
 
     .page-index { position: fixed; right: 20px; top: 50%; transform: translateY(-50%); background: white; border: 1px solid var(--stroke-light); border-radius: var(--radius); padding: 12px 0; z-index: 1000; box-shadow: 0 2px 8px rgba(0,0,0,0.08); min-width: 140px; }
     .page-index-title { font-size: 8px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--text-ghost); padding: 0 12px 8px; border-bottom: 1px solid var(--stroke-light); margin-bottom: 6px; }
@@ -264,7 +250,7 @@
   <div class="doc-header">
     <div>
       <div class="doc-header-project">ACEF × Bimier Solutions — Refonte Site Catalogue</div>
-      <div class="doc-header-page">Wireframe 03 — Fiche Produit</div>
+      <div class="doc-header-page">Wireframe 04 — Page Connexion</div>
     </div>
     <div>
       <div class="doc-header-meta">Desktop 1440px · v1.0 · Mai 2026</div>
@@ -275,305 +261,188 @@
 
   <div class="page-index">
     <div class="page-index-title">Sections</div>
-    <div class="page-index-item"><span class="page-index-num">01</span> Navigation</div>
-    <div class="page-index-item"><span class="page-index-num">02</span> Breadcrumb</div>
-    <div class="page-index-item"><span class="page-index-num">03</span> Galerie produit</div>
-    <div class="page-index-item"><span class="page-index-num">04</span> Panneau commande</div>
-    <div class="page-index-item"><span class="page-index-num">05</span> Zones marquage</div>
-    <div class="page-index-item"><span class="page-index-num">06</span> Tabs description</div>
-    <div class="page-index-item"><span class="page-index-num">07</span> Cross-selling</div>
+    <div class="page-index-item"><span class="page-index-num">01</span> Navbar minimaliste</div>
+    <div class="page-index-item"><span class="page-index-num">02</span> Panneau visuel</div>
+    <div class="page-index-item"><span class="page-index-num">03</span> Formulaire connexion</div>
+    <div class="page-index-item"><span class="page-index-num">04</span> Demande d'accès</div>
+    <div class="page-index-item"><span class="page-index-num">05</span> Sécurité & légal</div>
+    <div class="page-index-item"><span class="page-index-num">06</span> État d'erreur</div>
+    <div class="page-index-item"><span class="page-index-num">07</span> Footer minimal</div>
   </div>
 
   <div class="page-wrapper">
 
-    <!-- ════════ 01 — NAVIGATION ════════ -->
-    <div class="ruler">Section 01 — Navigation / Composant réutilisable identique aux autres pages</div>
-    <div class="navbar">
-      <div class="navbar-inner">
-        <div class="nav-logo">BIMIER LOGO</div>
-        <ul class="nav-links">
-          <li>Accueil</li>
-          <li class="active">Catalogue</li>
-          <li>À propos</li>
-          <li>Contact</li>
-        </ul>
-        <div class="nav-search">
-          <span>🔍</span>
-          <span class="nav-search-placeholder">Rechercher un produit…</span>
-        </div>
-        <div class="nav-account">
-          <div class="nav-account-dot"></div>
-          Mon compte ACEF
-        </div>
-      </div>
+    <!-- ════════ 01 — NAVBAR MINIMALISTE ════════ -->
+    <div class="ruler">Section 01 — Navbar minimaliste / Pas de navigation complète sur la page login / Logo seul + note</div>
+    <div class="navbar-minimal">
+      <div class="nav-logo">BIMIER LOGO</div>
+      <div class="navbar-note">Espace réservé aux membres ACEF</div>
     </div>
 
-    <!-- ════════ 02 — BREADCRUMB ════════ -->
-    <div class="ruler">Section 02 — Breadcrumb / Niveau 3 : Accueil › Catalogue › Catégorie › Produit</div>
-    <div class="content-max">
-      <div class="breadcrumb">
-        <span class="breadcrumb-item">Accueil</span>
-        <span class="breadcrumb-sep">›</span>
-        <span class="breadcrumb-item">Catalogue B2B</span>
-        <span class="breadcrumb-sep">›</span>
-        <span class="breadcrumb-item">Textile Corporate</span>
-        <span class="breadcrumb-sep">›</span>
-        <span class="breadcrumb-current">Polo Premium Bio</span>
-      </div>
-    </div>
+    <!-- ════════ 02 + 03 + 04 — LAYOUT LOGIN ════════ -->
+    <div class="ruler">Sections 02–05 — Layout 2 colonnes : Visuel (fluid) + Formulaire (480px fixe)</div>
+    <div class="login-layout" style="flex:1;">
 
-    <!-- ════════ 03 + 04 — LAYOUT PRODUIT ════════ -->
-    <div class="ruler">Sections 03–04 — Layout 2 colonnes : Galerie (fluid) + Panneau commande (440px) / Sticky panel</div>
-    <div class="content-max">
-      <div class="section-label" style="margin-top:20px;">03 — Galerie / 04 — Panneau commande</div>
+      <!-- ═══ PANNEAU GAUCHE : VISUEL ═══ -->
+      <div class="login-visual">
 
-      <div class="product-layout">
+        <!-- Fond image -->
+        <div class="login-visual-bg">
+          <span class="login-visual-bg-label">IMAGE DE FOND — PLEINE HAUTEUR</span>
+          <span class="login-visual-bg-dim">Photo produits / ambiance B2B · Fond sombre recommandé</span>
+        </div>
+        <div class="login-visual-overlay"></div>
 
-        <!-- ═══ COLONNE GAUCHE : GALERIE ═══ -->
-        <div class="gallery">
+        <!-- Haut : logo -->
+        <div class="login-visual-top">
+          <div class="section-label">02 — Panneau visuel</div>
+          <div class="login-visual-logo">BIMIER LOGO</div>
+        </div>
 
-          <!-- Badges -->
-          <div class="gallery-badges">
-            <span class="badge badge-dark">Best-seller</span>
-            <span class="badge badge-eco">🌱 Éco-responsable</span>
+        <!-- Bas : accroche + garanties -->
+        <div class="login-visual-bottom">
+          <div class="login-visual-title">
+            Votre catalogue ACEF
+            <span>en un clic.</span>
+          </div>
+          <div class="login-visual-desc">
+            Accédez à plus de 5 000 références personnalisables, passez vos commandes en volume et suivez vos devis en temps réel. Espace exclusif pour les membres ACEF.
           </div>
 
-          <!-- Image principale -->
-          <div class="gallery-main">
-            <span class="gallery-main-label">IMAGE PRINCIPALE PRODUIT</span>
-            <span class="gallery-main-dim">560×560px recommandé · Fond blanc · Haute résolution</span>
-            <div class="gallery-nav">
-              <div class="gallery-nav-btn">‹</div>
-              <div class="gallery-nav-btn">›</div>
+          <!-- Arguments rassurants -->
+          <div class="login-guarantees">
+            <div class="login-guarantee">
+              <div class="login-guarantee-icon">🔒</div>
+              <div class="login-guarantee-text">
+                <div class="login-guarantee-title">Accès sécurisé</div>
+                <div class="login-guarantee-desc">Votre espace est protégé et réservé aux ACEF enregistrées</div>
+              </div>
             </div>
-          </div>
-
-          <!-- Miniatures -->
-          <div class="gallery-thumbs">
-            <div class="gallery-thumb active"></div>
-            <div class="gallery-thumb"></div>
-            <div class="gallery-thumb"></div>
-            <div class="gallery-thumb"></div>
-            <div class="gallery-thumb"></div>
-          </div>
-
-          <!-- ════ 05 — ZONES DE MARQUAGE ════ -->
-          <div style="margin-top:32px;">
-            <div class="ruler" style="margin:0 -40px 16px; padding-left:40px;">Section 05 — Zones de marquage / Aperçu visuel des positions logo disponibles</div>
-            <div class="marking-preview">
-              <div class="marking-preview-header">📍 Inspirations de marquage — Où placer votre logo ?</div>
-              <div class="marking-preview-body">
-                <div class="marking-zones">
-                  <div class="marking-zone active">
-                    <div class="marking-zone-label">Cœur (Classique)</div>
-                    <div class="marking-zone-size">Zone : 10×10 cm</div>
-                    <div style="margin-top:8px; font-size:10px; color:var(--text-ghost);">Idéal pour broderie. Discret et professionnel.</div>
-                  </div>
-                  <div class="marking-zone">
-                    <div class="marking-zone-label">Dos (Impact)</div>
-                    <div class="marking-zone-size">Zone : 30×35 cm</div>
-                    <div style="margin-top:8px; font-size:10px; color:var(--text-ghost);">Idéal pour sérigraphie. Lisibilité maximale.</div>
-                  </div>
-                  <div class="marking-zone">
-                    <div class="marking-zone-label">Manche (Détail)</div>
-                    <div class="marking-zone-size">Zone : 8×8 cm</div>
-                    <div style="margin-top:8px; font-size:10px; color:var(--text-ghost);">Sponsor secondaire ou drapeau.</div>
-                  </div>
-                </div>
+            <div class="login-guarantee">
+              <div class="login-guarantee-icon">📦</div>
+              <div class="login-guarantee-text">
+                <div class="login-guarantee-title">5 000+ références exclusives</div>
+                <div class="login-guarantee-desc">Tarifs B2B dégressifs négociés pour les ACEF</div>
+              </div>
+            </div>
+            <div class="login-guarantee">
+              <div class="login-guarantee-icon">⚡</div>
+              <div class="login-guarantee-text">
+                <div class="login-guarantee-title">Devis sous 24h ouvrées</div>
+                <div class="login-guarantee-desc">Réponse rapide de nos équipes commerciales dédiées</div>
               </div>
             </div>
           </div>
         </div>
 
-        <!-- ═══ COLONNE DROITE : PANNEAU COMMANDE ═══ -->
-        <div class="product-info">
-          <div class="product-cat">
-            <span>Textile</span>
-            <span style="color:var(--stroke-light);">|</span>
-            <span>Coton 100% Bio</span>
-          </div>
-          <div class="product-title">Polo Premium Corporate</div>
-          <div class="product-ref">Réf. TEX-001 · Collection Textile Corporate</div>
+      </div>
 
-          <!-- Prix dégressif -->
-          <div class="product-price-block">
-            <div class="product-price-main">14,50 € HT</div>
-            <div class="product-price-unit">par pièce pour 100 unités avec sérigraphie 1 couleur</div>
-            <table class="price-table" style="margin-top:14px;">
-              <thead>
-                <tr>
-                  <th>Quantité</th>
-                  <th>50–99 pcs</th>
-                  <th>100–249 pcs</th>
-                  <th>250+ pcs</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td style="font-weight:700;text-align:left;">Prix HT/unité</td>
-                  <td>16,90 €</td>
-                  <td class="">14,50 €</td>
-                  <td>12,80 €</td>
-                </tr>
-              </tbody>
-            </table>
+      <!-- ═══ PANNEAU DROIT : FORMULAIRE ═══ -->
+      <div class="login-form-panel">
+        <div class="login-form-inner">
+          <div class="section-label">03 — Formulaire connexion</div>
+
+          <!-- Header -->
+          <div class="form-header">
+            <div class="form-logo">BIMIER LOGO</div>
+            <div class="form-title">Connexion à votre espace</div>
+            <div class="form-subtitle">Entrez vos identifiants ACEF pour accéder au catalogue privé Bimier Solutions.</div>
           </div>
 
-          <!-- Couleur -->
-          <div class="option-block">
-            <div class="option-label">
-              <span>Couleur — <span style="font-weight:400; color:var(--text-meta);">Bleu Marine</span></span>
-              <span style="font-size:10px; color:var(--text-ghost);">+6 coloris disponibles</span>
-            </div>
-            <div class="color-swatches">
-              <div class="color-swatch active"></div>
-              <div class="color-swatch"></div>
-              <div class="color-swatch"></div>
-              <div class="color-swatch"></div>
-              <div class="color-swatch"></div>
+          <!-- Badge réservé -->
+          <div class="form-badge">
+            <div class="form-badge-dot"></div>
+            <div class="form-badge-text">Accès réservé aux membres ACEF</div>
+          </div>
+
+          <!-- État erreur (état alternatif à documenter) -->
+          <div class="ruler" style="margin:0 -48px 16px;padding-left:48px;">Section 06 — État d'erreur (identifiants incorrects) — Composant conditionnel</div>
+          <div class="form-error" style="display:none;">
+            <span class="form-error-icon">⚠️</span>
+            <span>Identifiants incorrects. Vérifiez votre email et mot de passe ACEF.</span>
+          </div>
+
+          <!-- Champ email -->
+          <div class="form-group">
+            <label class="form-label">Adresse email ACEF</label>
+            <div class="form-input focus">
+              <span class="form-input-icon">✉️</span>
+              <span>votre.email@association-acef.fr</span>
             </div>
           </div>
 
-          <!-- Taille -->
-          <div class="option-block">
-            <div class="option-label">
-              <span>Taille — <span style="font-weight:400; color:var(--text-meta);">Panachage autorisé</span></span>
-            </div>
-            <div class="size-options">
-              <div class="size-btn">XS</div>
-              <div class="size-btn">S</div>
-              <div class="size-btn active">M</div>
-              <div class="size-btn">L</div>
-              <div class="size-btn">XL</div>
-              <div class="size-btn">XXL</div>
-              <div class="size-btn">3XL</div>
+          <!-- Champ mot de passe -->
+          <div class="form-group">
+            <label class="form-label">Mot de passe</label>
+            <div class="form-input">
+              <span class="form-input-icon">🔑</span>
+              <span>••••••••••••</span>
+              <span class="form-input-eye">👁</span>
             </div>
           </div>
 
-          <!-- Quantité -->
-          <div class="qty-block">
-            <span class="qty-label">Quantité</span>
-            <div class="qty-input">
-              <div class="qty-btn">−</div>
-              <div class="qty-value">100</div>
-              <div class="qty-btn">+</div>
+          <!-- Options -->
+          <div class="form-options">
+            <div class="form-remember">
+              <div class="form-checkbox"></div>
+              <span>Se souvenir de moi</span>
             </div>
-            <span class="qty-moq">Minimum 50 pcs</span>
+            <span class="form-forgot">Mot de passe oublié ?</span>
           </div>
 
-          <!-- Infos rapides -->
-          <div class="quick-infos">
-            <div class="quick-info">
-              <div class="quick-info-icon">📦</div>
-              <div class="quick-info-label">Quantité min. (MOQ)</div>
-              <div class="quick-info-value">50 pièces</div>
-            </div>
-            <div class="quick-info">
-              <div class="quick-info-icon">⏱️</div>
-              <div class="quick-info-label">Délai de production</div>
-              <div class="quick-info-value">10–15 jours ouvrés</div>
-            </div>
-            <div class="quick-info">
-              <div class="quick-info-icon">🎨</div>
-              <div class="quick-info-label">Techniques disponibles</div>
-              <div class="quick-info-value">Sérigraphie · Broderie</div>
-            </div>
-            <div class="quick-info">
-              <div class="quick-info-icon">🌱</div>
-              <div class="quick-info-label">Certification</div>
-              <div class="quick-info-value">GOTS · Oeko-Tex</div>
-            </div>
+          <!-- Bouton connexion -->
+          <div class="btn-submit">
+            🔓 Se connecter à mon espace ACEF
           </div>
 
-          <!-- Boutons CTA -->
-          <div class="cta-buttons">
-            <div class="btn-primary">Pré-remplir mon devis</div>
-            <div class="btn-secondary">Demander une maquette (BAT)</div>
-            <div class="btn-ghost">📄 Télécharger la fiche technique PDF</div>
+          <!-- Divider -->
+          <div class="form-divider">
+            <div class="form-divider-line"></div>
+            <span class="form-divider-text">Pas encore de compte ?</span>
+            <div class="form-divider-line"></div>
           </div>
 
-          <!-- Note connexion -->
-          <div style="font-size:10px; color:var(--text-ghost); text-align:center; padding-top:8px; border-top:1px solid var(--stroke-light);">
-            🔒 Commande réservée aux membres ACEF enregistrés
+          <!-- Demande d'accès -->
+          <div class="section-label" style="margin-bottom:12px;">04 — Demande d'accès</div>
+          <div class="btn-request">
+            📋 Faire une demande d'accès ACEF
           </div>
+
+          <!-- Sécurité -->
+          <div class="section-label" style="margin-bottom:12px;">05 — Sécurité</div>
+          <div class="form-security">
+            <span class="form-security-icon">🔒</span>
+            <span class="form-security-text">Connexion sécurisée SSL. Vos données sont chiffrées et ne sont jamais partagées avec des tiers. Conformité RGPD garantie.</span>
+          </div>
+
+          <!-- Footer légal -->
+          <div class="form-footer">
+            <span class="section-label" style="margin-bottom:6px; display:block; font-size:8px;">07 — Légal</span>
+            En vous connectant, vous acceptez nos
+            <a href="#">Conditions Générales d'Utilisation</a>
+            et notre <a href="#">Politique de confidentialité</a>.
+            <br/>
+            © 2026 Bimier Solutions. Tous droits réservés.
+          </div>
+
         </div>
+      </div>
 
+    </div><!-- /login-layout -->
+
+    <!-- ════════ 07 — FOOTER MINIMAL ════════ -->
+    <div class="ruler">Section 07 — Footer minimal / Pas de footer complet sur une page de connexion / Copyright + liens légaux</div>
+    <div class="footer-minimal">
+      <div class="footer-minimal-copy">© 2026 Bimier Solutions — Espace ACEF. Accès réservé aux membres enregistrés.</div>
+      <div class="footer-minimal-links">
+        <span>Mentions légales</span>
+        <span>CGV</span>
+        <span>Confidentialité</span>
+        <span>Contact</span>
       </div>
     </div>
 
-    <!-- ════════ 06 — TABS DESCRIPTION ════════ -->
-    <div class="ruler">Section 06 — Onglets description / Description · Fiche Technique · Options de Marquage</div>
-    <div class="content-max">
-      <div class="product-tabs-section">
-        <div class="product-tabs">
-          <div class="product-tab active">Description Produit</div>
-          <div class="product-tab">Fiche Technique</div>
-          <div class="product-tab">Options de Marquage</div>
-        </div>
+  </div><!-- /page-wrapper -->
 
-        <div class="tab-content">
-          <!-- Description -->
-          <div class="description-text">
-            [ZONE TEXTE — Description produit détaillée. Environ 150–200 mots. Mise en avant des caractéristiques techniques, du positionnement qualité, des labels et des usages recommandés pour une commande B2B ACEF.]
-          </div>
-
-          <!-- Spécifications -->
-          <div style="font-size:11px; font-weight:700; letter-spacing:1px; text-transform:uppercase; color:var(--text-ghost); margin-bottom:12px;">Caractéristiques techniques</div>
-          <table class="spec-table">
-            <tr><td>Grammage</td><td>220 g/m²</td></tr>
-            <tr><td>Composition</td><td>100% Coton biologique GOTS</td></tr>
-            <tr><td>Coupe</td><td>Unisexe — coupe moderne</td></tr>
-            <tr><td>Tailles disponibles</td><td>XS au 3XL</td></tr>
-            <tr><td>Techniques de marquage</td><td>Sérigraphie, Broderie 3D, Transfert numérique</td></tr>
-            <tr><td>Certifications</td><td>GOTS, Oeko-Tex Standard 100</td></tr>
-            <tr><td>Origine</td><td>Fabriqué au Portugal</td></tr>
-          </table>
-        </div>
-      </div>
-    </div>
-
-    <!-- ════════ 07 — CROSS-SELLING ════════ -->
-    <div class="ruler">Section 07 — Cross-selling / 4 produits complémentaires / Augmente le panier moyen</div>
-    <div class="content-max">
-      <div class="cross-sell">
-        <div class="cross-sell-title">Pour compléter votre pack</div>
-        <div class="cross-sell-grid">
-          <div class="cross-sell-card">
-            <div class="cross-sell-img"><span class="cross-sell-img-label">Image · 270×120px</span></div>
-            <div class="cross-sell-body">
-              <div class="cross-sell-name">Veste Softshell Pro</div>
-              <div class="cross-sell-price">Dès 32,00 € HT · MOQ 20 pcs</div>
-              <div class="cross-sell-btn">Voir le produit</div>
-            </div>
-          </div>
-          <div class="cross-sell-card">
-            <div class="cross-sell-img"><span class="cross-sell-img-label">Image · 270×120px</span></div>
-            <div class="cross-sell-body">
-              <div class="cross-sell-name">Casquette Trucker Brodée</div>
-              <div class="cross-sell-price">Dès 8,50 € HT · MOQ 50 pcs</div>
-              <div class="cross-sell-btn">Voir le produit</div>
-            </div>
-          </div>
-          <div class="cross-sell-card">
-            <div class="cross-sell-img"><span class="cross-sell-img-label">Image · 270×120px</span></div>
-            <div class="cross-sell-body">
-              <div class="cross-sell-name">Tote Bag Coton Recyclé</div>
-              <div class="cross-sell-price">Dès 2,50 € HT · MOQ 150 pcs</div>
-              <div class="cross-sell-btn">Voir le produit</div>
-            </div>
-          </div>
-          <div class="cross-sell-card">
-            <div class="cross-sell-img"><span class="cross-sell-img-label">Image · 270×120px</span></div>
-            <div class="cross-sell-body">
-              <div class="cross-sell-name">Polo Femme Premium Bio</div>
-              <div class="cross-sell-price">Dès 14,50 € HT · MOQ 50 pcs</div>
-              <div class="cross-sell-btn">Voir le produit</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-  </div>
 </body>
 </html>
