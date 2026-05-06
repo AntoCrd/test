@@ -3,13 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Wireframe — Page Catalogue | ACEF × Bimier Solutions</title>
+  <title>Wireframe — Fiche Produit | ACEF × Bimier Solutions</title>
   <style>
-    /* ═══════════════════════════════════════════════════════════
-       Projet : Refonte site ACEF × Bimier Solutions
-       Page   : Catalogue (liste produits avec filtres)
-       Format : Desktop 1440px
-    ═══════════════════════════════════════════════════════════ */
     :root {
       --bg-page:      #F2F2F2;
       --bg-white:     #FFFFFF;
@@ -17,410 +12,259 @@
       --bg-medium:    #D0D0D0;
       --bg-dark:      #B0B0B0;
       --bg-deep:      #888888;
-
       --stroke-light: #CCCCCC;
       --stroke-medium:#AAAAAA;
       --stroke-strong:#777777;
       --stroke-dark:  #444444;
-
       --text-label:   #333333;
       --text-meta:    #666666;
       --text-ghost:   #999999;
-
       --accent:       #444444;
-      --sidebar-w:    260px;
       --radius:       4px;
       --font-main:   'Helvetica Neue', Helvetica, Arial, sans-serif;
     }
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      font-family: var(--font-main);
-      background: var(--bg-page);
-      color: var(--text-label);
-      font-size: 13px;
-    }
+    body { font-family: var(--font-main); background: var(--bg-page); color: var(--text-label); font-size: 13px; }
     body::before {
-      content: "WIREFRAME — PAGE CATALOGUE — ACEF × BIMIER SOLUTIONS — 1440px";
-      position: fixed;
-      top: 50%; left: 50%;
+      content: "WIREFRAME — FICHE PRODUIT — ACEF × BIMIER SOLUTIONS — 1440px";
+      position: fixed; top: 50%; left: 50%;
       transform: translate(-50%, -50%) rotate(-30deg);
-      font-size: 22px; font-weight: 700;
-      color: rgba(0,0,0,0.04);
-      white-space: nowrap; pointer-events: none; z-index: 9999;
-      letter-spacing: 4px;
+      font-size: 22px; font-weight: 700; color: rgba(0,0,0,0.04);
+      white-space: nowrap; pointer-events: none; z-index: 9999; letter-spacing: 4px;
     }
-
     .page-wrapper { max-width: 1440px; margin: 0 auto; background: var(--bg-white); box-shadow: 0 0 40px rgba(0,0,0,0.1); }
 
-    /* ─── Doc header ─── */
-    .doc-header {
-      background: var(--bg-page);
-      border-bottom: 2px solid var(--stroke-dark);
-      padding: 16px 40px;
-      display: flex; justify-content: space-between; align-items: center;
-    }
+    .doc-header { background: var(--bg-page); border-bottom: 2px solid var(--stroke-dark); padding: 16px 40px; display: flex; justify-content: space-between; align-items: center; }
     .doc-header-project { font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--text-meta); }
     .doc-header-page { font-size: 18px; font-weight: 800; color: var(--text-label); }
     .doc-header-meta { font-size: 10px; color: var(--text-ghost); text-align: right; }
-    .doc-header-badge {
-      background: var(--stroke-dark); color: white;
-      font-size: 9px; font-weight: 700; letter-spacing: 1px;
-      text-transform: uppercase; padding: 3px 8px; border-radius: 2px; margin-top: 4px;
-      display: inline-block;
-    }
+    .doc-header-badge { background: var(--stroke-dark); color: white; font-size: 9px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; padding: 3px 8px; border-radius: 2px; margin-top: 4px; display: inline-block; }
 
-    /* ─── Ruler ─── */
-    .ruler {
-      background: #FFFDE7;
-      border-top: 1px dashed var(--stroke-medium);
-      border-bottom: 1px dashed var(--stroke-medium);
-      padding: 4px 40px;
-      font-size: 9px; color: var(--text-ghost); font-style: italic;
-      display: flex; align-items: center; gap: 8px;
-    }
+    .ruler { background: #FFFDE7; border-top: 1px dashed var(--stroke-medium); border-bottom: 1px dashed var(--stroke-medium); padding: 4px 40px; font-size: 9px; color: var(--text-ghost); font-style: italic; display: flex; align-items: center; gap: 8px; }
     .ruler::before { content: '↕'; font-style: normal; }
 
-    /* ─── Navbar ─── */
-    .navbar {
-      background: var(--bg-white);
-      border-bottom: 1px solid var(--stroke-light);
-      height: 72px; display: flex; align-items: center;
-    }
-    .navbar-inner {
-      max-width: 1200px; margin: 0 auto; padding: 0 40px; width: 100%;
-      display: grid; grid-template-columns: 180px 1fr auto auto;
-      align-items: center; gap: 40px;
-    }
+    .navbar { background: var(--bg-white); border-bottom: 1px solid var(--stroke-light); height: 72px; display: flex; align-items: center; }
+    .navbar-inner { max-width: 1200px; margin: 0 auto; padding: 0 40px; width: 100%; display: grid; grid-template-columns: 180px 1fr auto auto; align-items: center; gap: 40px; }
     .nav-logo { width: 140px; height: 40px; background: var(--bg-medium); border-radius: var(--radius); display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700; color: var(--text-meta); letter-spacing: 1px; }
     .nav-links { display: flex; align-items: center; gap: 36px; list-style: none; }
-    .nav-links li { font-size: 13px; color: var(--text-meta); cursor: default; }
+    .nav-links li { font-size: 13px; color: var(--text-meta); }
     .nav-links li.active { color: var(--text-label); font-weight: 600; border-bottom: 2px solid var(--accent); padding-bottom: 2px; }
     .nav-search { width: 200px; height: 36px; border: 1px solid var(--stroke-light); border-radius: var(--radius); background: var(--bg-page); display: flex; align-items: center; padding: 0 12px; gap: 8px; }
     .nav-search-placeholder { font-size: 11px; color: var(--text-ghost); }
     .nav-account { display: flex; align-items: center; gap: 8px; padding: 6px 14px; border: 1px solid var(--stroke-light); border-radius: var(--radius); font-size: 12px; color: var(--text-meta); }
     .nav-account-dot { width: 8px; height: 8px; background: var(--bg-dark); border-radius: 50%; }
 
-    /* ─── Section label ─── */
-    .section-label {
-      font-size: 9px; font-weight: 700; letter-spacing: 2px;
-      text-transform: uppercase; color: var(--text-ghost);
-      padding: 4px 8px; background: var(--bg-light);
-      border-left: 3px solid var(--stroke-medium);
-      display: inline-block; margin-bottom: 20px;
-    }
+    .content-max { max-width: 1200px; margin: 0 auto; padding: 0 40px; }
+    .section-label { font-size: 9px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--text-ghost); padding: 4px 8px; background: var(--bg-light); border-left: 3px solid var(--stroke-medium); display: inline-block; margin-bottom: 20px; }
 
-    /* ─── Breadcrumb ─── */
-    .breadcrumb {
-      padding: 16px 0;
-      display: flex; align-items: center; gap: 8px;
-    }
+    .breadcrumb { padding: 16px 0; display: flex; align-items: center; gap: 8px; }
     .breadcrumb-item { font-size: 12px; color: var(--text-meta); }
     .breadcrumb-sep { font-size: 10px; color: var(--text-ghost); }
     .breadcrumb-current { font-size: 12px; color: var(--text-label); font-weight: 600; }
 
-    /* ─── Page header catalogue ─── */
-    .catalogue-header {
-      padding: 36px 0 28px;
-      border-bottom: 1px solid var(--stroke-light);
-    }
-    .catalogue-header-inner {
-      max-width: 1200px; margin: 0 auto; padding: 0 40px;
-    }
-    .catalogue-title {
-      font-size: 32px; font-weight: 800; color: var(--text-label);
-      letter-spacing: -0.5px; margin-bottom: 8px;
-    }
-    .catalogue-subtitle {
-      font-size: 14px; color: var(--text-meta); margin-bottom: 24px;
-    }
-
-    /* Barre recherche catalogue */
-    .catalogue-search-bar {
-      display: flex; gap: 12px; align-items: center;
-    }
-    .catalogue-search-input {
-      flex: 1; height: 48px;
-      border: 1px solid var(--stroke-medium);
-      border-radius: var(--radius);
-      background: var(--bg-page);
-      display: flex; align-items: center; padding: 0 16px; gap: 12px;
-    }
-    .catalogue-search-input-placeholder { font-size: 13px; color: var(--text-ghost); }
-    .catalogue-search-btn {
-      height: 48px; padding: 0 24px;
-      background: var(--accent); color: white;
-      font-size: 13px; font-weight: 600;
-      border-radius: var(--radius); cursor: default;
-      display: flex; align-items: center; gap: 8px;
-    }
-
-    /* Tabs catégories */
-    .catalogue-tabs {
-      display: flex; gap: 0; margin-top: 24px;
-      border-bottom: 2px solid var(--stroke-light);
-    }
-    .catalogue-tab {
-      padding: 10px 24px;
-      font-size: 12px; font-weight: 600;
-      color: var(--text-meta);
-      border-bottom: 2px solid transparent;
-      margin-bottom: -2px;
-      cursor: default;
-    }
-    .catalogue-tab.active {
-      color: var(--text-label);
-      border-bottom-color: var(--accent);
-    }
-    .catalogue-tab-count {
-      display: inline-flex; align-items: center; justify-content: center;
-      width: 20px; height: 20px;
-      background: var(--bg-light); border-radius: 10px;
-      font-size: 9px; font-weight: 700; color: var(--text-meta);
-      margin-left: 6px;
-    }
-
-    /* ─── Layout principal : sidebar + grille ─── */
-    .catalogue-body {
-      max-width: 1200px; margin: 0 auto; padding: 0 40px;
+    /* ─── Layout produit : 2 colonnes ─── */
+    .product-layout {
       display: grid;
-      grid-template-columns: var(--sidebar-w) 1fr;
-      gap: 40px;
-      padding-top: 32px; padding-bottom: 80px;
+      grid-template-columns: 1fr 440px;
+      gap: 60px;
+      padding: 32px 0 80px;
+      align-items: start;
     }
 
-    /* ─── SIDEBAR FILTRES ─── */
-    .sidebar { }
-    .filter-block {
-      margin-bottom: 28px;
-      padding-bottom: 28px;
-      border-bottom: 1px solid var(--stroke-light);
-    }
-    .filter-block:last-child { border-bottom: none; }
-    .filter-title {
-      font-size: 11px; font-weight: 700; letter-spacing: 1px;
-      text-transform: uppercase; color: var(--text-label);
-      margin-bottom: 14px;
-      display: flex; justify-content: space-between; align-items: center;
-    }
-    .filter-toggle { font-size: 14px; color: var(--text-ghost); cursor: default; }
-
-    .filter-option {
-      display: flex; align-items: center; gap: 10px;
-      padding: 6px 0; cursor: default;
-    }
-    .filter-checkbox {
-      width: 16px; height: 16px;
-      border: 1.5px solid var(--stroke-medium);
-      border-radius: 3px; flex-shrink: 0;
-      background: var(--bg-white);
-      display: flex; align-items: center; justify-content: center;
-    }
-    .filter-checkbox.checked {
-      background: var(--accent);
-      border-color: var(--accent);
-    }
-    .filter-checkbox.checked::after { content: '✓'; color: white; font-size: 10px; }
-    .filter-label { font-size: 12px; color: var(--text-meta); flex: 1; }
-    .filter-count { font-size: 10px; color: var(--text-ghost); }
-
-    /* Range slider simulé */
-    .filter-range {
-      margin-top: 8px;
-    }
-    .filter-range-track {
-      height: 4px; background: var(--bg-medium);
-      border-radius: 2px; position: relative; margin: 16px 0 8px;
-    }
-    .filter-range-fill {
-      position: absolute; left: 10%; right: 30%;
-      height: 100%; background: var(--accent); border-radius: 2px;
-    }
-    .filter-range-handle {
-      position: absolute; top: -6px;
-      width: 16px; height: 16px;
-      background: var(--bg-white);
-      border: 2px solid var(--accent);
-      border-radius: 50%;
-    }
-    .filter-range-handle.left { left: 10%; transform: translateX(-50%); }
-    .filter-range-handle.right { right: 30%; transform: translateX(50%); }
-    .filter-range-values {
-      display: flex; justify-content: space-between;
-      font-size: 11px; color: var(--text-meta);
-    }
-
-    /* Filtre éco */
-    .filter-eco-toggle {
-      display: flex; align-items: center; gap: 12px;
-      padding: 10px 14px;
-      border: 1px solid var(--stroke-medium);
-      border-radius: var(--radius);
-      cursor: default;
-    }
-    .toggle-track {
-      width: 36px; height: 20px;
-      background: var(--bg-medium);
-      border-radius: 10px; position: relative;
-    }
-    .toggle-thumb {
-      position: absolute; top: 3px; left: 3px;
-      width: 14px; height: 14px;
-      background: var(--bg-white);
-      border-radius: 50%;
-    }
-    .filter-eco-label { font-size: 12px; color: var(--text-meta); }
-
-    /* Reset filtres */
-    .filter-reset {
-      font-size: 11px; color: var(--text-ghost);
-      text-decoration: underline; cursor: default;
-      text-align: center; padding: 8px 0;
-    }
-
-    /* ─── GRILLE PRODUITS ─── */
-    .catalogue-main { }
-
-    /* Barre de contrôle (résultats + tri) */
-    .catalogue-controls {
-      display: flex; align-items: center; justify-content: space-between;
-      margin-bottom: 24px;
-      padding-bottom: 16px;
-      border-bottom: 1px solid var(--stroke-light);
-    }
-    .catalogue-results {
-      font-size: 13px; color: var(--text-meta);
-    }
-    .catalogue-results strong { color: var(--text-label); }
-
-    .catalogue-controls-right { display: flex; align-items: center; gap: 16px; }
-
-    /* Filtres actifs (tags) */
-    .active-filters { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
-    .active-filter-tag {
-      display: inline-flex; align-items: center; gap: 6px;
-      padding: 5px 10px;
-      background: var(--bg-light); border: 1px solid var(--stroke-medium);
-      border-radius: 20px; font-size: 11px; color: var(--text-label);
-    }
-    .active-filter-remove { color: var(--text-ghost); font-size: 12px; cursor: default; }
-
-    /* Sélecteur de tri */
-    .sort-select {
-      height: 36px; padding: 0 12px;
-      border: 1px solid var(--stroke-medium); border-radius: var(--radius);
-      background: var(--bg-white); font-size: 12px; color: var(--text-meta);
-      display: flex; align-items: center; gap: 8px;
-    }
-
-    /* Sélecteur de vue grille/liste */
-    .view-toggle { display: flex; border: 1px solid var(--stroke-medium); border-radius: var(--radius); overflow: hidden; }
-    .view-btn {
-      padding: 8px 10px; background: var(--bg-white);
-      font-size: 12px; color: var(--text-ghost); cursor: default;
-      border-right: 1px solid var(--stroke-light);
-    }
-    .view-btn:last-child { border-right: none; }
-    .view-btn.active { background: var(--bg-light); color: var(--text-label); }
-
-    /* Grille 3 colonnes */
-    .products-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 20px;
-      margin-bottom: 40px;
-    }
-
-    .product-card {
-      background: var(--bg-white);
+    /* ─── Colonne gauche : galerie ─── */
+    .gallery { }
+    .gallery-main {
+      width: 100%; aspect-ratio: 1;
+      background: var(--bg-light);
       border: 1px solid var(--stroke-light);
       border-radius: var(--radius);
-      overflow: hidden;
-      position: relative;
+      display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 8px;
+      margin-bottom: 16px; position: relative;
     }
-    .product-card-img {
-      height: 180px; background: var(--bg-light);
-      border-bottom: 1px solid var(--stroke-light);
-      display: flex; align-items: center; justify-content: center;
-      flex-direction: column; gap: 6px; position: relative;
-    }
-    .product-card-img::before {
+    .gallery-main::before {
       content: '';
       position: absolute; inset: 0;
       background: linear-gradient(135deg, transparent 45%, var(--stroke-light) 45%, var(--stroke-light) 46%, transparent 46%);
-    }
-    .product-card-img-label { position: relative; font-size: 10px; color: var(--text-ghost); z-index: 1; text-align: center; }
-    .product-card-body { padding: 14px 16px; }
-    .product-card-cat { font-size: 9px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--text-ghost); margin-bottom: 5px; }
-    .product-card-name { font-size: 14px; font-weight: 700; color: var(--text-label); margin-bottom: 3px; line-height: 1.3; }
-    .product-card-ref { font-size: 10px; color: var(--text-ghost); margin-bottom: 10px; }
-    .product-card-price { font-size: 14px; font-weight: 800; color: var(--text-label); }
-    .product-card-moq { font-size: 10px; color: var(--text-ghost); margin-bottom: 12px; }
-    .product-card-footer { display: flex; gap: 8px; }
-    .product-card-btn { flex: 1; padding: 9px; background: var(--accent); color: white; font-size: 11px; font-weight: 600; text-align: center; border-radius: var(--radius); cursor: default; }
-    .product-card-btn-outline { padding: 9px 12px; background: transparent; border: 1px solid var(--stroke-medium); font-size: 11px; text-align: center; border-radius: var(--radius); color: var(--text-meta); cursor: default; }
-
-    .product-badge {
-      position: absolute; top: 10px; left: 10px;
-      background: var(--bg-deep); color: white;
-      font-size: 9px; font-weight: 700; letter-spacing: 1px;
-      text-transform: uppercase; padding: 3px 7px; border-radius: 2px; z-index: 1;
-    }
-    .product-badge-eco {
-      position: absolute; top: 10px; right: 10px;
-      background: var(--bg-dark); color: white;
-      font-size: 9px; font-weight: 700; letter-spacing: 1px;
-      text-transform: uppercase; padding: 3px 7px; border-radius: 2px; z-index: 1;
-    }
-
-    /* Pagination */
-    .pagination {
-      display: flex; align-items: center; justify-content: center; gap: 4px;
-      padding-top: 16px;
-      border-top: 1px solid var(--stroke-light);
-    }
-    .page-btn {
-      width: 36px; height: 36px;
-      display: flex; align-items: center; justify-content: center;
-      border: 1px solid var(--stroke-light);
       border-radius: var(--radius);
-      font-size: 12px; color: var(--text-meta); cursor: default;
+    }
+    .gallery-main-label { position: relative; z-index: 1; font-size: 12px; color: var(--text-ghost); text-align: center; }
+    .gallery-main-dim { position: relative; z-index: 1; font-size: 10px; color: var(--text-ghost); }
+
+    /* Navigation galerie */
+    .gallery-nav {
+      position: absolute; top: 50%; transform: translateY(-50%);
+      display: flex; justify-content: space-between; width: 100%; padding: 0 16px;
+    }
+    .gallery-nav-btn {
+      width: 40px; height: 40px;
+      background: var(--bg-white); border: 1px solid var(--stroke-medium);
+      border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      font-size: 14px; color: var(--text-meta); cursor: default;
+      position: relative; z-index: 2;
+    }
+
+    .gallery-thumbs { display: flex; gap: 10px; }
+    .gallery-thumb {
+      width: 72px; height: 72px;
+      background: var(--bg-light); border: 1px solid var(--stroke-light);
+      border-radius: var(--radius); display: flex; align-items: center; justify-content: center;
+      font-size: 9px; color: var(--text-ghost); cursor: default; position: relative;
+    }
+    .gallery-thumb::before {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(135deg, transparent 40%, var(--stroke-medium) 40%, var(--stroke-medium) 42%, transparent 42%);
+      border-radius: var(--radius);
+    }
+    .gallery-thumb.active { border-color: var(--accent); border-width: 2px; }
+
+    /* Badge en haut de galerie */
+    .gallery-badges {
+      display: flex; gap: 8px; margin-bottom: 12px;
+    }
+    .badge {
+      padding: 4px 10px; border-radius: 2px;
+      font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase;
+    }
+    .badge-dark { background: var(--bg-deep); color: white; }
+    .badge-eco { background: var(--bg-dark); color: white; }
+
+    /* Zone marquage preview */
+    .marking-preview {
+      margin-top: 20px;
+      border: 1px solid var(--stroke-light); border-radius: var(--radius); overflow: hidden;
+    }
+    .marking-preview-header {
+      padding: 12px 16px; background: var(--bg-light);
+      font-size: 11px; font-weight: 700; color: var(--text-label);
+      border-bottom: 1px solid var(--stroke-light);
+    }
+    .marking-preview-body { padding: 16px; }
+    .marking-zones { display: flex; gap: 12px; }
+    .marking-zone {
+      flex: 1; padding: 16px 12px;
+      border: 1px dashed var(--stroke-medium); border-radius: var(--radius);
+      text-align: center; cursor: default;
+    }
+    .marking-zone.active { border-color: var(--accent); background: var(--bg-page); }
+    .marking-zone-label { font-size: 10px; font-weight: 600; color: var(--text-meta); margin-bottom: 4px; }
+    .marking-zone-size { font-size: 9px; color: var(--text-ghost); }
+
+    /* ─── Colonne droite : infos produit ─── */
+    .product-info { position: sticky; top: 20px; }
+
+    .product-cat { font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--text-ghost); margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+    .product-title { font-size: 28px; font-weight: 800; color: var(--text-label); line-height: 1.1; margin-bottom: 6px; letter-spacing: -0.3px; }
+    .product-ref { font-size: 11px; color: var(--text-ghost); margin-bottom: 20px; }
+
+    /* Prix */
+    .product-price-block {
+      padding: 16px 20px; background: var(--bg-light);
+      border-radius: var(--radius); margin-bottom: 24px;
+    }
+    .product-price-main { font-size: 28px; font-weight: 900; color: var(--text-label); }
+    .product-price-unit { font-size: 12px; color: var(--text-meta); margin-top: 2px; }
+
+    /* Tableau dégressif */
+    .price-table { width: 100%; border-collapse: collapse; margin-top: 12px; }
+    .price-table th, .price-table td { padding: 7px 10px; text-align: center; font-size: 11px; border: 1px solid var(--stroke-light); }
+    .price-table th { background: var(--bg-medium); font-weight: 700; color: var(--text-label); }
+    .price-table td { background: var(--bg-white); color: var(--text-meta); }
+    .price-table tr.active td { background: var(--bg-light); font-weight: 700; color: var(--text-label); }
+
+    /* Sélecteur couleur */
+    .option-block { margin-bottom: 20px; }
+    .option-label { font-size: 11px; font-weight: 700; color: var(--text-label); margin-bottom: 10px; display: flex; justify-content: space-between; }
+    .color-swatches { display: flex; gap: 8px; flex-wrap: wrap; }
+    .color-swatch {
+      width: 28px; height: 28px; border-radius: 50%;
+      background: var(--bg-medium); border: 2px solid transparent; cursor: default;
+    }
+    .color-swatch.active { border-color: var(--text-label); }
+    .color-swatch:nth-child(2) { background: var(--bg-dark); }
+    .color-swatch:nth-child(3) { background: var(--bg-deep); }
+    .color-swatch:nth-child(4) { background: var(--bg-light); border: 1px solid var(--stroke-medium); }
+    .color-swatch:nth-child(5) { background: #ccc; }
+
+    /* Sélecteur taille */
+    .size-options { display: flex; gap: 8px; flex-wrap: wrap; }
+    .size-btn {
+      min-width: 44px; height: 36px;
+      border: 1px solid var(--stroke-medium); border-radius: var(--radius);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 12px; font-weight: 600; color: var(--text-meta); cursor: default;
       background: var(--bg-white);
     }
-    .page-btn.active {
-      background: var(--accent); color: white; border-color: var(--accent);
-    }
-    .page-btn.prev, .page-btn.next {
-      width: auto; padding: 0 14px;
-      font-size: 11px; font-weight: 600;
-    }
+    .size-btn.active { border-color: var(--accent); border-width: 2px; color: var(--text-label); background: var(--bg-page); }
 
-    /* ─── Index page ─── */
-    .page-index {
-      position: fixed; right: 20px; top: 50%; transform: translateY(-50%);
-      background: white; border: 1px solid var(--stroke-light);
-      border-radius: var(--radius); padding: 12px 0;
-      font-size: 9px; z-index: 1000;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.08); min-width: 140px;
+    /* Quantité */
+    .qty-block { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; }
+    .qty-label { font-size: 11px; font-weight: 700; color: var(--text-label); min-width: 100px; }
+    .qty-input {
+      display: flex; align-items: center;
+      border: 1px solid var(--stroke-medium); border-radius: var(--radius); overflow: hidden;
     }
+    .qty-btn { width: 36px; height: 40px; background: var(--bg-light); display: flex; align-items: center; justify-content: center; font-size: 16px; color: var(--text-meta); cursor: default; }
+    .qty-value { width: 60px; height: 40px; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 700; color: var(--text-label); border-left: 1px solid var(--stroke-light); border-right: 1px solid var(--stroke-light); }
+    .qty-moq { font-size: 10px; color: var(--text-ghost); }
+
+    /* CTA boutons */
+    .cta-buttons { display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px; }
+    .btn-primary { padding: 16px; background: var(--accent); color: white; font-size: 13px; font-weight: 700; text-align: center; border-radius: var(--radius); cursor: default; }
+    .btn-secondary { padding: 15px; background: transparent; border: 2px solid var(--stroke-strong); color: var(--text-label); font-size: 13px; font-weight: 600; text-align: center; border-radius: var(--radius); cursor: default; }
+    .btn-ghost { padding: 12px; background: var(--bg-light); color: var(--text-meta); font-size: 12px; text-align: center; border-radius: var(--radius); cursor: default; }
+
+    /* Infos rapides */
+    .quick-infos { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 24px; }
+    .quick-info {
+      padding: 12px 14px; background: var(--bg-page);
+      border: 1px solid var(--stroke-light); border-radius: var(--radius);
+    }
+    .quick-info-icon { font-size: 16px; margin-bottom: 4px; }
+    .quick-info-label { font-size: 9px; text-transform: uppercase; letter-spacing: 1px; color: var(--text-ghost); }
+    .quick-info-value { font-size: 13px; font-weight: 700; color: var(--text-label); margin-top: 2px; }
+
+    /* ─── Tabs description ─── */
+    .product-tabs-section { padding: 0 0 80px; border-top: 1px solid var(--stroke-light); }
+    .product-tabs { display: flex; border-bottom: 2px solid var(--stroke-light); margin-bottom: 32px; }
+    .product-tab { padding: 14px 24px; font-size: 13px; font-weight: 600; color: var(--text-meta); border-bottom: 2px solid transparent; margin-bottom: -2px; cursor: default; }
+    .product-tab.active { color: var(--text-label); border-bottom-color: var(--accent); }
+
+    .tab-content { }
+    .description-text {
+      max-width: 700px;
+      font-size: 13px; color: var(--text-meta); line-height: 1.8; margin-bottom: 24px;
+    }
+    .spec-table { width: 100%; border-collapse: collapse; max-width: 700px; }
+    .spec-table tr { border-bottom: 1px solid var(--stroke-light); }
+    .spec-table td { padding: 10px 0; font-size: 12px; }
+    .spec-table td:first-child { width: 40%; font-weight: 600; color: var(--text-label); }
+    .spec-table td:last-child { color: var(--text-meta); }
+
+    /* ─── Cross-selling ─── */
+    .cross-sell { padding: 60px 0 80px; border-top: 1px solid var(--stroke-light); }
+    .cross-sell-title { font-size: 22px; font-weight: 800; color: var(--text-label); margin-bottom: 24px; }
+    .cross-sell-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+    .cross-sell-card { border: 1px solid var(--stroke-light); border-radius: var(--radius); overflow: hidden; }
+    .cross-sell-img { height: 120px; background: var(--bg-light); display: flex; align-items: center; justify-content: center; position: relative; }
+    .cross-sell-img::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, transparent 43%, var(--stroke-light) 43%, var(--stroke-light) 45%, transparent 45%); }
+    .cross-sell-img-label { position: relative; font-size: 9px; color: var(--text-ghost); z-index: 1; }
+    .cross-sell-body { padding: 12px; }
+    .cross-sell-name { font-size: 12px; font-weight: 700; color: var(--text-label); margin-bottom: 4px; line-height: 1.3; }
+    .cross-sell-price { font-size: 11px; color: var(--text-meta); margin-bottom: 10px; }
+    .cross-sell-btn { width: 100%; padding: 8px; background: var(--bg-light); font-size: 11px; font-weight: 600; color: var(--text-meta); text-align: center; border-radius: var(--radius); border: 1px solid var(--stroke-medium); cursor: default; }
+
+    .page-index { position: fixed; right: 20px; top: 50%; transform: translateY(-50%); background: white; border: 1px solid var(--stroke-light); border-radius: var(--radius); padding: 12px 0; z-index: 1000; box-shadow: 0 2px 8px rgba(0,0,0,0.08); min-width: 140px; }
     .page-index-title { font-size: 8px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--text-ghost); padding: 0 12px 8px; border-bottom: 1px solid var(--stroke-light); margin-bottom: 6px; }
     .page-index-item { padding: 4px 12px; font-size: 9px; color: var(--text-meta); display: flex; align-items: center; gap: 8px; }
     .page-index-num { font-weight: 700; color: var(--text-ghost); min-width: 16px; }
-
-    .section-sidebar-label {
-      font-size: 9px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
-      color: var(--text-ghost); margin-bottom: 20px;
-      padding: 4px 8px; background: var(--bg-light);
-      border-left: 3px solid var(--stroke-medium); display: inline-block;
-    }
   </style>
 </head>
 <body>
 
-  <!-- ─── En-tête document ─────────────────────────────────────── -->
   <div class="doc-header">
     <div>
       <div class="doc-header-project">ACEF × Bimier Solutions — Refonte Site Catalogue</div>
-      <div class="doc-header-page">Wireframe 02 — Page Catalogue</div>
+      <div class="doc-header-page">Wireframe 03 — Fiche Produit</div>
     </div>
     <div>
       <div class="doc-header-meta">Desktop 1440px · v1.0 · Mai 2026</div>
@@ -432,18 +276,18 @@
   <div class="page-index">
     <div class="page-index-title">Sections</div>
     <div class="page-index-item"><span class="page-index-num">01</span> Navigation</div>
-    <div class="page-index-item"><span class="page-index-num">02</span> En-tête catalogue</div>
-    <div class="page-index-item"><span class="page-index-num">03</span> Breadcrumb</div>
-    <div class="page-index-item"><span class="page-index-num">04</span> Sidebar filtres</div>
-    <div class="page-index-item"><span class="page-index-num">05</span> Contrôles (tri/vue)</div>
-    <div class="page-index-item"><span class="page-index-num">06</span> Grille produits</div>
-    <div class="page-index-item"><span class="page-index-num">07</span> Pagination</div>
+    <div class="page-index-item"><span class="page-index-num">02</span> Breadcrumb</div>
+    <div class="page-index-item"><span class="page-index-num">03</span> Galerie produit</div>
+    <div class="page-index-item"><span class="page-index-num">04</span> Panneau commande</div>
+    <div class="page-index-item"><span class="page-index-num">05</span> Zones marquage</div>
+    <div class="page-index-item"><span class="page-index-num">06</span> Tabs description</div>
+    <div class="page-index-item"><span class="page-index-num">07</span> Cross-selling</div>
   </div>
 
   <div class="page-wrapper">
 
     <!-- ════════ 01 — NAVIGATION ════════ -->
-    <div class="ruler">Section 01 — Navigation / identique à toutes les pages (composant réutilisable)</div>
+    <div class="ruler">Section 01 — Navigation / Composant réutilisable identique aux autres pages</div>
     <div class="navbar">
       <div class="navbar-inner">
         <div class="nav-logo">BIMIER LOGO</div>
@@ -464,357 +308,272 @@
       </div>
     </div>
 
-    <!-- ════════ 02 — EN-TÊTE CATALOGUE ════════ -->
-    <div class="ruler">Section 02 — En-tête catalogue / Titre + barre de recherche + onglets catégories</div>
-    <div class="catalogue-header">
-      <div class="catalogue-header-inner">
-        <div class="section-label">02 — En-tête</div>
-        <div class="catalogue-title">Catalogue B2B ACEF</div>
-        <div class="catalogue-subtitle">Plus de 5 000 références d'objets et textiles personnalisables — réservé aux membres ACEF</div>
-
-        <!-- Barre de recherche dans le catalogue -->
-        <div class="catalogue-search-bar">
-          <div class="catalogue-search-input" style="font-size:13px;">
-            <span>🔍</span>
-            <span class="catalogue-search-input-placeholder">Rechercher par mot-clé, référence produit…</span>
-          </div>
-          <div class="catalogue-search-btn">Rechercher</div>
-        </div>
-
-        <!-- Onglets par catégorie -->
-        <div class="catalogue-tabs">
-          <div class="catalogue-tab active">Tous <span class="catalogue-tab-count">390</span></div>
-          <div class="catalogue-tab">Textile <span class="catalogue-tab-count">142</span></div>
-          <div class="catalogue-tab">Papeterie <span class="catalogue-tab-count">89</span></div>
-          <div class="catalogue-tab">Drinkware <span class="catalogue-tab-count">67</span></div>
-          <div class="catalogue-tab">High-Tech <span class="catalogue-tab-count">54</span></div>
-          <div class="catalogue-tab">Éco-responsable <span class="catalogue-tab-count">38</span></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- ════════ 03 — BREADCRUMB ════════ -->
-    <div class="ruler">Section 03 — Breadcrumb / Fil d'Ariane / Orientation spatiale de l'utilisateur</div>
-    <div style="max-width:1200px; margin:0 auto; padding:0 40px;">
+    <!-- ════════ 02 — BREADCRUMB ════════ -->
+    <div class="ruler">Section 02 — Breadcrumb / Niveau 3 : Accueil › Catalogue › Catégorie › Produit</div>
+    <div class="content-max">
       <div class="breadcrumb">
         <span class="breadcrumb-item">Accueil</span>
         <span class="breadcrumb-sep">›</span>
-        <span class="breadcrumb-current">Catalogue B2B</span>
+        <span class="breadcrumb-item">Catalogue B2B</span>
+        <span class="breadcrumb-sep">›</span>
+        <span class="breadcrumb-item">Textile Corporate</span>
+        <span class="breadcrumb-sep">›</span>
+        <span class="breadcrumb-current">Polo Premium Bio</span>
       </div>
     </div>
 
-    <!-- ════════ 04 + 05 + 06 + 07 — CORPS CATALOGUE ════════ -->
-    <div class="ruler">Sections 04–07 — Layout 2 colonnes : Sidebar filtres (260px) + Grille produits (fluid)</div>
-    <div class="catalogue-body">
+    <!-- ════════ 03 + 04 — LAYOUT PRODUIT ════════ -->
+    <div class="ruler">Sections 03–04 — Layout 2 colonnes : Galerie (fluid) + Panneau commande (440px) / Sticky panel</div>
+    <div class="content-max">
+      <div class="section-label" style="margin-top:20px;">03 — Galerie / 04 — Panneau commande</div>
 
-      <!-- ════ SIDEBAR FILTRES ════ -->
-      <aside class="sidebar">
-        <div class="section-sidebar-label">04 — Filtres</div>
+      <div class="product-layout">
 
-        <!-- Filtre éco -->
-        <div class="filter-block">
-          <div class="filter-eco-toggle">
-            <div class="toggle-track">
-              <div class="toggle-thumb"></div>
+        <!-- ═══ COLONNE GAUCHE : GALERIE ═══ -->
+        <div class="gallery">
+
+          <!-- Badges -->
+          <div class="gallery-badges">
+            <span class="badge badge-dark">Best-seller</span>
+            <span class="badge badge-eco">🌱 Éco-responsable</span>
+          </div>
+
+          <!-- Image principale -->
+          <div class="gallery-main">
+            <span class="gallery-main-label">IMAGE PRINCIPALE PRODUIT</span>
+            <span class="gallery-main-dim">560×560px recommandé · Fond blanc · Haute résolution</span>
+            <div class="gallery-nav">
+              <div class="gallery-nav-btn">‹</div>
+              <div class="gallery-nav-btn">›</div>
             </div>
-            <span class="filter-eco-label">🌱 Éco-responsable uniquement</span>
           </div>
-        </div>
 
-        <!-- Catégories -->
-        <div class="filter-block">
-          <div class="filter-title">
-            Catégories
-            <span class="filter-toggle">−</span>
+          <!-- Miniatures -->
+          <div class="gallery-thumbs">
+            <div class="gallery-thumb active"></div>
+            <div class="gallery-thumb"></div>
+            <div class="gallery-thumb"></div>
+            <div class="gallery-thumb"></div>
+            <div class="gallery-thumb"></div>
           </div>
-          <div class="filter-option">
-            <div class="filter-checkbox checked"></div>
-            <span class="filter-label">Textile</span>
-            <span class="filter-count">142</span>
-          </div>
-          <div class="filter-option">
-            <div class="filter-checkbox"></div>
-            <span class="filter-label">Papeterie</span>
-            <span class="filter-count">89</span>
-          </div>
-          <div class="filter-option">
-            <div class="filter-checkbox"></div>
-            <span class="filter-label">Drinkware</span>
-            <span class="filter-count">67</span>
-          </div>
-          <div class="filter-option">
-            <div class="filter-checkbox"></div>
-            <span class="filter-label">High-Tech</span>
-            <span class="filter-count">54</span>
-          </div>
-          <div class="filter-option">
-            <div class="filter-checkbox"></div>
-            <span class="filter-label">Maroquinerie</span>
-            <span class="filter-count">28</span>
-          </div>
-        </div>
 
-        <!-- Budget -->
-        <div class="filter-block">
-          <div class="filter-title">
-            Budget unitaire
-            <span class="filter-toggle">−</span>
-          </div>
-          <div class="filter-range">
-            <div class="filter-range-track">
-              <div class="filter-range-fill"></div>
-              <div class="filter-range-handle left"></div>
-              <div class="filter-range-handle right"></div>
-            </div>
-            <div class="filter-range-values">
-              <span>1 €</span>
-              <span>100 €</span>
+          <!-- ════ 05 — ZONES DE MARQUAGE ════ -->
+          <div style="margin-top:32px;">
+            <div class="ruler" style="margin:0 -40px 16px; padding-left:40px;">Section 05 — Zones de marquage / Aperçu visuel des positions logo disponibles</div>
+            <div class="marking-preview">
+              <div class="marking-preview-header">📍 Inspirations de marquage — Où placer votre logo ?</div>
+              <div class="marking-preview-body">
+                <div class="marking-zones">
+                  <div class="marking-zone active">
+                    <div class="marking-zone-label">Cœur (Classique)</div>
+                    <div class="marking-zone-size">Zone : 10×10 cm</div>
+                    <div style="margin-top:8px; font-size:10px; color:var(--text-ghost);">Idéal pour broderie. Discret et professionnel.</div>
+                  </div>
+                  <div class="marking-zone">
+                    <div class="marking-zone-label">Dos (Impact)</div>
+                    <div class="marking-zone-size">Zone : 30×35 cm</div>
+                    <div style="margin-top:8px; font-size:10px; color:var(--text-ghost);">Idéal pour sérigraphie. Lisibilité maximale.</div>
+                  </div>
+                  <div class="marking-zone">
+                    <div class="marking-zone-label">Manche (Détail)</div>
+                    <div class="marking-zone-size">Zone : 8×8 cm</div>
+                    <div style="margin-top:8px; font-size:10px; color:var(--text-ghost);">Sponsor secondaire ou drapeau.</div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
 
-        <!-- Matière -->
-        <div class="filter-block">
-          <div class="filter-title">
-            Matière principale
-            <span class="filter-toggle">−</span>
+        <!-- ═══ COLONNE DROITE : PANNEAU COMMANDE ═══ -->
+        <div class="product-info">
+          <div class="product-cat">
+            <span>Textile</span>
+            <span style="color:var(--stroke-light);">|</span>
+            <span>Coton 100% Bio</span>
           </div>
-          <div class="filter-option">
-            <div class="filter-checkbox"></div>
-            <span class="filter-label">Coton bio</span>
-            <span class="filter-count">38</span>
+          <div class="product-title">Polo Premium Corporate</div>
+          <div class="product-ref">Réf. TEX-001 · Collection Textile Corporate</div>
+
+          <!-- Prix dégressif -->
+          <div class="product-price-block">
+            <div class="product-price-main">14,50 € HT</div>
+            <div class="product-price-unit">par pièce pour 100 unités avec sérigraphie 1 couleur</div>
+            <table class="price-table" style="margin-top:14px;">
+              <thead>
+                <tr>
+                  <th>Quantité</th>
+                  <th>50–99 pcs</th>
+                  <th>100–249 pcs</th>
+                  <th>250+ pcs</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="font-weight:700;text-align:left;">Prix HT/unité</td>
+                  <td>16,90 €</td>
+                  <td class="">14,50 €</td>
+                  <td>12,80 €</td>
+                </tr>
+              </tbody>
+            </table>
           </div>
-          <div class="filter-option">
-            <div class="filter-checkbox checked"></div>
-            <span class="filter-label">rPET (recyclé)</span>
-            <span class="filter-count">22</span>
+
+          <!-- Couleur -->
+          <div class="option-block">
+            <div class="option-label">
+              <span>Couleur — <span style="font-weight:400; color:var(--text-meta);">Bleu Marine</span></span>
+              <span style="font-size:10px; color:var(--text-ghost);">+6 coloris disponibles</span>
+            </div>
+            <div class="color-swatches">
+              <div class="color-swatch active"></div>
+              <div class="color-swatch"></div>
+              <div class="color-swatch"></div>
+              <div class="color-swatch"></div>
+              <div class="color-swatch"></div>
+            </div>
           </div>
-          <div class="filter-option">
-            <div class="filter-checkbox"></div>
-            <span class="filter-label">Bois / Bambou</span>
-            <span class="filter-count">15</span>
+
+          <!-- Taille -->
+          <div class="option-block">
+            <div class="option-label">
+              <span>Taille — <span style="font-weight:400; color:var(--text-meta);">Panachage autorisé</span></span>
+            </div>
+            <div class="size-options">
+              <div class="size-btn">XS</div>
+              <div class="size-btn">S</div>
+              <div class="size-btn active">M</div>
+              <div class="size-btn">L</div>
+              <div class="size-btn">XL</div>
+              <div class="size-btn">XXL</div>
+              <div class="size-btn">3XL</div>
+            </div>
           </div>
-          <div class="filter-option">
-            <div class="filter-checkbox"></div>
-            <span class="filter-label">Acier inox</span>
-            <span class="filter-count">19</span>
+
+          <!-- Quantité -->
+          <div class="qty-block">
+            <span class="qty-label">Quantité</span>
+            <div class="qty-input">
+              <div class="qty-btn">−</div>
+              <div class="qty-value">100</div>
+              <div class="qty-btn">+</div>
+            </div>
+            <span class="qty-moq">Minimum 50 pcs</span>
+          </div>
+
+          <!-- Infos rapides -->
+          <div class="quick-infos">
+            <div class="quick-info">
+              <div class="quick-info-icon">📦</div>
+              <div class="quick-info-label">Quantité min. (MOQ)</div>
+              <div class="quick-info-value">50 pièces</div>
+            </div>
+            <div class="quick-info">
+              <div class="quick-info-icon">⏱️</div>
+              <div class="quick-info-label">Délai de production</div>
+              <div class="quick-info-value">10–15 jours ouvrés</div>
+            </div>
+            <div class="quick-info">
+              <div class="quick-info-icon">🎨</div>
+              <div class="quick-info-label">Techniques disponibles</div>
+              <div class="quick-info-value">Sérigraphie · Broderie</div>
+            </div>
+            <div class="quick-info">
+              <div class="quick-info-icon">🌱</div>
+              <div class="quick-info-label">Certification</div>
+              <div class="quick-info-value">GOTS · Oeko-Tex</div>
+            </div>
+          </div>
+
+          <!-- Boutons CTA -->
+          <div class="cta-buttons">
+            <div class="btn-primary">Pré-remplir mon devis</div>
+            <div class="btn-secondary">Demander une maquette (BAT)</div>
+            <div class="btn-ghost">📄 Télécharger la fiche technique PDF</div>
+          </div>
+
+          <!-- Note connexion -->
+          <div style="font-size:10px; color:var(--text-ghost); text-align:center; padding-top:8px; border-top:1px solid var(--stroke-light);">
+            🔒 Commande réservée aux membres ACEF enregistrés
           </div>
         </div>
 
-        <!-- Quantité min -->
-        <div class="filter-block">
-          <div class="filter-title">
-            Quantité minimum
-            <span class="filter-toggle">+</span>
-          </div>
+      </div>
+    </div>
+
+    <!-- ════════ 06 — TABS DESCRIPTION ════════ -->
+    <div class="ruler">Section 06 — Onglets description / Description · Fiche Technique · Options de Marquage</div>
+    <div class="content-max">
+      <div class="product-tabs-section">
+        <div class="product-tabs">
+          <div class="product-tab active">Description Produit</div>
+          <div class="product-tab">Fiche Technique</div>
+          <div class="product-tab">Options de Marquage</div>
         </div>
 
-        <!-- Délai -->
-        <div class="filter-block">
-          <div class="filter-title">
-            Délai de production
-            <span class="filter-toggle">+</span>
-          </div>
-        </div>
-
-        <!-- Reset -->
-        <div class="filter-reset">Effacer tous les filtres</div>
-      </aside>
-
-      <!-- ════ GRILLE PRODUITS ════ -->
-      <div class="catalogue-main">
-        <div class="section-label">05 — Contrôles / 06 — Grille / 07 — Pagination</div>
-
-        <!-- Barre de contrôle -->
-        <div class="catalogue-controls">
-          <div>
-            <div class="catalogue-results"><strong>127 produits</strong> correspondent à votre recherche</div>
-            <!-- Tags filtres actifs -->
-            <div class="active-filters" style="margin-top:8px;">
-              <span style="font-size:10px; color:var(--text-ghost);">Filtres actifs :</span>
-              <div class="active-filter-tag">Textile <span class="active-filter-remove">✕</span></div>
-              <div class="active-filter-tag">rPET recyclé <span class="active-filter-remove">✕</span></div>
-            </div>
-          </div>
-          <div class="catalogue-controls-right">
-            <div class="sort-select">
-              Trier par : Pertinence ▾
-            </div>
-            <div class="view-toggle">
-              <div class="view-btn active">⊞</div>
-              <div class="view-btn">☰</div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Grille 3 colonnes -->
-        <div class="products-grid">
-
-          <!-- Carte 1 -->
-          <div class="product-card">
-            <div class="product-badge">Best-seller</div>
-            <div class="product-card-img"><span class="product-card-img-label">IMAGE PRODUIT<br/>270×180px</span></div>
-            <div class="product-card-body">
-              <div class="product-card-cat">Textile</div>
-              <div class="product-card-name">Polo Corporate Premium</div>
-              <div class="product-card-ref">Réf. TEX-001</div>
-              <div class="product-card-price">Dès 14,50 € HT</div>
-              <div class="product-card-moq">MOQ : 50 pièces</div>
-              <div class="product-card-footer">
-                <div class="product-card-btn">Voir le produit</div>
-                <div class="product-card-btn-outline">⊕</div>
-              </div>
-            </div>
+        <div class="tab-content">
+          <!-- Description -->
+          <div class="description-text">
+            [ZONE TEXTE — Description produit détaillée. Environ 150–200 mots. Mise en avant des caractéristiques techniques, du positionnement qualité, des labels et des usages recommandés pour une commande B2B ACEF.]
           </div>
 
-          <!-- Carte 2 -->
-          <div class="product-card">
-            <div class="product-badge">Nouveau</div>
-            <div class="product-badge-eco">🌱</div>
-            <div class="product-card-img"><span class="product-card-img-label">IMAGE PRODUIT<br/>270×180px</span></div>
-            <div class="product-card-body">
-              <div class="product-card-cat">Papeterie</div>
-              <div class="product-card-name">Carnet Moleskine A5</div>
-              <div class="product-card-ref">Réf. PAP-045</div>
-              <div class="product-card-price">Dès 6,90 € HT</div>
-              <div class="product-card-moq">MOQ : 100 pièces</div>
-              <div class="product-card-footer">
-                <div class="product-card-btn">Voir le produit</div>
-                <div class="product-card-btn-outline">⊕</div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Carte 3 -->
-          <div class="product-card">
-            <div class="product-card-img"><span class="product-card-img-label">IMAGE PRODUIT<br/>270×180px</span></div>
-            <div class="product-card-body">
-              <div class="product-card-cat">Drinkware</div>
-              <div class="product-card-name">Gourde Isotherme Inox</div>
-              <div class="product-card-ref">Réf. DRI-102</div>
-              <div class="product-card-price">Dès 11,20 € HT</div>
-              <div class="product-card-moq">MOQ : 25 pièces</div>
-              <div class="product-card-footer">
-                <div class="product-card-btn">Voir le produit</div>
-                <div class="product-card-btn-outline">⊕</div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Carte 4 -->
-          <div class="product-card">
-            <div class="product-badge-eco">🌱</div>
-            <div class="product-card-img"><span class="product-card-img-label">IMAGE PRODUIT<br/>270×180px</span></div>
-            <div class="product-card-body">
-              <div class="product-card-cat">High-Tech</div>
-              <div class="product-card-name">Batterie MagSafe 10 000 mAh</div>
-              <div class="product-card-ref">Réf. TEC-089</div>
-              <div class="product-card-price">Dès 18,00 € HT</div>
-              <div class="product-card-moq">MOQ : 25 pièces</div>
-              <div class="product-card-footer">
-                <div class="product-card-btn">Voir le produit</div>
-                <div class="product-card-btn-outline">⊕</div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Carte 5 -->
-          <div class="product-card">
-            <div class="product-card-img"><span class="product-card-img-label">IMAGE PRODUIT<br/>270×180px</span></div>
-            <div class="product-card-body">
-              <div class="product-card-cat">Textile</div>
-              <div class="product-card-name">Veste Softshell Corporate</div>
-              <div class="product-card-ref">Réf. TEX-002</div>
-              <div class="product-card-price">Dès 32,00 € HT</div>
-              <div class="product-card-moq">MOQ : 20 pièces</div>
-              <div class="product-card-footer">
-                <div class="product-card-btn">Voir le produit</div>
-                <div class="product-card-btn-outline">⊕</div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Carte 6 -->
-          <div class="product-card">
-            <div class="product-card-img"><span class="product-card-img-label">IMAGE PRODUIT<br/>270×180px</span></div>
-            <div class="product-card-body">
-              <div class="product-card-cat">Papeterie</div>
-              <div class="product-card-name">Stylo Métal Executive</div>
-              <div class="product-card-ref">Réf. PAP-012</div>
-              <div class="product-card-price">Dès 4,50 € HT</div>
-              <div class="product-card-moq">MOQ : 250 pièces</div>
-              <div class="product-card-footer">
-                <div class="product-card-btn">Voir le produit</div>
-                <div class="product-card-btn-outline">⊕</div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Carte 7 -->
-          <div class="product-card">
-            <div class="product-badge-eco">🌱</div>
-            <div class="product-card-img"><span class="product-card-img-label">IMAGE PRODUIT<br/>270×180px</span></div>
-            <div class="product-card-body">
-              <div class="product-card-cat">Maroquinerie</div>
-              <div class="product-card-name">Tote Bag Coton Recyclé</div>
-              <div class="product-card-ref">Réf. BAG-001</div>
-              <div class="product-card-price">Dès 2,50 € HT</div>
-              <div class="product-card-moq">MOQ : 150 pièces</div>
-              <div class="product-card-footer">
-                <div class="product-card-btn">Voir le produit</div>
-                <div class="product-card-btn-outline">⊕</div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Carte 8 -->
-          <div class="product-card">
-            <div class="product-card-img"><span class="product-card-img-label">IMAGE PRODUIT<br/>270×180px</span></div>
-            <div class="product-card-body">
-              <div class="product-card-cat">High-Tech</div>
-              <div class="product-card-name">Clé USB 3.0 Éco-Bois</div>
-              <div class="product-card-ref">Réf. TEC-011</div>
-              <div class="product-card-price">Dès 5,50 € HT</div>
-              <div class="product-card-moq">MOQ : 100 pièces</div>
-              <div class="product-card-footer">
-                <div class="product-card-btn">Voir le produit</div>
-                <div class="product-card-btn-outline">⊕</div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Carte 9 -->
-          <div class="product-card">
-            <div class="product-card-img"><span class="product-card-img-label">IMAGE PRODUIT<br/>270×180px</span></div>
-            <div class="product-card-body">
-              <div class="product-card-cat">Drinkware</div>
-              <div class="product-card-name">Mug Bambou & Inox</div>
-              <div class="product-card-ref">Réf. DRI-045</div>
-              <div class="product-card-price">Dès 8,80 € HT</div>
-              <div class="product-card-moq">MOQ : 50 pièces</div>
-              <div class="product-card-footer">
-                <div class="product-card-btn">Voir le produit</div>
-                <div class="product-card-btn-outline">⊕</div>
-              </div>
-            </div>
-          </div>
-
-        </div>
-
-        <!-- Pagination -->
-        <div class="pagination">
-          <div class="page-btn prev">← Précédent</div>
-          <div class="page-btn active">1</div>
-          <div class="page-btn">2</div>
-          <div class="page-btn">3</div>
-          <div class="page-btn" style="border:none;color:var(--text-ghost);">…</div>
-          <div class="page-btn">14</div>
-          <div class="page-btn next">Suivant →</div>
+          <!-- Spécifications -->
+          <div style="font-size:11px; font-weight:700; letter-spacing:1px; text-transform:uppercase; color:var(--text-ghost); margin-bottom:12px;">Caractéristiques techniques</div>
+          <table class="spec-table">
+            <tr><td>Grammage</td><td>220 g/m²</td></tr>
+            <tr><td>Composition</td><td>100% Coton biologique GOTS</td></tr>
+            <tr><td>Coupe</td><td>Unisexe — coupe moderne</td></tr>
+            <tr><td>Tailles disponibles</td><td>XS au 3XL</td></tr>
+            <tr><td>Techniques de marquage</td><td>Sérigraphie, Broderie 3D, Transfert numérique</td></tr>
+            <tr><td>Certifications</td><td>GOTS, Oeko-Tex Standard 100</td></tr>
+            <tr><td>Origine</td><td>Fabriqué au Portugal</td></tr>
+          </table>
         </div>
       </div>
+    </div>
 
-    </div><!-- /catalogue-body -->
+    <!-- ════════ 07 — CROSS-SELLING ════════ -->
+    <div class="ruler">Section 07 — Cross-selling / 4 produits complémentaires / Augmente le panier moyen</div>
+    <div class="content-max">
+      <div class="cross-sell">
+        <div class="cross-sell-title">Pour compléter votre pack</div>
+        <div class="cross-sell-grid">
+          <div class="cross-sell-card">
+            <div class="cross-sell-img"><span class="cross-sell-img-label">Image · 270×120px</span></div>
+            <div class="cross-sell-body">
+              <div class="cross-sell-name">Veste Softshell Pro</div>
+              <div class="cross-sell-price">Dès 32,00 € HT · MOQ 20 pcs</div>
+              <div class="cross-sell-btn">Voir le produit</div>
+            </div>
+          </div>
+          <div class="cross-sell-card">
+            <div class="cross-sell-img"><span class="cross-sell-img-label">Image · 270×120px</span></div>
+            <div class="cross-sell-body">
+              <div class="cross-sell-name">Casquette Trucker Brodée</div>
+              <div class="cross-sell-price">Dès 8,50 € HT · MOQ 50 pcs</div>
+              <div class="cross-sell-btn">Voir le produit</div>
+            </div>
+          </div>
+          <div class="cross-sell-card">
+            <div class="cross-sell-img"><span class="cross-sell-img-label">Image · 270×120px</span></div>
+            <div class="cross-sell-body">
+              <div class="cross-sell-name">Tote Bag Coton Recyclé</div>
+              <div class="cross-sell-price">Dès 2,50 € HT · MOQ 150 pcs</div>
+              <div class="cross-sell-btn">Voir le produit</div>
+            </div>
+          </div>
+          <div class="cross-sell-card">
+            <div class="cross-sell-img"><span class="cross-sell-img-label">Image · 270×120px</span></div>
+            <div class="cross-sell-body">
+              <div class="cross-sell-name">Polo Femme Premium Bio</div>
+              <div class="cross-sell-price">Dès 14,50 € HT · MOQ 50 pcs</div>
+              <div class="cross-sell-btn">Voir le produit</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
-  </div><!-- /page-wrapper -->
+  </div>
 </body>
 </html>
