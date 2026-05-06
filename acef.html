@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Wireframe — Confirmation | ACEF × Bimier Solutions</title>
+  <title>Wireframe — Mot de passe oublié V2 | ACEF × Bimier Solutions</title>
   <style>
-    :root{--bg-page:#F2F2F2;--bg-white:#FFFFFF;--bg-light:#E8E8E8;--bg-medium:#D0D0D0;--bg-dark:#B0B0B0;--bg-deep:#888888;--stroke-light:#CCCCCC;--stroke-medium:#AAAAAA;--stroke-dark:#444444;--text-label:#333333;--text-meta:#666666;--text-ghost:#999999;--accent:#444444;--radius:4px;--font:'Helvetica Neue',Helvetica,Arial,sans-serif;}
+    :root{--bg-page:#F2F2F2;--bg-white:#FFFFFF;--bg-light:#E8E8E8;--bg-medium:#D0D0D0;--bg-dark:#B0B0B0;--bg-deep:#888888;--stroke-light:#CCCCCC;--stroke-medium:#AAAAAA;--stroke-strong:#777777;--stroke-dark:#444444;--text-label:#333333;--text-meta:#666666;--text-ghost:#999999;--accent:#444444;--radius:4px;--font:'Helvetica Neue',Helvetica,Arial,sans-serif;}
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
     body{font-family:var(--font);background:var(--bg-page);color:var(--text-label);font-size:13px;min-height:100vh;}
-    body::before{content:"WIREFRAME — CONFIRMATION — ACEF × BIMIER SOLUTIONS — 1440px";position:fixed;top:50%;left:50%;transform:translate(-50%,-50%) rotate(-30deg);font-size:20px;font-weight:700;color:rgba(0,0,0,0.04);white-space:nowrap;pointer-events:none;z-index:9999;letter-spacing:4px;}
+    body::before{content:"WIREFRAME — MOT DE PASSE OUBLIÉ V2 — ACEF × BIMIER SOLUTIONS — 1440px";position:fixed;top:50%;left:50%;transform:translate(-50%,-50%) rotate(-30deg);font-size:18px;font-weight:700;color:rgba(0,0,0,0.04);white-space:nowrap;pointer-events:none;z-index:9999;letter-spacing:4px;}
     .page-wrapper{max-width:1440px;margin:0 auto;background:var(--bg-white);box-shadow:0 0 40px rgba(0,0,0,0.1);min-height:100vh;display:flex;flex-direction:column;}
     .doc-header{background:var(--bg-page);border-bottom:2px solid var(--stroke-dark);padding:16px 40px;display:flex;justify-content:space-between;align-items:center;}
     .doc-project{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--text-meta);}
@@ -17,190 +17,323 @@
     .doc-badge{background:var(--stroke-dark);color:white;font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:3px 8px;border-radius:2px;margin-top:4px;display:inline-block;}
     .ruler{background:#FFFDE7;border-top:1px dashed var(--stroke-medium);border-bottom:1px dashed var(--stroke-medium);padding:4px 40px;font-size:9px;color:var(--text-ghost);font-style:italic;display:flex;align-items:center;gap:8px;}
     .ruler::before{content:'↕';font-style:normal;}
-    .navbar{background:var(--bg-white);border-bottom:1px solid var(--stroke-light);height:72px;display:flex;align-items:center;}
-    .navbar-inner{max-width:1200px;margin:0 auto;padding:0 40px;width:100%;display:grid;grid-template-columns:180px 1fr auto auto;align-items:center;gap:40px;}
+    .slabel{font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--text-ghost);padding:4px 8px;background:var(--bg-light);border-left:3px solid var(--stroke-medium);display:inline-block;margin-bottom:16px;}
+
+    /* ── Navbar ── */
+    .navbar-minimal{background:var(--bg-white);border-bottom:1px solid var(--stroke-light);height:64px;display:flex;align-items:center;justify-content:center;position:relative;}
     .nav-logo{width:140px;height:40px;background:var(--bg-medium);border-radius:var(--radius);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:var(--text-meta);letter-spacing:1px;}
-    .nav-links{display:flex;align-items:center;gap:36px;list-style:none;}
-    .nav-links li{font-size:13px;color:var(--text-meta);}
-    .nav-account{display:flex;align-items:center;gap:8px;padding:6px 14px;border:1px solid var(--stroke-light);border-radius:var(--radius);font-size:12px;color:var(--text-meta);}
-    .nav-dot{width:8px;height:8px;background:var(--bg-dark);border-radius:50%;}
-    /* STEPPER */
-    .stepper{display:flex;align-items:center;justify-content:center;padding:28px 0;border-bottom:1px solid var(--stroke-light);}
-    .step{display:flex;align-items:center;gap:10px;}
-    .step-num{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;}
-    .step-num.done{background:var(--accent);color:white;}
-    .step-num.active{background:var(--accent);color:white;box-shadow:0 0 0 4px rgba(68,68,68,0.15);}
-    .step-label{font-size:12px;font-weight:600;color:var(--text-label);}
-    .step-sep{width:80px;height:1px;background:var(--stroke-medium);margin:0 16px;}
-    /* CONTENU */
-    .confirm-body{flex:1;display:flex;align-items:flex-start;justify-content:center;padding:60px 40px 80px;}
-    .confirm-inner{width:100%;max-width:800px;}
-    /* Bloc succès */
-    .success-block{text-align:center;padding:48px 40px;background:var(--bg-page);border:1px solid var(--stroke-light);border-radius:var(--radius);margin-bottom:32px;}
-    .success-icon-wrap{width:80px;height:80px;background:var(--bg-medium);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:36px;margin:0 auto 20px;}
-    .success-num{font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--text-ghost);margin-bottom:8px;}
-    .success-title{font-size:28px;font-weight:900;color:var(--text-label);margin-bottom:12px;letter-spacing:-0.3px;}
-    .success-sub{font-size:14px;color:var(--text-meta);line-height:1.6;max-width:520px;margin:0 auto 28px;}
-    .success-ref{display:inline-block;padding:10px 24px;background:var(--bg-white);border:1px solid var(--stroke-medium);border-radius:var(--radius);font-size:13px;font-weight:700;color:var(--text-label);letter-spacing:1px;}
-    /* Prochaines étapes */
-    .next-steps{margin-bottom:32px;}
-    .next-steps-title{font-size:15px;font-weight:800;color:var(--text-label);margin-bottom:16px;}
-    .next-steps-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
-    .next-step{padding:20px;background:var(--bg-page);border:1px solid var(--stroke-light);border-radius:var(--radius);text-align:center;}
-    .next-step-num{width:32px;height:32px;background:var(--bg-medium);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:var(--text-meta);margin:0 auto 12px;}
-    .next-step-title{font-size:12px;font-weight:700;color:var(--text-label);margin-bottom:6px;}
-    .next-step-desc{font-size:11px;color:var(--text-meta);line-height:1.5;}
-    .next-step-time{font-size:10px;color:var(--text-ghost);margin-top:8px;font-weight:600;}
-    /* Récap commande */
-    .order-recap{background:var(--bg-white);border:1px solid var(--stroke-light);border-radius:var(--radius);padding:24px;margin-bottom:32px;}
-    .recap-title{font-size:14px;font-weight:800;color:var(--text-label);margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid var(--stroke-light);}
-    .recap-row{display:flex;align-items:center;gap:16px;padding:12px 0;border-bottom:1px solid var(--stroke-light);}
-    .recap-row:last-child{border-bottom:none;}
-    .recap-img{width:48px;height:48px;background:var(--bg-light);border-radius:var(--radius);flex-shrink:0;position:relative;}
-    .recap-img::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,transparent 42%,var(--stroke-medium) 42%,var(--stroke-medium) 44%,transparent 44%);border-radius:var(--radius);}
-    .recap-info{flex:1;}
-    .recap-name{font-size:13px;font-weight:700;color:var(--text-label);margin-bottom:3px;}
-    .recap-spec{font-size:11px;color:var(--text-ghost);}
-    .recap-qty{font-size:12px;color:var(--text-meta);min-width:60px;text-align:center;}
-    .recap-price{font-size:13px;font-weight:700;color:var(--text-label);min-width:100px;text-align:right;}
-    .recap-total-row{display:flex;justify-content:space-between;align-items:center;margin-top:16px;padding-top:16px;border-top:2px solid var(--stroke-dark);}
-    .recap-total-label{font-size:14px;font-weight:700;color:var(--text-label);}
-    .recap-total-val{font-size:20px;font-weight:900;color:var(--text-label);}
+    .nav-back{position:absolute;left:40px;font-size:12px;color:var(--text-meta);cursor:default;display:flex;align-items:center;gap:6px;}
+
+    /* ── Layout 2 colonnes : visuel + formulaire ── */
+    .login-layout{flex:1;display:grid;grid-template-columns:1fr 520px;}
+
+    /* ── Panneau gauche : visuel ── */
+    .login-visual{background:var(--bg-dark);position:relative;display:flex;flex-direction:column;justify-content:space-between;padding:60px;min-height:640px;}
+    .login-visual-bg{position:absolute;inset:0;background:var(--bg-dark);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:8px;}
+    .login-visual-bg-label{font-size:11px;color:rgba(255,255,255,0.4);}
+    .login-visual-bg-dim{font-size:10px;color:rgba(255,255,255,0.25);}
+    .login-visual-overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0.35) 0%,rgba(0,0,0,0.6) 100%);}
+    .login-visual-top{position:relative;z-index:2;}
+    .login-visual-logo{width:120px;height:36px;background:rgba(255,255,255,0.15);border-radius:var(--radius);display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:rgba(255,255,255,0.7);letter-spacing:1px;}
+    .login-visual-bottom{position:relative;z-index:2;}
+    .login-visual-title{font-size:30px;font-weight:900;color:#FFFFFF;line-height:1.15;letter-spacing:-0.3px;margin-bottom:14px;}
+    .login-visual-desc{font-size:13px;color:rgba(255,255,255,0.7);line-height:1.7;margin-bottom:28px;}
+
+    /* Points process */
+    .process-steps{display:flex;flex-direction:column;gap:12px;}
+    .process-step{display:flex;align-items:flex-start;gap:14px;padding:14px 16px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.12);border-radius:var(--radius);}
+    .process-step-num{width:28px;height:28px;background:rgba(255,255,255,0.2);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#FFFFFF;flex-shrink:0;}
+    .process-step-text{}
+    .process-step-title{font-size:12px;font-weight:700;color:rgba(255,255,255,0.95);margin-bottom:3px;}
+    .process-step-desc{font-size:11px;color:rgba(255,255,255,0.6);line-height:1.5;}
+
+    /* ── Panneau droit : 2 états empilés ── */
+    .form-panel{background:var(--bg-white);border-left:1px solid var(--stroke-light);display:flex;flex-direction:column;}
+
+    /* État A */
+    .state-a{flex:1;padding:48px 44px;display:flex;flex-direction:column;justify-content:center;}
+    .state-b{display:none;flex:1;padding:48px 44px;align-items:center;justify-content:center;}
+
+    /* Note état */
+    .state-tag{display:inline-flex;align-items:center;gap:6px;padding:5px 10px;background:var(--bg-light);border:1px solid var(--stroke-medium);border-radius:2px;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--text-meta);margin-bottom:20px;}
+
+    .form-logo{width:100px;height:32px;background:var(--bg-medium);border-radius:var(--radius);display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:var(--text-meta);letter-spacing:1px;margin-bottom:20px;}
+    .form-title{font-size:21px;font-weight:800;color:var(--text-label);margin-bottom:8px;letter-spacing:-0.2px;}
+    .form-subtitle{font-size:12px;color:var(--text-meta);line-height:1.6;margin-bottom:24px;}
+
+    /* Alerte contexte */
+    .context-alert{display:flex;align-items:flex-start;gap:10px;padding:12px 14px;background:var(--bg-page);border:1px solid var(--stroke-medium);border-radius:var(--radius);margin-bottom:24px;}
+    .context-alert-icon{font-size:16px;flex-shrink:0;margin-top:1px;}
+    .context-alert-text{font-size:11px;color:var(--text-meta);line-height:1.5;}
+    .context-alert-text strong{color:var(--text-label);}
+
+    /* Formulaire */
+    .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px;}
+    .form-group{display:flex;flex-direction:column;gap:6px;}
+    .form-group.full{grid-column:1/-1;}
+    .form-label{font-size:11px;font-weight:700;color:var(--text-label);letter-spacing:0.2px;}
+    .form-label .req{color:var(--bg-deep);}
+    .form-input{height:44px;border:1.5px solid var(--stroke-medium);border-radius:var(--radius);background:var(--bg-page);display:flex;align-items:center;padding:0 12px;gap:10px;font-size:12px;color:var(--text-ghost);}
+    .form-input.active{border-color:var(--accent);background:var(--bg-white);}
+    .form-input-icon{font-size:13px;flex-shrink:0;}
+
+    .divider-label{display:flex;align-items:center;gap:10px;margin:16px 0;}
+    .divider-line{flex:1;height:1px;background:var(--stroke-light);}
+    .divider-text{font-size:10px;color:var(--text-ghost);white-space:nowrap;font-style:italic;}
+
+    /* RGPD */
+    .rgpd-row{display:flex;align-items:flex-start;gap:10px;margin-bottom:20px;}
+    .rgpd-check{width:16px;height:16px;border:1.5px solid var(--stroke-medium);border-radius:3px;flex-shrink:0;margin-top:2px;}
+    .rgpd-label{font-size:10px;color:var(--text-meta);line-height:1.5;}
+
     /* CTA */
-    .confirm-cta{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:24px;}
-    .btn-primary{padding:15px;background:var(--accent);color:white;font-size:13px;font-weight:700;text-align:center;border-radius:var(--radius);cursor:default;display:flex;align-items:center;justify-content:center;gap:8px;}
-    .btn-secondary{padding:14px;background:transparent;border:1.5px solid var(--stroke-strong);color:var(--text-label);font-size:13px;font-weight:600;text-align:center;border-radius:var(--radius);cursor:default;display:flex;align-items:center;justify-content:center;gap:8px;}
-    /* Email confirmation */
-    .email-confirm{padding:14px 16px;background:var(--bg-page);border:1px solid var(--stroke-light);border-radius:var(--radius);font-size:11px;color:var(--text-meta);display:flex;align-items:center;gap:10px;margin-bottom:32px;}
+    .btn-submit{width:100%;padding:15px;background:var(--accent);color:white;font-size:13px;font-weight:700;text-align:center;border-radius:var(--radius);cursor:default;display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:10px;}
+    .btn-back{width:100%;padding:12px;background:transparent;border:none;font-size:12px;color:var(--text-ghost);text-align:center;cursor:default;text-decoration:underline;}
+
+    .security-note{display:flex;align-items:center;gap:8px;padding:10px 12px;background:var(--bg-page);border:1px solid var(--stroke-light);border-radius:var(--radius);margin-top:14px;}
+    .security-note-text{font-size:10px;color:var(--text-ghost);line-height:1.5;}
+
+    /* ── État B : confirmation ── */
+    .confirm-panel{width:100%;text-align:center;}
+    .confirm-icon{width:72px;height:72px;background:var(--bg-medium);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 20px;}
+    .confirm-title{font-size:22px;font-weight:800;color:var(--text-label);margin-bottom:10px;}
+    .confirm-sub{font-size:13px;color:var(--text-meta);line-height:1.6;margin-bottom:28px;}
+    .confirm-steps{display:flex;flex-direction:column;gap:10px;text-align:left;margin-bottom:28px;}
+    .confirm-step{display:flex;align-items:flex-start;gap:12px;padding:12px 14px;background:var(--bg-page);border:1px solid var(--stroke-light);border-radius:var(--radius);}
+    .confirm-step-num{width:22px;height:22px;background:var(--bg-medium);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:var(--text-meta);flex-shrink:0;margin-top:1px;}
+    .confirm-step-text{font-size:12px;color:var(--text-meta);line-height:1.5;}
+    .confirm-step-text strong{color:var(--text-label);}
+    .confirm-delay{display:inline-flex;align-items:center;gap:8px;padding:12px 20px;background:var(--bg-light);border:1px solid var(--stroke-medium);border-radius:var(--radius);font-size:12px;font-weight:600;color:var(--text-label);margin-bottom:24px;}
+    .btn-back-login{width:100%;padding:14px;background:var(--accent);color:white;font-size:13px;font-weight:700;text-align:center;border-radius:var(--radius);cursor:default;}
+
     /* Footer */
-    .footer-minimal{background:var(--bg-light);border-top:1px solid var(--stroke-light);padding:16px 40px;display:flex;justify-content:space-between;align-items:center;}
+    .footer-minimal{background:var(--bg-light);border-top:1px solid var(--stroke-light);padding:14px 60px;display:flex;justify-content:space-between;align-items:center;}
     .footer-copy{font-size:10px;color:var(--text-ghost);}
     .footer-links{display:flex;gap:20px;}
     .footer-links span{font-size:10px;color:var(--text-ghost);}
-    .page-index{position:fixed;right:20px;top:50%;transform:translateY(-50%);background:white;border:1px solid var(--stroke-light);border-radius:var(--radius);padding:12px 0;z-index:1000;box-shadow:0 2px 8px rgba(0,0,0,0.08);min-width:148px;}
+
+    /* Index */
+    .page-index{position:fixed;right:20px;top:50%;transform:translateY(-50%);background:white;border:1px solid var(--stroke-light);border-radius:var(--radius);padding:12px 0;z-index:1000;box-shadow:0 2px 8px rgba(0,0,0,0.08);min-width:160px;}
     .pi-title{font-size:8px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--text-ghost);padding:0 12px 8px;border-bottom:1px solid var(--stroke-light);margin-bottom:6px;}
     .pi-item{padding:4px 12px;font-size:9px;color:var(--text-meta);display:flex;align-items:center;gap:8px;}
-    .pi-num{font-weight:700;color:var(--text-ghost);min-width:16px;}
+    .pi-num{font-weight:700;color:var(--text-ghost);min-width:20px;}
   </style>
 </head>
 <body>
+
 <div class="doc-header">
-  <div><div class="doc-project">ACEF × Bimier Solutions — Refonte Site Catalogue</div><div class="doc-page">Wireframe 09 — Confirmation de commande</div></div>
-  <div><div class="doc-meta">Desktop 1440px · v1.0 · Mai 2026</div><div class="doc-meta">Chapitre 7 — Solutions proposées</div><div class="doc-badge">Basse fidélité</div></div>
+  <div>
+    <div class="doc-project">ACEF × Bimier Solutions — Refonte Site Catalogue</div>
+    <div class="doc-page">Wireframe 06 — Mot de passe oublié (v2 corrigée)</div>
+  </div>
+  <div>
+    <div class="doc-meta">Desktop 1440px · v2.0 · Mai 2026</div>
+    <div class="doc-meta">Chapitre 7 — Solutions proposées</div>
+    <div class="doc-badge">Basse fidélité</div>
+  </div>
 </div>
+
 <div class="page-index">
   <div class="pi-title">Sections</div>
-  <div class="pi-item"><span class="pi-num">01</span>Navigation</div>
-  <div class="pi-item"><span class="pi-num">02</span>Stepper étape 3</div>
-  <div class="pi-item"><span class="pi-num">03</span>Bloc succès</div>
-  <div class="pi-item"><span class="pi-num">04</span>Prochaines étapes</div>
-  <div class="pi-item"><span class="pi-num">05</span>Récap commande</div>
-  <div class="pi-item"><span class="pi-num">06</span>Email confirmation</div>
-  <div class="pi-item"><span class="pi-num">07</span>CTA retour</div>
+  <div class="pi-item"><span class="pi-num">01</span>Navbar épurée</div>
+  <div class="pi-item"><span class="pi-num">02</span>Visuel + processus</div>
+  <div class="pi-item"><span class="pi-num">03</span>État A — Formulaire</div>
+  <div class="pi-item"><span class="pi-num">04</span>Champs identité</div>
+  <div class="pi-item"><span class="pi-num">05</span>Champs coordonnées</div>
+  <div class="pi-item"><span class="pi-num">06</span>Envoi → Bimier</div>
+  <div class="pi-item"><span class="pi-num">07</span>État B — Confirmation</div>
 </div>
+
 <div class="page-wrapper">
-  <div class="ruler">Section 01 — Navigation / Stepper visible en haut / Étape 3 active</div>
-  <div class="navbar">
-    <div class="navbar-inner">
-      <div class="nav-logo">BIMIER LOGO</div>
-      <ul class="nav-links"><li>Accueil</li><li>Catalogue</li><li>À propos</li><li>Contact</li></ul>
-      <div style="width:200px;"></div>
-      <div class="nav-account"><div class="nav-dot"></div>Mon compte ACEF</div>
+
+  <div class="ruler">Section 01 — Navbar minimaliste / Lien retour vers page connexion / Logo centré</div>
+  <div class="navbar-minimal">
+    <div class="nav-back">← Retour à la connexion</div>
+    <div class="nav-logo">BIMIER LOGO</div>
+  </div>
+
+  <!-- NOTE LOGIQUE -->
+  <div style="background:#FFF3E0;border-bottom:1px solid #FFCC80;padding:10px 40px;display:flex;align-items:center;gap:12px;">
+    <span style="font-size:14px;">⚙️</span>
+    <span style="font-size:10px;color:#8D5A00;font-weight:600;">LOGIQUE MÉTIER : Pas de reset automatique. L'utilisateur soumet ses informations → Email envoyé à Bimier → Un conseiller recontacte l'ACEF manuellement pour réinitialiser l'accès.</span>
+  </div>
+
+  <div class="login-layout" style="flex:1;">
+
+    <!-- ════ PANNEAU GAUCHE : VISUEL ════ -->
+    <div class="login-visual">
+      <div class="login-visual-bg">
+        <span class="login-visual-bg-label">IMAGE DE FOND — PLEINE HAUTEUR</span>
+        <span class="login-visual-bg-dim">Ambiance B2B / produits · Fond sombre recommandé</span>
+      </div>
+      <div class="login-visual-overlay"></div>
+
+      <div class="login-visual-top">
+        <div class="slabel" style="margin-bottom:16px;">02 — Panneau visuel</div>
+        <div class="login-visual-logo">BIMIER LOGO</div>
+      </div>
+
+      <div class="login-visual-bottom">
+        <div class="login-visual-title">Problème de connexion ?<br/>On s'en occupe.</div>
+        <div class="login-visual-desc">Votre accès au catalogue ACEF est géré par notre équipe. Remplissez le formulaire et un conseiller Bimier vous recontactera rapidement pour rétablir votre accès.</div>
+
+        <div class="process-steps">
+          <div class="process-step">
+            <div class="process-step-num">1</div>
+            <div class="process-step-text">
+              <div class="process-step-title">Vous remplissez le formulaire</div>
+              <div class="process-step-desc">Vos informations d'identification ACEF : nom, association, email, téléphone.</div>
+            </div>
+          </div>
+          <div class="process-step">
+            <div class="process-step-num">2</div>
+            <div class="process-step-text">
+              <div class="process-step-title">Bimier reçoit votre demande</div>
+              <div class="process-step-desc">Un email automatique est envoyé à notre équipe avec toutes vos informations.</div>
+            </div>
+          </div>
+          <div class="process-step">
+            <div class="process-step-num">3</div>
+            <div class="process-step-text">
+              <div class="process-step-title">Un conseiller vous recontacte</div>
+              <div class="process-step-desc">Par email ou téléphone pour vérifier votre identité et rétablir votre accès sous 24h ouvrées.</div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-  </div>
 
-  <div class="ruler">Section 02 — Stepper / Étape 3 "Confirmation" active / Étapes 1 & 2 complétées</div>
-  <div class="stepper">
-    <div class="step"><div class="step-num done">✓</div><span class="step-label" style="color:var(--text-meta);">Mon panier</span></div>
-    <div class="step-sep"></div>
-    <div class="step"><div class="step-num done">✓</div><span class="step-label" style="color:var(--text-meta);">Récapitulatif devis</span></div>
-    <div class="step-sep"></div>
-    <div class="step"><div class="step-num active">3</div><span class="step-label">Confirmation</span></div>
-  </div>
+    <!-- ════ PANNEAU DROIT ════ -->
+    <div class="form-panel">
 
-  <div class="confirm-body">
-    <div class="confirm-inner">
+      <!-- ════ ÉTAT A : FORMULAIRE ════ -->
+      <div class="ruler" style="margin:0;padding-left:44px;">Section 03 — État A : Formulaire de demande de réinitialisation</div>
+      <div class="state-a">
+        <div class="state-tag">🔓 État A — Saisie des informations</div>
+        <div class="form-logo">BIMIER LOGO</div>
+        <div class="form-title">Réinitialiser mon accès</div>
+        <div class="form-subtitle">Renseignez vos informations. Notre équipe vérifiera votre identité et vous recontactera pour rétablir votre accès au catalogue ACEF.</div>
 
-      <div class="ruler" style="margin:0 -40px 24px;padding-left:40px;">Section 03 — Bloc succès / Icône + titre + numéro de référence de la demande</div>
-      <div class="success-block">
-        <div class="success-icon-wrap">📬</div>
-        <div class="success-num">Demande de devis #DEV-2026-019</div>
-        <div class="success-title">Demande envoyée avec succès !</div>
-        <div class="success-sub">Votre demande de devis a bien été reçue par notre équipe ACEF. Votre conseiller dédié vous contactera sous 24 heures ouvrées avec un devis personnalisé et une simulation visuelle gratuite (BAT).</div>
-        <div class="success-ref">Référence : #DEV-2026-019</div>
-      </div>
+        <!-- Alerte contexte -->
+        <div class="context-alert">
+          <span class="context-alert-icon">ℹ️</span>
+          <span class="context-alert-text"><strong>Accès géré par Bimier Solutions.</strong> La réinitialisation ne peut pas se faire automatiquement — un conseiller doit vérifier votre identité ACEF avant de rétablir votre accès.</span>
+        </div>
 
-      <div class="ruler" style="margin:0 -40px 24px;padding-left:40px;">Section 04 — Prochaines étapes / 3 étapes claires / Rassure l'acheteur B2B sur le processus</div>
-      <div class="next-steps">
-        <div class="next-steps-title">Ce qui se passe ensuite</div>
-        <div class="next-steps-grid">
-          <div class="next-step">
-            <div class="next-step-num">1</div>
-            <div class="next-step-title">Votre conseiller vous contacte</div>
-            <div class="next-step-desc">Camille Martin, votre conseillère ACEF dédiée, vous envoie un devis détaillé par email.</div>
-            <div class="next-step-time">⏱ Sous 24h ouvrées</div>
+        <!-- Champs identité ACEF -->
+        <div class="ruler" style="margin:0 -44px 14px;padding-left:44px;">Section 04 — Identité de l'utilisateur ACEF</div>
+        <div style="font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--text-ghost);margin-bottom:10px;">Votre identité</div>
+        <div class="form-grid">
+          <div class="form-group">
+            <div class="form-label">Prénom <span class="req">*</span></div>
+            <div class="form-input active"><span class="form-input-icon">👤</span>Ex. : Jean</div>
           </div>
-          <div class="next-step">
-            <div class="next-step-num">2</div>
-            <div class="next-step-title">Validation du BAT visuel</div>
-            <div class="next-step-desc">Notre studio prépare une simulation visuelle de votre marquage. Vous l'approuvez avant production.</div>
-            <div class="next-step-time">⏱ Sous 48h après accord devis</div>
+          <div class="form-group">
+            <div class="form-label">Nom <span class="req">*</span></div>
+            <div class="form-input"><span class="form-input-icon">👤</span>Ex. : Dupont</div>
           </div>
-          <div class="next-step">
-            <div class="next-step-num">3</div>
-            <div class="next-step-title">Production & livraison</div>
-            <div class="next-step-desc">Vos articles sont produits dans nos ateliers partenaires et livrés à votre (ou vos) adresse(s).</div>
-            <div class="next-step-time">⏱ 10 à 15 jours ouvrés</div>
+          <div class="form-group full">
+            <div class="form-label">Nom de votre association ACEF <span class="req">*</span></div>
+            <div class="form-input"><span class="form-input-icon">🏢</span>Ex. : ACEF Paris — Section Île-de-France</div>
+          </div>
+          <div class="form-group">
+            <div class="form-label">Numéro adhérent ACEF</div>
+            <div class="form-input"><span class="form-input-icon">🪪</span>Ex. : ACEF-2019-04521</div>
+          </div>
+          <div class="form-group">
+            <div class="form-label">Votre fonction</div>
+            <div class="form-input"><span class="form-input-icon">💼</span>Ex. : Responsable achats</div>
           </div>
         </div>
+
+        <div class="divider-label">
+          <div class="divider-line"></div>
+          <span class="divider-text">Vos coordonnées pour vous recontacter</span>
+          <div class="divider-line"></div>
+        </div>
+
+        <!-- Champs coordonnées -->
+        <div class="ruler" style="margin:0 -44px 14px;padding-left:44px;">Section 05 — Coordonnées de contact / Email + téléphone obligatoires</div>
+        <div class="form-grid">
+          <div class="form-group full">
+            <div class="form-label">Adresse email <span class="req">*</span></div>
+            <div class="form-input"><span class="form-input-icon">✉️</span>Ex. : jean.dupont@acef-paris.fr</div>
+          </div>
+          <div class="form-group full">
+            <div class="form-label">Téléphone <span class="req">*</span></div>
+            <div class="form-input"><span class="form-input-icon">📞</span>Ex. : +33 6 12 34 56 78</div>
+          </div>
+          <div class="form-group full">
+            <div class="form-label">Message complémentaire <span style="font-weight:400;color:var(--text-ghost);">(optionnel)</span></div>
+            <div style="min-height:72px;border:1.5px solid var(--stroke-medium);border-radius:var(--radius);background:var(--bg-page);padding:10px 12px;font-size:12px;color:var(--text-ghost);line-height:1.5;">[Zone texte — Précision sur le problème rencontré, contexte de la demande…]</div>
+          </div>
+        </div>
+
+        <!-- RGPD -->
+        <div class="rgpd-row">
+          <div class="rgpd-check" style="background:var(--accent);border-color:var(--accent);display:flex;align-items:center;justify-content:center;font-size:9px;color:white;">✓</div>
+          <div class="rgpd-label">J'accepte que mes informations soient transmises à l'équipe Bimier Solutions dans le cadre de ma demande de réinitialisation d'accès. <span style="color:var(--bg-deep);">*</span></div>
+        </div>
+
+        <!-- CTA -->
+        <div class="ruler" style="margin:0 -44px 16px;padding-left:44px;">Section 06 — Envoi de la demande → Email automatique déclenché vers Bimier</div>
+        <div class="btn-submit">📨 Envoyer ma demande à Bimier Solutions</div>
+        <div class="btn-back">← Retour à la connexion</div>
+
+        <div class="security-note">
+          <span style="font-size:14px;">🔒</span>
+          <span class="security-note-text">Vos données sont transmises de manière sécurisée et ne seront utilisées que pour traiter votre demande de réinitialisation d'accès. Conformité RGPD garantie.</span>
+        </div>
       </div>
 
-      <div class="ruler" style="margin:0 -40px 24px;padding-left:40px;">Section 05 — Récapitulatif de la demande / Articles + total estimé</div>
-      <div class="order-recap">
-        <div class="recap-title">Récapitulatif de votre demande</div>
-        <div class="recap-row">
-          <div class="recap-img"></div>
-          <div class="recap-info"><div class="recap-name">Polo Corporate Premium Bio</div><div class="recap-spec">Réf. TEX-001 · Bleu Marine · Broderie cœur</div></div>
-          <div class="recap-qty">×100</div>
-          <div class="recap-price">1 450,00 €</div>
-        </div>
-        <div class="recap-row">
-          <div class="recap-img"></div>
-          <div class="recap-info"><div class="recap-name">Gourde Isotherme Inox 500ml</div><div class="recap-spec">Réf. DRI-102 · Gris Anthracite · Gravure laser</div></div>
-          <div class="recap-qty">×50</div>
-          <div class="recap-price">560,00 €</div>
-        </div>
-        <div class="recap-row">
-          <div class="recap-img"></div>
-          <div class="recap-info"><div class="recap-name">Carnet A5 Cuir Recyclé</div><div class="recap-spec">Réf. PAP-045 · Bordeaux · Embossage à chaud</div></div>
-          <div class="recap-qty">×100</div>
-          <div class="recap-price">690,00 €</div>
-        </div>
-        <div class="recap-total-row">
-          <div class="recap-total-label">Total estimé HT (hors marquage & livraison)</div>
-          <div class="recap-total-val">2 700,00 €</div>
+      <!-- ════ ÉTAT B : CONFIRMATION ════ -->
+      <div class="ruler" style="margin:0;padding-left:44px;">Section 07 — État B : Confirmation après envoi du formulaire</div>
+      <div class="state-b" style="display:flex;">
+        <div class="confirm-panel">
+          <div class="state-tag" style="display:inline-flex;margin-bottom:24px;">✅ État B — Demande envoyée</div>
+          <div class="confirm-icon">📨</div>
+          <div class="confirm-title">Demande envoyée !</div>
+          <div class="confirm-sub">Votre demande de réinitialisation a bien été transmise à l'équipe Bimier Solutions. Un conseiller prendra contact avec vous prochainement.</div>
+
+          <div class="confirm-delay">⏱ Délai de réponse estimé : <strong>&nbsp;24h ouvrées</strong></div>
+
+          <div class="confirm-steps">
+            <div class="confirm-step">
+              <div class="confirm-step-num">1</div>
+              <div class="confirm-step-text"><strong>Bimier reçoit votre demande</strong> — Un email récapitulatif a été envoyé à notre équipe avec vos informations.</div>
+            </div>
+            <div class="confirm-step">
+              <div class="confirm-step-num">2</div>
+              <div class="confirm-step-text"><strong>Vérification de votre identité</strong> — Un conseiller contrôle vos informations ACEF pour sécuriser votre accès.</div>
+            </div>
+            <div class="confirm-step">
+              <div class="confirm-step-num">3</div>
+              <div class="confirm-step-text"><strong>Recontact par email ou téléphone</strong> — Vous recevrez vos nouveaux identifiants de connexion sous 24h ouvrées.</div>
+            </div>
+          </div>
+
+          <div style="padding:12px 14px;background:var(--bg-page);border:1px solid var(--stroke-light);border-radius:var(--radius);font-size:11px;color:var(--text-meta);text-align:left;margin-bottom:24px;display:flex;gap:8px;">
+            <span>✉️</span>
+            <span>Un email de confirmation a également été envoyé à <strong>jean.dupont@acef-paris.fr</strong> avec le récapitulatif de votre demande.</span>
+          </div>
+
+          <div class="btn-back-login">← Retourner à la page de connexion</div>
+
+          <div style="margin-top:16px;font-size:11px;color:var(--text-ghost);">
+            Besoin urgent ? Appelez-nous directement au <strong>0800 123 456</strong><br/>Lun–Ven · 9h–18h · Appel gratuit
+          </div>
         </div>
       </div>
 
-      <div class="ruler" style="margin:0 -40px 16px;padding-left:40px;">Section 06 — Confirmation email / Informe l'utilisateur qu'un récapitulatif lui a été envoyé</div>
-      <div class="email-confirm">
-        <span style="font-size:18px;">✉️</span>
-        <div>Un email de confirmation avec le récapitulatif complet de votre demande a été envoyé à <strong>jean.dupont@acef-paris.fr</strong>.<br/>Pensez à vérifier vos spams si vous ne le recevez pas dans les minutes qui suivent.</div>
-      </div>
+    </div><!-- /form-panel -->
+  </div><!-- /login-layout -->
 
-      <div class="ruler" style="margin:0 -40px 16px;padding-left:40px;">Section 07 — CTA de sortie / 2 actions : retour catalogue ou aller dans Mon compte</div>
-      <div class="confirm-cta">
-        <div class="btn-primary">🛍 Continuer mes achats</div>
-        <div class="btn-secondary">📊 Suivre ma demande dans Mon compte</div>
-      </div>
-
-    </div>
-  </div>
-
+  <div class="ruler">Footer légal / Minimal identique aux autres pages d'authentification</div>
   <div class="footer-minimal">
     <div class="footer-copy">© 2026 Bimier Solutions — Espace ACEF. Accès réservé aux membres enregistrés.</div>
-    <div class="footer-links"><span>Mentions légales</span><span>CGV</span><span>Confidentialité</span></div>
+    <div class="footer-links"><span>Mentions légales</span><span>CGV</span><span>Confidentialité</span><span>Contact</span></div>
   </div>
+
 </div>
 </body>
 </html>
