@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Wireframe — Contact / Devis | ACEF × Bimier Solutions</title>
+  <title>Wireframe — Confirmation | ACEF × Bimier Solutions</title>
   <style>
-    :root{--bg-page:#F2F2F2;--bg-white:#FFFFFF;--bg-light:#E8E8E8;--bg-medium:#D0D0D0;--bg-dark:#B0B0B0;--bg-deep:#888888;--stroke-light:#CCCCCC;--stroke-medium:#AAAAAA;--stroke-strong:#777777;--stroke-dark:#444444;--text-label:#333333;--text-meta:#666666;--text-ghost:#999999;--accent:#444444;--radius:4px;--font:'Helvetica Neue',Helvetica,Arial,sans-serif;}
+    :root{--bg-page:#F2F2F2;--bg-white:#FFFFFF;--bg-light:#E8E8E8;--bg-medium:#D0D0D0;--bg-dark:#B0B0B0;--bg-deep:#888888;--stroke-light:#CCCCCC;--stroke-medium:#AAAAAA;--stroke-dark:#444444;--text-label:#333333;--text-meta:#666666;--text-ghost:#999999;--accent:#444444;--radius:4px;--font:'Helvetica Neue',Helvetica,Arial,sans-serif;}
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
-    body{font-family:var(--font);background:var(--bg-page);color:var(--text-label);font-size:13px;}
-    body::before{content:"WIREFRAME — CONTACT / DEVIS — ACEF × BIMIER SOLUTIONS — 1440px";position:fixed;top:50%;left:50%;transform:translate(-50%,-50%) rotate(-30deg);font-size:20px;font-weight:700;color:rgba(0,0,0,0.04);white-space:nowrap;pointer-events:none;z-index:9999;letter-spacing:4px;}
-    .page-wrapper{max-width:1440px;margin:0 auto;background:var(--bg-white);box-shadow:0 0 40px rgba(0,0,0,0.1);}
+    body{font-family:var(--font);background:var(--bg-page);color:var(--text-label);font-size:13px;min-height:100vh;}
+    body::before{content:"WIREFRAME — CONFIRMATION — ACEF × BIMIER SOLUTIONS — 1440px";position:fixed;top:50%;left:50%;transform:translate(-50%,-50%) rotate(-30deg);font-size:20px;font-weight:700;color:rgba(0,0,0,0.04);white-space:nowrap;pointer-events:none;z-index:9999;letter-spacing:4px;}
+    .page-wrapper{max-width:1440px;margin:0 auto;background:var(--bg-white);box-shadow:0 0 40px rgba(0,0,0,0.1);min-height:100vh;display:flex;flex-direction:column;}
     .doc-header{background:var(--bg-page);border-bottom:2px solid var(--stroke-dark);padding:16px 40px;display:flex;justify-content:space-between;align-items:center;}
     .doc-project{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--text-meta);}
     .doc-page{font-size:18px;font-weight:800;color:var(--text-label);}
@@ -17,88 +17,61 @@
     .doc-badge{background:var(--stroke-dark);color:white;font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:3px 8px;border-radius:2px;margin-top:4px;display:inline-block;}
     .ruler{background:#FFFDE7;border-top:1px dashed var(--stroke-medium);border-bottom:1px dashed var(--stroke-medium);padding:4px 40px;font-size:9px;color:var(--text-ghost);font-style:italic;display:flex;align-items:center;gap:8px;}
     .ruler::before{content:'↕';font-style:normal;}
-    .slabel{font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--text-ghost);padding:4px 8px;background:var(--bg-light);border-left:3px solid var(--stroke-medium);display:inline-block;margin-bottom:16px;}
     .navbar{background:var(--bg-white);border-bottom:1px solid var(--stroke-light);height:72px;display:flex;align-items:center;}
     .navbar-inner{max-width:1200px;margin:0 auto;padding:0 40px;width:100%;display:grid;grid-template-columns:180px 1fr auto auto;align-items:center;gap:40px;}
     .nav-logo{width:140px;height:40px;background:var(--bg-medium);border-radius:var(--radius);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:var(--text-meta);letter-spacing:1px;}
     .nav-links{display:flex;align-items:center;gap:36px;list-style:none;}
     .nav-links li{font-size:13px;color:var(--text-meta);}
-    .nav-links li.active{color:var(--text-label);font-weight:600;border-bottom:2px solid var(--accent);padding-bottom:2px;}
-    .nav-search{width:200px;height:36px;border:1px solid var(--stroke-light);border-radius:var(--radius);background:var(--bg-page);display:flex;align-items:center;padding:0 12px;gap:8px;}
-    .nav-ph{font-size:11px;color:var(--text-ghost);}
     .nav-account{display:flex;align-items:center;gap:8px;padding:6px 14px;border:1px solid var(--stroke-light);border-radius:var(--radius);font-size:12px;color:var(--text-meta);}
     .nav-dot{width:8px;height:8px;background:var(--bg-dark);border-radius:50%;}
-    /* HERO PAGE */
-    .page-hero{background:var(--bg-dark);padding:56px 0;}
-    .page-hero-inner{max-width:1200px;margin:0 auto;padding:0 40px;text-align:center;}
-    .page-hero-overline{font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,0.6);margin-bottom:12px;}
-    .page-hero-title{font-size:36px;font-weight:900;color:#FFFFFF;letter-spacing:-0.5px;margin-bottom:12px;}
-    .page-hero-sub{font-size:15px;color:rgba(255,255,255,0.7);line-height:1.6;max-width:560px;margin:0 auto;}
-    /* BREADCRUMB */
-    .content{max-width:1200px;margin:0 auto;padding:0 40px;}
-    .breadcrumb{padding:16px 0;display:flex;align-items:center;gap:8px;}
-    .bc-item{font-size:12px;color:var(--text-meta);}
-    .bc-sep{font-size:10px;color:var(--text-ghost);}
-    .bc-cur{font-size:12px;color:var(--text-label);font-weight:600;}
-    /* TABS */
-    .contact-tabs{display:flex;gap:0;border-bottom:2px solid var(--stroke-light);margin-bottom:48px;}
-    .contact-tab{padding:14px 32px;font-size:13px;font-weight:600;color:var(--text-meta);border-bottom:2px solid transparent;margin-bottom:-2px;cursor:default;}
-    .contact-tab.active{color:var(--text-label);border-bottom-color:var(--accent);}
-    /* LAYOUT */
-    .contact-layout{display:grid;grid-template-columns:1fr 380px;gap:60px;padding-bottom:80px;}
-    /* FORMULAIRE DEVIS */
-    .form-section{margin-bottom:32px;}
-    .form-section-title{font-size:13px;font-weight:800;color:var(--text-label);margin-bottom:4px;display:flex;align-items:center;gap:8px;}
-    .form-section-title-num{width:22px;height:22px;background:var(--accent);color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;flex-shrink:0;}
-    .form-section-desc{font-size:11px;color:var(--text-ghost);margin-bottom:16px;margin-left:30px;}
-    .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
-    .form-group{display:flex;flex-direction:column;gap:7px;}
-    .form-group.full{grid-column:1/-1;}
-    .form-label{font-size:11px;font-weight:700;color:var(--text-label);letter-spacing:0.3px;}
-    .form-label .req{color:var(--bg-deep);}
-    .form-input{height:44px;border:1.5px solid var(--stroke-medium);border-radius:var(--radius);background:var(--bg-page);display:flex;align-items:center;padding:0 12px;font-size:12px;color:var(--text-ghost);}
-    .form-textarea{min-height:120px;border:1.5px solid var(--stroke-medium);border-radius:var(--radius);background:var(--bg-page);padding:12px;font-size:12px;color:var(--text-ghost);line-height:1.5;}
-    .form-select{height:44px;border:1.5px solid var(--stroke-medium);border-radius:var(--radius);background:var(--bg-page);padding:0 12px;font-size:12px;color:var(--text-ghost);display:flex;align-items:center;justify-content:space-between;}
-    /* Upload zone */
-    .upload-zone{border:2px dashed var(--stroke-medium);border-radius:var(--radius);padding:24px;text-align:center;cursor:default;}
-    .upload-icon{font-size:28px;margin-bottom:8px;}
-    .upload-label{font-size:12px;font-weight:600;color:var(--text-meta);margin-bottom:4px;}
-    .upload-hint{font-size:10px;color:var(--text-ghost);}
-    /* Produits sélectionnés */
-    .selected-products{display:flex;flex-direction:column;gap:8px;margin-bottom:16px;}
-    .selected-product{display:flex;align-items:center;gap:12px;padding:10px 14px;background:var(--bg-page);border:1px solid var(--stroke-light);border-radius:var(--radius);}
-    .selected-product-img{width:40px;height:40px;background:var(--bg-light);border-radius:var(--radius);flex-shrink:0;position:relative;}
-    .selected-product-img::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,transparent 40%,var(--stroke-medium) 40%,var(--stroke-medium) 42%,transparent 42%);border-radius:var(--radius);}
-    .selected-product-name{font-size:12px;font-weight:700;color:var(--text-label);flex:1;}
-    .selected-product-qty{font-size:11px;color:var(--text-ghost);}
-    .selected-product-remove{font-size:12px;color:var(--text-ghost);cursor:default;}
-    .add-product-btn{display:flex;align-items:center;gap:8px;padding:10px 14px;border:1px dashed var(--stroke-medium);border-radius:var(--radius);font-size:12px;color:var(--text-meta);cursor:default;}
-    /* Checkbox */
-    .form-checkbox-row{display:flex;align-items:flex-start;gap:10px;padding:10px 0;}
-    .form-checkbox{width:16px;height:16px;border:1.5px solid var(--stroke-medium);border-radius:3px;flex-shrink:0;margin-top:1px;}
-    .form-checkbox-label{font-size:11px;color:var(--text-meta);line-height:1.5;}
+    /* STEPPER */
+    .stepper{display:flex;align-items:center;justify-content:center;padding:28px 0;border-bottom:1px solid var(--stroke-light);}
+    .step{display:flex;align-items:center;gap:10px;}
+    .step-num{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;}
+    .step-num.done{background:var(--accent);color:white;}
+    .step-num.active{background:var(--accent);color:white;box-shadow:0 0 0 4px rgba(68,68,68,0.15);}
+    .step-label{font-size:12px;font-weight:600;color:var(--text-label);}
+    .step-sep{width:80px;height:1px;background:var(--stroke-medium);margin:0 16px;}
+    /* CONTENU */
+    .confirm-body{flex:1;display:flex;align-items:flex-start;justify-content:center;padding:60px 40px 80px;}
+    .confirm-inner{width:100%;max-width:800px;}
+    /* Bloc succès */
+    .success-block{text-align:center;padding:48px 40px;background:var(--bg-page);border:1px solid var(--stroke-light);border-radius:var(--radius);margin-bottom:32px;}
+    .success-icon-wrap{width:80px;height:80px;background:var(--bg-medium);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:36px;margin:0 auto 20px;}
+    .success-num{font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--text-ghost);margin-bottom:8px;}
+    .success-title{font-size:28px;font-weight:900;color:var(--text-label);margin-bottom:12px;letter-spacing:-0.3px;}
+    .success-sub{font-size:14px;color:var(--text-meta);line-height:1.6;max-width:520px;margin:0 auto 28px;}
+    .success-ref{display:inline-block;padding:10px 24px;background:var(--bg-white);border:1px solid var(--stroke-medium);border-radius:var(--radius);font-size:13px;font-weight:700;color:var(--text-label);letter-spacing:1px;}
+    /* Prochaines étapes */
+    .next-steps{margin-bottom:32px;}
+    .next-steps-title{font-size:15px;font-weight:800;color:var(--text-label);margin-bottom:16px;}
+    .next-steps-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+    .next-step{padding:20px;background:var(--bg-page);border:1px solid var(--stroke-light);border-radius:var(--radius);text-align:center;}
+    .next-step-num{width:32px;height:32px;background:var(--bg-medium);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:var(--text-meta);margin:0 auto 12px;}
+    .next-step-title{font-size:12px;font-weight:700;color:var(--text-label);margin-bottom:6px;}
+    .next-step-desc{font-size:11px;color:var(--text-meta);line-height:1.5;}
+    .next-step-time{font-size:10px;color:var(--text-ghost);margin-top:8px;font-weight:600;}
+    /* Récap commande */
+    .order-recap{background:var(--bg-white);border:1px solid var(--stroke-light);border-radius:var(--radius);padding:24px;margin-bottom:32px;}
+    .recap-title{font-size:14px;font-weight:800;color:var(--text-label);margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid var(--stroke-light);}
+    .recap-row{display:flex;align-items:center;gap:16px;padding:12px 0;border-bottom:1px solid var(--stroke-light);}
+    .recap-row:last-child{border-bottom:none;}
+    .recap-img{width:48px;height:48px;background:var(--bg-light);border-radius:var(--radius);flex-shrink:0;position:relative;}
+    .recap-img::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,transparent 42%,var(--stroke-medium) 42%,var(--stroke-medium) 44%,transparent 44%);border-radius:var(--radius);}
+    .recap-info{flex:1;}
+    .recap-name{font-size:13px;font-weight:700;color:var(--text-label);margin-bottom:3px;}
+    .recap-spec{font-size:11px;color:var(--text-ghost);}
+    .recap-qty{font-size:12px;color:var(--text-meta);min-width:60px;text-align:center;}
+    .recap-price{font-size:13px;font-weight:700;color:var(--text-label);min-width:100px;text-align:right;}
+    .recap-total-row{display:flex;justify-content:space-between;align-items:center;margin-top:16px;padding-top:16px;border-top:2px solid var(--stroke-dark);}
+    .recap-total-label{font-size:14px;font-weight:700;color:var(--text-label);}
+    .recap-total-val{font-size:20px;font-weight:900;color:var(--text-label);}
     /* CTA */
-    .btn-submit{width:100%;padding:16px;background:var(--accent);color:white;font-size:14px;font-weight:700;text-align:center;border-radius:var(--radius);cursor:default;display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:12px;}
-    .form-submit-note{font-size:10px;color:var(--text-ghost);text-align:center;line-height:1.6;}
-    /* COLONNE DROITE */
-    .contact-info{position:sticky;top:20px;}
-    .info-card{background:var(--bg-page);border:1px solid var(--stroke-light);border-radius:var(--radius);padding:20px;margin-bottom:16px;}
-    .info-card-title{font-size:13px;font-weight:800;color:var(--text-label);margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid var(--stroke-light);}
-    .info-item{display:flex;align-items:flex-start;gap:12px;margin-bottom:14px;}
-    .info-item:last-child{margin-bottom:0;}
-    .info-icon{font-size:18px;flex-shrink:0;width:32px;text-align:center;}
-    .info-content{}
-    .info-label{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--text-ghost);margin-bottom:3px;}
-    .info-value{font-size:13px;color:var(--text-label);font-weight:600;}
-    .info-sub{font-size:11px;color:var(--text-ghost);}
-    /* Engagements */
-    .engagements{display:flex;flex-direction:column;gap:10px;}
-    .engagement{display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--bg-white);border:1px solid var(--stroke-light);border-radius:var(--radius);}
-    .engagement-icon{font-size:16px;flex-shrink:0;}
-    .engagement-text{font-size:11px;color:var(--text-meta);line-height:1.4;}
-    .engagement-text strong{color:var(--text-label);}
-    /* Section confirmation envoyé */
-    .success-banner{background:var(--bg-light);border:1px solid var(--stroke-medium);border-radius:var(--radius);padding:32px;text-align:center;margin-bottom:32px;display:none;}
+    .confirm-cta{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:24px;}
+    .btn-primary{padding:15px;background:var(--accent);color:white;font-size:13px;font-weight:700;text-align:center;border-radius:var(--radius);cursor:default;display:flex;align-items:center;justify-content:center;gap:8px;}
+    .btn-secondary{padding:14px;background:transparent;border:1.5px solid var(--stroke-strong);color:var(--text-label);font-size:13px;font-weight:600;text-align:center;border-radius:var(--radius);cursor:default;display:flex;align-items:center;justify-content:center;gap:8px;}
+    /* Email confirmation */
+    .email-confirm{padding:14px 16px;background:var(--bg-page);border:1px solid var(--stroke-light);border-radius:var(--radius);font-size:11px;color:var(--text-meta);display:flex;align-items:center;gap:10px;margin-bottom:32px;}
     /* Footer */
     .footer-minimal{background:var(--bg-light);border-top:1px solid var(--stroke-light);padding:16px 40px;display:flex;justify-content:space-between;align-items:center;}
     .footer-copy{font-size:10px;color:var(--text-ghost);}
@@ -108,200 +81,121 @@
     .pi-title{font-size:8px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--text-ghost);padding:0 12px 8px;border-bottom:1px solid var(--stroke-light);margin-bottom:6px;}
     .pi-item{padding:4px 12px;font-size:9px;color:var(--text-meta);display:flex;align-items:center;gap:8px;}
     .pi-num{font-weight:700;color:var(--text-ghost);min-width:16px;}
-    .section-divider{border:none;border-top:1px solid var(--stroke-light);margin:28px 0;}
   </style>
 </head>
 <body>
 <div class="doc-header">
-  <div><div class="doc-project">ACEF × Bimier Solutions — Refonte Site Catalogue</div><div class="doc-page">Wireframe 08 — Contact & Demande de devis</div></div>
+  <div><div class="doc-project">ACEF × Bimier Solutions — Refonte Site Catalogue</div><div class="doc-page">Wireframe 09 — Confirmation de commande</div></div>
   <div><div class="doc-meta">Desktop 1440px · v1.0 · Mai 2026</div><div class="doc-meta">Chapitre 7 — Solutions proposées</div><div class="doc-badge">Basse fidélité</div></div>
 </div>
 <div class="page-index">
   <div class="pi-title">Sections</div>
   <div class="pi-item"><span class="pi-num">01</span>Navigation</div>
-  <div class="pi-item"><span class="pi-num">02</span>Hero page</div>
-  <div class="pi-item"><span class="pi-num">03</span>Onglets</div>
-  <div class="pi-item"><span class="pi-num">04</span>Identité</div>
-  <div class="pi-item"><span class="pi-num">05</span>Projet</div>
-  <div class="pi-item"><span class="pi-num">06</span>Produits</div>
-  <div class="pi-item"><span class="pi-num">07</span>Logo & fichiers</div>
-  <div class="pi-item"><span class="pi-num">08</span>CTA submit</div>
-  <div class="pi-item"><span class="pi-num">09</span>Infos contact</div>
-  <div class="pi-item"><span class="pi-num">10</span>Engagements</div>
+  <div class="pi-item"><span class="pi-num">02</span>Stepper étape 3</div>
+  <div class="pi-item"><span class="pi-num">03</span>Bloc succès</div>
+  <div class="pi-item"><span class="pi-num">04</span>Prochaines étapes</div>
+  <div class="pi-item"><span class="pi-num">05</span>Récap commande</div>
+  <div class="pi-item"><span class="pi-num">06</span>Email confirmation</div>
+  <div class="pi-item"><span class="pi-num">07</span>CTA retour</div>
 </div>
 <div class="page-wrapper">
-  <div class="ruler">Section 01 — Navigation / Onglet Contact actif</div>
+  <div class="ruler">Section 01 — Navigation / Stepper visible en haut / Étape 3 active</div>
   <div class="navbar">
     <div class="navbar-inner">
       <div class="nav-logo">BIMIER LOGO</div>
-      <ul class="nav-links"><li>Accueil</li><li>Catalogue</li><li>À propos</li><li class="active">Contact</li></ul>
-      <div class="nav-search"><span>🔍</span><span class="nav-ph">Rechercher un produit…</span></div>
+      <ul class="nav-links"><li>Accueil</li><li>Catalogue</li><li>À propos</li><li>Contact</li></ul>
+      <div style="width:200px;"></div>
       <div class="nav-account"><div class="nav-dot"></div>Mon compte ACEF</div>
     </div>
   </div>
 
-  <div class="ruler">Section 02 — Hero page Contact / Titre + sous-titre / Fond foncé cohérent</div>
-  <div class="page-hero">
-    <div class="page-hero-inner">
-      <div class="page-hero-overline">Nous contacter</div>
-      <div class="page-hero-title">Concrétisons votre projet.</div>
-      <div class="page-hero-sub">Nos experts B2B ACEF vous répondent sous 24h ouvrées avec un devis détaillé et une simulation visuelle gratuite.</div>
-    </div>
+  <div class="ruler">Section 02 — Stepper / Étape 3 "Confirmation" active / Étapes 1 & 2 complétées</div>
+  <div class="stepper">
+    <div class="step"><div class="step-num done">✓</div><span class="step-label" style="color:var(--text-meta);">Mon panier</span></div>
+    <div class="step-sep"></div>
+    <div class="step"><div class="step-num done">✓</div><span class="step-label" style="color:var(--text-meta);">Récapitulatif devis</span></div>
+    <div class="step-sep"></div>
+    <div class="step"><div class="step-num active">3</div><span class="step-label">Confirmation</span></div>
   </div>
 
-  <div class="content">
-    <div class="breadcrumb"><span class="bc-item">Accueil</span><span class="bc-sep">›</span><span class="bc-cur">Contact & Devis</span></div>
+  <div class="confirm-body">
+    <div class="confirm-inner">
 
-    <div class="ruler" style="margin:0 -40px 0;padding-left:40px;">Section 03 — Onglets / 2 vues : Demande de devis (principale) et Message simple</div>
-    <div class="contact-tabs">
-      <div class="contact-tab active">📋 Demande de devis</div>
-      <div class="contact-tab">✉️ Envoyer un message</div>
+      <div class="ruler" style="margin:0 -40px 24px;padding-left:40px;">Section 03 — Bloc succès / Icône + titre + numéro de référence de la demande</div>
+      <div class="success-block">
+        <div class="success-icon-wrap">📬</div>
+        <div class="success-num">Demande de devis #DEV-2026-019</div>
+        <div class="success-title">Demande envoyée avec succès !</div>
+        <div class="success-sub">Votre demande de devis a bien été reçue par notre équipe ACEF. Votre conseiller dédié vous contactera sous 24 heures ouvrées avec un devis personnalisé et une simulation visuelle gratuite (BAT).</div>
+        <div class="success-ref">Référence : #DEV-2026-019</div>
+      </div>
+
+      <div class="ruler" style="margin:0 -40px 24px;padding-left:40px;">Section 04 — Prochaines étapes / 3 étapes claires / Rassure l'acheteur B2B sur le processus</div>
+      <div class="next-steps">
+        <div class="next-steps-title">Ce qui se passe ensuite</div>
+        <div class="next-steps-grid">
+          <div class="next-step">
+            <div class="next-step-num">1</div>
+            <div class="next-step-title">Votre conseiller vous contacte</div>
+            <div class="next-step-desc">Camille Martin, votre conseillère ACEF dédiée, vous envoie un devis détaillé par email.</div>
+            <div class="next-step-time">⏱ Sous 24h ouvrées</div>
+          </div>
+          <div class="next-step">
+            <div class="next-step-num">2</div>
+            <div class="next-step-title">Validation du BAT visuel</div>
+            <div class="next-step-desc">Notre studio prépare une simulation visuelle de votre marquage. Vous l'approuvez avant production.</div>
+            <div class="next-step-time">⏱ Sous 48h après accord devis</div>
+          </div>
+          <div class="next-step">
+            <div class="next-step-num">3</div>
+            <div class="next-step-title">Production & livraison</div>
+            <div class="next-step-desc">Vos articles sont produits dans nos ateliers partenaires et livrés à votre (ou vos) adresse(s).</div>
+            <div class="next-step-time">⏱ 10 à 15 jours ouvrés</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ruler" style="margin:0 -40px 24px;padding-left:40px;">Section 05 — Récapitulatif de la demande / Articles + total estimé</div>
+      <div class="order-recap">
+        <div class="recap-title">Récapitulatif de votre demande</div>
+        <div class="recap-row">
+          <div class="recap-img"></div>
+          <div class="recap-info"><div class="recap-name">Polo Corporate Premium Bio</div><div class="recap-spec">Réf. TEX-001 · Bleu Marine · Broderie cœur</div></div>
+          <div class="recap-qty">×100</div>
+          <div class="recap-price">1 450,00 €</div>
+        </div>
+        <div class="recap-row">
+          <div class="recap-img"></div>
+          <div class="recap-info"><div class="recap-name">Gourde Isotherme Inox 500ml</div><div class="recap-spec">Réf. DRI-102 · Gris Anthracite · Gravure laser</div></div>
+          <div class="recap-qty">×50</div>
+          <div class="recap-price">560,00 €</div>
+        </div>
+        <div class="recap-row">
+          <div class="recap-img"></div>
+          <div class="recap-info"><div class="recap-name">Carnet A5 Cuir Recyclé</div><div class="recap-spec">Réf. PAP-045 · Bordeaux · Embossage à chaud</div></div>
+          <div class="recap-qty">×100</div>
+          <div class="recap-price">690,00 €</div>
+        </div>
+        <div class="recap-total-row">
+          <div class="recap-total-label">Total estimé HT (hors marquage & livraison)</div>
+          <div class="recap-total-val">2 700,00 €</div>
+        </div>
+      </div>
+
+      <div class="ruler" style="margin:0 -40px 16px;padding-left:40px;">Section 06 — Confirmation email / Informe l'utilisateur qu'un récapitulatif lui a été envoyé</div>
+      <div class="email-confirm">
+        <span style="font-size:18px;">✉️</span>
+        <div>Un email de confirmation avec le récapitulatif complet de votre demande a été envoyé à <strong>jean.dupont@acef-paris.fr</strong>.<br/>Pensez à vérifier vos spams si vous ne le recevez pas dans les minutes qui suivent.</div>
+      </div>
+
+      <div class="ruler" style="margin:0 -40px 16px;padding-left:40px;">Section 07 — CTA de sortie / 2 actions : retour catalogue ou aller dans Mon compte</div>
+      <div class="confirm-cta">
+        <div class="btn-primary">🛍 Continuer mes achats</div>
+        <div class="btn-secondary">📊 Suivre ma demande dans Mon compte</div>
+      </div>
+
     </div>
-
-    <div class="slabel">04 → 08 — Formulaire de devis / 09-10 — Infos & engagements</div>
-    <div class="contact-layout">
-      <!-- ════ FORMULAIRE ════ -->
-      <div class="form-left">
-
-        <!-- SECTION 1 : Identité -->
-        <div class="ruler" style="margin:0 -40px 16px;padding-left:40px;">Section 04 — Identité de l'acheteur / Pré-rempli si connecté</div>
-        <div class="form-section">
-          <div class="form-section-title"><div class="form-section-title-num">1</div>Vos coordonnées</div>
-          <div class="form-section-desc">Ces informations sont pré-remplies depuis votre compte ACEF connecté.</div>
-          <div class="form-grid">
-            <div class="form-group"><div class="form-label">Prénom <span class="req">*</span></div><div class="form-input">Jean</div></div>
-            <div class="form-group"><div class="form-label">Nom <span class="req">*</span></div><div class="form-input">Dupont</div></div>
-            <div class="form-group"><div class="form-label">Email professionnel <span class="req">*</span></div><div class="form-input">jean.dupont@acef-paris.fr</div></div>
-            <div class="form-group"><div class="form-label">Téléphone <span class="req">*</span></div><div class="form-input">+33 6 12 34 56 78</div></div>
-            <div class="form-group full"><div class="form-label">Association ACEF <span class="req">*</span></div><div class="form-input">ACEF Paris — Section Île-de-France</div></div>
-            <div class="form-group"><div class="form-label">Votre fonction</div><div class="form-input">Responsable des achats</div></div>
-            <div class="form-group"><div class="form-label">Numéro adhérent ACEF</div><div class="form-input">ACEF-2019-04521</div></div>
-          </div>
-        </div>
-
-        <hr class="section-divider"/>
-
-        <!-- SECTION 2 : Projet -->
-        <div class="ruler" style="margin:0 -40px 16px;padding-left:40px;">Section 05 — Informations sur le projet / Budget, délai, quantité, occasion</div>
-        <div class="form-section">
-          <div class="form-section-title"><div class="form-section-title-num">2</div>Votre projet</div>
-          <div class="form-section-desc">Donnez-nous le maximum de détails pour vous proposer le devis le plus précis possible.</div>
-          <div class="form-grid">
-            <div class="form-group full"><div class="form-label">Titre / objet de la demande <span class="req">*</span></div><div class="form-input">Ex. : Commande goodies pour Assemblée Générale ACEF 2026</div></div>
-            <div class="form-group"><div class="form-label">Occasion / événement</div><div class="form-select"><span>Sélectionner…</span><span>▾</span></div></div>
-            <div class="form-group"><div class="form-label">Budget unitaire souhaité</div><div class="form-select"><span>Sélectionner une fourchette…</span><span>▾</span></div></div>
-            <div class="form-group"><div class="form-label">Quantité totale estimée <span class="req">*</span></div><div class="form-input">Ex. : 250 pièces</div></div>
-            <div class="form-group"><div class="form-label">Délai souhaité <span class="req">*</span></div><div class="form-select"><span>Sélectionner un délai…</span><span>▾</span></div></div>
-            <div class="form-group full"><div class="form-label">Description du projet</div><div class="form-textarea">[Zone texte libre — Instructions particulières, contraintes de marquage, informations spécifiques…]</div></div>
-          </div>
-        </div>
-
-        <hr class="section-divider"/>
-
-        <!-- SECTION 3 : Produits -->
-        <div class="ruler" style="margin:0 -40px 16px;padding-left:40px;">Section 06 — Produits souhaités / Sélection depuis catalogue ou description libre</div>
-        <div class="form-section">
-          <div class="form-section-title"><div class="form-section-title-num">3</div>Produits souhaités</div>
-          <div class="form-section-desc">Ajoutez des produits depuis le catalogue ou décrivez librement vos besoins.</div>
-          <div class="selected-products">
-            <div class="selected-product">
-              <div class="selected-product-img"></div>
-              <div class="selected-product-name">Polo Corporate Premium Bio — Réf. TEX-001</div>
-              <div class="selected-product-qty">×100 · Bleu Marine · Broderie</div>
-              <div class="selected-product-remove">✕</div>
-            </div>
-            <div class="selected-product">
-              <div class="selected-product-img"></div>
-              <div class="selected-product-name">Gourde Isotherme Inox 500ml — Réf. DRI-102</div>
-              <div class="selected-product-qty">×50 · Gris · Gravure laser</div>
-              <div class="selected-product-remove">✕</div>
-            </div>
-          </div>
-          <div class="add-product-btn">＋ Ajouter un produit depuis le catalogue</div>
-          <div style="margin-top:10px;font-size:11px;color:var(--text-ghost);">— ou décrivez un produit non trouvé dans le catalogue —</div>
-          <div style="margin-top:10px;"><div class="form-textarea" style="min-height:80px;">[Zone texte — Description libre d'un produit spécifique non référencé…]</div></div>
-        </div>
-
-        <hr class="section-divider"/>
-
-        <!-- SECTION 4 : Logo & fichiers -->
-        <div class="ruler" style="margin:0 -40px 16px;padding-left:40px;">Section 07 — Upload logo & fichiers / Zone glisser-déposer / Formats acceptés</div>
-        <div class="form-section">
-          <div class="form-section-title"><div class="form-section-title-num">4</div>Votre logo & fichiers</div>
-          <div class="form-section-desc">Formats vectoriels recommandés : .AI, .EPS, .PDF, .SVG. Formats image acceptés : .PNG (fond transparent), .JPG haute résolution.</div>
-          <div class="upload-zone">
-            <div class="upload-icon">📁</div>
-            <div class="upload-label">Glissez vos fichiers ici ou cliquez pour parcourir</div>
-            <div class="upload-hint">Max. 20 Mo par fichier · AI, EPS, PDF, SVG, PNG, JPG acceptés</div>
-          </div>
-          <div style="margin-top:8px;font-size:10px;color:var(--text-ghost);">💡 Si vous n'avez pas encore votre logo finalisé, laissez ce champ vide — notre studio graphique vous accompagnera.</div>
-        </div>
-
-        <hr class="section-divider"/>
-
-        <!-- SECTION 5 : RGPD + Submit -->
-        <div class="ruler" style="margin:0 -40px 16px;padding-left:40px;">Section 08 — Consentement RGPD + bouton d'envoi</div>
-        <div class="form-checkbox-row">
-          <div class="form-checkbox" style="background:var(--accent);border-color:var(--accent);display:flex;align-items:center;justify-content:center;color:white;font-size:10px;">✓</div>
-          <div class="form-checkbox-label">J'accepte que mes données soient traitées par Bimier Solutions dans le cadre de ma demande de devis, conformément à la <span style="text-decoration:underline;cursor:default;">politique de confidentialité</span>. <span style="color:var(--bg-deep);">*</span></div>
-        </div>
-        <div class="form-checkbox-row">
-          <div class="form-checkbox"></div>
-          <div class="form-checkbox-label">Je souhaite recevoir les actualités et offres exclusives réservées aux membres ACEF (optionnel)</div>
-        </div>
-        <div style="margin-top:20px;">
-          <div class="btn-submit">📋 Envoyer ma demande de devis</div>
-          <div class="form-submit-note">Réponse garantie sous 24h ouvrées · Devis 100% gratuit, sans engagement<br/>Votre conseiller ACEF dédié vous contactera par email et téléphone.</div>
-        </div>
-      </div>
-
-      <!-- ════ COLONNE DROITE ════ -->
-      <div class="contact-info">
-        <div class="ruler" style="margin:0 -40px 16px;padding-left:40px;">Section 09 — Informations de contact / Position sticky</div>
-        <div class="info-card">
-          <div class="info-card-title">📞 Nos coordonnées directes</div>
-          <div class="info-item">
-            <div class="info-icon">📞</div>
-            <div class="info-content"><div class="info-label">Téléphone</div><div class="info-value">0800 123 456</div><div class="info-sub">Appel gratuit · Lun–Ven 9h–18h</div></div>
-          </div>
-          <div class="info-item">
-            <div class="info-icon">✉️</div>
-            <div class="info-content"><div class="info-label">Email</div><div class="info-value">acef@bimier.fr</div><div class="info-sub">Réponse sous 24h ouvrées</div></div>
-          </div>
-          <div class="info-item">
-            <div class="info-icon">📍</div>
-            <div class="info-content"><div class="info-label">Adresse</div><div class="info-value">Bimier Solutions</div><div class="info-sub">12 rue des Entrepreneurs<br/>75015 Paris, France</div></div>
-          </div>
-          <div class="info-item">
-            <div class="info-icon">🕘</div>
-            <div class="info-content"><div class="info-label">Horaires</div><div class="info-value">Lundi – Vendredi</div><div class="info-sub">9h00 – 18h00 (heure de Paris)</div></div>
-          </div>
-        </div>
-
-        <div class="ruler" style="margin:0 -40px 16px;padding-left:40px;">Section 10 — Nos engagements / Points de réassurance B2B</div>
-        <div class="info-card">
-          <div class="info-card-title">✅ Nos engagements</div>
-          <div class="engagements">
-            <div class="engagement"><span class="engagement-icon">⚡</span><span class="engagement-text"><strong>Réponse sous 24h ouvrées</strong> — Votre conseiller vous contacte rapidement</span></div>
-            <div class="engagement"><span class="engagement-icon">🎨</span><span class="engagement-text"><strong>BAT visuel gratuit</strong> — Simulation avant toute production</span></div>
-            <div class="engagement"><span class="engagement-icon">💰</span><span class="engagement-text"><strong>Devis sans engagement</strong> — Aucun frais jusqu'à validation</span></div>
-            <div class="engagement"><span class="engagement-icon">🔒</span><span class="engagement-text"><strong>Espace sécurisé ACEF</strong> — Tarifs négociés exclusifs membres</span></div>
-            <div class="engagement"><span class="engagement-icon">🚚</span><span class="engagement-text"><strong>Livraison multi-sites</strong> — Gérée par nos équipes logistiques</span></div>
-          </div>
-        </div>
-
-        <!-- Conseiller dédié -->
-        <div class="info-card" style="text-align:center;">
-          <div style="width:60px;height:60px;background:var(--bg-medium);border-radius:50%;margin:0 auto 12px;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:700;color:var(--text-meta);">CM</div>
-          <div style="font-size:13px;font-weight:700;color:var(--text-label);margin-bottom:4px;">Camille Martin</div>
-          <div style="font-size:11px;color:var(--text-meta);margin-bottom:4px;">Conseillère ACEF dédiée</div>
-          <div style="font-size:11px;color:var(--text-ghost);margin-bottom:16px;">Disponible Lun–Ven 9h–18h</div>
-          <div style="padding:10px;background:var(--bg-page);border:1px solid var(--stroke-medium);border-radius:var(--radius);font-size:12px;color:var(--text-meta);cursor:default;">📅 Planifier un appel</div>
-        </div>
-      </div>
-
-    </div><!-- /contact-layout -->
-  </div><!-- /content -->
+  </div>
 
   <div class="footer-minimal">
     <div class="footer-copy">© 2026 Bimier Solutions — Espace ACEF. Accès réservé aux membres enregistrés.</div>
