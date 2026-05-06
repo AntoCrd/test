@@ -3,117 +3,164 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Wireframe — Mot de passe oublié V2 | ACEF × Bimier Solutions</title>
+  <title>Wireframe — À propos | ACEF × Bimier Solutions</title>
   <style>
-    :root{--bg-page:#F2F2F2;--bg-white:#FFFFFF;--bg-light:#E8E8E8;--bg-medium:#D0D0D0;--bg-dark:#B0B0B0;--bg-deep:#888888;--stroke-light:#CCCCCC;--stroke-medium:#AAAAAA;--stroke-strong:#777777;--stroke-dark:#444444;--text-label:#333333;--text-meta:#666666;--text-ghost:#999999;--accent:#444444;--radius:4px;--font:'Helvetica Neue',Helvetica,Arial,sans-serif;}
+    :root{
+      --bg-page:#F2F2F2; --bg-white:#FFFFFF; --bg-light:#E8E8E8;
+      --bg-medium:#D0D0D0; --bg-dark:#B0B0B0; --bg-deep:#888888;
+      --stroke-light:#CCCCCC; --stroke-medium:#AAAAAA; --stroke-strong:#777777; --stroke-dark:#444444;
+      --text-label:#333333; --text-meta:#666666; --text-ghost:#999999;
+      --accent:#444444; --radius:4px;
+      --content:1200px; --font:'Helvetica Neue',Helvetica,Arial,sans-serif;
+    }
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
-    body{font-family:var(--font);background:var(--bg-page);color:var(--text-label);font-size:13px;min-height:100vh;}
-    body::before{content:"WIREFRAME — MOT DE PASSE OUBLIÉ V2 — ACEF × BIMIER SOLUTIONS — 1440px";position:fixed;top:50%;left:50%;transform:translate(-50%,-50%) rotate(-30deg);font-size:18px;font-weight:700;color:rgba(0,0,0,0.04);white-space:nowrap;pointer-events:none;z-index:9999;letter-spacing:4px;}
-    .page-wrapper{max-width:1440px;margin:0 auto;background:var(--bg-white);box-shadow:0 0 40px rgba(0,0,0,0.1);min-height:100vh;display:flex;flex-direction:column;}
+    body{font-family:var(--font);background:var(--bg-page);color:var(--text-label);font-size:13px;}
+    body::before{content:"WIREFRAME — À PROPOS — ACEF × BIMIER SOLUTIONS — 1440px";position:fixed;top:50%;left:50%;transform:translate(-50%,-50%) rotate(-30deg);font-size:20px;font-weight:700;color:rgba(0,0,0,0.04);white-space:nowrap;pointer-events:none;z-index:9999;letter-spacing:4px;}
+    .pw{max-width:1440px;margin:0 auto;background:var(--bg-white);box-shadow:0 0 40px rgba(0,0,0,0.1);}
+    .cx{max-width:var(--content);margin:0 auto;padding:0 40px;}
+
+    /* Doc header */
     .doc-header{background:var(--bg-page);border-bottom:2px solid var(--stroke-dark);padding:16px 40px;display:flex;justify-content:space-between;align-items:center;}
     .doc-project{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--text-meta);}
     .doc-page{font-size:18px;font-weight:800;color:var(--text-label);}
     .doc-meta{font-size:10px;color:var(--text-ghost);text-align:right;}
     .doc-badge{background:var(--stroke-dark);color:white;font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:3px 8px;border-radius:2px;margin-top:4px;display:inline-block;}
+
+    /* Ruler */
     .ruler{background:#FFFDE7;border-top:1px dashed var(--stroke-medium);border-bottom:1px dashed var(--stroke-medium);padding:4px 40px;font-size:9px;color:var(--text-ghost);font-style:italic;display:flex;align-items:center;gap:8px;}
     .ruler::before{content:'↕';font-style:normal;}
-    .slabel{font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--text-ghost);padding:4px 8px;background:var(--bg-light);border-left:3px solid var(--stroke-medium);display:inline-block;margin-bottom:16px;}
 
-    /* ── Navbar ── */
-    .navbar-minimal{background:var(--bg-white);border-bottom:1px solid var(--stroke-light);height:64px;display:flex;align-items:center;justify-content:center;position:relative;}
+    /* Section label */
+    .slabel{font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--text-ghost);padding:4px 8px;background:var(--bg-light);border-left:3px solid var(--stroke-medium);display:inline-block;margin-bottom:20px;}
+
+    /* Navbar */
+    .navbar{background:var(--bg-white);border-bottom:1px solid var(--stroke-light);height:72px;display:flex;align-items:center;}
+    .navbar-inner{max-width:var(--content);margin:0 auto;padding:0 40px;width:100%;display:grid;grid-template-columns:180px 1fr auto auto;align-items:center;gap:40px;}
     .nav-logo{width:140px;height:40px;background:var(--bg-medium);border-radius:var(--radius);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:var(--text-meta);letter-spacing:1px;}
-    .nav-back{position:absolute;left:40px;font-size:12px;color:var(--text-meta);cursor:default;display:flex;align-items:center;gap:6px;}
+    .nav-links{display:flex;align-items:center;gap:36px;list-style:none;}
+    .nav-links li{font-size:13px;color:var(--text-meta);}
+    .nav-links li.active{color:var(--text-label);font-weight:600;border-bottom:2px solid var(--accent);padding-bottom:2px;}
+    .nav-search{width:200px;height:36px;border:1px solid var(--stroke-light);border-radius:var(--radius);background:var(--bg-page);display:flex;align-items:center;padding:0 12px;gap:8px;font-size:11px;color:var(--text-ghost);}
+    .nav-account{display:flex;align-items:center;gap:8px;padding:6px 14px;border:1px solid var(--stroke-light);border-radius:var(--radius);font-size:12px;color:var(--text-meta);}
+    .nav-dot{width:8px;height:8px;background:var(--bg-dark);border-radius:50%;}
 
-    /* ── Layout 2 colonnes : visuel + formulaire ── */
-    .login-layout{flex:1;display:grid;grid-template-columns:1fr 520px;}
+    /* Breadcrumb */
+    .breadcrumb{padding:16px 0;display:flex;align-items:center;gap:8px;}
+    .bc-item{font-size:12px;color:var(--text-meta);}
+    .bc-sep{font-size:10px;color:var(--text-ghost);}
+    .bc-cur{font-size:12px;color:var(--text-label);font-weight:600;}
 
-    /* ── Panneau gauche : visuel ── */
-    .login-visual{background:var(--bg-dark);position:relative;display:flex;flex-direction:column;justify-content:space-between;padding:60px;min-height:640px;}
-    .login-visual-bg{position:absolute;inset:0;background:var(--bg-dark);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:8px;}
-    .login-visual-bg-label{font-size:11px;color:rgba(255,255,255,0.4);}
-    .login-visual-bg-dim{font-size:10px;color:rgba(255,255,255,0.25);}
-    .login-visual-overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0.35) 0%,rgba(0,0,0,0.6) 100%);}
-    .login-visual-top{position:relative;z-index:2;}
-    .login-visual-logo{width:120px;height:36px;background:rgba(255,255,255,0.15);border-radius:var(--radius);display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:rgba(255,255,255,0.7);letter-spacing:1px;}
-    .login-visual-bottom{position:relative;z-index:2;}
-    .login-visual-title{font-size:30px;font-weight:900;color:#FFFFFF;line-height:1.15;letter-spacing:-0.3px;margin-bottom:14px;}
-    .login-visual-desc{font-size:13px;color:rgba(255,255,255,0.7);line-height:1.7;margin-bottom:28px;}
+    /* Placeholder image */
+    .img-ph{background:var(--bg-light);border:1px solid var(--stroke-light);border-radius:var(--radius);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:6px;color:var(--text-ghost);font-size:10px;text-align:center;position:relative;}
+    .img-ph::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,transparent 45%,var(--stroke-light) 45%,var(--stroke-light) 46%,transparent 46%);border-radius:var(--radius);pointer-events:none;}
+    .img-ph span{position:relative;z-index:1;}
 
-    /* Points process */
-    .process-steps{display:flex;flex-direction:column;gap:12px;}
-    .process-step{display:flex;align-items:flex-start;gap:14px;padding:14px 16px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.12);border-radius:var(--radius);}
-    .process-step-num{width:28px;height:28px;background:rgba(255,255,255,0.2);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#FFFFFF;flex-shrink:0;}
-    .process-step-text{}
-    .process-step-title{font-size:12px;font-weight:700;color:rgba(255,255,255,0.95);margin-bottom:3px;}
-    .process-step-desc{font-size:11px;color:rgba(255,255,255,0.6);line-height:1.5;}
+    /* ════ 02 — HERO ════ */
+    .hero{height:420px;background:var(--bg-dark);position:relative;overflow:hidden;}
+    .hero-overlay{position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,0,0,0.6) 0%,rgba(0,0,0,0.15) 70%,transparent 100%);}
+    .hero-bg-label{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:11px;color:rgba(255,255,255,0.35);text-align:center;line-height:1.8;}
+    .hero-content{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);max-width:var(--content);width:100%;padding:0 40px;}
+    .hero-overline{font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,0.55);margin-bottom:14px;}
+    .hero-title{font-size:40px;font-weight:900;color:#FFFFFF;line-height:1.1;letter-spacing:-0.5px;margin-bottom:16px;max-width:600px;}
+    .hero-sub{font-size:15px;color:rgba(255,255,255,0.75);line-height:1.7;max-width:540px;}
 
-    /* ── Panneau droit : 2 états empilés ── */
-    .form-panel{background:var(--bg-white);border-left:1px solid var(--stroke-light);display:flex;flex-direction:column;}
+    /* ════ 03 — STATS BAND ════ */
+    .stats-band{background:var(--bg-deep);padding:40px 0;}
+    .stats-inner{max-width:var(--content);margin:0 auto;padding:0 40px;display:grid;grid-template-columns:repeat(4,1fr);gap:40px;}
+    .stat{text-align:center;}
+    .stat-val{font-size:36px;font-weight:900;color:#FFFFFF;line-height:1;margin-bottom:6px;}
+    .stat-label{font-size:10px;color:rgba(255,255,255,0.6);text-transform:uppercase;letter-spacing:1.5px;}
 
-    /* État A */
-    .state-a{flex:1;padding:48px 44px;display:flex;flex-direction:column;justify-content:center;}
-    .state-b{display:none;flex:1;padding:48px 44px;align-items:center;justify-content:center;}
+    /* ════ SECTIONS GÉNÉRALES ════ */
+    .section{padding:80px 0;}
+    .section-alt{padding:80px 0;background:var(--bg-light);}
+    .section-title{font-size:28px;font-weight:800;color:var(--text-label);letter-spacing:-0.3px;margin-bottom:10px;}
+    .section-sub{font-size:14px;color:var(--text-meta);line-height:1.7;max-width:600px;margin-bottom:36px;}
+    .overline{font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--text-ghost);margin-bottom:12px;}
 
-    /* Note état */
-    .state-tag{display:inline-flex;align-items:center;gap:6px;padding:5px 10px;background:var(--bg-light);border:1px solid var(--stroke-medium);border-radius:2px;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--text-meta);margin-bottom:20px;}
+    /* ════ 04 — HISTOIRE (2 colonnes) ════ */
+    .histoire-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;}
+    .histoire-text{}
+    .histoire-img{height:380px;}
+    .histoire-body{font-size:13px;color:var(--text-meta);line-height:1.8;margin-bottom:20px;}
+    .histoire-timeline{display:flex;flex-direction:column;gap:0;margin-top:28px;}
+    .timeline-item{display:flex;gap:20px;padding-bottom:24px;position:relative;}
+    .timeline-item:last-child{padding-bottom:0;}
+    .timeline-item::before{content:'';position:absolute;left:15px;top:32px;bottom:0;width:1px;background:var(--stroke-light);}
+    .timeline-item:last-child::before{display:none;}
+    .timeline-dot{width:32px;height:32px;background:var(--bg-medium);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:var(--text-meta);flex-shrink:0;position:relative;z-index:1;}
+    .timeline-content{}
+    .timeline-year{font-size:11px;font-weight:700;color:var(--text-ghost);letter-spacing:1px;margin-bottom:3px;}
+    .timeline-desc{font-size:12px;color:var(--text-meta);line-height:1.5;}
 
-    .form-logo{width:100px;height:32px;background:var(--bg-medium);border-radius:var(--radius);display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:var(--text-meta);letter-spacing:1px;margin-bottom:20px;}
-    .form-title{font-size:21px;font-weight:800;color:var(--text-label);margin-bottom:8px;letter-spacing:-0.2px;}
-    .form-subtitle{font-size:12px;color:var(--text-meta);line-height:1.6;margin-bottom:24px;}
+    /* ════ 05 — VALEURS (3 colonnes) ════ */
+    .valeurs-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
+    .valeur-card{padding:28px;background:var(--bg-white);border:1px solid var(--stroke-light);border-radius:var(--radius);}
+    .valeur-icon{width:48px;height:48px;background:var(--bg-light);border-radius:var(--radius);display:flex;align-items:center;justify-content:center;font-size:22px;margin-bottom:16px;}
+    .valeur-title{font-size:15px;font-weight:700;color:var(--text-label);margin-bottom:8px;}
+    .valeur-desc{font-size:12px;color:var(--text-meta);line-height:1.6;}
 
-    /* Alerte contexte */
-    .context-alert{display:flex;align-items:flex-start;gap:10px;padding:12px 14px;background:var(--bg-page);border:1px solid var(--stroke-medium);border-radius:var(--radius);margin-bottom:24px;}
-    .context-alert-icon{font-size:16px;flex-shrink:0;margin-top:1px;}
-    .context-alert-text{font-size:11px;color:var(--text-meta);line-height:1.5;}
-    .context-alert-text strong{color:var(--text-label);}
+    /* ════ 06 — PARTENARIAT ACEF (bandeau fort) ════ */
+    .partnership-block{background:var(--bg-deep);padding:64px 0;}
+    .partnership-inner{max-width:var(--content);margin:0 auto;padding:0 40px;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;}
+    .partnership-text{}
+    .partnership-overline{font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,0.5);margin-bottom:14px;}
+    .partnership-title{font-size:28px;font-weight:800;color:#FFFFFF;line-height:1.2;margin-bottom:16px;letter-spacing:-0.3px;}
+    .partnership-body{font-size:13px;color:rgba(255,255,255,0.7);line-height:1.8;margin-bottom:24px;}
+    .partnership-pts{display:flex;flex-direction:column;gap:12px;}
+    .partnership-pt{display:flex;align-items:flex-start;gap:12px;}
+    .partnership-pt-icon{font-size:16px;flex-shrink:0;margin-top:1px;}
+    .partnership-pt-text{}
+    .partnership-pt-title{font-size:12px;font-weight:700;color:rgba(255,255,255,0.9);margin-bottom:2px;}
+    .partnership-pt-desc{font-size:11px;color:rgba(255,255,255,0.6);line-height:1.5;}
+    .partnership-logos{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:24px;}
+    .partner-logo-box{width:220px;height:80px;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);border-radius:var(--radius);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:rgba(255,255,255,0.6);letter-spacing:1px;}
+    .partner-link-icon{font-size:20px;color:rgba(255,255,255,0.4);}
 
-    /* Formulaire */
-    .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px;}
-    .form-group{display:flex;flex-direction:column;gap:6px;}
-    .form-group.full{grid-column:1/-1;}
-    .form-label{font-size:11px;font-weight:700;color:var(--text-label);letter-spacing:0.2px;}
-    .form-label .req{color:var(--bg-deep);}
-    .form-input{height:44px;border:1.5px solid var(--stroke-medium);border-radius:var(--radius);background:var(--bg-page);display:flex;align-items:center;padding:0 12px;gap:10px;font-size:12px;color:var(--text-ghost);}
-    .form-input.active{border-color:var(--accent);background:var(--bg-white);}
-    .form-input-icon{font-size:13px;flex-shrink:0;}
+    /* ════ 07 — ÉQUIPE (4 cartes) ════ */
+    .team-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;}
+    .team-card{background:var(--bg-white);border:1px solid var(--stroke-light);border-radius:var(--radius);overflow:hidden;}
+    .team-photo{height:180px;background:var(--bg-medium);display:flex;align-items:center;justify-content:center;font-size:36px;font-weight:700;color:var(--text-meta);}
+    .team-body{padding:16px;}
+    .team-name{font-size:14px;font-weight:700;color:var(--text-label);margin-bottom:4px;}
+    .team-role{font-size:11px;font-weight:600;color:var(--text-meta);margin-bottom:4px;}
+    .team-acef{font-size:10px;color:var(--text-ghost);margin-bottom:10px;}
+    .team-bio{font-size:11px;color:var(--text-meta);line-height:1.5;}
 
-    .divider-label{display:flex;align-items:center;gap:10px;margin:16px 0;}
-    .divider-line{flex:1;height:1px;background:var(--stroke-light);}
-    .divider-text{font-size:10px;color:var(--text-ghost);white-space:nowrap;font-style:italic;}
+    /* ════ 08 — CERTIFICATIONS / ENGAGEMENTS RSE ════ */
+    .rse-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;}
+    .rse-card{padding:20px;background:var(--bg-white);border:1px solid var(--stroke-light);border-radius:var(--radius);text-align:center;}
+    .rse-icon{width:56px;height:56px;background:var(--bg-light);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:24px;margin:0 auto 12px;}
+    .rse-title{font-size:12px;font-weight:700;color:var(--text-label);margin-bottom:6px;}
+    .rse-desc{font-size:11px;color:var(--text-meta);line-height:1.5;}
+    .rse-badge{display:inline-block;margin-top:8px;padding:3px 8px;background:var(--bg-light);border-radius:2px;font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--text-ghost);}
 
-    /* RGPD */
-    .rgpd-row{display:flex;align-items:flex-start;gap:10px;margin-bottom:20px;}
-    .rgpd-check{width:16px;height:16px;border:1.5px solid var(--stroke-medium);border-radius:3px;flex-shrink:0;margin-top:2px;}
-    .rgpd-label{font-size:10px;color:var(--text-meta);line-height:1.5;}
+    /* ════ 09 — CTA BAS DE PAGE ════ */
+    .cta-section{padding:80px 0;background:var(--bg-white);}
+    .cta-box{background:var(--bg-light);border:1px solid var(--stroke-light);border-radius:var(--radius);padding:56px 80px;display:grid;grid-template-columns:1fr auto;align-items:center;gap:60px;}
+    .cta-title{font-size:26px;font-weight:800;color:var(--text-label);line-height:1.2;margin-bottom:10px;}
+    .cta-sub{font-size:13px;color:var(--text-meta);line-height:1.6;}
+    .cta-actions{display:flex;flex-direction:column;gap:10px;min-width:220px;}
+    .btn-primary{padding:15px 28px;background:var(--accent);color:white;font-size:13px;font-weight:700;text-align:center;border-radius:var(--radius);cursor:default;}
+    .btn-secondary{padding:14px 28px;background:transparent;border:1.5px solid var(--stroke-strong);color:var(--text-label);font-size:13px;font-weight:600;text-align:center;border-radius:var(--radius);cursor:default;}
 
-    /* CTA */
-    .btn-submit{width:100%;padding:15px;background:var(--accent);color:white;font-size:13px;font-weight:700;text-align:center;border-radius:var(--radius);cursor:default;display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:10px;}
-    .btn-back{width:100%;padding:12px;background:transparent;border:none;font-size:12px;color:var(--text-ghost);text-align:center;cursor:default;text-decoration:underline;}
-
-    .security-note{display:flex;align-items:center;gap:8px;padding:10px 12px;background:var(--bg-page);border:1px solid var(--stroke-light);border-radius:var(--radius);margin-top:14px;}
-    .security-note-text{font-size:10px;color:var(--text-ghost);line-height:1.5;}
-
-    /* ── État B : confirmation ── */
-    .confirm-panel{width:100%;text-align:center;}
-    .confirm-icon{width:72px;height:72px;background:var(--bg-medium);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 20px;}
-    .confirm-title{font-size:22px;font-weight:800;color:var(--text-label);margin-bottom:10px;}
-    .confirm-sub{font-size:13px;color:var(--text-meta);line-height:1.6;margin-bottom:28px;}
-    .confirm-steps{display:flex;flex-direction:column;gap:10px;text-align:left;margin-bottom:28px;}
-    .confirm-step{display:flex;align-items:flex-start;gap:12px;padding:12px 14px;background:var(--bg-page);border:1px solid var(--stroke-light);border-radius:var(--radius);}
-    .confirm-step-num{width:22px;height:22px;background:var(--bg-medium);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:var(--text-meta);flex-shrink:0;margin-top:1px;}
-    .confirm-step-text{font-size:12px;color:var(--text-meta);line-height:1.5;}
-    .confirm-step-text strong{color:var(--text-label);}
-    .confirm-delay{display:inline-flex;align-items:center;gap:8px;padding:12px 20px;background:var(--bg-light);border:1px solid var(--stroke-medium);border-radius:var(--radius);font-size:12px;font-weight:600;color:var(--text-label);margin-bottom:24px;}
-    .btn-back-login{width:100%;padding:14px;background:var(--accent);color:white;font-size:13px;font-weight:700;text-align:center;border-radius:var(--radius);cursor:default;}
-
-    /* Footer */
-    .footer-minimal{background:var(--bg-light);border-top:1px solid var(--stroke-light);padding:14px 60px;display:flex;justify-content:space-between;align-items:center;}
+    /* ════ FOOTER ════ */
+    .footer{background:var(--bg-dark);border-top:1px solid var(--stroke-medium);padding:56px 0 24px;}
+    .footer-grid{max-width:var(--content);margin:0 auto;padding:0 40px;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:60px;margin-bottom:48px;}
+    .footer-logo{width:120px;height:36px;background:var(--bg-medium);border-radius:var(--radius);display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:var(--text-meta);letter-spacing:1px;margin-bottom:16px;}
+    .footer-desc{font-size:11px;color:var(--text-meta);line-height:1.6;margin-bottom:16px;}
+    .footer-socials{display:flex;gap:8px;}
+    .footer-soc{width:32px;height:32px;background:var(--bg-medium);border-radius:var(--radius);display:flex;align-items:center;justify-content:center;font-size:11px;color:var(--text-meta);}
+    .footer-col-title{font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--text-label);margin-bottom:16px;}
+    .footer-links{list-style:none;display:flex;flex-direction:column;gap:8px;}
+    .footer-links li{font-size:12px;color:var(--text-meta);}
+    .footer-bottom{max-width:var(--content);margin:0 auto;padding:20px 40px 0;border-top:1px solid var(--stroke-medium);display:flex;justify-content:space-between;align-items:center;}
     .footer-copy{font-size:10px;color:var(--text-ghost);}
-    .footer-links{display:flex;gap:20px;}
-    .footer-links span{font-size:10px;color:var(--text-ghost);}
+    .footer-bottom-links{display:flex;gap:24px;}
+    .footer-bottom-links span{font-size:10px;color:var(--text-ghost);}
 
     /* Index */
-    .page-index{position:fixed;right:20px;top:50%;transform:translateY(-50%);background:white;border:1px solid var(--stroke-light);border-radius:var(--radius);padding:12px 0;z-index:1000;box-shadow:0 2px 8px rgba(0,0,0,0.08);min-width:160px;}
+    .page-index{position:fixed;right:20px;top:50%;transform:translateY(-50%);background:white;border:1px solid var(--stroke-light);border-radius:var(--radius);padding:12px 0;z-index:1000;box-shadow:0 2px 8px rgba(0,0,0,0.08);min-width:150px;}
     .pi-title{font-size:8px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--text-ghost);padding:0 12px 8px;border-bottom:1px solid var(--stroke-light);margin-bottom:6px;}
     .pi-item{padding:4px 12px;font-size:9px;color:var(--text-meta);display:flex;align-items:center;gap:8px;}
     .pi-num{font-weight:700;color:var(--text-ghost);min-width:20px;}
@@ -124,10 +171,10 @@
 <div class="doc-header">
   <div>
     <div class="doc-project">ACEF × Bimier Solutions — Refonte Site Catalogue</div>
-    <div class="doc-page">Wireframe 06 — Mot de passe oublié (v2 corrigée)</div>
+    <div class="doc-page">Wireframe 10 — Page À propos</div>
   </div>
   <div>
-    <div class="doc-meta">Desktop 1440px · v2.0 · Mai 2026</div>
+    <div class="doc-meta">Desktop 1440px · v1.0 · Mai 2026</div>
     <div class="doc-meta">Chapitre 7 — Solutions proposées</div>
     <div class="doc-badge">Basse fidélité</div>
   </div>
@@ -135,203 +182,316 @@
 
 <div class="page-index">
   <div class="pi-title">Sections</div>
-  <div class="pi-item"><span class="pi-num">01</span>Navbar épurée</div>
-  <div class="pi-item"><span class="pi-num">02</span>Visuel + processus</div>
-  <div class="pi-item"><span class="pi-num">03</span>État A — Formulaire</div>
-  <div class="pi-item"><span class="pi-num">04</span>Champs identité</div>
-  <div class="pi-item"><span class="pi-num">05</span>Champs coordonnées</div>
-  <div class="pi-item"><span class="pi-num">06</span>Envoi → Bimier</div>
-  <div class="pi-item"><span class="pi-num">07</span>État B — Confirmation</div>
+  <div class="pi-item"><span class="pi-num">01</span>Navigation</div>
+  <div class="pi-item"><span class="pi-num">02</span>Hero</div>
+  <div class="pi-item"><span class="pi-num">03</span>Chiffres clés</div>
+  <div class="pi-item"><span class="pi-num">04</span>Notre histoire</div>
+  <div class="pi-item"><span class="pi-num">05</span>Nos valeurs</div>
+  <div class="pi-item"><span class="pi-num">06</span>Partenariat ACEF</div>
+  <div class="pi-item"><span class="pi-num">07</span>Notre équipe</div>
+  <div class="pi-item"><span class="pi-num">08</span>Engagements RSE</div>
+  <div class="pi-item"><span class="pi-num">09</span>CTA contact</div>
+  <div class="pi-item"><span class="pi-num">10</span>Footer</div>
 </div>
 
-<div class="page-wrapper">
+<div class="pw">
 
-  <div class="ruler">Section 01 — Navbar minimaliste / Lien retour vers page connexion / Logo centré</div>
-  <div class="navbar-minimal">
-    <div class="nav-back">← Retour à la connexion</div>
-    <div class="nav-logo">BIMIER LOGO</div>
+  <!-- ════ 01 — NAVIGATION ════ -->
+  <div class="ruler">Section 01 — Navigation / Onglet "À propos" actif</div>
+  <div class="navbar">
+    <div class="navbar-inner">
+      <div class="nav-logo">BIMIER LOGO</div>
+      <ul class="nav-links">
+        <li>Accueil</li>
+        <li>Catalogue</li>
+        <li class="active">À propos</li>
+        <li>Contact</li>
+      </ul>
+      <div class="nav-search"><span>🔍</span>Rechercher un produit…</div>
+      <div class="nav-account"><div class="nav-dot"></div>Mon compte ACEF</div>
+    </div>
   </div>
 
-  <!-- NOTE LOGIQUE -->
-  <div style="background:#FFF3E0;border-bottom:1px solid #FFCC80;padding:10px 40px;display:flex;align-items:center;gap:12px;">
-    <span style="font-size:14px;">⚙️</span>
-    <span style="font-size:10px;color:#8D5A00;font-weight:600;">LOGIQUE MÉTIER : Pas de reset automatique. L'utilisateur soumet ses informations → Email envoyé à Bimier → Un conseiller recontacte l'ACEF manuellement pour réinitialiser l'accès.</span>
+  <!-- ════ 02 — HERO ════ -->
+  <div class="ruler">Section 02 — Hero / 420px / Image pleine largeur + overlay + accroche / Fond foncé cohérent</div>
+  <div class="hero">
+    <div class="hero-bg-label">IMAGE DE FOND — PLEINE LARGEUR<br/>Recommandé : atelier de production, équipe, produits marqués · 1440×420px</div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <div class="hero-overline">À propos de Bimier Solutions</div>
+      <div class="hero-title">Votre partenaire de confiance depuis 25 ans.</div>
+      <div class="hero-sub">Spécialistes de la communication par l'objet, nous accompagnons les associations ACEF avec des produits personnalisés de qualité, des tarifs négociés et un suivi dédié.</div>
+    </div>
   </div>
 
-  <div class="login-layout" style="flex:1;">
+  <!-- ════ 03 — CHIFFRES CLÉS ════ -->
+  <div class="ruler">Section 03 — Chiffres clés / Bandeau foncé pleine largeur / 4 métriques d'impact</div>
+  <div class="stats-band">
+    <div class="stats-inner">
+      <div class="stat"><div class="stat-val">25</div><div class="stat-label">Ans d'expertise</div></div>
+      <div class="stat"><div class="stat-val">3 500</div><div class="stat-label">ACEF partenaires</div></div>
+      <div class="stat"><div class="stat-val">5 000+</div><div class="stat-label">Références catalogue</div></div>
+      <div class="stat"><div class="stat-val">98%</div><div class="stat-label">Satisfaction client</div></div>
+    </div>
+  </div>
 
-    <!-- ════ PANNEAU GAUCHE : VISUEL ════ -->
-    <div class="login-visual">
-      <div class="login-visual-bg">
-        <span class="login-visual-bg-label">IMAGE DE FOND — PLEINE HAUTEUR</span>
-        <span class="login-visual-bg-dim">Ambiance B2B / produits · Fond sombre recommandé</span>
-      </div>
-      <div class="login-visual-overlay"></div>
+  <!-- ════ 04 — NOTRE HISTOIRE ════ -->
+  <div class="ruler">Section 04 — Notre histoire / Layout 2 colonnes : texte + timeline à gauche · image à droite</div>
+  <div class="section">
+    <div class="cx">
+      <div class="slabel">04 — Notre histoire</div>
+      <div class="histoire-grid">
+        <div class="histoire-text">
+          <div class="overline">Qui sommes-nous</div>
+          <div class="section-title">De LB Trade à Bimier Solutions.</div>
+          <div class="histoire-body">[ZONE TEXTE — Présentation de l'entreprise : fondation, rachat de LB Trade, spécialisation dans les cartes PVC/NFC/RFID et objets de communication, expertise B2B, positionnement sur le marché des associations de fonctionnaires. Environ 80–100 mots.]</div>
+          <div class="histoire-body">[ZONE TEXTE — Suite : développement du partenariat ACEF, création du catalogue privé dédié, engagements qualité et réactivité. Environ 60–80 mots.]</div>
 
-      <div class="login-visual-top">
-        <div class="slabel" style="margin-bottom:16px;">02 — Panneau visuel</div>
-        <div class="login-visual-logo">BIMIER LOGO</div>
-      </div>
-
-      <div class="login-visual-bottom">
-        <div class="login-visual-title">Problème de connexion ?<br/>On s'en occupe.</div>
-        <div class="login-visual-desc">Votre accès au catalogue ACEF est géré par notre équipe. Remplissez le formulaire et un conseiller Bimier vous recontactera rapidement pour rétablir votre accès.</div>
-
-        <div class="process-steps">
-          <div class="process-step">
-            <div class="process-step-num">1</div>
-            <div class="process-step-text">
-              <div class="process-step-title">Vous remplissez le formulaire</div>
-              <div class="process-step-desc">Vos informations d'identification ACEF : nom, association, email, téléphone.</div>
+          <!-- Timeline -->
+          <div class="histoire-timeline">
+            <div class="timeline-item">
+              <div class="timeline-dot">98</div>
+              <div class="timeline-content">
+                <div class="timeline-year">1998</div>
+                <div class="timeline-desc">Création de LB Trade, spécialiste objets promotionnels pour le secteur public</div>
+              </div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-dot">10</div>
+              <div class="timeline-content">
+                <div class="timeline-year">2010</div>
+                <div class="timeline-desc">Lancement du catalogue privé ACEF — premier espace dédié aux associations de fonctionnaires</div>
+              </div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-dot">18</div>
+              <div class="timeline-content">
+                <div class="timeline-year">2018</div>
+                <div class="timeline-desc">Lancement des gammes cartes PVC, NFC et RFID — diversification vers l'identité numérique</div>
+              </div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-dot">24</div>
+              <div class="timeline-content">
+                <div class="timeline-year">2024</div>
+                <div class="timeline-desc">Rachat de LB Trade par Bimier Solutions — continuité du partenariat ACEF et refonte du catalogue</div>
+              </div>
             </div>
           </div>
-          <div class="process-step">
-            <div class="process-step-num">2</div>
-            <div class="process-step-text">
-              <div class="process-step-title">Bimier reçoit votre demande</div>
-              <div class="process-step-desc">Un email automatique est envoyé à notre équipe avec toutes vos informations.</div>
+        </div>
+        <div class="img-ph histoire-img">
+          <span>IMAGE ENTREPRISE<br/>560×380px<br/>Atelier, équipe ou produits</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════ 05 — NOS VALEURS ════ -->
+  <div class="ruler">Section 05 — Nos valeurs / 3 colonnes / Qualité · Réactivité · Engagement RSE</div>
+  <div class="section-alt">
+    <div class="cx">
+      <div class="slabel">05 — Nos valeurs</div>
+      <div class="overline">Ce qui nous guide</div>
+      <div class="section-title" style="margin-bottom:8px;">Trois engagements, une seule priorité : vous.</div>
+      <p style="font-size:13px;color:var(--text-meta);line-height:1.7;margin-bottom:36px;max-width:600px;">[ZONE TEXTE — Introduction courte sur la philosophie de l'entreprise · 2–3 phrases]</p>
+      <div class="valeurs-grid">
+        <div class="valeur-card">
+          <div class="valeur-icon">🎯</div>
+          <div class="valeur-title">Qualité & Lisibilité</div>
+          <div class="valeur-desc">[ZONE TEXTE — Engagement sur la qualité des produits, les techniques de marquage, les contrastes et la durabilité. Environ 40–50 mots.]</div>
+        </div>
+        <div class="valeur-card">
+          <div class="valeur-icon">⚡</div>
+          <div class="valeur-title">Réactivité B2B</div>
+          <div class="valeur-desc">[ZONE TEXTE — Engagement sur les délais de réponse (devis 24h), le BAT visuel gratuit, le conseiller dédié ACEF. Environ 40–50 mots.]</div>
+        </div>
+        <div class="valeur-card">
+          <div class="valeur-icon">🌱</div>
+          <div class="valeur-title">Éco-responsabilité</div>
+          <div class="valeur-desc">[ZONE TEXTE — Engagement RSE : gamme éco, certifications GOTS/Oeko-Tex, matériaux recyclés, politique Green UX sur le catalogue. Environ 40–50 mots.]</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════ 06 — PARTENARIAT ACEF ════ -->
+  <div class="ruler">Section 06 — Partenariat ACEF / Bandeau foncé fort / Logos + points clés exclusivité</div>
+  <div class="partnership-block">
+    <div class="partnership-inner">
+      <div class="partnership-text">
+        <div class="slabel" style="border-left-color:rgba(255,255,255,0.3);background:rgba(255,255,255,0.08);color:rgba(255,255,255,0.5);">06 — Partenariat ACEF</div>
+        <div class="partnership-overline">Un partenariat exclusif</div>
+        <div class="partnership-title">Bimier Solutions,<br/>partenaire officiel des ACEF.</div>
+        <div class="partnership-body">[ZONE TEXTE — Description du partenariat historique avec les ACEF : associations de fonctionnaires, accès catalogue privé, tarifs négociés, volume de commandes, engagement de longue durée. Environ 60–80 mots.]</div>
+        <div class="partnership-pts">
+          <div class="partnership-pt">
+            <span class="partnership-pt-icon">🔒</span>
+            <div class="partnership-pt-text">
+              <div class="partnership-pt-title">Catalogue 100% privé</div>
+              <div class="partnership-pt-desc">Accessible uniquement aux membres ACEF enregistrés — tarifs exclusifs non publics</div>
             </div>
           </div>
-          <div class="process-step">
-            <div class="process-step-num">3</div>
-            <div class="process-step-text">
-              <div class="process-step-title">Un conseiller vous recontacte</div>
-              <div class="process-step-desc">Par email ou téléphone pour vérifier votre identité et rétablir votre accès sous 24h ouvrées.</div>
+          <div class="partnership-pt">
+            <span class="partnership-pt-icon">💰</span>
+            <div class="partnership-pt-text">
+              <div class="partnership-pt-title">Tarifs négociés membres</div>
+              <div class="partnership-pt-desc">Grille tarifaire déressive spécialement conçue pour les commandes en volume ACEF</div>
             </div>
+          </div>
+          <div class="partnership-pt">
+            <span class="partnership-pt-icon">👤</span>
+            <div class="partnership-pt-text">
+              <div class="partnership-pt-title">Conseiller dédié ACEF</div>
+              <div class="partnership-pt-desc">Un interlocuteur unique de la conception à la livraison, partout en France</div>
+            </div>
+          </div>
+          <div class="partnership-pt">
+            <span class="partnership-pt-icon">🚚</span>
+            <div class="partnership-pt-text">
+              <div class="partnership-pt-title">Livraison multi-sites</div>
+              <div class="partnership-pt-desc">Gestion logistique adaptée aux structures à plusieurs antennes régionales</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="partnership-logos">
+        <div class="partner-logo-box">LOGO BIMIER SOLUTIONS</div>
+        <div class="partner-link-icon">⟷</div>
+        <div class="partner-logo-box">LOGO ACEF</div>
+        <div style="font-size:11px;color:rgba(255,255,255,0.4);text-align:center;margin-top:8px;">Partenariat officiel depuis 2010</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════ 07 — NOTRE ÉQUIPE ════ -->
+  <div class="ruler">Section 07 — Notre équipe / 4 cartes / Focus sur les conseillers ACEF dédiés</div>
+  <div class="section">
+    <div class="cx">
+      <div class="slabel">07 — Notre équipe</div>
+      <div class="overline">Les personnes derrière vos commandes</div>
+      <div class="section-title" style="margin-bottom:8px;">Une équipe dédiée à votre réussite.</div>
+      <p style="font-size:13px;color:var(--text-meta);line-height:1.7;margin-bottom:36px;max-width:560px;">[ZONE TEXTE — Introduction équipe · 2 phrases · Mettre en avant l'expertise et la disponibilité]</p>
+      <div class="team-grid">
+        <div class="team-card">
+          <div class="team-photo">CM</div>
+          <div class="team-body">
+            <div class="team-name">Camille Martin</div>
+            <div class="team-role">Conseillère ACEF — Île-de-France</div>
+            <div class="team-acef">Référente ACEF · 8 ans d'expérience</div>
+            <div class="team-bio">[Zone texte · Spécialité, secteur géographique, type de commandes traitées · 2–3 phrases]</div>
+          </div>
+        </div>
+        <div class="team-card">
+          <div class="team-photo">TR</div>
+          <div class="team-body">
+            <div class="team-name">Thomas Rivière</div>
+            <div class="team-role">Responsable Studio Graphique</div>
+            <div class="team-acef">BAT & Maquettes · 12 ans d'expérience</div>
+            <div class="team-bio">[Zone texte · Spécialité, secteur géographique, type de commandes traitées · 2–3 phrases]</div>
+          </div>
+        </div>
+        <div class="team-card">
+          <div class="team-photo">SB</div>
+          <div class="team-body">
+            <div class="team-name">Sophie Bernard</div>
+            <div class="team-role">Conseillère ACEF — Sud-Ouest</div>
+            <div class="team-acef">Référente ACEF · 5 ans d'expérience</div>
+            <div class="team-bio">[Zone texte · Spécialité, secteur géographique, type de commandes traitées · 2–3 phrases]</div>
+          </div>
+        </div>
+        <div class="team-card">
+          <div class="team-photo">ML</div>
+          <div class="team-body">
+            <div class="team-name">Marc Lefebvre</div>
+            <div class="team-role">Responsable Logistique</div>
+            <div class="team-acef">Livraisons multi-sites · 10 ans d'expérience</div>
+            <div class="team-bio">[Zone texte · Spécialité, secteur géographique, type de commandes traitées · 2–3 phrases]</div>
           </div>
         </div>
       </div>
     </div>
+  </div>
 
-    <!-- ════ PANNEAU DROIT ════ -->
-    <div class="form-panel">
-
-      <!-- ════ ÉTAT A : FORMULAIRE ════ -->
-      <div class="ruler" style="margin:0;padding-left:44px;">Section 03 — État A : Formulaire de demande de réinitialisation</div>
-      <div class="state-a">
-        <div class="state-tag">🔓 État A — Saisie des informations</div>
-        <div class="form-logo">BIMIER LOGO</div>
-        <div class="form-title">Réinitialiser mon accès</div>
-        <div class="form-subtitle">Renseignez vos informations. Notre équipe vérifiera votre identité et vous recontactera pour rétablir votre accès au catalogue ACEF.</div>
-
-        <!-- Alerte contexte -->
-        <div class="context-alert">
-          <span class="context-alert-icon">ℹ️</span>
-          <span class="context-alert-text"><strong>Accès géré par Bimier Solutions.</strong> La réinitialisation ne peut pas se faire automatiquement — un conseiller doit vérifier votre identité ACEF avant de rétablir votre accès.</span>
+  <!-- ════ 08 — ENGAGEMENTS RSE ════ -->
+  <div class="ruler">Section 08 — Engagements RSE & Certifications / 4 cartes / Labels qualité + éco</div>
+  <div class="section-alt">
+    <div class="cx">
+      <div class="slabel">08 — RSE & Certifications</div>
+      <div class="overline">Notre responsabilité</div>
+      <div class="section-title" style="margin-bottom:8px;">Des produits engagés, une démarche sincère.</div>
+      <p style="font-size:13px;color:var(--text-meta);line-height:1.7;margin-bottom:36px;max-width:560px;">[ZONE TEXTE — Introduction RSE · engagement environnemental · Green UX · 2–3 phrases]</p>
+      <div class="rse-grid">
+        <div class="rse-card">
+          <div class="rse-icon">🌿</div>
+          <div class="rse-title">Gamme éco-responsable</div>
+          <div class="rse-desc">Sélection de produits en matériaux recyclés, biosourcés ou certifiés.</div>
+          <div class="rse-badge">38 références</div>
         </div>
-
-        <!-- Champs identité ACEF -->
-        <div class="ruler" style="margin:0 -44px 14px;padding-left:44px;">Section 04 — Identité de l'utilisateur ACEF</div>
-        <div style="font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--text-ghost);margin-bottom:10px;">Votre identité</div>
-        <div class="form-grid">
-          <div class="form-group">
-            <div class="form-label">Prénom <span class="req">*</span></div>
-            <div class="form-input active"><span class="form-input-icon">👤</span>Ex. : Jean</div>
-          </div>
-          <div class="form-group">
-            <div class="form-label">Nom <span class="req">*</span></div>
-            <div class="form-input"><span class="form-input-icon">👤</span>Ex. : Dupont</div>
-          </div>
-          <div class="form-group full">
-            <div class="form-label">Nom de votre association ACEF <span class="req">*</span></div>
-            <div class="form-input"><span class="form-input-icon">🏢</span>Ex. : ACEF Paris — Section Île-de-France</div>
-          </div>
-          <div class="form-group">
-            <div class="form-label">Numéro adhérent ACEF</div>
-            <div class="form-input"><span class="form-input-icon">🪪</span>Ex. : ACEF-2019-04521</div>
-          </div>
-          <div class="form-group">
-            <div class="form-label">Votre fonction</div>
-            <div class="form-input"><span class="form-input-icon">💼</span>Ex. : Responsable achats</div>
-          </div>
+        <div class="rse-card">
+          <div class="rse-icon">✅</div>
+          <div class="rse-title">Certifications produits</div>
+          <div class="rse-desc">GOTS, Oeko-Tex Standard 100, FSC, ISO 62430 — labels vérifiés.</div>
+          <div class="rse-badge">4 certifications</div>
         </div>
-
-        <div class="divider-label">
-          <div class="divider-line"></div>
-          <span class="divider-text">Vos coordonnées pour vous recontacter</span>
-          <div class="divider-line"></div>
+        <div class="rse-card">
+          <div class="rse-icon">♻️</div>
+          <div class="rse-title">Emballages responsables</div>
+          <div class="rse-desc">Emballages recyclés ou réutilisables, réduction des plastiques sur toute la chaîne.</div>
+          <div class="rse-badge">Depuis 2021</div>
         </div>
-
-        <!-- Champs coordonnées -->
-        <div class="ruler" style="margin:0 -44px 14px;padding-left:44px;">Section 05 — Coordonnées de contact / Email + téléphone obligatoires</div>
-        <div class="form-grid">
-          <div class="form-group full">
-            <div class="form-label">Adresse email <span class="req">*</span></div>
-            <div class="form-input"><span class="form-input-icon">✉️</span>Ex. : jean.dupont@acef-paris.fr</div>
-          </div>
-          <div class="form-group full">
-            <div class="form-label">Téléphone <span class="req">*</span></div>
-            <div class="form-input"><span class="form-input-icon">📞</span>Ex. : +33 6 12 34 56 78</div>
-          </div>
-          <div class="form-group full">
-            <div class="form-label">Message complémentaire <span style="font-weight:400;color:var(--text-ghost);">(optionnel)</span></div>
-            <div style="min-height:72px;border:1.5px solid var(--stroke-medium);border-radius:var(--radius);background:var(--bg-page);padding:10px 12px;font-size:12px;color:var(--text-ghost);line-height:1.5;">[Zone texte — Précision sur le problème rencontré, contexte de la demande…]</div>
-          </div>
-        </div>
-
-        <!-- RGPD -->
-        <div class="rgpd-row">
-          <div class="rgpd-check" style="background:var(--accent);border-color:var(--accent);display:flex;align-items:center;justify-content:center;font-size:9px;color:white;">✓</div>
-          <div class="rgpd-label">J'accepte que mes informations soient transmises à l'équipe Bimier Solutions dans le cadre de ma demande de réinitialisation d'accès. <span style="color:var(--bg-deep);">*</span></div>
-        </div>
-
-        <!-- CTA -->
-        <div class="ruler" style="margin:0 -44px 16px;padding-left:44px;">Section 06 — Envoi de la demande → Email automatique déclenché vers Bimier</div>
-        <div class="btn-submit">📨 Envoyer ma demande à Bimier Solutions</div>
-        <div class="btn-back">← Retour à la connexion</div>
-
-        <div class="security-note">
-          <span style="font-size:14px;">🔒</span>
-          <span class="security-note-text">Vos données sont transmises de manière sécurisée et ne seront utilisées que pour traiter votre demande de réinitialisation d'accès. Conformité RGPD garantie.</span>
+        <div class="rse-card">
+          <div class="rse-icon">💻</div>
+          <div class="rse-title">Green UX & Éco-conception</div>
+          <div class="rse-desc">Ce site respecte les normes RGSEN d'éco-conception numérique (poids pages, dark mode…).</div>
+          <div class="rse-badge">RGSEN</div>
         </div>
       </div>
+    </div>
+  </div>
 
-      <!-- ════ ÉTAT B : CONFIRMATION ════ -->
-      <div class="ruler" style="margin:0;padding-left:44px;">Section 07 — État B : Confirmation après envoi du formulaire</div>
-      <div class="state-b" style="display:flex;">
-        <div class="confirm-panel">
-          <div class="state-tag" style="display:inline-flex;margin-bottom:24px;">✅ État B — Demande envoyée</div>
-          <div class="confirm-icon">📨</div>
-          <div class="confirm-title">Demande envoyée !</div>
-          <div class="confirm-sub">Votre demande de réinitialisation a bien été transmise à l'équipe Bimier Solutions. Un conseiller prendra contact avec vous prochainement.</div>
-
-          <div class="confirm-delay">⏱ Délai de réponse estimé : <strong>&nbsp;24h ouvrées</strong></div>
-
-          <div class="confirm-steps">
-            <div class="confirm-step">
-              <div class="confirm-step-num">1</div>
-              <div class="confirm-step-text"><strong>Bimier reçoit votre demande</strong> — Un email récapitulatif a été envoyé à notre équipe avec vos informations.</div>
-            </div>
-            <div class="confirm-step">
-              <div class="confirm-step-num">2</div>
-              <div class="confirm-step-text"><strong>Vérification de votre identité</strong> — Un conseiller contrôle vos informations ACEF pour sécuriser votre accès.</div>
-            </div>
-            <div class="confirm-step">
-              <div class="confirm-step-num">3</div>
-              <div class="confirm-step-text"><strong>Recontact par email ou téléphone</strong> — Vous recevrez vos nouveaux identifiants de connexion sous 24h ouvrées.</div>
-            </div>
-          </div>
-
-          <div style="padding:12px 14px;background:var(--bg-page);border:1px solid var(--stroke-light);border-radius:var(--radius);font-size:11px;color:var(--text-meta);text-align:left;margin-bottom:24px;display:flex;gap:8px;">
-            <span>✉️</span>
-            <span>Un email de confirmation a également été envoyé à <strong>jean.dupont@acef-paris.fr</strong> avec le récapitulatif de votre demande.</span>
-          </div>
-
-          <div class="btn-back-login">← Retourner à la page de connexion</div>
-
-          <div style="margin-top:16px;font-size:11px;color:var(--text-ghost);">
-            Besoin urgent ? Appelez-nous directement au <strong>0800 123 456</strong><br/>Lun–Ven · 9h–18h · Appel gratuit
-          </div>
+  <!-- ════ 09 — CTA ════ -->
+  <div class="ruler">Section 09 — CTA contact / Même composant que page accueil / Cohérence</div>
+  <div class="cta-section">
+    <div class="cx">
+      <div class="cta-box">
+        <div>
+          <div class="cta-title">Prêt à travailler avec nous ?</div>
+          <div class="cta-sub">Accédez au catalogue ACEF, demandez un devis personnalisé ou contactez directement votre conseiller Bimier dédié.</div>
+        </div>
+        <div class="cta-actions">
+          <div class="btn-primary">Explorer le catalogue</div>
+          <div class="btn-secondary">Nous contacter</div>
         </div>
       </div>
+    </div>
+  </div>
 
-    </div><!-- /form-panel -->
-  </div><!-- /login-layout -->
-
-  <div class="ruler">Footer légal / Minimal identique aux autres pages d'authentification</div>
-  <div class="footer-minimal">
-    <div class="footer-copy">© 2026 Bimier Solutions — Espace ACEF. Accès réservé aux membres enregistrés.</div>
-    <div class="footer-links"><span>Mentions légales</span><span>CGV</span><span>Confidentialité</span><span>Contact</span></div>
+  <!-- ════ 10 — FOOTER ════ -->
+  <div class="ruler">Section 10 — Footer / Identique à toutes les pages / Composant réutilisable</div>
+  <div class="footer">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-logo">BIMIER LOGO</div>
+        <div class="footer-desc">Votre partenaire exclusif ACEF pour une communication par l'objet réussie et durable. Basés en France, nous garantissons qualité et réactivité.</div>
+        <div class="footer-socials"><div class="footer-soc">in</div><div class="footer-soc">ig</div></div>
+      </div>
+      <div>
+        <div class="footer-col-title">Navigation</div>
+        <ul class="footer-links"><li>Accueil</li><li>Le Catalogue</li><li>À propos</li><li>Contact</li></ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Légal</div>
+        <ul class="footer-links"><li>Mentions légales</li><li>CGV</li><li>Confidentialité</li></ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Ligne directe</div>
+        <ul class="footer-links"><li>0800 123 456</li><li>Lun.–Ven. 9h–18h</li><li style="margin-top:8px;">acef@bimier.fr</li></ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-copy">© 2026 Bimier Solutions. Tous droits réservés. Espace ACEF — Accès réservé.</div>
+      <div class="footer-bottom-links"><span>Mentions légales</span><span>CGV</span><span>Confidentialité</span></div>
+    </div>
   </div>
 
 </div>
