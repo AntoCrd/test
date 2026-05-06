@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Wireframe — Mot de passe oublié | ACEF × Bimier Solutions</title>
+  <title>Wireframe — Mon Compte | ACEF × Bimier Solutions</title>
   <style>
-    :root{--bg-page:#F2F2F2;--bg-white:#FFFFFF;--bg-light:#E8E8E8;--bg-medium:#D0D0D0;--bg-dark:#B0B0B0;--bg-deep:#888888;--stroke-light:#CCCCCC;--stroke-medium:#AAAAAA;--stroke-strong:#777777;--stroke-dark:#444444;--text-label:#333333;--text-meta:#666666;--text-ghost:#999999;--accent:#444444;--radius:4px;--font:'Helvetica Neue',Helvetica,Arial,sans-serif;}
+    :root{--bg-page:#F2F2F2;--bg-white:#FFFFFF;--bg-light:#E8E8E8;--bg-medium:#D0D0D0;--bg-dark:#B0B0B0;--bg-deep:#888888;--stroke-light:#CCCCCC;--stroke-medium:#AAAAAA;--stroke-strong:#777777;--stroke-dark:#444444;--text-label:#333333;--text-meta:#666666;--text-ghost:#999999;--accent:#444444;--radius:4px;--sidebar-w:240px;--font:'Helvetica Neue',Helvetica,Arial,sans-serif;}
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
-    body{font-family:var(--font);background:var(--bg-page);color:var(--text-label);font-size:13px;min-height:100vh;}
-    body::before{content:"WIREFRAME — MOT DE PASSE OUBLIÉ — ACEF × BIMIER SOLUTIONS — 1440px";position:fixed;top:50%;left:50%;transform:translate(-50%,-50%) rotate(-30deg);font-size:20px;font-weight:700;color:rgba(0,0,0,0.04);white-space:nowrap;pointer-events:none;z-index:9999;letter-spacing:4px;}
-    .page-wrapper{max-width:1440px;margin:0 auto;background:var(--bg-white);box-shadow:0 0 40px rgba(0,0,0,0.1);min-height:100vh;display:flex;flex-direction:column;}
+    body{font-family:var(--font);background:var(--bg-page);color:var(--text-label);font-size:13px;}
+    body::before{content:"WIREFRAME — MON COMPTE — ACEF × BIMIER SOLUTIONS — 1440px";position:fixed;top:50%;left:50%;transform:translate(-50%,-50%) rotate(-30deg);font-size:20px;font-weight:700;color:rgba(0,0,0,0.04);white-space:nowrap;pointer-events:none;z-index:9999;letter-spacing:4px;}
+    .page-wrapper{max-width:1440px;margin:0 auto;background:var(--bg-white);box-shadow:0 0 40px rgba(0,0,0,0.1);}
     .doc-header{background:var(--bg-page);border-bottom:2px solid var(--stroke-dark);padding:16px 40px;display:flex;justify-content:space-between;align-items:center;}
     .doc-project{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--text-meta);}
     .doc-page{font-size:18px;font-weight:800;color:var(--text-label);}
@@ -18,51 +18,116 @@
     .ruler{background:#FFFDE7;border-top:1px dashed var(--stroke-medium);border-bottom:1px dashed var(--stroke-medium);padding:4px 40px;font-size:9px;color:var(--text-ghost);font-style:italic;display:flex;align-items:center;gap:8px;}
     .ruler::before{content:'↕';font-style:normal;}
     .slabel{font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--text-ghost);padding:4px 8px;background:var(--bg-light);border-left:3px solid var(--stroke-medium);display:inline-block;margin-bottom:16px;}
-    .navbar-minimal{background:var(--bg-white);border-bottom:1px solid var(--stroke-light);height:64px;display:flex;align-items:center;justify-content:center;position:relative;}
+    /* NAVBAR */
+    .navbar{background:var(--bg-white);border-bottom:1px solid var(--stroke-light);height:72px;display:flex;align-items:center;}
+    .navbar-inner{max-width:1200px;margin:0 auto;padding:0 40px;width:100%;display:grid;grid-template-columns:180px 1fr auto auto;align-items:center;gap:40px;}
     .nav-logo{width:140px;height:40px;background:var(--bg-medium);border-radius:var(--radius);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:var(--text-meta);letter-spacing:1px;}
-    .nav-back{position:absolute;left:40px;font-size:12px;color:var(--text-meta);cursor:default;display:flex;align-items:center;gap:6px;}
-    /* LAYOUT 3 ÉTATS */
-    .states-wrapper{flex:1;display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-top:2px solid var(--stroke-light);}
-    .state-col{border-right:1px solid var(--stroke-light);display:flex;flex-direction:column;}
-    .state-col:last-child{border-right:none;}
-    .state-header{background:var(--bg-light);border-bottom:1px solid var(--stroke-medium);padding:14px 20px;display:flex;align-items:center;gap:10px;}
-    .state-num{width:24px;height:24px;background:var(--accent);color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;}
-    .state-title{font-size:12px;font-weight:700;color:var(--text-label);}
-    .state-desc{font-size:10px;color:var(--text-meta);margin-top:2px;}
-    .state-body{flex:1;display:flex;align-items:center;justify-content:center;padding:40px 36px;}
-    .form-panel{width:100%;max-width:360px;}
-    /* Form elements */
-    .form-logo{width:100px;height:32px;background:var(--bg-medium);border-radius:var(--radius);display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:var(--text-meta);letter-spacing:1px;margin:0 auto 20px;}
-    .form-title{font-size:20px;font-weight:800;color:var(--text-label);margin-bottom:8px;text-align:center;}
-    .form-subtitle{font-size:12px;color:var(--text-meta);line-height:1.6;text-align:center;margin-bottom:24px;}
-    .form-group{margin-bottom:16px;}
-    .form-label{display:block;font-size:11px;font-weight:700;color:var(--text-label);margin-bottom:7px;}
-    .form-input{width:100%;height:48px;border:1.5px solid var(--stroke-medium);border-radius:var(--radius);background:var(--bg-page);display:flex;align-items:center;padding:0 14px;gap:10px;font-size:13px;color:var(--text-ghost);}
-    .form-input.active{border-color:var(--accent);background:var(--bg-white);}
-    .form-hint{font-size:10px;color:var(--text-ghost);margin-top:6px;line-height:1.5;}
-    .btn-primary{width:100%;padding:15px;background:var(--accent);color:white;font-size:13px;font-weight:700;text-align:center;border-radius:var(--radius);cursor:default;margin-bottom:12px;}
-    .btn-ghost{width:100%;padding:12px;background:transparent;border:none;font-size:12px;color:var(--text-meta);text-align:center;cursor:default;text-decoration:underline;}
-    /* État 2 — confirmation email */
-    .success-icon{width:64px;height:64px;background:var(--bg-medium);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:28px;margin:0 auto 20px;}
-    .success-steps{margin:20px 0;display:flex;flex-direction:column;gap:10px;}
-    .success-step{display:flex;align-items:flex-start;gap:10px;padding:10px 12px;background:var(--bg-page);border:1px solid var(--stroke-light);border-radius:var(--radius);}
-    .success-step-num{width:20px;height:20px;background:var(--bg-medium);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:var(--text-meta);flex-shrink:0;margin-top:1px;}
-    .success-step-text{font-size:11px;color:var(--text-meta);line-height:1.5;}
-    .resend-block{text-align:center;margin-top:16px;}
-    .resend-label{font-size:11px;color:var(--text-ghost);margin-bottom:6px;}
-    .resend-btn{font-size:12px;color:var(--text-meta);text-decoration:underline;cursor:default;}
-    /* État 3 — nouveau mot de passe */
-    .pwd-strength{margin-top:8px;}
-    .pwd-strength-bar{height:4px;background:var(--bg-light);border-radius:2px;margin-bottom:6px;position:relative;overflow:hidden;}
-    .pwd-strength-fill{position:absolute;left:0;top:0;height:100%;width:60%;background:var(--bg-deep);border-radius:2px;}
-    .pwd-strength-label{font-size:10px;color:var(--text-ghost);}
-    .pwd-rules{margin-top:10px;display:flex;flex-direction:column;gap:4px;}
-    .pwd-rule{font-size:10px;color:var(--text-ghost);display:flex;align-items:center;gap:6px;}
-    .pwd-rule.ok{color:var(--text-meta);}
-    .pwd-rule-dot{width:6px;height:6px;border-radius:50%;background:var(--bg-medium);flex-shrink:0;}
-    .pwd-rule.ok .pwd-rule-dot{background:var(--accent);}
+    .nav-links{display:flex;align-items:center;gap:36px;list-style:none;}
+    .nav-links li{font-size:13px;color:var(--text-meta);}
+    .nav-search{width:200px;height:36px;border:1px solid var(--stroke-light);border-radius:var(--radius);background:var(--bg-page);display:flex;align-items:center;padding:0 12px;gap:8px;}
+    .nav-ph{font-size:11px;color:var(--text-ghost);}
+    .nav-account{display:flex;align-items:center;gap:8px;padding:6px 14px;border:1px solid var(--stroke-light);border-radius:var(--radius);font-size:12px;color:var(--text-meta);background:var(--bg-light);}
+    .nav-avatar{width:28px;height:28px;background:var(--bg-medium);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:var(--text-meta);}
+    /* BANDEAU COMPTE */
+    .account-banner{background:var(--bg-deep);padding:28px 0;}
+    .account-banner-inner{max-width:1200px;margin:0 auto;padding:0 40px;display:flex;align-items:center;justify-content:space-between;}
+    .account-banner-left{display:flex;align-items:center;gap:20px;}
+    .account-avatar-big{width:64px;height:64px;background:var(--bg-medium);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:700;color:var(--text-meta);border:3px solid rgba(255,255,255,0.2);}
+    .account-name{font-size:22px;font-weight:800;color:#FFFFFF;margin-bottom:4px;}
+    .account-role{font-size:12px;color:rgba(255,255,255,0.65);display:flex;align-items:center;gap:8px;}
+    .account-badge{padding:2px 8px;background:rgba(255,255,255,0.15);border-radius:2px;font-size:10px;font-weight:700;letter-spacing:1px;color:rgba(255,255,255,0.8);}
+    .account-banner-right{display:flex;gap:24px;}
+    .account-stat{text-align:center;}
+    .account-stat-val{font-size:22px;font-weight:900;color:#FFFFFF;}
+    .account-stat-label{font-size:10px;color:rgba(255,255,255,0.6);text-transform:uppercase;letter-spacing:1px;}
+    /* BREADCRUMB */
+    .breadcrumb{padding:14px 0;display:flex;align-items:center;gap:8px;}
+    .bc-item{font-size:12px;color:var(--text-meta);}
+    .bc-sep{font-size:10px;color:var(--text-ghost);}
+    .bc-cur{font-size:12px;color:var(--text-label);font-weight:600;}
+    /* LAYOUT COMPTE */
+    .account-layout{max-width:1200px;margin:0 auto;padding:0 40px 80px;display:grid;grid-template-columns:var(--sidebar-w) 1fr;gap:40px;padding-top:32px;}
+    /* SIDEBAR NAV */
+    .account-sidebar{}
+    .sidebar-nav{background:var(--bg-white);border:1px solid var(--stroke-light);border-radius:var(--radius);overflow:hidden;}
+    .sidebar-nav-item{display:flex;align-items:center;gap:12px;padding:14px 16px;border-bottom:1px solid var(--stroke-light);cursor:default;font-size:12px;color:var(--text-meta);}
+    .sidebar-nav-item:last-child{border-bottom:none;}
+    .sidebar-nav-item.active{background:var(--bg-page);color:var(--text-label);font-weight:700;border-left:3px solid var(--accent);}
+    .sidebar-nav-icon{font-size:16px;flex-shrink:0;}
+    .sidebar-nav-badge{margin-left:auto;background:var(--accent);color:white;font-size:9px;font-weight:700;padding:2px 6px;border-radius:10px;}
+    .sidebar-logout{margin-top:12px;padding:12px 16px;font-size:12px;color:var(--text-ghost);cursor:default;display:flex;align-items:center;gap:10px;}
+    /* CONTENU PRINCIPAL */
+    .account-main{}
+    .section-block{background:var(--bg-white);border:1px solid var(--stroke-light);border-radius:var(--radius);padding:24px;margin-bottom:20px;}
+    .block-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;padding-bottom:16px;border-bottom:1px solid var(--stroke-light);}
+    .block-title{font-size:15px;font-weight:800;color:var(--text-label);}
+    .block-action{font-size:11px;color:var(--text-meta);text-decoration:underline;cursor:default;}
+    /* Commandes */
+    .orders-table{width:100%;border-collapse:collapse;}
+    .orders-table th{text-align:left;font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--text-ghost);padding:8px 12px;border-bottom:2px solid var(--stroke-light);background:var(--bg-page);}
+    .orders-table td{padding:14px 12px;border-bottom:1px solid var(--stroke-light);font-size:12px;color:var(--text-meta);vertical-align:middle;}
+    .orders-table td:first-child{font-weight:700;color:var(--text-label);}
+    .status-badge{display:inline-flex;align-items:center;gap:5px;padding:3px 8px;border-radius:2px;font-size:10px;font-weight:700;letter-spacing:0.5px;}
+    .status-pending{background:var(--bg-light);color:var(--text-meta);}
+    .status-confirmed{background:var(--bg-medium);color:var(--text-label);}
+    .status-delivered{background:var(--bg-deep);color:white;}
+    .order-action{font-size:11px;color:var(--text-meta);text-decoration:underline;cursor:default;}
+    /* Devis en attente */
+    .devis-cards{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:0;}
+    .devis-card{border:1px solid var(--stroke-light);border-radius:var(--radius);padding:16px;}
+    .devis-card-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px;}
+    .devis-ref{font-size:12px;font-weight:700;color:var(--text-label);}
+    .devis-date{font-size:10px;color:var(--text-ghost);}
+    .devis-items{font-size:11px;color:var(--text-meta);line-height:1.6;margin-bottom:12px;}
+    .devis-footer{display:flex;justify-content:space-between;align-items:center;}
+    .devis-total{font-size:13px;font-weight:700;color:var(--text-label);}
+    .devis-btn{padding:6px 12px;background:var(--accent);color:white;font-size:10px;font-weight:700;border-radius:var(--radius);cursor:default;}
+    /* Profil */
+    .profile-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+    .profile-field{}
+    .profile-field-label{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--text-ghost);margin-bottom:6px;}
+    .profile-field-value{height:40px;border:1px solid var(--stroke-medium);border-radius:var(--radius);background:var(--bg-page);display:flex;align-items:center;padding:0 12px;font-size:12px;color:var(--text-label);}
+    .profile-field.full{grid-column:1/-1;}
+    .profile-save{margin-top:16px;display:flex;justify-content:flex-end;gap:10px;}
+    .btn-sm-primary{padding:10px 20px;background:var(--accent);color:white;font-size:12px;font-weight:700;border-radius:var(--radius);cursor:default;}
+    .btn-sm-ghost{padding:10px 20px;background:transparent;border:1px solid var(--stroke-medium);font-size:12px;color:var(--text-meta);border-radius:var(--radius);cursor:default;}
+    /* Adresses */
+    .addresses-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+    .address-card{border:1px solid var(--stroke-light);border-radius:var(--radius);padding:16px;position:relative;}
+    .address-card.default{border-color:var(--accent);border-width:2px;}
+    .address-default-badge{position:absolute;top:10px;right:10px;background:var(--accent);color:white;font-size:9px;font-weight:700;padding:2px 6px;border-radius:2px;}
+    .address-type{font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--text-ghost);margin-bottom:8px;}
+    .address-name{font-size:13px;font-weight:700;color:var(--text-label);margin-bottom:4px;}
+    .address-lines{font-size:11px;color:var(--text-meta);line-height:1.6;margin-bottom:12px;}
+    .address-actions{display:flex;gap:12px;}
+    .addr-btn{font-size:11px;color:var(--text-meta);text-decoration:underline;cursor:default;}
+    .address-add{border:1px dashed var(--stroke-medium);border-radius:var(--radius);padding:16px;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:8px;cursor:default;min-height:120px;}
+    .address-add-icon{font-size:24px;color:var(--text-ghost);}
+    .address-add-label{font-size:12px;color:var(--text-ghost);}
+    /* Notifications */
+    .notif-rows{display:flex;flex-direction:column;gap:12px;}
+    .notif-row{display:flex;align-items:center;justify-content:space-between;padding:12px 0;border-bottom:1px solid var(--stroke-light);}
+    .notif-row:last-child{border-bottom:none;}
+    .notif-info{}
+    .notif-label{font-size:12px;font-weight:600;color:var(--text-label);margin-bottom:2px;}
+    .notif-desc{font-size:11px;color:var(--text-ghost);}
+    .toggle-track{width:40px;height:22px;background:var(--bg-medium);border-radius:11px;position:relative;cursor:default;flex-shrink:0;}
+    .toggle-thumb{position:absolute;top:3px;left:3px;width:16px;height:16px;background:var(--bg-white);border-radius:50%;}
+    .toggle-track.on{background:var(--accent);}
+    .toggle-track.on .toggle-thumb{left:calc(100% - 19px);}
+    /* Sécurité */
+    .security-rows{display:flex;flex-direction:column;gap:0;}
+    .security-row{display:flex;align-items:center;justify-content:space-between;padding:14px 0;border-bottom:1px solid var(--stroke-light);}
+    .security-row:last-child{border-bottom:none;}
+    .security-info{}
+    .security-label{font-size:12px;font-weight:600;color:var(--text-label);margin-bottom:2px;}
+    .security-desc{font-size:11px;color:var(--text-ghost);}
+    .security-status{font-size:11px;color:var(--text-meta);display:flex;align-items:center;gap:6px;}
+    .security-dot{width:8px;height:8px;border-radius:50%;background:var(--bg-dark);}
+    .security-dot.ok{background:var(--bg-deep);}
+    .security-btn{padding:8px 14px;background:var(--bg-light);border:1px solid var(--stroke-medium);border-radius:var(--radius);font-size:11px;font-weight:600;color:var(--text-meta);cursor:default;}
     /* Footer */
-    .footer-minimal{background:var(--bg-light);border-top:1px solid var(--stroke-light);padding:14px 60px;display:flex;justify-content:space-between;align-items:center;}
+    .footer-minimal{background:var(--bg-light);border-top:1px solid var(--stroke-light);padding:16px 40px;display:flex;justify-content:space-between;align-items:center;}
     .footer-copy{font-size:10px;color:var(--text-ghost);}
     .footer-links{display:flex;gap:20px;}
     .footer-links span{font-size:10px;color:var(--text-ghost);}
@@ -70,146 +135,249 @@
     .pi-title{font-size:8px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--text-ghost);padding:0 12px 8px;border-bottom:1px solid var(--stroke-light);margin-bottom:6px;}
     .pi-item{padding:4px 12px;font-size:9px;color:var(--text-meta);display:flex;align-items:center;gap:8px;}
     .pi-num{font-weight:700;color:var(--text-ghost);min-width:16px;}
-    .state-note{font-size:9px;font-style:italic;color:var(--text-ghost);text-align:center;padding:0 20px 16px;}
   </style>
 </head>
 <body>
 <div class="doc-header">
-  <div><div class="doc-project">ACEF × Bimier Solutions — Refonte Site Catalogue</div><div class="doc-page">Wireframe 06 — Mot de passe oublié (3 états)</div></div>
+  <div><div class="doc-project">ACEF × Bimier Solutions — Refonte Site Catalogue</div><div class="doc-page">Wireframe 07 — Mon Compte (Dashboard)</div></div>
   <div><div class="doc-meta">Desktop 1440px · v1.0 · Mai 2026</div><div class="doc-meta">Chapitre 7 — Solutions proposées</div><div class="doc-badge">Basse fidélité</div></div>
 </div>
 <div class="page-index">
-  <div class="pi-title">États</div>
-  <div class="pi-item"><span class="pi-num">A</span>Saisie email</div>
-  <div class="pi-item"><span class="pi-num">B</span>Email envoyé</div>
-  <div class="pi-item"><span class="pi-num">C</span>Nouveau MDP</div>
-  <div class="pi-title" style="margin-top:8px;">Composants</div>
-  <div class="pi-item"><span class="pi-num">01</span>Navbar épurée</div>
-  <div class="pi-item"><span class="pi-num">02</span>Formulaire</div>
-  <div class="pi-item"><span class="pi-num">03</span>Force MDP</div>
-  <div class="pi-item"><span class="pi-num">04</span>Footer légal</div>
+  <div class="pi-title">Sections</div>
+  <div class="pi-item"><span class="pi-num">01</span>Navigation</div>
+  <div class="pi-item"><span class="pi-num">02</span>Bandeau compte</div>
+  <div class="pi-item"><span class="pi-num">03</span>Sidebar nav</div>
+  <div class="pi-item"><span class="pi-num">04</span>Mes commandes</div>
+  <div class="pi-item"><span class="pi-num">05</span>Devis en cours</div>
+  <div class="pi-item"><span class="pi-num">06</span>Mes informations</div>
+  <div class="pi-item"><span class="pi-num">07</span>Mes adresses</div>
+  <div class="pi-item"><span class="pi-num">08</span>Notifications</div>
+  <div class="pi-item"><span class="pi-num">09</span>Sécurité</div>
 </div>
 <div class="page-wrapper">
-  <div class="ruler">Section 01 — Navbar minimaliste / Lien retour vers connexion / Logo centré</div>
-  <div class="navbar-minimal">
-    <div class="nav-back">← Retour à la connexion</div>
-    <div class="nav-logo">BIMIER LOGO</div>
+  <div class="ruler">Section 01 — Navigation / Même composant / Avatar utilisateur remplace bouton connexion</div>
+  <div class="navbar">
+    <div class="navbar-inner">
+      <div class="nav-logo">BIMIER LOGO</div>
+      <ul class="nav-links"><li>Accueil</li><li>Catalogue</li><li>À propos</li><li>Contact</li></ul>
+      <div class="nav-search"><span>🔍</span><span class="nav-ph">Rechercher un produit…</span></div>
+      <div class="nav-account"><div class="nav-avatar">JD</div>Jean Dupont &nbsp;▾</div>
+    </div>
   </div>
 
-  <!-- NOTE PÉDAGOGIQUE -->
-  <div style="background:var(--bg-light);border-bottom:1px solid var(--stroke-medium);padding:10px 40px;text-align:center;">
-    <span style="font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--text-meta);">⚠️ Ce wireframe documente les 3 états successifs du tunnel de récupération de mot de passe (User Flow complet)</span>
+  <div class="ruler">Section 02 — Bandeau compte / Identité + statistiques personnalisées / Fond foncé</div>
+  <div class="account-banner">
+    <div class="account-banner-inner">
+      <div class="account-banner-left">
+        <div class="account-avatar-big">JD</div>
+        <div>
+          <div class="account-name">Jean Dupont</div>
+          <div class="account-role">
+            jean.dupont@acef-paris.fr
+            <span class="account-badge">MEMBRE ACEF VÉRIFIÉ</span>
+          </div>
+        </div>
+      </div>
+      <div class="account-banner-right">
+        <div class="account-stat"><div class="account-stat-val">12</div><div class="account-stat-label">Commandes</div></div>
+        <div class="account-stat"><div class="account-stat-val">3</div><div class="account-stat-label">Devis en cours</div></div>
+        <div class="account-stat"><div class="account-stat-val">8 240 €</div><div class="account-stat-label">Total commandé</div></div>
+      </div>
+    </div>
   </div>
 
-  <div class="states-wrapper">
+  <div style="max-width:1200px;margin:0 auto;padding:0 40px;">
+    <div class="breadcrumb"><span class="bc-item">Accueil</span><span class="bc-sep">›</span><span class="bc-cur">Mon compte</span></div>
+  </div>
 
-    <!-- ═══ ÉTAT A — SAISIE EMAIL ═══ -->
-    <div class="state-col">
-      <div class="state-header">
-        <div class="state-num">A</div>
-        <div><div class="state-title">État 1 — Saisie de l'adresse email</div><div class="state-desc">Page initiale de récupération</div></div>
+  <div class="ruler">Sections 03–09 — Layout sidebar (240px) + contenu principal (fluid) / Navigation par onglets</div>
+  <div class="account-layout">
+
+    <!-- ════ SIDEBAR ════ -->
+    <div class="account-sidebar">
+      <div class="slabel">03 — Navigation compte</div>
+      <div class="sidebar-nav">
+        <div class="sidebar-nav-item active"><span class="sidebar-nav-icon">📊</span>Tableau de bord</div>
+        <div class="sidebar-nav-item"><span class="sidebar-nav-icon">📋</span>Mes commandes</div>
+        <div class="sidebar-nav-item"><span class="sidebar-nav-icon">📄</span>Mes devis<span class="sidebar-nav-badge">3</span></div>
+        <div class="sidebar-nav-item"><span class="sidebar-nav-icon">🛒</span>Mon panier<span class="sidebar-nav-badge">3</span></div>
+        <div class="sidebar-nav-item"><span class="sidebar-nav-icon">♡</span>Mes favoris</div>
+        <div class="sidebar-nav-item"><span class="sidebar-nav-icon">👤</span>Mes informations</div>
+        <div class="sidebar-nav-item"><span class="sidebar-nav-icon">📍</span>Mes adresses</div>
+        <div class="sidebar-nav-item"><span class="sidebar-nav-icon">🔔</span>Notifications</div>
+        <div class="sidebar-nav-item"><span class="sidebar-nav-icon">🔒</span>Sécurité</div>
       </div>
-      <div class="state-body">
-        <div class="form-panel">
-          <div class="form-logo">BIMIER LOGO</div>
-          <div class="form-title">Mot de passe oublié ?</div>
-          <div class="form-subtitle">Entrez l'adresse email associée à votre compte ACEF. Nous vous enverrons un lien de réinitialisation.</div>
-          <div class="form-group">
-            <div class="form-label">Adresse email ACEF</div>
-            <div class="form-input active"><span>✉️</span><span>votre.email@acef.fr</span></div>
-            <div class="form-hint">Utilisez l'email avec lequel vous avez créé votre compte Bimier Solutions.</div>
+      <div class="sidebar-logout">🚪 Se déconnecter</div>
+    </div>
+
+    <!-- ════ CONTENU ════ -->
+    <div class="account-main">
+
+      <!-- BLOC : Commandes récentes -->
+      <div class="ruler" style="margin:0 -40px 16px;padding-left:40px;">Section 04 — Commandes récentes / Tableau avec statuts / CTA voir tout</div>
+      <div class="section-block">
+        <div class="block-header">
+          <div class="block-title">📋 Mes commandes récentes</div>
+          <div class="block-action">Voir toutes mes commandes →</div>
+        </div>
+        <table class="orders-table">
+          <thead>
+            <tr><th>N° Commande</th><th>Date</th><th>Produits</th><th>Montant HT</th><th>Statut</th><th>Action</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>#CMD-2026-042</td>
+              <td>28 avr. 2026</td>
+              <td>Polo Premium (×100) · Gourde Inox (×50)</td>
+              <td>2 010,00 €</td>
+              <td><span class="status-badge status-confirmed">✓ Confirmée</span></td>
+              <td><span class="order-action">Voir le détail</span></td>
+            </tr>
+            <tr>
+              <td>#CMD-2026-039</td>
+              <td>14 avr. 2026</td>
+              <td>Stylo Executive (×250) · Carnet A5 (×100)</td>
+              <td>1 815,00 €</td>
+              <td><span class="status-badge status-delivered">✓ Livrée</span></td>
+              <td><span class="order-action">Voir le détail</span></td>
+            </tr>
+            <tr>
+              <td>#CMD-2026-031</td>
+              <td>02 mars 2026</td>
+              <td>Veste Softshell (×20) · Tote Bag (×150)</td>
+              <td>1 015,00 €</td>
+              <td><span class="status-badge status-delivered">✓ Livrée</span></td>
+              <td><span class="order-action">Voir le détail</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- BLOC : Devis en cours -->
+      <div class="ruler" style="margin:0 -40px 16px;padding-left:40px;">Section 05 — Devis en cours / Cartes avec statut / CTA valider ou télécharger</div>
+      <div class="section-block">
+        <div class="block-header">
+          <div class="block-title">📄 Devis en attente de validation</div>
+          <div class="block-action">Voir tous mes devis →</div>
+        </div>
+        <div class="devis-cards">
+          <div class="devis-card">
+            <div class="devis-card-header">
+              <div><div class="devis-ref">#DEV-2026-018</div><div class="devis-date">Reçu le 30 avr. 2026 — Valable 15 jours</div></div>
+              <span class="status-badge status-pending">En attente</span>
+            </div>
+            <div class="devis-items">• Polo Corporate Premium (×100)<br/>• Gourde Isotherme Inox (×50)<br/>• Carnet A5 Cuir Recyclé (×100)</div>
+            <div class="devis-footer"><div class="devis-total">2 700,00 € HT</div><div class="devis-btn">Valider le devis</div></div>
           </div>
-          <div class="btn-primary">📧 Envoyer le lien de réinitialisation</div>
-          <div class="btn-ghost">← Retour à la connexion</div>
-          <div style="margin-top:20px;padding:12px 14px;background:var(--bg-page);border:1px solid var(--stroke-light);border-radius:var(--radius);">
-            <div style="font-size:11px;font-weight:700;color:var(--text-label);margin-bottom:6px;">💡 Vous n'avez pas de compte ?</div>
-            <div style="font-size:11px;color:var(--text-meta);line-height:1.5;">L'accès au catalogue ACEF est réservé aux membres enregistrés. Contactez votre administrateur ACEF ou <span style="text-decoration:underline;cursor:default;">faites une demande d'accès</span>.</div>
+          <div class="devis-card">
+            <div class="devis-card-header">
+              <div><div class="devis-ref">#DEV-2026-015</div><div class="devis-date">Reçu le 22 avr. 2026 — Valable 15 jours</div></div>
+              <span class="status-badge status-pending">En attente</span>
+            </div>
+            <div class="devis-items">• Veste Softshell Pro (×30)<br/>• Casquette Trucker (×50)</div>
+            <div class="devis-footer"><div class="devis-total">1 385,00 € HT</div><div class="devis-btn">Valider le devis</div></div>
           </div>
         </div>
       </div>
-      <div class="state-note">→ Après soumission du formulaire : passage à l'état B</div>
-    </div>
 
-    <!-- ═══ ÉTAT B — EMAIL ENVOYÉ ═══ -->
-    <div class="state-col">
-      <div class="state-header">
-        <div class="state-num">B</div>
-        <div><div class="state-title">État 2 — Confirmation d'envoi</div><div class="state-desc">Écran de confirmation après soumission</div></div>
+      <!-- BLOC : Mes informations -->
+      <div class="ruler" style="margin:0 -40px 16px;padding-left:40px;">Section 06 — Informations personnelles / Formulaire d'édition inline</div>
+      <div class="section-block">
+        <div class="block-header">
+          <div class="block-title">👤 Mes informations</div>
+          <div class="block-action">Modifier</div>
+        </div>
+        <div class="profile-grid">
+          <div class="profile-field"><div class="profile-field-label">Prénom</div><div class="profile-field-value">Jean</div></div>
+          <div class="profile-field"><div class="profile-field-label">Nom</div><div class="profile-field-value">Dupont</div></div>
+          <div class="profile-field"><div class="profile-field-label">Email</div><div class="profile-field-value">jean.dupont@acef-paris.fr</div></div>
+          <div class="profile-field"><div class="profile-field-label">Téléphone</div><div class="profile-field-value">+33 6 12 34 56 78</div></div>
+          <div class="profile-field full"><div class="profile-field-label">Association ACEF</div><div class="profile-field-value">ACEF Paris — Section Île-de-France</div></div>
+          <div class="profile-field"><div class="profile-field-label">Numéro adhérent</div><div class="profile-field-value">ACEF-2019-04521</div></div>
+          <div class="profile-field"><div class="profile-field-label">Fonction</div><div class="profile-field-value">Responsable des achats</div></div>
+        </div>
+        <div class="profile-save"><div class="btn-sm-ghost">Annuler</div><div class="btn-sm-primary">Enregistrer les modifications</div></div>
       </div>
-      <div class="state-body">
-        <div class="form-panel">
-          <div class="success-icon">📬</div>
-          <div class="form-title">Email envoyé !</div>
-          <div class="form-subtitle">Un lien de réinitialisation a été envoyé à <strong>jean.dupont@acef.fr</strong>. Vérifiez votre boîte de réception.</div>
-          <div class="success-steps">
-            <div class="success-step">
-              <div class="success-step-num">1</div>
-              <div class="success-step-text">Ouvrez l'email reçu de <strong>noreply@bimier.fr</strong> (vérifiez vos spams si absent)</div>
-            </div>
-            <div class="success-step">
-              <div class="success-step-num">2</div>
-              <div class="success-step-text">Cliquez sur le lien de réinitialisation — valable <strong>24 heures</strong></div>
-            </div>
-            <div class="success-step">
-              <div class="success-step-num">3</div>
-              <div class="success-step-text">Créez votre nouveau mot de passe et connectez-vous à votre espace ACEF</div>
-            </div>
+
+      <!-- BLOC : Adresses -->
+      <div class="ruler" style="margin:0 -40px 16px;padding-left:40px;">Section 07 — Mes adresses / Livraison multi-sites / CTA ajouter une adresse</div>
+      <div class="section-block">
+        <div class="block-header">
+          <div class="block-title">📍 Mes adresses de livraison</div>
+          <div class="block-action">+ Ajouter une adresse</div>
+        </div>
+        <div class="addresses-grid">
+          <div class="address-card default">
+            <div class="address-default-badge">Par défaut</div>
+            <div class="address-type">Siège social</div>
+            <div class="address-name">ACEF Paris — Section IDF</div>
+            <div class="address-lines">12 rue de la République<br/>75011 Paris<br/>France</div>
+            <div class="address-actions"><span class="addr-btn">Modifier</span><span class="addr-btn">Supprimer</span></div>
           </div>
-          <div class="resend-block">
-            <div class="resend-label">Vous n'avez rien reçu ?</div>
-            <div class="resend-btn">Renvoyer l'email (disponible dans 60s)</div>
+          <div class="address-card">
+            <div class="address-type">Site secondaire</div>
+            <div class="address-name">Antenne de Lyon</div>
+            <div class="address-lines">45 avenue Jean Jaurès<br/>69007 Lyon<br/>France</div>
+            <div class="address-actions"><span class="addr-btn">Modifier</span><span class="addr-btn">Définir par défaut</span></div>
           </div>
-          <div style="margin-top:16px;border-top:1px solid var(--stroke-light);padding-top:16px;">
-            <div class="btn-ghost" style="margin:0;">← Retour à la connexion</div>
+          <div class="address-add">
+            <div class="address-add-icon">＋</div>
+            <div class="address-add-label">Ajouter une adresse</div>
           </div>
         </div>
       </div>
-      <div class="state-note">→ Le lien dans l'email renvoie vers l'état C</div>
-    </div>
 
-    <!-- ═══ ÉTAT C — NOUVEAU MOT DE PASSE ═══ -->
-    <div class="state-col">
-      <div class="state-header">
-        <div class="state-num">C</div>
-        <div><div class="state-title">État 3 — Nouveau mot de passe</div><div class="state-desc">Page atteinte via le lien email (token)</div></div>
-      </div>
-      <div class="state-body">
-        <div class="form-panel">
-          <div class="form-logo">BIMIER LOGO</div>
-          <div class="form-title">Nouveau mot de passe</div>
-          <div class="form-subtitle">Choisissez un mot de passe sécurisé pour votre compte ACEF — Bimier Solutions.</div>
-          <div class="form-group">
-            <div class="form-label">Nouveau mot de passe</div>
-            <div class="form-input active"><span>🔑</span><span>••••••••••••</span><span style="margin-left:auto;font-size:14px;color:var(--text-ghost);">👁</span></div>
-            <div class="pwd-strength">
-              <div class="pwd-strength-bar"><div class="pwd-strength-fill"></div></div>
-              <div class="pwd-strength-label">Force : Moyen — ajoutez des caractères spéciaux</div>
-            </div>
-            <div class="pwd-rules">
-              <div class="pwd-rule ok"><div class="pwd-rule-dot"></div>Au moins 8 caractères</div>
-              <div class="pwd-rule ok"><div class="pwd-rule-dot"></div>Au moins une majuscule</div>
-              <div class="pwd-rule ok"><div class="pwd-rule-dot"></div>Au moins un chiffre</div>
-              <div class="pwd-rule"><div class="pwd-rule-dot"></div>Au moins un caractère spécial (!@#$…)</div>
-            </div>
+      <!-- BLOC : Notifications -->
+      <div class="ruler" style="margin:0 -40px 16px;padding-left:40px;">Section 08 — Préférences de notification / Toggles par type</div>
+      <div class="section-block">
+        <div class="block-header"><div class="block-title">🔔 Préférences de notification</div></div>
+        <div class="notif-rows">
+          <div class="notif-row">
+            <div class="notif-info"><div class="notif-label">Confirmation de devis</div><div class="notif-desc">Recevoir un email à chaque devis reçu ou validé</div></div>
+            <div class="toggle-track on"><div class="toggle-thumb"></div></div>
           </div>
-          <div class="form-group">
-            <div class="form-label">Confirmer le mot de passe</div>
-            <div class="form-input"><span>🔑</span><span>••••••••••••</span></div>
+          <div class="notif-row">
+            <div class="notif-info"><div class="notif-label">Suivi de commande</div><div class="notif-desc">Mises à jour de production et livraison</div></div>
+            <div class="toggle-track on"><div class="toggle-thumb"></div></div>
           </div>
-          <div class="btn-primary">✅ Enregistrer le nouveau mot de passe</div>
-          <div style="margin-top:16px;padding:10px 12px;background:var(--bg-page);border:1px solid var(--stroke-light);border-radius:var(--radius);">
-            <div style="font-size:11px;color:var(--text-meta);display:flex;gap:8px;align-items:flex-start;">
-              <span>🔒</span><span>Ce lien est à usage unique. Après validation, vous serez redirigé automatiquement vers votre espace ACEF.</span>
-            </div>
+          <div class="notif-row">
+            <div class="notif-info"><div class="notif-label">Nouveaux produits catalogue</div><div class="notif-desc">Alertes sur les nouvelles références ACEF</div></div>
+            <div class="toggle-track"><div class="toggle-thumb"></div></div>
+          </div>
+          <div class="notif-row">
+            <div class="notif-info"><div class="notif-label">Offres et promotions ACEF</div><div class="notif-desc">Tarifs négociés et offres exclusives membres</div></div>
+            <div class="toggle-track"><div class="toggle-thumb"></div></div>
           </div>
         </div>
       </div>
-      <div class="state-note">→ Après validation : redirection vers Mon compte (connecté)</div>
-    </div>
 
-  </div><!-- /states-wrapper -->
+      <!-- BLOC : Sécurité -->
+      <div class="ruler" style="margin:0 -40px 16px;padding-left:40px;">Section 09 — Sécurité du compte / Mot de passe + connexions récentes</div>
+      <div class="section-block">
+        <div class="block-header"><div class="block-title">🔒 Sécurité du compte</div></div>
+        <div class="security-rows">
+          <div class="security-row">
+            <div class="security-info"><div class="security-label">Mot de passe</div><div class="security-desc">Dernière modification : 12 janvier 2026</div></div>
+            <div style="display:flex;align-items:center;gap:12px;"><div class="security-status"><div class="security-dot ok"></div>Actif</div><div class="security-btn">Modifier</div></div>
+          </div>
+          <div class="security-row">
+            <div class="security-info"><div class="security-label">Double authentification (2FA)</div><div class="security-desc">Sécurisez votre compte avec un code par SMS ou application</div></div>
+            <div style="display:flex;align-items:center;gap:12px;"><div class="security-status"><div class="security-dot"></div>Non activé</div><div class="security-btn">Activer</div></div>
+          </div>
+          <div class="security-row">
+            <div class="security-info"><div class="security-label">Dernière connexion</div><div class="security-desc">06 mai 2026 — Paris, France · Chrome / macOS</div></div>
+            <div class="security-status"><div class="security-dot ok"></div>Appareil reconnu</div>
+          </div>
+          <div class="security-row">
+            <div class="security-info"><div class="security-label">Supprimer mon compte</div><div class="security-desc">Action irréversible — toutes vos données seront effacées</div></div>
+            <div class="security-btn" style="color:#AA4444;border-color:#DDAAAA;">Supprimer</div>
+          </div>
+        </div>
+      </div>
 
-  <div class="ruler">Section 04 — Footer légal / Minimal identique page connexion</div>
+    </div><!-- /account-main -->
+  </div><!-- /account-layout -->
+
   <div class="footer-minimal">
     <div class="footer-copy">© 2026 Bimier Solutions — Espace ACEF. Accès réservé aux membres enregistrés.</div>
     <div class="footer-links"><span>Mentions légales</span><span>CGV</span><span>Confidentialité</span><span>Contact</span></div>
