@@ -1,448 +1,308 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Wireframe — Page Connexion | ACEF × Bimier Solutions</title>
+  <title>Wireframe — Panier | ACEF × Bimier Solutions</title>
   <style>
     :root {
-      --bg-page:      #F2F2F2;
-      --bg-white:     #FFFFFF;
-      --bg-light:     #E8E8E8;
-      --bg-medium:    #D0D0D0;
-      --bg-dark:      #B0B0B0;
-      --bg-deep:      #888888;
-      --stroke-light: #CCCCCC;
-      --stroke-medium:#AAAAAA;
-      --stroke-strong:#777777;
-      --stroke-dark:  #444444;
-      --text-label:   #333333;
-      --text-meta:    #666666;
-      --text-ghost:   #999999;
-      --accent:       #444444;
-      --radius:       4px;
-      --font-main:   'Helvetica Neue', Helvetica, Arial, sans-serif;
+      --bg-page:#F2F2F2; --bg-white:#FFFFFF; --bg-light:#E8E8E8;
+      --bg-medium:#D0D0D0; --bg-dark:#B0B0B0; --bg-deep:#888888;
+      --stroke-light:#CCCCCC; --stroke-medium:#AAAAAA; --stroke-strong:#777777; --stroke-dark:#444444;
+      --text-label:#333333; --text-meta:#666666; --text-ghost:#999999;
+      --accent:#444444; --radius:4px;
+      --font:'Helvetica Neue',Helvetica,Arial,sans-serif;
     }
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      font-family: var(--font-main);
-      background: var(--bg-page);
-      color: var(--text-label);
-      font-size: 13px;
-      min-height: 100vh;
-    }
-    body::before {
-      content: "WIREFRAME — PAGE CONNEXION — ACEF × BIMIER SOLUTIONS — 1440px";
-      position: fixed; top: 50%; left: 50%;
-      transform: translate(-50%, -50%) rotate(-30deg);
-      font-size: 22px; font-weight: 700; color: rgba(0,0,0,0.04);
-      white-space: nowrap; pointer-events: none; z-index: 9999; letter-spacing: 4px;
-    }
-
-    .page-wrapper { max-width: 1440px; margin: 0 auto; background: var(--bg-white); box-shadow: 0 0 40px rgba(0,0,0,0.1); min-height: 100vh; display: flex; flex-direction: column; }
-
-    .doc-header { background: var(--bg-page); border-bottom: 2px solid var(--stroke-dark); padding: 16px 40px; display: flex; justify-content: space-between; align-items: center; }
-    .doc-header-project { font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--text-meta); }
-    .doc-header-page { font-size: 18px; font-weight: 800; color: var(--text-label); }
-    .doc-header-meta { font-size: 10px; color: var(--text-ghost); text-align: right; }
-    .doc-header-badge { background: var(--stroke-dark); color: white; font-size: 9px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; padding: 3px 8px; border-radius: 2px; margin-top: 4px; display: inline-block; }
-
-    .ruler { background: #FFFDE7; border-top: 1px dashed var(--stroke-medium); border-bottom: 1px dashed var(--stroke-medium); padding: 4px 40px; font-size: 9px; color: var(--text-ghost); font-style: italic; display: flex; align-items: center; gap: 8px; }
-    .ruler::before { content: '↕'; font-style: normal; }
-
-    .section-label { font-size: 9px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--text-ghost); padding: 4px 8px; background: var(--bg-light); border-left: 3px solid var(--stroke-medium); display: inline-block; margin-bottom: 20px; }
-
-    /* ─── Navbar minimaliste ─── */
-    .navbar-minimal {
-      background: var(--bg-white);
-      border-bottom: 1px solid var(--stroke-light);
-      height: 64px; display: flex; align-items: center; justify-content: space-between;
-      padding: 0 60px;
-    }
-    .nav-logo { width: 140px; height: 40px; background: var(--bg-medium); border-radius: var(--radius); display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700; color: var(--text-meta); letter-spacing: 1px; }
-    .navbar-note { font-size: 11px; color: var(--text-ghost); font-style: italic; }
-
-    /* ─── Layout login : 2 colonnes ─── */
-    .login-layout {
-      flex: 1;
-      display: grid;
-      grid-template-columns: 1fr 480px;
-    }
-
-    /* ─── Panneau gauche : visuel ─── */
-    .login-visual {
-      background: var(--bg-dark);
-      position: relative;
-      display: flex; flex-direction: column;
-      justify-content: space-between;
-      padding: 60px;
-      min-height: 720px;
-    }
-
-    .login-visual-bg {
-      position: absolute; inset: 0;
-      background: var(--bg-dark);
-      display: flex; align-items: center; justify-content: center;
-      flex-direction: column; gap: 8px;
-    }
-    .login-visual-bg-label { font-size: 11px; color: rgba(255,255,255,0.4); }
-    .login-visual-bg-dim { font-size: 10px; color: rgba(255,255,255,0.25); }
-    .login-visual-overlay {
-      position: absolute; inset: 0;
-      background: linear-gradient(180deg, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.65) 100%);
-    }
-
-    .login-visual-top { position: relative; z-index: 2; }
-    .login-visual-logo { width: 120px; height: 36px; background: rgba(255,255,255,0.15); border-radius: var(--radius); display: flex; align-items: center; justify-content: center; font-size: 9px; font-weight: 700; color: rgba(255,255,255,0.7); letter-spacing: 1px; }
-
-    .login-visual-bottom { position: relative; z-index: 2; }
-    .login-visual-title {
-      font-size: 36px; font-weight: 900; color: #FFFFFF;
-      line-height: 1.1; letter-spacing: -0.5px; margin-bottom: 16px;
-    }
-    .login-visual-title span { color: rgba(255,255,255,0.6); display: block; font-size: 28px; }
-    .login-visual-desc {
-      font-size: 14px; color: rgba(255,255,255,0.7);
-      line-height: 1.6; max-width: 480px; margin-bottom: 32px;
-    }
-
-    /* Arguments / garanties */
-    .login-guarantees { display: flex; flex-direction: column; gap: 12px; }
-    .login-guarantee {
-      display: flex; align-items: center; gap: 14px;
-      padding: 12px 16px;
-      background: rgba(255,255,255,0.08);
-      border: 1px solid rgba(255,255,255,0.12);
-      border-radius: var(--radius);
-    }
-    .login-guarantee-icon { font-size: 18px; flex-shrink: 0; }
-    .login-guarantee-text { }
-    .login-guarantee-title { font-size: 12px; font-weight: 700; color: rgba(255,255,255,0.9); margin-bottom: 2px; }
-    .login-guarantee-desc { font-size: 11px; color: rgba(255,255,255,0.6); }
-
-    /* ─── Panneau droit : formulaire ─── */
-    .login-form-panel {
-      background: var(--bg-white);
-      border-left: 1px solid var(--stroke-light);
-      display: flex; align-items: center; justify-content: center;
-      padding: 60px 48px;
-    }
-
-    .login-form-inner { width: 100%; max-width: 360px; }
-
-    /* Header formulaire */
-    .form-header { margin-bottom: 36px; text-align: center; }
-    .form-logo { width: 100px; height: 32px; background: var(--bg-medium); border-radius: var(--radius); display: flex; align-items: center; justify-content: center; font-size: 9px; font-weight: 700; color: var(--text-meta); letter-spacing: 1px; margin: 0 auto 20px; }
-    .form-title { font-size: 22px; font-weight: 800; color: var(--text-label); margin-bottom: 8px; }
-    .form-subtitle { font-size: 13px; color: var(--text-meta); line-height: 1.5; }
-
-    /* Badge réservé */
-    .form-badge {
-      display: flex; align-items: center; justify-content: center; gap: 8px;
-      padding: 10px 16px; background: var(--bg-light);
-      border: 1px solid var(--stroke-medium); border-radius: var(--radius);
-      margin-bottom: 28px;
-    }
-    .form-badge-dot { width: 8px; height: 8px; background: var(--bg-deep); border-radius: 50%; }
-    .form-badge-text { font-size: 11px; color: var(--text-meta); font-weight: 600; }
-
-    /* Champs */
-    .form-group { margin-bottom: 18px; }
-    .form-label {
-      display: block; font-size: 11px; font-weight: 700; color: var(--text-label);
-      margin-bottom: 7px; letter-spacing: 0.3px;
-    }
-    .form-input {
-      width: 100%; height: 48px;
-      border: 1.5px solid var(--stroke-medium); border-radius: var(--radius);
-      background: var(--bg-page);
-      display: flex; align-items: center; padding: 0 14px;
-      font-size: 13px; color: var(--text-ghost);
-      gap: 10px;
-    }
-    .form-input.focus { border-color: var(--accent); background: var(--bg-white); }
-    .form-input-icon { font-size: 14px; flex-shrink: 0; }
-
-    /* Oeil MDP */
-    .form-input-eye { margin-left: auto; font-size: 14px; color: var(--text-ghost); cursor: default; }
-
-    /* Options sous le champ MDP */
-    .form-options {
-      display: flex; align-items: center; justify-content: space-between;
-      margin-top: 8px; margin-bottom: 24px;
-    }
-    .form-remember { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--text-meta); }
-    .form-checkbox { width: 16px; height: 16px; border: 1.5px solid var(--stroke-medium); border-radius: 3px; flex-shrink: 0; }
-    .form-forgot { font-size: 12px; color: var(--text-meta); text-decoration: underline; cursor: default; }
-
-    /* Bouton submit */
-    .btn-submit {
-      width: 100%; height: 50px;
-      background: var(--accent); color: white;
-      font-size: 14px; font-weight: 700;
-      border-radius: var(--radius); cursor: default;
-      display: flex; align-items: center; justify-content: center; gap: 10px;
-      margin-bottom: 16px;
-    }
-
-    /* Divider */
-    .form-divider {
-      display: flex; align-items: center; gap: 12px;
-      margin: 24px 0;
-    }
-    .form-divider-line { flex: 1; height: 1px; background: var(--stroke-light); }
-    .form-divider-text { font-size: 11px; color: var(--text-ghost); white-space: nowrap; }
-
-    /* Demande d'accès */
-    .btn-request {
-      width: 100%; height: 48px;
-      background: transparent; border: 1.5px solid var(--stroke-medium);
-      color: var(--text-label); font-size: 13px; font-weight: 600;
-      border-radius: var(--radius); cursor: default;
-      display: flex; align-items: center; justify-content: center; gap: 10px;
-      margin-bottom: 28px;
-    }
-
-    /* Note sécurité */
-    .form-security {
-      display: flex; align-items: flex-start; gap: 10px;
-      padding: 12px 14px;
-      background: var(--bg-page); border: 1px solid var(--stroke-light);
-      border-radius: var(--radius);
-    }
-    .form-security-icon { font-size: 14px; flex-shrink: 0; margin-top: 1px; }
-    .form-security-text { font-size: 11px; color: var(--text-meta); line-height: 1.5; }
-
-    /* Footer form */
-    .form-footer {
-      margin-top: 24px; text-align: center;
-      font-size: 10px; color: var(--text-ghost); line-height: 1.6;
-    }
-    .form-footer a { color: var(--text-ghost); text-decoration: underline; }
-
-    /* États d'erreur / succès */
-    .form-error {
-      display: flex; align-items: center; gap: 8px;
-      padding: 12px 14px; background: #FFF5F5;
-      border: 1px solid #E0AAAA; border-radius: var(--radius);
-      margin-bottom: 20px; font-size: 12px; color: #AA4444;
-    }
-    .form-error-icon { font-size: 14px; }
-
-    /* ─── Footer minimal ─── */
-    .footer-minimal {
-      background: var(--bg-light); border-top: 1px solid var(--stroke-light);
-      padding: 16px 60px;
-      display: flex; justify-content: space-between; align-items: center;
-    }
-    .footer-minimal-copy { font-size: 10px; color: var(--text-ghost); }
-    .footer-minimal-links { display: flex; gap: 20px; }
-    .footer-minimal-links span { font-size: 10px; color: var(--text-ghost); }
-
-    .page-index { position: fixed; right: 20px; top: 50%; transform: translateY(-50%); background: white; border: 1px solid var(--stroke-light); border-radius: var(--radius); padding: 12px 0; z-index: 1000; box-shadow: 0 2px 8px rgba(0,0,0,0.08); min-width: 140px; }
-    .page-index-title { font-size: 8px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--text-ghost); padding: 0 12px 8px; border-bottom: 1px solid var(--stroke-light); margin-bottom: 6px; }
-    .page-index-item { padding: 4px 12px; font-size: 9px; color: var(--text-meta); display: flex; align-items: center; gap: 8px; }
-    .page-index-num { font-weight: 700; color: var(--text-ghost); min-width: 16px; }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    body{font-family:var(--font);background:var(--bg-page);color:var(--text-label);font-size:13px;}
+    body::before{content:"WIREFRAME — PAGE PANIER — ACEF × BIMIER SOLUTIONS — 1440px";position:fixed;top:50%;left:50%;transform:translate(-50%,-50%) rotate(-30deg);font-size:22px;font-weight:700;color:rgba(0,0,0,0.04);white-space:nowrap;pointer-events:none;z-index:9999;letter-spacing:4px;}
+    .page-wrapper{max-width:1440px;margin:0 auto;background:var(--bg-white);box-shadow:0 0 40px rgba(0,0,0,0.1);}
+    .doc-header{background:var(--bg-page);border-bottom:2px solid var(--stroke-dark);padding:16px 40px;display:flex;justify-content:space-between;align-items:center;}
+    .doc-project{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--text-meta);}
+    .doc-page{font-size:18px;font-weight:800;color:var(--text-label);}
+    .doc-meta{font-size:10px;color:var(--text-ghost);text-align:right;}
+    .doc-badge{background:var(--stroke-dark);color:white;font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:3px 8px;border-radius:2px;margin-top:4px;display:inline-block;}
+    .ruler{background:#FFFDE7;border-top:1px dashed var(--stroke-medium);border-bottom:1px dashed var(--stroke-medium);padding:4px 40px;font-size:9px;color:var(--text-ghost);font-style:italic;display:flex;align-items:center;gap:8px;}
+    .ruler::before{content:'↕';font-style:normal;}
+    .slabel{font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--text-ghost);padding:4px 8px;background:var(--bg-light);border-left:3px solid var(--stroke-medium);display:inline-block;margin-bottom:16px;}
+    .navbar{background:var(--bg-white);border-bottom:1px solid var(--stroke-light);height:72px;display:flex;align-items:center;}
+    .navbar-inner{max-width:1200px;margin:0 auto;padding:0 40px;width:100%;display:grid;grid-template-columns:180px 1fr auto auto;align-items:center;gap:40px;}
+    .nav-logo{width:140px;height:40px;background:var(--bg-medium);border-radius:var(--radius);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:var(--text-meta);letter-spacing:1px;}
+    .nav-links{display:flex;align-items:center;gap:36px;list-style:none;}
+    .nav-links li{font-size:13px;color:var(--text-meta);}
+    .nav-search{width:200px;height:36px;border:1px solid var(--stroke-light);border-radius:var(--radius);background:var(--bg-page);display:flex;align-items:center;padding:0 12px;gap:8px;}
+    .nav-ph{font-size:11px;color:var(--text-ghost);}
+    .nav-account{display:flex;align-items:center;gap:8px;padding:6px 14px;border:1px solid var(--stroke-light);border-radius:var(--radius);font-size:12px;color:var(--text-meta);}
+    .nav-dot{width:8px;height:8px;background:var(--bg-dark);border-radius:50%;}
+    .content{max-width:1200px;margin:0 auto;padding:0 40px;}
+    .breadcrumb{padding:16px 0;display:flex;align-items:center;gap:8px;}
+    .bc-item{font-size:12px;color:var(--text-meta);}
+    .bc-sep{font-size:10px;color:var(--text-ghost);}
+    .bc-cur{font-size:12px;color:var(--text-label);font-weight:600;}
+    /* STEPPER */
+    .stepper{display:flex;align-items:center;justify-content:center;padding:28px 0;border-bottom:1px solid var(--stroke-light);margin-bottom:40px;}
+    .step{display:flex;align-items:center;gap:10px;}
+    .step-num{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;}
+    .step-num.done{background:var(--accent);color:white;}
+    .step-num.active{background:var(--accent);color:white;box-shadow:0 0 0 4px rgba(68,68,68,0.15);}
+    .step-num.todo{background:var(--bg-light);color:var(--text-ghost);border:1px solid var(--stroke-medium);}
+    .step-label{font-size:12px;font-weight:600;color:var(--text-label);}
+    .step-label.todo{color:var(--text-ghost);font-weight:400;}
+    .step-sep{width:80px;height:1px;background:var(--stroke-medium);margin:0 16px;}
+    /* LAYOUT */
+    .cart-layout{display:grid;grid-template-columns:1fr 360px;gap:40px;padding-bottom:80px;}
+    /* COLONNE GAUCHE */
+    .cart-left{}
+    .cart-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;}
+    .cart-title{font-size:20px;font-weight:800;color:var(--text-label);}
+    .cart-count{font-size:13px;color:var(--text-meta);}
+    .cart-clear{font-size:11px;color:var(--text-ghost);text-decoration:underline;cursor:default;}
+    /* Ligne produit */
+    .cart-item{display:grid;grid-template-columns:100px 1fr auto;gap:20px;padding:20px 0;border-bottom:1px solid var(--stroke-light);align-items:start;}
+    .cart-item-img{width:100px;height:100px;background:var(--bg-light);border:1px solid var(--stroke-light);border-radius:var(--radius);display:flex;align-items:center;justify-content:center;font-size:9px;color:var(--text-ghost);text-align:center;position:relative;}
+    .cart-item-img::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,transparent 44%,var(--stroke-light) 44%,var(--stroke-light) 46%,transparent 46%);border-radius:var(--radius);}
+    .cart-item-img span{position:relative;z-index:1;}
+    .cart-item-info{}
+    .cart-item-cat{font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--text-ghost);margin-bottom:4px;}
+    .cart-item-name{font-size:15px;font-weight:700;color:var(--text-label);margin-bottom:4px;}
+    .cart-item-ref{font-size:10px;color:var(--text-ghost);margin-bottom:10px;}
+    .cart-item-specs{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px;}
+    .cart-spec-tag{padding:3px 8px;background:var(--bg-light);border:1px solid var(--stroke-light);border-radius:2px;font-size:10px;color:var(--text-meta);}
+    .cart-item-marking{padding:10px 12px;background:var(--bg-page);border:1px solid var(--stroke-light);border-radius:var(--radius);font-size:11px;color:var(--text-meta);margin-bottom:10px;}
+    .cart-item-marking strong{color:var(--text-label);}
+    .cart-item-actions{display:flex;gap:12px;align-items:center;}
+    .cart-remove{font-size:11px;color:var(--text-ghost);text-decoration:underline;cursor:default;}
+    .cart-save{font-size:11px;color:var(--text-meta);cursor:default;}
+    .cart-item-right{display:flex;flex-direction:column;align-items:flex-end;gap:12px;min-width:180px;}
+    .qty-ctrl{display:flex;align-items:center;border:1px solid var(--stroke-medium);border-radius:var(--radius);overflow:hidden;}
+    .qty-btn{width:32px;height:36px;background:var(--bg-light);display:flex;align-items:center;justify-content:center;font-size:16px;color:var(--text-meta);cursor:default;}
+    .qty-val{width:52px;height:36px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;border-left:1px solid var(--stroke-light);border-right:1px solid var(--stroke-light);}
+    .cart-item-subtotal{}
+    .subtotal-label{font-size:9px;text-transform:uppercase;letter-spacing:1px;color:var(--text-ghost);margin-bottom:2px;text-align:right;}
+    .subtotal-val{font-size:18px;font-weight:800;color:var(--text-label);text-align:right;}
+    .subtotal-unit{font-size:10px;color:var(--text-ghost);text-align:right;}
+    /* Zone vide */
+    .cart-empty{padding:60px 0;text-align:center;border-bottom:1px solid var(--stroke-light);}
+    /* Promo */
+    .promo-block{margin-top:24px;padding:20px;background:var(--bg-page);border:1px solid var(--stroke-light);border-radius:var(--radius);}
+    .promo-label{font-size:11px;font-weight:700;color:var(--text-label);margin-bottom:10px;}
+    .promo-input-row{display:flex;gap:10px;}
+    .promo-input{flex:1;height:40px;border:1px solid var(--stroke-medium);border-radius:var(--radius);background:var(--bg-white);display:flex;align-items:center;padding:0 12px;font-size:12px;color:var(--text-ghost);}
+    .promo-btn{height:40px;padding:0 20px;background:var(--bg-medium);border-radius:var(--radius);font-size:12px;font-weight:600;color:var(--text-meta);cursor:default;}
+    /* Produits suggérés */
+    .upsell{margin-top:40px;}
+    .upsell-title{font-size:16px;font-weight:700;color:var(--text-label);margin-bottom:16px;}
+    .upsell-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+    .upsell-card{border:1px solid var(--stroke-light);border-radius:var(--radius);overflow:hidden;}
+    .upsell-img{height:100px;background:var(--bg-light);display:flex;align-items:center;justify-content:center;font-size:9px;color:var(--text-ghost);position:relative;}
+    .upsell-img::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,transparent 43%,var(--stroke-light) 43%,var(--stroke-light) 45%,transparent 45%);}
+    .upsell-img span{position:relative;z-index:1;}
+    .upsell-body{padding:10px 12px;}
+    .upsell-name{font-size:12px;font-weight:700;color:var(--text-label);margin-bottom:3px;}
+    .upsell-price{font-size:11px;color:var(--text-meta);margin-bottom:8px;}
+    .upsell-btn{width:100%;padding:7px;background:var(--bg-light);font-size:10px;font-weight:600;color:var(--text-meta);text-align:center;border-radius:var(--radius);border:1px solid var(--stroke-medium);cursor:default;}
+    /* COLONNE DROITE — RÉCAP */
+    .cart-right{}
+    .recap-box{background:var(--bg-page);border:1px solid var(--stroke-light);border-radius:var(--radius);padding:24px;margin-bottom:16px;position:sticky;top:20px;}
+    .recap-title{font-size:14px;font-weight:800;color:var(--text-label);margin-bottom:20px;padding-bottom:16px;border-bottom:1px solid var(--stroke-light);}
+    .recap-line{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;}
+    .recap-line-label{font-size:12px;color:var(--text-meta);}
+    .recap-line-val{font-size:12px;color:var(--text-label);font-weight:600;}
+    .recap-line.total{margin-top:16px;padding-top:16px;border-top:2px solid var(--stroke-dark);}
+    .recap-line.total .recap-line-label{font-size:14px;font-weight:700;color:var(--text-label);}
+    .recap-line.total .recap-line-val{font-size:20px;font-weight:900;color:var(--text-label);}
+    .recap-moq-warning{background:#FFF8E1;border:1px solid var(--bg-dark);border-radius:var(--radius);padding:10px 12px;font-size:11px;color:var(--text-meta);margin-bottom:16px;display:flex;gap:8px;align-items:flex-start;}
+    .recap-moq-icon{flex-shrink:0;}
+    .btn-primary{width:100%;padding:16px;background:var(--accent);color:white;font-size:14px;font-weight:700;text-align:center;border-radius:var(--radius);cursor:default;display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:10px;}
+    .btn-secondary{width:100%;padding:14px;background:transparent;border:1.5px solid var(--stroke-strong);color:var(--text-label);font-size:13px;font-weight:600;text-align:center;border-radius:var(--radius);cursor:default;margin-bottom:20px;}
+    .recap-guarantees{display:flex;flex-direction:column;gap:8px;}
+    .recap-guarantee{display:flex;align-items:center;gap:10px;font-size:11px;color:var(--text-meta);}
+    .recap-guarantee-icon{font-size:14px;flex-shrink:0;}
+    .page-index{position:fixed;right:20px;top:50%;transform:translateY(-50%);background:white;border:1px solid var(--stroke-light);border-radius:var(--radius);padding:12px 0;z-index:1000;box-shadow:0 2px 8px rgba(0,0,0,0.08);min-width:148px;}
+    .pi-title{font-size:8px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--text-ghost);padding:0 12px 8px;border-bottom:1px solid var(--stroke-light);margin-bottom:6px;}
+    .pi-item{padding:4px 12px;font-size:9px;color:var(--text-meta);display:flex;align-items:center;gap:8px;}
+    .pi-num{font-weight:700;color:var(--text-ghost);min-width:16px;}
   </style>
 </head>
 <body>
-
-  <div class="doc-header">
-    <div>
-      <div class="doc-header-project">ACEF × Bimier Solutions — Refonte Site Catalogue</div>
-      <div class="doc-header-page">Wireframe 04 — Page Connexion</div>
-    </div>
-    <div>
-      <div class="doc-header-meta">Desktop 1440px · v1.0 · Mai 2026</div>
-      <div class="doc-header-meta">Chapitre 7 — Solutions proposées</div>
-      <div class="doc-header-badge">Basse fidélité</div>
-    </div>
-  </div>
-
-  <div class="page-index">
-    <div class="page-index-title">Sections</div>
-    <div class="page-index-item"><span class="page-index-num">01</span> Navbar minimaliste</div>
-    <div class="page-index-item"><span class="page-index-num">02</span> Panneau visuel</div>
-    <div class="page-index-item"><span class="page-index-num">03</span> Formulaire connexion</div>
-    <div class="page-index-item"><span class="page-index-num">04</span> Demande d'accès</div>
-    <div class="page-index-item"><span class="page-index-num">05</span> Sécurité & légal</div>
-    <div class="page-index-item"><span class="page-index-num">06</span> État d'erreur</div>
-    <div class="page-index-item"><span class="page-index-num">07</span> Footer minimal</div>
-  </div>
-
-  <div class="page-wrapper">
-
-    <!-- ════════ 01 — NAVBAR MINIMALISTE ════════ -->
-    <div class="ruler">Section 01 — Navbar minimaliste / Pas de navigation complète sur la page login / Logo seul + note</div>
-    <div class="navbar-minimal">
+<div class="doc-header">
+  <div><div class="doc-project">ACEF × Bimier Solutions — Refonte Site Catalogue</div><div class="doc-page">Wireframe 05 — Page Panier</div></div>
+  <div><div class="doc-meta">Desktop 1440px · v1.0 · Mai 2026</div><div class="doc-meta">Chapitre 7 — Solutions proposées</div><div class="doc-badge">Basse fidélité</div></div>
+</div>
+<div class="page-index">
+  <div class="pi-title">Sections</div>
+  <div class="pi-item"><span class="pi-num">01</span>Navigation</div>
+  <div class="pi-item"><span class="pi-num">02</span>Stepper commande</div>
+  <div class="pi-item"><span class="pi-num">03</span>Lignes panier</div>
+  <div class="pi-item"><span class="pi-num">04</span>Code promo</div>
+  <div class="pi-item"><span class="pi-num">05</span>Récapitulatif</div>
+  <div class="pi-item"><span class="pi-num">06</span>Garanties</div>
+  <div class="pi-item"><span class="pi-num">07</span>Suggestions</div>
+</div>
+<div class="page-wrapper">
+  <div class="ruler">Section 01 — Navigation / Composant réutilisable / Badge panier actif avec compteur</div>
+  <div class="navbar">
+    <div class="navbar-inner">
       <div class="nav-logo">BIMIER LOGO</div>
-      <div class="navbar-note">Espace réservé aux membres ACEF</div>
+      <ul class="nav-links"><li>Accueil</li><li>Catalogue</li><li>À propos</li><li>Contact</li></ul>
+      <div class="nav-search"><span>🔍</span><span class="nav-ph">Rechercher un produit…</span></div>
+      <div class="nav-account"><div class="nav-dot"></div>Mon compte ACEF &nbsp;|&nbsp; 🛒 <strong>3</strong></div>
     </div>
-
-    <!-- ════════ 02 + 03 + 04 — LAYOUT LOGIN ════════ -->
-    <div class="ruler">Sections 02–05 — Layout 2 colonnes : Visuel (fluid) + Formulaire (480px fixe)</div>
-    <div class="login-layout" style="flex:1;">
-
-      <!-- ═══ PANNEAU GAUCHE : VISUEL ═══ -->
-      <div class="login-visual">
-
-        <!-- Fond image -->
-        <div class="login-visual-bg">
-          <span class="login-visual-bg-label">IMAGE DE FOND — PLEINE HAUTEUR</span>
-          <span class="login-visual-bg-dim">Photo produits / ambiance B2B · Fond sombre recommandé</span>
+  </div>
+  <div class="ruler">Section 02 — Stepper / 3 étapes : Panier → Récapitulatif devis → Confirmation / Étape 1 active</div>
+  <div class="content">
+    <div class="stepper">
+      <div class="step"><div class="step-num active">1</div><span class="step-label">Mon panier</span></div>
+      <div class="step-sep"></div>
+      <div class="step"><div class="step-num todo">2</div><span class="step-label todo">Récapitulatif devis</span></div>
+      <div class="step-sep"></div>
+      <div class="step"><div class="step-num todo">3</div><span class="step-label todo">Confirmation</span></div>
+    </div>
+    <div class="breadcrumb"><span class="bc-item">Accueil</span><span class="bc-sep">›</span><span class="bc-cur">Mon panier (3 articles)</span></div>
+    <div class="slabel">03 — Lignes panier / 04 — Code promo / 05-06 — Récapitulatif</div>
+    <div class="cart-layout">
+      <!-- GAUCHE -->
+      <div class="cart-left">
+        <div class="cart-header">
+          <div class="cart-title">Mon panier <span style="font-size:14px;font-weight:400;color:var(--text-meta);">(3 articles)</span></div>
+          <div class="cart-clear">Vider le panier</div>
         </div>
-        <div class="login-visual-overlay"></div>
-
-        <!-- Haut : logo -->
-        <div class="login-visual-top">
-          <div class="section-label">02 — Panneau visuel</div>
-          <div class="login-visual-logo">BIMIER LOGO</div>
-        </div>
-
-        <!-- Bas : accroche + garanties -->
-        <div class="login-visual-bottom">
-          <div class="login-visual-title">
-            Votre catalogue ACEF
-            <span>en un clic.</span>
-          </div>
-          <div class="login-visual-desc">
-            Accédez à plus de 5 000 références personnalisables, passez vos commandes en volume et suivez vos devis en temps réel. Espace exclusif pour les membres ACEF.
-          </div>
-
-          <!-- Arguments rassurants -->
-          <div class="login-guarantees">
-            <div class="login-guarantee">
-              <div class="login-guarantee-icon">🔒</div>
-              <div class="login-guarantee-text">
-                <div class="login-guarantee-title">Accès sécurisé</div>
-                <div class="login-guarantee-desc">Votre espace est protégé et réservé aux ACEF enregistrées</div>
-              </div>
+        <!-- Produit 1 -->
+        <div class="cart-item">
+          <div class="cart-item-img"><span>IMAGE<br/>100×100px</span></div>
+          <div class="cart-item-info">
+            <div class="cart-item-cat">Textile</div>
+            <div class="cart-item-name">Polo Corporate Premium Bio</div>
+            <div class="cart-item-ref">Réf. TEX-001</div>
+            <div class="cart-item-specs">
+              <span class="cart-spec-tag">Couleur : Bleu Marine</span>
+              <span class="cart-spec-tag">Taille : M (×60) · L (×40)</span>
+              <span class="cart-spec-tag">Marquage : Broderie cœur</span>
             </div>
-            <div class="login-guarantee">
-              <div class="login-guarantee-icon">📦</div>
-              <div class="login-guarantee-text">
-                <div class="login-guarantee-title">5 000+ références exclusives</div>
-                <div class="login-guarantee-desc">Tarifs B2B dégressifs négociés pour les ACEF</div>
-              </div>
+            <div class="cart-item-marking">
+              🎨 <strong>Marquage configuré :</strong> Broderie 3D — Zone cœur (10×10 cm) — Logo ACEF
             </div>
-            <div class="login-guarantee">
-              <div class="login-guarantee-icon">⚡</div>
-              <div class="login-guarantee-text">
-                <div class="login-guarantee-title">Devis sous 24h ouvrées</div>
-                <div class="login-guarantee-desc">Réponse rapide de nos équipes commerciales dédiées</div>
-              </div>
+            <div class="cart-item-actions">
+              <span class="cart-remove">🗑 Supprimer</span>
+              <span class="cart-save">♡ Sauvegarder pour plus tard</span>
+            </div>
+          </div>
+          <div class="cart-item-right">
+            <div class="qty-ctrl"><div class="qty-btn">−</div><div class="qty-val">100</div><div class="qty-btn">+</div></div>
+            <div class="cart-item-subtotal">
+              <div class="subtotal-label">Sous-total</div>
+              <div class="subtotal-val">1 450,00 €</div>
+              <div class="subtotal-unit">14,50 € HT / unité</div>
             </div>
           </div>
         </div>
-
-      </div>
-
-      <!-- ═══ PANNEAU DROIT : FORMULAIRE ═══ -->
-      <div class="login-form-panel">
-        <div class="login-form-inner">
-          <div class="section-label">03 — Formulaire connexion</div>
-
-          <!-- Header -->
-          <div class="form-header">
-            <div class="form-logo">BIMIER LOGO</div>
-            <div class="form-title">Connexion à votre espace</div>
-            <div class="form-subtitle">Entrez vos identifiants ACEF pour accéder au catalogue privé Bimier Solutions.</div>
-          </div>
-
-          <!-- Badge réservé -->
-          <div class="form-badge">
-            <div class="form-badge-dot"></div>
-            <div class="form-badge-text">Accès réservé aux membres ACEF</div>
-          </div>
-
-          <!-- État erreur (état alternatif à documenter) -->
-          <div class="ruler" style="margin:0 -48px 16px;padding-left:48px;">Section 06 — État d'erreur (identifiants incorrects) — Composant conditionnel</div>
-          <div class="form-error" style="display:none;">
-            <span class="form-error-icon">⚠️</span>
-            <span>Identifiants incorrects. Vérifiez votre email et mot de passe ACEF.</span>
-          </div>
-
-          <!-- Champ email -->
-          <div class="form-group">
-            <label class="form-label">Adresse email ACEF</label>
-            <div class="form-input focus">
-              <span class="form-input-icon">✉️</span>
-              <span>votre.email@association-acef.fr</span>
+        <!-- Produit 2 -->
+        <div class="cart-item">
+          <div class="cart-item-img"><span>IMAGE<br/>100×100px</span></div>
+          <div class="cart-item-info">
+            <div class="cart-item-cat">Drinkware</div>
+            <div class="cart-item-name">Gourde Isotherme Inox 500ml</div>
+            <div class="cart-item-ref">Réf. DRI-102</div>
+            <div class="cart-item-specs">
+              <span class="cart-spec-tag">Couleur : Gris Anthracite</span>
+              <span class="cart-spec-tag">Gravure laser</span>
+            </div>
+            <div class="cart-item-marking">
+              🎨 <strong>Marquage configuré :</strong> Gravure laser — Zone face principale — Logo ACEF + slogan
+            </div>
+            <div class="cart-item-actions">
+              <span class="cart-remove">🗑 Supprimer</span>
+              <span class="cart-save">♡ Sauvegarder pour plus tard</span>
             </div>
           </div>
-
-          <!-- Champ mot de passe -->
-          <div class="form-group">
-            <label class="form-label">Mot de passe</label>
-            <div class="form-input">
-              <span class="form-input-icon">🔑</span>
-              <span>••••••••••••</span>
-              <span class="form-input-eye">👁</span>
+          <div class="cart-item-right">
+            <div class="qty-ctrl"><div class="qty-btn">−</div><div class="qty-val">50</div><div class="qty-btn">+</div></div>
+            <div class="cart-item-subtotal">
+              <div class="subtotal-label">Sous-total</div>
+              <div class="subtotal-val">560,00 €</div>
+              <div class="subtotal-unit">11,20 € HT / unité</div>
             </div>
           </div>
-
-          <!-- Options -->
-          <div class="form-options">
-            <div class="form-remember">
-              <div class="form-checkbox"></div>
-              <span>Se souvenir de moi</span>
+        </div>
+        <!-- Produit 3 -->
+        <div class="cart-item">
+          <div class="cart-item-img"><span>IMAGE<br/>100×100px</span></div>
+          <div class="cart-item-info">
+            <div class="cart-item-cat">Papeterie</div>
+            <div class="cart-item-name">Carnet A5 Cuir Recyclé</div>
+            <div class="cart-item-ref">Réf. PAP-045</div>
+            <div class="cart-item-specs">
+              <span class="cart-spec-tag">Couleur : Bordeaux</span>
+              <span class="cart-spec-tag">Embossage à chaud</span>
             </div>
-            <span class="form-forgot">Mot de passe oublié ?</span>
+            <div class="cart-item-marking">
+              ⚠️ <strong>Marquage non configuré</strong> — À compléter avant validation
+            </div>
+            <div class="cart-item-actions">
+              <span class="cart-remove">🗑 Supprimer</span>
+              <span class="cart-save">♡ Sauvegarder pour plus tard</span>
+            </div>
           </div>
-
-          <!-- Bouton connexion -->
-          <div class="btn-submit">
-            🔓 Se connecter à mon espace ACEF
+          <div class="cart-item-right">
+            <div class="qty-ctrl"><div class="qty-btn">−</div><div class="qty-val">100</div><div class="qty-btn">+</div></div>
+            <div class="cart-item-subtotal">
+              <div class="subtotal-label">Sous-total</div>
+              <div class="subtotal-val">690,00 €</div>
+              <div class="subtotal-unit">6,90 € HT / unité</div>
+            </div>
           </div>
-
-          <!-- Divider -->
-          <div class="form-divider">
-            <div class="form-divider-line"></div>
-            <span class="form-divider-text">Pas encore de compte ?</span>
-            <div class="form-divider-line"></div>
+        </div>
+        <!-- Code promo -->
+        <div class="ruler" style="margin:0 -40px;padding-left:40px;">Section 04 — Code promotion / Champ optionnel ACEF</div>
+        <div class="promo-block">
+          <div class="promo-label">🏷 Vous avez un code promotionnel ACEF ?</div>
+          <div class="promo-input-row">
+            <div class="promo-input">Entrez votre code…</div>
+            <div class="promo-btn">Appliquer</div>
           </div>
-
-          <!-- Demande d'accès -->
-          <div class="section-label" style="margin-bottom:12px;">04 — Demande d'accès</div>
-          <div class="btn-request">
-            📋 Faire une demande d'accès ACEF
+        </div>
+        <!-- Suggestions -->
+        <div class="ruler" style="margin:0 -40px;padding-left:40px;">Section 07 — Suggestions "Souvent commandé avec" / 3 produits complémentaires</div>
+        <div class="upsell">
+          <div class="upsell-title">Souvent commandé avec ces articles</div>
+          <div class="upsell-grid">
+            <div class="upsell-card"><div class="upsell-img"><span>IMG 270×100</span></div><div class="upsell-body"><div class="upsell-name">Stylo Métal Executive</div><div class="upsell-price">Dès 4,50 € HT · MOQ 250 pcs</div><div class="upsell-btn">+ Ajouter au panier</div></div></div>
+            <div class="upsell-card"><div class="upsell-img"><span>IMG 270×100</span></div><div class="upsell-body"><div class="upsell-name">Tote Bag Coton Recyclé</div><div class="upsell-price">Dès 2,50 € HT · MOQ 150 pcs</div><div class="upsell-btn">+ Ajouter au panier</div></div></div>
+            <div class="upsell-card"><div class="upsell-img"><span>IMG 270×100</span></div><div class="upsell-body"><div class="upsell-name">Casquette Trucker Brodée</div><div class="upsell-price">Dès 8,50 € HT · MOQ 50 pcs</div><div class="upsell-btn">+ Ajouter au panier</div></div></div>
           </div>
-
-          <!-- Sécurité -->
-          <div class="section-label" style="margin-bottom:12px;">05 — Sécurité</div>
-          <div class="form-security">
-            <span class="form-security-icon">🔒</span>
-            <span class="form-security-text">Connexion sécurisée SSL. Vos données sont chiffrées et ne sont jamais partagées avec des tiers. Conformité RGPD garantie.</span>
-          </div>
-
-          <!-- Footer légal -->
-          <div class="form-footer">
-            <span class="section-label" style="margin-bottom:6px; display:block; font-size:8px;">07 — Légal</span>
-            En vous connectant, vous acceptez nos
-            <a href="#">Conditions Générales d'Utilisation</a>
-            et notre <a href="#">Politique de confidentialité</a>.
-            <br/>
-            © 2026 Bimier Solutions. Tous droits réservés.
-          </div>
-
         </div>
       </div>
-
-    </div><!-- /login-layout -->
-
-    <!-- ════════ 07 — FOOTER MINIMAL ════════ -->
-    <div class="ruler">Section 07 — Footer minimal / Pas de footer complet sur une page de connexion / Copyright + liens légaux</div>
-    <div class="footer-minimal">
-      <div class="footer-minimal-copy">© 2026 Bimier Solutions — Espace ACEF. Accès réservé aux membres enregistrés.</div>
-      <div class="footer-minimal-links">
-        <span>Mentions légales</span>
-        <span>CGV</span>
-        <span>Confidentialité</span>
-        <span>Contact</span>
+      <!-- DROITE -->
+      <div class="cart-right">
+        <div class="ruler" style="margin:0 -40px 16px;padding-left:40px;">Section 05 — Récap commande / Position sticky</div>
+        <div class="recap-box">
+          <div class="recap-title">Récapitulatif de la demande</div>
+          <div class="recap-line"><span class="recap-line-label">Polo Premium Bio (×100)</span><span class="recap-line-val">1 450,00 €</span></div>
+          <div class="recap-line"><span class="recap-line-label">Gourde Isotherme (×50)</span><span class="recap-line-val">560,00 €</span></div>
+          <div class="recap-line"><span class="recap-line-label">Carnet A5 (×100)</span><span class="recap-line-val">690,00 €</span></div>
+          <div class="recap-line" style="margin-top:12px;padding-top:12px;border-top:1px solid var(--stroke-light);"><span class="recap-line-label">Sous-total HT</span><span class="recap-line-val">2 700,00 €</span></div>
+          <div class="recap-line"><span class="recap-line-label">Marquage & personnalisation</span><span class="recap-line-val">Sur devis</span></div>
+          <div class="recap-line"><span class="recap-line-label">Livraison</span><span class="recap-line-val">Sur devis</span></div>
+          <div class="recap-line total"><span class="recap-line-label">Total estimé HT</span><span class="recap-line-val">2 700,00 €</span></div>
+          <div style="font-size:9px;color:var(--text-ghost);margin-top:6px;text-align:right;">Hors marquage, livraison et TVA — Devis définitif sous 24h</div>
+        </div>
+        <div class="recap-moq-warning">
+          <span class="recap-moq-icon">⚠️</span>
+          <span><strong>Marquage manquant</strong> sur le Carnet A5. Veuillez compléter la configuration avant de valider.</span>
+        </div>
+        <div class="btn-primary">📋 Valider et demander un devis</div>
+        <div class="btn-secondary">← Continuer mes achats</div>
+        <div class="ruler" style="margin:0 -40px 16px;padding-left:40px;">Section 06 — Garanties rassurantes / Points de confiance B2B</div>
+        <div class="recap-guarantees">
+          <div class="recap-guarantee"><span class="recap-guarantee-icon">🔒</span><span>Espace sécurisé réservé aux membres ACEF</span></div>
+          <div class="recap-guarantee"><span class="recap-guarantee-icon">⚡</span><span>Devis reçu sous 24h ouvrées</span></div>
+          <div class="recap-guarantee"><span class="recap-guarantee-icon">🎨</span><span>BAT visuel gratuit avant production</span></div>
+          <div class="recap-guarantee"><span class="recap-guarantee-icon">🚚</span><span>Livraison multi-sites gérée par nos soins</span></div>
+          <div class="recap-guarantee"><span class="recap-guarantee-icon">📞</span><span>Conseiller dédié ACEF disponible</span></div>
+        </div>
       </div>
     </div>
-
-  </div><!-- /page-wrapper -->
-
+  </div>
+</div>
 </body>
 </html>
