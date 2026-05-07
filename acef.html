@@ -1,499 +1,707 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Wireframe — À propos | ACEF × Bimier Solutions</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Espace ACEF — Connexion</title>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;700;900&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet" />
   <style>
-    :root{
-      --bg-page:#F2F2F2; --bg-white:#FFFFFF; --bg-light:#E8E8E8;
-      --bg-medium:#D0D0D0; --bg-dark:#B0B0B0; --bg-deep:#888888;
-      --stroke-light:#CCCCCC; --stroke-medium:#AAAAAA; --stroke-strong:#777777; --stroke-dark:#444444;
-      --text-label:#333333; --text-meta:#666666; --text-ghost:#999999;
-      --accent:#444444; --radius:4px;
-      --content:1200px; --font:'Helvetica Neue',Helvetica,Arial,sans-serif;
+    /* ─── DESIGN TOKENS ─────────────────────────────────────────── */
+    :root {
+      --marine:       #0D1235;
+      --marine-mid:   #1A2456;
+      --bleu:         #2B3A9E;
+      --bleu-light:   #EEF1FA;
+      --orange:       #F5A623;
+      --orange-light: #FDF0DC;
+      --blanc:        #FFFFFF;
+      --gris-texte:   #6B7A9E;
+      --font-title:   'Barlow Condensed', sans-serif;
+      --font-body:    'Barlow', sans-serif;
     }
-    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
-    body{font-family:var(--font);background:var(--bg-page);color:var(--text-label);font-size:13px;}
-    body::before{content:"WIREFRAME — À PROPOS — ACEF × BIMIER SOLUTIONS — 1440px";position:fixed;top:50%;left:50%;transform:translate(-50%,-50%) rotate(-30deg);font-size:20px;font-weight:700;color:rgba(0,0,0,0.04);white-space:nowrap;pointer-events:none;z-index:9999;letter-spacing:4px;}
-    .pw{max-width:1440px;margin:0 auto;background:var(--bg-white);box-shadow:0 0 40px rgba(0,0,0,0.1);}
-    .cx{max-width:var(--content);margin:0 auto;padding:0 40px;}
 
-    /* Doc header */
-    .doc-header{background:var(--bg-page);border-bottom:2px solid var(--stroke-dark);padding:16px 40px;display:flex;justify-content:space-between;align-items:center;}
-    .doc-project{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--text-meta);}
-    .doc-page{font-size:18px;font-weight:800;color:var(--text-label);}
-    .doc-meta{font-size:10px;color:var(--text-ghost);text-align:right;}
-    .doc-badge{background:var(--stroke-dark);color:white;font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:3px 8px;border-radius:2px;margin-top:4px;display:inline-block;}
+    /* ─── RESET ─────────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { height: 100%; }
 
-    /* Ruler */
-    .ruler{background:#FFFDE7;border-top:1px dashed var(--stroke-medium);border-bottom:1px dashed var(--stroke-medium);padding:4px 40px;font-size:9px;color:var(--text-ghost);font-style:italic;display:flex;align-items:center;gap:8px;}
-    .ruler::before{content:'↕';font-style:normal;}
+    /* ─── LAYOUT ─────────────────────────────────────────────────── */
+    body {
+      font-family: var(--font-body);
+      background-color: var(--marine);
+      display: flex;
+      min-height: 100vh;
+      overflow: hidden;
+    }
 
-    /* Section label */
-    .slabel{font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--text-ghost);padding:4px 8px;background:var(--bg-light);border-left:3px solid var(--stroke-medium);display:inline-block;margin-bottom:20px;}
+    /* GAUCHE — visuel */
+    .left-panel {
+      flex: 1;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 48px;
+      overflow: hidden;
+    }
 
-    /* Navbar */
-    .navbar{background:var(--bg-white);border-bottom:1px solid var(--stroke-light);height:72px;display:flex;align-items:center;}
-    .navbar-inner{max-width:var(--content);margin:0 auto;padding:0 40px;width:100%;display:grid;grid-template-columns:180px 1fr auto auto;align-items:center;gap:40px;}
-    .nav-logo{width:140px;height:40px;background:var(--bg-medium);border-radius:var(--radius);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:var(--text-meta);letter-spacing:1px;}
-    .nav-links{display:flex;align-items:center;gap:36px;list-style:none;}
-    .nav-links li{font-size:13px;color:var(--text-meta);}
-    .nav-links li.active{color:var(--text-label);font-weight:600;border-bottom:2px solid var(--accent);padding-bottom:2px;}
-    .nav-search{width:200px;height:36px;border:1px solid var(--stroke-light);border-radius:var(--radius);background:var(--bg-page);display:flex;align-items:center;padding:0 12px;gap:8px;font-size:11px;color:var(--text-ghost);}
-    .nav-account{display:flex;align-items:center;gap:8px;padding:6px 14px;border:1px solid var(--stroke-light);border-radius:var(--radius);font-size:12px;color:var(--text-meta);}
-    .nav-dot{width:8px;height:8px;background:var(--bg-dark);border-radius:50%;}
+    .left-panel::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(135deg, var(--marine) 0%, var(--marine-mid) 50%, #1E2D6E 100%);
+      z-index: 0;
+    }
 
-    /* Breadcrumb */
-    .breadcrumb{padding:16px 0;display:flex;align-items:center;gap:8px;}
-    .bc-item{font-size:12px;color:var(--text-meta);}
-    .bc-sep{font-size:10px;color:var(--text-ghost);}
-    .bc-cur{font-size:12px;color:var(--text-label);font-weight:600;}
+    /* Grille décorative */
+    .grid-deco {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      background-image:
+        linear-gradient(rgba(43,58,158,0.15) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(43,58,158,0.15) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
 
-    /* Placeholder image */
-    .img-ph{background:var(--bg-light);border:1px solid var(--stroke-light);border-radius:var(--radius);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:6px;color:var(--text-ghost);font-size:10px;text-align:center;position:relative;}
-    .img-ph::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,transparent 45%,var(--stroke-light) 45%,var(--stroke-light) 46%,transparent 46%);border-radius:var(--radius);pointer-events:none;}
-    .img-ph span{position:relative;z-index:1;}
+    /* Cercle accent */
+    .circle-accent {
+      position: absolute;
+      width: 500px;
+      height: 500px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(43,58,158,0.4) 0%, transparent 70%);
+      top: -100px;
+      right: -100px;
+      z-index: 1;
+    }
 
-    /* ════ 02 — HERO ════ */
-    .hero{height:420px;background:var(--bg-dark);position:relative;overflow:hidden;}
-    .hero-overlay{position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,0,0,0.6) 0%,rgba(0,0,0,0.15) 70%,transparent 100%);}
-    .hero-bg-label{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:11px;color:rgba(255,255,255,0.35);text-align:center;line-height:1.8;}
-    .hero-content{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);max-width:var(--content);width:100%;padding:0 40px;}
-    .hero-overline{font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,0.55);margin-bottom:14px;}
-    .hero-title{font-size:40px;font-weight:900;color:#FFFFFF;line-height:1.1;letter-spacing:-0.5px;margin-bottom:16px;max-width:600px;}
-    .hero-sub{font-size:15px;color:rgba(255,255,255,0.75);line-height:1.7;max-width:540px;}
+    .circle-accent-2 {
+      position: absolute;
+      width: 300px;
+      height: 300px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(245,166,35,0.15) 0%, transparent 70%);
+      bottom: 100px;
+      left: -50px;
+      z-index: 1;
+    }
 
-    /* ════ 03 — STATS BAND ════ */
-    .stats-band{background:var(--bg-deep);padding:40px 0;}
-    .stats-inner{max-width:var(--content);margin:0 auto;padding:0 40px;display:grid;grid-template-columns:repeat(4,1fr);gap:40px;}
-    .stat{text-align:center;}
-    .stat-val{font-size:36px;font-weight:900;color:#FFFFFF;line-height:1;margin-bottom:6px;}
-    .stat-label{font-size:10px;color:rgba(255,255,255,0.6);text-transform:uppercase;letter-spacing:1.5px;}
+    /* Contenu panneau gauche */
+    .left-content {
+      position: relative;
+      z-index: 2;
+    }
 
-    /* ════ SECTIONS GÉNÉRALES ════ */
-    .section{padding:80px 0;}
-    .section-alt{padding:80px 0;background:var(--bg-light);}
-    .section-title{font-size:28px;font-weight:800;color:var(--text-label);letter-spacing:-0.3px;margin-bottom:10px;}
-    .section-sub{font-size:14px;color:var(--text-meta);line-height:1.7;max-width:600px;margin-bottom:36px;}
-    .overline{font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--text-ghost);margin-bottom:12px;}
+    .badge-acces {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(245,166,35,0.15);
+      border: 1px solid rgba(245,166,35,0.3);
+      border-radius: 100px;
+      padding: 6px 14px;
+      margin-bottom: 32px;
+    }
 
-    /* ════ 04 — HISTOIRE (2 colonnes) ════ */
-    .histoire-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;}
-    .histoire-text{}
-    .histoire-img{height:380px;}
-    .histoire-body{font-size:13px;color:var(--text-meta);line-height:1.8;margin-bottom:20px;}
-    .histoire-timeline{display:flex;flex-direction:column;gap:0;margin-top:28px;}
-    .timeline-item{display:flex;gap:20px;padding-bottom:24px;position:relative;}
-    .timeline-item:last-child{padding-bottom:0;}
-    .timeline-item::before{content:'';position:absolute;left:15px;top:32px;bottom:0;width:1px;background:var(--stroke-light);}
-    .timeline-item:last-child::before{display:none;}
-    .timeline-dot{width:32px;height:32px;background:var(--bg-medium);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:var(--text-meta);flex-shrink:0;position:relative;z-index:1;}
-    .timeline-content{}
-    .timeline-year{font-size:11px;font-weight:700;color:var(--text-ghost);letter-spacing:1px;margin-bottom:3px;}
-    .timeline-desc{font-size:12px;color:var(--text-meta);line-height:1.5;}
+    .badge-acces span {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--orange);
+      animation: pulse 2s infinite;
+    }
 
-    /* ════ 05 — VALEURS (3 colonnes) ════ */
-    .valeurs-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
-    .valeur-card{padding:28px;background:var(--bg-white);border:1px solid var(--stroke-light);border-radius:var(--radius);}
-    .valeur-icon{width:48px;height:48px;background:var(--bg-light);border-radius:var(--radius);display:flex;align-items:center;justify-content:center;font-size:22px;margin-bottom:16px;}
-    .valeur-title{font-size:15px;font-weight:700;color:var(--text-label);margin-bottom:8px;}
-    .valeur-desc{font-size:12px;color:var(--text-meta);line-height:1.6;}
+    .badge-acces p {
+      font-family: var(--font-body);
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--orange);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
 
-    /* ════ 06 — PARTENARIAT ACEF (bandeau fort) ════ */
-    .partnership-block{background:var(--bg-deep);padding:64px 0;}
-    .partnership-inner{max-width:var(--content);margin:0 auto;padding:0 40px;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;}
-    .partnership-text{}
-    .partnership-overline{font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,0.5);margin-bottom:14px;}
-    .partnership-title{font-size:28px;font-weight:800;color:#FFFFFF;line-height:1.2;margin-bottom:16px;letter-spacing:-0.3px;}
-    .partnership-body{font-size:13px;color:rgba(255,255,255,0.7);line-height:1.8;margin-bottom:24px;}
-    .partnership-pts{display:flex;flex-direction:column;gap:12px;}
-    .partnership-pt{display:flex;align-items:flex-start;gap:12px;}
-    .partnership-pt-icon{font-size:16px;flex-shrink:0;margin-top:1px;}
-    .partnership-pt-text{}
-    .partnership-pt-title{font-size:12px;font-weight:700;color:rgba(255,255,255,0.9);margin-bottom:2px;}
-    .partnership-pt-desc{font-size:11px;color:rgba(255,255,255,0.6);line-height:1.5;}
-    .partnership-logos{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:24px;}
-    .partner-logo-box{width:220px;height:80px;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);border-radius:var(--radius);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:rgba(255,255,255,0.6);letter-spacing:1px;}
-    .partner-link-icon{font-size:20px;color:rgba(255,255,255,0.4);}
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(1.3); }
+    }
 
-    /* ════ 07 — ÉQUIPE (4 cartes) ════ */
-    .team-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;}
-    .team-card{background:var(--bg-white);border:1px solid var(--stroke-light);border-radius:var(--radius);overflow:hidden;}
-    .team-photo{height:180px;background:var(--bg-medium);display:flex;align-items:center;justify-content:center;font-size:36px;font-weight:700;color:var(--text-meta);}
-    .team-body{padding:16px;}
-    .team-name{font-size:14px;font-weight:700;color:var(--text-label);margin-bottom:4px;}
-    .team-role{font-size:11px;font-weight:600;color:var(--text-meta);margin-bottom:4px;}
-    .team-acef{font-size:10px;color:var(--text-ghost);margin-bottom:10px;}
-    .team-bio{font-size:11px;color:var(--text-meta);line-height:1.5;}
+    .left-title {
+      font-family: var(--font-title);
+      font-weight: 900;
+      font-size: clamp(42px, 5vw, 72px);
+      line-height: 0.95;
+      color: var(--blanc);
+      text-transform: uppercase;
+      margin-bottom: 24px;
+    }
 
-    /* ════ 08 — CERTIFICATIONS / ENGAGEMENTS RSE ════ */
-    .rse-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;}
-    .rse-card{padding:20px;background:var(--bg-white);border:1px solid var(--stroke-light);border-radius:var(--radius);text-align:center;}
-    .rse-icon{width:56px;height:56px;background:var(--bg-light);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:24px;margin:0 auto 12px;}
-    .rse-title{font-size:12px;font-weight:700;color:var(--text-label);margin-bottom:6px;}
-    .rse-desc{font-size:11px;color:var(--text-meta);line-height:1.5;}
-    .rse-badge{display:inline-block;margin-top:8px;padding:3px 8px;background:var(--bg-light);border-radius:2px;font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--text-ghost);}
+    .left-title .highlight {
+      color: var(--orange);
+      position: relative;
+      display: inline-block;
+    }
 
-    /* ════ 09 — CTA BAS DE PAGE ════ */
-    .cta-section{padding:80px 0;background:var(--bg-white);}
-    .cta-box{background:var(--bg-light);border:1px solid var(--stroke-light);border-radius:var(--radius);padding:56px 80px;display:grid;grid-template-columns:1fr auto;align-items:center;gap:60px;}
-    .cta-title{font-size:26px;font-weight:800;color:var(--text-label);line-height:1.2;margin-bottom:10px;}
-    .cta-sub{font-size:13px;color:var(--text-meta);line-height:1.6;}
-    .cta-actions{display:flex;flex-direction:column;gap:10px;min-width:220px;}
-    .btn-primary{padding:15px 28px;background:var(--accent);color:white;font-size:13px;font-weight:700;text-align:center;border-radius:var(--radius);cursor:default;}
-    .btn-secondary{padding:14px 28px;background:transparent;border:1.5px solid var(--stroke-strong);color:var(--text-label);font-size:13px;font-weight:600;text-align:center;border-radius:var(--radius);cursor:default;}
+    .left-title .highlight::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: 2px;
+      width: 100%;
+      height: 4px;
+      background: var(--orange);
+      opacity: 0.4;
+    }
 
-    /* ════ FOOTER ════ */
-    .footer{background:var(--bg-dark);border-top:1px solid var(--stroke-medium);padding:56px 0 24px;}
-    .footer-grid{max-width:var(--content);margin:0 auto;padding:0 40px;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:60px;margin-bottom:48px;}
-    .footer-logo{width:120px;height:36px;background:var(--bg-medium);border-radius:var(--radius);display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:var(--text-meta);letter-spacing:1px;margin-bottom:16px;}
-    .footer-desc{font-size:11px;color:var(--text-meta);line-height:1.6;margin-bottom:16px;}
-    .footer-socials{display:flex;gap:8px;}
-    .footer-soc{width:32px;height:32px;background:var(--bg-medium);border-radius:var(--radius);display:flex;align-items:center;justify-content:center;font-size:11px;color:var(--text-meta);}
-    .footer-col-title{font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--text-label);margin-bottom:16px;}
-    .footer-links{list-style:none;display:flex;flex-direction:column;gap:8px;}
-    .footer-links li{font-size:12px;color:var(--text-meta);}
-    .footer-bottom{max-width:var(--content);margin:0 auto;padding:20px 40px 0;border-top:1px solid var(--stroke-medium);display:flex;justify-content:space-between;align-items:center;}
-    .footer-copy{font-size:10px;color:var(--text-ghost);}
-    .footer-bottom-links{display:flex;gap:24px;}
-    .footer-bottom-links span{font-size:10px;color:var(--text-ghost);}
+    .left-sub {
+      font-size: 15px;
+      color: rgba(255,255,255,0.5);
+      line-height: 1.6;
+      max-width: 380px;
+      margin-bottom: 48px;
+    }
 
-    /* Index */
-    .page-index{position:fixed;right:20px;top:50%;transform:translateY(-50%);background:white;border:1px solid var(--stroke-light);border-radius:var(--radius);padding:12px 0;z-index:1000;box-shadow:0 2px 8px rgba(0,0,0,0.08);min-width:150px;}
-    .pi-title{font-size:8px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--text-ghost);padding:0 12px 8px;border-bottom:1px solid var(--stroke-light);margin-bottom:6px;}
-    .pi-item{padding:4px 12px;font-size:9px;color:var(--text-meta);display:flex;align-items:center;gap:8px;}
-    .pi-num{font-weight:700;color:var(--text-ghost);min-width:20px;}
+    /* Stats */
+    .stats-row {
+      display: flex;
+      gap: 40px;
+    }
+
+    .stat-item {}
+
+    .stat-number {
+      font-family: var(--font-title);
+      font-weight: 900;
+      font-size: 36px;
+      color: var(--blanc);
+      line-height: 1;
+    }
+
+    .stat-number span {
+      color: var(--orange);
+    }
+
+    .stat-label {
+      font-size: 12px;
+      color: rgba(255,255,255,0.4);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-top: 4px;
+    }
+
+    /* Séparateur vertical */
+    .stat-sep {
+      width: 1px;
+      background: rgba(255,255,255,0.1);
+      align-self: stretch;
+    }
+
+    /* DROITE — formulaire */
+    .right-panel {
+      width: 480px;
+      min-width: 420px;
+      background: var(--blanc);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 56px 52px;
+      position: relative;
+    }
+
+    /* Accent orange en haut */
+    .right-panel::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: var(--orange);
+    }
+
+    /* Logo */
+    .logo-wrap {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 48px;
+    }
+
+    .logo-icon {
+      width: 38px;
+      height: 38px;
+      background: var(--marine);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .logo-icon svg {
+      width: 22px;
+      height: 22px;
+    }
+
+    .logo-text {
+      font-family: var(--font-title);
+      font-weight: 900;
+      font-size: 20px;
+      color: var(--marine);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .logo-text span {
+      color: var(--bleu);
+    }
+
+    /* En-tête formulaire */
+    .form-header {
+      margin-bottom: 36px;
+    }
+
+    .form-eyebrow {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--orange);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      margin-bottom: 10px;
+    }
+
+    .form-title {
+      font-family: var(--font-title);
+      font-weight: 900;
+      font-size: 32px;
+      color: var(--marine);
+      text-transform: uppercase;
+      line-height: 1;
+      margin-bottom: 10px;
+    }
+
+    .form-sub {
+      font-size: 13px;
+      color: var(--gris-texte);
+      line-height: 1.5;
+    }
+
+    /* Champs */
+    .field-group {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      margin-bottom: 28px;
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .field label {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--marine);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .input-wrap {
+      position: relative;
+    }
+
+    .input-wrap input {
+      width: 100%;
+      padding: 14px 16px 14px 44px;
+      border: 1.5px solid #DDE1EF;
+      border-radius: 8px;
+      font-family: var(--font-body);
+      font-size: 14px;
+      color: var(--marine);
+      background: var(--bleu-light);
+      outline: none;
+      transition: border-color 0.2s, background 0.2s, box-shadow 0.2s;
+    }
+
+    .input-wrap input::placeholder {
+      color: #9BA5C4;
+    }
+
+    .input-wrap input:focus {
+      border-color: var(--bleu);
+      background: var(--blanc);
+      box-shadow: 0 0 0 4px rgba(43,58,158,0.08);
+    }
+
+    .input-icon {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #9BA5C4;
+      pointer-events: none;
+      display: flex;
+    }
+
+    .toggle-pwd {
+      position: absolute;
+      right: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: #9BA5C4;
+      display: flex;
+      transition: color 0.2s;
+    }
+
+    .toggle-pwd:hover { color: var(--bleu); }
+
+    /* Options sous password */
+    .field-options {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: -8px;
+    }
+
+    .checkbox-wrap {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+    }
+
+    .checkbox-wrap input[type="checkbox"] {
+      appearance: none;
+      width: 16px;
+      height: 16px;
+      border: 1.5px solid #DDE1EF;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.2s;
+      position: relative;
+    }
+
+    .checkbox-wrap input[type="checkbox"]:checked {
+      background: var(--bleu);
+      border-color: var(--bleu);
+    }
+
+    .checkbox-wrap input[type="checkbox"]:checked::after {
+      content: '';
+      position: absolute;
+      left: 4px;
+      top: 2px;
+      width: 5px;
+      height: 8px;
+      border: 2px solid white;
+      border-top: none;
+      border-left: none;
+      transform: rotate(45deg);
+    }
+
+    .checkbox-wrap span {
+      font-size: 12px;
+      color: var(--gris-texte);
+    }
+
+    .forgot-link {
+      font-size: 12px;
+      color: var(--bleu);
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    .forgot-link:hover { color: var(--orange); }
+
+    /* Bouton principal */
+    .btn-primary {
+      width: 100%;
+      padding: 16px;
+      background: var(--marine);
+      color: var(--blanc);
+      border: none;
+      border-radius: 8px;
+      font-family: var(--font-title);
+      font-weight: 700;
+      font-size: 16px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      position: relative;
+      overflow: hidden;
+      transition: background 0.25s, transform 0.15s;
+      margin-bottom: 20px;
+    }
+
+    .btn-primary::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      height: 100%;
+      width: 4px;
+      background: var(--orange);
+      transition: width 0.3s ease;
+    }
+
+    .btn-primary:hover {
+      background: var(--marine-mid);
+      transform: translateY(-1px);
+    }
+
+    .btn-primary:hover::before {
+      width: 100%;
+      opacity: 0.1;
+    }
+
+    .btn-primary:active { transform: translateY(0); }
+
+    .btn-arrow {
+      width: 20px;
+      height: 20px;
+      background: var(--orange);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: transform 0.2s;
+    }
+
+    .btn-primary:hover .btn-arrow { transform: translateX(3px); }
+
+    /* Message accès restreint */
+    .access-note {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 14px 16px;
+      background: var(--bleu-light);
+      border-radius: 8px;
+      border-left: 3px solid var(--bleu);
+    }
+
+    .access-note svg { flex-shrink: 0; margin-top: 1px; }
+
+    .access-note p {
+      font-size: 12px;
+      color: var(--gris-texte);
+      line-height: 1.5;
+    }
+
+    .access-note a {
+      color: var(--bleu);
+      font-weight: 600;
+      text-decoration: none;
+    }
+
+    .access-note a:hover { text-decoration: underline; }
+
+    /* Footer du formulaire */
+    .form-footer {
+      margin-top: 40px;
+      padding-top: 24px;
+      border-top: 1px solid #EEF1FA;
+      font-size: 11px;
+      color: #B0B9D4;
+      text-align: center;
+    }
+
+    /* ─── RESPONSIVE ─────────────────────────────────────────────── */
+    @media (max-width: 900px) {
+      body { flex-direction: column; overflow: auto; }
+      .left-panel { min-height: 280px; flex: none; padding: 36px 28px; }
+      .left-title { font-size: 40px; }
+      .stats-row { gap: 24px; }
+      .right-panel { width: 100%; min-width: unset; padding: 40px 28px; }
+    }
+
+    /* ─── ANIMATIONS ENTRÉE ──────────────────────────────────────── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .badge-acces   { animation: fadeUp 0.5s ease both; animation-delay: 0.1s; }
+    .left-title    { animation: fadeUp 0.5s ease both; animation-delay: 0.2s; }
+    .left-sub      { animation: fadeUp 0.5s ease both; animation-delay: 0.3s; }
+    .stats-row     { animation: fadeUp 0.5s ease both; animation-delay: 0.4s; }
+    .logo-wrap     { animation: fadeUp 0.4s ease both; animation-delay: 0.2s; }
+    .form-header   { animation: fadeUp 0.4s ease both; animation-delay: 0.3s; }
+    .field-group   { animation: fadeUp 0.4s ease both; animation-delay: 0.4s; }
+    .btn-primary   { animation: fadeUp 0.4s ease both; animation-delay: 0.5s; }
+    .access-note   { animation: fadeUp 0.4s ease both; animation-delay: 0.6s; }
   </style>
 </head>
 <body>
 
-<div class="doc-header">
-  <div>
-    <div class="doc-project">ACEF × Bimier Solutions — Refonte Site Catalogue</div>
-    <div class="doc-page">Wireframe 10 — Page À propos</div>
-  </div>
-  <div>
-    <div class="doc-meta">Desktop 1440px · v1.0 · Mai 2026</div>
-    <div class="doc-meta">Chapitre 7 — Solutions proposées</div>
-    <div class="doc-badge">Basse fidélité</div>
-  </div>
-</div>
+  <!-- ═══ PANNEAU GAUCHE ═══════════════════════════════════════════ -->
+  <div class="left-panel">
+    <div class="grid-deco"></div>
+    <div class="circle-accent"></div>
+    <div class="circle-accent-2"></div>
 
-<div class="page-index">
-  <div class="pi-title">Sections</div>
-  <div class="pi-item"><span class="pi-num">01</span>Navigation</div>
-  <div class="pi-item"><span class="pi-num">02</span>Hero</div>
-  <div class="pi-item"><span class="pi-num">03</span>Chiffres clés</div>
-  <div class="pi-item"><span class="pi-num">04</span>Notre histoire</div>
-  <div class="pi-item"><span class="pi-num">05</span>Nos valeurs</div>
-  <div class="pi-item"><span class="pi-num">06</span>Partenariat ACEF</div>
-  <div class="pi-item"><span class="pi-num">07</span>Notre équipe</div>
-  <div class="pi-item"><span class="pi-num">08</span>Engagements RSE</div>
-  <div class="pi-item"><span class="pi-num">09</span>CTA contact</div>
-  <div class="pi-item"><span class="pi-num">10</span>Footer</div>
-</div>
+    <div class="left-content">
+      <div class="badge-acces">
+        <span></span>
+        <p>Portail réservé aux adhérents ACEF</p>
+      </div>
 
-<div class="pw">
+      <h1 class="left-title">
+        DES OBJETS<br>
+        PUBLI&shy;CITAIRES<br>
+        <span class="highlight">SUR-MESURE</span>
+      </h1>
 
-  <!-- ════ 01 — NAVIGATION ════ -->
-  <div class="ruler">Section 01 — Navigation / Onglet "À propos" actif</div>
-  <div class="navbar">
-    <div class="navbar-inner">
-      <div class="nav-logo">BIMIER LOGO</div>
-      <ul class="nav-links">
-        <li>Accueil</li>
-        <li>Catalogue</li>
-        <li class="active">À propos</li>
-        <li>Contact</li>
-      </ul>
-      <div class="nav-search"><span>🔍</span>Rechercher un produit…</div>
-      <div class="nav-account"><div class="nav-dot"></div>Mon compte ACEF</div>
+      <p class="left-sub">
+        La sélection exclusive Bimier Solutions pour les agents de la fonction publique. Textiles, goodies, high-tech — personnalisés à votre image.
+      </p>
+
+      <div class="stats-row">
+        <div class="stat-item">
+          <div class="stat-number">450<span>+</span></div>
+          <div class="stat-label">Références</div>
+        </div>
+        <div class="stat-sep"></div>
+        <div class="stat-item">
+          <div class="stat-number">72</div>
+          <div class="stat-label">Catégories</div>
+        </div>
+        <div class="stat-sep"></div>
+        <div class="stat-item">
+          <div class="stat-number">0<span>€</span></div>
+          <div class="stat-label">Frais de port</div>
+        </div>
+      </div>
     </div>
   </div>
 
-  <!-- ════ 02 — HERO ════ -->
-  <div class="ruler">Section 02 — Hero / 420px / Image pleine largeur + overlay + accroche / Fond foncé cohérent</div>
-  <div class="hero">
-    <div class="hero-bg-label">IMAGE DE FOND — PLEINE LARGEUR<br/>Recommandé : atelier de production, équipe, produits marqués · 1440×420px</div>
-    <div class="hero-overlay"></div>
-    <div class="hero-content">
-      <div class="hero-overline">À propos de Bimier Solutions</div>
-      <div class="hero-title">Votre partenaire de confiance depuis 25 ans.</div>
-      <div class="hero-sub">Spécialistes de la communication par l'objet, nous accompagnons les associations ACEF avec des produits personnalisés de qualité, des tarifs négociés et un suivi dédié.</div>
+  <!-- ═══ PANNEAU DROIT ════════════════════════════════════════════ -->
+  <div class="right-panel">
+
+    <!-- Logo -->
+    <div class="logo-wrap">
+      <div class="logo-icon">
+        <svg viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M4 4h6c2.2 0 4 1.8 4 4s-1.8 4-4 4H4V4z" fill="#2B3A9E"/>
+          <path d="M4 12h7c2.2 0 4 1.8 4 4s-1.8 4-4 4H4V12z" fill="#F5A623"/>
+        </svg>
+      </div>
+      <div class="logo-text">BIMIER <span>ACEF</span></div>
     </div>
-  </div>
 
-  <!-- ════ 03 — CHIFFRES CLÉS ════ -->
-  <div class="ruler">Section 03 — Chiffres clés / Bandeau foncé pleine largeur / 4 métriques d'impact</div>
-  <div class="stats-band">
-    <div class="stats-inner">
-      <div class="stat"><div class="stat-val">25</div><div class="stat-label">Ans d'expertise</div></div>
-      <div class="stat"><div class="stat-val">3 500</div><div class="stat-label">ACEF partenaires</div></div>
-      <div class="stat"><div class="stat-val">5 000+</div><div class="stat-label">Références catalogue</div></div>
-      <div class="stat"><div class="stat-val">98%</div><div class="stat-label">Satisfaction client</div></div>
+    <!-- En-tête -->
+    <div class="form-header">
+      <p class="form-eyebrow">Accès sécurisé</p>
+      <h2 class="form-title">Connexion<br>à votre espace</h2>
+      <p class="form-sub">Identifiez-vous avec vos identifiants transmis par votre administrateur.</p>
     </div>
-  </div>
 
-  <!-- ════ 04 — NOTRE HISTOIRE ════ -->
-  <div class="ruler">Section 04 — Notre histoire / Layout 2 colonnes : texte + timeline à gauche · image à droite</div>
-  <div class="section">
-    <div class="cx">
-      <div class="slabel">04 — Notre histoire</div>
-      <div class="histoire-grid">
-        <div class="histoire-text">
-          <div class="overline">Qui sommes-nous</div>
-          <div class="section-title">De LB Trade à Bimier Solutions.</div>
-          <div class="histoire-body">[ZONE TEXTE — Présentation de l'entreprise : fondation, rachat de LB Trade, spécialisation dans les cartes PVC/NFC/RFID et objets de communication, expertise B2B, positionnement sur le marché des associations de fonctionnaires. Environ 80–100 mots.]</div>
-          <div class="histoire-body">[ZONE TEXTE — Suite : développement du partenariat ACEF, création du catalogue privé dédié, engagements qualité et réactivité. Environ 60–80 mots.]</div>
+    <!-- Formulaire -->
+    <form onsubmit="return false;">
+      <div class="field-group">
 
-          <!-- Timeline -->
-          <div class="histoire-timeline">
-            <div class="timeline-item">
-              <div class="timeline-dot">98</div>
-              <div class="timeline-content">
-                <div class="timeline-year">1998</div>
-                <div class="timeline-desc">Création de LB Trade, spécialiste objets promotionnels pour le secteur public</div>
-              </div>
-            </div>
-            <div class="timeline-item">
-              <div class="timeline-dot">10</div>
-              <div class="timeline-content">
-                <div class="timeline-year">2010</div>
-                <div class="timeline-desc">Lancement du catalogue privé ACEF — premier espace dédié aux associations de fonctionnaires</div>
-              </div>
-            </div>
-            <div class="timeline-item">
-              <div class="timeline-dot">18</div>
-              <div class="timeline-content">
-                <div class="timeline-year">2018</div>
-                <div class="timeline-desc">Lancement des gammes cartes PVC, NFC et RFID — diversification vers l'identité numérique</div>
-              </div>
-            </div>
-            <div class="timeline-item">
-              <div class="timeline-dot">24</div>
-              <div class="timeline-content">
-                <div class="timeline-year">2024</div>
-                <div class="timeline-desc">Rachat de LB Trade par Bimier Solutions — continuité du partenariat ACEF et refonte du catalogue</div>
-              </div>
-            </div>
+        <!-- Email -->
+        <div class="field">
+          <label for="email">Adresse e-mail professionnelle</label>
+          <div class="input-wrap">
+            <span class="input-icon">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                <polyline points="22,6 12,13 2,6"/>
+              </svg>
+            </span>
+            <input type="email" id="email" placeholder="jean.dupont@acef.fr" autocomplete="email" />
           </div>
         </div>
-        <div class="img-ph histoire-img">
-          <span>IMAGE ENTREPRISE<br/>560×380px<br/>Atelier, équipe ou produits</span>
+
+        <!-- Mot de passe -->
+        <div class="field">
+          <label for="password">Mot de passe</label>
+          <div class="input-wrap">
+            <span class="input-icon">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+              </svg>
+            </span>
+            <input type="password" id="password" placeholder="••••••••" autocomplete="current-password" />
+            <button class="toggle-pwd" type="button" onclick="togglePwd()" title="Afficher le mot de passe">
+              <svg id="eye-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                <circle cx="12" cy="12" r="3"/>
+              </svg>
+            </button>
+          </div>
         </div>
+
       </div>
+
+      <!-- Options -->
+      <div class="field-options" style="margin-bottom:28px;">
+        <label class="checkbox-wrap">
+          <input type="checkbox" />
+          <span>Mémoriser ma session</span>
+        </label>
+        <a href="#" class="forgot-link">Mot de passe oublié ?</a>
+      </div>
+
+      <!-- CTA -->
+      <button class="btn-primary" type="submit">
+        Accéder au portail
+        <span class="btn-arrow">
+          <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
+            <path d="M2 5h6M5 2l3 3-3 3" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </span>
+      </button>
+
+      <!-- Note accès restreint -->
+      <div class="access-note">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#2B3A9E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"/>
+          <line x1="12" y1="8" x2="12" y2="12"/>
+          <line x1="12" y1="16" x2="12.01" y2="16"/>
+        </svg>
+        <p>L'accès à ce portail est strictement réservé aux adhérents ACEF. Pas encore de compte ? <a href="#">Contactez votre administrateur.</a></p>
+      </div>
+
+    </form>
+
+    <!-- Footer -->
+    <div class="form-footer">
+      © 2026 Bimier Solutions · Partenaire exclusif ACEF · <a href="#" style="color:#9BA5C4;">Mentions légales</a>
     </div>
+
   </div>
 
-  <!-- ════ 05 — NOS VALEURS ════ -->
-  <div class="ruler">Section 05 — Nos valeurs / 3 colonnes / Qualité · Réactivité · Engagement RSE</div>
-  <div class="section-alt">
-    <div class="cx">
-      <div class="slabel">05 — Nos valeurs</div>
-      <div class="overline">Ce qui nous guide</div>
-      <div class="section-title" style="margin-bottom:8px;">Trois engagements, une seule priorité : vous.</div>
-      <p style="font-size:13px;color:var(--text-meta);line-height:1.7;margin-bottom:36px;max-width:600px;">[ZONE TEXTE — Introduction courte sur la philosophie de l'entreprise · 2–3 phrases]</p>
-      <div class="valeurs-grid">
-        <div class="valeur-card">
-          <div class="valeur-icon">🎯</div>
-          <div class="valeur-title">Qualité & Lisibilité</div>
-          <div class="valeur-desc">[ZONE TEXTE — Engagement sur la qualité des produits, les techniques de marquage, les contrastes et la durabilité. Environ 40–50 mots.]</div>
-        </div>
-        <div class="valeur-card">
-          <div class="valeur-icon">⚡</div>
-          <div class="valeur-title">Réactivité B2B</div>
-          <div class="valeur-desc">[ZONE TEXTE — Engagement sur les délais de réponse (devis 24h), le BAT visuel gratuit, le conseiller dédié ACEF. Environ 40–50 mots.]</div>
-        </div>
-        <div class="valeur-card">
-          <div class="valeur-icon">🌱</div>
-          <div class="valeur-title">Éco-responsabilité</div>
-          <div class="valeur-desc">[ZONE TEXTE — Engagement RSE : gamme éco, certifications GOTS/Oeko-Tex, matériaux recyclés, politique Green UX sur le catalogue. Environ 40–50 mots.]</div>
-        </div>
-      </div>
-    </div>
-  </div>
+  <script>
+    function togglePwd() {
+      const input = document.getElementById('password');
+      const icon  = document.getElementById('eye-icon');
+      if (input.type === 'password') {
+        input.type = 'text';
+        icon.innerHTML = `
+          <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/>
+          <path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/>
+          <line x1="1" y1="1" x2="23" y2="23"/>`;
+      } else {
+        input.type = 'password';
+        icon.innerHTML = `
+          <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+          <circle cx="12" cy="12" r="3"/>`;
+      }
+    }
+  </script>
 
-  <!-- ════ 06 — PARTENARIAT ACEF ════ -->
-  <div class="ruler">Section 06 — Partenariat ACEF / Bandeau foncé fort / Logos + points clés exclusivité</div>
-  <div class="partnership-block">
-    <div class="partnership-inner">
-      <div class="partnership-text">
-        <div class="slabel" style="border-left-color:rgba(255,255,255,0.3);background:rgba(255,255,255,0.08);color:rgba(255,255,255,0.5);">06 — Partenariat ACEF</div>
-        <div class="partnership-overline">Un partenariat exclusif</div>
-        <div class="partnership-title">Bimier Solutions,<br/>partenaire officiel des ACEF.</div>
-        <div class="partnership-body">[ZONE TEXTE — Description du partenariat historique avec les ACEF : associations de fonctionnaires, accès catalogue privé, tarifs négociés, volume de commandes, engagement de longue durée. Environ 60–80 mots.]</div>
-        <div class="partnership-pts">
-          <div class="partnership-pt">
-            <span class="partnership-pt-icon">🔒</span>
-            <div class="partnership-pt-text">
-              <div class="partnership-pt-title">Catalogue 100% privé</div>
-              <div class="partnership-pt-desc">Accessible uniquement aux membres ACEF enregistrés — tarifs exclusifs non publics</div>
-            </div>
-          </div>
-          <div class="partnership-pt">
-            <span class="partnership-pt-icon">💰</span>
-            <div class="partnership-pt-text">
-              <div class="partnership-pt-title">Tarifs négociés membres</div>
-              <div class="partnership-pt-desc">Grille tarifaire déressive spécialement conçue pour les commandes en volume ACEF</div>
-            </div>
-          </div>
-          <div class="partnership-pt">
-            <span class="partnership-pt-icon">👤</span>
-            <div class="partnership-pt-text">
-              <div class="partnership-pt-title">Conseiller dédié ACEF</div>
-              <div class="partnership-pt-desc">Un interlocuteur unique de la conception à la livraison, partout en France</div>
-            </div>
-          </div>
-          <div class="partnership-pt">
-            <span class="partnership-pt-icon">🚚</span>
-            <div class="partnership-pt-text">
-              <div class="partnership-pt-title">Livraison multi-sites</div>
-              <div class="partnership-pt-desc">Gestion logistique adaptée aux structures à plusieurs antennes régionales</div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="partnership-logos">
-        <div class="partner-logo-box">LOGO BIMIER SOLUTIONS</div>
-        <div class="partner-link-icon">⟷</div>
-        <div class="partner-logo-box">LOGO ACEF</div>
-        <div style="font-size:11px;color:rgba(255,255,255,0.4);text-align:center;margin-top:8px;">Partenariat officiel depuis 2010</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ════ 07 — NOTRE ÉQUIPE ════ -->
-  <div class="ruler">Section 07 — Notre équipe / 4 cartes / Focus sur les conseillers ACEF dédiés</div>
-  <div class="section">
-    <div class="cx">
-      <div class="slabel">07 — Notre équipe</div>
-      <div class="overline">Les personnes derrière vos commandes</div>
-      <div class="section-title" style="margin-bottom:8px;">Une équipe dédiée à votre réussite.</div>
-      <p style="font-size:13px;color:var(--text-meta);line-height:1.7;margin-bottom:36px;max-width:560px;">[ZONE TEXTE — Introduction équipe · 2 phrases · Mettre en avant l'expertise et la disponibilité]</p>
-      <div class="team-grid">
-        <div class="team-card">
-          <div class="team-photo">CM</div>
-          <div class="team-body">
-            <div class="team-name">Camille Martin</div>
-            <div class="team-role">Conseillère ACEF — Île-de-France</div>
-            <div class="team-acef">Référente ACEF · 8 ans d'expérience</div>
-            <div class="team-bio">[Zone texte · Spécialité, secteur géographique, type de commandes traitées · 2–3 phrases]</div>
-          </div>
-        </div>
-        <div class="team-card">
-          <div class="team-photo">TR</div>
-          <div class="team-body">
-            <div class="team-name">Thomas Rivière</div>
-            <div class="team-role">Responsable Studio Graphique</div>
-            <div class="team-acef">BAT & Maquettes · 12 ans d'expérience</div>
-            <div class="team-bio">[Zone texte · Spécialité, secteur géographique, type de commandes traitées · 2–3 phrases]</div>
-          </div>
-        </div>
-        <div class="team-card">
-          <div class="team-photo">SB</div>
-          <div class="team-body">
-            <div class="team-name">Sophie Bernard</div>
-            <div class="team-role">Conseillère ACEF — Sud-Ouest</div>
-            <div class="team-acef">Référente ACEF · 5 ans d'expérience</div>
-            <div class="team-bio">[Zone texte · Spécialité, secteur géographique, type de commandes traitées · 2–3 phrases]</div>
-          </div>
-        </div>
-        <div class="team-card">
-          <div class="team-photo">ML</div>
-          <div class="team-body">
-            <div class="team-name">Marc Lefebvre</div>
-            <div class="team-role">Responsable Logistique</div>
-            <div class="team-acef">Livraisons multi-sites · 10 ans d'expérience</div>
-            <div class="team-bio">[Zone texte · Spécialité, secteur géographique, type de commandes traitées · 2–3 phrases]</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ════ 08 — ENGAGEMENTS RSE ════ -->
-  <div class="ruler">Section 08 — Engagements RSE & Certifications / 4 cartes / Labels qualité + éco</div>
-  <div class="section-alt">
-    <div class="cx">
-      <div class="slabel">08 — RSE & Certifications</div>
-      <div class="overline">Notre responsabilité</div>
-      <div class="section-title" style="margin-bottom:8px;">Des produits engagés, une démarche sincère.</div>
-      <p style="font-size:13px;color:var(--text-meta);line-height:1.7;margin-bottom:36px;max-width:560px;">[ZONE TEXTE — Introduction RSE · engagement environnemental · Green UX · 2–3 phrases]</p>
-      <div class="rse-grid">
-        <div class="rse-card">
-          <div class="rse-icon">🌿</div>
-          <div class="rse-title">Gamme éco-responsable</div>
-          <div class="rse-desc">Sélection de produits en matériaux recyclés, biosourcés ou certifiés.</div>
-          <div class="rse-badge">38 références</div>
-        </div>
-        <div class="rse-card">
-          <div class="rse-icon">✅</div>
-          <div class="rse-title">Certifications produits</div>
-          <div class="rse-desc">GOTS, Oeko-Tex Standard 100, FSC, ISO 62430 — labels vérifiés.</div>
-          <div class="rse-badge">4 certifications</div>
-        </div>
-        <div class="rse-card">
-          <div class="rse-icon">♻️</div>
-          <div class="rse-title">Emballages responsables</div>
-          <div class="rse-desc">Emballages recyclés ou réutilisables, réduction des plastiques sur toute la chaîne.</div>
-          <div class="rse-badge">Depuis 2021</div>
-        </div>
-        <div class="rse-card">
-          <div class="rse-icon">💻</div>
-          <div class="rse-title">Green UX & Éco-conception</div>
-          <div class="rse-desc">Ce site respecte les normes RGSEN d'éco-conception numérique (poids pages, dark mode…).</div>
-          <div class="rse-badge">RGSEN</div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ════ 09 — CTA ════ -->
-  <div class="ruler">Section 09 — CTA contact / Même composant que page accueil / Cohérence</div>
-  <div class="cta-section">
-    <div class="cx">
-      <div class="cta-box">
-        <div>
-          <div class="cta-title">Prêt à travailler avec nous ?</div>
-          <div class="cta-sub">Accédez au catalogue ACEF, demandez un devis personnalisé ou contactez directement votre conseiller Bimier dédié.</div>
-        </div>
-        <div class="cta-actions">
-          <div class="btn-primary">Explorer le catalogue</div>
-          <div class="btn-secondary">Nous contacter</div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ════ 10 — FOOTER ════ -->
-  <div class="ruler">Section 10 — Footer / Identique à toutes les pages / Composant réutilisable</div>
-  <div class="footer">
-    <div class="footer-grid">
-      <div>
-        <div class="footer-logo">BIMIER LOGO</div>
-        <div class="footer-desc">Votre partenaire exclusif ACEF pour une communication par l'objet réussie et durable. Basés en France, nous garantissons qualité et réactivité.</div>
-        <div class="footer-socials"><div class="footer-soc">in</div><div class="footer-soc">ig</div></div>
-      </div>
-      <div>
-        <div class="footer-col-title">Navigation</div>
-        <ul class="footer-links"><li>Accueil</li><li>Le Catalogue</li><li>À propos</li><li>Contact</li></ul>
-      </div>
-      <div>
-        <div class="footer-col-title">Légal</div>
-        <ul class="footer-links"><li>Mentions légales</li><li>CGV</li><li>Confidentialité</li></ul>
-      </div>
-      <div>
-        <div class="footer-col-title">Ligne directe</div>
-        <ul class="footer-links"><li>0800 123 456</li><li>Lun.–Ven. 9h–18h</li><li style="margin-top:8px;">acef@bimier.fr</li></ul>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <div class="footer-copy">© 2026 Bimier Solutions. Tous droits réservés. Espace ACEF — Accès réservé.</div>
-      <div class="footer-bottom-links"><span>Mentions légales</span><span>CGV</span><span>Confidentialité</span></div>
-    </div>
-  </div>
-
-</div>
 </body>
 </html>
