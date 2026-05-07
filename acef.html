@@ -4,701 +4,418 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Espace ACEF — Connexion</title>
-  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;700;900&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;900&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet" />
   <style>
-    /* ─── DESIGN TOKENS ─────────────────────────────────────────── */
     :root {
-      --marine:       #0D1235;
-      --marine-mid:   #1A2456;
-      --bleu:         #2B3A9E;
-      --bleu-light:   #EEF1FA;
-      --orange:       #F5A623;
-      --orange-light: #FDF0DC;
-      --blanc:        #FFFFFF;
-      --gris-texte:   #6B7A9E;
-      --font-title:   'Barlow Condensed', sans-serif;
-      --font-body:    'Barlow', sans-serif;
+      --marine:     #0D1235;
+      --marine-mid: #1A2456;
+      --bleu:       #2B3A9E;
+      --bleu-light: #EEF1FA;
+      --orange:     #F5A623;
+      --gris:       #6B7A9E;
+      --border:     #E2E6F0;
     }
 
-    /* ─── RESET ─────────────────────────────────────────────────── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html, body { height: 100%; }
 
-    /* ─── LAYOUT ─────────────────────────────────────────────────── */
     body {
-      font-family: var(--font-body);
-      background-color: var(--marine);
-      display: flex;
+      font-family: 'Barlow', sans-serif;
+      background: #F4F5F9;
       min-height: 100vh;
-      overflow: hidden;
-    }
-
-    /* GAUCHE — visuel */
-    .left-panel {
-      flex: 1;
-      position: relative;
       display: flex;
       flex-direction: column;
-      justify-content: flex-end;
-      padding: 48px;
-      overflow: hidden;
-    }
-
-    .left-panel::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background:
-        linear-gradient(135deg, var(--marine) 0%, var(--marine-mid) 50%, #1E2D6E 100%);
-      z-index: 0;
-    }
-
-    /* Grille décorative */
-    .grid-deco {
-      position: absolute;
-      inset: 0;
-      z-index: 1;
-      background-image:
-        linear-gradient(rgba(43,58,158,0.15) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(43,58,158,0.15) 1px, transparent 1px);
-      background-size: 60px 60px;
-    }
-
-    /* Cercle accent */
-    .circle-accent {
-      position: absolute;
-      width: 500px;
-      height: 500px;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(43,58,158,0.4) 0%, transparent 70%);
-      top: -100px;
-      right: -100px;
-      z-index: 1;
-    }
-
-    .circle-accent-2 {
-      position: absolute;
-      width: 300px;
-      height: 300px;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(245,166,35,0.15) 0%, transparent 70%);
-      bottom: 100px;
-      left: -50px;
-      z-index: 1;
-    }
-
-    /* Contenu panneau gauche */
-    .left-content {
-      position: relative;
-      z-index: 2;
-    }
-
-    .badge-acces {
-      display: inline-flex;
       align-items: center;
-      gap: 8px;
-      background: rgba(245,166,35,0.15);
-      border: 1px solid rgba(245,166,35,0.3);
-      border-radius: 100px;
-      padding: 6px 14px;
-      margin-bottom: 32px;
-    }
-
-    .badge-acces span {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: var(--orange);
-      animation: pulse 2s infinite;
-    }
-
-    .badge-acces p {
-      font-family: var(--font-body);
-      font-size: 11px;
-      font-weight: 600;
-      color: var(--orange);
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-    }
-
-    @keyframes pulse {
-      0%, 100% { opacity: 1; transform: scale(1); }
-      50% { opacity: 0.5; transform: scale(1.3); }
-    }
-
-    .left-title {
-      font-family: var(--font-title);
-      font-weight: 900;
-      font-size: clamp(42px, 5vw, 72px);
-      line-height: 0.95;
-      color: var(--blanc);
-      text-transform: uppercase;
-      margin-bottom: 24px;
-    }
-
-    .left-title .highlight {
-      color: var(--orange);
-      position: relative;
-      display: inline-block;
-    }
-
-    .left-title .highlight::after {
-      content: '';
-      position: absolute;
-      left: 0;
-      bottom: 2px;
-      width: 100%;
-      height: 4px;
-      background: var(--orange);
-      opacity: 0.4;
-    }
-
-    .left-sub {
-      font-size: 15px;
-      color: rgba(255,255,255,0.5);
-      line-height: 1.6;
-      max-width: 380px;
-      margin-bottom: 48px;
-    }
-
-    /* Stats */
-    .stats-row {
-      display: flex;
-      gap: 40px;
-    }
-
-    .stat-item {}
-
-    .stat-number {
-      font-family: var(--font-title);
-      font-weight: 900;
-      font-size: 36px;
-      color: var(--blanc);
-      line-height: 1;
-    }
-
-    .stat-number span {
-      color: var(--orange);
-    }
-
-    .stat-label {
-      font-size: 12px;
-      color: rgba(255,255,255,0.4);
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      margin-top: 4px;
-    }
-
-    /* Séparateur vertical */
-    .stat-sep {
-      width: 1px;
-      background: rgba(255,255,255,0.1);
-      align-self: stretch;
-    }
-
-    /* DROITE — formulaire */
-    .right-panel {
-      width: 480px;
-      min-width: 420px;
-      background: var(--blanc);
-      display: flex;
-      flex-direction: column;
       justify-content: center;
+      padding: 40px 20px;
+    }
+
+    .page-label {
+      position: fixed;
+      top: 28px;
+      left: 36px;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700;
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gris);
+    }
+
+    .card {
+      background: #fff;
+      border-radius: 24px;
       padding: 56px 52px;
-      position: relative;
+      width: 100%;
+      max-width: 560px;
+      box-shadow: 0 4px 40px rgba(13,18,53,0.08);
+      animation: fadeUp 0.5s ease both;
     }
 
-    /* Accent orange en haut */
-    .right-panel::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 4px;
-      background: var(--orange);
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
     }
 
-    /* Logo */
-    .logo-wrap {
+    .logo {
       display: flex;
       align-items: center;
-      gap: 10px;
-      margin-bottom: 48px;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 36px;
     }
 
     .logo-icon {
-      width: 38px;
-      height: 38px;
-      background: var(--marine);
-      border-radius: 8px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      width: 42px;
+      height: 42px;
     }
 
-    .logo-icon svg {
-      width: 22px;
-      height: 22px;
-    }
-
-    .logo-text {
-      font-family: var(--font-title);
+    .logo-name {
+      font-family: 'Barlow Condensed', sans-serif;
       font-weight: 900;
       font-size: 20px;
       color: var(--marine);
       text-transform: uppercase;
-      letter-spacing: 0.05em;
+      letter-spacing: 0.04em;
+      line-height: 1.1;
     }
 
-    .logo-text span {
-      color: var(--bleu);
-    }
-
-    /* En-tête formulaire */
-    .form-header {
-      margin-bottom: 36px;
-    }
-
-    .form-eyebrow {
-      font-size: 11px;
-      font-weight: 600;
-      color: var(--orange);
+    .logo-sub {
+      font-size: 10px;
+      font-weight: 500;
+      color: var(--gris);
+      letter-spacing: 0.1em;
       text-transform: uppercase;
-      letter-spacing: 0.12em;
-      margin-bottom: 10px;
     }
 
-    .form-title {
-      font-family: var(--font-title);
+    .main-title {
+      font-family: 'Barlow Condensed', sans-serif;
       font-weight: 900;
-      font-size: 32px;
+      font-size: clamp(44px, 8vw, 62px);
       color: var(--marine);
-      text-transform: uppercase;
+      text-align: center;
       line-height: 1;
-      margin-bottom: 10px;
+      margin-bottom: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 14px;
     }
 
-    .form-sub {
-      font-size: 13px;
-      color: var(--gris-texte);
-      line-height: 1.5;
+    .pill {
+      background: var(--marine);
+      color: #fff;
+      border-radius: 100px;
+      padding: 6px 26px 10px;
+      font-size: inherit;
+      font-weight: 900;
+      font-family: inherit;
+      position: relative;
+      display: inline-block;
     }
 
-    /* Champs */
-    .field-group {
+    .pill::after {
+      content: '';
+      position: absolute;
+      inset: -5px;
+      border-radius: 100px;
+      background: var(--bleu);
+      opacity: 0.18;
+      filter: blur(10px);
+      z-index: -1;
+    }
+
+    .fields {
       display: flex;
       flex-direction: column;
       gap: 20px;
-      margin-bottom: 28px;
-    }
-
-    .field {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
+      margin-bottom: 20px;
     }
 
     .field label {
-      font-size: 12px;
-      font-weight: 600;
-      color: var(--marine);
+      display: block;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
       text-transform: uppercase;
-      letter-spacing: 0.08em;
+      color: var(--marine);
+      margin-bottom: 8px;
     }
 
-    .input-wrap {
-      position: relative;
-    }
+    .input-wrap { position: relative; }
 
     .input-wrap input {
       width: 100%;
-      padding: 14px 16px 14px 44px;
-      border: 1.5px solid #DDE1EF;
-      border-radius: 8px;
-      font-family: var(--font-body);
-      font-size: 14px;
+      padding: 16px 20px;
+      border: 1.5px solid var(--border);
+      border-radius: 12px;
+      font-family: 'Barlow', sans-serif;
+      font-size: 15px;
       color: var(--marine);
-      background: var(--bleu-light);
+      background: #FAFBFE;
       outline: none;
-      transition: border-color 0.2s, background 0.2s, box-shadow 0.2s;
+      transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
     }
 
-    .input-wrap input::placeholder {
-      color: #9BA5C4;
-    }
+    .input-wrap input::placeholder { color: #B8C0D8; }
 
     .input-wrap input:focus {
       border-color: var(--bleu);
-      background: var(--blanc);
-      box-shadow: 0 0 0 4px rgba(43,58,158,0.08);
+      background: #fff;
+      box-shadow: 0 0 0 4px rgba(43,58,158,0.07);
     }
 
-    .input-icon {
+    .btn-show {
       position: absolute;
-      left: 14px;
-      top: 50%;
-      transform: translateY(-50%);
-      color: #9BA5C4;
-      pointer-events: none;
-      display: flex;
-    }
-
-    .toggle-pwd {
-      position: absolute;
-      right: 14px;
+      right: 18px;
       top: 50%;
       transform: translateY(-50%);
       background: none;
       border: none;
+      font-family: 'Barlow', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--gris);
       cursor: pointer;
-      color: #9BA5C4;
-      display: flex;
       transition: color 0.2s;
     }
 
-    .toggle-pwd:hover { color: var(--bleu); }
+    .btn-show:hover { color: var(--bleu); }
 
-    /* Options sous password */
-    .field-options {
+    .options {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin-top: -8px;
+      margin-bottom: 28px;
     }
 
-    .checkbox-wrap {
+    .check-label {
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 9px;
       cursor: pointer;
+      font-size: 13px;
+      color: var(--gris);
     }
 
-    .checkbox-wrap input[type="checkbox"] {
+    .check-label input[type="checkbox"] {
       appearance: none;
-      width: 16px;
-      height: 16px;
-      border: 1.5px solid #DDE1EF;
-      border-radius: 4px;
+      width: 18px;
+      height: 18px;
+      border: 1.5px solid var(--border);
+      border-radius: 5px;
       cursor: pointer;
-      transition: all 0.2s;
+      transition: all 0.15s;
       position: relative;
+      flex-shrink: 0;
     }
 
-    .checkbox-wrap input[type="checkbox"]:checked {
-      background: var(--bleu);
-      border-color: var(--bleu);
+    .check-label input:checked {
+      background: var(--marine);
+      border-color: var(--marine);
     }
 
-    .checkbox-wrap input[type="checkbox"]:checked::after {
+    .check-label input:checked::after {
       content: '';
       position: absolute;
-      left: 4px;
+      left: 5px;
       top: 2px;
       width: 5px;
-      height: 8px;
-      border: 2px solid white;
+      height: 9px;
+      border: 2px solid #fff;
       border-top: none;
       border-left: none;
       transform: rotate(45deg);
     }
 
-    .checkbox-wrap span {
-      font-size: 12px;
-      color: var(--gris-texte);
-    }
-
-    .forgot-link {
-      font-size: 12px;
-      color: var(--bleu);
-      text-decoration: none;
+    .forgot {
+      font-size: 13px;
       font-weight: 500;
+      color: var(--gris);
+      text-decoration: none;
       transition: color 0.2s;
     }
 
-    .forgot-link:hover { color: var(--orange); }
+    .forgot:hover { color: var(--bleu); }
 
-    /* Bouton principal */
-    .btn-primary {
+    .btn-cta {
       width: 100%;
-      padding: 16px;
+      padding: 16px 20px 16px 28px;
       background: var(--marine);
-      color: var(--blanc);
       border: none;
-      border-radius: 8px;
-      font-family: var(--font-title);
-      font-weight: 700;
-      font-size: 16px;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      cursor: pointer;
+      border-radius: 100px;
       display: flex;
       align-items: center;
-      justify-content: center;
-      gap: 10px;
-      position: relative;
-      overflow: hidden;
+      justify-content: space-between;
+      cursor: pointer;
       transition: background 0.25s, transform 0.15s;
-      margin-bottom: 20px;
+      margin-bottom: 16px;
     }
 
-    .btn-primary::before {
-      content: '';
-      position: absolute;
-      left: 0;
-      top: 0;
-      height: 100%;
-      width: 4px;
-      background: var(--orange);
-      transition: width 0.3s ease;
-    }
-
-    .btn-primary:hover {
+    .btn-cta:hover {
       background: var(--marine-mid);
       transform: translateY(-1px);
     }
 
-    .btn-primary:hover::before {
-      width: 100%;
-      opacity: 0.1;
+    .btn-cta:active { transform: translateY(0); }
+
+    .btn-cta-label {
+      font-family: 'Barlow', sans-serif;
+      font-size: 16px;
+      font-weight: 600;
+      color: #fff;
     }
 
-    .btn-primary:active { transform: translateY(0); }
-
     .btn-arrow {
-      width: 20px;
-      height: 20px;
-      background: var(--orange);
+      width: 40px;
+      height: 40px;
+      background: #fff;
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
+      transition: background 0.2s, transform 0.2s;
       flex-shrink: 0;
-      transition: transform 0.2s;
     }
 
-    .btn-primary:hover .btn-arrow { transform: translateX(3px); }
+    .btn-cta:hover .btn-arrow {
+      background: var(--orange);
+      transform: rotate(45deg);
+    }
 
-    /* Message accès restreint */
     .access-note {
-      display: flex;
-      align-items: flex-start;
-      gap: 10px;
-      padding: 14px 16px;
-      background: var(--bleu-light);
-      border-radius: 8px;
-      border-left: 3px solid var(--bleu);
-    }
-
-    .access-note svg { flex-shrink: 0; margin-top: 1px; }
-
-    .access-note p {
-      font-size: 12px;
-      color: var(--gris-texte);
-      line-height: 1.5;
-    }
-
-    .access-note a {
-      color: var(--bleu);
-      font-weight: 600;
-      text-decoration: none;
-    }
-
-    .access-note a:hover { text-decoration: underline; }
-
-    /* Footer du formulaire */
-    .form-footer {
-      margin-top: 40px;
-      padding-top: 24px;
-      border-top: 1px solid #EEF1FA;
-      font-size: 11px;
-      color: #B0B9D4;
+      background: #FAFBFE;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 20px;
       text-align: center;
     }
 
-    /* ─── RESPONSIVE ─────────────────────────────────────────────── */
-    @media (max-width: 900px) {
-      body { flex-direction: column; overflow: auto; }
-      .left-panel { min-height: 280px; flex: none; padding: 36px 28px; }
-      .left-title { font-size: 40px; }
-      .stats-row { gap: 24px; }
-      .right-panel { width: 100%; min-width: unset; padding: 40px 28px; }
+    .access-note p {
+      font-size: 13px;
+      color: var(--gris);
+      line-height: 1.6;
     }
 
-    /* ─── ANIMATIONS ENTRÉE ──────────────────────────────────────── */
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(20px); }
-      to   { opacity: 1; transform: translateY(0); }
+    .access-note a {
+      display: inline-block;
+      margin-top: 8px;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--marine);
+      text-decoration: none;
+      transition: color 0.2s;
     }
 
-    .badge-acces   { animation: fadeUp 0.5s ease both; animation-delay: 0.1s; }
-    .left-title    { animation: fadeUp 0.5s ease both; animation-delay: 0.2s; }
-    .left-sub      { animation: fadeUp 0.5s ease both; animation-delay: 0.3s; }
-    .stats-row     { animation: fadeUp 0.5s ease both; animation-delay: 0.4s; }
-    .logo-wrap     { animation: fadeUp 0.4s ease both; animation-delay: 0.2s; }
-    .form-header   { animation: fadeUp 0.4s ease both; animation-delay: 0.3s; }
-    .field-group   { animation: fadeUp 0.4s ease both; animation-delay: 0.4s; }
-    .btn-primary   { animation: fadeUp 0.4s ease both; animation-delay: 0.5s; }
-    .access-note   { animation: fadeUp 0.4s ease both; animation-delay: 0.6s; }
+    .access-note a:hover { color: var(--bleu); }
+
+    .card-footer {
+      margin-top: 32px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .dot-orange {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--orange);
+    }
+
+    .card-footer p {
+      font-size: 11px;
+      color: #B8C0D8;
+    }
+
+    @media (max-width: 600px) {
+      .card { padding: 40px 24px; }
+      .main-title { font-size: 38px; gap: 10px; }
+      .page-label { display: none; }
+    }
   </style>
 </head>
 <body>
 
-  <!-- ═══ PANNEAU GAUCHE ═══════════════════════════════════════════ -->
-  <div class="left-panel">
-    <div class="grid-deco"></div>
-    <div class="circle-accent"></div>
-    <div class="circle-accent-2"></div>
+  <div class="page-label">Connexion</div>
 
-    <div class="left-content">
-      <div class="badge-acces">
-        <span></span>
-        <p>Portail réservé aux adhérents ACEF</p>
-      </div>
+  <div class="card">
 
-      <h1 class="left-title">
-        DES OBJETS<br>
-        PUBLI&shy;CITAIRES<br>
-        <span class="highlight">SUR-MESURE</span>
-      </h1>
-
-      <p class="left-sub">
-        La sélection exclusive Bimier Solutions pour les agents de la fonction publique. Textiles, goodies, high-tech — personnalisés à votre image.
-      </p>
-
-      <div class="stats-row">
-        <div class="stat-item">
-          <div class="stat-number">450<span>+</span></div>
-          <div class="stat-label">Références</div>
-        </div>
-        <div class="stat-sep"></div>
-        <div class="stat-item">
-          <div class="stat-number">72</div>
-          <div class="stat-label">Catégories</div>
-        </div>
-        <div class="stat-sep"></div>
-        <div class="stat-item">
-          <div class="stat-number">0<span>€</span></div>
-          <div class="stat-label">Frais de port</div>
-        </div>
+    <div class="logo">
+      <svg class="logo-icon" viewBox="0 0 42 42" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect width="42" height="42" rx="10" fill="#0D1235"/>
+        <path d="M10 10h12c3.3 0 6 2.7 6 6s-2.7 6-6 6H10V10z" fill="#2B3A9E"/>
+        <path d="M10 22h13c3.3 0 6 2.7 6 6s-2.7 6-6 6H10V22z" fill="#F5A623"/>
+      </svg>
+      <div>
+        <div class="logo-name">Bimier Solutions</div>
+        <div class="logo-sub">Portail partenaire</div>
       </div>
     </div>
-  </div>
 
-  <!-- ═══ PANNEAU DROIT ════════════════════════════════════════════ -->
-  <div class="right-panel">
-
-    <!-- Logo -->
-    <div class="logo-wrap">
-      <div class="logo-icon">
-        <svg viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M4 4h6c2.2 0 4 1.8 4 4s-1.8 4-4 4H4V4z" fill="#2B3A9E"/>
-          <path d="M4 12h7c2.2 0 4 1.8 4 4s-1.8 4-4 4H4V12z" fill="#F5A623"/>
-        </svg>
-      </div>
-      <div class="logo-text">BIMIER <span>ACEF</span></div>
+    <div class="main-title">
+      Espace&nbsp;<span class="pill">Privé</span>&nbsp;ACEF
     </div>
 
-    <!-- En-tête -->
-    <div class="form-header">
-      <p class="form-eyebrow">Accès sécurisé</p>
-      <h2 class="form-title">Connexion<br>à votre espace</h2>
-      <p class="form-sub">Identifiez-vous avec vos identifiants transmis par votre administrateur.</p>
-    </div>
-
-    <!-- Formulaire -->
     <form onsubmit="return false;">
-      <div class="field-group">
-
-        <!-- Email -->
+      <div class="fields">
         <div class="field">
-          <label for="email">Adresse e-mail professionnelle</label>
+          <label for="email">Adresse e-mail pro</label>
           <div class="input-wrap">
-            <span class="input-icon">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
-                <polyline points="22,6 12,13 2,6"/>
-              </svg>
-            </span>
             <input type="email" id="email" placeholder="jean.dupont@acef.fr" autocomplete="email" />
           </div>
         </div>
-
-        <!-- Mot de passe -->
         <div class="field">
-          <label for="password">Mot de passe</label>
+          <label for="pwd">Mot de passe</label>
           <div class="input-wrap">
-            <span class="input-icon">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
-                <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
-              </svg>
-            </span>
-            <input type="password" id="password" placeholder="••••••••" autocomplete="current-password" />
-            <button class="toggle-pwd" type="button" onclick="togglePwd()" title="Afficher le mot de passe">
-              <svg id="eye-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
-                <circle cx="12" cy="12" r="3"/>
-              </svg>
-            </button>
+            <input type="password" id="pwd" placeholder="••••••••••" autocomplete="current-password" />
+            <button class="btn-show" type="button" onclick="togglePwd(this)">Afficher</button>
           </div>
         </div>
-
       </div>
 
-      <!-- Options -->
-      <div class="field-options" style="margin-bottom:28px;">
-        <label class="checkbox-wrap">
+      <div class="options">
+        <label class="check-label">
           <input type="checkbox" />
-          <span>Mémoriser ma session</span>
+          Mémoriser
         </label>
-        <a href="#" class="forgot-link">Mot de passe oublié ?</a>
+        <a href="#" class="forgot">Mot de passe oublié ?</a>
       </div>
 
-      <!-- CTA -->
-      <button class="btn-primary" type="submit">
-        Accéder au portail
-        <span class="btn-arrow">
-          <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
-            <path d="M2 5h6M5 2l3 3-3 3" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <button class="btn-cta" type="submit">
+        <span class="btn-cta-label">Accéder au portail</span>
+        <div class="btn-arrow">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0D1235" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M7 17L17 7M17 7H7M17 7v10"/>
           </svg>
-        </span>
+        </div>
       </button>
 
-      <!-- Note accès restreint -->
       <div class="access-note">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#2B3A9E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <circle cx="12" cy="12" r="10"/>
-          <line x1="12" y1="8" x2="12" y2="12"/>
-          <line x1="12" y1="16" x2="12.01" y2="16"/>
-        </svg>
-        <p>L'accès à ce portail est strictement réservé aux adhérents ACEF. Pas encore de compte ? <a href="#">Contactez votre administrateur.</a></p>
+        <p>L'accès à ce portail est strictement réservé.<br>Pas de compte ?</p>
+        <a href="#">Contactez votre administrateur</a>
       </div>
-
     </form>
 
-    <!-- Footer -->
-    <div class="form-footer">
-      © 2026 Bimier Solutions · Partenaire exclusif ACEF · <a href="#" style="color:#9BA5C4;">Mentions légales</a>
+    <div class="card-footer">
+      <div class="dot-orange"></div>
+      <p>© 2026 Bimier Solutions · Partenaire exclusif ACEF</p>
     </div>
 
   </div>
 
   <script>
-    function togglePwd() {
-      const input = document.getElementById('password');
-      const icon  = document.getElementById('eye-icon');
+    function togglePwd(btn) {
+      const input = document.getElementById('pwd');
       if (input.type === 'password') {
         input.type = 'text';
-        icon.innerHTML = `
-          <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/>
-          <path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/>
-          <line x1="1" y1="1" x2="23" y2="23"/>`;
+        btn.textContent = 'Masquer';
       } else {
         input.type = 'password';
-        icon.innerHTML = `
-          <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
-          <circle cx="12" cy="12" r="3"/>`;
+        btn.textContent = 'Afficher';
       }
     }
   </script>
