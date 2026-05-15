@@ -1,929 +1,364 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Contact — Catalogue ACEF Bimier Solutions</title>
-<style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VidPro - Connexion</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-  :root {
-    --blue-main: #007B9C;
-    --blue-dark: #000042;
-    --blue-light: #B4E0F9;
-    --orange-acef: #E8640A;
-    --white: #ffffff;
-    --gray-50: #F8F8F7;
-    --gray-100: #EFEFED;
-    --gray-200: #DDDCDA;
-    --gray-400: #A8A7A3;
-    --gray-600: #6B6A67;
-    --gray-800: #2C2C2A;
-    --text-primary: #1a1a2e;
-    --text-secondary: #5a5a72;
-    --text-muted: #9999aa;
-    --border: #E2E2E8;
-    --radius-sm: 6px;
-    --radius-md: 10px;
-    --radius-lg: 14px;
-    --shadow-sm: 0 1px 3px rgba(0,0,66,0.07);
-    --shadow-md: 0 4px 16px rgba(0,0,66,0.09);
-  }
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
 
-  body {
-    font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
-    background: var(--gray-50);
-    color: var(--text-primary);
-    font-size: 14px;
-    line-height: 1.6;
-    min-height: 100vh;
-  }
+        body {
+            min-height: 100vh;
+            display: flex;
+            background: linear-gradient(rgba(10, 25, 47, 0.6), rgba(10, 25, 47, 0.8)), 
+                        url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2070&auto=format&fit=crop') center/cover no-repeat;
+        }
 
-  /* ── NAV ── */
-  nav {
-    background: var(--white);
-    border-bottom: 1px solid var(--border);
-    padding: 0 2rem;
-    display: flex;
-    align-items: center;
-    height: 56px;
-    gap: 2.5rem;
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    box-shadow: var(--shadow-sm);
-  }
-  .nav-logo {
-    background: var(--blue-dark);
-    color: var(--white);
-    font-size: 12px;
-    font-weight: 600;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    padding: 0.4rem 1rem;
-    border-radius: var(--radius-sm);
-    flex-shrink: 0;
-  }
-  .nav-links {
-    display: flex;
-    gap: 1.75rem;
-    list-style: none;
-    font-size: 14px;
-  }
-  .nav-links a {
-    text-decoration: none;
-    color: var(--text-secondary);
-    padding-bottom: 2px;
-    transition: color 0.2s;
-  }
-  .nav-links a:hover { color: var(--text-primary); }
-  .nav-links a.active {
-    color: var(--text-primary);
-    font-weight: 500;
-    border-bottom: 2px solid var(--blue-main);
-    padding-bottom: 0;
-  }
-  .nav-right {
-    margin-left: auto;
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-  }
-  .nav-search {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    border: 1px solid var(--border);
-    border-radius: 20px;
-    padding: 0.35rem 1rem;
-    font-size: 13px;
-    color: var(--text-muted);
-    background: var(--gray-50);
-    cursor: text;
-  }
-  .nav-search svg { flex-shrink: 0; }
-  .nav-account {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    font-size: 13px;
-    color: var(--text-secondary);
-    border: 1px solid var(--border);
-    border-radius: 20px;
-    padding: 0.35rem 1rem;
-    cursor: pointer;
-    background: var(--white);
-    transition: background 0.2s;
-  }
-  .nav-account:hover { background: var(--gray-50); }
-  .account-dot {
-    width: 8px; height: 8px;
-    background: #22c55e;
-    border-radius: 50%;
-    flex-shrink: 0;
-  }
+        .login-wrapper {
+            display: flex;
+            width: 100%;
+            min-height: 100vh;
+            padding: 20px;
+        }
 
-  /* ── HERO ── */
-  .hero {
-    background: linear-gradient(135deg, var(--blue-dark) 0%, var(--blue-main) 100%);
-    color: var(--white);
-    padding: 3rem 2rem 2.5rem;
-    text-align: center;
-  }
-  .hero-label {
-    font-size: 11px;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    opacity: 0.6;
-    margin-bottom: 0.75rem;
-  }
-  .hero h1 {
-    font-size: 28px;
-    font-weight: 300;
-    margin-bottom: 0.75rem;
-    letter-spacing: -0.01em;
-  }
-  .hero h1 strong { font-weight: 600; }
-  .hero p {
-    font-size: 14px;
-    opacity: 0.75;
-    max-width: 480px;
-    margin: 0 auto;
-  }
+        /* --- SECTION GAUCHE (Informations) --- */
+        .left-section {
+            flex: 1.2;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 40px 60px;
+            color: #ffffff;
+        }
 
-  /* ── BREADCRUMB ── */
-  .breadcrumb {
-    padding: 0.75rem 2rem;
-    font-size: 12px;
-    color: var(--text-muted);
-    background: var(--white);
-    border-bottom: 1px solid var(--border);
-    display: flex;
-    align-items: center;
-    gap: 6px;
-  }
-  .breadcrumb span { color: var(--text-secondary); }
+        .top-bar {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+        }
 
-  /* ── MAIN LAYOUT ── */
-  .main {
-    display: grid;
-    grid-template-columns: 1fr 300px;
-    gap: 1.5rem;
-    padding: 2rem;
-    max-width: 1100px;
-    margin: 0 auto;
-  }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 24px;
+            font-weight: 700;
+        }
 
-  /* ── FORM CARD ── */
-  .form-card {
-    background: var(--white);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-lg);
-    padding: 2rem;
-    box-shadow: var(--shadow-sm);
-  }
+        .logo-icon {
+            background-color: #ffffff;
+            color: #0f172a;
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+        }
 
-  .form-section { margin-bottom: 2rem; }
+        .hero-content {
+            max-width: 520px;
+            margin-bottom: 20px;
+        }
 
-  .section-header {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 0.35rem;
-  }
-  .section-num {
-    width: 24px; height: 24px;
-    border-radius: 50%;
-    background: var(--blue-dark);
-    color: var(--white);
-    font-size: 12px;
-    font-weight: 600;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-  }
-  .section-title {
-    font-size: 15px;
-    font-weight: 600;
-    color: var(--text-primary);
-  }
-  .section-sub {
-    font-size: 12px;
-    color: var(--text-muted);
-    margin-bottom: 1.25rem;
-    padding-left: 34px;
-  }
+        .hero-content h1 {
+            font-size: 48px;
+            font-weight: 700;
+            line-height: 1.15;
+            margin-bottom: 20px;
+            letter-spacing: -0.5px;
+        }
 
-  .field-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 0.75rem;
-    margin-bottom: 0.75rem;
-  }
-  .field { display: flex; flex-direction: column; gap: 5px; margin-bottom: 0.75rem; }
-  .field:last-child { margin-bottom: 0; }
+        .hero-content p {
+            font-size: 16px;
+            line-height: 1.6;
+            color: #cbd5e1;
+            margin-bottom: 40px;
+        }
 
-  label {
-    font-size: 12px;
-    font-weight: 500;
-    color: var(--text-secondary);
-    letter-spacing: 0.01em;
-  }
-  .req { color: var(--orange-acef); margin-left: 2px; }
+        .carousel-dots {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
 
-  input[type="text"],
-  input[type="email"],
-  input[type="tel"],
-  select,
-  textarea {
-    font-family: inherit;
-    font-size: 13px;
-    padding: 0.6rem 0.85rem;
-    border: 1px solid var(--border);
-    border-radius: var(--radius-sm);
-    background: var(--gray-50);
-    color: var(--text-primary);
-    transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
-    outline: none;
-    width: 100%;
-  }
-  input[type="text"]:focus,
-  input[type="email"]:focus,
-  input[type="tel"]:focus,
-  select:focus,
-  textarea:focus {
-    border-color: var(--blue-main);
-    background: var(--white);
-    box-shadow: 0 0 0 3px rgba(0,123,156,0.1);
-  }
-  input::placeholder, textarea::placeholder { color: var(--text-muted); }
-  textarea { resize: vertical; min-height: 90px; }
+        .dot {
+            width: 6px;
+            height: 6px;
+            background-color: rgba(255, 255, 255, 0.4);
+            border-radius: 50%;
+            cursor: pointer;
+        }
 
-  .prefilled {
-    background: #f0f7fa;
-    border-color: #b8dde8;
-    color: var(--text-secondary);
-    cursor: default;
-  }
-  .prefill-note {
-    font-size: 11px;
-    color: var(--blue-main);
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    margin-bottom: 1rem;
-    padding: 0.5rem 0.75rem;
-    background: #f0f7fa;
-    border-radius: var(--radius-sm);
-    border-left: 3px solid var(--blue-main);
-  }
+        .dot.active {
+            width: 24px;
+            border-radius: 4px;
+            background-color: #ffffff;
+        }
 
-  .divider {
-    border: none;
-    border-top: 1px solid var(--border);
-    margin: 1.75rem 0;
-  }
+        /* --- SECTION DROITE (Formulaire) --- */
+        .right-section {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            max-width: 600px;
+        }
 
-  /* ── CHECKBOXES ── */
-  .checkbox-row {
-    display: flex;
-    align-items: flex-start;
-    gap: 10px;
-    font-size: 13px;
-    color: var(--text-secondary);
-    margin-bottom: 0.75rem;
-    line-height: 1.5;
-  }
-  .checkbox-row input[type="checkbox"] {
-    width: 15px; height: 15px;
-    margin-top: 2px;
-    accent-color: var(--blue-main);
-    flex-shrink: 0;
-    cursor: pointer;
-  }
-  .checkbox-row a { color: var(--blue-main); text-decoration: underline; }
+        .form-container {
+            background: #ffffff;
+            width: 100%;
+            height: 100%;
+            max-height: 850px;
+            border-radius: 24px;
+            padding: 60px 80px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        }
 
-  /* ── SUBMIT ── */
-  .submit-btn {
-    width: 100%;
-    padding: 0.85rem;
-    background: var(--blue-dark);
-    color: var(--white);
-    border: none;
-    border-radius: var(--radius-md);
-    font-size: 14px;
-    font-weight: 600;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    margin-top: 1.25rem;
-    font-family: inherit;
-    letter-spacing: 0.02em;
-    transition: background 0.2s, transform 0.1s;
-  }
-  .submit-btn:hover { background: var(--blue-main); }
-  .submit-btn:active { transform: scale(0.99); }
+        .form-container h2 {
+            font-size: 36px;
+            font-weight: 700;
+            color: #0f172a;
+            margin-bottom: 10px;
+            letter-spacing: -0.5px;
+        }
 
-  .submit-note {
-    text-align: center;
-    font-size: 12px;
-    color: var(--text-muted);
-    margin-top: 0.6rem;
-  }
+        .subtitle {
+            color: #64748b;
+            font-size: 15px;
+            margin-bottom: 40px;
+        }
 
-  /* ── SIDEBAR ── */
-  .sidebar { display: flex; flex-direction: column; gap: 1rem; }
+        .input-group {
+            margin-bottom: 24px;
+            position: relative;
+        }
 
-  .side-card {
-    background: var(--white);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-lg);
-    padding: 1.25rem;
-    box-shadow: var(--shadow-sm);
-  }
-  .side-card h3 {
-    font-size: 13px;
-    font-weight: 600;
-    color: var(--text-primary);
-    margin-bottom: 1rem;
-    display: flex;
-    align-items: center;
-    gap: 7px;
-    padding-bottom: 0.75rem;
-    border-bottom: 1px solid var(--border);
-  }
-  .side-card h3 svg { color: var(--blue-main); }
+        .input-group label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            color: #0f172a;
+            margin-bottom: 8px;
+        }
 
-  .contact-item {
-    display: flex;
-    align-items: flex-start;
-    gap: 10px;
-    margin-bottom: 0.85rem;
-  }
-  .contact-item:last-child { margin-bottom: 0; }
-  .contact-icon {
-    width: 32px; height: 32px;
-    background: #f0f7fa;
-    border-radius: var(--radius-sm);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    color: var(--blue-main);
-  }
-  .contact-item-text strong {
-    font-size: 13px;
-    font-weight: 600;
-    color: var(--text-primary);
-    display: block;
-  }
-  .contact-item-text span {
-    font-size: 12px;
-    color: var(--text-muted);
-  }
+        .input-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
 
-  .engagement {
-    display: flex;
-    align-items: flex-start;
-    gap: 8px;
-    font-size: 12px;
-    color: var(--text-secondary);
-    margin-bottom: 0.6rem;
-    line-height: 1.5;
-  }
-  .engagement:last-child { margin-bottom: 0; }
-  .check-icon {
-    width: 16px; height: 16px;
-    background: #dcfce7;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    margin-top: 1px;
-    color: #16a34a;
-  }
+        .input-group input[type="email"],
+        .input-group input[type="password"] {
+            width: 100%;
+            padding: 15px 18px;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            font-size: 14px;
+            color: #0f172a;
+            outline: none;
+            transition: border-color 0.2s;
+        }
 
-  .advisor-wrap {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-bottom: 0.85rem;
-  }
-  .advisor-avatar {
-    width: 44px; height: 44px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, var(--blue-main), var(--blue-dark));
-    color: var(--white);
-    font-size: 14px;
-    font-weight: 600;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-  }
-  .advisor-info strong {
-    font-size: 13px;
-    font-weight: 600;
-    color: var(--text-primary);
-    display: block;
-  }
-  .advisor-info span {
-    font-size: 12px;
-    color: var(--text-secondary);
-    display: block;
-  }
-  .advisor-info .avail {
-    font-size: 11px;
-    color: var(--text-muted);
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    margin-top: 2px;
-  }
-  .avail-dot { width: 6px; height: 6px; background: #22c55e; border-radius: 50%; }
-  .advisor-btn {
-    width: 100%;
-    padding: 0.55rem;
-    font-size: 12px;
-    background: var(--gray-50);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-sm);
-    color: var(--text-secondary);
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 6px;
-    font-family: inherit;
-    font-weight: 500;
-    transition: background 0.2s, border-color 0.2s;
-  }
-  .advisor-btn:hover { background: #f0f7fa; border-color: var(--blue-main); color: var(--blue-main); }
+        .input-group input::placeholder {
+            color: #94a3b8;
+        }
 
-  /* ── SUCCESS STATE ── */
-  .success-overlay {
-    display: none;
-    background: var(--white);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-lg);
-    padding: 3rem 2rem;
-    text-align: center;
-    box-shadow: var(--shadow-sm);
-  }
-  .success-overlay.show { display: block; }
-  .form-card.hidden { display: none; }
-  .success-icon {
-    width: 60px; height: 60px;
-    background: linear-gradient(135deg, var(--blue-main), var(--blue-dark));
-    border-radius: 50%;
-    display: flex; align-items: center; justify-content: center;
-    margin: 0 auto 1.25rem;
-    color: var(--white);
-  }
-  .success-overlay h2 { font-size: 20px; font-weight: 600; margin-bottom: 0.5rem; }
-  .success-overlay p { font-size: 14px; color: var(--text-secondary); max-width: 360px; margin: 0 auto 1.5rem; }
-  .ref-badge {
-    display: inline-block;
-    background: var(--gray-50);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-sm);
-    padding: 0.4rem 1rem;
-    font-size: 13px;
-    font-weight: 600;
-    color: var(--text-primary);
-    margin-bottom: 1.5rem;
-    letter-spacing: 0.03em;
-  }
-  .next-steps {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1rem;
-    margin-top: 1.5rem;
-    text-align: left;
-  }
-  .next-step {
-    background: var(--gray-50);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-md);
-    padding: 1rem;
-  }
-  .step-num-circle {
-    width: 28px; height: 28px;
-    border-radius: 50%;
-    border: 2px solid var(--border);
-    color: var(--text-muted);
-    font-size: 13px;
-    font-weight: 600;
-    display: flex; align-items: center; justify-content: center;
-    margin-bottom: 0.5rem;
-  }
-  .next-step strong { font-size: 12px; font-weight: 600; display: block; margin-bottom: 0.25rem; }
-  .next-step span { font-size: 11px; color: var(--text-muted); }
-  .back-btn {
-    margin-top: 1.5rem;
-    padding: 0.65rem 1.5rem;
-    background: var(--blue-dark);
-    color: var(--white);
-    border: none;
-    border-radius: var(--radius-md);
-    font-size: 13px;
-    font-weight: 600;
-    cursor: pointer;
-    font-family: inherit;
-    transition: background 0.2s;
-  }
-  .back-btn:hover { background: var(--blue-main); }
+        .input-group input:focus {
+            border-color: #0f172a;
+        }
 
-  /* ── FOOTER ── */
-  footer {
-    background: var(--blue-dark);
-    color: rgba(255,255,255,0.55);
-    padding: 2rem;
-    display: grid;
-    grid-template-columns: 1.5fr 1fr 1fr 1fr;
-    gap: 2rem;
-    margin-top: 3rem;
-  }
-  .footer-logo-box {
-    display: inline-block;
-    background: rgba(255,255,255,0.1);
-    border: 1px solid rgba(255,255,255,0.15);
-    border-radius: var(--radius-sm);
-    padding: 0.4rem 0.9rem;
-    font-size: 12px;
-    font-weight: 600;
-    letter-spacing: 0.06em;
-    color: rgba(255,255,255,0.8);
-    margin-bottom: 0.6rem;
-    text-transform: uppercase;
-  }
-  footer p { font-size: 12px; line-height: 1.6; }
-  footer h4 {
-    font-size: 11px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: rgba(255,255,255,0.4);
-    margin-bottom: 0.75rem;
-  }
-  footer ul { list-style: none; }
-  footer ul li { font-size: 12px; margin-bottom: 0.35rem; }
-  footer ul li a { color: rgba(255,255,255,0.55); text-decoration: none; }
-  footer ul li a:hover { color: rgba(255,255,255,0.9); }
-  .footer-bottom {
-    grid-column: 1 / -1;
-    border-top: 1px solid rgba(255,255,255,0.1);
-    padding-top: 1rem;
-    font-size: 11px;
-    display: flex;
-    justify-content: space-between;
-  }
-</style>
+        .toggle-password {
+            position: absolute;
+            right: 18px;
+            color: #94a3b8;
+            cursor: pointer;
+            border: none;
+            background: none;
+            font-size: 16px;
+        }
+
+        .form-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 32px;
+            font-size: 14px;
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+        }
+
+        .checkbox-group input {
+            width: 18px;
+            height: 18px;
+            border-radius: 4px;
+            border: 1px solid #cbd5e1;
+            accent-color: #0f172a;
+            cursor: pointer;
+        }
+
+        .checkbox-group span {
+            color: #94a3b8;
+            font-weight: 500;
+        }
+
+        .forgot-password {
+            color: #94a3b8;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .forgot-password:hover {
+            color: #0f172a;
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 16px;
+            background-color: #0f172a;
+            color: #ffffff;
+            border: none;
+            border-radius: 50px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .btn-submit:hover {
+            background-color: #1e293b;
+        }
+
+        /* --- RESPONSIF --- */
+        @media (max-width: 1024px) {
+            .login-wrapper {
+                padding: 10px;
+            }
+            .left-section {
+                padding: 30px;
+            }
+            .form-container {
+                padding: 40px;
+            }
+        }
+
+        @media (max-width: 850px) {
+            .login-wrapper {
+                flex-direction: column;
+                padding: 0;
+            }
+            .left-section {
+                flex: none;
+                padding: 40px 20px;
+                min-height: 400px;
+            }
+            .right-section {
+                max-width: 100%;
+            }
+            .form-container {
+                border-radius: 24px 24px 0 0;
+                padding: 40px 25px;
+                box-shadow: none;
+            }
+        }
+    </style>
 </head>
 <body>
 
-<!-- NAV -->
-<nav>
-  <div class="nav-logo">Bimier Logo</div>
-  <ul class="nav-links">
-    <li><a href="#">Accueil</a></li>
-    <li><a href="#">Catalogue</a></li>
-    <li><a href="#">À propos</a></li>
-    <li><a href="#" class="active">Contact</a></li>
-  </ul>
-  <div class="nav-right">
-    <div class="nav-search">
-      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-      Rechercher un produit...
-    </div>
-    <div class="nav-account">
-      <div class="account-dot"></div>
-      Mon compte ACEF
-    </div>
-  </div>
-</nav>
+    <div class="login-wrapper">
+        <div class="left-section">
+            <div class="top-bar">
+                <div class="logo">
+                    <div class="logo-icon">
+                        <i class="fa-solid fa-clapperboard"></i>
+                    </div>
+                    VidPro
+                </div>
+            </div>
 
-<!-- HERO -->
-<div class="hero">
-  <div class="hero-label">Nous contacter</div>
-  <h1><strong>Concrétisons</strong> votre projet.</h1>
-  <p>Décrivez votre besoin et votre conseiller ACEF dédié vous répond sous 24h ouvrées avec une proposition personnalisée.</p>
-</div>
-
-<!-- BREADCRUMB -->
-<div class="breadcrumb">
-  <a href="#" style="color:var(--text-muted); text-decoration:none;">Accueil</a>
-  <span>›</span>
-  <span>Contact</span>
-</div>
-
-<!-- MAIN -->
-<div class="main">
-
-  <!-- FORM -->
-  <div class="form-card" id="formCard">
-    <form id="contactForm" novalidate>
-
-      <!-- SECTION 1 -->
-      <div class="form-section">
-        <div class="section-header">
-          <div class="section-num">1</div>
-          <div class="section-title">Vos coordonnées</div>
-        </div>
-        <div class="section-sub">Ces informations sont pré-remplies depuis votre compte ACEF connecté.</div>
-        <div class="prefill-note">
-          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4m0 4h.01"/></svg>
-          Champs pré-remplis automatiquement — modifiez si nécessaire.
-        </div>
-        <div class="field-row">
-          <div class="field">
-            <label>Prénom <span class="req">*</span></label>
-            <input type="text" class="prefilled" value="Jean" required>
-          </div>
-          <div class="field">
-            <label>Nom <span class="req">*</span></label>
-            <input type="text" class="prefilled" value="Dupont" required>
-          </div>
-        </div>
-        <div class="field-row">
-          <div class="field">
-            <label>Email professionnel <span class="req">*</span></label>
-            <input type="email" class="prefilled" value="jean.dupont@acef-paris.fr" required>
-          </div>
-          <div class="field">
-            <label>Téléphone</label>
-            <input type="tel" class="prefilled" value="+33 6 12 34 56 78">
-          </div>
-        </div>
-        <div class="field-row">
-          <div class="field">
-            <label>Association ACEF <span class="req">*</span></label>
-            <input type="text" class="prefilled" value="ACEF Paris — Section Île-de-France" required>
-          </div>
-          <div class="field">
-            <label>Votre fonction</label>
-            <input type="text" class="prefilled" value="Responsable des achats">
-          </div>
-        </div>
-      </div>
-
-      <hr class="divider">
-
-      <!-- SECTION 2 -->
-      <div class="form-section">
-        <div class="section-header">
-          <div class="section-num">2</div>
-          <div class="section-title">Votre demande</div>
-        </div>
-        <div class="section-sub">Décrivez votre projet ou posez directement votre question.</div>
-
-        <div class="field">
-          <label>Objet de votre demande <span class="req">*</span></label>
-          <select required>
-            <option value="" disabled selected>Sélectionner...</option>
-            <option>Commande de produits personnalisés</option>
-            <option>Demande d'informations produit</option>
-            <option>Demande de tarifs</option>
-            <option>Question technique</option>
-            <option>Autre</option>
-          </select>
+            <div class="hero-content">
+                <h1>Montez plus intelligemment. Exportez plus vite. Créez partout.</h1>
+                <p>Des courts extraits pour les réseaux sociaux aux vidéos longues, notre éditeur puissant vous permet de travailler en toute fluidité sur tous vos appareils.</p>
+                
+                <div class="carousel-dots">
+                    <div class="dot active"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                </div>
+            </div>
         </div>
 
-        <div class="field-row">
-          <div class="field">
-            <label>Quantité estimée</label>
-            <input type="text" placeholder="Ex. : 250 pièces">
-          </div>
-          <div class="field">
-            <label>Budget indicatif</label>
-            <select>
-              <option value="" disabled selected>Sélectionner une fourchette...</option>
-              <option>Moins de 500 €</option>
-              <option>500 € – 2 000 €</option>
-              <option>2 000 € – 5 000 €</option>
-              <option>Plus de 5 000 €</option>
-            </select>
-          </div>
-        </div>
+        <div class="right-section">
+            <div class="form-container">
+                <h2>Bon retour !</h2>
+                <p class="subtitle">Connectez-vous pour commencer à créer des vidéos époustouflantes en toute simplicité.</p>
 
-        <div class="field">
-          <label>Message <span class="req">*</span></label>
-          <textarea placeholder="Décrivez votre projet : produits souhaités, occasion, délai, contraintes particulières..." required></textarea>
-        </div>
-      </div>
+                <form onSubmit="event.preventDefault();">
+                    <div class="input-group">
+                        <label for="email">Adresse e-mail</label>
+                        <input type="email" id="email" placeholder="Entrez votre e-mail" required>
+                    </div>
 
-      <hr class="divider">
+                    <div class="input-group">
+                        <label for="password">Mot de passe</label>
+                        <div class="input-wrapper">
+                            <input type="password" id="password" placeholder="Entrez votre mot de passe" required>
+                            <button type="button" class="toggle-password" onclick="togglePassword()">
+                                <i class="fa-regular fa-eye" id="eye-icon"></i>
+                            </button>
+                        </div>
+                    </div>
 
-      <!-- CHECKBOXES -->
-      <div class="checkbox-row">
-        <input type="checkbox" id="rgpd" checked required>
-        <label for="rgpd" style="font-size:13px; font-weight:400; color:var(--text-secondary); cursor:pointer;">
-          J'accepte que mes données soient traitées par Bimier Solutions dans le cadre de ma demande, conformément à la <a href="#">politique de confidentialité</a>. <span class="req">*</span>
-        </label>
-      </div>
-      <div class="checkbox-row">
-        <input type="checkbox" id="newsletter">
-        <label for="newsletter" style="font-size:13px; font-weight:400; color:var(--text-secondary); cursor:pointer;">
-          Je souhaite recevoir les actualités et offres exclusives réservées aux membres ACEF (optionnel).
-        </label>
-      </div>
+                    <div class="form-actions">
+                        <label class="checkbox-group">
+                            <input type="checkbox">
+                            <span>Se souvenir de moi</span>
+                        </label>
+                        <a href="#" class="forgot-password">Mot de passe oublié ?</a>
+                    </div>
 
-      <button type="submit" class="submit-btn">
-        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="m22 2-7 20-4-9-9-4 20-7z"/></svg>
-        Envoyer ma demande
-      </button>
-      <p class="submit-note">Réponse garantie sous 24h ouvrées · Gratuit, sans engagement<br>Votre conseiller ACEF dédié vous contactera par email et téléphone.</p>
-    </form>
-  </div>
-
-  <!-- SUCCESS -->
-  <div class="success-overlay" id="successOverlay">
-    <div class="success-icon">
-      <svg width="28" height="28" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>
-    </div>
-    <h2>Demande envoyée avec succès !</h2>
-    <p>Votre demande a bien été reçue par notre équipe ACEF. Votre conseillère dédiée vous contactera sous 24h ouvrées.</p>
-    <div class="ref-badge">Référence : #DEV-2026-020</div>
-    <p style="font-size:12px; color:var(--text-muted);">Un email de confirmation a été envoyé à <strong>jean.dupont@acef-paris.fr</strong>.<br>Pensez à vérifier vos spams si vous ne le recevez pas.</p>
-    <div class="next-steps">
-      <div class="next-step">
-        <div class="step-num-circle">1</div>
-        <strong>Votre conseillère vous contacte</strong>
-        <span>Camille Martin vous envoie un devis détaillé par email sous 24h ouvrées.</span>
-      </div>
-      <div class="next-step">
-        <div class="step-num-circle">2</div>
-        <strong>Validation du BAT visuel</strong>
-        <span>Notre studio prépare une simulation visuelle de votre marquage. Vous l'approuvez avant production.</span>
-      </div>
-      <div class="next-step">
-        <div class="step-num-circle">3</div>
-        <strong>Production & livraison</strong>
-        <span>Vos articles sont produits dans nos ateliers partenaires et livrés sur votre (vos) adresse(s).</span>
-      </div>
-    </div>
-    <button class="back-btn" onclick="resetForm()">← Retour au catalogue</button>
-  </div>
-
-  <!-- SIDEBAR -->
-  <div class="sidebar">
-
-    <div class="side-card">
-      <h3>
-        <svg width="15" height="15" fill="none" stroke="var(--blue-main)" stroke-width="2" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.07 13.5a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3 2.84h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.09 10a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 21 17v-.08z"/></svg>
-        Nos coordonnées directes
-      </h3>
-      <div class="contact-item">
-        <div class="contact-icon">
-          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.07 13.5a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3 2.84h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.09 10a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21 17v-.08z"/></svg>
+                    <button type="submit" class="btn-submit">Se connecter</button>
+                </form>
+            </div>
         </div>
-        <div class="contact-item-text">
-          <strong>0800 123 456</strong>
-          <span>Appel gratuit · Lun–Ven, 9h–18h</span>
-        </div>
-      </div>
-      <div class="contact-item">
-        <div class="contact-icon">
-          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-        </div>
-        <div class="contact-item-text">
-          <strong>acef@bimier.fr</strong>
-          <span>Réponse sous 24h ouvrées</span>
-        </div>
-      </div>
-      <div class="contact-item">
-        <div class="contact-icon">
-          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-        </div>
-        <div class="contact-item-text">
-          <strong>Bimier Solutions</strong>
-          <span>12 rue des Entrepreneurs<br>75015 Paris, France</span>
-        </div>
-      </div>
-      <div class="contact-item">
-        <div class="contact-icon">
-          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-        </div>
-        <div class="contact-item-text">
-          <strong>Lundi – Vendredi</strong>
-          <span>9h00 – 18h00 (heure de Paris)</span>
-        </div>
-      </div>
     </div>
 
-    <div class="side-card">
-      <h3>
-        <svg width="15" height="15" fill="none" stroke="var(--blue-main)" stroke-width="2" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
-        Nos engagements
-      </h3>
-      <div class="engagement">
-        <div class="check-icon">
-          <svg width="9" height="9" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
-        </div>
-        <span>Réponse sous 24h ouvrées — votre conseillère vous contacte rapidement</span>
-      </div>
-      <div class="engagement">
-        <div class="check-icon">
-          <svg width="9" height="9" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
-        </div>
-        <span>Devis sans engagement — aucun frais jusqu'à validation</span>
-      </div>
-      <div class="engagement">
-        <div class="check-icon">
-          <svg width="9" height="9" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
-        </div>
-        <span>Tarifs négociés exclusifs — réservés aux membres ACEF</span>
-      </div>
-      <div class="engagement">
-        <div class="check-icon">
-          <svg width="9" height="9" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
-        </div>
-        <span>Livraison multi-sites — gérée par nos équipes logistiques</span>
-      </div>
-    </div>
-
-    <div class="side-card">
-      <h3>
-        <svg width="15" height="15" fill="none" stroke="var(--blue-main)" stroke-width="2" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-        Votre conseillère dédiée
-      </h3>
-      <div class="advisor-wrap">
-        <div class="advisor-avatar">CM</div>
-        <div class="advisor-info">
-          <strong>Camille Martin</strong>
-          <span>Conseillère ACEF dédiée</span>
-          <div class="avail"><div class="avail-dot"></div> Disponible Lun–Ven, 9h–18h</div>
-        </div>
-      </div>
-      <button class="advisor-btn">
-        <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-        Planifier un appel
-      </button>
-    </div>
-
-  </div>
-</div>
-
-<!-- FOOTER -->
-<footer>
-  <div>
-    <div class="footer-logo-box">Bimier Logo</div>
-    <p>Votre partenaire exclusif ACEF pour une communication par l'objet réussie et durable. Basés en France, nous garantissons qualité et réactivité.</p>
-  </div>
-  <div>
-    <h4>Navigation</h4>
-    <ul>
-      <li><a href="#">Accueil</a></li>
-      <li><a href="#">Le Catalogue</a></li>
-      <li><a href="#">À propos</a></li>
-      <li><a href="#">Contact</a></li>
-    </ul>
-  </div>
-  <div>
-    <h4>Légal</h4>
-    <ul>
-      <li><a href="#">Mentions légales</a></li>
-      <li><a href="#">CGV</a></li>
-      <li><a href="#">Confidentialité</a></li>
-    </ul>
-  </div>
-  <div>
-    <h4>Ligne directe</h4>
-    <ul>
-      <li>0800 123 456</li>
-      <li>Lun–Ven, 9h–18h</li>
-      <li>acef@bimier.fr</li>
-    </ul>
-  </div>
-  <div class="footer-bottom">
-    <span>© 2026 Bimier Solutions — Espace ACEF. Accès réservé aux membres enregistrés.</span>
-    <span>Mentions légales · CGV · Confidentialité · Contact</span>
-  </div>
-</footer>
-
-<script>
-  document.getElementById('contactForm').addEventListener('submit', function(e) {
-    e.preventDefault();
-    document.getElementById('formCard').classList.add('hidden');
-    document.getElementById('successOverlay').classList.add('show');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  });
-
-  function resetForm() {
-    document.getElementById('formCard').classList.remove('hidden');
-    document.getElementById('successOverlay').classList.remove('show');
-    document.getElementById('contactForm').reset();
-  }
-
-  document.querySelectorAll('.prefilled').forEach(function(el) {
-    el.addEventListener('focus', function() {
-      this.classList.remove('prefilled');
-    });
-  });
-</script>
+    <script>
+        function togglePassword() {
+            const passwordInput = document.getElementById('password');
+            const eyeIcon = document.getElementById('eye-icon');
+            
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                eyeIcon.classList.remove('fa-eye');
+                eyeIcon.classList.add('fa-eye-slash');
+            } else {
+                passwordInput.type = 'password';
+                eyeIcon.classList.remove('fa-eye-slash');
+                eyeIcon.classList.add('fa-eye');
+            }
+        }
+    </script>
 </body>
 </html>
