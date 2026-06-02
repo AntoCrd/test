@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ecorina - Simulateur de Toilette Écologique</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,100,200..800&family=Funnel+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+    
+    <style>
+        /* --- THEME ECORINA LUXURY EDITORIAL --- */
+        :root {
+            --bg-page: #F3F5F2; 
+            --bg-card: #FFFFFF;
+            --text-main: #131E17; 
+            --text-muted: #596B60; 
+            --primary: #167D3D; 
+            --primary-hover: #116330;
+            --primary-light: #EBF2EC; 
+            --border: #E1E6E2;
+            --radius-xl: 32px;
+            --radius-lg: 24px;
+            
+            --font-main: 'Funnel Sans', sans-serif;
+            --font-heading: 'Bricolage Grotesque', sans-serif;
+            
+            --transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        /* --- RESET --- */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: var(--font-main); 
+            background: var(--bg-page); 
+            color: var(--text-main); 
+            min-height: 100vh; 
+            display: flex; 
+            flex-direction: column; 
+            -webkit-font-smoothing: antialiased; 
+            overflow-x: hidden;
+        }
+
+        /* --- HEADER --- */
+        header { 
+            padding: 32px 40px; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            background: transparent; 
+            z-index: 10; 
+        }
+        .logo { 
+            font-size: 1.5rem; 
+            font-weight: 800; 
+            font-family: var(--font-heading); 
+            color: var(--text-main); 
+            text-decoration: none; 
+            letter-spacing: -0.05em;
+        }
+        .logo span { color: var(--primary); }
+        .close-btn { 
+            display: inline-flex; 
+            align-items: center; 
+            gap: 8px; 
+            font-weight: 600; 
+            font-size: 0.95rem; 
+            color: var(--text-muted); 
+            cursor: pointer; 
+            text-decoration: none; 
+            transition: var(--transition); 
+        }
+        .close-btn:hover { color: var(--text-main); }
+
+        /* --- BARRE DE PROGRESSION --- */
+        .progress-container { width: 100%; height: 4px; background: var(--border); position: fixed; top: 0; left: 0; z-index: 20; }
+        .progress-bar { height: 100%; background: var(--primary); width: 0%; transition: width 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
+
+        /* --- WRAPPER DU SIMULATEUR --- */
+        .simulator-wrapper { 
+            flex-grow: 1; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            padding: 40px 24px; 
+            width: 100%;
+        }
+        
+        #simulatorForm {
+            width: 100%;
+            max-width: 760px;
+            position: relative;
+        }
+
+        /* --- ANIMATIONS ET GESTION DES ETAPES --- */
+        .step { 
+            display: none; 
+            width: 100%; 
+            opacity: 0; 
+            transform: translateY(20px); 
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+        .step.active { 
+            display: block; 
+            opacity: 1; 
+            transform: translateY(0); 
+            animation: fadeIn 0.6s forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* --- TYPOGRAPHIE DES ETAPES --- */
+        .step-surtitle { 
+            font-size: 0.9rem; 
+            font-weight: 700; 
+            text-transform: uppercase; 
+            letter-spacing: 0.1em; 
+            color: var(--primary); 
+            margin-bottom: 24px; 
+            display: block; 
+        }
+        .step h2 { 
+            font-family: var(--font-heading); 
+            font-size: clamp(2rem, 5vw, 3.5rem); 
+            font-weight: 800; 
+            line-height: 1.1; 
+            letter-spacing: -0.04em; 
+            margin-bottom: 48px; 
+            color: var(--text-main);
+        }
+
+        /* --- CARTES D'OPTIONS (BOUTONS RADIO) --- */
+        .options-grid { 
+            display: flex; 
+            flex-direction: column; 
+            gap: 16px; 
+            margin-bottom: 48px; 
+        }
+        
+        .option-card { 
+            position: relative; 
+            display: flex; 
+            align-items: center; 
+            padding: 24px 32px; 
+            background: var(--bg-card); 
+            border: 2px solid var(--border); 
+            border-radius: var(--radius-lg); 
+            cursor: pointer; 
+            transition: var(--transition); 
+        }
+        .option-card:hover { 
+            border-color: rgba(22, 125, 61, 0.4); 
+            transform: translateY(-2px); 
+            box-shadow: var(--shadow-sm);
+        }
+        
+        /* Input natif invisible */
+        .option-card input[type="radio"] { 
+            position: absolute; 
+            opacity: 0; 
+            cursor: pointer; 
+            height: 0; 
+            width: 0; 
+        }
+        
+        .option-content { 
+            font-size: 1.2rem; 
+            font-weight: 500; 
+            color: var(--text-main); 
+            flex-grow: 1; 
+            line-height: 1.4;
+        }
+        
+        /* Faux bouton radio visuel */
+        .radio-indicator { 
+            width: 24px; 
+            height: 24px; 
+            border-radius: 50%; 
+            border: 2px solid var(--border); 
+            position: relative; 
+            transition: var(--transition); 
+            flex-shrink: 0; 
+            background: var(--bg-card);
+        }
+        
+        /* États au clic */
+        .option-card.selected { 
+            border-color: var(--primary); 
+            background: var(--primary-light); 
+        }
+        .option-card.selected .radio-indicator { 
+            border-color: var(--primary); 
+        }
+        .option-card.selected .radio-indicator::after { 
+            content: ''; 
+            position: absolute; 
+            width: 12px; 
+            height: 12px; 
+            background: var(--primary); 
+            border-radius: 50%; 
+            top: 50%; 
+            left: 50%; 
+            transform: translate(-50%, -50%); 
+        }
+
+        /* --- CONTROLES (Prev / Next) --- */
+        .controls { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            border-top: 1px solid var(--border); 
+            padding-top: 32px; 
+        }
+        .btn-prev { 
+            background: transparent; 
+            border: none; 
+            font-size: 1rem; 
+            font-weight: 600; 
+            color: var(--text-muted); 
+            cursor: pointer; 
+            transition: var(--transition); 
+            display: flex; 
+            align-items: center; 
+            gap: 8px; 
+            font-family: var(--font-main);
+        }
+        .btn-prev:hover { color: var(--text-main); }
+        
+        .btn-next { 
+            background: var(--text-main); 
+            color: white; 
+            border: none; 
+            padding: 18px 40px; 
+            border-radius: 100px; 
+            font-size: 1.05rem; 
+            font-weight: 600; 
+            cursor: pointer; 
+            transition: var(--transition); 
+            opacity: 0.4; 
+            pointer-events: none; /* Désactivé par défaut */
+            font-family: var(--font-main);
+        }
+        .btn-next.active { 
+            background: var(--primary);
+            opacity: 1; 
+            pointer-events: auto; 
+        }
+        .btn-next.active:hover { 
+            background: var(--primary-hover); 
+            transform: translateY(-2px); 
+            box-shadow: 0 8px 24px rgba(22, 125, 61, 0.2);
+        }
+
+        /* --- PAGE DE RESULTAT --- */
+        .result-card { 
+            background: var(--bg-card); 
+            padding: 64px 48px; 
+            border-radius: var(--radius-xl); 
+            border: 1px solid var(--border); 
+            text-align: center; 
+            box-shadow: 0 24px 64px rgba(19, 30, 23, 0.08); 
+        }
+        .result-tag { 
+            display: inline-flex; 
+            padding: 8px 24px; 
+            border-radius: 50px; 
+            background: var(--primary-light); 
+            color: var(--primary); 
+            font-weight: 700; 
+            font-size: 0.85rem; 
+            text-transform: uppercase; 
+            letter-spacing: 0.1em; 
+            margin-bottom: 32px; 
+        }
+        .result-title { 
+            font-family: var(--font-heading); 
+            font-size: clamp(2.5rem, 5vw, 4rem); 
+            font-weight: 800; 
+            margin-bottom: 24px; 
+            letter-spacing: -0.04em; 
+            color: var(--text-main);
+        }
+        .result-desc { 
+            font-size: 1.2rem; 
+            line-height: 1.6; 
+            color: var(--text-muted); 
+            margin-bottom: 48px; 
+            max-width: 600px; 
+            margin-left: auto; 
+            margin-right: auto; 
+        }
+        .btn-result { 
+            display: inline-block; 
+            background: var(--text-main); 
+            color: white; 
+            padding: 18px 48px; 
+            border-radius: 100px; 
+            font-size: 1.1rem; 
+            font-weight: 600; 
+            text-decoration: none; 
+            transition: var(--transition); 
+            margin-bottom: 24px;
+        }
+        .btn-result:hover { 
+            background: var(--primary); 
+            transform: translateY(-4px); 
+            box-shadow: 0 12px 32px rgba(22, 125, 61, 0.2);
+        }
+        .btn-restart {
+            display: block;
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            font-family: var(--font-main);
+            text-decoration: underline;
+        }
+        .btn-restart:hover { color: var(--primary); }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 768px) {
+            header { padding: 24px; }
+            .simulator-wrapper { padding: 24px 20px; }
+            .option-card { padding: 20px 24px; }
+            .option-content { font-size: 1.1rem; }
+            .controls { flex-direction: column-reverse; gap: 24px; }
+            .btn-next { width: 100%; text-align: center; }
+            .result-card { padding: 40px 24px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="progress-container">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+
+    <header>
+        <a href="#" class="logo">eco<span>rina.</span></a>
+        <a href="#" class="close-btn">
+            Fermer
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+        </a>
+    </header>
+
+    <main class="simulator-wrapper">
+        <form id="simulatorForm">
+
+            <div class="step active" id="step-1">
+                <span class="step-surtitle">Question 1 sur 5</span>
+                <h2>Où souhaitez-vous installer votre sanitaire ?</h2>
+                <div class="options-grid">
+                    <label class="option-card">
+                        <input type="radio" name="q1" value="interieur">
+                        <span class="option-content">À l'intérieur de ma maison (salle de bain principale)</span>
+                        <div class="radio-indicator"></div>
+                    </label>
+                    <label class="option-card">
+                        <input type="radio" name="q1" value="exterieur">
+                        <span class="option-content">À l'extérieur (cabanon, tiny house, chalet, jardin)</span>
+                        <div class="radio-indicator"></div>
+                    </label>
+                    <label class="option-card">
+                        <input type="radio" name="q1" value="public">
+                        <span class="option-content">Dans un lieu public ou sur un événement</span>
+                        <div class="radio-indicator"></div>
+                    </label>
+                </div>
+                <div class="controls">
+                    <div></div> <button type="button" class="btn-next" onclick="goToStep(2)">Question suivante</button>
+                </div>
+            </div>
+
+            <div class="step" id="step-2">
+                <span class="step-surtitle">Question 2 sur 5</span>
+                <h2>Avez-vous accès à l'eau courante à cet endroit ?</h2>
+                <div class="options-grid">
+                    <label class="option-card">
+                        <input type="radio" name="q2" value="oui">
+                        <span class="option-content">Oui, j'ai une arrivée d'eau classique</span>
+                        <div class="radio-indicator"></div>
+                    </label>
+                    <label class="option-card">
+                        <input type="radio" name="q2" value="non">
+                        <span class="option-content">Non, je n'ai pas d'eau courante ici</span>
+                        <div class="radio-indicator"></div>
+                    </label>
+                </div>
+                <div class="controls">
+                    <button type="button" class="btn-prev" onclick="goToStep(1)">← Retour</button>
+                    <button type="button" class="btn-next" onclick="goToStep(3)">Question suivante</button>
+                </div>
+            </div>
+
+            <div class="step" id="step-3">
+                <span class="step-surtitle">Question 3 sur 5</span>
+                <h2>Combien de personnes l'utiliseront au quotidien ?</h2>
+                <div class="options-grid">
+                    <label class="option-card">
+                        <input type="radio" name="q3" value="peu">
+                        <span class="option-content">1 à 2 personnes</span>
+                        <div class="radio-indicator"></div>
+                    </label>
+                    <label class="option-card">
+                        <input type="radio" name="q3" value="moyen">
+                        <span class="option-content">3 à 5 personnes</span>
+                        <div class="radio-indicator"></div>
+                    </label>
+                    <label class="option-card">
+                        <input type="radio" name="q3" value="beaucoup">
+                        <span class="option-content">Plus de 5 personnes / usage collectif</span>
+                        <div class="radio-indicator"></div>
+                    </label>
+                </div>
+                <div class="controls">
+                    <button type="button" class="btn-prev" onclick="goToStep(2)">← Retour</button>
+                    <button type="button" class="btn-next" onclick="goToStep(4)">Question suivante</button>
+                </div>
+            </div>
+
+            <div class="step" id="step-4">
+                <span class="step-surtitle">Question 4 sur 5</span>
+                <h2>Avez-vous des contraintes de budget ?</h2>
+                <div class="options-grid">
+                    <label class="option-card">
+                        <input type="radio" name="q4" value="500">
+                        <span class="option-content">Je souhaite investir moins de 500 €</span>
+                        <div class="radio-indicator"></div>
+                    </label>
+                    <label class="option-card">
+                        <input type="radio" name="q4" value="1500">
+                        <span class="option-content">Je peux investir entre 500 € et 1 500 €</span>
+                        <div class="radio-indicator"></div>
+                    </label>
+                    <label class="option-card">
+                        <input type="radio" name="q4" value="nolimit">
+                        <span class="option-content">Le budget n'est pas ma priorité</span>
+                        <div class="radio-indicator"></div>
+                    </label>
+                </div>
+                <div class="controls">
+                    <button type="button" class="btn-prev" onclick="goToStep(3)">← Retour</button>
+                    <button type="button" class="btn-next" onclick="goToStep(5)">Question suivante</button>
+                </div>
+            </div>
+
+            <div class="step" id="step-5">
+                <span class="step-surtitle">Dernière question</span>
+                <h2>Qu'est-ce qui compte le plus pour vous ?</h2>
+                <div class="options-grid">
+                    <label class="option-card">
+                        <input type="radio" name="q5" value="design">
+                        <span class="option-content">Le confort et le design (ressemble à un WC classique)</span>
+                        <div class="radio-indicator"></div>
+                    </label>
+                    <label class="option-card">
+                        <input type="radio" name="q5" value="autonomie">
+                        <span class="option-content">La simplicité et l'autonomie totale (aucune plomberie)</span>
+                        <div class="radio-indicator"></div>
+                    </label>
+                    <label class="option-card">
+                        <input type="radio" name="q5" value="ecologie">
+                        <span class="option-content">L'impact environnemental avant tout</span>
+                        <div class="radio-indicator"></div>
+                    </label>
+                </div>
+                <div class="controls">
+                    <button type="button" class="btn-prev" onclick="goToStep(4)">← Retour</button>
+                    <button type="button" class="btn-next" onclick="calculateResult()">Analyser mon profil</button>
+                </div>
+            </div>
+
+            <div class="step" id="step-result">
+                <div class="result-card">
+                    <span class="result-tag">Analyse terminée</span>
+                    <h2 class="result-title" id="resultTitle">Titre Résultat</h2>
+                    <p class="result-desc" id="resultDesc">Description du résultat généré dynamiquement.</p>
+                    <a href="#" class="btn-result">Découvrir les modèles recommandés</a>
+                    <button type="button" class="btn-restart" onclick="restartSimulator()">Refaire le test</button>
+                </div>
+            </div>
+
+        </form>
+    </main>
+
+    <script>
+        const totalSteps = 5;
+
+        // Met à jour la barre de progression en haut
+        function updateProgressBar(stepNum) {
+            const percentage = ((stepNum - 1) / totalSteps) * 100;
+            document.getElementById('progressBar').style.width = percentage + '%';
+        }
+
+        // Navigation entre les étapes
+        function goToStep(stepNumber) {
+            // Cacher l'étape active actuelle
+            const currentActive = document.querySelector('.step.active');
+            if (currentActive) {
+                currentActive.classList.remove('active');
+            }
+            
+            // Afficher la nouvelle étape
+            const nextStep = document.getElementById(`step-${stepNumber}`);
+            if (nextStep) {
+                nextStep.classList.add('active');
+                updateProgressBar(stepNumber);
+            }
+        }
+
+        // Gestion des sélections de cartes (Boutons Radio)
+        document.querySelectorAll('.option-card input[type="radio"]').forEach(radio => {
+            radio.addEventListener('change', function() {
+                const groupName = this.name;
+                const stepContainer = this.closest('.step');
+                
+                // Retirer la classe 'selected' de toutes les cartes de ce groupe
+                stepContainer.querySelectorAll('.option-card').forEach(card => {
+                    card.classList.remove('selected');
+                });
+                
+                // Ajouter la classe 'selected' à la carte cliquée
+                this.closest('.option-card').classList.add('selected');
+                
+                // Activer le bouton "Suivant" de l'étape courante
+                const nextBtn = stepContainer.querySelector('.btn-next');
+                if (nextBtn) {
+                    nextBtn.classList.add('active');
+                }
+            });
+        });
+
+        // Logique de recommandation Ecorina
+        function calculateResult() {
+            // Récupération des valeurs choisies
+            const q1 = document.querySelector('input[name="q1"]:checked').value;
+            const q2 = document.querySelector('input[name="q2"]:checked').value;
+            const q3 = document.querySelector('input[name="q3"]:checked').value;
+            const q4 = document.querySelector('input[name="q4"]:checked').value;
+            const q5 = document.querySelector('input[name="q5"]:checked').value;
+
+            let isSeparation = false;
+
+            // Règle principale de l'arbre de décision :
+            // Si pas d'eau courante (non) -> Toilette sèche
+            // Si Eau + Intérieur + Budget >= 500 -> Séparation
+            if (q2 === 'oui' && q1 === 'interieur' && (q4 === '1500' || q4 === 'nolimit')) {
+                isSeparation = true;
+            } else if (q1 === 'interieur' && q5 === 'design') {
+                isSeparation = true;
+            }
+
+            // Affichage des textes en fonction du résultat
+            const resTitle = document.getElementById('resultTitle');
+            const resDesc = document.getElementById('resultDesc');
+
+            if (isSeparation) {
+                resTitle.innerHTML = "La Toilette<br>à Séparation";
+                resDesc.textContent = "Votre profil correspond parfaitement à la toilette à séparation d'urine. Elle s'intègre dans votre salle de bain comme un WC classique, sépare naturellement les urines des matières solides, et vous permet de réduire drastiquement votre consommation d'eau sans changer vos habitudes. (Budget estimé : 600€ à 1500€)";
+            } else {
+                resTitle.innerHTML = "La Toilette<br>Sèche";
+                resDesc.textContent = "Votre profil s'oriente vers la toilette sèche traditionnelle. Simple à installer, sans plomberie et sans eau, elle fonctionne de manière 100% autonome avec l'ajout de sciure. C'est la solution idéale et la plus robuste pour votre contexte. (Budget estimé : 150€ à 300€)";
+            }
+
+            // Transition vers l'écran de résultat
+            document.querySelector('.step.active').classList.remove('active');
+            document.getElementById('step-result').classList.add('active');
+            document.getElementById('progressBar').style.width = '100%';
+        }
+
+        // Réinitialiser le simulateur
+        function restartSimulator() {
+            // Vider les boutons radio
+            document.querySelectorAll('.option-card input[type="radio"]').forEach(radio => {
+                radio.checked = false;
+            });
+            // Retirer les classes selected
+            document.querySelectorAll('.option-card').forEach(card => {
+                card.classList.remove('selected');
+            });
+            // Désactiver les boutons "Suivant"
+            document.querySelectorAll('.btn-next').forEach(btn => {
+                btn.classList.remove('active');
+            });
+
+            // Retourner à l'étape 1
+            document.querySelector('.step.active').classList.remove('active');
+            document.getElementById('step-1').classList.add('active');
+            updateProgressBar(1);
+        }
+
+        // Initialisation de la barre au chargement
+        updateProgressBar(1);
+    </script>
+</body>
+</html>
