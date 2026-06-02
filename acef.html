@@ -3,9 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BIMIER SOLUTIONS - Catalogue Exclusif ACEF</title>
+    <title>BIMIER - Objets Personnalisés & Cadeaux d'Affaires</title>
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <!-- FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <script>
@@ -14,18 +17,22 @@
                 extend: {
                     colors: {
                         brand: {
-                            bgDark: '#070C1E',    /* Fond sombre profond signature */
-                            surface: '#111936',   /* Surfaces cartes sombres */
-                            blue: '#1E3AFA',      /* Bleu électrique fort de la DA */
-                            blueHover: '#1226B8', 
-                            amber: '#FF9F0A',     /* Accent ambré vif */
-                            lightBg: '#F8FAFC',   /* Fond de section clair */
-                            navyText: '#0F172A'   /* Texte foncé sections claires */
+                            navy: '#060B19',      /* Bleu nuit ultra-profond pour le bas de page */
+                            blue: '#2563EB',      
+                            blueHover: '#1D4ED8', 
+                            accent: '#F59E0B',    
+                            surface: '#ffffff',
+                            lightBg: '#F8FAFC'
                         }
                     },
                     fontFamily: {
                         heading: ['Montserrat', 'sans-serif'],
                         body: ['Inter', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'soft': '0 20px 40px -15px rgba(0,0,0,0.05)',
+                        'glow': '0 0 40px -10px rgba(37, 99, 235, 0.4)',
+                        'float': '0 30px 60px -15px rgba(0,0,0,0.08)'
                     }
                 }
             }
@@ -34,257 +41,244 @@
     <style>
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-
-        /* Surlignage pur et affirmé sans bug de hauteur de ligne */
-        .da-highlight {
-            background-color: #1E3AFA;
-            color: #ffffff;
-            padding: 0.1em 0.3em;
-            display: inline-block;
-            box-shadow: 0 0 25px rgba(30, 58, 250, 0.25);
+        
+        .text-gradient {
+            background: linear-gradient(135deg, #60A5FA, #3B82F6, #2563EB);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        /* Animation subtile pour les lumières de fond */
+        @keyframes aurora {
+            0% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(30px, -50px) scale(1.1); }
+            66% { transform: translate(-20px, 20px) scale(0.9); }
+            100% { transform: translate(0, 0) scale(1); }
+        }
+        .animate-aurora {
+            animation: aurora 15s ease-in-out infinite alternate;
         }
     </style>
 </head>
-<body class="font-body text-slate-300 bg-brand-bgDark antialiased overflow-x-hidden">
+<body class="font-body text-slate-600 bg-brand-lightBg antialiased selection:bg-brand-blue selection:text-white overflow-x-hidden">
 
-    <header class="border-b border-white/5 sticky top-0 bg-brand-bgDark/80 backdrop-blur-md z-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-            <a href="#" class="font-heading font-black text-2xl tracking-tighter uppercase text-white flex items-center gap-2">
-                <span class="text-brand-blue"><i class="fa-solid fa-cube"></i></span> BIMIER <span class="text-slate-500 font-normal text-lg">LOGO</span>
+    <!-- HEADER -->
+    <div class="fixed w-full top-4 z-50 px-4 sm:px-6">
+        <header class="max-w-7xl mx-auto bg-white/80 backdrop-blur-xl border border-white rounded-full shadow-sm shadow-slate-200/50 h-16 flex items-center justify-between px-6">
+            <a href="#" class="font-heading font-black text-xl tracking-tight text-brand-navy flex items-center gap-2">
+                <div class="w-8 h-8 rounded-full bg-brand-blue flex items-center justify-center text-white text-sm"><i class="fa-solid fa-cube"></i></div>
+                BIMIER LOGO
             </a>
             
-            <nav class="hidden md:flex space-x-8 font-heading font-extrabold text-xs tracking-widest uppercase">
-                <a href="#" class="text-brand-blue border-b-2 border-brand-blue h-20 flex items-center">Accueil</a>
-                <a href="#" class="text-slate-400 hover:text-white transition-colors h-20 flex items-center">Catalogue</a>
-                <a href="#" class="text-slate-400 hover:text-white transition-colors h-20 flex items-center">À propos</a>
-                <a href="#" class="text-slate-400 hover:text-white transition-colors h-20 flex items-center">Contact</a>
+            <nav class="hidden md:flex space-x-8 font-heading font-bold text-[13px] text-slate-500">
+                <a href="#" class="text-brand-blue">Accueil</a>
+                <a href="#" class="hover:text-brand-navy transition-colors">Catalogue</a>
+                <a href="#" class="hover:text-brand-navy transition-colors">À propos</a>
+                <a href="#" class="hover:text-brand-navy transition-colors">Contact</a>
             </nav>
             
-            <div class="flex items-center space-x-4">
-                <div class="relative hidden lg:block">
-                    <input type="text" placeholder="Rechercher..." class="bg-brand-surface border border-white/5 text-white placeholder-slate-500 rounded-full h-10 px-5 pl-10 text-xs w-56 focus:outline-none focus:border-brand-blue transition-all">
-                    <i class="fa-solid fa-magnifying-glass absolute left-4 top-3.5 text-slate-500 text-xs"></i>
+            <div class="flex items-center space-x-3">
+                <div class="hidden lg:flex items-center bg-slate-100 rounded-full px-4 py-2">
+                    <i class="fa-solid fa-search text-slate-400 text-xs mr-2"></i>
+                    <input type="text" placeholder="Rechercher un produit..." class="bg-transparent text-xs w-40 focus:outline-none text-slate-600">
                 </div>
-                <a href="#" class="bg-brand-blue hover:bg-brand-blueHover text-white font-heading font-black text-xs uppercase tracking-wider h-11 px-6 rounded-full flex items-center transition-all shadow-lg shadow-brand-blue/20">
-                    <i class="fa-solid fa-user text-brand-amber mr-2"></i> Mon compte ACEF
+                <a href="#" class="bg-brand-navy hover:bg-brand-blue text-white font-heading font-bold text-[11px] uppercase tracking-wider h-10 px-6 rounded-full flex items-center transition-colors shadow-md">
+                    Mon compte ACEF
                 </a>
             </div>
-        </div>
-    </header>
+        </header>
+    </div>
 
-    <section class="relative py-20 lg:py-28 overflow-hidden border-b border-white/5">
-        <div class="absolute top-1/4 right-[10%] w-96 h-96 bg-brand-blue/10 rounded-full blur-[120px] pointer-events-none"></div>
+    <!-- HERO SECTION -->
+    <section class="relative pt-32 pb-40 lg:pt-40 lg:pb-48 overflow-hidden bg-brand-navy text-white rounded-b-[3rem] lg:rounded-b-[5rem]">
+        <div class="absolute top-[-10%] left-[-10%] w-96 h-96 bg-brand-blue/30 rounded-full blur-[100px]"></div>
+        <div class="absolute bottom-[-20%] right-[-10%] w-[40rem] h-[40rem] bg-indigo-500/20 rounded-full blur-[120px]"></div>
         
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <p class="font-heading font-extrabold tracking-[0.3em] text-xs uppercase text-brand-amber mb-4">Catalogue Exclusif ACEF</p>
-            
-            <h1 class="font-heading font-black text-5xl sm:text-7xl uppercase leading-[0.95] tracking-tighter text-white mb-6">
-                Vos objets.<br>
-                <span class="da-highlight mt-3">Votre image.</span>
-            </h1>
-            
-            <p class="text-slate-400 max-w-xl text-base sm:text-lg font-normal leading-relaxed mb-10">
-                Accédez à plus de 5 000 références personnalisables réservées aux associations ACEF. Commande en volume, traitement prioritaire et livraison rapide.
-            </p>
-            
-            <div class="flex flex-col sm:flex-row gap-4 mb-20 max-w-md sm:max-w-none">
-                <a href="#" class="h-14 px-8 bg-brand-blue hover:bg-brand-blueHover text-white font-heading font-black uppercase text-xs tracking-widest rounded-xl transition-all shadow-xl shadow-brand-blue/25 flex items-center justify-center group">
-                    Explorer le catalogue <i class="fa-solid fa-arrow-right ml-3 text-xs transform group-hover:translate-x-1 transition-transform"></i>
-                </a>
-                <a href="#" class="h-14 px-8 bg-transparent border border-slate-700 hover:border-white text-white font-heading font-black uppercase text-xs tracking-widest rounded-xl transition-all flex items-center justify-center">
-                    Demander un devis
-                </a>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 relative z-10 flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
+            <div class="w-full lg:w-1/2 text-center lg:text-left">
+                <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 border border-white/20 backdrop-blur-md mb-8">
+                    <span class="w-2 h-2 rounded-full bg-brand-accent animate-pulse"></span>
+                    <span class="text-[10px] font-bold uppercase tracking-widest text-slate-200">CATALOGUE EXCLUSIF ACEF</span>
+                </div>
+                
+                <h1 class="font-heading font-black text-5xl sm:text-6xl lg:text-7xl tracking-tight mb-6 leading-[1.1]">
+                    Vos objets.<br>
+                    <span class="text-gradient">Votre image.</span>
+                </h1>
+                
+                <p class="text-slate-300 text-lg font-light leading-relaxed mb-10 max-w-lg mx-auto lg:mx-0">
+                    Accédez à plus de 5 000 références personnalisables réservées aux associations ACEF. Commande en volume, livraison rapide.
+                </p>
+                
+                <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                    <a href="#" class="h-14 px-8 bg-brand-blue hover:bg-white hover:text-brand-blue text-white font-heading font-bold text-sm rounded-full flex items-center justify-center transition-all shadow-glow group">
+                        Explorer le catalogue
+                        <i class="fa-solid fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
+                    </a>
+                    <a href="#" class="h-14 px-8 bg-white/10 hover:bg-white/20 border border-white/20 text-white font-heading font-bold text-sm rounded-full flex items-center justify-center transition-all backdrop-blur-sm">
+                        Demander un devis
+                    </a>
+                </div>
             </div>
 
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 pt-10 border-t border-white/5">
-                <div>
-                    <div class="font-heading font-black text-4xl text-white tracking-tight">5 000+</div>
-                    <div class="text-[10px] text-slate-500 uppercase tracking-widest font-bold mt-1">Références produits</div>
-                </div>
-                <div>
-                    <div class="font-heading font-black text-4xl text-white tracking-tight">25 ans</div>
-                    <div class="text-[10px] text-slate-500 uppercase tracking-widest font-bold mt-1">D'expertise</div>
-                </div>
-                <div>
-                    <div class="font-heading font-black text-4xl text-white tracking-tight">48h</div>
-                    <div class="text-[10px] text-slate-500 uppercase tracking-widest font-bold mt-1">Délai devis</div>
-                </div>
-                <div>
-                    <div class="font-heading font-black text-4xl text-white tracking-tight">98%</div>
-                    <div class="text-[10px] text-slate-500 uppercase tracking-widest font-bold mt-1">Satisfaction client</div>
+            <div class="w-full lg:w-1/2 relative hidden md:block">
+                <div class="relative w-full aspect-square max-w-[500px] mx-auto z-20">
+                    <img src="https://images.unsplash.com/photo-1549465220-1a8b9238cd48?auto=format&fit=crop&w=800&q=80" alt="Objets personnalisés" class="w-full h-full object-cover rounded-[3rem] shadow-2xl border-4 border-white/10 transform rotate-[-2deg] hover:rotate-0 transition-transform duration-500">
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="border-b border-white/5 bg-brand-surface/20">
-        <div class="max-w-7xl mx-auto px-4 py-5 flex overflow-x-auto space-x-6 no-scrollbar snap-x">
-            <a href="#" class="flex items-center space-x-4 flex-shrink-0 bg-brand-surface/60 border border-white/5 p-3 pr-8 rounded-xl hover:border-brand-blue/40 hover:bg-brand-surface transition-all snap-start min-w-[245px]">
-                <div class="w-12 h-12 bg-brand-blue/10 border border-brand-blue/20 rounded-lg flex items-center justify-center text-brand-blue text-lg"><i class="fa-solid fa-shirt"></i></div>
-                <div>
-                    <div class="font-heading font-extrabold text-xs text-white uppercase tracking-wide">Textile & Vêtements</div>
-                    <div class="text-[11px] text-slate-500 mt-0.5">143 produits</div>
-                </div>
-            </a>
-            <a href="#" class="flex items-center space-x-4 flex-shrink-0 bg-brand-surface/60 border border-white/5 p-3 pr-8 rounded-xl hover:border-brand-blue/40 hover:bg-brand-surface transition-all snap-start min-w-[245px]">
-                <div class="w-12 h-12 bg-brand-blue/10 border border-brand-blue/20 rounded-lg flex items-center justify-center text-brand-blue text-lg"><i class="fa-solid fa-folder-open"></i></div>
-                <div>
-                    <div class="font-heading font-extrabold text-xs text-white uppercase tracking-wide">Papeterie & Bureau</div>
-                    <div class="text-[11px] text-slate-500 mt-0.5">89 produits</div>
-                </div>
-            </a>
-            <a href="#" class="flex items-center space-x-4 flex-shrink-0 bg-brand-surface/60 border border-white/5 p-3 pr-8 rounded-xl hover:border-brand-blue/40 hover:bg-brand-surface transition-all snap-start min-w-[245px]">
-                <div class="w-12 h-12 bg-brand-blue/10 border border-brand-blue/20 rounded-lg flex items-center justify-center text-brand-blue text-lg"><i class="fa-solid fa-glass-water"></i></div>
-                <div>
-                    <div class="font-heading font-extrabold text-xs text-white uppercase tracking-wide">Drinkware & Goodies</div>
-                    <div class="text-[11px] text-slate-500 mt-0.5">197 produits</div>
-                </div>
-            </a>
-            <a href="#" class="flex items-center space-x-4 flex-shrink-0 bg-brand-surface/60 border border-white/5 p-3 pr-8 rounded-xl hover:border-brand-blue/40 hover:bg-brand-surface transition-all snap-start min-w-[245px]">
-                <div class="w-12 h-12 bg-brand-blue/10 border border-brand-blue/20 rounded-lg flex items-center justify-center text-brand-blue text-lg"><i class="fa-solid fa-bolt-lightning"></i></div>
-                <div>
-                    <div class="font-heading font-extrabold text-xs text-white uppercase tracking-wide">High-Tech</div>
-                    <div class="text-[11px] text-slate-500 mt-0.5">54 produits</div>
-                </div>
-            </a>
+    <!-- BANDES CATÉGORIES (Dock flottant) -->
+    <section class="relative z-30 -mt-16 lg:-mt-20 mb-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6">
+            <div class="bg-white/70 backdrop-blur-2xl border border-white p-3 lg:p-4 rounded-[2rem] lg:rounded-full shadow-float flex overflow-x-auto gap-3 lg:gap-4 no-scrollbar items-center">
+                
+                <a href="#" class="flex-1 min-w-[200px] flex items-center space-x-3 bg-white px-5 py-4 rounded-2xl lg:rounded-full shadow-sm hover:shadow-md hover:-translate-y-1 transition-all group">
+                    <div class="w-10 h-10 rounded-full bg-blue-50 flex items-center justify-center text-brand-blue group-hover:bg-brand-blue group-hover:text-white transition-colors flex-shrink-0"><i class="fa-solid fa-shirt"></i></div>
+                    <div>
+                        <div class="font-heading font-bold text-xs text-slate-800">Textile & Vêtements</div>
+                        <div class="text-[10px] text-slate-400 font-medium">143 produits</div>
+                    </div>
+                </a>
+                
+                <a href="#" class="flex-1 min-w-[200px] flex items-center space-x-3 bg-white px-5 py-4 rounded-2xl lg:rounded-full shadow-sm hover:shadow-md hover:-translate-y-1 transition-all group">
+                    <div class="w-10 h-10 rounded-full bg-orange-50 flex items-center justify-center text-orange-500 group-hover:bg-orange-500 group-hover:text-white transition-colors flex-shrink-0"><i class="fa-solid fa-folder-open"></i></div>
+                    <div>
+                        <div class="font-heading font-bold text-xs text-slate-800">Papeterie & Bureau</div>
+                        <div class="text-[10px] text-slate-400 font-medium">89 produits</div>
+                    </div>
+                </a>
+                
+                <a href="#" class="flex-1 min-w-[200px] flex items-center space-x-3 bg-white px-5 py-4 rounded-2xl lg:rounded-full shadow-sm hover:shadow-md hover:-translate-y-1 transition-all group">
+                    <div class="w-10 h-10 rounded-full bg-teal-50 flex items-center justify-center text-teal-500 group-hover:bg-teal-500 group-hover:text-white transition-colors flex-shrink-0"><i class="fa-solid fa-glass-water"></i></div>
+                    <div>
+                        <div class="font-heading font-bold text-xs text-slate-800">Drinkware & Goodies</div>
+                        <div class="text-[10px] text-slate-400 font-medium">197 produits</div>
+                    </div>
+                </a>
+                
+                <a href="#" class="flex-1 min-w-[200px] flex items-center space-x-3 bg-white px-5 py-4 rounded-2xl lg:rounded-full shadow-sm hover:shadow-md hover:-translate-y-1 transition-all group">
+                    <div class="w-10 h-10 rounded-full bg-purple-50 flex items-center justify-center text-purple-500 group-hover:bg-purple-500 group-hover:text-white transition-colors flex-shrink-0"><i class="fa-solid fa-bolt-lightning"></i></div>
+                    <div>
+                        <div class="font-heading font-bold text-xs text-slate-800">High-Tech</div>
+                        <div class="text-[10px] text-slate-400 font-medium">54 produits</div>
+                    </div>
+                </a>
+
+                <a href="#" class="flex-1 min-w-[200px] flex items-center space-x-3 bg-white px-5 py-4 rounded-2xl lg:rounded-full shadow-sm hover:shadow-md hover:-translate-y-1 transition-all group">
+                    <div class="w-10 h-10 rounded-full bg-green-50 flex items-center justify-center text-green-500 group-hover:bg-green-500 group-hover:text-white transition-colors flex-shrink-0"><i class="fa-solid fa-leaf"></i></div>
+                    <div>
+                        <div class="font-heading font-bold text-xs text-slate-800">Éco-responsable</div>
+                        <div class="text-[10px] text-slate-400 font-medium">38 produits</div>
+                    </div>
+                </a>
+            </div>
         </div>
     </section>
 
-    <section class="py-24 bg-brand-lightBg text-brand-navyText">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-end mb-14 gap-4">
+    <!-- NOS PRODUITS PHARES -->
+    <section class="py-16 relative z-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6">
+            
+            <div class="flex flex-col sm:flex-row justify-between items-baseline mb-12 gap-4">
                 <div>
-                    <h2 class="font-heading font-black text-4xl lg:text-5xl uppercase tracking-tight text-brand-navyText">Nos Produits Phares</h2>
-                    <p class="text-slate-500 text-sm mt-1">Sélection des références les plus commandées par les ACEF</p>
+                    <h2 class="font-heading font-black text-3xl lg:text-4xl tracking-tight text-slate-900 mb-2">Nos Produits Phares</h2>
+                    <p class="text-slate-500">Sélection des références les plus commandées par les ACEF</p>
                 </div>
-                <a href="#" class="font-heading font-extrabold text-xs uppercase tracking-widest text-brand-blue hover:text-brand-navyText transition-colors flex items-center gap-2 border-b-2 border-brand-blue pb-1">
-                    Voir tout le catalogue <i class="fa-solid fa-arrow-right-long"></i>
+                <a href="#" class="bg-white border border-slate-200 hover:border-brand-blue hover:text-brand-blue text-slate-600 font-heading font-bold text-xs px-6 py-3 rounded-full transition-all shadow-sm flex items-center gap-2">
+                    Voir tout le catalogue <i class="fa-solid fa-arrow-right"></i>
                 </a>
             </div>
 
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
                 
-                <div class="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col relative group">
-                    <span class="absolute top-8 left-8 bg-brand-amber text-brand-navyText text-[10px] font-heading font-black px-3 py-1 uppercase tracking-wider rounded">Best-Seller</span>
-                    
-                    <div class="bg-slate-50 rounded-xl aspect-[3/2] mb-6 flex flex-col items-center justify-center text-center p-4 border border-slate-100">
-                        <span class="text-slate-300 font-heading font-black text-xs uppercase tracking-widest">IMAGE PRODUIT</span>
+                <!-- Produit 1 -->
+                <div class="bg-white rounded-[2rem] p-4 shadow-soft border border-slate-100 flex flex-col group hover:-translate-y-2 transition-all duration-300">
+                    <div class="relative bg-slate-50 rounded-[1.5rem] aspect-[4/3] mb-5 overflow-hidden flex items-center justify-center">
+                        <img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=600&q=80" alt="Polo Corporate" class="w-full h-full object-cover mix-blend-multiply opacity-90 group-hover:scale-105 transition-transform duration-500">
+                        <span class="absolute top-4 left-4 bg-brand-accent text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider shadow-sm">Best-Seller</span>
                     </div>
-                    
-                    <div class="flex-grow flex flex-col justify-between">
-                        <div>
-                            <div class="text-[10px] font-heading font-black text-brand-blue uppercase tracking-widest mb-1">Textile</div>
-                            <h3 class="font-heading font-bold text-brand-navyText text-base leading-tight mb-1 group-hover:text-brand-blue transition-colors">Polo Corporate Premium</h3>
-                            <p class="text-xs text-slate-400 font-medium mb-6">Réf. TEX-001</p>
-                        </div>
-                        
-                        <div>
-                            <div class="pt-4 border-t border-slate-100 mb-5">
-                                <div class="font-heading font-black text-2xl text-brand-navyText">Dès 14,50 € <span class="text-xs font-bold text-slate-400">HT</span></div>
-                                <div class="text-[10px] text-slate-400 font-semibold mt-0.5">MOQ : 50 pièces minimum</div>
+                    <div class="px-2 flex-grow flex flex-col">
+                        <div class="text-[10px] font-bold text-brand-blue uppercase tracking-widest mb-1">Textile</div>
+                        <h3 class="font-heading font-bold text-slate-800 text-lg leading-tight mb-1 group-hover:text-brand-blue transition-colors">Polo Corporate Premium</h3>
+                        <p class="text-xs text-slate-400 mb-4">Réf. TEX-001</p>
+                        <div class="mt-auto pt-4 flex flex-col gap-4">
+                            <div>
+                                <div class="font-heading font-black text-xl text-slate-900">Dès 14,50 € <span class="text-xs text-slate-400 font-normal">HT</span></div>
+                                <div class="text-[10px] text-slate-400 mt-1">MOQ : 50 pièces minimum</div>
                             </div>
-                            
-                            <div class="flex gap-2 w-full">
-                                <button class="h-12 flex-1 bg-brand-navyText hover:bg-brand-blue text-white text-xs font-heading font-black uppercase tracking-wider rounded-xl transition-colors flex items-center justify-center">
-                                    Voir le produit
-                                </button>
-                                <button class="w-12 h-12 border border-slate-200 hover:border-brand-navyText rounded-xl text-slate-400 hover:text-brand-navyText transition-colors flex items-center justify-center flex-shrink-0">
-                                    <i class="fa-regular fa-heart text-base"></i>
-                                </button>
+                            <div class="flex gap-2">
+                                <button class="flex-1 bg-slate-900 text-white text-xs font-heading font-bold uppercase rounded-full hover:bg-brand-blue transition-colors h-11">Voir le produit</button>
+                                <button class="w-11 h-11 rounded-full border border-slate-200 text-slate-400 hover:text-red-500 hover:border-red-200 transition-colors flex items-center justify-center"><i class="fa-regular fa-heart"></i></button>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col relative group">
-                    <span class="absolute top-8 left-8 bg-brand-blue text-white text-[10px] font-heading font-black px-3 py-1 uppercase tracking-wider rounded">Nouveau</span>
-                    
-                    <div class="bg-slate-50 rounded-xl aspect-[3/2] mb-6 flex flex-col items-center justify-center text-center p-4 border border-slate-100">
-                        <span class="text-slate-300 font-heading font-black text-xs uppercase tracking-widest">IMAGE PRODUIT</span>
+                <!-- Produit 2 -->
+                <div class="bg-white rounded-[2rem] p-4 shadow-soft border border-slate-100 flex flex-col group hover:-translate-y-2 transition-all duration-300">
+                    <div class="relative bg-slate-50 rounded-[1.5rem] aspect-[4/3] mb-5 overflow-hidden flex items-center justify-center">
+                        <img src="https://images.unsplash.com/photo-1602143407151-7111542de6e8?auto=format&fit=crop&w=600&q=80" alt="Gourde" class="w-full h-full object-cover mix-blend-multiply opacity-90 group-hover:scale-105 transition-transform duration-500">
+                        <span class="absolute top-4 left-4 bg-brand-blue text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider shadow-sm">Nouveau</span>
                     </div>
-                    
-                    <div class="flex-grow flex flex-col justify-between">
-                        <div>
-                            <div class="text-[10px] font-heading font-black text-brand-blue uppercase tracking-widest mb-1">Drinkware</div>
-                            <h3 class="font-heading font-bold text-brand-navyText text-base leading-tight mb-1 group-hover:text-brand-blue transition-colors">Gourde Isotherme Inox</h3>
-                            <p class="text-xs text-slate-400 font-medium mb-6">Réf. DRI-102</p>
-                        </div>
-                        
-                        <div>
-                            <div class="pt-4 border-t border-slate-100 mb-5">
-                                <div class="font-heading font-black text-2xl text-brand-navyText">Dès 11,20 € <span class="text-xs font-bold text-slate-400">HT</span></div>
-                                <div class="text-[10px] text-slate-400 font-semibold mt-0.5">MOQ : 25 pièces minimum</div>
+                    <div class="px-2 flex-grow flex flex-col">
+                        <div class="text-[10px] font-bold text-teal-500 uppercase tracking-widest mb-1">Drinkware</div>
+                        <h3 class="font-heading font-bold text-slate-800 text-lg leading-tight mb-1 group-hover:text-brand-blue transition-colors">Gourde Isotherme inox</h3>
+                        <p class="text-xs text-slate-400 mb-4">Réf. DRI-102</p>
+                        <div class="mt-auto pt-4 flex flex-col gap-4">
+                            <div>
+                                <div class="font-heading font-black text-xl text-slate-900">Dès 11,20 € <span class="text-xs text-slate-400 font-normal">HT</span></div>
+                                <div class="text-[10px] text-slate-400 mt-1">MOQ : 25 pièces minimum</div>
                             </div>
-                            
-                            <div class="flex gap-2 w-full">
-                                <button class="h-12 flex-1 bg-brand-navyText hover:bg-brand-blue text-white text-xs font-heading font-black uppercase tracking-wider rounded-xl transition-colors flex items-center justify-center">
-                                    Voir le produit
-                                </button>
-                                <button class="w-12 h-12 border border-slate-200 hover:border-brand-navyText rounded-xl text-slate-400 hover:text-brand-navyText transition-colors flex items-center justify-center flex-shrink-0">
-                                    <i class="fa-regular fa-heart text-base"></i>
-                                </button>
+                            <div class="flex gap-2">
+                                <button class="flex-1 bg-slate-900 text-white text-xs font-heading font-bold uppercase rounded-full hover:bg-brand-blue transition-colors h-11">Voir le produit</button>
+                                <button class="w-11 h-11 rounded-full border border-slate-200 text-slate-400 hover:text-red-500 hover:border-red-200 transition-colors flex items-center justify-center"><i class="fa-regular fa-heart"></i></button>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col relative group">
-                    <div class="bg-slate-50 rounded-xl aspect-[3/2] mb-6 flex flex-col items-center justify-center text-center p-4 border border-slate-100">
-                        <span class="text-slate-300 font-heading font-black text-xs uppercase tracking-widest">IMAGE PRODUIT</span>
+                <!-- Produit 3 -->
+                <div class="bg-white rounded-[2rem] p-4 shadow-soft border border-slate-100 flex flex-col group hover:-translate-y-2 transition-all duration-300">
+                    <div class="relative bg-slate-50 rounded-[1.5rem] aspect-[4/3] mb-5 overflow-hidden flex items-center justify-center">
+                        <img src="https://images.unsplash.com/photo-1619489656771-33e38708cebb?auto=format&fit=crop&w=600&q=80" alt="Tech" class="w-full h-full object-cover mix-blend-multiply opacity-90 group-hover:scale-105 transition-transform duration-500">
                     </div>
-                    
-                    <div class="flex-grow flex flex-col justify-between">
-                        <div>
-                            <div class="text-[10px] font-heading font-black text-brand-blue uppercase tracking-widest mb-1">High-Tech</div>
-                            <h3 class="font-heading font-bold text-brand-navyText text-base leading-tight mb-1 group-hover:text-brand-blue transition-colors">Batterie MagSafe 10k mAh</h3>
-                            <p class="text-xs text-slate-400 font-medium mb-6">Réf. TRC-089</p>
-                        </div>
-                        
-                        <div>
-                            <div class="pt-4 border-t border-slate-100 mb-5">
-                                <div class="font-heading font-black text-2xl text-brand-navyText">Dès 18,00 € <span class="text-xs font-bold text-slate-400">HT</span></div>
-                                <div class="text-[10px] text-slate-400 font-semibold mt-0.5">MOQ : 25 pièces minimum</div>
+                    <div class="px-2 flex-grow flex flex-col">
+                        <div class="text-[10px] font-bold text-purple-500 uppercase tracking-widest mb-1">High-Tech</div>
+                        <h3 class="font-heading font-bold text-slate-800 text-lg leading-tight mb-1 group-hover:text-brand-blue transition-colors">Batterie MagSafe 10 000 mAh</h3>
+                        <p class="text-xs text-slate-400 mb-4">Réf. TRC-089</p>
+                        <div class="mt-auto pt-4 flex flex-col gap-4">
+                            <div>
+                                <div class="font-heading font-black text-xl text-slate-900">Dès 18,00 € <span class="text-xs text-slate-400 font-normal">HT</span></div>
+                                <div class="text-[10px] text-slate-400 mt-1">MOQ : 25 pièces minimum</div>
                             </div>
-                            
-                            <div class="flex gap-2 w-full">
-                                <button class="h-12 flex-1 bg-brand-navyText hover:bg-brand-blue text-white text-xs font-heading font-black uppercase tracking-wider rounded-xl transition-colors flex items-center justify-center">
-                                    Voir le produit
-                                </button>
-                                <button class="w-12 h-12 border border-slate-200 hover:border-brand-navyText rounded-xl text-slate-400 hover:text-brand-navyText transition-colors flex items-center justify-center flex-shrink-0">
-                                    <i class="fa-regular fa-heart text-base"></i>
-                                </button>
+                            <div class="flex gap-2">
+                                <button class="flex-1 bg-slate-900 text-white text-xs font-heading font-bold uppercase rounded-full hover:bg-brand-blue transition-colors h-11">Voir le produit</button>
+                                <button class="w-11 h-11 rounded-full border border-slate-200 text-slate-400 hover:text-red-500 hover:border-red-200 transition-colors flex items-center justify-center"><i class="fa-regular fa-heart"></i></button>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col relative group">
-                    <span class="absolute top-8 left-8 bg-emerald-600 text-white text-[10px] font-heading font-black px-3 py-1 uppercase tracking-wider rounded">Éco</span>
-                    
-                    <div class="bg-slate-50 rounded-xl aspect-[3/2] mb-6 flex flex-col items-center justify-center text-center p-4 border border-slate-100">
-                        <span class="text-slate-300 font-heading font-black text-xs uppercase tracking-widest">IMAGE PRODUIT</span>
+                <!-- Produit 4 -->
+                <div class="bg-white rounded-[2rem] p-4 shadow-soft border border-slate-100 flex flex-col group hover:-translate-y-2 transition-all duration-300">
+                    <div class="relative bg-slate-50 rounded-[1.5rem] aspect-[4/3] mb-5 overflow-hidden flex items-center justify-center">
+                        <img src="https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&w=600&q=80" alt="Carnet" class="w-full h-full object-cover mix-blend-multiply opacity-90 group-hover:scale-105 transition-transform duration-500">
+                        <span class="absolute top-4 left-4 bg-green-500 text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider shadow-sm">Éco</span>
                     </div>
-                    
-                    <div class="flex-grow flex flex-col justify-between">
-                        <div>
-                            <div class="text-[10px] font-heading font-black text-brand-blue uppercase tracking-widest mb-1">Papeterie</div>
-                            <h3 class="font-heading font-bold text-brand-navyText text-base leading-tight mb-1 group-hover:text-brand-blue transition-colors">Carnet A5 Cuir Recyclé</h3>
-                            <p class="text-xs text-slate-400 font-medium mb-6">Réf. PAP-045</p>
-                        </div>
-                        
-                        <div>
-                            <div class="pt-4 border-t border-slate-100 mb-5">
-                                <div class="font-heading font-black text-2xl text-brand-navyText">Dès 6,90 € <span class="text-xs font-bold text-slate-400">HT</span></div>
-                                <div class="text-[10px] text-slate-400 font-semibold mt-0.5">MOQ : 100 pièces minimum</div>
+                    <div class="px-2 flex-grow flex flex-col">
+                        <div class="text-[10px] font-bold text-orange-500 uppercase tracking-widest mb-1">Papeterie</div>
+                        <h3 class="font-heading font-bold text-slate-800 text-lg leading-tight mb-1 group-hover:text-brand-blue transition-colors">Carnet A5 Cuir Recyclé</h3>
+                        <p class="text-xs text-slate-400 mb-4">Réf. PAP-045</p>
+                        <div class="mt-auto pt-4 flex flex-col gap-4">
+                            <div>
+                                <div class="font-heading font-black text-xl text-slate-900">Dès 6,90 € <span class="text-xs text-slate-400 font-normal">HT</span></div>
+                                <div class="text-[10px] text-slate-400 mt-1">MOQ : 100 pièces minimum</div>
                             </div>
-                            
-                            <div class="flex gap-2 w-full">
-                                <button class="h-12 flex-1 bg-brand-navyText hover:bg-brand-blue text-white text-xs font-heading font-black uppercase tracking-wider rounded-xl transition-colors flex items-center justify-center">
-                                    Voir le produit
-                                </button>
-                                <button class="w-12 h-12 border border-slate-200 hover:border-brand-navyText rounded-xl text-slate-400 hover:text-brand-navyText transition-colors flex items-center justify-center flex-shrink-0">
-                                    <i class="fa-regular fa-heart text-base"></i>
-                                </button>
+                            <div class="flex gap-2">
+                                <button class="flex-1 bg-slate-900 text-white text-xs font-heading font-bold uppercase rounded-full hover:bg-brand-blue transition-colors h-11">Voir le produit</button>
+                                <button class="w-11 h-11 rounded-full border border-slate-200 text-slate-400 hover:text-red-500 hover:border-red-200 transition-colors flex items-center justify-center"><i class="fa-regular fa-heart"></i></button>
                             </div>
                         </div>
                     </div>
@@ -294,163 +288,175 @@
         </div>
     </section>
 
-    <section class="py-24 bg-brand-bgDark relative border-t border-b border-white/5">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="mb-14">
-                <h2 class="font-heading font-black text-4xl uppercase tracking-tight text-white">Nos <span class="text-brand-blue">Univers</span> Produits</h2>
-                <p class="text-slate-400 text-sm mt-1">De l'équipement complet de vos équipes aux cadeaux de fin d'année</p>
+    <!-- NOS UNIVERS PRODUITS -->
+    <section class="py-16 lg:py-24 bg-slate-50 rounded-[3rem] lg:rounded-[5rem] mx-4 sm:mx-6 my-10 relative z-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6">
+            <div class="text-center mb-16">
+                <h2 class="font-heading font-black text-3xl lg:text-4xl tracking-tight text-slate-900 mb-4">Nos Univers Produits</h2>
+                <p class="text-slate-500 max-w-xl mx-auto">De l'équipement de vos équipes aux cadeaux de fin d'année</p>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="bg-brand-surface/30 border border-white/5 rounded-2xl overflow-hidden flex flex-col group hover:border-brand-blue/30 transition-all">
-                    <div class="bg-brand-surface/70 aspect-[16/10] flex flex-col items-center justify-center text-center p-4 border-b border-white/5">
-                        <span class="text-slate-500 font-heading font-black text-xs uppercase tracking-widest">VISUEL UNIVERS</span>
-                    </div>
-                    <div class="p-6">
-                        <h3 class="font-heading font-black text-xl uppercase tracking-wide text-white mb-2">Vêtements d'image</h3>
-                        <p class="text-slate-400 text-sm font-light leading-relaxed mb-6">Polos, vestes, t-shirts qualitatifs et personnalisés à votre logo pour habiller vos équipes.</p>
-                        <a href="#" class="text-brand-amber font-heading font-extrabold text-xs uppercase tracking-widest flex items-center transition-all hover:text-white">
-                            Découvrir la collection <i class="fa-solid fa-arrow-right ml-2 text-[10px]"></i>
-                        </a>
-                    </div>
-                </div>
-
-                <div class="bg-brand-surface/30 border border-white/5 rounded-2xl overflow-hidden flex flex-col group hover:border-brand-blue/30 transition-all">
-                    <div class="bg-brand-surface/70 aspect-[16/10] flex flex-col items-center justify-center text-center p-4 border-b border-white/5">
-                        <span class="text-slate-500 font-heading font-black text-xs uppercase tracking-widest">VISUEL UNIVERS</span>
-                    </div>
-                    <div class="p-6">
-                        <h3 class="font-heading font-black text-xl uppercase tracking-wide text-white mb-2">Cadeaux d'affaires</h3>
-                        <p class="text-slate-400 text-sm font-light leading-relaxed mb-6">Objets premium sélectionnés pour vos événements d'envergure, salons officiels et occasions clés.</p>
-                        <a href="#" class="text-brand-amber font-heading font-extrabold text-xs uppercase tracking-widest flex items-center transition-all hover:text-white">
-                            Découvrir la collection <i class="fa-solid fa-arrow-right ml-2 text-[10px]"></i>
-                        </a>
-                    </div>
-                </div>
-
-                <div class="bg-brand-surface/30 border border-white/5 rounded-2xl overflow-hidden flex flex-col group hover:border-brand-blue/30 transition-all">
-                    <div class="bg-brand-surface/70 aspect-[16/10] flex flex-col items-center justify-center text-center p-4 border-b border-white/5">
-                        <span class="text-slate-500 font-heading font-black text-xs uppercase tracking-widest">VISUEL UNIVERS</span>
-                    </div>
-                    <div class="p-6">
-                        <h3 class="font-heading font-black text-xl uppercase tracking-wide text-white mb-2">Goodies Tech</h3>
-                        <p class="text-slate-400 text-sm font-light leading-relaxed mb-6">Accessoires technologiques utiles, banques d'alimentation et hubs personnalisables.</p>
-                        <a href="#" class="text-brand-amber font-heading font-extrabold text-xs uppercase tracking-widest flex items-center transition-all hover:text-white">
-                            Découvrir la collection <i class="fa-solid fa-arrow-right ml-2 text-[10px]"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="py-24 bg-white text-brand-navyText">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-20">
-                <h2 class="font-heading font-black text-4xl uppercase tracking-tight text-brand-navyText">De l'idée à la livraison</h2>
-                <p class="text-slate-500 text-sm mt-2">Un écosystème d'accompagnement B2B transparent et fluide</p>
-            </div>
-
-            <div class="relative max-w-5xl mx-auto">
-                <div class="hidden md:block absolute top-12 left-[15%] right-[15%] h-[2px] bg-slate-100 pointer-events-none"></div>
-
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-12 relative z-10">
-                    <div class="flex flex-col items-center text-center">
-                        <div class="w-24 h-24 bg-white border-2 border-brand-blue rounded-full flex items-center justify-center font-heading font-black text-2xl text-brand-blue mb-6 shadow-md shadow-brand-blue/5">01</div>
-                        <h4 class="font-heading font-black text-base uppercase tracking-wide mb-2">Sourcing & Devis</h4>
-                        <p class="text-xs text-slate-500 max-w-xs leading-relaxed">Précisez vos critères. Nous formulons une sélection sur-mesure et un chiffrage sous 24h.</p>
-                    </div>
-                    <div class="flex flex-col items-center text-center">
-                        <div class="w-24 h-24 bg-white border-2 border-brand-blue rounded-full flex items-center justify-center font-heading font-black text-2xl text-brand-blue mb-6 shadow-md shadow-brand-blue/5">02</div>
-                        <h4 class="font-heading font-black text-base uppercase tracking-wide mb-2">Maquette & BAT</h4>
-                        <p class="text-xs text-slate-500 max-w-xs leading-relaxed">Notre studio adapte vos logotypes aux supports. Lancement après signature de votre BAT.</p>
-                    </div>
-                    <div class="flex flex-col items-center text-center">
-                        <div class="w-24 h-24 bg-white border-2 border-brand-blue rounded-full flex items-center justify-center font-heading font-black text-2xl text-brand-blue mb-6 shadow-md shadow-brand-blue/5">03</div>
-                        <h4 class="font-heading font-black text-base uppercase tracking-wide mb-2">Marquage & Expédition</h4>
-                        <p class="text-xs text-slate-500 max-w-xs leading-relaxed">Production au sein de nos ateliers experts agréés et livraison multi-sites.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="bg-slate-500 text-white py-14 border-t border-b border-slate-600/50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center divide-y md:divide-y-0 md:divide-x divide-white/10">
-                <div class="py-4 md:py-0">
-                    <div class="font-heading font-black text-5xl tracking-tight">25</div>
-                    <div class="text-[10px] uppercase font-bold tracking-widest text-slate-200 mt-2">Ans d'expertise</div>
-                </div>
-                <div class="py-4 md:py-0">
-                    <div class="font-heading font-black text-5xl tracking-tight">3 500</div>
-                    <div class="text-[10px] uppercase font-bold tracking-widest text-slate-200 mt-2">ACEF Partenaires</div>
-                </div>
-                <div class="py-4 md:py-0">
-                    <div class="font-heading font-black text-5xl tracking-tight">5 000+</div>
-                    <div class="text-[10px] uppercase font-bold tracking-widest text-slate-200 mt-2">Références catalogue</div>
-                </div>
-                <div class="py-4 md:py-0">
-                    <div class="font-heading font-black text-5xl tracking-tight">98%</div>
-                    <div class="text-[10px] uppercase font-bold tracking-widest text-slate-200 mt-2">Satisfaction client</div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="py-24 bg-white">
-        <div class="max-w-6xl mx-auto px-4 sm:px-6">
-            <div class="bg-brand-lightBg border border-slate-200 rounded-3xl p-10 lg:p-16 flex flex-col lg:flex-row items-center justify-between gap-12">
-                <div class="flex-1 text-center lg:text-left">
-                    <h2 class="font-heading font-black text-3xl sm:text-4xl uppercase text-brand-navyText leading-tight mb-4">
-                        Prêt à lancer votre<br>prochaine commande ?
-                    </h2>
-                    <p class="text-slate-500 text-sm sm:text-base max-w-md">
-                        Accédez en un clic à l'ensemble de notre catalogue, paramétrez vos volumes de distribution et suivez vos demandes.
-                    </p>
-                </div>
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-6 h-auto lg:h-[450px]">
                 
-                <div class="w-full lg:w-auto flex flex-col gap-3 min-w-[290px]">
-                    <a href="#" class="h-14 bg-brand-navyText hover:bg-brand-blue text-white font-heading font-black text-xs uppercase tracking-widest rounded-xl text-center flex items-center justify-center shadow-lg transition-colors">
+                <!-- Bloc Vêtements -->
+                <div class="md:col-span-6 lg:col-span-5 relative rounded-[2.5rem] overflow-hidden group cursor-pointer bg-slate-900 min-h-[300px]">
+                    <img src="https://images.unsplash.com/photo-1562157873-818bc0726f68?auto=format&fit=crop&w=1000&q=80" alt="Textile" class="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:scale-105 transition-transform duration-700">
+                    <div class="absolute inset-0 bg-gradient-to-t from-brand-navy/90 to-transparent"></div>
+                    
+                    <div class="absolute bottom-0 left-0 p-8 z-10 w-full">
+                        <h3 class="font-heading font-black text-2xl lg:text-3xl text-white mb-2">Vêtements d'image</h3>
+                        <p class="text-slate-300 font-light text-sm mb-4">Polos, vestes, t-shirts personnalisés à votre logo pour habiller vos équipes.</p>
+                        <span class="text-white font-heading font-bold text-xs uppercase tracking-widest flex items-center group-hover:text-brand-accent transition-colors">Découvrir la collection <i class="fa-solid fa-arrow-right ml-2"></i></span>
+                    </div>
+                </div>
+
+                <!-- Colonne droite 2 blocs -->
+                <div class="md:col-span-6 lg:col-span-7 flex flex-col sm:flex-row lg:flex-col gap-6">
+                    <!-- Bloc Cadeaux -->
+                    <div class="flex-1 relative rounded-[2.5rem] overflow-hidden group cursor-pointer bg-slate-900 min-h-[200px]">
+                        <img src="https://images.unsplash.com/photo-1549465220-1a8b9238cd48?auto=format&fit=crop&w=800&q=80" alt="Cadeaux" class="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:scale-105 transition-transform duration-700">
+                        <div class="absolute inset-0 bg-gradient-to-t from-brand-navy/90 to-transparent"></div>
+                        <div class="absolute bottom-0 left-0 p-8 z-10">
+                            <h3 class="font-heading font-black text-2xl text-white mb-2">Cadeaux d'affaires</h3>
+                            <p class="text-slate-300 font-light text-sm mb-4 hidden sm:block">Objets premium pour vos événements, salons et occasions de fidélisation.</p>
+                            <span class="text-white font-heading font-bold text-xs uppercase tracking-widest flex items-center group-hover:text-brand-accent transition-colors">Découvrir la collection <i class="fa-solid fa-arrow-right ml-2"></i></span>
+                        </div>
+                    </div>
+                    
+                    <!-- Bloc Tech -->
+                    <div class="flex-1 relative rounded-[2.5rem] overflow-hidden group cursor-pointer bg-slate-900 min-h-[200px]">
+                        <img src="https://images.unsplash.com/photo-1498049794561-7780e7231661?auto=format&fit=crop&w=800&q=80" alt="Tech" class="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:scale-105 transition-transform duration-700">
+                        <div class="absolute inset-0 bg-gradient-to-t from-brand-navy/90 to-transparent"></div>
+                        <div class="absolute bottom-0 left-0 p-8 z-10">
+                            <h3 class="font-heading font-black text-2xl text-white mb-2">Goodies Tech</h3>
+                            <p class="text-slate-300 font-light text-sm mb-4 hidden sm:block">Accessoires high-tech personnalisables, chargeurs, clés USB et batteries.</p>
+                            <span class="text-white font-heading font-bold text-xs uppercase tracking-widest flex items-center group-hover:text-brand-accent transition-colors">Découvrir la collection <i class="fa-solid fa-arrow-right ml-2"></i></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- DE L'IDEE A LA LIVRAISON -->
+    <section class="py-16 lg:py-24 bg-transparent relative overflow-hidden z-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
+            <div class="text-center mb-16">
+                <h2 class="font-heading font-black text-3xl lg:text-4xl tracking-tight text-slate-900 mb-4">De l'idée à la livraison</h2>
+                <p class="text-slate-500 max-w-2xl mx-auto">Un processus B2B simple et transparent, en 3 étapes</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12 relative">
+                <div class="hidden md:block absolute top-10 left-[20%] right-[20%] border-t-2 border-dashed border-slate-300 z-0"></div>
+
+                <div class="relative z-10 flex flex-col items-center text-center group">
+                    <div class="w-20 h-20 bg-white rounded-full border-4 border-slate-100 shadow-soft flex items-center justify-center font-heading font-black text-brand-blue text-2xl mb-6 group-hover:scale-110 group-hover:border-blue-50 transition-all duration-300">01</div>
+                    <h4 class="font-heading font-bold text-lg text-slate-800 mb-2">Sourcing & Devis</h4>
+                    <p class="text-sm text-slate-500 leading-relaxed px-4">Définissez vos besoins. Nous vous proposons une sélection de produits et un chiffrage rapide sous 24h.</p>
+                </div>
+
+                <div class="relative z-10 flex flex-col items-center text-center group">
+                    <div class="w-20 h-20 bg-white rounded-full border-4 border-slate-100 shadow-soft flex items-center justify-center font-heading font-black text-brand-accent text-2xl mb-6 group-hover:scale-110 group-hover:border-orange-50 transition-all duration-300">02</div>
+                    <h4 class="font-heading font-bold text-lg text-slate-800 mb-2">Maquette & BAT</h4>
+                    <p class="text-sm text-slate-500 leading-relaxed px-4">Notre studio adapte votre logo au support. Vous validez un Bon À Tirer visuel avant lancement.</p>
+                </div>
+
+                <div class="relative z-10 flex flex-col items-center text-center group">
+                    <div class="w-20 h-20 bg-white rounded-full border-4 border-slate-100 shadow-soft flex items-center justify-center font-heading font-black text-green-500 text-2xl mb-6 group-hover:scale-110 group-hover:border-green-50 transition-all duration-300">03</div>
+                    <h4 class="font-heading font-bold text-lg text-slate-800 mb-2">Marquage & Expédition</h4>
+                    <p class="text-sm text-slate-500 leading-relaxed px-4">Personnalisation dans nos ateliers partenaires. Livraison multi-sites gérée par nos soins.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ======================================================== -->
+    <!-- LE NOUVEAU BAS DE SITE COMPLETEMENT REFONDU ET SUBLIMÉ   -->
+    <!-- ======================================================== -->
+    <section class="bg-brand-navy relative mt-10 rounded-t-[3rem] lg:rounded-t-[5rem] overflow-hidden pt-24 pb-10 z-20">
+        
+        <!-- Effets de lumières "Aurore" pour le côté créatif et luxueux -->
+        <div class="absolute top-0 left-1/4 w-96 h-96 bg-brand-blue/20 rounded-full blur-[100px] animate-aurora pointer-events-none"></div>
+        <div class="absolute top-1/3 right-1/4 w-96 h-96 bg-indigo-600/20 rounded-full blur-[120px] animate-aurora pointer-events-none" style="animation-delay: 2s;"></div>
+
+        <!-- 1. BLOC STATISTIQUES (Intégré avec élégance) -->
+        <div class="max-w-7xl mx-auto px-6 relative z-10 mb-24">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center divide-x divide-white/5">
+                <div class="px-4">
+                    <div class="font-heading font-black text-5xl lg:text-6xl tracking-tight mb-2 text-white">25<span class="text-brand-blue">.</span></div>
+                    <div class="text-[10px] uppercase font-bold tracking-widest text-slate-400">Ans d'expertise</div>
+                </div>
+                <div class="px-4">
+                    <div class="font-heading font-black text-5xl lg:text-6xl tracking-tight mb-2 text-white">3 500</div>
+                    <div class="text-[10px] uppercase font-bold tracking-widest text-slate-400">ACEF partenaires</div>
+                </div>
+                <div class="px-4">
+                    <div class="font-heading font-black text-5xl lg:text-6xl tracking-tight mb-2 text-white">5 000<span class="text-brand-accent">+</span></div>
+                    <div class="text-[10px] uppercase font-bold tracking-widest text-slate-400">Références catalogue</div>
+                </div>
+                <div class="px-4">
+                    <div class="font-heading font-black text-5xl lg:text-6xl tracking-tight mb-2 text-white">98<span class="text-brand-blue">%</span></div>
+                    <div class="text-[10px] uppercase font-bold tracking-widest text-slate-400">Satisfaction client</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 2. CALL TO ACTION (Plaque de verre translucide, super Premium) -->
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 relative z-10 mb-32">
+            <div class="bg-white/5 border border-white/10 backdrop-blur-2xl rounded-[3rem] p-10 lg:p-20 text-center shadow-2xl relative overflow-hidden">
+                <!-- Reflet interne -->
+                <div class="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
+                
+                <h2 class="font-heading font-black text-3xl sm:text-4xl lg:text-5xl mb-6 tracking-tight leading-tight text-white">
+                    Prêt à lancer votre<br>prochaine commande ?
+                </h2>
+                <p class="text-slate-300 text-base max-w-xl mx-auto font-light mb-10">
+                    Accédez à l'ensemble du catalogue ACEF, passez vos commandes en volume et suivez vos devis en temps réel. Connexion requise.
+                </p>
+
+                <div class="flex flex-col sm:flex-row justify-center gap-4">
+                    <a href="#" class="h-14 px-10 bg-brand-blue hover:bg-blue-500 text-white font-heading font-bold text-sm rounded-full flex items-center justify-center transition-all shadow-glow">
                         Accéder au catalogue
                     </a>
-                    <a href="#" class="h-14 bg-white border border-slate-300 text-brand-navyText font-heading font-black text-xs uppercase tracking-widest rounded-xl text-center flex items-center justify-center hover:bg-slate-50 transition-colors">
+                    <a href="#" class="h-14 px-10 bg-transparent border border-white/20 hover:bg-white/10 text-white font-heading font-bold text-sm rounded-full flex items-center justify-center transition-colors">
                         Demander un accès
                     </a>
-                    <p class="text-[10px] text-slate-400 font-bold text-center uppercase tracking-wider mt-1">Espace réservé aux agents ACEF habilités</p>
                 </div>
+                <p class="text-[10px] text-slate-400 text-center uppercase tracking-widest font-bold mt-8">Accès réservé aux membres ACEF enregistrés</p>
             </div>
         </div>
-    </section>
 
-    <footer class="bg-slate-300 text-brand-navyText pt-20 pb-10 border-t-8 border-brand-blue">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- 3. FOOTER (Sombre, structuré, prolongeant le fond de page) -->
+        <footer class="max-w-7xl mx-auto px-6 relative z-10">
             <div class="grid grid-cols-1 md:grid-cols-4 gap-12 lg:gap-8 mb-16">
+                
                 <div>
-                    <div class="font-heading font-black text-2xl uppercase tracking-tighter mb-5">
-                        BIMIER <span class="text-brand-blue">LOGO</span>
+                    <div class="font-heading font-black text-xl tracking-tighter text-white flex items-center gap-2 mb-4">
+                        <div class="w-6 h-6 rounded-md bg-brand-blue flex items-center justify-center text-white text-[10px]"><i class="fa-solid fa-cube"></i></div>
+                        BIMIER LOGO
                     </div>
-                    <p class="text-xs text-slate-600 leading-relaxed mb-6 font-medium">
-                        Votre partenaire de confiance pour le déploiement d'objets de communication exclusifs. Nous unissons réactivité et rigueur.
+                    <p class="text-sm text-slate-400 font-light leading-relaxed mb-6">
+                        Votre partenaire exclusif ACEF pour une communication par l'objet réussie et durable. Basés en France, nous garantissons qualité et réactivité.
                     </p>
-                    <div class="flex space-x-3">
-                        <a href="#" class="w-10 h-10 rounded-full bg-white flex items-center justify-center text-slate-700 hover:bg-brand-blue hover:text-white transition-colors shadow-sm"><i class="fa-brands fa-linkedin-in text-sm"></i></a>
-                        <a href="#" class="w-10 h-10 rounded-full bg-white flex items-center justify-center text-slate-700 hover:bg-brand-blue hover:text-white transition-colors shadow-sm"><i class="fa-brands fa-instagram text-sm"></i></a>
+                    <div class="flex space-x-2">
+                        <a href="#" class="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-slate-300 hover:bg-brand-blue hover:text-white transition-colors"><i class="fa-brands fa-linkedin-in text-sm"></i></a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-slate-300 hover:bg-brand-accent hover:text-white transition-colors"><i class="fa-brands fa-instagram text-sm"></i></a>
                     </div>
                 </div>
 
                 <div>
-                    <h5 class="font-heading font-black text-xs uppercase tracking-wider text-slate-800 mb-5">Navigation</h5>
-                    <ul class="space-y-3 text-xs font-semibold text-slate-600">
+                    <h5 class="font-heading font-bold text-white mb-5 uppercase tracking-wider text-xs">Navigation</h5>
+                    <ul class="space-y-3 text-sm text-slate-400 font-light">
                         <li><a href="#" class="hover:text-brand-blue transition-colors">Accueil</a></li>
-                        <li><a href="#" class="hover:text-brand-blue transition-colors">Le Catalogue global</a></li>
-                        <li><a href="#" class="hover:text-brand-blue transition-colors">À propos de Bimier</a></li>
+                        <li><a href="#" class="hover:text-brand-blue transition-colors">Le Catalogue</a></li>
+                        <li><a href="#" class="hover:text-brand-blue transition-colors">À propos</a></li>
+                        <li><a href="#" class="hover:text-brand-blue transition-colors">Contact</a></li>
                     </ul>
                 </div>
 
                 <div>
-                    <h5 class="font-heading font-black text-xs uppercase tracking-wider text-slate-800 mb-5">Légal</h5>
-                    <ul class="space-y-3 text-xs font-semibold text-slate-600">
+                    <h5 class="font-heading font-bold text-white mb-5 uppercase tracking-wider text-xs">Légal</h5>
+                    <ul class="space-y-3 text-sm text-slate-400 font-light">
                         <li><a href="#" class="hover:text-brand-blue transition-colors">Mentions légales</a></li>
                         <li><a href="#" class="hover:text-brand-blue transition-colors">CGV</a></li>
                         <li><a href="#" class="hover:text-brand-blue transition-colors">Confidentialité</a></li>
@@ -458,25 +464,26 @@
                 </div>
 
                 <div>
-                    <h5 class="font-heading font-black text-xs uppercase tracking-wider text-slate-800 mb-5">Ligne Directe</h5>
-                    <div class="text-xs text-slate-600 font-semibold space-y-3">
-                        <div class="font-heading font-black text-2xl text-brand-navyText tracking-tight">0800 123 456</div>
-                        <div class="text-slate-500 uppercase text-[10px] font-bold tracking-wider">Service gratuit • Lun au Ven, 9h-18h</div>
-                        <div class="pt-2"><a href="mailto:contact@bimier.fr" class="text-brand-navyText hover:text-brand-blue underline font-bold">contact@bimier.fr</a></div>
+                    <h5 class="font-heading font-bold text-white mb-5 uppercase tracking-wider text-xs">Ligne Directe</h5>
+                    <div class="bg-white/5 rounded-3xl p-6 border border-white/10 backdrop-blur-sm">
+                        <div class="font-heading font-black text-2xl text-brand-blue mb-1">0800 123 456</div>
+                        <p class="text-xs text-slate-400 font-light mb-4">Lun.–Ven. 9h–18h</p>
+                        <a href="mailto:contact@bimier.fr" class="text-sm font-medium text-white hover:text-brand-accent transition-colors">contact@bimier.fr</a>
                     </div>
                 </div>
+
             </div>
 
-            <div class="pt-8 border-t border-slate-400 flex flex-col sm:flex-row justify-between items-center text-[10px] font-bold uppercase tracking-widest text-slate-500 gap-4">
-                <p>&copy; 2026 Bimier Solutions. Tous droits réservés.</p>
-                <div class="flex space-x-6">
-                    <a href="#" class="hover:text-brand-navyText">Mentions</a>
-                    <a href="#" class="hover:text-brand-navyText">CGV</a>
-                    <a href="#" class="hover:text-brand-navyText">Confidentialité</a>
+            <div class="pt-8 border-t border-white/10 flex flex-col sm:flex-row justify-between items-center text-[10px] uppercase tracking-widest font-bold text-slate-500">
+                <p>&copy; 2026 Bimier Solutions. Tous droits réservés. Espace ACEF.</p>
+                <div class="mt-4 sm:mt-0 flex gap-4">
+                    <a href="#" class="hover:text-white transition-colors">Mentions légales</a>
+                    <a href="#" class="hover:text-white transition-colors">CGV</a>
+                    <a href="#" class="hover:text-white transition-colors">Confidentialité</a>
                 </div>
             </div>
-        </div>
-    </footer>
+        </footer>
+    </section>
 
 </body>
 </html>
