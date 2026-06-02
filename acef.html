@@ -1,364 +1,482 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="fr" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VidPro - Connexion</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <title>BIMIER SOLUTIONS - Catalogue Exclusif ACEF</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Inter', sans-serif;
-        }
-
-        body {
-            min-height: 100vh;
-            display: flex;
-            background: linear-gradient(rgba(10, 25, 47, 0.6), rgba(10, 25, 47, 0.8)), 
-                        url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2070&auto=format&fit=crop') center/cover no-repeat;
-        }
-
-        .login-wrapper {
-            display: flex;
-            width: 100%;
-            min-height: 100vh;
-            padding: 20px;
-        }
-
-        /* --- SECTION GAUCHE (Informations) --- */
-        .left-section {
-            flex: 1.2;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            padding: 40px 60px;
-            color: #ffffff;
-        }
-
-        .top-bar {
-            display: flex;
-            justify-content: flex-start;
-            align-items: center;
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 24px;
-            font-weight: 700;
-        }
-
-        .logo-icon {
-            background-color: #ffffff;
-            color: #0f172a;
-            width: 36px;
-            height: 36px;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 18px;
-        }
-
-        .hero-content {
-            max-width: 520px;
-            margin-bottom: 20px;
-        }
-
-        .hero-content h1 {
-            font-size: 48px;
-            font-weight: 700;
-            line-height: 1.15;
-            margin-bottom: 20px;
-            letter-spacing: -0.5px;
-        }
-
-        .hero-content p {
-            font-size: 16px;
-            line-height: 1.6;
-            color: #cbd5e1;
-            margin-bottom: 40px;
-        }
-
-        .carousel-dots {
-            display: flex;
-            gap: 8px;
-            align-items: center;
-        }
-
-        .dot {
-            width: 6px;
-            height: 6px;
-            background-color: rgba(255, 255, 255, 0.4);
-            border-radius: 50%;
-            cursor: pointer;
-        }
-
-        .dot.active {
-            width: 24px;
-            border-radius: 4px;
-            background-color: #ffffff;
-        }
-
-        /* --- SECTION DROITE (Formulaire) --- */
-        .right-section {
-            flex: 1;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            max-width: 600px;
-        }
-
-        .form-container {
-            background: #ffffff;
-            width: 100%;
-            height: 100%;
-            max-height: 850px;
-            border-radius: 24px;
-            padding: 60px 80px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-        }
-
-        .form-container h2 {
-            font-size: 36px;
-            font-weight: 700;
-            color: #0f172a;
-            margin-bottom: 10px;
-            letter-spacing: -0.5px;
-        }
-
-        .subtitle {
-            color: #64748b;
-            font-size: 15px;
-            margin-bottom: 40px;
-        }
-
-        .input-group {
-            margin-bottom: 24px;
-            position: relative;
-        }
-
-        .input-group label {
-            display: block;
-            font-size: 13px;
-            font-weight: 600;
-            color: #0f172a;
-            margin-bottom: 8px;
-        }
-
-        .input-wrapper {
-            position: relative;
-            display: flex;
-            align-items: center;
-        }
-
-        .input-group input[type="email"],
-        .input-group input[type="password"] {
-            width: 100%;
-            padding: 15px 18px;
-            border: 1px solid #e2e8f0;
-            border-radius: 12px;
-            font-size: 14px;
-            color: #0f172a;
-            outline: none;
-            transition: border-color 0.2s;
-        }
-
-        .input-group input::placeholder {
-            color: #94a3b8;
-        }
-
-        .input-group input:focus {
-            border-color: #0f172a;
-        }
-
-        .toggle-password {
-            position: absolute;
-            right: 18px;
-            color: #94a3b8;
-            cursor: pointer;
-            border: none;
-            background: none;
-            font-size: 16px;
-        }
-
-        .form-actions {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 32px;
-            font-size: 14px;
-        }
-
-        .checkbox-group {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            cursor: pointer;
-        }
-
-        .checkbox-group input {
-            width: 18px;
-            height: 18px;
-            border-radius: 4px;
-            border: 1px solid #cbd5e1;
-            accent-color: #0f172a;
-            cursor: pointer;
-        }
-
-        .checkbox-group span {
-            color: #94a3b8;
-            font-weight: 500;
-        }
-
-        .forgot-password {
-            color: #94a3b8;
-            text-decoration: none;
-            font-weight: 500;
-            transition: color 0.2s;
-        }
-
-        .forgot-password:hover {
-            color: #0f172a;
-        }
-
-        .btn-submit {
-            width: 100%;
-            padding: 16px;
-            background-color: #0f172a;
-            color: #ffffff;
-            border: none;
-            border-radius: 50px;
-            font-size: 15px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: background-color 0.2s;
-        }
-
-        .btn-submit:hover {
-            background-color: #1e293b;
-        }
-
-        /* --- RESPONSIF --- */
-        @media (max-width: 1024px) {
-            .login-wrapper {
-                padding: 10px;
-            }
-            .left-section {
-                padding: 30px;
-            }
-            .form-container {
-                padding: 40px;
-            }
-        }
-
-        @media (max-width: 850px) {
-            .login-wrapper {
-                flex-direction: column;
-                padding: 0;
-            }
-            .left-section {
-                flex: none;
-                padding: 40px 20px;
-                min-height: 400px;
-            }
-            .right-section {
-                max-width: 100%;
-            }
-            .form-container {
-                border-radius: 24px 24px 0 0;
-                padding: 40px 25px;
-                box-shadow: none;
-            }
-        }
-    </style>
-</head>
-<body>
-
-    <div class="login-wrapper">
-        <div class="left-section">
-            <div class="top-bar">
-                <div class="logo">
-                    <div class="logo-icon">
-                        <i class="fa-solid fa-clapperboard"></i>
-                    </div>
-                    VidPro
-                </div>
-            </div>
-
-            <div class="hero-content">
-                <h1>Montez plus intelligemment. Exportez plus vite. Créez partout.</h1>
-                <p>Des courts extraits pour les réseaux sociaux aux vidéos longues, notre éditeur puissant vous permet de travailler en toute fluidité sur tous vos appareils.</p>
-                
-                <div class="carousel-dots">
-                    <div class="dot active"></div>
-                    <div class="dot"></div>
-                    <div class="dot"></div>
-                    <div class="dot"></div>
-                </div>
-            </div>
-        </div>
-
-        <div class="right-section">
-            <div class="form-container">
-                <h2>Bon retour !</h2>
-                <p class="subtitle">Connectez-vous pour commencer à créer des vidéos époustouflantes en toute simplicité.</p>
-
-                <form onSubmit="event.preventDefault();">
-                    <div class="input-group">
-                        <label for="email">Adresse e-mail</label>
-                        <input type="email" id="email" placeholder="Entrez votre e-mail" required>
-                    </div>
-
-                    <div class="input-group">
-                        <label for="password">Mot de passe</label>
-                        <div class="input-wrapper">
-                            <input type="password" id="password" placeholder="Entrez votre mot de passe" required>
-                            <button type="button" class="toggle-password" onclick="togglePassword()">
-                                <i class="fa-regular fa-eye" id="eye-icon"></i>
-                            </button>
-                        </div>
-                    </div>
-
-                    <div class="form-actions">
-                        <label class="checkbox-group">
-                            <input type="checkbox">
-                            <span>Se souvenir de moi</span>
-                        </label>
-                        <a href="#" class="forgot-password">Mot de passe oublié ?</a>
-                    </div>
-
-                    <button type="submit" class="btn-submit">Se connecter</button>
-                </form>
-            </div>
-        </div>
-    </div>
-
+    
     <script>
-        function togglePassword() {
-            const passwordInput = document.getElementById('password');
-            const eyeIcon = document.getElementById('eye-icon');
-            
-            if (passwordInput.type === 'password') {
-                passwordInput.type = 'text';
-                eyeIcon.classList.remove('fa-eye');
-                eyeIcon.classList.add('fa-eye-slash');
-            } else {
-                passwordInput.type = 'password';
-                eyeIcon.classList.remove('fa-eye-slash');
-                eyeIcon.classList.add('fa-eye');
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            bgDark: '#070C1E',    /* Fond sombre profond signature */
+                            surface: '#111936',   /* Surfaces cartes sombres */
+                            blue: '#1E3AFA',      /* Bleu électrique fort de la DA */
+                            blueHover: '#1226B8', 
+                            amber: '#FF9F0A',     /* Accent ambré vif */
+                            lightBg: '#F8FAFC',   /* Fond de section clair */
+                            navyText: '#0F172A'   /* Texte foncé sections claires */
+                        }
+                    },
+                    fontFamily: {
+                        heading: ['Montserrat', 'sans-serif'],
+                        body: ['Inter', 'sans-serif'],
+                    }
+                }
             }
         }
     </script>
+    <style>
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+        /* Surlignage pur et affirmé sans bug de hauteur de ligne */
+        .da-highlight {
+            background-color: #1E3AFA;
+            color: #ffffff;
+            padding: 0.1em 0.3em;
+            display: inline-block;
+            box-shadow: 0 0 25px rgba(30, 58, 250, 0.25);
+        }
+    </style>
+</head>
+<body class="font-body text-slate-300 bg-brand-bgDark antialiased overflow-x-hidden">
+
+    <header class="border-b border-white/5 sticky top-0 bg-brand-bgDark/80 backdrop-blur-md z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <a href="#" class="font-heading font-black text-2xl tracking-tighter uppercase text-white flex items-center gap-2">
+                <span class="text-brand-blue"><i class="fa-solid fa-cube"></i></span> BIMIER <span class="text-slate-500 font-normal text-lg">LOGO</span>
+            </a>
+            
+            <nav class="hidden md:flex space-x-8 font-heading font-extrabold text-xs tracking-widest uppercase">
+                <a href="#" class="text-brand-blue border-b-2 border-brand-blue h-20 flex items-center">Accueil</a>
+                <a href="#" class="text-slate-400 hover:text-white transition-colors h-20 flex items-center">Catalogue</a>
+                <a href="#" class="text-slate-400 hover:text-white transition-colors h-20 flex items-center">À propos</a>
+                <a href="#" class="text-slate-400 hover:text-white transition-colors h-20 flex items-center">Contact</a>
+            </nav>
+            
+            <div class="flex items-center space-x-4">
+                <div class="relative hidden lg:block">
+                    <input type="text" placeholder="Rechercher..." class="bg-brand-surface border border-white/5 text-white placeholder-slate-500 rounded-full h-10 px-5 pl-10 text-xs w-56 focus:outline-none focus:border-brand-blue transition-all">
+                    <i class="fa-solid fa-magnifying-glass absolute left-4 top-3.5 text-slate-500 text-xs"></i>
+                </div>
+                <a href="#" class="bg-brand-blue hover:bg-brand-blueHover text-white font-heading font-black text-xs uppercase tracking-wider h-11 px-6 rounded-full flex items-center transition-all shadow-lg shadow-brand-blue/20">
+                    <i class="fa-solid fa-user text-brand-amber mr-2"></i> Mon compte ACEF
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <section class="relative py-20 lg:py-28 overflow-hidden border-b border-white/5">
+        <div class="absolute top-1/4 right-[10%] w-96 h-96 bg-brand-blue/10 rounded-full blur-[120px] pointer-events-none"></div>
+        
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <p class="font-heading font-extrabold tracking-[0.3em] text-xs uppercase text-brand-amber mb-4">Catalogue Exclusif ACEF</p>
+            
+            <h1 class="font-heading font-black text-5xl sm:text-7xl uppercase leading-[0.95] tracking-tighter text-white mb-6">
+                Vos objets.<br>
+                <span class="da-highlight mt-3">Votre image.</span>
+            </h1>
+            
+            <p class="text-slate-400 max-w-xl text-base sm:text-lg font-normal leading-relaxed mb-10">
+                Accédez à plus de 5 000 références personnalisables réservées aux associations ACEF. Commande en volume, traitement prioritaire et livraison rapide.
+            </p>
+            
+            <div class="flex flex-col sm:flex-row gap-4 mb-20 max-w-md sm:max-w-none">
+                <a href="#" class="h-14 px-8 bg-brand-blue hover:bg-brand-blueHover text-white font-heading font-black uppercase text-xs tracking-widest rounded-xl transition-all shadow-xl shadow-brand-blue/25 flex items-center justify-center group">
+                    Explorer le catalogue <i class="fa-solid fa-arrow-right ml-3 text-xs transform group-hover:translate-x-1 transition-transform"></i>
+                </a>
+                <a href="#" class="h-14 px-8 bg-transparent border border-slate-700 hover:border-white text-white font-heading font-black uppercase text-xs tracking-widest rounded-xl transition-all flex items-center justify-center">
+                    Demander un devis
+                </a>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 pt-10 border-t border-white/5">
+                <div>
+                    <div class="font-heading font-black text-4xl text-white tracking-tight">5 000+</div>
+                    <div class="text-[10px] text-slate-500 uppercase tracking-widest font-bold mt-1">Références produits</div>
+                </div>
+                <div>
+                    <div class="font-heading font-black text-4xl text-white tracking-tight">25 ans</div>
+                    <div class="text-[10px] text-slate-500 uppercase tracking-widest font-bold mt-1">D'expertise</div>
+                </div>
+                <div>
+                    <div class="font-heading font-black text-4xl text-white tracking-tight">48h</div>
+                    <div class="text-[10px] text-slate-500 uppercase tracking-widest font-bold mt-1">Délai devis</div>
+                </div>
+                <div>
+                    <div class="font-heading font-black text-4xl text-white tracking-tight">98%</div>
+                    <div class="text-[10px] text-slate-500 uppercase tracking-widest font-bold mt-1">Satisfaction client</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="border-b border-white/5 bg-brand-surface/20">
+        <div class="max-w-7xl mx-auto px-4 py-5 flex overflow-x-auto space-x-6 no-scrollbar snap-x">
+            <a href="#" class="flex items-center space-x-4 flex-shrink-0 bg-brand-surface/60 border border-white/5 p-3 pr-8 rounded-xl hover:border-brand-blue/40 hover:bg-brand-surface transition-all snap-start min-w-[245px]">
+                <div class="w-12 h-12 bg-brand-blue/10 border border-brand-blue/20 rounded-lg flex items-center justify-center text-brand-blue text-lg"><i class="fa-solid fa-shirt"></i></div>
+                <div>
+                    <div class="font-heading font-extrabold text-xs text-white uppercase tracking-wide">Textile & Vêtements</div>
+                    <div class="text-[11px] text-slate-500 mt-0.5">143 produits</div>
+                </div>
+            </a>
+            <a href="#" class="flex items-center space-x-4 flex-shrink-0 bg-brand-surface/60 border border-white/5 p-3 pr-8 rounded-xl hover:border-brand-blue/40 hover:bg-brand-surface transition-all snap-start min-w-[245px]">
+                <div class="w-12 h-12 bg-brand-blue/10 border border-brand-blue/20 rounded-lg flex items-center justify-center text-brand-blue text-lg"><i class="fa-solid fa-folder-open"></i></div>
+                <div>
+                    <div class="font-heading font-extrabold text-xs text-white uppercase tracking-wide">Papeterie & Bureau</div>
+                    <div class="text-[11px] text-slate-500 mt-0.5">89 produits</div>
+                </div>
+            </a>
+            <a href="#" class="flex items-center space-x-4 flex-shrink-0 bg-brand-surface/60 border border-white/5 p-3 pr-8 rounded-xl hover:border-brand-blue/40 hover:bg-brand-surface transition-all snap-start min-w-[245px]">
+                <div class="w-12 h-12 bg-brand-blue/10 border border-brand-blue/20 rounded-lg flex items-center justify-center text-brand-blue text-lg"><i class="fa-solid fa-glass-water"></i></div>
+                <div>
+                    <div class="font-heading font-extrabold text-xs text-white uppercase tracking-wide">Drinkware & Goodies</div>
+                    <div class="text-[11px] text-slate-500 mt-0.5">197 produits</div>
+                </div>
+            </a>
+            <a href="#" class="flex items-center space-x-4 flex-shrink-0 bg-brand-surface/60 border border-white/5 p-3 pr-8 rounded-xl hover:border-brand-blue/40 hover:bg-brand-surface transition-all snap-start min-w-[245px]">
+                <div class="w-12 h-12 bg-brand-blue/10 border border-brand-blue/20 rounded-lg flex items-center justify-center text-brand-blue text-lg"><i class="fa-solid fa-bolt-lightning"></i></div>
+                <div>
+                    <div class="font-heading font-extrabold text-xs text-white uppercase tracking-wide">High-Tech</div>
+                    <div class="text-[11px] text-slate-500 mt-0.5">54 produits</div>
+                </div>
+            </a>
+        </div>
+    </section>
+
+    <section class="py-24 bg-brand-lightBg text-brand-navyText">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-end mb-14 gap-4">
+                <div>
+                    <h2 class="font-heading font-black text-4xl lg:text-5xl uppercase tracking-tight text-brand-navyText">Nos Produits Phares</h2>
+                    <p class="text-slate-500 text-sm mt-1">Sélection des références les plus commandées par les ACEF</p>
+                </div>
+                <a href="#" class="font-heading font-extrabold text-xs uppercase tracking-widest text-brand-blue hover:text-brand-navyText transition-colors flex items-center gap-2 border-b-2 border-brand-blue pb-1">
+                    Voir tout le catalogue <i class="fa-solid fa-arrow-right-long"></i>
+                </a>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                
+                <div class="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col relative group">
+                    <span class="absolute top-8 left-8 bg-brand-amber text-brand-navyText text-[10px] font-heading font-black px-3 py-1 uppercase tracking-wider rounded">Best-Seller</span>
+                    
+                    <div class="bg-slate-50 rounded-xl aspect-[3/2] mb-6 flex flex-col items-center justify-center text-center p-4 border border-slate-100">
+                        <span class="text-slate-300 font-heading font-black text-xs uppercase tracking-widest">IMAGE PRODUIT</span>
+                    </div>
+                    
+                    <div class="flex-grow flex flex-col justify-between">
+                        <div>
+                            <div class="text-[10px] font-heading font-black text-brand-blue uppercase tracking-widest mb-1">Textile</div>
+                            <h3 class="font-heading font-bold text-brand-navyText text-base leading-tight mb-1 group-hover:text-brand-blue transition-colors">Polo Corporate Premium</h3>
+                            <p class="text-xs text-slate-400 font-medium mb-6">Réf. TEX-001</p>
+                        </div>
+                        
+                        <div>
+                            <div class="pt-4 border-t border-slate-100 mb-5">
+                                <div class="font-heading font-black text-2xl text-brand-navyText">Dès 14,50 € <span class="text-xs font-bold text-slate-400">HT</span></div>
+                                <div class="text-[10px] text-slate-400 font-semibold mt-0.5">MOQ : 50 pièces minimum</div>
+                            </div>
+                            
+                            <div class="flex gap-2 w-full">
+                                <button class="h-12 flex-1 bg-brand-navyText hover:bg-brand-blue text-white text-xs font-heading font-black uppercase tracking-wider rounded-xl transition-colors flex items-center justify-center">
+                                    Voir le produit
+                                </button>
+                                <button class="w-12 h-12 border border-slate-200 hover:border-brand-navyText rounded-xl text-slate-400 hover:text-brand-navyText transition-colors flex items-center justify-center flex-shrink-0">
+                                    <i class="fa-regular fa-heart text-base"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col relative group">
+                    <span class="absolute top-8 left-8 bg-brand-blue text-white text-[10px] font-heading font-black px-3 py-1 uppercase tracking-wider rounded">Nouveau</span>
+                    
+                    <div class="bg-slate-50 rounded-xl aspect-[3/2] mb-6 flex flex-col items-center justify-center text-center p-4 border border-slate-100">
+                        <span class="text-slate-300 font-heading font-black text-xs uppercase tracking-widest">IMAGE PRODUIT</span>
+                    </div>
+                    
+                    <div class="flex-grow flex flex-col justify-between">
+                        <div>
+                            <div class="text-[10px] font-heading font-black text-brand-blue uppercase tracking-widest mb-1">Drinkware</div>
+                            <h3 class="font-heading font-bold text-brand-navyText text-base leading-tight mb-1 group-hover:text-brand-blue transition-colors">Gourde Isotherme Inox</h3>
+                            <p class="text-xs text-slate-400 font-medium mb-6">Réf. DRI-102</p>
+                        </div>
+                        
+                        <div>
+                            <div class="pt-4 border-t border-slate-100 mb-5">
+                                <div class="font-heading font-black text-2xl text-brand-navyText">Dès 11,20 € <span class="text-xs font-bold text-slate-400">HT</span></div>
+                                <div class="text-[10px] text-slate-400 font-semibold mt-0.5">MOQ : 25 pièces minimum</div>
+                            </div>
+                            
+                            <div class="flex gap-2 w-full">
+                                <button class="h-12 flex-1 bg-brand-navyText hover:bg-brand-blue text-white text-xs font-heading font-black uppercase tracking-wider rounded-xl transition-colors flex items-center justify-center">
+                                    Voir le produit
+                                </button>
+                                <button class="w-12 h-12 border border-slate-200 hover:border-brand-navyText rounded-xl text-slate-400 hover:text-brand-navyText transition-colors flex items-center justify-center flex-shrink-0">
+                                    <i class="fa-regular fa-heart text-base"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col relative group">
+                    <div class="bg-slate-50 rounded-xl aspect-[3/2] mb-6 flex flex-col items-center justify-center text-center p-4 border border-slate-100">
+                        <span class="text-slate-300 font-heading font-black text-xs uppercase tracking-widest">IMAGE PRODUIT</span>
+                    </div>
+                    
+                    <div class="flex-grow flex flex-col justify-between">
+                        <div>
+                            <div class="text-[10px] font-heading font-black text-brand-blue uppercase tracking-widest mb-1">High-Tech</div>
+                            <h3 class="font-heading font-bold text-brand-navyText text-base leading-tight mb-1 group-hover:text-brand-blue transition-colors">Batterie MagSafe 10k mAh</h3>
+                            <p class="text-xs text-slate-400 font-medium mb-6">Réf. TRC-089</p>
+                        </div>
+                        
+                        <div>
+                            <div class="pt-4 border-t border-slate-100 mb-5">
+                                <div class="font-heading font-black text-2xl text-brand-navyText">Dès 18,00 € <span class="text-xs font-bold text-slate-400">HT</span></div>
+                                <div class="text-[10px] text-slate-400 font-semibold mt-0.5">MOQ : 25 pièces minimum</div>
+                            </div>
+                            
+                            <div class="flex gap-2 w-full">
+                                <button class="h-12 flex-1 bg-brand-navyText hover:bg-brand-blue text-white text-xs font-heading font-black uppercase tracking-wider rounded-xl transition-colors flex items-center justify-center">
+                                    Voir le produit
+                                </button>
+                                <button class="w-12 h-12 border border-slate-200 hover:border-brand-navyText rounded-xl text-slate-400 hover:text-brand-navyText transition-colors flex items-center justify-center flex-shrink-0">
+                                    <i class="fa-regular fa-heart text-base"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col relative group">
+                    <span class="absolute top-8 left-8 bg-emerald-600 text-white text-[10px] font-heading font-black px-3 py-1 uppercase tracking-wider rounded">Éco</span>
+                    
+                    <div class="bg-slate-50 rounded-xl aspect-[3/2] mb-6 flex flex-col items-center justify-center text-center p-4 border border-slate-100">
+                        <span class="text-slate-300 font-heading font-black text-xs uppercase tracking-widest">IMAGE PRODUIT</span>
+                    </div>
+                    
+                    <div class="flex-grow flex flex-col justify-between">
+                        <div>
+                            <div class="text-[10px] font-heading font-black text-brand-blue uppercase tracking-widest mb-1">Papeterie</div>
+                            <h3 class="font-heading font-bold text-brand-navyText text-base leading-tight mb-1 group-hover:text-brand-blue transition-colors">Carnet A5 Cuir Recyclé</h3>
+                            <p class="text-xs text-slate-400 font-medium mb-6">Réf. PAP-045</p>
+                        </div>
+                        
+                        <div>
+                            <div class="pt-4 border-t border-slate-100 mb-5">
+                                <div class="font-heading font-black text-2xl text-brand-navyText">Dès 6,90 € <span class="text-xs font-bold text-slate-400">HT</span></div>
+                                <div class="text-[10px] text-slate-400 font-semibold mt-0.5">MOQ : 100 pièces minimum</div>
+                            </div>
+                            
+                            <div class="flex gap-2 w-full">
+                                <button class="h-12 flex-1 bg-brand-navyText hover:bg-brand-blue text-white text-xs font-heading font-black uppercase tracking-wider rounded-xl transition-colors flex items-center justify-center">
+                                    Voir le produit
+                                </button>
+                                <button class="w-12 h-12 border border-slate-200 hover:border-brand-navyText rounded-xl text-slate-400 hover:text-brand-navyText transition-colors flex items-center justify-center flex-shrink-0">
+                                    <i class="fa-regular fa-heart text-base"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section class="py-24 bg-brand-bgDark relative border-t border-b border-white/5">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="mb-14">
+                <h2 class="font-heading font-black text-4xl uppercase tracking-tight text-white">Nos <span class="text-brand-blue">Univers</span> Produits</h2>
+                <p class="text-slate-400 text-sm mt-1">De l'équipement complet de vos équipes aux cadeaux de fin d'année</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-brand-surface/30 border border-white/5 rounded-2xl overflow-hidden flex flex-col group hover:border-brand-blue/30 transition-all">
+                    <div class="bg-brand-surface/70 aspect-[16/10] flex flex-col items-center justify-center text-center p-4 border-b border-white/5">
+                        <span class="text-slate-500 font-heading font-black text-xs uppercase tracking-widest">VISUEL UNIVERS</span>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="font-heading font-black text-xl uppercase tracking-wide text-white mb-2">Vêtements d'image</h3>
+                        <p class="text-slate-400 text-sm font-light leading-relaxed mb-6">Polos, vestes, t-shirts qualitatifs et personnalisés à votre logo pour habiller vos équipes.</p>
+                        <a href="#" class="text-brand-amber font-heading font-extrabold text-xs uppercase tracking-widest flex items-center transition-all hover:text-white">
+                            Découvrir la collection <i class="fa-solid fa-arrow-right ml-2 text-[10px]"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="bg-brand-surface/30 border border-white/5 rounded-2xl overflow-hidden flex flex-col group hover:border-brand-blue/30 transition-all">
+                    <div class="bg-brand-surface/70 aspect-[16/10] flex flex-col items-center justify-center text-center p-4 border-b border-white/5">
+                        <span class="text-slate-500 font-heading font-black text-xs uppercase tracking-widest">VISUEL UNIVERS</span>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="font-heading font-black text-xl uppercase tracking-wide text-white mb-2">Cadeaux d'affaires</h3>
+                        <p class="text-slate-400 text-sm font-light leading-relaxed mb-6">Objets premium sélectionnés pour vos événements d'envergure, salons officiels et occasions clés.</p>
+                        <a href="#" class="text-brand-amber font-heading font-extrabold text-xs uppercase tracking-widest flex items-center transition-all hover:text-white">
+                            Découvrir la collection <i class="fa-solid fa-arrow-right ml-2 text-[10px]"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="bg-brand-surface/30 border border-white/5 rounded-2xl overflow-hidden flex flex-col group hover:border-brand-blue/30 transition-all">
+                    <div class="bg-brand-surface/70 aspect-[16/10] flex flex-col items-center justify-center text-center p-4 border-b border-white/5">
+                        <span class="text-slate-500 font-heading font-black text-xs uppercase tracking-widest">VISUEL UNIVERS</span>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="font-heading font-black text-xl uppercase tracking-wide text-white mb-2">Goodies Tech</h3>
+                        <p class="text-slate-400 text-sm font-light leading-relaxed mb-6">Accessoires technologiques utiles, banques d'alimentation et hubs personnalisables.</p>
+                        <a href="#" class="text-brand-amber font-heading font-extrabold text-xs uppercase tracking-widest flex items-center transition-all hover:text-white">
+                            Découvrir la collection <i class="fa-solid fa-arrow-right ml-2 text-[10px]"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-24 bg-white text-brand-navyText">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-20">
+                <h2 class="font-heading font-black text-4xl uppercase tracking-tight text-brand-navyText">De l'idée à la livraison</h2>
+                <p class="text-slate-500 text-sm mt-2">Un écosystème d'accompagnement B2B transparent et fluide</p>
+            </div>
+
+            <div class="relative max-w-5xl mx-auto">
+                <div class="hidden md:block absolute top-12 left-[15%] right-[15%] h-[2px] bg-slate-100 pointer-events-none"></div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-12 relative z-10">
+                    <div class="flex flex-col items-center text-center">
+                        <div class="w-24 h-24 bg-white border-2 border-brand-blue rounded-full flex items-center justify-center font-heading font-black text-2xl text-brand-blue mb-6 shadow-md shadow-brand-blue/5">01</div>
+                        <h4 class="font-heading font-black text-base uppercase tracking-wide mb-2">Sourcing & Devis</h4>
+                        <p class="text-xs text-slate-500 max-w-xs leading-relaxed">Précisez vos critères. Nous formulons une sélection sur-mesure et un chiffrage sous 24h.</p>
+                    </div>
+                    <div class="flex flex-col items-center text-center">
+                        <div class="w-24 h-24 bg-white border-2 border-brand-blue rounded-full flex items-center justify-center font-heading font-black text-2xl text-brand-blue mb-6 shadow-md shadow-brand-blue/5">02</div>
+                        <h4 class="font-heading font-black text-base uppercase tracking-wide mb-2">Maquette & BAT</h4>
+                        <p class="text-xs text-slate-500 max-w-xs leading-relaxed">Notre studio adapte vos logotypes aux supports. Lancement après signature de votre BAT.</p>
+                    </div>
+                    <div class="flex flex-col items-center text-center">
+                        <div class="w-24 h-24 bg-white border-2 border-brand-blue rounded-full flex items-center justify-center font-heading font-black text-2xl text-brand-blue mb-6 shadow-md shadow-brand-blue/5">03</div>
+                        <h4 class="font-heading font-black text-base uppercase tracking-wide mb-2">Marquage & Expédition</h4>
+                        <p class="text-xs text-slate-500 max-w-xs leading-relaxed">Production au sein de nos ateliers experts agréés et livraison multi-sites.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="bg-slate-500 text-white py-14 border-t border-b border-slate-600/50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center divide-y md:divide-y-0 md:divide-x divide-white/10">
+                <div class="py-4 md:py-0">
+                    <div class="font-heading font-black text-5xl tracking-tight">25</div>
+                    <div class="text-[10px] uppercase font-bold tracking-widest text-slate-200 mt-2">Ans d'expertise</div>
+                </div>
+                <div class="py-4 md:py-0">
+                    <div class="font-heading font-black text-5xl tracking-tight">3 500</div>
+                    <div class="text-[10px] uppercase font-bold tracking-widest text-slate-200 mt-2">ACEF Partenaires</div>
+                </div>
+                <div class="py-4 md:py-0">
+                    <div class="font-heading font-black text-5xl tracking-tight">5 000+</div>
+                    <div class="text-[10px] uppercase font-bold tracking-widest text-slate-200 mt-2">Références catalogue</div>
+                </div>
+                <div class="py-4 md:py-0">
+                    <div class="font-heading font-black text-5xl tracking-tight">98%</div>
+                    <div class="text-[10px] uppercase font-bold tracking-widest text-slate-200 mt-2">Satisfaction client</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-24 bg-white">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6">
+            <div class="bg-brand-lightBg border border-slate-200 rounded-3xl p-10 lg:p-16 flex flex-col lg:flex-row items-center justify-between gap-12">
+                <div class="flex-1 text-center lg:text-left">
+                    <h2 class="font-heading font-black text-3xl sm:text-4xl uppercase text-brand-navyText leading-tight mb-4">
+                        Prêt à lancer votre<br>prochaine commande ?
+                    </h2>
+                    <p class="text-slate-500 text-sm sm:text-base max-w-md">
+                        Accédez en un clic à l'ensemble de notre catalogue, paramétrez vos volumes de distribution et suivez vos demandes.
+                    </p>
+                </div>
+                
+                <div class="w-full lg:w-auto flex flex-col gap-3 min-w-[290px]">
+                    <a href="#" class="h-14 bg-brand-navyText hover:bg-brand-blue text-white font-heading font-black text-xs uppercase tracking-widest rounded-xl text-center flex items-center justify-center shadow-lg transition-colors">
+                        Accéder au catalogue
+                    </a>
+                    <a href="#" class="h-14 bg-white border border-slate-300 text-brand-navyText font-heading font-black text-xs uppercase tracking-widest rounded-xl text-center flex items-center justify-center hover:bg-slate-50 transition-colors">
+                        Demander un accès
+                    </a>
+                    <p class="text-[10px] text-slate-400 font-bold text-center uppercase tracking-wider mt-1">Espace réservé aux agents ACEF habilités</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-slate-300 text-brand-navyText pt-20 pb-10 border-t-8 border-brand-blue">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 lg:gap-8 mb-16">
+                <div>
+                    <div class="font-heading font-black text-2xl uppercase tracking-tighter mb-5">
+                        BIMIER <span class="text-brand-blue">LOGO</span>
+                    </div>
+                    <p class="text-xs text-slate-600 leading-relaxed mb-6 font-medium">
+                        Votre partenaire de confiance pour le déploiement d'objets de communication exclusifs. Nous unissons réactivité et rigueur.
+                    </p>
+                    <div class="flex space-x-3">
+                        <a href="#" class="w-10 h-10 rounded-full bg-white flex items-center justify-center text-slate-700 hover:bg-brand-blue hover:text-white transition-colors shadow-sm"><i class="fa-brands fa-linkedin-in text-sm"></i></a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-white flex items-center justify-center text-slate-700 hover:bg-brand-blue hover:text-white transition-colors shadow-sm"><i class="fa-brands fa-instagram text-sm"></i></a>
+                    </div>
+                </div>
+
+                <div>
+                    <h5 class="font-heading font-black text-xs uppercase tracking-wider text-slate-800 mb-5">Navigation</h5>
+                    <ul class="space-y-3 text-xs font-semibold text-slate-600">
+                        <li><a href="#" class="hover:text-brand-blue transition-colors">Accueil</a></li>
+                        <li><a href="#" class="hover:text-brand-blue transition-colors">Le Catalogue global</a></li>
+                        <li><a href="#" class="hover:text-brand-blue transition-colors">À propos de Bimier</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h5 class="font-heading font-black text-xs uppercase tracking-wider text-slate-800 mb-5">Légal</h5>
+                    <ul class="space-y-3 text-xs font-semibold text-slate-600">
+                        <li><a href="#" class="hover:text-brand-blue transition-colors">Mentions légales</a></li>
+                        <li><a href="#" class="hover:text-brand-blue transition-colors">CGV</a></li>
+                        <li><a href="#" class="hover:text-brand-blue transition-colors">Confidentialité</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h5 class="font-heading font-black text-xs uppercase tracking-wider text-slate-800 mb-5">Ligne Directe</h5>
+                    <div class="text-xs text-slate-600 font-semibold space-y-3">
+                        <div class="font-heading font-black text-2xl text-brand-navyText tracking-tight">0800 123 456</div>
+                        <div class="text-slate-500 uppercase text-[10px] font-bold tracking-wider">Service gratuit • Lun au Ven, 9h-18h</div>
+                        <div class="pt-2"><a href="mailto:contact@bimier.fr" class="text-brand-navyText hover:text-brand-blue underline font-bold">contact@bimier.fr</a></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pt-8 border-t border-slate-400 flex flex-col sm:flex-row justify-between items-center text-[10px] font-bold uppercase tracking-widest text-slate-500 gap-4">
+                <p>&copy; 2026 Bimier Solutions. Tous droits réservés.</p>
+                <div class="flex space-x-6">
+                    <a href="#" class="hover:text-brand-navyText">Mentions</a>
+                    <a href="#" class="hover:text-brand-navyText">CGV</a>
+                    <a href="#" class="hover:text-brand-navyText">Confidentialité</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
 </body>
 </html>
