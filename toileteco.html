@@ -40,14 +40,20 @@
             -moz-osx-font-smoothing: grayscale;
         }
 
-        /* --- EN-TÊTE AMÉLIORÉ (HEADER PREMIUM) --- */
+        /* --- EN-TÊTE GLOBAL (Pleine largeur pour la bordure) --- */
         header { 
             position: sticky;
             top: 0;
             z-index: 100;
             background: var(--bg-card);
             border-bottom: 1px solid var(--border);
-            padding: 20px 40px; 
+        }
+
+        /* --- GRILLE 1440px AVEC 40px DE MARGE --- */
+        .header-inner {
+            max-width: 1440px; /* Contrainte de largeur */
+            margin: 0 auto; /* Centrage */
+            padding: 20px 40px; /* 40px de marge de chaque côté */
             display: flex; 
             justify-content: space-between; 
             align-items: center;
@@ -63,11 +69,7 @@
         }
         .header-logo .logo span { color: var(--primary); }
         
-        .header-nav {
-            display: flex;
-            gap: 32px;
-            align-items: center;
-        }
+        .header-nav { display: flex; gap: 32px; align-items: center; }
         
         .header-nav a {
             text-decoration: none;
@@ -76,10 +78,7 @@
             font-size: 1rem;
             transition: color 0.3s ease;
         }
-        
-        .header-nav a:hover, .header-nav a.active {
-            color: var(--text-main);
-        }
+        .header-nav a:hover, .header-nav a.active { color: var(--text-main); }
 
         .header-cta {
             background: var(--primary-light);
@@ -91,26 +90,18 @@
             font-size: 0.95rem;
             transition: all 0.3s ease;
         }
-        .header-cta:hover {
-            background: var(--primary);
-            color: white;
-        }
+        .header-cta:hover { background: var(--primary); color: white; }
 
-        /* --- CONTENEUR D'ARTICLE --- */
+        /* --- CONTENEUR PRINCIPAL 1440px --- */
         main {
-            flex-grow: 1;
-            padding: 80px 24px;
-        }
-
-        .article-container {
-            max-width: 720px; 
+            max-width: 1440px;
             margin: 0 auto;
+            padding: 80px 40px; /* 40px de marge de chaque côté */
+            width: 100%;
         }
 
-        /* Navigation fil d'ariane / retour */
-        .breadcrumb {
-            margin-bottom: 40px;
-        }
+        /* Fil d'ariane */
+        .breadcrumb { margin-bottom: 40px; }
         .breadcrumb a {
             display: inline-flex;
             align-items: center;
@@ -123,62 +114,63 @@
         }
         .breadcrumb a:hover { color: var(--primary); }
 
-        /* --- EN-TÊTE DE L'ARTICLE (HERO) --- */
-.article-header {
-    text-align: center; /* Rétablit le centrage sur ordinateur */
-    margin-bottom: 56px;
-}
+        /* --- EN-TÊTE DE L'ARTICLE (HERO) - BUG CORRIGÉ --- */
+        .article-header {
+            max-width: 900px; /* Plus large que le texte pour faire "Magazine" */
+            margin: 0 auto 56px auto;
+            text-align: center; /* Centrage rétabli */
+        }
 
-.article-tag {
-    display: inline-block;
-    background: var(--primary-light);
-    color: var(--primary);
-    font-weight: 700;
-    font-size: 0.75rem;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    padding: 8px 16px;
-    border-radius: 50px;
-    margin-bottom: 24px;
-}
+        .article-tag {
+            display: inline-block;
+            background: var(--primary-light);
+            color: var(--primary);
+            font-weight: 700;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            padding: 8px 16px;
+            border-radius: 50px;
+            margin-bottom: 24px;
+        }
 
-.article-title {
-    font-family: var(--font-heading);
-    font-size: clamp(2.5rem, 5vw, 4rem);
-    font-weight: 800;
-    line-height: 1.05;
-    letter-spacing: -0.04em;
-    margin-bottom: 32px;
-    color: var(--text-main);
-}
+        .article-title {
+            font-family: var(--font-heading);
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 800;
+            line-height: 1.05;
+            letter-spacing: -0.04em;
+            margin-bottom: 32px;
+            color: var(--text-main);
+        }
 
-.article-meta {
-    display: flex;
-    align-items: center;
-    justify-content: center; /* Centre les éléments */
-    flex-wrap: wrap; /* CRUCIAL : Empêche le texte de déborder sur mobile */
-    gap: 16px;
-    color: var(--text-muted);
-    font-size: 0.95rem;
-    font-weight: 500;
-}
+        .article-meta {
+            display: flex;
+            align-items: center;
+            justify-content: center; /* Centrage des infos */
+            flex-wrap: wrap; /* Empêche le chevauchement sur petits écrans */
+            gap: 16px;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
 
-.article-meta-divider {
-    width: 4px;
-    height: 4px;
-    border-radius: 50%;
-    background: var(--border);
-}
+        .article-meta-divider {
+            width: 4px; height: 4px;
+            border-radius: 50%;
+            background: var(--border);
+        }
 
         /* --- IMAGE DE COUVERTURE --- */
         .article-cover {
-            margin: 0 0 64px 0;
+            max-width: 1200px; /* Grande image panoramique */
+            margin: 0 auto 64px auto;
             width: 100%;
         }
 
         .article-cover img {
             width: 100%;
-            height: 450px;
+            height: 500px; /* Plus haut pour la DA Luxury */
             object-fit: cover;
             border-radius: 24px;
         }
@@ -191,7 +183,13 @@
             font-style: italic;
         }
 
-        /* --- CORPS DE L'ARTICLE --- */
+        /* --- CORPS DE L'ARTICLE (Zone de lecture optimale) --- */
+        .article-content, .author-box, .article-cta {
+            max-width: 720px; /* Largeur d'or pour la lecture */
+            margin-left: auto;
+            margin-right: auto;
+        }
+
         .article-content {
             font-size: 1.15rem;
             line-height: 1.8;
@@ -260,10 +258,7 @@
             border-left: 3px solid var(--primary);
         }
 
-        .article-content strong {
-            font-weight: 700;
-            color: #000;
-        }
+        .article-content strong { font-weight: 700; color: #000; }
 
         /* --- ENCART AUTEUR --- */
         .author-box {
@@ -275,24 +270,9 @@
             border-top: 1px solid var(--border);
             border-bottom: 1px solid var(--border);
         }
-        .author-avatar {
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            object-fit: cover;
-        }
-        .author-info h4 {
-            font-family: var(--font-heading);
-            font-size: 1.25rem;
-            font-weight: 800;
-            margin-bottom: 4px;
-        }
-        .author-info p {
-            font-size: 1rem;
-            color: var(--text-muted);
-            margin: 0;
-            line-height: 1.5;
-        }
+        .author-avatar { width: 80px; height: 80px; border-radius: 50%; object-fit: cover; }
+        .author-info h4 { font-family: var(--font-heading); font-size: 1.25rem; font-weight: 800; margin-bottom: 4px; }
+        .author-info p { font-size: 1rem; color: var(--text-muted); margin: 0; line-height: 1.5; }
 
         /* --- FOOTER DE L'ARTICLE (CTA) --- */
         .article-cta {
@@ -303,18 +283,9 @@
             border-radius: 24px;
             text-align: center;
         }
-        .article-cta h3 {
-            font-family: var(--font-heading);
-            font-size: 2.2rem;
-            font-weight: 800;
-            margin-bottom: 16px;
-            letter-spacing: -0.03em;
-        }
-        .article-cta p {
-            color: rgba(255, 255, 255, 0.7);
-            margin-bottom: 32px;
-            font-size: 1.1rem;
-        }
+        .article-cta h3 { font-family: var(--font-heading); font-size: 2.2rem; font-weight: 800; margin-bottom: 16px; letter-spacing: -0.03em; }
+        .article-cta p { color: rgba(255, 255, 255, 0.7); margin-bottom: 32px; font-size: 1.1rem; }
+        
         .btn-cta {
             display: inline-block;
             background: var(--primary);
@@ -326,19 +297,20 @@
             text-decoration: none;
             transition: all 0.3s ease;
         }
-        .btn-cta:hover { 
-            background: var(--primary-light); 
-            color: var(--primary);
-            transform: translateY(-2px);
-        }
+        .btn-cta:hover { background: var(--primary-light); color: var(--primary); transform: translateY(-2px); }
 
-        /* --- RESPONSIVE --- */
+        /* --- RESPONSIVE MOBILE --- */
         @media (max-width: 768px) {
-            header { padding: 20px 24px; }
-            .header-nav { display: none; } /* On cache le menu central sur mobile */
-            main { padding: 40px 20px; }
-            .article-header { margin-bottom: 40px; }
+            .header-inner { padding: 20px 24px; } /* Marge réduite sur mobile */
+            .header-nav { display: none; }
+            
+            main { padding: 40px 24px; }
+            
+            .article-header { margin-bottom: 40px; text-align: left; }
+            .article-meta { justify-content: flex-start; gap: 12px; }
+            
             .article-cover img { height: 280px; border-radius: 16px; }
+            
             .data-box { padding: 24px; }
             .article-content blockquote { font-size: 1.5rem; padding-left: 24px; margin: 40px 0; }
             .author-box { flex-direction: column; align-items: flex-start; gap: 16px; }
@@ -348,115 +320,111 @@
 </head>
 <body>
 
-    <!-- Nouvel En-tête Global -->
+    <!-- En-tête Global 1440px / 40px padding -->
     <header>
-        <div class="header-logo">
-            <a href="#" class="logo">eco<span>rina.</span></a>
-        </div>
-        
-        <nav class="header-nav">
-            <a href="#">Accueil</a>
-            <a href="#" class="active">Le Journal</a>
-            <a href="#">Modèles</a>
-            <a href="#">Notre Mission</a>
-        </nav>
+        <div class="header-inner">
+            <div class="header-logo">
+                <a href="#" class="logo">eco<span>rina.</span></a>
+            </div>
+            
+            <nav class="header-nav">
+                <a href="#">Accueil</a>
+                <a href="#" class="active">Le Journal</a>
+                <a href="#">Modèles</a>
+                <a href="#">Notre Mission</a>
+            </nav>
 
-        <div class="header-action">
-            <a href="simulateur.html" class="header-cta">Trouver ma toilette</a>
+            <div class="header-action">
+                <a href="simulateur.html" class="header-cta">Trouver ma toilette</a>
+            </div>
         </div>
     </header>
 
+    <!-- Conteneur principal 1440px / 40px padding -->
     <main>
-        <article class="article-container">
+        <div class="breadcrumb">
+            <a href="#">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+                Tous les articles
+            </a>
+        </div>
+
+        <!-- Titre et infos (Centrés et parfaits) -->
+        <header class="article-header">
+            <span class="article-tag">Ressources & Écologie</span>
+            <h1 class="article-title">Le gouffre silencieux : l'aberration de nos chasses d'eau en chiffres.</h1>
+            <div class="article-meta">
+                <span>Par Antonin Cordeau</span>
+                <div class="article-meta-divider"></div>
+                <span>2 Juin 2026</span>
+                <div class="article-meta-divider"></div>
+                <span>Lecture : 5 min</span>
+            </div>
+        </header>
+
+        <!-- Image de couverture Panoramique -->
+        <figure class="article-cover">
+            <img src="https://images.unsplash.com/photo-1585807469145-2b0051e89ceb?q=80&w=2000&auto=format&fit=crop" alt="Eau claire coulant dans un lavabo">
+            <figcaption>Nous utilisons une eau purifiée selon les normes les plus strictes... uniquement pour transporter nos déchets.</figcaption>
+        </figure>
+
+        <!-- Texte centré à 720px max pour la lisibilité -->
+        <div class="article-content">
+            <p>C'est une habitude tellement ancrée dans notre quotidien que nous n'y prêtons plus aucune attention. Une pression sur un bouton métallique, un tourbillon d'eau claire, et le problème disparaît. Mais derrière cette magie hygiéniste se cache l'une des plus grandes absurdités écologiques de notre époque moderne.</p>
             
-            <div class="breadcrumb">
-                <a href="#">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
-                    Tous les articles
-                </a>
-            </div>
+            <p>Alors que la France fait de plus en plus face à des épisodes de sécheresse estivale sévère et que les restrictions d'eau s'étendent sur le territoire, il est temps de regarder de plus près le véritable coût en eau de nos sanitaires.</p>
 
-            <!-- Hero de l'article -->
-            <header class="article-header">
-                <span class="article-tag">Ressources & Écologie</span>
-                <h1 class="article-title">Le gouffre silencieux : l'aberration de nos chasses d'eau en chiffres.</h1>
-                <div class="article-meta">
-                    <span>Par Antonin Cordeau</span>
-                    <div class="article-meta-divider"></div>
-                    <span>2 Juin 2026</span>
-                    <div class="article-meta-divider"></div>
-                    <span>Lecture : 5 min</span>
+            <h2>Les mathématiques de la cuvette</h2>
+            <p>Pour comprendre l'ampleur du problème, il faut poser les chiffres. Une chasse d'eau classique (même équipée d'un système à double bouton) consomme en moyenne <strong>entre 6 et 9 litres d'eau par utilisation</strong>. Sachant qu'un adulte se rend aux toilettes environ 4 à 5 fois par jour à son domicile, le calcul est sans appel.</p>
+
+            <div class="data-box">
+                <h3>La consommation d'eau en chiffres</h3>
+                <div class="data-row">
+                    <span>1 personne / Jour</span>
+                    <span class="data-value">~ 35 Litres</span>
                 </div>
-            </header>
-
-            <!-- Image de couverture -->
-            <figure class="article-cover">
-                <img src="https://images.unsplash.com/photo-1585807469145-2b0051e89ceb?q=80&w=2000&auto=format&fit=crop" alt="Eau claire coulant dans un lavabo">
-                <figcaption>Nous utilisons une eau purifiée selon les normes les plus strictes... uniquement pour transporter nos déchets.</figcaption>
-            </figure>
-
-            <!-- Corps de l'article -->
-            <div class="article-content">
-                <p>C'est une habitude tellement ancrée dans notre quotidien que nous n'y prêtons plus aucune attention. Une pression sur un bouton métallique, un tourbillon d'eau claire, et le problème disparaît. Mais derrière cette magie hygiéniste se cache l'une des plus grandes absurdités écologiques de notre époque moderne.</p>
-                
-                <p>Alors que la France fait de plus en plus face à des épisodes de sécheresse estivale sévère et que les restrictions d'eau s'étendent sur le territoire, il est temps de regarder de plus près le véritable coût en eau de nos sanitaires.</p>
-
-                <h2>Les mathématiques de la cuvette</h2>
-                <p>Pour comprendre l'ampleur du problème, il faut poser les chiffres. Une chasse d'eau classique (même équipée d'un système à double bouton) consomme en moyenne <strong>entre 6 et 9 litres d'eau par utilisation</strong>. Sachant qu'un adulte se rend aux toilettes environ 4 à 5 fois par jour à son domicile, le calcul est sans appel.</p>
-
-                <!-- Tableau de données stylisé -->
-                <div class="data-box">
-                    <h3>La consommation d'eau en chiffres</h3>
-                    <div class="data-row">
-                        <span>1 personne / Jour</span>
-                        <span class="data-value">~ 35 Litres</span>
-                    </div>
-                    <div class="data-row">
-                        <span>1 personne / An</span>
-                        <span class="data-value">~ 12 700 Litres</span>
-                    </div>
-                    <div class="data-row">
-                        <span>Famille de 4 personnes / An</span>
-                        <span class="data-value">~ 50 800 Litres</span>
-                    </div>
+                <div class="data-row">
+                    <span>1 personne / An</span>
+                    <span class="data-value">~ 12 700 Litres</span>
                 </div>
-
-                <p>Une famille de quatre personnes jette donc littéralement plus de <strong>50 mètres cubes d'eau potable</strong> dans les égouts chaque année. C'est l'équivalent d'une piscine familiale moyenne, remplie d'une eau qui a été captée, filtrée, et traitée avec des produits chimiques pour être rendue propre à la consommation humaine.</p>
-
-                <blockquote>
-                    "Utiliser une eau purifiée au chlore et aux UV pour évacuer de l'urine est un luxe que la planète ne peut tout simplement plus se permettre."
-                </blockquote>
-
-                <h2>Le problème du traitement en aval</h2>
-                <p>Le gaspillage de la ressource n'est malheureusement que la face émergée de l'iceberg. En mélangeant nos urines (très riches en azote et en phosphore) avec nos matières fécales (riches en pathogènes) dans des dizaines de litres d'eau, nous créons un cocktail explosif : les "eaux noires".</p>
-
-                <p>L'assainissement de ces eaux noires demande des infrastructures titanesques. Les stations d'épuration sont extrêmement énergivores. Elles doivent séparer ce que nous avons nous-mêmes mélangé, en utilisant des processus biologiques et chimiques complexes avant de pouvoir rejeter cette eau dans les rivières.</p>
-
-                <h2>Couper le robinet à la source</h2>
-                <p>Les petites astuces, comme placer une bouteille remplie de sable dans le réservoir pour économiser 1 litre par chasse, sont louables mais relèvent du pansement sur une jambe de bois. Pour faire une vraie différence, un changement de technologie s'impose.</p>
-
-                <p>C'est ici qu'interviennent les sanitaires écologiques modernes. Qu'il s'agisse de <strong>toilettes sèches à compost</strong> (qui utilisent du carbone comme la sciure) ou de <strong>toilettes à séparation d'urine</strong> (qui ventilent les solides et évacuent l'urine), le résultat est le même : la consommation d'eau tombe immédiatement à zéro.</p>
-
-                <p>Passer à un système sans eau n'est plus un retour en arrière. C'est une démarche d'ingénierie intelligente, un geste d'autonomie et la réponse la plus directe que nous puissions apporter à la crise de l'eau qui s'annonce.</p>
-            </div>
-
-            <!-- Encart Auteur -->
-            <div class="author-box">
-                <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=200&auto=format&fit=crop" alt="Antonin Cordeau" class="author-avatar">
-                <div class="author-info">
-                    <h4>Antonin Cordeau</h4>
-                    <p>Fondateur d'Ecorina. Passionné par l'innovation frugale et l'habitat résilient, Antonin démocratise l'accès aux sanitaires écologiques sans compromis sur le design ni le confort.</p>
+                <div class="data-row">
+                    <span>Famille de 4 personnes / An</span>
+                    <span class="data-value">~ 50 800 Litres</span>
                 </div>
             </div>
 
-            <!-- Appel à l'action en bas d'article -->
-            <div class="article-cta">
-                <h3>Arrêtons de flusher nos ressources.</h3>
-                <p>Découvrez notre gamme de toilettes à séparation d'urine et de toilettes sèches pour un habitat véritablement écologique.</p>
-                <a href="simulateur.html" class="btn-cta">Démarrer la simulation</a>
-            </div>
+            <p>Une famille de quatre personnes jette donc littéralement plus de <strong>50 mètres cubes d'eau potable</strong> dans les égouts chaque année. C'est l'équivalent d'une piscine familiale moyenne, remplie d'une eau qui a été captée, filtrée, et traitée avec des produits chimiques pour être rendue propre à la consommation humaine.</p>
 
-        </article>
+            <blockquote>
+                "Utiliser une eau purifiée au chlore et aux UV pour évacuer de l'urine est un luxe que la planète ne peut tout simplement plus se permettre."
+            </blockquote>
+
+            <h2>Le problème du traitement en aval</h2>
+            <p>Le gaspillage de la ressource n'est malheureusement que la face émergée de l'iceberg. En mélangeant nos urines (très riches en azote et en phosphore) avec nos matières fécales (riches en pathogènes) dans des dizaines de litres d'eau, nous créons un cocktail explosif : les "eaux noires".</p>
+
+            <p>L'assainissement de ces eaux noires demande des infrastructures titanesques. Les stations d'épuration sont extrêmement énergivores. Elles doivent séparer ce que nous avons nous-mêmes mélangé, en utilisant des processus biologiques et chimiques complexes avant de pouvoir rejeter cette eau dans les rivières.</p>
+
+            <h2>Couper le robinet à la source</h2>
+            <p>Les petites astuces, comme placer une bouteille remplie de sable dans le réservoir pour économiser 1 litre par chasse, sont louables mais relèvent du pansement sur une jambe de bois. Pour faire une vraie différence, un changement de technologie s'impose.</p>
+
+            <p>C'est ici qu'interviennent les sanitaires écologiques modernes. Qu'il s'agisse de <strong>toilettes sèches à compost</strong> (qui utilisent du carbone comme la sciure) ou de <strong>toilettes à séparation d'urine</strong> (qui ventilent les solides et évacuent l'urine), le résultat est le même : la consommation d'eau tombe immédiatement à zéro.</p>
+
+            <p>Passer à un système sans eau n'est plus un retour en arrière. C'est une démarche d'ingénierie intelligente, un geste d'autonomie et la réponse la plus directe que nous puissions apporter à la crise de l'eau qui s'annonce.</p>
+        </div>
+
+        <div class="author-box">
+            <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=200&auto=format&fit=crop" alt="Antonin Cordeau" class="author-avatar">
+            <div class="author-info">
+                <h4>Antonin Cordeau</h4>
+                <p>Fondateur d'Ecorina. Passionné par l'innovation frugale et l'habitat résilient, Antonin démocratise l'accès aux sanitaires écologiques sans compromis sur le design ni le confort.</p>
+            </div>
+        </div>
+
+        <div class="article-cta">
+            <h3>Arrêtons de flusher nos ressources.</h3>
+            <p>Découvrez notre gamme de toilettes à séparation d'urine et de toilettes sèches pour un habitat véritablement écologique.</p>
+            <a href="simulateur.html" class="btn-cta">Démarrer la simulation</a>
+        </div>
     </main>
 
 </body>
