@@ -1,0 +1,1148 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Toilet'eco — Design System v2</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --c-bg:#E8E8E0; --c-bg-w:#EDEDE6; --c-white:#FFFFFF;
+  --c-dark:#0D2B1F; --c-dark2:#1A3D2B;
+  --c-green:#0FAE6E; --c-green-h:#0C9A61; --c-green-p:#0A8754;
+  --c-gl:#E6F7F1; --c-gm:#C5EAD8; --c-gmu:#7FB5A0;
+  --c-red:#E05252; --c-red-l:#FDE8E8;
+  --c-t:#1A1A18; --c-tm:#3D3D38; --c-ts:#6B6B65; --c-tx:#9C9C96;
+  --c-bd:#D4D4CC; --c-bdd:#B4B4AC;
+  --ts-bg:#F5E6D0; --ts-t:#8B5E2E; --ts-b:#E8CFA8;
+  --td-bg:#D6E8F5; --td-t:#1A5E8A; --td-b:#B0D0E8;
+  --tm-bg:#D8F0D8; --tm-t:#1A6B2A; --tm-b:#A8D8A8;
+  --s1:4px;--s2:8px;--s3:12px;--s4:16px;--s5:20px;--s6:24px;
+  --s7:32px;--s8:40px;--s9:48px;--s10:64px;--s11:80px;--s12:96px;
+  --fd:'Syne',sans-serif; --fb:'Inter',sans-serif;
+  --r-s:6px;--r-m:12px;--r-l:20px;--r-xl:28px;--r-p:9999px;
+  --sh-s:0 2px 6px rgba(0,0,0,.06);
+  --sh-m:0 4px 14px rgba(0,0,0,.08);
+  --sh-c:0 2px 8px rgba(13,43,31,.07);
+  --sh-g:0 4px 16px rgba(15,174,110,.30);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--fb);font-size:15px;line-height:1.5;color:var(--c-t);background:#EAEAE2;-webkit-font-smoothing:antialiased}
+
+/* ── SIDEBAR ── */
+.sidebar{position:fixed;top:0;left:0;bottom:0;width:224px;background:var(--c-dark);overflow-y:auto;z-index:200;scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.1) transparent}
+.sb-logo{font-family:var(--fd);font-size:16px;font-weight:800;color:var(--c-green);padding:20px 20px 16px;border-bottom:1px solid rgba(255,255,255,.07)}
+.sb-logo small{display:block;font-family:var(--fb);font-size:10px;font-weight:500;color:rgba(255,255,255,.3);letter-spacing:.1em;text-transform:uppercase;margin-top:3px}
+.sb-grp{margin-top:8px}
+.sb-grp-label{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.25);padding:10px 20px 4px}
+.sb-link{display:block;font-size:13px;color:rgba(255,255,255,.5);padding:7px 20px;cursor:pointer;transition:color .12s,background .12s;border-left:2px solid transparent}
+.sb-link:hover{color:rgba(255,255,255,.85);background:rgba(255,255,255,.05)}
+.sb-link.active{color:var(--c-green);background:rgba(15,174,110,.09);border-left-color:var(--c-green)}
+
+/* ── MAIN ── */
+.main{margin-left:224px;min-height:100vh}
+.section{display:none;padding:56px 56px 80px}
+.section.active{display:block}
+
+/* ── SECTION HEADER ── */
+.s-eyebrow{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--c-green);margin-bottom:10px}
+.s-title{font-family:var(--fd);font-size:44px;font-weight:800;color:var(--c-dark);line-height:1.08;letter-spacing:-.02em;margin-bottom:12px}
+.s-desc{font-size:15px;color:var(--c-ts);line-height:1.65;max-width:560px;margin-bottom:48px;padding-bottom:32px;border-bottom:1px solid var(--c-bd)}
+
+/* ── BLOCK ── */
+.block{margin-bottom:56px}
+.block-title{font-family:var(--fd);font-size:18px;font-weight:700;color:var(--c-dark);margin-bottom:6px}
+.block-desc{font-size:13px;color:var(--c-ts);line-height:1.6;max-width:560px;margin-bottom:20px}
+
+/* ── STATE SHELF ── */
+.shelf{display:flex;flex-wrap:wrap;align-items:flex-start;gap:32px;padding:32px;background:var(--c-white);border-radius:var(--r-xl);border:1px solid var(--c-bd)}
+.shelf.on-dark{background:var(--c-dark);border-color:rgba(255,255,255,.08)}
+.shelf.on-bg{background:var(--c-bg)}
+.shelf.col{flex-direction:column;align-items:stretch}
+.state-item{display:flex;flex-direction:column;gap:10px}
+.state-item.center{align-items:center}
+.state-label{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--c-tx);background:#F2F2EA;border-radius:4px;padding:2px 8px;align-self:flex-start}
+.on-dark .state-label{background:rgba(255,255,255,.07);color:rgba(255,255,255,.3)}
+
+/* ── GRIDS ── */
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px}
+.g4{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:20px}
+.g5{display:grid;grid-template-columns:repeat(5,1fr);gap:16px}
+.gauto{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:16px}
+
+/* ════════════════════════════════════════
+   TOKENS
+════════════════════════════════════════ */
+.swatch{display:flex;flex-direction:column;gap:8px}
+.swatch-color{height:68px;border-radius:var(--r-l)}
+.swatch-name{font-size:13px;font-weight:600;color:var(--c-t)}
+.swatch-hex{font-size:11px;font-family:monospace;color:var(--c-ts)}
+.swatch-var{font-size:10px;font-family:monospace;color:var(--c-green)}
+
+/* ════════════════════════════════════════
+   BUTTONS  —  each state is its own class
+════════════════════════════════════════ */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;
+     font-family:var(--fb);font-weight:600;line-height:1;cursor:pointer;
+     border-radius:var(--r-p);border:2px solid transparent;white-space:nowrap}
+/* sizes */
+.btn.lg{font-size:15px;padding:14px 28px}
+.btn.md{font-size:13px;padding:11px 22px}
+.btn.sm{font-size:11px;padding:8px 16px}
+
+/* PRIMARY */
+.btn-p-def{background:var(--c-dark);color:#fff;border-color:var(--c-dark)}
+.btn-p-hov{background:var(--c-dark2);color:#fff;border-color:var(--c-dark2);box-shadow:var(--sh-m);transform:translateY(-1px)}
+.btn-p-pre{background:#091A10;color:rgba(255,255,255,.85);border-color:#091A10}
+.btn-p-foc{background:var(--c-dark);color:#fff;border-color:var(--c-dark);outline:3px solid rgba(15,174,110,.5);outline-offset:3px}
+.btn-p-dis{background:var(--c-bd);color:var(--c-tx);border-color:var(--c-bd);cursor:not-allowed}
+
+/* GREEN */
+.btn-g-def{background:var(--c-green);color:#fff;border-color:var(--c-green)}
+.btn-g-hov{background:var(--c-green-h);color:#fff;border-color:var(--c-green-h);box-shadow:var(--sh-g);transform:translateY(-1px)}
+.btn-g-pre{background:var(--c-green-p);color:rgba(255,255,255,.9);border-color:var(--c-green-p)}
+.btn-g-foc{background:var(--c-green);color:#fff;border-color:var(--c-green);outline:3px solid rgba(15,174,110,.45);outline-offset:3px}
+.btn-g-dis{background:var(--c-gmu);color:rgba(255,255,255,.5);border-color:var(--c-gmu);cursor:not-allowed}
+
+/* OUTLINE DARK */
+.btn-od-def{background:transparent;color:var(--c-dark);border-color:var(--c-dark)}
+.btn-od-hov{background:var(--c-dark);color:#fff;border-color:var(--c-dark)}
+.btn-od-pre{background:var(--c-dark2);color:#fff;border-color:var(--c-dark2)}
+.btn-od-foc{background:transparent;color:var(--c-dark);border-color:var(--c-dark);outline:3px solid rgba(13,43,31,.3);outline-offset:3px}
+.btn-od-dis{background:transparent;color:var(--c-bd);border-color:var(--c-bd);cursor:not-allowed}
+
+/* OUTLINE GREEN */
+.btn-og-def{background:transparent;color:var(--c-green);border-color:var(--c-green)}
+.btn-og-hov{background:var(--c-gl);color:var(--c-green-h);border-color:var(--c-green-h)}
+.btn-og-pre{background:var(--c-gm);color:var(--c-green-p);border-color:var(--c-green-p)}
+.btn-og-foc{background:transparent;color:var(--c-green);border-color:var(--c-green);outline:3px solid rgba(15,174,110,.35);outline-offset:3px}
+.btn-og-dis{background:transparent;color:var(--c-gmu);border-color:var(--c-gmu);cursor:not-allowed}
+
+/* OUTLINE WHITE */
+.btn-ow-def{background:transparent;color:#fff;border-color:rgba(255,255,255,.45)}
+.btn-ow-hov{background:rgba(255,255,255,.12);color:#fff;border-color:#fff}
+.btn-ow-pre{background:rgba(255,255,255,.20);color:#fff;border-color:#fff}
+.btn-ow-foc{background:transparent;color:#fff;border-color:#fff;outline:3px solid rgba(255,255,255,.4);outline-offset:3px}
+.btn-ow-dis{background:transparent;color:rgba(255,255,255,.22);border-color:rgba(255,255,255,.15);cursor:not-allowed}
+
+/* GHOST */
+.btn-gh-def{background:transparent;color:var(--c-tm);border-color:transparent}
+.btn-gh-hov{background:rgba(13,43,31,.05);color:var(--c-dark);border-color:transparent}
+.btn-gh-pre{background:rgba(13,43,31,.1);color:var(--c-dark);border-color:transparent}
+.btn-gh-foc{background:transparent;color:var(--c-dark);outline:3px solid rgba(13,43,31,.2);outline-offset:3px}
+.btn-gh-dis{background:transparent;color:var(--c-bd);border-color:transparent;cursor:not-allowed}
+
+/* ════════════════════════════════════════
+   TAGS & BADGES
+════════════════════════════════════════ */
+.tag{display:inline-flex;align-items:center;font-size:10px;font-weight:700;
+     letter-spacing:.07em;text-transform:uppercase;border-radius:var(--r-p);
+     padding:3px 10px;border:1.5px solid transparent}
+.tag-sc{background:var(--ts-bg);color:var(--ts-t);border-color:var(--ts-b)}
+.tag-de{background:var(--td-bg);color:var(--td-t);border-color:var(--td-b)}
+.tag-me{background:var(--tm-bg);color:var(--tm-t);border-color:var(--tm-b)}
+.tag-gr{background:var(--c-gl);color:var(--c-green);border-color:var(--c-gm)}
+.tag-dk{background:var(--c-dark);color:#fff}
+.badge-v{display:inline-flex;align-items:center;gap:6px;font-size:10px;font-weight:700;
+         color:var(--c-green);background:var(--c-gl);border:1.5px solid var(--c-gm);
+         border-radius:var(--r-p);padding:5px 12px}
+.badge-v::before{content:'';width:7px;height:7px;border-radius:50%;background:var(--c-green);flex-shrink:0}
+
+/* ════════════════════════════════════════
+   INPUTS
+════════════════════════════════════════ */
+.inp{width:100%;font-family:var(--fb);font-size:13px;border-radius:var(--r-p);
+     border:1.5px solid;padding:11px 20px;outline:none;background:var(--c-white)}
+.inp-ph{border-color:var(--c-bd);color:var(--c-tx)}
+.inp-def{border-color:var(--c-bd);color:var(--c-t)}
+.inp-hov{border-color:var(--c-bdd);color:var(--c-t)}
+.inp-foc{border-color:var(--c-green);color:var(--c-t);box-shadow:0 0 0 3px rgba(15,174,110,.14)}
+.inp-fil{border-color:var(--c-bd);color:var(--c-t)}
+.inp-err{border-color:var(--c-red);color:var(--c-t);box-shadow:0 0 0 3px rgba(224,82,82,.12)}
+.inp-dis{border-color:var(--c-bd);color:var(--c-tx);background:#F0F0E8;cursor:not-allowed}
+.err-msg{font-size:11px;color:var(--c-red);margin-top:4px}
+
+/* ════════════════════════════════════════
+   QUIZ OPTIONS
+════════════════════════════════════════ */
+.qopt{display:flex;align-items:center;justify-content:space-between;
+      padding:18px 24px;border-radius:var(--r-xl);border:1.5px solid;
+      font-size:15px;font-weight:400;color:var(--c-dark);width:100%}
+.qr{width:22px;height:22px;border-radius:50%;border:2px solid;flex-shrink:0;
+    display:flex;align-items:center;justify-content:center}
+.qopt-def{background:var(--c-white);border-color:transparent;box-shadow:var(--sh-s)}
+.qopt-def .qr{border-color:var(--c-bd)}
+.qopt-hov{background:var(--c-white);border-color:var(--c-gm);box-shadow:var(--sh-m)}
+.qopt-hov .qr{border-color:var(--c-gm)}
+.qopt-sel{background:var(--c-gl);border-color:var(--c-green);font-weight:500}
+.qopt-sel .qr{border-color:var(--c-green);background:var(--c-green)}
+.qopt-sel .qr::after{content:'';width:8px;height:8px;border-radius:50%;background:#fff}
+.qopt-dis{background:var(--c-bg-w);border-color:transparent;color:var(--c-tx);cursor:not-allowed}
+.qopt-dis .qr{border-color:var(--c-bd);background:#EBEBE3}
+
+/* progress bar */
+.pbar{height:3px;background:var(--c-bd);border-radius:var(--r-p);overflow:hidden}
+.pbar-f{height:100%;background:var(--c-green);border-radius:var(--r-p)}
+
+/* ════════════════════════════════════════
+   FILTER TABS
+════════════════════════════════════════ */
+.ftab{display:inline-flex;align-items:center;font-size:13px;font-weight:500;
+      border-radius:var(--r-p);padding:8px 20px;border:1.5px solid;cursor:pointer}
+.ftab-def{background:transparent;color:var(--c-tm);border-color:var(--c-bd)}
+.ftab-hov{background:transparent;color:var(--c-dark);border-color:var(--c-dark)}
+.ftab-act{background:var(--c-dark);color:#fff;border-color:var(--c-dark)}
+.ftab-dis{background:transparent;color:var(--c-bd);border-color:var(--c-bd);cursor:not-allowed}
+
+/* ════════════════════════════════════════
+   ACCORDION
+════════════════════════════════════════ */
+.acc-wrap{background:var(--c-white);border-radius:var(--r-xl);border:1px solid var(--c-bd);overflow:hidden;padding:0 28px}
+.acc-item{border-bottom:1px solid var(--c-bd)}
+.acc-item:last-child{border-bottom:none}
+.acc-trigger{display:flex;align-items:center;justify-content:space-between;padding:18px 0;
+             font-size:15px;font-weight:500;width:100%;background:none;border:none;text-align:left;cursor:pointer}
+.acc-icon{width:28px;height:28px;border-radius:50%;border:1.5px solid;
+          display:flex;align-items:center;justify-content:center;
+          font-size:18px;font-weight:300;flex-shrink:0;line-height:1}
+.acc-body-text{padding-bottom:16px;font-size:13px;line-height:1.7;color:var(--c-tm)}
+
+/* states */
+.acc-s-def .acc-trigger{color:var(--c-dark)}
+.acc-s-def .acc-icon{border-color:var(--c-bd);color:var(--c-ts)}
+.acc-s-hov .acc-trigger{color:var(--c-green)}
+.acc-s-hov .acc-icon{border-color:var(--c-gm);color:var(--c-green)}
+.acc-s-open .acc-trigger{color:var(--c-dark)}
+.acc-s-open .acc-icon{background:var(--c-green);border-color:var(--c-green);color:#fff;transform:rotate(45deg)}
+
+/* ════════════════════════════════════════
+   CARDS ARTISAN
+════════════════════════════════════════ */
+.card-a{background:var(--c-white);border-radius:var(--r-xl);padding:28px;
+        box-shadow:var(--sh-c);display:flex;flex-direction:column;gap:16px;
+        border:1.5px solid transparent}
+.card-a-hov{box-shadow:var(--sh-m);transform:translateY(-2px);border-color:var(--c-gm)}
+.card-a-sel{box-shadow:var(--sh-m);border-color:var(--c-green)}
+.ca-head{display:flex;align-items:flex-start;gap:14px}
+.ca-logo{width:52px;height:52px;border-radius:var(--r-m);background:var(--c-bg);
+         display:flex;align-items:center;justify-content:center;color:var(--c-green);flex-shrink:0}
+.ca-ey{font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--c-ts);margin-bottom:2px}
+.ca-name{font-family:var(--fd);font-size:22px;font-weight:700;color:var(--c-dark)}
+.ca-loc{font-size:12px;color:var(--c-ts);display:flex;align-items:center;gap:3px;margin-top:2px}
+.ca-desc{font-size:13px;line-height:1.65;color:var(--c-tm)}
+.ca-tags{display:flex;flex-wrap:wrap;gap:6px}
+.ca-footer{display:flex;align-items:center;justify-content:space-between;
+           padding-top:14px;border-top:1px solid var(--c-bd);margin-top:auto}
+.ca-rec{font-size:12px;color:var(--c-green);font-weight:500;display:flex;align-items:center;gap:5px}
+.ca-cta{font-size:13px;font-weight:600;color:var(--c-dark)}
+.ca-cta.hov{color:var(--c-green)}
+
+/* ════════════════════════════════════════
+   CARDS BLOG
+════════════════════════════════════════ */
+.card-b{background:var(--c-white);border-radius:var(--r-xl);overflow:hidden;
+        box-shadow:var(--sh-c);display:flex;flex-direction:column}
+.card-b-hov{box-shadow:var(--sh-m);transform:translateY(-2px)}
+.cb-img{height:160px;background:var(--c-bg-w)}
+.cb-body{padding:20px;display:flex;flex-direction:column;gap:10px;flex:1}
+.cb-cat{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--c-green)}
+.cb-title{font-family:var(--fd);font-size:18px;font-weight:700;color:var(--c-dark);line-height:1.25}
+.cb-exc{font-size:13px;line-height:1.65;color:var(--c-ts)}
+.cb-link{font-size:13px;font-weight:600;color:var(--c-dark);display:inline-flex;align-items:center;gap:5px;margin-top:auto;padding-top:10px}
+.cb-link.hov{color:var(--c-green)}
+
+/* ════════════════════════════════════════
+   CARD FEATURE
+════════════════════════════════════════ */
+.card-f{background:var(--c-white);border-radius:var(--r-xl);padding:28px;
+        box-shadow:var(--sh-c);display:flex;flex-direction:column;gap:14px;
+        border:1.5px solid transparent}
+.card-f-hov{box-shadow:var(--sh-m);transform:translateY(-2px);border-color:var(--c-gm)}
+.cf-icon{width:44px;height:44px;border-radius:var(--r-m);background:var(--c-gl);
+         display:flex;align-items:center;justify-content:center;color:var(--c-green)}
+.cf-title{font-family:var(--fd);font-size:17px;font-weight:700;color:var(--c-dark)}
+.cf-desc{font-size:13px;line-height:1.65;color:var(--c-ts)}
+
+/* ════════════════════════════════════════
+   PROS / CONS
+════════════════════════════════════════ */
+.card-pro{background:var(--c-white);border-radius:var(--r-xl);padding:28px;border-top:3px solid var(--c-green)}
+.card-con{background:var(--c-white);border-radius:var(--r-xl);padding:28px;border-top:3px solid var(--c-red)}
+.card-pro h3{font-family:var(--fd);font-weight:700;color:var(--c-green);margin-bottom:18px}
+.card-con h3{font-family:var(--fd);font-weight:700;color:var(--c-red);margin-bottom:18px}
+.chk-list,.crs-list{display:flex;flex-direction:column;gap:14px}
+.chk-list li,.crs-list li{display:flex;align-items:flex-start;gap:10px;font-size:13px;line-height:1.65;color:var(--c-tm)}
+.chk-list li::before{content:'✓';color:var(--c-green);font-weight:700;flex-shrink:0;margin-top:2px}
+.crs-list li::before{content:'✗';color:var(--c-red);font-weight:700;flex-shrink:0;margin-top:2px}
+
+/* ════════════════════════════════════════
+   DATA TABLE
+════════════════════════════════════════ */
+.dtbl{width:100%;border:1px solid var(--c-bd);border-radius:var(--r-l);overflow:hidden}
+.dtbl-head{background:var(--c-bg);padding:13px 20px;font-family:var(--fd);font-size:13px;font-weight:700;color:var(--c-dark);border-bottom:1px solid var(--c-bd)}
+.dtbl-row{display:flex;align-items:center;justify-content:space-between;padding:13px 20px;border-bottom:1px solid var(--c-bd)}
+.dtbl-row:last-child{border-bottom:none}
+.dtbl-row.alt{background:#FAFAF8}
+.dtbl-row.hvr{background:var(--c-gl)}
+.dtbl-l{font-size:13px;color:var(--c-tm)}
+.dtbl-v{font-family:var(--fd);font-size:17px;font-weight:700;color:var(--c-green)}
+
+/* compare table */
+.ctbl{width:100%;border-collapse:separate;border-spacing:0;background:var(--c-white);border-radius:var(--r-xl);overflow:hidden;box-shadow:var(--sh-c)}
+.ctbl th{background:var(--c-bg);padding:13px 18px;text-align:left;font-family:var(--fd);font-weight:700;font-size:13px;border-bottom:1px solid var(--c-bd)}
+.ctbl th.cg{color:var(--c-green)}
+.ctbl td{padding:13px 18px;font-size:13px;border-bottom:1px solid var(--c-bd);color:var(--c-tm);line-height:1.5}
+.ctbl tr.s-row td{background:var(--c-dark);color:rgba(255,255,255,.8);font-family:var(--fd);font-weight:700;font-size:10px;letter-spacing:.08em;text-transform:uppercase}
+.ctbl tr.h-row td{background:var(--c-gl)}
+.ctbl .vg{color:var(--c-green);font-weight:500}
+
+/* ════════════════════════════════════════
+   NAVBAR
+════════════════════════════════════════ */
+.navbar{display:flex;align-items:center;justify-content:space-between;padding:13px 28px;border-radius:var(--r-xl);gap:32px}
+.nav-default{background:var(--c-bg);border:1px solid transparent}
+.nav-scroll{background:rgba(232,232,224,.96);border:1px solid var(--c-bd);backdrop-filter:blur(12px);box-shadow:var(--sh-s)}
+.nav-logo{font-family:var(--fd);font-size:20px;font-weight:800;color:var(--c-green)}
+.nav-logo span{color:var(--c-dark);text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:3px}
+.nav-links{display:flex;align-items:center;gap:28px}
+.nl-def{font-size:13px;font-weight:500;color:var(--c-tm)}
+.nl-hov{font-size:13px;font-weight:500;color:var(--c-dark)}
+.nl-act{font-size:13px;font-weight:600;color:var(--c-dark)}
+
+/* ════════════════════════════════════════
+   COMPARE CARD
+════════════════════════════════════════ */
+.cmp-card{background:var(--c-white);border-radius:var(--r-xl);padding:28px;border:2px solid}
+.cmp-def{border-color:var(--c-bd)}
+.cmp-act{border-color:var(--c-green)}
+.cmp-label{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--c-ts);margin-bottom:6px}
+.cmp-label.g{color:var(--c-green)}
+.cmp-title{font-family:var(--fd);font-size:32px;font-weight:800;color:var(--c-dark);margin-bottom:8px}
+.cmp-tag{font-size:12px;color:var(--c-ts);margin-bottom:20px}
+.cmp-specs{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px}
+.csp-k{font-size:11px;color:var(--c-ts)}
+.csp-v{font-size:13px;font-weight:700;color:var(--c-dark);margin-top:2px}
+.csp-v.g{color:var(--c-green)}
+
+/* ════════════════════════════════════════
+   PROFILE / FICHE ARTISAN
+════════════════════════════════════════ */
+.profile-hero{background:var(--c-white);border-radius:var(--r-xl);padding:36px;box-shadow:var(--sh-c);display:grid;grid-template-columns:auto 1fr auto;gap:28px;align-items:start}
+.ph-logo{width:96px;height:96px;border-radius:var(--r-xl);background:var(--c-bg);display:flex;align-items:center;justify-content:center;color:var(--c-green)}
+.ph-ey{font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--c-ts);margin-bottom:6px}
+.ph-name{font-family:var(--fd);font-size:44px;font-weight:800;color:var(--c-dark);margin-bottom:10px}
+.ph-desc{font-size:15px;color:var(--c-tm);margin-bottom:14px}
+.ph-tags{display:flex;flex-wrap:wrap;gap:6px}
+.contact-box{background:var(--c-white);border-radius:var(--r-xl);padding:28px;box-shadow:var(--sh-c);display:flex;flex-direction:column;gap:18px}
+.ct-title{font-family:var(--fd);font-size:20px;font-weight:700;color:var(--c-dark)}
+.ct-desc{font-size:13px;line-height:1.65;color:var(--c-ts)}
+.ct-row{display:flex;align-items:center;gap:10px;font-size:13px;color:var(--c-tm)}
+.ct-row svg{color:var(--c-green);flex-shrink:0}
+
+/* ════════════════════════════════════════
+   CTA BANNERS
+════════════════════════════════════════ */
+.cta-dark{background:var(--c-dark);border-radius:var(--r-xl);padding:56px 64px}
+.cta-title{font-family:var(--fd);font-size:32px;font-weight:800;color:#fff;line-height:1.15;margin-bottom:14px}
+.cta-desc{font-size:13px;color:rgba(255,255,255,.5);max-width:380px;line-height:1.7}
+.cta-note{font-size:11px;color:rgba(255,255,255,.3);margin-top:10px}
+
+/* ════════════════════════════════════════
+   FOOTER
+════════════════════════════════════════ */
+.footer{background:var(--c-bg);border-radius:var(--r-xl);padding:64px 56px;border:1px solid var(--c-bd)}
+.footer-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:48px;margin-bottom:40px}
+.f-logo{font-family:var(--fd);font-size:22px;font-weight:800;color:var(--c-green);margin-bottom:12px}
+.f-logo span{color:var(--c-dark)}
+.f-desc{font-size:13px;line-height:1.65;color:var(--c-ts);max-width:200px}
+.f-col-title{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--c-ts);margin-bottom:14px}
+.f-links{display:flex;flex-direction:column;gap:10px}
+.f-link{font-size:13px;color:var(--c-ts)}
+.f-link.hov{color:var(--c-dark)}
+.footer-bottom{display:flex;align-items:center;justify-content:space-between;padding-top:24px;border-top:1px solid var(--c-bd);font-size:11px;color:var(--c-ts)}
+
+/* ════════════════════════════════════════
+   STATS & HERO
+════════════════════════════════════════ */
+.stat-item .val{font-family:var(--fd);font-size:32px;font-weight:800;color:var(--c-dark);line-height:1}
+.stat-item .val.g{color:var(--c-green)}
+.stat-item .lbl{font-size:11px;color:var(--c-ts);line-height:1.5;max-width:140px;margin-top:5px}
+.hero-wrap{background:var(--c-bg);border-radius:var(--r-xl);padding:72px 56px;text-align:center;border:1px solid var(--c-bd)}
+
+/* ════════════════════════════════════════
+   TYPE TABLE
+════════════════════════════════════════ */
+.type-table{background:var(--c-white);border-radius:var(--r-xl);border:1px solid var(--c-bd);overflow:hidden}
+.type-row{display:flex;align-items:center;gap:24px;padding:18px 24px;border-bottom:1px solid var(--c-bd)}
+.type-row:last-child{border-bottom:none}
+.type-meta{width:160px;flex-shrink:0}
+.type-tok{font-size:10px;font-weight:700;font-family:monospace;color:var(--c-green)}
+.type-spec{font-size:10px;color:var(--c-ts);margin-top:3px;line-height:1.5}
+
+/* SEARCH BAR */
+.sbar{display:flex;align-items:center;gap:10px;background:var(--c-white);
+      border-radius:var(--r-p);padding:6px 6px 6px 20px;box-shadow:var(--sh-m);
+      border:1.5px solid transparent}
+.sbar.foc{border-color:var(--c-green);box-shadow:var(--sh-m),0 0 0 3px rgba(15,174,110,.12)}
+.sbar-f{flex:1;font-size:13px;color:var(--c-dark);background:none;border:none;outline:none}
+.sbar-div{width:1px;height:22px;background:var(--c-bd);flex-shrink:0}
+.sbar-ico{color:var(--c-ts);flex-shrink:0}
+
+/* MISC */
+code{font-family:monospace;font-size:11px;background:#EEF0E8;padding:2px 6px;border-radius:4px;color:var(--c-green)}
+.col-sep{height:1px;background:var(--c-bd);margin:32px 0;opacity:.5}
+.mini-label{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--c-tx);display:block;margin-bottom:10px}
+</style>
+</head>
+<body>
+
+<!-- ════════════════════════════ SIDEBAR ════════════════════════════ -->
+<aside class="sidebar">
+  <div class="sb-logo">Toilet'eco<small>Design System v2</small></div>
+  <div class="sb-grp">
+    <div class="sb-grp-label">Fondations</div>
+    <a class="sb-link active" onclick="go('tokens')">Tokens & Couleurs</a>
+    <a class="sb-link" onclick="go('typo')">Typographie</a>
+    <a class="sb-link" onclick="go('spacing')">Espacements</a>
+  </div>
+  <div class="sb-grp">
+    <div class="sb-grp-label">Composants</div>
+    <a class="sb-link" onclick="go('buttons')">Boutons</a>
+    <a class="sb-link" onclick="go('tags')">Tags & Badges</a>
+    <a class="sb-link" onclick="go('inputs')">Inputs & Forms</a>
+    <a class="sb-link" onclick="go('quiz')">Quiz / Questionnaire</a>
+    <a class="sb-link" onclick="go('tabs')">Onglets filtre</a>
+    <a class="sb-link" onclick="go('accordion')">Accordion</a>
+    <a class="sb-link" onclick="go('cards')">Cards</a>
+    <a class="sb-link" onclick="go('tables')">Tableaux</a>
+    <a class="sb-link" onclick="go('navbar')">Navigation</a>
+    <a class="sb-link" onclick="go('footer')">Footer</a>
+  </div>
+  <div class="sb-grp">
+    <div class="sb-grp-label">Patterns complets</div>
+    <a class="sb-link" onclick="go('hero')">Hero & Stats</a>
+    <a class="sb-link" onclick="go('comparatif')">Comparatif cards</a>
+    <a class="sb-link" onclick="go('fiche')">Fiche artisan</a>
+    <a class="sb-link" onclick="go('cta')">CTA Bannières</a>
+  </div>
+</aside>
+
+<!-- ════════════════════════════ MAIN ════════════════════════════ -->
+<main class="main">
+
+<!-- ══ TOKENS ══ -->
+<div class="section active" id="s-tokens">
+  <p class="s-eyebrow">Fondations</p>
+  <h1 class="s-title">Tokens & Couleurs</h1>
+  <p class="s-desc">Variables CSS racines. Modifier <code>:root</code> propage le changement à tout le système.</p>
+
+  <div class="block">
+    <p class="block-title">Couleurs principales</p>
+    <div class="g4">
+      <div class="swatch"><div class="swatch-color" style="background:#0D2B1F"></div><p class="swatch-name">Dark</p><p class="swatch-hex">#0D2B1F</p><p class="swatch-var">--c-dark</p></div>
+      <div class="swatch"><div class="swatch-color" style="background:#1A3D2B"></div><p class="swatch-name">Dark 2</p><p class="swatch-hex">#1A3D2B</p><p class="swatch-var">--c-dark2</p></div>
+      <div class="swatch"><div class="swatch-color" style="background:#0FAE6E"></div><p class="swatch-name">Green</p><p class="swatch-hex">#0FAE6E</p><p class="swatch-var">--c-green</p></div>
+      <div class="swatch"><div class="swatch-color" style="background:#0C9A61"></div><p class="swatch-name">Green Hover</p><p class="swatch-hex">#0C9A61</p><p class="swatch-var">--c-green-h</p></div>
+      <div class="swatch"><div class="swatch-color" style="background:#0A8754"></div><p class="swatch-name">Green Pressed</p><p class="swatch-hex">#0A8754</p><p class="swatch-var">--c-green-p</p></div>
+      <div class="swatch"><div class="swatch-color" style="background:#E6F7F1;border:1px solid #C5EAD8"></div><p class="swatch-name">Green Light</p><p class="swatch-hex">#E6F7F1</p><p class="swatch-var">--c-gl</p></div>
+      <div class="swatch"><div class="swatch-color" style="background:#C5EAD8"></div><p class="swatch-name">Green Mid</p><p class="swatch-hex">#C5EAD8</p><p class="swatch-var">--c-gm</p></div>
+      <div class="swatch"><div class="swatch-color" style="background:#7FB5A0"></div><p class="swatch-name">Green Muted</p><p class="swatch-hex">#7FB5A0</p><p class="swatch-var">--c-gmu</p></div>
+    </div>
+  </div>
+
+  <div class="block">
+    <p class="block-title">Surfaces & Texte</p>
+    <div class="g4">
+      <div class="swatch"><div class="swatch-color" style="background:#FFFFFF;border:1px solid #D4D4CC"></div><p class="swatch-name">White</p><p class="swatch-hex">#FFFFFF</p><p class="swatch-var">--c-white</p></div>
+      <div class="swatch"><div class="swatch-color" style="background:#E8E8E0;border:1px solid #D4D4CC"></div><p class="swatch-name">Background</p><p class="swatch-hex">#E8E8E0</p><p class="swatch-var">--c-bg</p></div>
+      <div class="swatch"><div class="swatch-color" style="background:#EDEDE6;border:1px solid #D4D4CC"></div><p class="swatch-name">BG Warm</p><p class="swatch-hex">#EDEDE6</p><p class="swatch-var">--c-bg-w</p></div>
+      <div class="swatch"><div class="swatch-color" style="background:#D4D4CC"></div><p class="swatch-name">Border</p><p class="swatch-hex">#D4D4CC</p><p class="swatch-var">--c-bd</p></div>
+      <div class="swatch"><div class="swatch-color" style="background:#1A1A18"></div><p class="swatch-name">Text</p><p class="swatch-hex">#1A1A18</p><p class="swatch-var">--c-t</p></div>
+      <div class="swatch"><div class="swatch-color" style="background:#3D3D38"></div><p class="swatch-name">Text Mid</p><p class="swatch-hex">#3D3D38</p><p class="swatch-var">--c-tm</p></div>
+      <div class="swatch"><div class="swatch-color" style="background:#6B6B65"></div><p class="swatch-name">Text Soft</p><p class="swatch-hex">#6B6B65</p><p class="swatch-var">--c-ts</p></div>
+      <div class="swatch"><div class="swatch-color" style="background:#9C9C96"></div><p class="swatch-name">Text XSoft</p><p class="swatch-hex">#9C9C96</p><p class="swatch-var">--c-tx</p></div>
+    </div>
+  </div>
+
+  <div class="block">
+    <p class="block-title">Sémantique & Tags</p>
+    <div class="g4">
+      <div class="swatch"><div class="swatch-color" style="background:#E05252"></div><p class="swatch-name">Red / Error</p><p class="swatch-hex">#E05252</p><p class="swatch-var">--c-red</p></div>
+      <div class="swatch"><div class="swatch-color" style="background:#FDE8E8;border:1px solid #F5BDBD"></div><p class="swatch-name">Red Light</p><p class="swatch-hex">#FDE8E8</p><p class="swatch-var">--c-red-l</p></div>
+      <div class="swatch"><div class="swatch-color" style="background:#F5E6D0;border:1px solid #E8CFA8"></div><p class="swatch-name">Tag Sciure BG</p><p class="swatch-hex">#F5E6D0</p><p class="swatch-var">--ts-bg</p></div>
+      <div class="swatch"><div class="swatch-color" style="background:#D6E8F5;border:1px solid #B0D0E8"></div><p class="swatch-name">Tag Design BG</p><p class="swatch-hex">#D6E8F5</p><p class="swatch-var">--td-bg</p></div>
+      <div class="swatch"><div class="swatch-color" style="background:#D8F0D8;border:1px solid #A8D8A8"></div><p class="swatch-name">Tag Mesure BG</p><p class="swatch-hex">#D8F0D8</p><p class="swatch-var">--tm-bg</p></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ TYPO ══ -->
+<div class="section" id="s-typo">
+  <p class="s-eyebrow">Fondations</p>
+  <h1 class="s-title">Typographie</h1>
+  <p class="s-desc"><strong>Syne</strong> pour tous les titres (caractère, impact) · <strong>Inter</strong> pour le corps (lisibilité, neutralité). Pas de mixte dans les paragraphes.</p>
+  <div class="block">
+    <div class="type-table">
+      <div class="type-row"><div class="type-meta"><p class="type-tok">t-hero</p><p class="type-spec">Syne 800 · 72px<br>lh 1.08 · ls -0.02em</p></div><div style="font-family:var(--fd);font-size:72px;font-weight:800;line-height:1.08;letter-spacing:-.02em;color:var(--c-dark)">Le confort absolu.<span style="color:var(--c-green)"> L'eau<br>en moins.</span></div></div>
+      <div class="type-row"><div class="type-meta"><p class="type-tok">t-display</p><p class="type-spec">Syne 800 · 56px<br>lh 1.08 · ls -0.02em</p></div><div style="font-family:var(--fd);font-size:56px;font-weight:800;line-height:1.08;letter-spacing:-.02em;color:var(--c-dark)">L'excellence de la<br><span style="color:var(--c-green)">transition sanitaire.</span></div></div>
+      <div class="type-row"><div class="type-meta"><p class="type-tok">t-h1</p><p class="type-spec">Syne 700 · 44px<br>lh 1.12 · ls -0.015em</p></div><div style="font-family:var(--fd);font-size:44px;font-weight:700;line-height:1.12;letter-spacing:-.015em;color:var(--c-dark)">Repenser l'évidence pour créer l'exceptionnel.</div></div>
+      <div class="type-row"><div class="type-meta"><p class="type-tok">t-h2</p><p class="type-spec">Syne 700 · 32px<br>lh 1.2 · ls -0.01em</p></div><div style="font-family:var(--fd);font-size:32px;font-weight:700;line-height:1.2;letter-spacing:-.01em;color:var(--c-dark)">Deux écoles. Un même objectif.</div></div>
+      <div class="type-row"><div class="type-meta"><p class="type-tok">t-h3</p><p class="type-spec">Syne 700 · 24px<br>lh 1.25</p></div><div style="font-family:var(--fd);font-size:24px;font-weight:700;line-height:1.25;color:var(--c-dark)">WC Sèche à sciure</div></div>
+      <div class="type-row"><div class="type-meta"><p class="type-tok">t-h4</p><p class="type-spec">Syne 600 · 20px<br>lh 1.3</p></div><div style="font-family:var(--fd);font-size:20px;font-weight:600;line-height:1.3;color:var(--c-dark)">Notre Histoire</div></div>
+      <div class="type-row"><div class="type-meta"><p class="type-tok">t-body-lg</p><p class="type-spec">Inter 400 · 17px<br>lh 1.7</p></div><div style="font-size:17px;line-height:1.7;color:var(--c-tm);max-width:520px">Fabricants, installateurs, architectes. Parce qu'une bonne technologie ne vaut rien sans un bon artisan.</div></div>
+      <div class="type-row"><div class="type-meta"><p class="type-tok">t-body</p><p class="type-spec">Inter 400 · 15px<br>lh 1.65</p></div><div style="font-size:15px;line-height:1.65;color:var(--c-tm);max-width:520px">Menuiserie artisanale spécialisée dans la création de meubles en bois massif pour toilettes à litière bio-maîtrisée.</div></div>
+      <div class="type-row"><div class="type-meta"><p class="type-tok">t-body-sm</p><p class="type-spec">Inter 400 · 13px<br>lh 1.6</p></div><div style="font-size:13px;line-height:1.6;color:var(--c-ts)">Bretagne (Livraison France) · 124 professionnels vérifiés par notre équipe.</div></div>
+      <div class="type-row"><div class="type-meta"><p class="type-tok">t-eyebrow</p><p class="type-spec">Inter 700 · 11px<br>ls 0.12em · uppercase</p></div><div style="display:flex;flex-direction:column;gap:8px"><span style="font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--c-ts)">Menuiserie &amp; Fabrication</span><span style="font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--c-green)">Ressources &amp; Écologie · Lecture 6 min</span></div></div>
+      <div class="type-row"><div class="type-meta"><p class="type-tok">t-quote</p><p class="type-spec">Syne 600 italic · 24px<br>lh 1.3</p></div><div style="font-family:var(--fd);font-size:24px;font-weight:600;font-style:italic;line-height:1.3;color:var(--c-dark);max-width:520px">"Utiliser une eau purifiée au chlore pour évacuer de l'urine est un luxe que la planète ne peut plus se permettre."</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ SPACING ══ -->
+<div class="section" id="s-spacing">
+  <p class="s-eyebrow">Fondations</p>
+  <h1 class="s-title">Espacements</h1>
+  <p class="s-desc">Échelle basée sur <strong>4 px</strong>. 12 niveaux de <code>--s1</code> (4 px) à <code>--s12</code> (96 px). Les border-radius suivent la même logique intentionnelle.</p>
+  <div class="block">
+    <div style="background:white;border-radius:var(--r-xl);border:1px solid var(--c-bd);padding:28px;display:flex;flex-direction:column;gap:14px">
+      <div style="display:grid;grid-template-columns:72px 52px 1fr;align-items:center;gap:16px;font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--c-tx);border-bottom:1px solid var(--c-bd);padding-bottom:10px"><span>Token</span><span>Valeur</span><span>Visualisation</span></div>
+      <div style="display:grid;grid-template-columns:72px 52px 1fr;align-items:center;gap:16px"><code>--s1</code><span style="font-size:13px;color:var(--c-ts)">4px</span><div style="height:12px;width:4px;background:var(--c-green);border-radius:2px"></div></div>
+      <div style="display:grid;grid-template-columns:72px 52px 1fr;align-items:center;gap:16px"><code>--s2</code><span style="font-size:13px;color:var(--c-ts)">8px</span><div style="height:12px;width:8px;background:var(--c-green);border-radius:2px"></div></div>
+      <div style="display:grid;grid-template-columns:72px 52px 1fr;align-items:center;gap:16px"><code>--s3</code><span style="font-size:13px;color:var(--c-ts)">12px</span><div style="height:12px;width:12px;background:var(--c-green);border-radius:2px"></div></div>
+      <div style="display:grid;grid-template-columns:72px 52px 1fr;align-items:center;gap:16px"><code>--s4</code><span style="font-size:13px;color:var(--c-ts)">16px</span><div style="height:12px;width:16px;background:var(--c-green);border-radius:2px"></div></div>
+      <div style="display:grid;grid-template-columns:72px 52px 1fr;align-items:center;gap:16px"><code>--s5</code><span style="font-size:13px;color:var(--c-ts)">20px</span><div style="height:12px;width:20px;background:var(--c-green);border-radius:2px"></div></div>
+      <div style="display:grid;grid-template-columns:72px 52px 1fr;align-items:center;gap:16px"><code>--s6</code><span style="font-size:13px;color:var(--c-ts)">24px</span><div style="height:12px;width:24px;background:var(--c-green);border-radius:2px"></div></div>
+      <div style="display:grid;grid-template-columns:72px 52px 1fr;align-items:center;gap:16px"><code>--s7</code><span style="font-size:13px;color:var(--c-ts)">32px</span><div style="height:12px;width:32px;background:var(--c-green);border-radius:2px"></div></div>
+      <div style="display:grid;grid-template-columns:72px 52px 1fr;align-items:center;gap:16px"><code>--s8</code><span style="font-size:13px;color:var(--c-ts)">40px</span><div style="height:12px;width:40px;background:var(--c-green);border-radius:2px"></div></div>
+      <div style="display:grid;grid-template-columns:72px 52px 1fr;align-items:center;gap:16px"><code>--s9</code><span style="font-size:13px;color:var(--c-ts)">48px</span><div style="height:12px;width:48px;background:var(--c-green);border-radius:2px"></div></div>
+      <div style="display:grid;grid-template-columns:72px 52px 1fr;align-items:center;gap:16px"><code>--s10</code><span style="font-size:13px;color:var(--c-ts)">64px</span><div style="height:12px;width:64px;background:var(--c-green);border-radius:2px"></div></div>
+      <div style="display:grid;grid-template-columns:72px 52px 1fr;align-items:center;gap:16px"><code>--s11</code><span style="font-size:13px;color:var(--c-ts)">80px</span><div style="height:12px;width:80px;background:var(--c-green);border-radius:2px"></div></div>
+      <div style="display:grid;grid-template-columns:72px 52px 1fr;align-items:center;gap:16px"><code>--s12</code><span style="font-size:13px;color:var(--c-ts)">96px</span><div style="height:12px;width:96px;background:var(--c-green);border-radius:2px"></div></div>
+    </div>
+  </div>
+  <div class="block">
+    <p class="block-title">Border Radius</p>
+    <div style="display:flex;gap:24px;flex-wrap:wrap;padding:28px;background:white;border-radius:var(--r-xl);border:1px solid var(--c-bd)">
+      <div style="display:flex;flex-direction:column;align-items:center;gap:8px"><div style="width:72px;height:72px;background:var(--c-gl);border:2px solid var(--c-gm);border-radius:6px"></div><code>--r-s</code><span style="font-size:11px;color:var(--c-ts)">6px</span></div>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:8px"><div style="width:72px;height:72px;background:var(--c-gl);border:2px solid var(--c-gm);border-radius:12px"></div><code>--r-m</code><span style="font-size:11px;color:var(--c-ts)">12px</span></div>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:8px"><div style="width:72px;height:72px;background:var(--c-gl);border:2px solid var(--c-gm);border-radius:20px"></div><code>--r-l</code><span style="font-size:11px;color:var(--c-ts)">20px</span></div>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:8px"><div style="width:72px;height:72px;background:var(--c-gl);border:2px solid var(--c-gm);border-radius:28px"></div><code>--r-xl</code><span style="font-size:11px;color:var(--c-ts)">28px</span></div>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:8px"><div style="width:72px;height:72px;background:var(--c-gl);border:2px solid var(--c-gm);border-radius:9999px"></div><code>--r-p</code><span style="font-size:11px;color:var(--c-ts)">pill</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ BUTTONS ══ -->
+<div class="section" id="s-buttons">
+  <p class="s-eyebrow">Composants</p>
+  <h1 class="s-title">Boutons</h1>
+  <p class="s-desc">6 variantes × 5 états (Default · Hover · Pressed · Focused · Disabled) × 3 tailles (lg · md · sm). Tous les états sont affichés statiquement — aucune interaction.</p>
+
+  <!-- PRIMARY -->
+  <div class="block">
+    <p class="block-title">Primary (Dark)</p>
+    <p class="block-desc">Action principale de la page. Usage : "Trouver mon modèle", "Contacter l'artisan", "Découvrir le modèle".</p>
+    <div class="shelf">
+      <div class="state-item"><span class="state-label">Default</span><button class="btn lg btn-p-def">Trouver mon modèle</button><button class="btn md btn-p-def">Trouver mon modèle</button><button class="btn sm btn-p-def">Trouver</button></div>
+      <div class="state-item"><span class="state-label">Hover</span><button class="btn lg btn-p-hov">Trouver mon modèle</button><button class="btn md btn-p-hov">Trouver mon modèle</button><button class="btn sm btn-p-hov">Trouver</button></div>
+      <div class="state-item"><span class="state-label">Pressed</span><button class="btn lg btn-p-pre">Trouver mon modèle</button><button class="btn md btn-p-pre">Trouver mon modèle</button><button class="btn sm btn-p-pre">Trouver</button></div>
+      <div class="state-item"><span class="state-label">Focused</span><button class="btn lg btn-p-foc">Trouver mon modèle</button><button class="btn md btn-p-foc">Trouver mon modèle</button><button class="btn sm btn-p-foc">Trouver</button></div>
+      <div class="state-item"><span class="state-label">Disabled</span><button class="btn lg btn-p-dis" disabled>Trouver mon modèle</button><button class="btn md btn-p-dis" disabled>Trouver mon modèle</button><button class="btn sm btn-p-dis" disabled>Trouver</button></div>
+    </div>
+  </div>
+
+  <!-- GREEN -->
+  <div class="block">
+    <p class="block-title">Green (Brand action)</p>
+    <p class="block-desc">Action secondaire à fort engagement. Usage : "Démarrer la simulation", "Voir les modèles à séparation", "S'inscrire", "Analyser mon profil".</p>
+    <div class="shelf">
+      <div class="state-item"><span class="state-label">Default</span><button class="btn lg btn-g-def">Démarrer la simulation</button><button class="btn md btn-g-def">Démarrer la simulation</button><button class="btn sm btn-g-def">Démarrer</button></div>
+      <div class="state-item"><span class="state-label">Hover</span><button class="btn lg btn-g-hov">Démarrer la simulation</button><button class="btn md btn-g-hov">Démarrer la simulation</button><button class="btn sm btn-g-hov">Démarrer</button></div>
+      <div class="state-item"><span class="state-label">Pressed</span><button class="btn lg btn-g-pre">Démarrer la simulation</button><button class="btn md btn-g-pre">Démarrer la simulation</button><button class="btn sm btn-g-pre">Démarrer</button></div>
+      <div class="state-item"><span class="state-label">Focused</span><button class="btn lg btn-g-foc">Démarrer la simulation</button><button class="btn md btn-g-foc">Démarrer la simulation</button><button class="btn sm btn-g-foc">Démarrer</button></div>
+      <div class="state-item"><span class="state-label">Disabled</span><button class="btn lg btn-g-dis" disabled>Question suivante</button><button class="btn md btn-g-dis" disabled>Question suivante</button><button class="btn sm btn-g-dis" disabled>Suivant</button></div>
+    </div>
+  </div>
+
+  <!-- OUTLINE DARK -->
+  <div class="block">
+    <p class="block-title">Outline Dark</p>
+    <p class="block-desc">Hiérarchie équivalente au Primary, moins de densité visuelle. Usage : "Comprendre l'enjeu", "Guide d'installation", "Découvrir le secret".</p>
+    <div class="shelf">
+      <div class="state-item"><span class="state-label">Default</span><button class="btn lg btn-od-def">Comprendre l'enjeu</button><button class="btn md btn-od-def">Comprendre l'enjeu</button><button class="btn sm btn-od-def">Guide</button></div>
+      <div class="state-item"><span class="state-label">Hover</span><button class="btn lg btn-od-hov">Comprendre l'enjeu</button><button class="btn md btn-od-hov">Comprendre l'enjeu</button><button class="btn sm btn-od-hov">Guide</button></div>
+      <div class="state-item"><span class="state-label">Pressed</span><button class="btn lg btn-od-pre">Comprendre l'enjeu</button><button class="btn md btn-od-pre">Comprendre l'enjeu</button><button class="btn sm btn-od-pre">Guide</button></div>
+      <div class="state-item"><span class="state-label">Focused</span><button class="btn lg btn-od-foc">Comprendre l'enjeu</button><button class="btn md btn-od-foc">Comprendre l'enjeu</button><button class="btn sm btn-od-foc">Guide</button></div>
+      <div class="state-item"><span class="state-label">Disabled</span><button class="btn lg btn-od-dis" disabled>Comprendre l'enjeu</button><button class="btn md btn-od-dis" disabled>Comprendre l'enjeu</button><button class="btn sm btn-od-dis" disabled>Guide</button></div>
+    </div>
+  </div>
+
+  <!-- OUTLINE GREEN -->
+  <div class="block">
+    <p class="block-title">Outline Green</p>
+    <p class="block-desc">Tertiary sur fond clair. Usage : "Voir les comparatifs", "Consulter l'annuaire", "Voir les modèles à sciure".</p>
+    <div class="shelf">
+      <div class="state-item"><span class="state-label">Default</span><button class="btn lg btn-og-def">Voir les comparatifs</button><button class="btn md btn-og-def">Voir les comparatifs</button><button class="btn sm btn-og-def">Comparatifs</button></div>
+      <div class="state-item"><span class="state-label">Hover</span><button class="btn lg btn-og-hov">Voir les comparatifs</button><button class="btn md btn-og-hov">Voir les comparatifs</button><button class="btn sm btn-og-hov">Comparatifs</button></div>
+      <div class="state-item"><span class="state-label">Pressed</span><button class="btn lg btn-og-pre">Voir les comparatifs</button><button class="btn md btn-og-pre">Voir les comparatifs</button><button class="btn sm btn-og-pre">Comparatifs</button></div>
+      <div class="state-item"><span class="state-label">Focused</span><button class="btn lg btn-og-foc">Voir les comparatifs</button><button class="btn md btn-og-foc">Voir les comparatifs</button><button class="btn sm btn-og-foc">Comparatifs</button></div>
+      <div class="state-item"><span class="state-label">Disabled</span><button class="btn lg btn-og-dis" disabled>Voir les comparatifs</button><button class="btn md btn-og-dis" disabled>Voir les comparatifs</button><button class="btn sm btn-og-dis" disabled>Comparatifs</button></div>
+    </div>
+  </div>
+
+  <!-- OUTLINE WHITE -->
+  <div class="block">
+    <p class="block-title">Outline White — sur fond sombre uniquement</p>
+    <p class="block-desc">Réservé aux blocs <code>background: var(--c-dark)</code>. Usage : "Demander à être référencé" dans les CTA banners.</p>
+    <div class="shelf on-dark">
+      <div class="state-item"><span class="state-label">Default</span><button class="btn lg btn-ow-def">Demander à être référencé</button><button class="btn md btn-ow-def">Demander à être référencé</button></div>
+      <div class="state-item"><span class="state-label">Hover</span><button class="btn lg btn-ow-hov">Demander à être référencé</button><button class="btn md btn-ow-hov">Demander à être référencé</button></div>
+      <div class="state-item"><span class="state-label">Pressed</span><button class="btn lg btn-ow-pre">Demander à être référencé</button><button class="btn md btn-ow-pre">Demander à être référencé</button></div>
+      <div class="state-item"><span class="state-label">Focused</span><button class="btn lg btn-ow-foc">Demander à être référencé</button><button class="btn md btn-ow-foc">Demander à être référencé</button></div>
+      <div class="state-item"><span class="state-label">Disabled</span><button class="btn lg btn-ow-dis" disabled>Demander à être référencé</button><button class="btn md btn-ow-dis" disabled>Demander à être référencé</button></div>
+    </div>
+  </div>
+
+  <!-- GHOST -->
+  <div class="block">
+    <p class="block-title">Ghost</p>
+    <p class="block-desc">Liens de navigation et actions secondaires. Aucun fond visible au repos. Usage : "← Retour", "Refaire le test", "Fermer".</p>
+    <div class="shelf">
+      <div class="state-item"><span class="state-label">Default</span><button class="btn lg btn-gh-def">← Retour</button><button class="btn md btn-gh-def">← Retour</button><button class="btn sm btn-gh-def">← Retour</button></div>
+      <div class="state-item"><span class="state-label">Hover</span><button class="btn lg btn-gh-hov">← Retour</button><button class="btn md btn-gh-hov">← Retour</button><button class="btn sm btn-gh-hov">← Retour</button></div>
+      <div class="state-item"><span class="state-label">Pressed</span><button class="btn lg btn-gh-pre">← Retour</button><button class="btn md btn-gh-pre">← Retour</button><button class="btn sm btn-gh-pre">← Retour</button></div>
+      <div class="state-item"><span class="state-label">Focused</span><button class="btn lg btn-gh-foc">← Retour</button><button class="btn md btn-gh-foc">← Retour</button><button class="btn sm btn-gh-foc">← Retour</button></div>
+      <div class="state-item"><span class="state-label">Disabled</span><button class="btn lg btn-gh-dis" disabled>← Retour</button><button class="btn md btn-gh-dis" disabled>← Retour</button><button class="btn sm btn-gh-dis" disabled>← Retour</button></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ TAGS ══ -->
+<div class="section" id="s-tags">
+  <p class="s-eyebrow">Composants</p>
+  <h1 class="s-title">Tags & Badges</h1>
+  <p class="s-desc">Labels catégoriels non-cliquables. Chaque couleur encode une sémantique précise. Le badge "Expert Vérifié" apparaît uniquement sur les fiches artisan.</p>
+  <div class="block">
+    <p class="block-title">Tags catégoriels</p>
+    <div class="shelf">
+      <div class="state-item center"><span class="state-label">TLB à sciure</span><span class="tag tag-sc">TLB à sciure</span><div style="font-size:10px;color:var(--c-ts);text-align:center;margin-top:4px">bg #F5E6D0 · text #8B5E2E</div></div>
+      <div class="state-item center"><span class="state-label">Design intérieur</span><span class="tag tag-de">Design intérieur</span><div style="font-size:10px;color:var(--c-ts);text-align:center;margin-top:4px">bg #D6E8F5 · text #1A5E8A</div></div>
+      <div class="state-item center"><span class="state-label">Sur-mesure</span><span class="tag tag-me">Sur-mesure</span><div style="font-size:10px;color:var(--c-ts);text-align:center;margin-top:4px">bg #D8F0D8 · text #1A6B2A</div></div>
+      <div class="state-item center"><span class="state-label">Expert vérifié (tag)</span><span class="tag tag-gr">Expert vérifié</span><div style="font-size:10px;color:var(--c-ts);text-align:center;margin-top:4px">bg #E6F7F1 · text #0FAE6E</div></div>
+      <div class="state-item center"><span class="state-label">Fabricant (dark)</span><span class="tag tag-dk">Fabricant</span><div style="font-size:10px;color:var(--c-ts);text-align:center;margin-top:4px">bg #0D2B1F · text #FFFFFF</div></div>
+      <div class="state-item center"><span class="state-label">Badge Expert Vérifié</span><span class="badge-v">Expert Vérifié</span><div style="font-size:10px;color:var(--c-ts);text-align:center;margin-top:4px">dot + bg #E6F7F1 · border #C5EAD8</div></div>
+    </div>
+  </div>
+  <div class="block">
+    <p class="block-title">Combinaisons typiques — fiche artisan</p>
+    <div class="shelf">
+      <div class="state-item"><span class="state-label">Artisan fabricant</span><div style="display:flex;flex-wrap:wrap;gap:6px"><span class="tag tag-sc">TLB à sciure</span><span class="tag tag-de">Design intérieur</span><span class="tag tag-me">Sur-mesure</span></div></div>
+      <div class="state-item"><span class="state-label">Type + badge</span><div style="display:flex;flex-wrap:wrap;gap:6px"><span class="tag tag-dk">Fabricant</span><span class="badge-v">Expert Vérifié</span></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ INPUTS ══ -->
+<div class="section" id="s-inputs">
+  <p class="s-eyebrow">Composants</p>
+  <h1 class="s-title">Inputs & Formulaires</h1>
+  <p class="s-desc">7 états pour les champs de saisie. L'état Error est déclenché par la validation côté client. Les labels sont toujours positionnés au-dessus du champ, jamais flottants.</p>
+
+  <div class="block">
+    <p class="block-title">Input texte / email — tous états</p>
+    <div class="shelf col" style="max-width:540px">
+      <div class="state-item" style="align-items:stretch"><span class="state-label">Placeholder</span><input class="inp inp-ph" type="text" placeholder="Votre adresse email" readonly></div>
+      <div class="state-item" style="align-items:stretch"><span class="state-label">Default</span><input class="inp inp-def" type="text" value="" placeholder=" " readonly></div>
+      <div class="state-item" style="align-items:stretch"><span class="state-label">Hover</span><input class="inp inp-hov" type="text" value="" placeholder=" " readonly></div>
+      <div class="state-item" style="align-items:stretch"><span class="state-label">Focus</span><input class="inp inp-foc" type="text" value="" placeholder=" " readonly></div>
+      <div class="state-item" style="align-items:stretch"><span class="state-label">Filled</span><input class="inp inp-fil" type="email" value="antonin@toileteco.fr" readonly></div>
+      <div class="state-item" style="align-items:stretch"><span class="state-label">Error</span><input class="inp inp-err" type="email" value="email-invalide" readonly><span class="err-msg">Format d'email invalide.</span></div>
+      <div class="state-item" style="align-items:stretch"><span class="state-label">Disabled</span><input class="inp inp-dis" type="text" value="Champ désactivé" disabled readonly></div>
+    </div>
+  </div>
+
+  <div class="block">
+    <p class="block-title">Input groupe — Newsletter (3 états)</p>
+    <div class="shelf col" style="max-width:560px">
+      <div class="state-item" style="align-items:stretch">
+        <span class="state-label">Default</span>
+        <div style="display:flex;align-items:center;background:white;border:1.5px solid var(--c-bd);border-radius:9999px;padding:5px 5px 5px 18px;gap:8px">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--c-ts)" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          <input style="flex:1;font-size:13px;border:none;outline:none;background:transparent;color:var(--c-tx)" type="text" placeholder="Votre adresse email" readonly>
+          <button class="btn sm btn-g-def" style="border-radius:9999px">S'inscrire</button>
+        </div>
+      </div>
+      <div class="state-item" style="align-items:stretch">
+        <span class="state-label">Focus</span>
+        <div style="display:flex;align-items:center;background:white;border:1.5px solid var(--c-green);border-radius:9999px;padding:5px 5px 5px 18px;gap:8px;box-shadow:0 0 0 3px rgba(15,174,110,.14)">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--c-green)" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          <input style="flex:1;font-size:13px;border:none;outline:none;background:transparent;color:var(--c-t)" type="text" placeholder="Votre adresse email" readonly>
+          <button class="btn sm btn-g-def" style="border-radius:9999px">S'inscrire</button>
+        </div>
+      </div>
+      <div class="state-item" style="align-items:stretch">
+        <span class="state-label">Filled + Hover btn</span>
+        <div style="display:flex;align-items:center;background:white;border:1.5px solid var(--c-bd);border-radius:9999px;padding:5px 5px 5px 18px;gap:8px">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--c-green)" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          <input style="flex:1;font-size:13px;border:none;outline:none;background:transparent;color:var(--c-t)" type="text" value="mon@email.fr" readonly>
+          <button class="btn sm btn-g-hov" style="border-radius:9999px">S'inscrire</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="block">
+    <p class="block-title">Barre de recherche — Annuaire (2 états)</p>
+    <div class="shelf col" style="max-width:680px">
+      <div class="state-item" style="align-items:stretch">
+        <span class="state-label">Default</span>
+        <div class="sbar">
+          <div style="display:flex;align-items:center;gap:7px;flex:1"><svg class="sbar-ico" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><input class="sbar-f" style="color:var(--c-tx)" type="text" placeholder="Tous les métiers" readonly></div>
+          <div class="sbar-div"></div>
+          <div style="display:flex;align-items:center;gap:7px;flex:1"><svg class="sbar-ico" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4.5 8-11.8A8 8 0 0 0 4 10.2C4 17.5 12 22 12 22z"/><circle cx="12" cy="10" r="3"/></svg><input class="sbar-f" style="color:var(--c-tx)" type="text" placeholder="Toute la France" readonly></div>
+          <button class="btn md btn-g-def">Trouver un expert</button>
+        </div>
+      </div>
+      <div class="state-item" style="align-items:stretch">
+        <span class="state-label">Focus (champ actif)</span>
+        <div class="sbar foc">
+          <div style="display:flex;align-items:center;gap:7px;flex:1"><svg style="color:var(--c-green)" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><input class="sbar-f" type="text" placeholder="Menuisier" readonly></div>
+          <div class="sbar-div"></div>
+          <div style="display:flex;align-items:center;gap:7px;flex:1"><svg class="sbar-ico" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4.5 8-11.8A8 8 0 0 0 4 10.2C4 17.5 12 22 12 22z"/><circle cx="12" cy="10" r="3"/></svg><input class="sbar-f" style="color:var(--c-tx)" type="text" placeholder="Bretagne" readonly></div>
+          <button class="btn md btn-g-def">Trouver un expert</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ QUIZ ══ -->
+<div class="section" id="s-quiz">
+  <p class="s-eyebrow">Composants</p>
+  <h1 class="s-title">Quiz / Questionnaire</h1>
+  <p class="s-desc">Composants du simulateur de modèle. La barre de progression et les options de réponse couvrent les 4 états chacun.</p>
+
+  <div class="block">
+    <p class="block-title">Barre de progression (5 étapes)</p>
+    <div class="shelf col" style="max-width:600px">
+      <div class="state-item" style="align-items:stretch"><span class="state-label">Q1/5 — 20%</span><div class="pbar"><div class="pbar-f" style="width:20%"></div></div></div>
+      <div class="state-item" style="align-items:stretch"><span class="state-label">Q2/5 — 40%</span><div class="pbar"><div class="pbar-f" style="width:40%"></div></div></div>
+      <div class="state-item" style="align-items:stretch"><span class="state-label">Q3/5 — 60%</span><div class="pbar"><div class="pbar-f" style="width:60%"></div></div></div>
+      <div class="state-item" style="align-items:stretch"><span class="state-label">Q4/5 — 80%</span><div class="pbar"><div class="pbar-f" style="width:80%"></div></div></div>
+      <div class="state-item" style="align-items:stretch"><span class="state-label">Q5/5 — 100%</span><div class="pbar"><div class="pbar-f" style="width:100%"></div></div></div>
+    </div>
+  </div>
+
+  <div class="block">
+    <p class="block-title">Option de réponse — tous états</p>
+    <div class="shelf col" style="max-width:640px">
+      <div class="state-item" style="align-items:stretch"><span class="state-label">Default (non sélectionné)</span><div class="qopt qopt-def"><span>Oui, j'ai une arrivée d'eau classique</span><span class="qr"></span></div></div>
+      <div class="state-item" style="align-items:stretch"><span class="state-label">Hover</span><div class="qopt qopt-hov"><span>Oui, j'ai une arrivée d'eau classique</span><span class="qr"></span></div></div>
+      <div class="state-item" style="align-items:stretch"><span class="state-label">Selected</span><div class="qopt qopt-sel"><span>Oui, j'ai une arrivée d'eau classique</span><span class="qr"></span></div></div>
+      <div class="state-item" style="align-items:stretch"><span class="state-label">Disabled</span><div class="qopt qopt-dis"><span>Option non disponible</span><span class="qr"></span></div></div>
+    </div>
+  </div>
+
+  <div class="block">
+    <p class="block-title">Écran de question complet</p>
+    <div style="background:var(--c-bg);border-radius:var(--r-xl);padding:64px;max-width:720px">
+      <p style="font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--c-green);margin-bottom:18px">Question 2 sur 5</p>
+      <h2 style="font-family:var(--fd);font-size:42px;font-weight:800;color:var(--c-dark);line-height:1.1;margin-bottom:32px">Avez-vous accès à l'eau courante à cet endroit ?</h2>
+      <div style="display:flex;flex-direction:column;gap:12px;margin-bottom:40px">
+        <div class="qopt qopt-def"><span>Oui, j'ai une arrivée d'eau classique</span><span class="qr"></span></div>
+        <div class="qopt qopt-sel"><span>Non, je n'ai pas d'eau courante ici</span><span class="qr"></span></div>
+      </div>
+      <div style="display:flex;align-items:center;justify-content:space-between">
+        <button class="btn md btn-gh-def">← Retour</button>
+        <button class="btn lg btn-p-def">Question suivante</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="block">
+    <p class="block-title">Écran Résultat</p>
+    <div style="background:var(--c-bg);border-radius:var(--r-xl);padding:64px;display:flex;justify-content:center">
+      <div style="background:white;border-radius:var(--r-xl);padding:48px;text-align:center;max-width:580px;box-shadow:var(--sh-m)">
+        <p style="font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--c-green);margin-bottom:14px">Dernière question</p>
+        <h2 style="font-family:var(--fd);font-size:44px;font-weight:800;color:var(--c-dark);margin-bottom:16px">La toilette sèche</h2>
+        <p style="font-size:16px;line-height:1.65;color:var(--c-tm);margin-bottom:28px">Votre profil s'oriente vers la toilette sèche traditionnelle. Simple à installer, sans plomberie, 100% autonome. Budget estimé : <strong>150€ à 300€</strong></p>
+        <button class="btn lg btn-p-def" style="margin:0 auto 18px;display:block">Découvrir le modèle recommandé</button>
+        <div style="display:flex;justify-content:space-between;padding-top:16px;border-top:1px solid var(--c-bd)">
+          <span style="font-size:13px;text-decoration:underline;color:var(--c-dark);cursor:pointer">Refaire le test</span>
+          <span style="font-size:13px;color:var(--c-dark);cursor:pointer">Voir la page comparatif</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ TABS ══ -->
+<div class="section" id="s-tabs">
+  <p class="s-eyebrow">Composants</p>
+  <h1 class="s-title">Onglets filtre</h1>
+  <p class="s-desc">Présents sur la page Blog et l'annuaire. Un seul actif à la fois. Le clic remplace uniquement la classe CSS.</p>
+  <div class="block">
+    <p class="block-title">États unitaires</p>
+    <div class="shelf">
+      <div class="state-item center"><span class="state-label">Default</span><span class="ftab ftab-def">Tous les articles</span></div>
+      <div class="state-item center"><span class="state-label">Hover</span><span class="ftab ftab-hov">Guides Pratiques</span></div>
+      <div class="state-item center"><span class="state-label">Active</span><span class="ftab ftab-act">Tous les articles</span></div>
+      <div class="state-item center"><span class="state-label">Disabled</span><span class="ftab ftab-dis">Archive</span></div>
+    </div>
+  </div>
+  <div class="block">
+    <p class="block-title">Groupe complet — page Blog</p>
+    <div class="shelf"><div style="display:flex;flex-wrap:wrap;gap:8px"><span class="ftab ftab-act">Tous les articles</span><span class="ftab ftab-def">Guides Pratiques</span><span class="ftab ftab-def">Témoignages</span><span class="ftab ftab-def">Législation</span><span class="ftab ftab-def">Écologie</span></div></div>
+  </div>
+</div>
+
+<!-- ══ ACCORDION ══ -->
+<div class="section" id="s-accordion">
+  <p class="s-eyebrow">Composants</p>
+  <h1 class="s-title">Accordion / FAQ</h1>
+  <p class="s-desc">Utilisé dans les FAQ (homepage, Qui-sommes-nous, pages produit). L'icône + pivote 45° à l'état ouvert et devient fond vert.</p>
+  <div class="block">
+    <p class="block-title">Les 3 états côte à côte</p>
+    <div class="g2">
+      <div>
+        <span class="mini-label">Liste réelle avec états mixtes</span>
+        <div class="acc-wrap">
+          <div class="acc-item acc-s-def">
+            <button class="acc-trigger"><span style="color:var(--c-dark)">Sommes-nous, est-ce que je prends tranche ?</span><span class="acc-icon">+</span></button>
+          </div>
+          <div class="acc-item acc-s-hov">
+            <button class="acc-trigger"><span style="color:var(--c-green)">Est-ce autorisé par la loi française ?</span><span class="acc-icon">+</span></button>
+          </div>
+          <div class="acc-item acc-s-open">
+            <button class="acc-trigger"><span style="color:var(--c-dark)">Comment le fait quand on invite des amis ?</span><span class="acc-icon">+</span></button>
+            <div class="acc-body-text">C'est plus simple qu'il n'y paraît. Une petite notice bien rédigée dans les toilettes suffit généralement. La plupart des invités sont curieux et posent des questions positives.</div>
+          </div>
+          <div class="acc-item acc-s-def">
+            <button class="acc-trigger"><span style="color:var(--c-dark)">Puis-je m'installer en appartement ?</span><span class="acc-icon">+</span></button>
+          </div>
+        </div>
+      </div>
+      <div>
+        <span class="mini-label">Détail des états de l'icône</span>
+        <div class="shelf col">
+          <div class="state-item"><span class="state-label">Default</span><span class="acc-icon" style="border-color:var(--c-bd);color:var(--c-ts)">+</span></div>
+          <div class="state-item"><span class="state-label">Hover</span><span class="acc-icon" style="border-color:var(--c-gm);color:var(--c-green)">+</span></div>
+          <div class="state-item"><span class="state-label">Open (rotated 45°)</span><span class="acc-icon" style="background:var(--c-green);border-color:var(--c-green);color:white;transform:rotate(45deg)">+</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ CARDS ══ -->
+<div class="section" id="s-cards">
+  <p class="s-eyebrow">Composants</p>
+  <h1 class="s-title">Cards</h1>
+  <p class="s-desc">4 types de cards, chacun affiché dans ses états complets. La distinction Default / Hover / Selected est clé pour l'expérience utilisateur.</p>
+
+  <!-- Artisan -->
+  <div class="block">
+    <p class="block-title">Card Artisan — Annuaire</p>
+    <div class="g3">
+      <div><span class="mini-label">Default</span>
+        <div class="card-a">
+          <div class="ca-head"><div class="ca-logo"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div><div><p class="ca-ey">Fabricant</p><h3 class="ca-name">Atelier du Copeau</h3><p class="ca-loc"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4.5 8-11.8A8 8 0 0 0 4 10.2C4 17.5 12 22 12 22z"/><circle cx="12" cy="10" r="3"/></svg> Bretagne (Livraison France)</p></div></div>
+          <p class="ca-desc">Menuiserie artisanale spécialisée dans la création de meubles en bois massif pour toilettes à litière bio-maîtrisée.</p>
+          <div class="ca-tags"><span class="tag tag-sc">TLB à sciure</span><span class="tag tag-de">Design intérieur</span></div>
+          <div class="ca-footer"><span class="ca-rec"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg> Artisan Recommandé</span><span class="ca-cta">Contacter</span></div>
+        </div>
+      </div>
+      <div><span class="mini-label">Hover</span>
+        <div class="card-a card-a-hov">
+          <div class="ca-head"><div class="ca-logo"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div><div><p class="ca-ey">Fabricant</p><h3 class="ca-name">Atelier du Copeau</h3><p class="ca-loc"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4.5 8-11.8A8 8 0 0 0 4 10.2C4 17.5 12 22 12 22z"/><circle cx="12" cy="10" r="3"/></svg> Bretagne (Livraison France)</p></div></div>
+          <p class="ca-desc">Menuiserie artisanale spécialisée dans la création de meubles en bois massif pour toilettes à litière bio-maîtrisée.</p>
+          <div class="ca-tags"><span class="tag tag-sc">TLB à sciure</span><span class="tag tag-de">Design intérieur</span></div>
+          <div class="ca-footer"><span class="ca-rec"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg> Artisan Recommandé</span><span class="ca-cta hov">Contacter</span></div>
+        </div>
+      </div>
+      <div><span class="mini-label">Selected</span>
+        <div class="card-a card-a-sel">
+          <div class="ca-head"><div class="ca-logo"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div><div><p class="ca-ey">Fabricant</p><h3 class="ca-name">Atelier du Copeau</h3><p class="ca-loc"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4.5 8-11.8A8 8 0 0 0 4 10.2C4 17.5 12 22 12 22z"/><circle cx="12" cy="10" r="3"/></svg> Bretagne (Livraison France)</p></div></div>
+          <p class="ca-desc">Menuiserie artisanale spécialisée dans la création de meubles en bois massif pour toilettes à litière bio-maîtrisée.</p>
+          <div class="ca-tags"><span class="tag tag-sc">TLB à sciure</span><span class="tag tag-de">Design intérieur</span></div>
+          <div class="ca-footer"><span class="ca-rec"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg> Artisan Recommandé</span><span class="ca-cta hov">Contacter</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Blog -->
+  <div class="block">
+    <p class="block-title">Card Blog</p>
+    <div class="g3">
+      <div><span class="mini-label">Default</span>
+        <div class="card-b"><div class="cb-img"></div><div class="cb-body"><div style="display:flex;align-items:center;gap:8px"><span class="cb-cat">Témoignage</span><span style="font-size:11px;color:var(--c-ts)">4 min</span></div><h3 class="cb-title">"Nous avons installé une TLB en famille, voici notre bilan après 1 an."</h3><p class="cb-exc">Julie et Thomas ont sauté le pas. Entre la logistique, les odeurs…</p><span class="cb-link">Lire l'article →</span></div></div>
+      </div>
+      <div><span class="mini-label">Hover</span>
+        <div class="card-b card-b-hov"><div class="cb-img"></div><div class="cb-body"><div style="display:flex;align-items:center;gap:8px"><span class="cb-cat">Témoignage</span><span style="font-size:11px;color:var(--c-ts)">4 min</span></div><h3 class="cb-title">"Nous avons installé une TLB en famille, voici notre bilan après 1 an."</h3><p class="cb-exc">Julie et Thomas ont sauté le pas. Entre la logistique, les odeurs…</p><span class="cb-link hov">Lire l'article →</span></div></div>
+      </div>
+      <div><span class="mini-label">Featured (layout horizontal)</span>
+        <div class="card-b" style="flex-direction:row"><div class="cb-img" style="width:42%;height:auto;aspect-ratio:unset;flex-shrink:0"></div><div class="cb-body"><div style="display:flex;align-items:center;gap:8px"><span class="cb-cat">Législation</span><span style="font-size:11px;color:var(--c-ts)">6 min</span></div><h3 class="cb-title" style="font-size:22px">Réglementation ANC 2026 : Ce qui change pour les toilettes sans eau.</h3><p class="cb-exc">L'arrêté de 2009 connaît sa première grande révision…</p><span class="cb-link">Lire l'analyse complète →</span></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Feature -->
+  <div class="block">
+    <p class="block-title">Card Feature — Homepage</p>
+    <div class="g3">
+      <div><span class="mini-label">Default</span><div class="card-f"><div class="cf-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div><h3 class="cf-title">Maison principale</h3><p class="cf-desc">Pour un usage quotidien familial, le confort prime. Le WC à séparation s'intègre dans la pièce d'eau.</p></div></div>
+      <div><span class="mini-label">Hover</span><div class="card-f card-f-hov"><div class="cf-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg></div><h3 class="cf-title">Habitat léger / Extérieur</h3><p class="cf-desc">La sciure est la solution la plus robuste sans réseau électrique ni plomberie.</p></div></div>
+      <div><span class="mini-label">Default</span><div class="card-f"><div class="cf-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg></div><h3 class="cf-title">Pro & Collectivité</h3><p class="cf-desc">Les normes exigent des systèmes contrôlés sans maintenance quotidienne.</p></div></div>
+    </div>
+  </div>
+
+  <!-- Pros Cons -->
+  <div class="block">
+    <p class="block-title">Pros / Cons — Pages produit (Toilette Sèche + Séparation)</p>
+    <div class="g2">
+      <div class="card-pro"><h3>Les bénéfices absolus</h3><ul class="chk-list"><li>Liberté d'installation — Ni arrivée d'eau, ni prise électrique.</li><li>Indestructible — Aucune mécanique, la panne est impossible.</li><li>Coût maîtrisé — Dès 150€ pour un modèle de qualité.</li></ul></div>
+      <div class="card-con"><h3>Les compromis à accepter</h3><ul class="crs-list"><li>La vidange fréquente — Toutes les 3-4 semaines pour 2 personnes.</li><li>Logistique de la sciure — Prévoir un espace sec de stockage.</li><li>Extérieur obligatoire — Techniquement incompatible en appartement.</li></ul></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ TABLES ══ -->
+<div class="section" id="s-tables">
+  <p class="s-eyebrow">Composants</p>
+  <h1 class="s-title">Tableaux</h1>
+  <p class="s-desc">Deux types : Data Table (article blog, stats chiffrées) et Compare Table (page Comparatif avec sections sombres et ligne hover verte).</p>
+  <div class="block">
+    <p class="block-title">Data Table — états des lignes</p>
+    <div style="max-width:560px">
+      <div class="dtbl">
+        <div class="dtbl-head">La consommation d'eau en chiffres</div>
+        <div class="dtbl-row"><span class="dtbl-l">1 personne / Jour</span><span class="dtbl-v">~ 35 Litres</span></div>
+        <div class="dtbl-row alt"><span class="dtbl-l">1 personne / An</span><span class="dtbl-v">~ 12 700 Litres</span></div>
+        <div class="dtbl-row hvr"><span class="dtbl-l">Famille de 4 personnes / An <span style="font-size:10px;color:var(--c-ts)">(hover)</span></span><span class="dtbl-v">~ 50 800 Litres</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="block">
+    <p class="block-title">Compare Table — page Comparatif</p>
+    <table class="ctbl">
+      <thead><tr><th>Critères d'analyse</th><th>WC à Sciure</th><th class="cg">Méthode Séparation</th></tr></thead>
+      <tbody>
+        <tr class="s-row"><td colspan="3">1. Budget & Installation</td></tr>
+        <tr><td>Travaux nécessaires</td><td>✓ Aucun. Meuble autonome à poser.</td><td class="vg">Raccordement tuyau d'urine + gain d'aération.</td></tr>
+        <tr class="h-row"><td>Besoins électriques <span style="font-size:10px;color:var(--c-ts)">(hover)</span></td><td>100% Autonome (0 Watt)</td><td class="vg">Prise 220V ou 12V pour ventilateur</td></tr>
+        <tr class="s-row"><td colspan="3">2. Quotidien & Confort</td></tr>
+        <tr><td>Gestion des odeurs</td><td>Assèchement manuel après chaque passage.</td><td class="vg">Automatique — séparation + ventilation continue.</td></tr>
+        <tr><td>Fréquence de vidange</td><td>3 à 5 jours</td><td class="vg">4 à 6 semaines</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ══ NAVBAR ══ -->
+<div class="section" id="s-navbar">
+  <p class="s-eyebrow">Composants</p>
+  <h1 class="s-title">Navigation</h1>
+  <p class="s-desc">Deux états de la navbar (Default au repos / Scrolled après défilement) + mode questionnaire (logo seul + fermer). Trois états pour les liens.</p>
+  <div class="block">
+    <p class="block-title">Navbar Default — haut de page</p>
+    <div class="navbar nav-default">
+      <span class="nav-logo">Toilet'<span>eco</span></span>
+      <div class="nav-links"><span class="nl-def">Toilette Sèche</span><span class="nl-hov">Toilette à Séparation</span><span class="nl-act" style="text-decoration:underline;text-underline-offset:3px">Comparatif</span><span class="nl-def">Blog</span><span class="nl-def">Annuaire</span></div>
+      <button class="btn md btn-p-def">Trouver mon modèle</button>
+    </div>
+  </div>
+  <div class="block">
+    <p class="block-title">Navbar Scrolled — après défilement (backdrop-filter actif)</p>
+    <div class="navbar nav-scroll">
+      <span class="nav-logo">Toilet'<span>eco</span></span>
+      <div class="nav-links"><span class="nl-def">Toilette Sèche</span><span class="nl-def">Toilette à Séparation</span><span class="nl-act" style="text-decoration:underline;text-underline-offset:3px">Comparatif</span><span class="nl-def">Blog</span><span class="nl-def">Annuaire</span></div>
+      <button class="btn md btn-p-def">Trouver mon modèle</button>
+    </div>
+  </div>
+  <div class="block">
+    <p class="block-title">Navbar Mode Questionnaire — logo + fermer</p>
+    <div class="navbar nav-default" style="padding:10px 28px">
+      <span class="nav-logo">Toilet'<span>eco</span></span>
+      <button class="btn md btn-gh-def" style="display:flex;align-items:center;gap:6px">Fermer <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+    </div>
+  </div>
+  <div class="block">
+    <p class="block-title">Liens de navigation — états unitaires</p>
+    <div class="shelf">
+      <div class="state-item center"><span class="state-label">Default</span><span class="nl-def">Toilette Sèche</span></div>
+      <div class="state-item center"><span class="state-label">Hover</span><span class="nl-hov">Toilette Sèche</span></div>
+      <div class="state-item center"><span class="state-label">Active (page courante)</span><span class="nl-act" style="text-decoration:underline;text-underline-offset:3px">Toilette Sèche</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ FOOTER ══ -->
+<div class="section" id="s-footer">
+  <p class="s-eyebrow">Composants</p>
+  <h1 class="s-title">Footer</h1>
+  <p class="s-desc">Grille 4 colonnes : Brand + 3 groupes de liens. Fond <code>--c-bg</code>. Les états Default et Hover des liens sont affichés côte à côte.</p>
+  <div class="block">
+    <div class="footer">
+      <div class="footer-grid">
+        <div><div class="f-logo">Toilet'<span>eco</span></div><p class="f-desc">Plateforme pédagogique dédiée à la transition sanitaire et à la préservation des ressources en eau.</p></div>
+        <div><p class="f-col-title">Guides</p><div class="f-links"><span class="f-link">Toilette Sèche</span><span class="f-link hov">Toilette à Séparation <span style="font-size:10px;color:var(--c-tx)">(hover)</span></span><span class="f-link">Comparatif</span></div></div>
+        <div><p class="f-col-title">Ressources</p><div class="f-links"><span class="f-link">Simulateur de modèle</span><span class="f-link">Annuaire professionnel</span><span class="f-link">Blog / Actualités</span></div></div>
+        <div><p class="f-col-title">À propos</p><div class="f-links"><span class="f-link">Qui sommes-nous</span><span class="f-link">Mentions légales</span><span class="f-link">Politique de confidentialité</span></div></div>
+      </div>
+      <div class="footer-bottom"><span>© 2026 Toilet'eco. Projet pédagogique.</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ HERO ══ -->
+<div class="section" id="s-hero">
+  <p class="s-eyebrow">Patterns complets</p>
+  <h1 class="s-title">Hero & Stats</h1>
+  <p class="s-desc">Le hero est le pattern d'ouverture de chaque page principale. Les stats s'affichent en trio sous le CTA principal.</p>
+  <div class="block">
+    <p class="block-title">Hero Homepage</p>
+    <div class="hero-wrap">
+      <p style="font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--c-ts);margin-bottom:16px">— Pourquoi investir ?</p>
+      <div style="font-family:var(--fd);font-size:72px;font-weight:800;line-height:1.05;letter-spacing:-.02em;color:var(--c-dark);margin-bottom:20px">Le confort absolu.<br><span style="color:var(--c-green)">L'eau en moins.</span></div>
+      <p style="font-size:17px;line-height:1.7;color:var(--c-tm);max-width:500px;margin:0 auto 32px">Oubliez la cabane au fond du jardin. Les sanitaires écologiques s'intègrent à votre intérieur avec une esthétique irréprochable.</p>
+      <div style="display:flex;justify-content:center;gap:14px;flex-wrap:wrap;margin-bottom:48px"><button class="btn lg btn-p-def">Comparer les technologies</button><button class="btn lg btn-gh-def">Comprendre l'enjeu</button></div>
+      <div style="display:flex;justify-content:center;gap:72px;flex-wrap:wrap">
+        <div class="stat-item"><p class="val g">36L</p><p class="lbl">Gaspillés par jour, litres utilisés par personne pour la chasse d'eau.</p></div>
+        <div class="stat-item"><p class="val">20%</p><p class="lbl">De la facture d'eau dépensée pour transporter nos déchets.</p></div>
+        <div class="stat-item"><p class="val">0%</p><p class="lbl">De mauvaises odeurs — l'absence d'eau bloque la fermentation.</p></div>
+      </div>
+    </div>
+  </div>
+  <div class="block">
+    <p class="block-title">Hero page Annuaire</p>
+    <div class="hero-wrap" style="padding:52px 48px">
+      <div style="font-family:var(--fd);font-size:56px;font-weight:800;line-height:1.05;letter-spacing:-.02em;color:var(--c-dark);margin-bottom:16px">L'excellence de la<br><span style="color:var(--c-green)">transition sanitaire.</span></div>
+      <p style="font-size:16px;line-height:1.65;color:var(--c-tm);max-width:480px;margin:0 auto 32px">Fabricants, installateurs, architectes. Parce qu'une bonne technologie ne vaut rien sans un bon artisan.</p>
+      <div style="display:flex;justify-content:center">
+        <div class="sbar" style="max-width:680px;width:100%">
+          <div style="display:flex;align-items:center;gap:7px;flex:1"><svg class="sbar-ico" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><input class="sbar-f" style="color:var(--c-tx)" type="text" placeholder="Tous les métiers" readonly></div>
+          <div class="sbar-div"></div>
+          <div style="display:flex;align-items:center;gap:7px;flex:1"><svg class="sbar-ico" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4.5 8-11.8A8 8 0 0 0 4 10.2C4 17.5 12 22 12 22z"/><circle cx="12" cy="10" r="3"/></svg><input class="sbar-f" style="color:var(--c-tx)" type="text" placeholder="Toute la France" readonly></div>
+          <button class="btn md btn-g-def">Trouver un expert</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ COMPARATIF ══ -->
+<div class="section" id="s-comparatif">
+  <p class="s-eyebrow">Patterns complets</p>
+  <h1 class="s-title">Comparatif cards</h1>
+  <p class="s-desc">Pattern "Deux écoles" — la carte recommandée reçoit la bordure verte <code>--c-green</code>. La carte standard reste sur <code>--c-bd</code>.</p>
+  <div class="block">
+    <div class="g2">
+      <div><span class="mini-label">Default (non recommandé)</span>
+        <div class="cmp-card cmp-def">
+          <p class="cmp-label">La traditionnelle</p>
+          <h3 class="cmp-title">WC Sèche à sciure</h3>
+          <p class="cmp-tag">Le système 100% autonome et le plus abordable.</p>
+          <div class="cmp-specs"><div><p class="csp-k">Travaux requis</p><p class="csp-v">0, prêt à poser</p></div><div><p class="csp-k">Budget moyen</p><p class="csp-v">150€ – 300€</p></div><div><p class="csp-k">Vidange (2 pers.)</p><p class="csp-v">Toutes les 3 jours</p></div><div><p class="csp-k">Autonomie</p><p class="csp-v">100%</p></div></div>
+          <button class="btn md btn-od-def" style="width:100%">Voir les modèles à sciure</button>
+        </div>
+      </div>
+      <div><span class="mini-label">Active (recommandé — border vert)</span>
+        <div class="cmp-card cmp-act">
+          <p class="cmp-label g">L'ingénierie moderne</p>
+          <h3 class="cmp-title">WC à Séparation</h3>
+          <p class="cmp-tag">Conçu pour la maison principale et le confort absolu.</p>
+          <div class="cmp-specs"><div><p class="csp-k">Travaux requis</p><p class="csp-v">Gaine + Tuyau</p></div><div><p class="csp-k">Budget moyen</p><p class="csp-v g">600€ – 1 500€</p></div><div><p class="csp-k">Vidange (2 pers.)</p><p class="csp-v g">Toutes les 6 sem.</p></div><div><p class="csp-k">Autonomie</p><p class="csp-v">100% (Micro-Ventilo)</p></div></div>
+          <button class="btn md btn-g-def" style="width:100%">Voir les modèles à séparation</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ FICHE ARTISAN ══ -->
+<div class="section" id="s-fiche">
+  <p class="s-eyebrow">Patterns complets</p>
+  <h1 class="s-title">Fiche Artisan</h1>
+  <p class="s-desc">Grille 3 colonnes pour le hero : Logo (96×96) · Infos principales · Badge. Sidebar de contact indépendante en colonne droite sur la page.</p>
+  <div class="block">
+    <p class="block-title">Profile Hero</p>
+    <div class="profile-hero">
+      <div class="ph-logo"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div>
+      <div><p class="ph-ey">Menuiserie & Fabrication</p><h1 class="ph-name">Atelier du Copeau</h1><p class="ph-desc">Créateurs de mobilier sanitaire écologique haut de gamme.</p><div class="ph-tags"><span class="tag tag-sc">TLB à sciure</span><span class="tag tag-de">Design intérieur</span><span class="tag tag-me">Sur-mesure</span></div></div>
+      <span class="badge-v">Expert Vérifié</span>
+    </div>
+  </div>
+  <div class="block">
+    <p class="block-title">Sidebar de contact</p>
+    <div style="max-width:320px">
+      <div class="contact-box">
+        <h3 class="ct-title">Discuter du projet</h3>
+        <p class="ct-desc">L'Atelier livre ses créations dans toute la France. Demandez un devis ou des conseils.</p>
+        <button class="btn md btn-p-def" style="width:100%">Contacter l'artisan</button>
+        <div style="display:flex;flex-direction:column;gap:14px">
+          <div class="ct-row"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4.5 8-11.8A8 8 0 0 0 4 10.2C4 17.5 12 22 12 22z"/><circle cx="12" cy="10" r="3"/></svg><div><strong style="color:var(--c-dark);font-size:13px">Basé en Bretagne</strong><br><span style="font-size:11px;color:var(--c-ts)">Livraison sur toute la France</span></div></div>
+          <div class="ct-row"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 2.18h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg><span>02 97 45 XX XX</span></div>
+          <div class="ct-row"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg><span>contact@atelierducopeau.fr</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ CTA ══ -->
+<div class="section" id="s-cta">
+  <p class="s-eyebrow">Patterns complets</p>
+  <h1 class="s-title">CTA Bannières</h1>
+  <p class="s-desc">Trois bannières récurrentes dans le site : CTA Expert (annuaire, bas de page), CTA Newsletter (blog), CTA Résultat quiz.</p>
+  <div class="block">
+    <p class="block-title">CTA Sombre — "Vous êtes un expert ?"</p>
+    <div class="cta-dark" style="display:flex;align-items:center;justify-content:space-between;gap:32px;flex-wrap:wrap">
+      <div><h2 class="cta-title">Vous êtes un expert de<br>l'assainissement écologique ?</h2><p class="cta-desc">Fabricants, plombiers spécialisés, architectes ou bureaux d'études : rejoignez la plateforme de référence.</p></div>
+      <div style="display:flex;flex-direction:column;align-items:flex-end;gap:10px"><button class="btn lg btn-ow-def">Demander à être référencé</button><p class="cta-note">Examen du dossier sous 48h.</p></div>
+    </div>
+  </div>
+  <div class="block">
+    <p class="block-title">CTA Newsletter — "Restez à la pointe."</p>
+    <div class="cta-dark">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center">
+        <div><h2 class="cta-title">Restez à la pointe.</h2><p class="cta-desc">Pas de spam. Juste une sélection mensuelle de nos meilleurs dossiers, des évolutions de la loi et des nouveautés technologiques pour votre habitat.</p></div>
+        <div><div style="display:flex;align-items:center;background:rgba(255,255,255,.08);border:1.5px solid rgba(255,255,255,.15);border-radius:9999px;padding:5px 5px 5px 18px;gap:8px"><input style="flex:1;font-size:13px;border:none;outline:none;background:transparent;color:rgba(255,255,255,.55)" type="text" placeholder="Votre adresse email" readonly><button class="btn md btn-g-def">S'inscrire</button></div></div>
+      </div>
+    </div>
+  </div>
+  <div class="block">
+    <p class="block-title">CTA Résultat Quiz — carte de conclusion</p>
+    <div style="background:var(--c-bg);border-radius:var(--r-xl);padding:64px;display:flex;justify-content:center">
+      <div style="background:white;border-radius:var(--r-xl);padding:52px;text-align:center;max-width:580px;box-shadow:var(--sh-m)">
+        <p style="font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--c-green);margin-bottom:14px">Dernière question</p>
+        <h2 style="font-family:var(--fd);font-size:44px;font-weight:800;color:var(--c-dark);margin-bottom:16px">La toilette sèche</h2>
+        <p style="font-size:16px;line-height:1.65;color:var(--c-tm);margin-bottom:28px">Votre profil s'oriente vers la toilette sèche traditionnelle. Simple à installer, sans plomberie, 100% autonome. Budget estimé : <strong>150€ à 300€</strong></p>
+        <button class="btn lg btn-p-def" style="margin:0 auto 16px;display:block">Découvrir le modèle recommandé</button>
+        <div style="display:flex;justify-content:space-between;padding-top:16px;border-top:1px solid var(--c-bd)">
+          <span style="font-size:13px;text-decoration:underline;color:var(--c-dark);cursor:pointer">Refaire le test</span>
+          <span style="font-size:13px;color:var(--c-dark);cursor:pointer">Voir la page comparatif</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</main>
+
+<script>
+function go(id) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.sb-link').forEach(l => l.classList.remove('active'));
+  const s = document.getElementById('s-' + id);
+  if (s) s.classList.add('active');
+  const l = document.querySelector(`[onclick="go('${id}')"]`);
+  if (l) l.classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'instant' });
+}
+</script>
+</body>
+</html>
