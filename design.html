@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="fr" style="scroll-behavior:smooth">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -42,9 +42,11 @@ body{font-family:var(--fb);font-size:15px;line-height:1.5;color:var(--c-t);backg
 .sb-link.active{color:var(--c-green);background:rgba(15,174,110,.09);border-left-color:var(--c-green)}
 
 /* ── MAIN ── */
-.main{margin-left:224px;min-height:100vh}
-.section{display:none;padding:56px 56px 80px}
-.section.active{display:block}
+.main{margin-left:224px;}
+.section{display:block;padding:64px 56px 72px;border-top:3px solid var(--c-bd);scroll-margin-top:0}
+.section:first-of-type{border-top:none}
+.section + .section{margin-top:0}
+
 
 /* ── SECTION HEADER ── */
 .s-eyebrow{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--c-green);margin-bottom:10px}
@@ -395,6 +397,9 @@ body{font-family:var(--fb);font-size:15px;line-height:1.5;color:var(--c-t);backg
 code{font-family:monospace;font-size:11px;background:#EEF0E8;padding:2px 6px;border-radius:4px;color:var(--c-green)}
 .col-sep{height:1px;background:var(--c-bd);margin:32px 0;opacity:.5}
 .mini-label{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--c-tx);display:block;margin-bottom:10px}
+
+/* highlight section en focus */
+.section:target .s-title{color:var(--c-green)}
 </style>
 </head>
 <body>
@@ -404,29 +409,29 @@ code{font-family:monospace;font-size:11px;background:#EEF0E8;padding:2px 6px;bor
   <div class="sb-logo">Toilet'eco<small>Design System v2</small></div>
   <div class="sb-grp">
     <div class="sb-grp-label">Fondations</div>
-    <a class="sb-link active" onclick="go('tokens')">Tokens & Couleurs</a>
-    <a class="sb-link" onclick="go('typo')">Typographie</a>
-    <a class="sb-link" onclick="go('spacing')">Espacements</a>
+    <a class="sb-link" href="#s-tokens">Tokens & Couleurs</a>
+    <a class="sb-link" href="#s-typo">Typographie</a>
+    <a class="sb-link" href="#s-spacing">Espacements</a>
   </div>
   <div class="sb-grp">
     <div class="sb-grp-label">Composants</div>
-    <a class="sb-link" onclick="go('buttons')">Boutons</a>
-    <a class="sb-link" onclick="go('tags')">Tags & Badges</a>
-    <a class="sb-link" onclick="go('inputs')">Inputs & Forms</a>
-    <a class="sb-link" onclick="go('quiz')">Quiz / Questionnaire</a>
-    <a class="sb-link" onclick="go('tabs')">Onglets filtre</a>
-    <a class="sb-link" onclick="go('accordion')">Accordion</a>
-    <a class="sb-link" onclick="go('cards')">Cards</a>
-    <a class="sb-link" onclick="go('tables')">Tableaux</a>
-    <a class="sb-link" onclick="go('navbar')">Navigation</a>
-    <a class="sb-link" onclick="go('footer')">Footer</a>
+    <a class="sb-link" href="#s-buttons">Boutons</a>
+    <a class="sb-link" href="#s-tags">Tags & Badges</a>
+    <a class="sb-link" href="#s-inputs">Inputs & Forms</a>
+    <a class="sb-link" href="#s-quiz">Quiz / Questionnaire</a>
+    <a class="sb-link" href="#s-tabs">Onglets filtre</a>
+    <a class="sb-link" href="#s-accordion">Accordion</a>
+    <a class="sb-link" href="#s-cards">Cards</a>
+    <a class="sb-link" href="#s-tables">Tableaux</a>
+    <a class="sb-link" href="#s-navbar">Navigation</a>
+    <a class="sb-link" href="#s-footer">Footer</a>
   </div>
   <div class="sb-grp">
     <div class="sb-grp-label">Patterns complets</div>
-    <a class="sb-link" onclick="go('hero')">Hero & Stats</a>
-    <a class="sb-link" onclick="go('comparatif')">Comparatif cards</a>
-    <a class="sb-link" onclick="go('fiche')">Fiche artisan</a>
-    <a class="sb-link" onclick="go('cta')">CTA Bannières</a>
+    <a class="sb-link" href="#s-hero">Hero & Stats</a>
+    <a class="sb-link" href="#s-comparatif">Comparatif cards</a>
+    <a class="sb-link" href="#s-fiche">Fiche artisan</a>
+    <a class="sb-link" href="#s-cta">CTA Bannières</a>
   </div>
 </aside>
 
@@ -1133,16 +1138,23 @@ code{font-family:monospace;font-size:11px;background:#EEF0E8;padding:2px 6px;bor
 
 </main>
 
+
+
 <script>
-function go(id) {
-  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-  document.querySelectorAll('.sb-link').forEach(l => l.classList.remove('active'));
-  const s = document.getElementById('s-' + id);
-  if (s) s.classList.add('active');
-  const l = document.querySelector(`[onclick="go('${id}')"]`);
-  if (l) l.classList.add('active');
-  window.scrollTo({ top: 0, behavior: 'instant' });
-}
+// Highlight du lien sidebar selon section visible
+const sections = document.querySelectorAll('.section');
+const links = document.querySelectorAll('.sb-link');
+const obs = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      links.forEach(l => l.classList.remove('active'));
+      const id = e.target.id;
+      const a = document.querySelector('.sb-link[href="#' + id + '"]');
+      if (a) a.classList.add('active');
+    }
+  });
+}, { threshold: 0.15 });
+sections.forEach(s => obs.observe(s));
 </script>
 </body>
 </html>
