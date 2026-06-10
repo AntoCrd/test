@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BIMIER - Catalogue B2B ACEF</title>
+    <title>BIMIER - Connexion Espace ACEF</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -211,7 +211,7 @@ h3 { font-weight: 800; font-size: 1.5rem; }
             
             <nav class="hidden md:flex space-x-12 font-heading font-bold text-[10px] uppercase tracking-[0.2em] text-gray-400">
                 <a href="ACCUEIL 2.html" class="nav-link">Accueil</a>
-                <a href="CATALOGUE.html" class="nav-link active">Catalogue</a>
+                <a href="CATALOGUE.html" class="nav-link">Catalogue</a>
                 <a href="#" class="nav-link">Prestation</a>
                 <a href="QUI SOMME NOUS.html" class="nav-link">À Propos</a>
             </nav>
@@ -227,335 +227,101 @@ h3 { font-weight: 800; font-size: 1.5rem; }
                     </div>
                 </a>
             </div>
-
         </div>
     </header>
 
-    <section class="section-py bg-white border-b border-gray-100 reveal-up">
-        <div class="max-w-[1536px] mx-auto px-6 sm:px-10">
-            
-            <div class="mb-10">
-                <h1 class="font-heading font-black text-[clamp(2.5rem,5vw,4.5rem)] text-brand-navy mb-4 uppercase tracking-[-0.05em] leading-[0.9]">
-                    Catalogue B2B <span class="da-highlight mt-2">ACEF</span>
-                </h1>
-                <p class="text-gray-400 text-sm font-medium">
-                    Plus de 5 000 références d'objets et textiles personnalisables — réservé aux membres ACEF
-                </p>
-            </div>
-            
-            <div class="flex items-center w-full max-w-4xl bg-brand-light border border-gray-200 rounded-full p-2 mb-8 focus-within:border-brand-blue focus-within:bg-white transition-colors shadow-subtle">
-                <div class="pl-6 pr-2">
-                    <i class="fa-solid fa-search text-brand-blue text-lg"></i>
-                </div>
-                <input type="text" placeholder="Rechercher par mot-clé, référence produit..." class="flex-1 bg-transparent border-none focus:outline-none text-sm text-brand-navy h-14 w-full placeholder-gray-400 font-medium">
-                <button class="btn-premium btn-premium-blue !h-14 !px-10 active:scale-[0.97]">
-                    Rechercher
-                </button>
-            </div>
-
-            <div class="flex flex-wrap items-center gap-3">
-                <button class="flex items-center gap-2 bg-brand-navy text-white px-5 py-2.5 rounded-full text-[11px] font-heading font-black uppercase tracking-[0.2em] transition-colors active:scale-[0.97]">
-                    Tous <span class="bg-white/20 text-white px-1.5 py-0.5 rounded text-[9px]">306</span>
-                </button>
-                <button class="flex items-center gap-2 bg-white border border-gray-200 text-brand-navy px-5 py-2.5 rounded-full text-[11px] font-heading font-black uppercase tracking-[0.2em] hover:border-brand-blue hover:bg-brand-light transition-colors shadow-subtle active:scale-[0.97]">
-                    Textile <span class="bg-gray-100 text-gray-500 px-1.5 py-0.5 rounded text-[9px]">142</span>
-                </button>
-                <button class="flex items-center gap-2 bg-white border border-gray-200 text-brand-navy px-5 py-2.5 rounded-full text-[11px] font-heading font-black uppercase tracking-[0.2em] hover:border-brand-blue hover:bg-brand-light transition-colors shadow-subtle active:scale-[0.97]">
-                    Papeterie <span class="bg-gray-100 text-gray-500 px-1.5 py-0.5 rounded text-[9px]">89</span>
-                </button>
-                <button class="flex items-center gap-2 bg-white border border-gray-200 text-brand-navy px-5 py-2.5 rounded-full text-[11px] font-heading font-black uppercase tracking-[0.2em] hover:border-brand-blue hover:bg-brand-light transition-colors shadow-subtle active:scale-[0.97]">
-                    Drinkware <span class="bg-gray-100 text-gray-500 px-1.5 py-0.5 rounded text-[9px]">67</span>
-                </button>
-                <button class="flex items-center gap-2 bg-white border border-gray-200 text-brand-navy px-5 py-2.5 rounded-full text-[11px] font-heading font-black uppercase tracking-[0.2em] hover:border-brand-blue hover:bg-brand-light transition-colors shadow-subtle active:scale-[0.97]">
-                    High-Tech <span class="bg-gray-100 text-gray-500 px-1.5 py-0.5 rounded text-[9px]">54</span>
-                </button>
-            </div>
-        </div>
-    </section>
-
-    <div class="max-w-[1536px] mx-auto px-6 sm:px-10 py-8 text-[10px] font-heading font-black uppercase tracking-[0.2em] text-gray-400 reveal-up">
-        <a href="ACCUEIL 2.html" class="hover:text-brand-blue transition-colors">Accueil</a>
-        <span class="mx-2 text-brand-blue">&bull;</span>
-        <span class="text-brand-navy">Catalogue B2B</span>
-    </div>
-
-    <section class="max-w-[1536px] mx-auto px-6 sm:px-10 pb-32 flex flex-col lg:flex-row gap-12">
+    <section class="min-h-[80vh] flex flex-col lg:flex-row">
         
-        <!-- SIDEBAR FILTRES -->
-        <aside class="w-full lg:w-[320px] flex-shrink-0 reveal-up">
+        <!-- LEFT : IMAGE & INFO -->
+        <div class="hidden lg:flex lg:w-1/2 relative flex-col justify-center p-20 xl:p-32 overflow-hidden bg-brand-navy">
+            <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1200&q=80" 
+                 alt="Bureaux" 
+                 class="absolute inset-0 w-full h-full object-cover opacity-20 filter grayscale mix-blend-luminosity">
             
-            <div class="flex flex-col gap-4 mb-8">
-                <label class="flex items-center justify-between p-5 bg-white border border-gray-200 rounded-3xl cursor-pointer hover:border-brand-blue transition-colors shadow-subtle group active:scale-[0.98]">
-                    <div class="flex items-center gap-3">
-                        <i class="fa-solid fa-leaf text-green-600"></i>
-                        <span class="text-[10px] font-heading font-black text-brand-navy uppercase tracking-[0.2em]">Éco-responsable</span>
-                    </div>
-                    <div class="relative inline-flex items-center">
-                        <input type="checkbox" class="sr-only peer">
-                        <div class="w-9 h-5 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-green-600"></div>
-                    </div>
-                </label>
+            <div class="relative z-10 reveal-up">
+                <p class="text-brand-blue font-heading font-black text-[10px] uppercase tracking-[0.4em] mb-8">Espace Réservé</p>
+                <h1 class="font-heading font-black text-[clamp(2.5rem,5vw,4.5rem)] text-white mb-8 uppercase leading-[0.9] tracking-[-0.05em]">
+                    Votre catalogue<br><span class="text-brand-yellow">ACEF</span> en un clic.
+                </h1>
+                <p class="text-gray-400 font-medium text-sm mb-16 max-w-md leading-relaxed">
+                    Accédez à plus de 5 000 références personnalisables, passez vos commandes en volume et suivez vos devis en temps réel.
+                </p>
 
-                <label class="flex items-center justify-between p-5 bg-white border border-gray-200 rounded-3xl cursor-pointer hover:border-brand-blue transition-colors shadow-subtle group active:scale-[0.98]">
-                    <div class="flex items-center gap-3">
-                        <span class="text-base leading-none">🇫🇷</span>
-                        <span class="text-[10px] font-heading font-black text-brand-navy uppercase tracking-[0.2em]">Made in France</span>
+                <div class="space-y-6">
+                    <div class="flex items-start gap-5">
+                        <i class="fa-solid fa-shield-halved text-brand-blue text-lg mt-1"></i>
+                        <div>
+                            <h4 class="font-heading font-black text-xs text-white uppercase tracking-[0.2em] mb-1">Accès sécurisé</h4>
+                            <p class="text-[11px] text-gray-500 font-medium">Protection des données et accès réservé aux membres.</p>
+                        </div>
                     </div>
-                    <div class="relative inline-flex items-center">
-                        <input type="checkbox" class="sr-only peer">
-                        <div class="w-9 h-5 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-brand-blue"></div>
-                    </div>
-                </label>
-            </div>
-
-            <div class="bg-white border border-gray-200 rounded-[2rem] shadow-subtle overflow-hidden">
-                
-                <div class="p-8 border-b border-gray-100">
-                    <button class="flex items-center justify-between w-full text-left mb-6 group">
-                        <span class="font-heading font-black text-[11px] uppercase tracking-[0.2em] text-brand-navy">Catégories</span>
-                        <i class="fa-solid fa-minus text-gray-400 text-[10px]"></i>
-                    </button>
-                    <div class="space-y-4">
-                        <label class="flex items-center justify-between cursor-pointer group">
-                            <div class="flex items-center gap-3">
-                                <input type="checkbox" checked class="w-4 h-4 rounded border-gray-300 text-brand-blue focus:ring-brand-blue">
-                                <span class="text-xs font-heading font-bold text-brand-navy uppercase tracking-[0.2em] group-hover:text-brand-blue transition-colors">Textile</span>
-                            </div>
-                            <span class="text-[10px] font-bold text-gray-400">142</span>
-                        </label>
-                        <label class="flex items-center justify-between cursor-pointer group">
-                            <div class="flex items-center gap-3">
-                                <input type="checkbox" class="w-4 h-4 rounded border-gray-300 text-brand-blue focus:ring-brand-blue">
-                                <span class="text-xs font-heading font-bold text-gray-500 uppercase tracking-[0.2em] group-hover:text-brand-blue transition-colors">Papeterie</span>
-                            </div>
-                            <span class="text-[10px] font-bold text-gray-400">89</span>
-                        </label>
-                        <label class="flex items-center justify-between cursor-pointer group">
-                            <div class="flex items-center gap-3">
-                                <input type="checkbox" class="w-4 h-4 rounded border-gray-300 text-brand-blue focus:ring-brand-blue">
-                                <span class="text-xs font-heading font-bold text-gray-500 uppercase tracking-[0.2em] group-hover:text-brand-blue transition-colors">Drinkware</span>
-                            </div>
-                            <span class="text-[10px] font-bold text-gray-400">67</span>
-                        </label>
-                        <label class="flex items-center justify-between cursor-pointer group">
-                            <div class="flex items-center gap-3">
-                                <input type="checkbox" class="w-4 h-4 rounded border-gray-300 text-brand-blue focus:ring-brand-blue">
-                                <span class="text-xs font-heading font-bold text-gray-500 uppercase tracking-[0.2em] group-hover:text-brand-blue transition-colors">High-Tech</span>
-                            </div>
-                            <span class="text-[10px] font-bold text-gray-400">54</span>
-                        </label>
-                    </div>
-                </div>
-
-                <div class="p-8 border-b border-gray-100">
-                    <button class="flex items-center justify-between w-full text-left mb-6">
-                        <span class="font-heading font-black text-[11px] uppercase tracking-[0.2em] text-brand-navy">Budget Unitaire</span>
-                        <i class="fa-solid fa-minus text-gray-400 text-[10px]"></i>
-                    </button>
-                    <div class="px-1">
-                        <input type="range" min="1" max="100" value="40" class="w-full accent-brand-blue">
-                        <div class="flex justify-between items-center mt-3 text-[10px] font-black text-gray-400 font-heading uppercase tracking-[0.2em]">
-                            <span>1 €</span>
-                            <span>100 €</span>
+                    <div class="flex items-start gap-5">
+                        <i class="fa-solid fa-tags text-brand-blue text-lg mt-1"></i>
+                        <div>
+                            <h4 class="font-heading font-black text-xs text-white uppercase tracking-[0.2em] mb-1">Tarifs Privilèges</h4>
+                            <p class="text-[11px] text-gray-500 font-medium">Prix B2B négociés pour les structures ACEF.</p>
                         </div>
                     </div>
                 </div>
-
-                <div class="p-8">
-                    <button class="flex items-center justify-between w-full text-left group">
-                        <span class="font-heading font-black text-[11px] uppercase tracking-[0.2em] text-brand-navy">Matière Principale</span>
-                        <i class="fa-solid fa-plus text-gray-400 text-[10px]"></i>
-                    </button>
-                </div>
             </div>
+        </div>
 
-            <div class="mt-8 text-center">
-                <a href="#" class="text-[10px] font-heading font-black uppercase tracking-[0.2em] text-gray-400 hover:text-brand-navy underline underline-offset-8 transition-colors">Effacer tous les filtres</a>
-            </div>
-        </aside>
-
-        <!-- GRILLE PRODUITS -->
-        <div class="flex-1">
-            
-            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-12 gap-6 pb-6 border-b border-gray-100 reveal-up">
-                <div>
-                    <div class="text-sm text-gray-500 mb-3 font-medium">
-                        <strong class="text-brand-navy font-heading font-black text-2xl uppercase tracking-tighter">127 produits</strong> correspondants
-                    </div>
-                    <div class="flex flex-wrap items-center gap-2">
-                        <span class="text-[9px] text-gray-400 uppercase tracking-[0.2em] font-black">Actifs :</span>
-                        <span class="inline-flex items-center gap-2 bg-brand-light border border-gray-200 text-brand-navy font-heading font-black text-[9px] uppercase tracking-[0.2em] px-3 py-1.5 rounded-full">
-                            Textile <button class="text-gray-400 hover:text-brand-blue"><i class="fa-solid fa-xmark"></i></button>
-                        </span>
-                    </div>
-                </div>
+        <!-- RIGHT : FORM -->
+        <div class="w-full lg:w-1/2 bg-white flex flex-col justify-center p-8 sm:p-20 xl:p-32">
+            <div class="w-full max-w-[420px] mx-auto reveal-up">
                 
-                <div class="flex items-center gap-4">
-                    <div class="relative">
-                        <select class="appearance-none bg-white border border-gray-200 text-brand-navy font-heading font-black text-[10px] uppercase tracking-[0.2em] rounded-full pl-6 pr-12 py-3.5 cursor-pointer shadow-subtle focus:border-brand-blue outline-none">
-                            <option>Trier par : Pertinence</option>
-                            <option>Prix croissant</option>
-                            <option>Prix décroissant</option>
-                            <option>Nouveautés</option>
-                        </select>
-                        <i class="fa-solid fa-chevron-down absolute right-6 top-1/2 -translate-y-1/2 text-[10px] text-brand-blue pointer-events-none"></i>
-                    </div>
+                <div class="mb-12">
+                    <h2 class="font-heading font-black text-3xl text-brand-navy mb-4 uppercase tracking-tighter">Connexion</h2>
+                    <p class="text-sm text-gray-500 font-medium">
+                        Entrez vos identifiants ACEF pour accéder au catalogue privé Bimier Solutions.
+                    </p>
                 </div>
-            </div>
 
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-                
-                <!-- Produit 1 -->
-                <div class="bezel-outer reveal-up group active:scale-[0.97]">
-                    <div class="bezel-inner p-5 flex flex-col">
-                        <a href="PAGE PRODUIT.html" class="relative block aspect-[4/3] bg-brand-light rounded-2xl overflow-hidden mb-6 border border-gray-50">
-                            <img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=600&q=80" alt="Polo" class="w-full h-full object-cover opacity-90 group-hover:scale-105 transition-transform duration-700 mix-blend-multiply">
-                            <span class="absolute top-4 left-4 bg-brand-yellow text-brand-navy text-[9px] font-heading font-black px-2.5 py-1 rounded-sm uppercase tracking-[0.2em] z-10">Best-Seller</span>
+                <form action="#" method="POST" class="space-y-8">
+                    <div>
+                        <label class="block font-heading font-black text-[10px] text-brand-navy uppercase tracking-[0.2em] mb-3">
+                            Email Professionnel
+                        </label>
+                        <input type="email" required placeholder="votre.email@acef.fr" 
+                               class="w-full bg-brand-light border border-gray-200 text-brand-navy text-sm font-medium rounded-2xl px-6 h-14 focus:border-brand-blue focus:bg-white outline-none transition-all shadow-subtle">
+                    </div>
+
+                    <div>
+                        <label class="block font-heading font-black text-[10px] text-brand-navy uppercase tracking-[0.2em] mb-3">
+                            Mot de passe
+                        </label>
+                        <input type="password" required placeholder="••••••••••••" 
+                               class="w-full bg-brand-light border border-gray-200 text-brand-navy text-sm font-medium rounded-2xl px-6 h-14 focus:border-brand-blue focus:bg-white outline-none transition-all shadow-subtle">
+                    </div>
+
+                    <div class="flex items-center justify-between">
+                        <label class="flex items-center gap-3 cursor-pointer group">
+                            <input type="checkbox" class="w-4 h-4 rounded border-gray-300 text-brand-blue focus:ring-brand-blue">
+                            <span class="text-[11px] font-black text-gray-400 uppercase tracking-[0.2em] group-hover:text-brand-navy transition-colors">Rester connecté</span>
+                        </label>
+                        <a href="#" class="text-[11px] font-black text-brand-blue uppercase tracking-[0.2em] hover:text-brand-navy transition-colors underline underline-offset-4">
+                            Oubli ?
                         </a>
-                        <div class="flex-grow flex flex-col">
-                            <div class="text-[9px] font-heading font-black text-brand-blue uppercase tracking-[0.2em] mb-2">Textile</div>
-                            <h3 class="font-heading font-black text-brand-navy text-sm leading-tight mb-2 uppercase group-hover:text-brand-blue transition-colors">
-                                <a href="PAGE PRODUIT.html">Polo Corporate Brodé</a>
-                            </h3>
-                            <p class="text-[10px] text-gray-400 mb-8 font-black uppercase tracking-[0.2em]">Réf. TEX-001</p>
-                            
-                            <div class="mt-auto flex justify-between items-end border-t border-gray-100 pt-5">
-                                <div>
-                                    <div class="text-[9px] text-gray-400 font-black uppercase tracking-[0.2em] mb-1">Dès</div>
-                                    <div class="font-heading font-black text-xl text-brand-navy leading-none tracking-tighter">11,50 € <span class="text-[10px] text-gray-400 font-normal">HT</span></div>
-                                </div>
-                                <a href="PAGE PRODUIT.html" class="w-10 h-10 rounded-full bg-brand-light text-brand-navy flex items-center justify-center group-hover:bg-brand-blue group-hover:text-white transition-colors hover:rotate-45">
-                                    <i class="fa-solid fa-arrow-right text-[10px]"></i>
-                                </a>
-                            </div>
-                        </div>
                     </div>
+
+                    <button type="submit" class="btn-premium btn-premium-navy !h-14 !w-full !rounded-2xl active:scale-[0.97]">
+                        Se connecter
+                    </button>
+                </form>
+
+                <div class="relative flex items-center py-12">
+                    <div class="flex-grow border-t border-gray-100"></div>
+                    <span class="flex-shrink-0 mx-6 text-gray-400 text-[9px] font-black uppercase tracking-[0.2em]">Nouveau membre ?</span>
+                    <div class="flex-grow border-t border-gray-100"></div>
                 </div>
 
-                <!-- Produit 2 -->
-                <div class="bezel-outer reveal-up group active:scale-[0.97]" style="transition-delay: 100ms;">
-                    <div class="bezel-inner p-5 flex flex-col">
-                        <div class="relative block aspect-[4/3] bg-brand-light rounded-2xl overflow-hidden mb-6 border border-gray-50">
-                            <img src="https://images.unsplash.com/photo-1597872200969-2b65d56bd16b?auto=format&fit=crop&w=600&q=80" alt="Tech" class="w-full h-full object-cover opacity-90 group-hover:scale-105 transition-transform duration-700 mix-blend-multiply">
-                            <span class="absolute top-4 left-4 bg-brand-navy text-white text-[9px] font-heading font-black px-2.5 py-1 rounded-sm uppercase tracking-[0.2em] z-10">Nouveau</span>
-                        </div>
-                        <div class="flex-grow flex flex-col">
-                            <div class="text-[9px] font-heading font-black text-brand-blue uppercase tracking-[0.2em] mb-2">High-Tech</div>
-                            <h3 class="font-heading font-black text-brand-navy text-sm leading-tight mb-2 uppercase group-hover:text-brand-blue transition-colors">Clé USB Métal 16 Go</h3>
-                            <p class="text-[10px] text-gray-400 mb-8 font-black uppercase tracking-[0.2em]">Réf. TEC-011</p>
-                            
-                            <div class="mt-auto flex justify-between items-end border-t border-gray-100 pt-5">
-                                <div>
-                                    <div class="text-[9px] text-gray-400 font-black uppercase tracking-[0.2em] mb-1">Dès</div>
-                                    <div class="font-heading font-black text-xl text-brand-navy leading-none tracking-tighter">5,80 € <span class="text-[10px] text-gray-400 font-normal">HT</span></div>
-                                </div>
-                                <button class="w-10 h-10 rounded-full bg-brand-light text-brand-navy flex items-center justify-center group-hover:bg-brand-blue group-hover:text-white transition-colors">
-                                    <i class="fa-solid fa-arrow-right text-[10px]"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Produit 3 -->
-                <div class="bezel-outer reveal-up group active:scale-[0.97]" style="transition-delay: 200ms;">
-                    <div class="bezel-inner p-5 flex flex-col">
-                        <div class="relative block aspect-[4/3] bg-brand-light rounded-2xl overflow-hidden mb-6 border border-gray-50">
-                            <img src="https://images.unsplash.com/photo-1585336261022-680e295ce3fe?auto=format&fit=crop&w=600&q=80" alt="Stylo" class="w-full h-full object-cover opacity-90 group-hover:scale-105 transition-transform duration-700 mix-blend-multiply">
-                            <span class="absolute top-4 left-4 bg-brand-blue text-white text-[9px] font-heading font-black px-2.5 py-1 rounded-sm uppercase tracking-[0.2em] z-10">Populaire</span>
-                        </div>
-                        <div class="flex-grow flex flex-col">
-                            <div class="text-[9px] font-heading font-black text-brand-blue uppercase tracking-[0.2em] mb-2">Bureau</div>
-                            <h3 class="font-heading font-black text-brand-navy text-sm leading-tight mb-2 uppercase group-hover:text-brand-blue transition-colors">Stylo Premium Twist</h3>
-                            <p class="text-[10px] text-gray-400 mb-8 font-black uppercase tracking-[0.2em]">Réf. PAP-012</p>
-                            
-                            <div class="mt-auto flex justify-between items-end border-t border-gray-100 pt-5">
-                                <div>
-                                    <div class="text-[9px] text-gray-400 font-black uppercase tracking-[0.2em] mb-1">Dès</div>
-                                    <div class="font-heading font-black text-xl text-brand-navy leading-none tracking-tighter">1,50 € <span class="text-[10px] text-gray-400 font-normal">HT</span></div>
-                                </div>
-                                <button class="w-10 h-10 rounded-full bg-brand-light text-brand-navy flex items-center justify-center group-hover:bg-brand-blue group-hover:text-white transition-colors">
-                                    <i class="fa-solid fa-arrow-right text-[10px]"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Produit 4 -->
-                <div class="bezel-outer reveal-up group active:scale-[0.97]" style="transition-delay: 300ms;">
-                    <div class="bezel-inner p-5 flex flex-col">
-                        <div class="relative block aspect-[4/3] bg-brand-light rounded-2xl overflow-hidden mb-6 border border-gray-50">
-                            <img src="https://images.unsplash.com/photo-1514228742587-6b1558fcca3d?auto=format&fit=crop&w=600&q=80" alt="Mug" class="w-full h-full object-cover opacity-90 group-hover:scale-105 transition-transform duration-700 mix-blend-multiply">
-                        </div>
-                        <div class="flex-grow flex flex-col">
-                            <div class="text-[9px] font-heading font-black text-brand-blue uppercase tracking-[0.2em] mb-2">Drinkware</div>
-                            <h3 class="font-heading font-black text-brand-navy text-sm leading-tight mb-2 uppercase group-hover:text-brand-blue transition-colors">Mug Isotherme Inox</h3>
-                            <p class="text-[10px] text-gray-400 mb-8 font-black uppercase tracking-[0.2em]">Réf. DRI-045</p>
-                            
-                            <div class="mt-auto flex justify-between items-end border-t border-gray-100 pt-5">
-                                <div>
-                                    <div class="text-[9px] text-gray-400 font-black uppercase tracking-[0.2em] mb-1">Dès</div>
-                                    <div class="font-heading font-black text-xl text-brand-navy leading-none tracking-tighter">7,50 € <span class="text-[10px] text-gray-400 font-normal">HT</span></div>
-                                </div>
-                                <button class="w-10 h-10 rounded-full bg-brand-light text-brand-navy flex items-center justify-center group-hover:bg-brand-blue group-hover:text-white transition-colors">
-                                    <i class="fa-solid fa-arrow-right text-[10px]"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Produit 5 -->
-                <div class="bezel-outer reveal-up group active:scale-[0.97]" style="transition-delay: 400ms;">
-                    <div class="bezel-inner p-5 flex flex-col">
-                        <div class="relative block aspect-[4/3] bg-brand-light rounded-2xl overflow-hidden mb-6 border border-gray-50">
-                            <img src="https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&w=600&q=80" alt="Carnet" class="w-full h-full object-cover opacity-90 group-hover:scale-105 transition-transform duration-700 mix-blend-multiply">
-                        </div>
-                        <div class="flex-grow flex flex-col">
-                            <div class="text-[9px] font-heading font-black text-brand-blue uppercase tracking-[0.2em] mb-2">Papeterie</div>
-                            <h3 class="font-heading font-black text-brand-navy text-sm leading-tight mb-2 uppercase group-hover:text-brand-blue transition-colors">Carnet A5 Cuir Recyclé</h3>
-                            <p class="text-[10px] text-gray-400 mb-8 font-black uppercase tracking-[0.2em]">Réf. PAP-045</p>
-                            
-                            <div class="mt-auto flex justify-between items-end border-t border-gray-100 pt-5">
-                                <div>
-                                    <div class="text-[9px] text-gray-400 font-black uppercase tracking-[0.2em] mb-1">Dès</div>
-                                    <div class="font-heading font-black text-xl text-brand-navy leading-none tracking-tighter">6,90 € <span class="text-[10px] text-gray-400 font-normal">HT</span></div>
-                                </div>
-                                <button class="w-10 h-10 rounded-full bg-brand-light text-brand-navy flex items-center justify-center group-hover:bg-brand-blue group-hover:text-white transition-colors">
-                                    <i class="fa-solid fa-arrow-right text-[10px]"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Produit 6 -->
-                <div class="bezel-outer reveal-up group active:scale-[0.97]" style="transition-delay: 500ms;">
-                    <div class="bezel-inner p-5 flex flex-col">
-                        <div class="relative block aspect-[4/3] bg-brand-light rounded-2xl overflow-hidden mb-6 border border-gray-50">
-                            <img src="https://images.unsplash.com/photo-1619489656771-33e38708cebb?auto=format&fit=crop&w=600&q=80" alt="Batterie" class="w-full h-full object-cover opacity-90 group-hover:scale-105 transition-transform duration-700 mix-blend-multiply">
-                        </div>
-                        <div class="flex-grow flex flex-col">
-                            <div class="text-[9px] font-heading font-black text-brand-blue uppercase tracking-[0.2em] mb-2">High-Tech</div>
-                            <h3 class="font-heading font-black text-brand-navy text-sm leading-tight mb-2 uppercase group-hover:text-brand-blue transition-colors">Batterie MagSafe 10k</h3>
-                            <p class="text-[10px] text-gray-400 mb-8 font-black uppercase tracking-[0.2em]">Réf. TEC-089</p>
-                            
-                            <div class="mt-auto flex justify-between items-end border-t border-gray-100 pt-5">
-                                <div>
-                                    <div class="text-[9px] text-gray-400 font-black uppercase tracking-[0.2em] mb-1">Dès</div>
-                                    <div class="font-heading font-black text-xl text-brand-navy leading-none tracking-tighter">18,00 € <span class="text-[10px] text-gray-400 font-normal">HT</span></div>
-                                </div>
-                                <button class="w-10 h-10 rounded-full bg-brand-light text-brand-navy flex items-center justify-center group-hover:bg-brand-blue group-hover:text-white transition-colors">
-                                    <i class="fa-solid fa-arrow-right text-[10px]"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <button class="btn-premium btn-premium-outline !h-14 !w-full !rounded-2xl active:scale-[0.97]">
+                    Demander un accès ACEF
+                </button>
 
             </div>
         </div>
+
     </section>
 
     <footer class="bg-brand-navy text-white pt-32 pb-16 border-t-[8px] border-brand-blue">
@@ -605,7 +371,7 @@ h3 { font-weight: 800; font-size: 1.5rem; }
                     <div class="space-y-6">
                         <p class="flex items-center gap-4 text-lg font-black text-white"><i class="fa-regular fa-envelope text-brand-blue"></i> contact@bimier.fr</p>
                         <p class="flex items-center gap-4 text-3xl font-black text-brand-blue tracking-tighter underline underline-offset-8 decoration-white/10">0800 123 456</p>
-                        <p class="flex items-center gap-4 text-xs text-gray-500 font-bold uppercase tracking-[0.2em]"><i class="fa-regular fa-clock"></i> Lun.–Ven. 9h–18h</p>
+                        <p class="flex items-center gap-4 text-xs text-gray-500 font-bold uppercase tracking-widest"><i class="fa-regular fa-clock"></i> Lun.–Ven. 9h–18h</p>
                     </div>
                 </div>
             </div>
