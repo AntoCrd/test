@@ -3,13 +3,169 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BIMIER - Connexion Espace ACEF</title>
-    <!-- Tailwind CSS -->
+    <title>BIMIER - Objets Publicitaires Sur-Mesure</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Fonts : Montserrat & Inter -->
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-    <!-- FontAwesome Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+/* 
+   BIMIER SOLUTIONS - Global Stylesheet
+   Design System for ACEF Portal
+*/
+
+:root {
+    --brand-navy: #0A0E23;
+    --brand-blue: #1C319E;
+    --brand-yellow: #F59E0B;
+    --brand-light: #F8F9FA;
+    --brand-gray: #E5E7EB;
+    --brand-text: #374151;
+    --brand-text-light: #6B7280;
+    
+    --font-heading: 'Montserrat', sans-serif;
+    --font-body: 'Inter', sans-serif;
+
+    --radius-outer: 2rem;
+    --radius-inner: 1.5rem;
+    
+    --shadow-subtle: 0 4px 20px -2px rgba(0, 0, 0, 0.03);
+    --shadow-card: 0 10px 30px -5px rgba(0, 0, 0, 0.05);
+    
+    --transition-premium: all 0.7s cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+/* Base Typography Standardisation */
+body {
+    font-family: var(--font-body);
+    color: var(--brand-text);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    background-color: white;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+    color: var(--brand-navy);
+    line-height: 1.1;
+    text-transform: uppercase;
+    letter-spacing: -0.05em;
+}
+
+h1 { font-weight: 900; font-size: 3.5rem; }
+h2 { font-weight: 800; font-size: 2.5rem; }
+h3 { font-weight: 800; font-size: 1.5rem; }
+
+/* Custom UI Components from DA */
+
+/* Surlignage structurel rectiligne */
+.da-highlight {
+    background-color: var(--brand-blue);
+    color: #ffffff;
+    padding: 0.1em 0.3em;
+    display: inline-block;
+    line-height: 1;
+}
+
+/* Double-Bezel Architecture */
+.bezel-outer {
+    background-color: var(--brand-light);
+    padding: 0.5rem;
+    border-radius: var(--radius-outer);
+    border: 1px solid var(--brand-gray);
+    transition: var(--transition-premium);
+}
+
+.bezel-inner {
+    background-color: white;
+    border-radius: var(--radius-inner);
+    box-shadow: var(--shadow-subtle);
+    height: 100%;
+}
+
+/* Standardized Buttons */
+.btn-premium {
+    font-family: var(--font-heading);
+    font-weight: 900;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    height: 3.5rem;
+    padding: 0 2rem;
+    border-radius: 9999px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition-premium);
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-premium:active { transform: scale(0.97); }
+
+.btn-premium-navy { background: var(--brand-navy); color: white; }
+.btn-premium-navy:hover { background: var(--brand-blue); }
+
+.btn-premium-blue { background: var(--brand-blue); color: white; }
+.btn-premium-blue:hover { background: var(--brand-navy); }
+
+.btn-premium-yellow { background: var(--brand-yellow); color: var(--brand-navy); }
+.btn-premium-yellow:hover { background: #EAB308; }
+
+.btn-premium-outline { 
+    background: transparent; 
+    border: 1px solid var(--brand-gray); 
+    color: var(--brand-navy); 
+}
+.btn-premium-outline:hover { background: var(--brand-light); border-color: var(--brand-navy); }
+
+/* Nested Icon Circle */
+.btn-icon-circle {
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 1rem;
+    transition: var(--transition-premium);
+}
+
+.btn-premium:hover .btn-icon-circle {
+    transform: translateX(3px);
+    background: rgba(255, 255, 255, 0.2);
+}
+
+/* Navigation Links */
+.nav-link {
+    transition: var(--transition-premium);
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid transparent;
+}
+
+.nav-link:hover { color: var(--brand-blue); }
+.nav-link.active { color: var(--brand-navy); border-bottom-color: var(--brand-blue); }
+
+/* Entry Reveal Animation */
+.reveal-up {
+    opacity: 0;
+    transform: translateY(2rem);
+    transition: var(--transition-premium);
+}
+
+.reveal-up.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Section Spacing */
+.section-py { padding: 6rem 0; }
+@media (min-width: 1024px) { .section-py { padding: 10rem 0; } }
+
+/* Utility to hide scrollbars */
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
     
     <script>
         tailwind.config = {
@@ -17,10 +173,12 @@
                 extend: {
                     colors: {
                         brand: {
-                            navy: '#0A0E23',      /* Bleu nuit premium */
-                            blue: '#1C319E',      /* Bleu électrique */
-                            yellow: '#F59E0B',    /* Jaune/Orange */
-                            light: '#F8F9FA',     /* Gris fond très doux */
+                            navy: '#0A0E23',
+                            blue: '#1C319E',
+                            yellow: '#F59E0B',
+                            light: '#F8F9FA',
+                            gray: '#E5E7EB',
+                            text: '#374151'
                         }
                     },
                     fontFamily: {
@@ -28,250 +186,454 @@
                         body: ['Inter', 'sans-serif'],
                     },
                     boxShadow: {
-                        'input': '0 1px 2px 0 rgba(0, 0, 0, 0.05)',
                         'subtle': '0 4px 20px -2px rgba(0, 0, 0, 0.03)',
+                        'premium': '0 10px 40px -10px rgba(0, 0, 0, 0.05)',
                     }
                 }
             }
         }
     </script>
-    <style>
-        .no-scrollbar::-webkit-scrollbar { display: none; }
-        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-
-        /* Custom Checkbox (SaaS B2B Clean) */
-        .custom-checkbox {
-            appearance: none;
-            background-color: #fff;
-            margin: 0;
-            width: 1rem;
-            height: 1rem;
-            border: 1px solid #D1D5DB;
-            border-radius: 3px;
-            display: grid;
-            place-content: center;
-            cursor: pointer;
-            transition: all 0.15s;
-        }
-        .custom-checkbox::before {
-            content: "";
-            width: 0.5rem;
-            height: 0.5rem;
-            transform: scale(0);
-            transition: 100ms transform ease-in-out;
-            background-color: white;
-            clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
-        }
-        .custom-checkbox:checked {
-            background-color: #1C319E;
-            border-color: #1C319E;
-        }
-        .custom-checkbox:checked::before {
-            transform: scale(1);
-        }
-
-        /* Input Focus effect */
-        .input-saas {
-            transition: all 0.2s ease-in-out;
-        }
-        .input-saas:focus {
-            outline: none;
-            border-color: #1C319E;
-            background-color: #ffffff;
-            box-shadow: 0 0 0 3px rgba(28, 49, 158, 0.1);
-        }
-    </style>
 </head>
-<body class="font-body text-gray-600 bg-white antialiased h-screen overflow-hidden flex flex-col lg:flex-row">
+<body class="font-body text-brand-text bg-white antialiased overflow-x-hidden">
 
-    <!-- ================= LEFT PANE (Image de fond + Overlay Dark) ================= -->
-    <div class="hidden lg:flex lg:w-[45%] xl:w-[40%] relative flex-col justify-between p-10 xl:p-14">
-        
-        <!-- Image de Fond avec Filtre -->
-        <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1200&q=80" 
-             alt="Bureaux Bimier" 
-             class="absolute inset-0 w-full h-full object-cover filter grayscale mix-blend-luminosity opacity-50 z-0">
-        
-        <!-- Calque Dégradé Sombre (Lisibilité) -->
-        <div class="absolute inset-0 bg-gradient-to-br from-brand-navy/95 via-brand-navy/90 to-[#151b2e]/95 z-0"></div>
-
-        <!-- En-tête Gauche -->
-        <div class="relative z-10">
-            <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-md bg-white/10 border border-white/10 backdrop-blur-md">
-                <i class="fa-solid fa-cube text-white text-xs"></i>
-                <span class="font-heading font-bold text-[10px] text-white uppercase tracking-widest">Bimier ACEF</span>
-            </div>
-        </div>
-
-        <!-- Contenu Principal Gauche -->
-        <div class="relative z-10 my-auto pt-8">
-            <h1 class="font-heading font-black text-4xl xl:text-5xl text-white tracking-tighter leading-[1.1] mb-5">
-                Votre catalogue <span class="text-brand-blue">ACEF</span><br>en un clic.
-            </h1>
-            <p class="text-gray-300 font-medium text-sm mb-12 max-w-md leading-relaxed">
-                Accédez à plus de 5 000 références personnalisables, passez vos commandes en volume et suivez vos devis en temps réel. Espace exclusif pour les membres ACEF.
-            </p>
-
-            <!-- Blocs d'avantages (Style Border-box transparent) -->
-            <div class="space-y-4 max-w-lg">
-                
-                <div class="border border-white/10 bg-white/5 p-5 rounded-xl backdrop-blur-sm transition-colors hover:bg-white/10 flex items-start gap-4">
-                    <i class="fa-solid fa-shield-halved text-brand-blue mt-0.5"></i>
-                    <div>
-                        <h4 class="font-heading font-bold text-sm text-white mb-1">Accès sécurisé</h4>
-                        <p class="text-xs text-gray-400">Votre espace est protégé et réservé aux membres ACEF enregistrés.</p>
-                    </div>
-                </div>
-
-                <div class="border border-white/10 bg-white/5 p-5 rounded-xl backdrop-blur-sm transition-colors hover:bg-white/10 flex items-start gap-4">
-                    <i class="fa-solid fa-tags text-brand-blue mt-0.5"></i>
-                    <div>
-                        <h4 class="font-heading font-bold text-sm text-white mb-1">5 000+ références exclusives</h4>
-                        <p class="text-xs text-gray-400">Tarifs B2B dégressifs négociés spécifiquement pour les ACEF.</p>
-                    </div>
-                </div>
-
-                <div class="border border-white/10 bg-white/5 p-5 rounded-xl backdrop-blur-sm transition-colors hover:bg-white/10 flex items-start gap-4">
-                    <i class="fa-solid fa-clock-rotate-left text-brand-blue mt-0.5"></i>
-                    <div>
-                        <h4 class="font-heading font-bold text-sm text-white mb-1">Devis sous 24h ouvrées</h4>
-                        <p class="text-xs text-gray-400">Réponse rapide de nos équipes commerciales dédiées.</p>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-        
-        <div class="relative z-10 text-[9px] text-gray-500 font-medium uppercase tracking-widest mt-8">
-            &copy; 2026 Bimier Solutions. Tous droits réservés.
-        </div>
-    </div>
-
-    <!-- ================= RIGHT PANE (Formulaire Clean SaaS) ================= -->
-    <div class="w-full lg:w-[55%] xl:w-[60%] bg-white flex flex-col h-full overflow-y-auto">
-        
-        <!-- Header Mobile -->
-        <div class="lg:hidden flex items-center justify-between p-6 border-b border-gray-100">
-            <div class="flex items-center gap-2">
-                <div class="w-8 h-8 rounded-md bg-brand-light flex items-center justify-center text-brand-blue text-sm">
+    <header class="sticky top-0 w-full bg-white/80 backdrop-blur-md z-50 border-b border-gray-100">
+        <div class="max-w-[1536px] mx-auto px-6 sm:px-10 h-24 flex items-center justify-between">
+            
+            <a href="ACCUEIL 2.html" class="font-heading font-black text-2xl tracking-tighter text-brand-navy flex items-center gap-3 group flex-shrink-0">
+                <div class="w-10 h-10 rounded-xl bg-brand-navy flex items-center justify-center text-white text-lg group-hover:bg-brand-blue transition-all duration-500 group-hover:rotate-12">
                     <i class="fa-solid fa-cube"></i>
                 </div>
-                <span class="font-heading font-black text-lg tracking-tighter text-brand-navy">BIMIER</span>
+                <div class="leading-none flex flex-col justify-center">
+                    <span class="text-xl">BIMIER</span>
+                    <span class="text-[9px] font-bold text-brand-blue tracking-[0.3em] uppercase mt-1">Solutions</span>
+                </div>
+            </a>
+            
+            <nav class="hidden md:flex space-x-12 font-heading font-bold text-[10px] uppercase tracking-[0.2em] text-gray-400">
+                <a href="ACCUEIL 2.html" class="nav-link active">Accueil</a>
+                <a href="CATALOGUE.html" class="nav-link">Catalogue</a>
+                <a href="#" class="nav-link">Prestation</a>
+                <a href="QUI SOMME NOUS.html" class="nav-link">À Propos</a>
+            </nav>
+            
+            <div class="flex items-center gap-8 flex-shrink-0">
+                <a href="tel:0800123456" class="hidden lg:flex items-center text-[10px] font-heading font-black uppercase tracking-[0.2em] text-gray-400 hover:text-brand-navy transition-colors">
+                    <i class="fa-solid fa-phone mr-2 text-brand-blue"></i> 0800 123 456
+                </a>
+                <a href="CONNEXION.html" class="btn-premium btn-premium-navy !h-12 !px-6 !text-[10px]">
+                    Espace ACEF
+                    <div class="btn-icon-circle !w-6 !h-6 !ml-3">
+                        <i class="fa-solid fa-lock text-[8px]"></i>
+                    </div>
+                </a>
             </div>
-            <span class="text-[9px] font-bold text-gray-400 uppercase tracking-widest">Espace ACEF</span>
-        </div>
 
-        <!-- Top Right Link (Desktop) -->
-        <div class="hidden lg:flex justify-end p-8">
-            <span class="text-[10px] font-heading font-bold text-gray-400 uppercase tracking-widest flex items-center gap-2">
-                <i class="fa-solid fa-lock text-brand-blue"></i> Espace réservé aux membres ACEF
-            </span>
         </div>
+    </header>
 
-        <!-- Conteneur Formulaire Centré -->
-        <div class="flex-1 flex flex-col justify-center px-6 sm:px-12 md:px-20 lg:px-24 xl:px-32 py-10">
-            <div class="w-full max-w-[420px] mx-auto">
+    <section class="bg-white relative border-b border-gray-100 overflow-hidden reveal-up">
+        <div class="max-w-[1536px] mx-auto px-6 sm:px-10 flex flex-col lg:flex-row min-h-[85vh]">
+            
+            <div class="w-full lg:w-[55%] flex flex-col justify-center py-20 lg:py-0 pr-0 lg:pr-12">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-light border border-gray-100 mb-8 w-max">
+                    <span class="w-1.5 h-1.5 rounded-full bg-brand-blue animate-pulse"></span>
+                    <span class="text-[9px] font-heading font-black uppercase tracking-[0.2em] text-brand-blue">Partenaire Officiel ACEF</span>
+                </div>
                 
-                <!-- En-tête du Formulaire -->
-                <div class="text-center mb-8">
-                    <div class="inline-flex items-center justify-center bg-brand-light px-4 py-1.5 rounded mb-6 border border-gray-100">
-                        <span class="font-heading font-black text-[10px] uppercase tracking-widest text-brand-navy">BIMIER LOGO</span>
+                <h1 class="font-heading font-black text-[clamp(3.5rem,5vw,5rem)] text-brand-navy mb-8 uppercase leading-[0.9] tracking-[-0.06em]">
+                    Objets<br>
+                    Publicitaires<br>
+                    <span class="da-highlight mt-4 px-4 py-2">Sur-Mesure.</span>
+                </h1>
+                
+                <p class="text-gray-400 font-medium text-base sm:text-lg mb-12 max-w-md leading-relaxed">
+                    Une solution de communication par l'objet pensée exclusivement pour la fonction publique.
+                </p>
+                
+                <div class="flex flex-col sm:flex-row gap-5 mb-16">
+                    <a href="CATALOGUE.html" class="btn-premium btn-premium-blue">
+                        Le Catalogue
+                        <div class="btn-icon-circle">
+                            <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                        </div>
+                    </a>
+                    <a href="#" class="btn-premium btn-premium-outline">
+                        Notre Processus
+                    </a>
+                </div>
+
+                <div class="grid grid-cols-3 gap-8 max-w-md border-t border-gray-100 pt-10">
+                    <div>
+                        <div class="font-heading font-black text-3xl text-brand-navy mb-1 tracking-tighter">450+</div>
+                        <div class="text-[8px] text-gray-400 uppercase tracking-[0.2em] font-bold leading-tight">Références</div>
                     </div>
-                    <h2 class="font-heading font-black text-3xl text-brand-navy tracking-tight mb-3">
-                        Connexion à votre espace
+                    <div>
+                        <div class="font-heading font-black text-3xl text-brand-navy mb-1 tracking-tighter">72<span class="text-base font-bold text-brand-blue ml-0.5">h</span></div>
+                        <div class="text-[8px] text-gray-400 uppercase tracking-[0.2em] font-bold leading-tight">Délai Réponse</div>
+                    </div>
+                    <div>
+                        <div class="font-heading font-black text-3xl text-brand-navy mb-1 tracking-tighter">0<span class="text-base font-bold text-brand-blue ml-0.5">€</span></div>
+                        <div class="text-[8px] text-gray-400 uppercase tracking-[0.2em] font-bold leading-tight">En ligne</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="w-full lg:w-[45%] relative h-[40vh] lg:h-auto hidden lg:block py-10">
+                <div class="bezel-outer h-full">
+                    <div class="bezel-inner overflow-hidden relative">
+                        <img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=1200&q=80" alt="T-shirts" class="absolute inset-0 w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-1000">
+                        <div class="absolute bottom-8 right-8 text-[9px] text-white font-heading font-black tracking-[0.2em] uppercase bg-brand-navy/80 backdrop-blur-sm px-4 py-2 rounded-lg">
+                            T-SHIRT TECHNIQUE DRY FIT — BEST-SELLER
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section class="section-py bg-brand-light relative overflow-hidden">
+        <div class="max-w-[1536px] mx-auto px-6 sm:px-10 relative z-10">
+            
+            <div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-6 reveal-up">
+                <div>
+                    <h2 class="font-heading font-black text-[clamp(2.5rem,4vw,4rem)] text-brand-navy uppercase mb-6 leading-none tracking-[-0.06em]">
+                        Sélection<br>Premium.
                     </h2>
-                    <p class="text-sm text-gray-500 font-medium">
-                        Entrez vos identifiants ACEF pour accéder au catalogue privé Bimier Solutions.
-                    </p>
+                    <p class="text-gray-400 text-[10px] uppercase tracking-[0.2em] font-black">Nos meilleures références, plébiscitées par les membres ACEF.</p>
+                </div>
+                <a href="CATALOGUE.html" class="btn-premium btn-premium-outline !h-12 !px-8 !text-[9px]">
+                    Tout le catalogue
+                    <div class="btn-icon-circle !w-6 !h-6 !ml-3">
+                        <i class="fa-solid fa-arrow-right text-[8px]"></i>
+                    </div>
+                </a>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-10">
+                
+                <div class="lg:col-span-5 reveal-up">
+                    <div class="bezel-outer h-full group hover:shadow-premium transition-all duration-700">
+                        <div class="bezel-inner p-8 flex flex-col">
+                            <span class="absolute top-12 left-12 bg-brand-yellow text-brand-navy text-[9px] font-heading font-black px-3 py-1.5 rounded-lg uppercase tracking-[0.2em] z-10 shadow-sm">Best-Seller</span>
+                            
+                            <a href="PAGE PRODUIT.html" class="bg-brand-light rounded-2xl aspect-[4/3] mb-10 overflow-hidden relative border border-gray-100 block group-hover:scale-[1.02] transition-transform duration-700">
+                                <img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=800&q=80" alt="T-Shirt" class="w-full h-full object-cover opacity-90 transition-transform duration-1000 mix-blend-multiply grayscale group-hover:grayscale-0">
+                            </a>
+                            
+                            <div class="flex-grow flex flex-col justify-end">
+                                <div class="text-[10px] font-heading font-black text-brand-blue uppercase tracking-[0.2em] mb-2">Textile Premium</div>
+                                <h3 class="font-heading font-black text-brand-navy text-2xl uppercase tracking-tight mb-8 group-hover:text-brand-blue transition-colors">
+                                    <a href="PAGE PRODUIT.html">T-Shirt Technique Dry-Fit</a>
+                                </h3>
+                                
+                                <div class="flex justify-between items-end border-t border-gray-100 pt-6">
+                                    <div class="font-heading font-black text-2xl text-brand-navy tracking-tighter">Dès 1,50 € <span class="text-xs text-gray-300 font-bold ml-1">HT</span></div>
+                                    <a href="PAGE PRODUIT.html" class="w-12 h-12 rounded-full bg-brand-light text-brand-navy flex items-center justify-center group-hover:bg-brand-blue group-hover:text-white transition-all duration-500 hover:rotate-45">
+                                        <i class="fa-solid fa-arrow-right text-xs"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
-                <!-- Pilule "Accès réservé" -->
-                <div class="bg-gray-50 border border-gray-100 py-3 rounded-lg text-center mb-8 flex items-center justify-center gap-2 shadow-sm">
-                    <div class="w-2 h-2 rounded-full bg-brand-blue"></div>
-                    <span class="text-[10px] font-heading font-bold text-brand-navy uppercase tracking-widest">Accès réservé aux membres ACEF</span>
-                </div>
-
-                <!-- Formulaire -->
-                <form action="#" method="POST" class="space-y-5">
+                <div class="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-8">
                     
-                    <!-- Email -->
-                    <div>
-                        <label for="email" class="block font-heading font-bold text-[11px] text-brand-navy uppercase tracking-widest mb-2">
-                            Adresse email ACEF
-                        </label>
-                        <input type="email" id="email" name="email" required placeholder="votre.email@association-acef.fr" 
-                               class="input-saas w-full bg-gray-50 border border-gray-200 text-brand-navy text-sm font-medium rounded-lg px-4 h-12 shadow-input placeholder-gray-400">
+                    <div class="reveal-up" style="transition-delay: 100ms;">
+                        <div class="bezel-outer group hover:shadow-premium transition-all duration-700">
+                            <div class="bezel-inner p-6 flex flex-col">
+                                <span class="absolute top-10 left-10 bg-brand-navy text-white text-[9px] font-heading font-black px-2.5 py-1.5 rounded-lg uppercase tracking-[0.15em] z-10 shadow-sm">Nouveau</span>
+                                <a href="PAGE PRODUIT.html" class="bg-brand-light rounded-xl aspect-[16/10] mb-6 overflow-hidden border border-gray-100 block group-hover:scale-[1.02] transition-transform duration-700">
+                                    <img src="https://images.unsplash.com/photo-1551028719-00167b16eac5?auto=format&fit=crop&w=600&q=80" alt="Polo" class="w-full h-full object-cover opacity-90 grayscale group-hover:grayscale-0 transition-all duration-1000">
+                                </a>
+                                <div class="flex-grow flex flex-col justify-end">
+                                    <div class="text-[9px] font-heading font-black text-brand-blue uppercase tracking-[0.15em] mb-1">Textile</div>
+                                    <h3 class="font-heading font-black text-brand-navy text-base uppercase tracking-tight mb-6 group-hover:text-brand-blue transition-colors leading-tight">
+                                        <a href="PAGE PRODUIT.html">Polo Corporate Brodé</a>
+                                    </h3>
+                                    <div class="flex justify-between items-end border-t border-gray-100 pt-4">
+                                        <div class="font-heading font-black text-lg text-brand-navy tracking-tight">11,50 € <span class="text-[9px] text-gray-300 font-bold ml-0.5">HT</span></div>
+                                        <a href="PAGE PRODUIT.html" class="w-10 h-10 rounded-full bg-brand-light text-brand-navy flex items-center justify-center group-hover:bg-brand-blue group-hover:text-white transition-all duration-500">
+                                            <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
-                    <!-- Password -->
-                    <div>
-                        <label for="password" class="block font-heading font-bold text-[11px] text-brand-navy uppercase tracking-widest mb-2">
-                            Mot de passe
-                        </label>
-                        <input type="password" id="password" name="password" required placeholder="••••••••••••" 
-                               class="input-saas w-full bg-gray-50 border border-gray-200 text-brand-navy text-sm font-medium rounded-lg px-4 h-12 shadow-input placeholder-gray-400">
+                    <div class="reveal-up" style="transition-delay: 200ms;">
+                        <div class="bezel-outer group hover:shadow-premium transition-all duration-700">
+                            <div class="bezel-inner p-6 flex flex-col h-full">
+                                <div class="bg-brand-light rounded-xl aspect-[16/10] mb-6 overflow-hidden border border-gray-100 group-hover:scale-[1.02] transition-transform duration-700">
+                                    <img src="https://images.unsplash.com/photo-1597872200969-2b65d56bd16b?auto=format&fit=crop&w=600&q=80" alt="Tech" class="w-full h-full object-cover opacity-90 grayscale group-hover:grayscale-0 transition-all duration-1000">
+                                </div>
+                                <div class="flex-grow flex flex-col justify-end">
+                                    <div class="text-[9px] font-heading font-black text-brand-blue uppercase tracking-[0.15em] mb-1">High-Tech</div>
+                                    <h3 class="font-heading font-black text-brand-navy text-base uppercase tracking-tight mb-6 group-hover:text-brand-blue transition-colors leading-tight">Clé USB Métal 16 Go</h3>
+                                    <div class="flex justify-between items-end border-t border-gray-100 pt-4">
+                                        <div class="font-heading font-black text-lg text-brand-navy tracking-tight">5,80 € <span class="text-[9px] text-gray-300 font-bold ml-0.5">HT</span></div>
+                                        <button class="w-10 h-10 rounded-full bg-brand-light text-brand-navy flex items-center justify-center group-hover:bg-brand-blue group-hover:text-white transition-all duration-500">
+                                            <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
-                    <!-- Options -->
-                    <div class="flex items-center justify-between pt-1">
-                        <label class="flex items-center gap-2 cursor-pointer group">
-                            <input type="checkbox" class="custom-checkbox">
-                            <span class="text-[11px] font-medium text-gray-500 group-hover:text-brand-navy transition-colors">Se souvenir de moi</span>
-                        </label>
-                        <a href="#" class="text-[11px] font-medium text-gray-500 hover:text-brand-blue underline underline-offset-4 transition-colors">
-                            Mot de passe oublié ?
-                        </a>
+                    <div class="reveal-up" style="transition-delay: 300ms;">
+                        <div class="bezel-outer group hover:shadow-premium transition-all duration-700">
+                            <div class="bezel-inner p-6 flex flex-col h-full">
+                                <span class="absolute top-10 left-10 bg-brand-blue text-white text-[9px] font-heading font-black px-2.5 py-1.5 rounded-lg uppercase tracking-[0.15em] z-10 shadow-sm">Populaire</span>
+                                <div class="bg-brand-light rounded-xl aspect-[16/10] mb-6 overflow-hidden border border-gray-100 group-hover:scale-[1.02] transition-transform duration-700">
+                                    <img src="https://images.unsplash.com/photo-1585336261022-680e295ce3fe?auto=format&fit=crop&w=600&q=80" alt="Stylo" class="w-full h-full object-cover opacity-90 grayscale group-hover:grayscale-0 transition-all duration-1000">
+                                </div>
+                                <div class="flex-grow flex flex-col justify-end">
+                                    <div class="text-[9px] font-heading font-black text-brand-blue uppercase tracking-[0.15em] mb-1">Bureau</div>
+                                    <h3 class="font-heading font-black text-brand-navy text-base uppercase tracking-tight mb-6 group-hover:text-brand-blue transition-colors leading-tight">Stylo Premium Twist</h3>
+                                    <div class="flex justify-between items-end border-t border-gray-100 pt-4">
+                                        <div class="font-heading font-black text-lg text-brand-navy tracking-tight">1,50 € <span class="text-[9px] text-gray-300 font-bold ml-0.5">HT</span></div>
+                                        <button class="w-10 h-10 rounded-full bg-brand-light text-brand-navy flex items-center justify-center group-hover:bg-brand-blue group-hover:text-white transition-all duration-500">
+                                            <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
-                    <!-- Bouton Principal -->
-                    <div class="pt-4">
-                        <button type="submit" class="w-full bg-brand-navy hover:bg-brand-blue text-white font-heading font-bold text-xs uppercase tracking-widest h-12 rounded-lg transition-colors shadow-md">
-                            Se connecter à mon espace ACEF
-                        </button>
+                    <div class="reveal-up" style="transition-delay: 400ms;">
+                        <div class="bezel-outer group hover:shadow-premium transition-all duration-700">
+                            <div class="bezel-inner p-6 flex flex-col h-full">
+                                <div class="bg-brand-light rounded-xl aspect-[16/10] mb-6 overflow-hidden border border-gray-100 group-hover:scale-[1.02] transition-transform duration-700">
+                                    <img src="https://images.unsplash.com/photo-1514228742587-6b1558fcca3d?auto=format&fit=crop&w=600&q=80" alt="Mug" class="w-full h-full object-cover opacity-90 grayscale group-hover:grayscale-0 transition-all duration-1000">
+                                </div>
+                                <div class="flex-grow flex flex-col justify-end">
+                                    <div class="text-[9px] font-heading font-black text-brand-blue uppercase tracking-[0.15em] mb-1">Goodies</div>
+                                    <h3 class="font-heading font-black text-brand-navy text-base uppercase tracking-tight mb-6 group-hover:text-brand-blue transition-colors leading-tight">Mug Isotherme Inox</h3>
+                                    <div class="flex justify-between items-end border-t border-gray-100 pt-4">
+                                        <div class="font-heading font-black text-lg text-brand-navy tracking-tight">7,50 € <span class="text-[9px] text-gray-300 font-bold ml-0.5">HT</span></div>
+                                        <button class="w-10 h-10 rounded-full bg-brand-light text-brand-navy flex items-center justify-center group-hover:bg-brand-blue group-hover:text-white transition-all duration-500">
+                                            <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                </form>
 
-                <!-- Diviseur "Pas encore de compte" -->
-                <div class="relative flex items-center py-8">
-                    <div class="flex-grow border-t border-gray-100"></div>
-                    <span class="flex-shrink-0 mx-4 text-gray-400 text-[10px] font-medium">Pas encore de compte ?</span>
-                    <div class="flex-grow border-t border-gray-100"></div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section class="section-py bg-brand-navy overflow-hidden">
+        <div class="max-w-[1536px] mx-auto px-6 sm:px-10">
+
+            <div class="flex flex-col md:flex-row justify-between items-end mb-20 gap-8 reveal-up">
+                <h2 class="font-heading font-black text-[clamp(2rem,4vw,3.5rem)] text-white uppercase mb-4 leading-[0.95] tracking-[-0.04em]">
+                    Nos <span class="text-brand-blue">Univers</span><br>
+                    <span class="text-brand-yellow">Pro</span>duits.
+                </h2>
+                <div class="text-right">
+                    <a href="CATALOGUE.html" class="btn-premium btn-premium-outline !border-gray-800 !text-white !hover:bg-white/5">
+                        Explorer tout
+                        <div class="btn-icon-circle">
+                            <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-10 h-auto md:h-[600px]">
+                
+                <div class="md:col-span-5 relative rounded-[2.5rem] overflow-hidden group cursor-pointer bg-gray-900 min-h-[400px] reveal-up">
+                    <img src="https://images.unsplash.com/photo-1562157873-818bc0726f68?auto=format&fit=crop&w=1000&q=80" alt="Textile" class="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:scale-110 transition-all duration-1000 grayscale group-hover:grayscale-0">
+                    <div class="absolute inset-0 bg-gradient-to-t from-brand-navy via-transparent to-transparent opacity-90"></div>
+                    <div class="absolute bottom-10 left-10 z-10">
+                        <div class="text-[10px] text-brand-blue font-black uppercase tracking-[0.3em] mb-4">Plus de 120 références</div>
+                        <h3 class="font-heading font-black text-4xl text-white uppercase tracking-tight mb-4 group-hover:text-brand-yellow transition-colors">Textile &<br>Clothing</h3>
+                        <div class="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center text-white group-hover:bg-brand-blue group-hover:border-brand-blue transition-all duration-500 group-hover:rotate-45">
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </div>
+                    </div>
                 </div>
 
-                <!-- Bouton Secondaire -->
-                <button type="button" class="w-full bg-white border-2 border-gray-100 hover:border-brand-navy hover:bg-gray-50 text-brand-navy font-heading font-bold text-xs uppercase tracking-widest h-12 rounded-lg transition-colors mb-8">
-                    Faire une demande d'accès ACEF
-                </button>
+                <div class="md:col-span-7 flex flex-col gap-10">
+                    <div class="flex flex-col sm:flex-row gap-10 flex-1">
+                        <div class="flex-[1.5] relative rounded-[2rem] overflow-hidden group cursor-pointer bg-gray-900 min-h-[220px] reveal-up" style="transition-delay: 100ms;">
+                            <img src="https://images.unsplash.com/photo-1549465220-1a8b9238cd48?auto=format&fit=crop&w=600&q=80" alt="Goodies" class="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:scale-110 transition-all duration-1000 grayscale group-hover:grayscale-0">
+                            <div class="absolute inset-0 bg-gradient-to-t from-brand-navy to-transparent opacity-80"></div>
+                            <div class="absolute bottom-8 left-8 z-10">
+                                <h3 class="font-heading font-black text-2xl text-white uppercase tracking-tight mb-2 group-hover:text-brand-blue transition-colors">Goodies</h3>
+                                <p class="text-[9px] text-gray-400 font-bold uppercase tracking-[0.2em]">Cadeaux d'affaires</p>
+                            </div>
+                        </div>
+                        <div class="flex-1 relative rounded-[2rem] overflow-hidden group cursor-pointer bg-gray-900 min-h-[220px] reveal-up" style="transition-delay: 200ms;">
+                            <img src="https://images.unsplash.com/photo-1558485293-6c84c47df5da?auto=format&fit=crop&w=600&q=80" alt="Signalétique" class="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:scale-110 transition-all duration-1000 grayscale group-hover:grayscale-0">
+                            <div class="absolute inset-0 bg-gradient-to-t from-brand-navy to-transparent opacity-80"></div>
+                            <div class="absolute bottom-8 left-8 z-10">
+                                <h3 class="font-heading font-black text-xl text-white uppercase tracking-tight group-hover:text-brand-blue transition-colors">Signalétique</h3>
+                            </div>
+                        </div>
+                    </div>
 
-                <!-- Box Sécurité -->
-                <div class="bg-brand-light border border-gray-100 rounded-xl p-5 text-center mb-6">
-                    <p class="text-[10px] text-gray-500 leading-relaxed font-medium">
-                        Connexion sécurisée SSL. Vos données sont chiffrées et ne sont jamais partagées avec des tiers. Conformité RGPD garantie.
-                    </p>
-                </div>
-
-                <!-- Mentions Légales Formulaire -->
-                <div class="text-center">
-                    <p class="text-[9px] text-gray-400 leading-relaxed mb-1">
-                        En vous connectant, vous acceptez nos <a href="#" class="underline hover:text-gray-600">Conditions Générales d'Utilisation</a> et notre <a href="#" class="underline hover:text-gray-600">Politique de confidentialité</a>.
-                    </p>
+                    <div class="flex flex-col sm:flex-row gap-10 flex-1">
+                        <div class="flex-[1.5] relative rounded-[2rem] overflow-hidden group cursor-pointer bg-gray-900 min-h-[220px] reveal-up" style="transition-delay: 300ms;">
+                            <img src="https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&w=600&q=80" alt="Papeterie" class="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:scale-110 transition-all duration-1000 grayscale group-hover:grayscale-0">
+                            <div class="absolute inset-0 bg-gradient-to-t from-brand-navy to-transparent opacity-80"></div>
+                            <div class="absolute bottom-8 left-8 z-10">
+                                <h3 class="font-heading font-black text-2xl text-white uppercase tracking-tight group-hover:text-brand-blue transition-colors">Papeterie<br>& Print</h3>
+                            </div>
+                        </div>
+                        <div class="flex-1 relative rounded-[2rem] overflow-hidden group cursor-pointer bg-gray-900 min-h-[220px] reveal-up" style="transition-delay: 400ms;">
+                            <img src="https://images.unsplash.com/photo-1498049794561-7780e7231661?auto=format&fit=crop&w=600&q=80" alt="Tech" class="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:scale-110 transition-all duration-1000 grayscale group-hover:grayscale-0">
+                            <div class="absolute inset-0 bg-gradient-to-t from-brand-navy to-transparent opacity-80"></div>
+                            <div class="absolute bottom-8 left-8 z-10">
+                                <h3 class="font-heading font-black text-xl text-white uppercase tracking-tight group-hover:text-brand-blue transition-colors">High-Tech</h3>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
             </div>
         </div>
+    </section>
 
-        <!-- Footer Desktop Bottom Bar -->
-        <div class="hidden lg:flex items-center justify-between p-8 border-t border-gray-50 text-[9px] font-heading font-bold text-gray-400 uppercase tracking-widest">
-            <p>&copy; 2026 Bimier Solutions.</p>
-            <div class="flex gap-6">
-                <a href="#" class="hover:text-brand-navy transition-colors">Mentions légales</a>
-                <a href="#" class="hover:text-brand-navy transition-colors">CGV</a>
-                <a href="#" class="hover:text-brand-navy transition-colors">Confidentialité</a>
-                <a href="#" class="hover:text-brand-navy transition-colors">Contact</a>
+    <section class="section-py bg-brand-light">
+        <div class="max-w-[1536px] mx-auto px-6 sm:px-10">
+            
+            <div class="bg-brand-blue rounded-[3rem] p-12 md:p-24 flex flex-col lg:flex-row gap-20 relative overflow-hidden reveal-up">
+                <div class="absolute top-0 right-0 w-96 h-96 bg-white/5 rounded-full -translate-y-1/2 translate-x-1/2 blur-3xl"></div>
+                
+                <div class="w-full lg:w-[40%] relative z-10">
+                    <h2 class="font-heading font-black text-5xl sm:text-6xl uppercase text-white leading-[0.9] mb-8 tracking-tighter">
+                        Simple<br>Comme<br>
+                        <span class="text-brand-yellow">Un coup<br>De fil.</span>
+                    </h2>
+                    <p class="text-sm text-white/60 mb-12 leading-relaxed max-w-sm font-medium">
+                        Configurez vos produits, recevez un devis ACEF officiel sous 72h — sans aucun engagement.
+                    </p>
+                    <a href="CATALOGUE.html" class="btn-premium btn-premium-yellow">
+                        Commencer maintenant
+                        <div class="btn-icon-circle">
+                            <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="w-full lg:w-[60%] grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-12 relative z-10">
+                    <div class="reveal-up" style="transition-delay: 100ms;">
+                        <div class="font-heading font-black text-[80px] leading-none text-white/10 mb-4 select-none tracking-tighter">01</div>
+                        <h4 class="font-heading font-black text-xs uppercase text-white tracking-[0.2em] mb-3">Parcourez le catalogue</h4>
+                        <p class="text-[11px] text-white/50 leading-relaxed font-medium">450 références classées par catégorie et zone de métier pour les agents publics.</p>
+                    </div>
+                    <div class="reveal-up" style="transition-delay: 200ms;">
+                        <div class="font-heading font-black text-[80px] leading-none text-white/10 mb-4 select-none tracking-tighter">02</div>
+                        <h4 class="font-heading font-black text-xs uppercase text-white tracking-[0.2em] mb-3">Configurez votre marquage</h4>
+                        <p class="text-[11px] text-white/50 leading-relaxed font-medium">Sérigraphie, laser, broderie. Prix affichés en direct selon les quantités souhaitées.</p>
+                    </div>
+                    <div class="reveal-up" style="transition-delay: 300ms;">
+                        <div class="font-heading font-black text-[80px] leading-none text-white/10 mb-4 select-none tracking-tighter">03</div>
+                        <h4 class="font-heading font-black text-xs uppercase text-white tracking-[0.2em] mb-3">Générez votre pré-devis</h4>
+                        <p class="text-[11px] text-white/50 leading-relaxed font-medium">Document PDF officiel généré en un clic. Aucun paiement requis à cette étape.</p>
+                    </div>
+                    <div class="reveal-up" style="transition-delay: 400ms;">
+                        <div class="font-heading font-black text-[80px] leading-none text-brand-yellow/20 mb-4 select-none tracking-tighter">04</div>
+                        <h4 class="font-heading font-black text-xs uppercase text-brand-yellow tracking-[0.2em] mb-3">Validation sous 72h</h4>
+                        <p class="text-[11px] text-white/50 leading-relaxed font-medium">Votre conseiller BIMIER finalise l'offre avec BAT technique officiel et délais précis.</p>
+                    </div>
+                </div>
+
             </div>
         </div>
-        
-    </div>
+    </section>
 
+    <footer class="bg-brand-navy text-white pt-32 pb-16 border-t-[8px] border-brand-blue">
+        <div class="max-w-[1536px] mx-auto px-6 sm:px-10">
+            
+            <div class="flex flex-col md:flex-row items-start md:items-center justify-between border-b border-white/5 pb-20 mb-20 gap-12 reveal-up">
+                <div class="max-w-xl">
+                    <h2 class="font-heading font-black text-[clamp(2.5rem,5vw,4.5rem)] text-white uppercase mb-4 leading-[0.9] tracking-[-0.05em]">
+                        Communication<br>
+                        Par l'objet pour la<br>
+                        <span class="text-brand-yellow">Fonction Publique.</span>
+                    </h2>
+                </div>
+                <div class="md:text-right flex flex-col md:items-end">
+                    <p class="text-xs text-gray-400 mb-8 max-w-xs leading-relaxed font-medium">
+                        Catalogue réservé aux membres enregistrés. Configurez, demandez un devis, obtenez une réponse sous 72h.
+                    </p>
+                    <a href="CATALOGUE.html" class="btn-premium btn-premium-yellow">
+                        Accéder au catalogue
+                        <div class="btn-icon-circle">
+                            <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-16 mb-24 reveal-up">
+                <div>
+                    <h5 class="font-heading font-black text-[10px] text-gray-500 uppercase tracking-[0.3em] mb-8">Catalogue</h5>
+                    <ul class="space-y-4 text-xs font-bold text-gray-400">
+                        <li><a href="#" class="hover:text-white transition-colors">Textile & Vêtements</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Goodies & Accessoires</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Signalétique</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Print & Papeterie</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h5 class="font-heading font-black text-[10px] text-gray-500 uppercase tracking-[0.3em] mb-8">Informations</h5>
+                    <ul class="space-y-4 text-xs font-bold text-gray-400">
+                        <li><a href="#" class="hover:text-white transition-colors">Comment ça marche</a></li>
+                        <li><a href="QUI SOMME NOUS.html" class="hover:text-white transition-colors">À propos de BIMIER</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Conditions Générales</a></li>
+                    </ul>
+                </div>
+                <div class="col-span-2">
+                    <h5 class="font-heading font-black text-[10px] text-gray-500 uppercase tracking-[0.3em] mb-8">Contact Direct</h5>
+                    <div class="space-y-6">
+                        <p class="flex items-center gap-4 text-lg font-black text-white"><i class="fa-regular fa-envelope text-brand-blue"></i> contact@bimier.fr</p>
+                        <p class="flex items-center gap-4 text-3xl font-black text-brand-blue tracking-tighter underline underline-offset-8 decoration-white/10">0800 123 456</p>
+                        <p class="flex items-center gap-4 text-xs text-gray-500 font-bold uppercase tracking-widest"><i class="fa-regular fa-clock"></i> Lun.–Ven. 9h–18h</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pt-10 border-t border-white/5 flex flex-col sm:flex-row justify-between items-center text-[9px] text-gray-500 font-black uppercase tracking-[0.3em] reveal-up">
+                <p>&copy; 2026 Bimier Solutions. Tous droits réservés. Partenaire ACEF.</p>
+                <div class="mt-6 sm:mt-0 flex gap-8">
+                    <a href="#" class="hover:text-white transition-colors">CGV</a>
+                    <a href="#" class="hover:text-white transition-colors">Confidentialité</a>
+                    <a href="#" class="hover:text-white transition-colors">Mentions légales</a>
+                </div>
+            </div>
+
+        </div>
+    </footer>
+
+    <script>
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal-up').forEach((el) => {
+            observer.observe(el);
+        });
+    </script>
 </body>
 </html>
