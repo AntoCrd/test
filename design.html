@@ -2,7 +2,10 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<title>Antonin Cordeau — CV</title>
+<title>Antonin Cordeau — Lettre de motivation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root{
     --pink:#ef2d56;
@@ -11,796 +14,172 @@
     --ink:#111114;
     --paper:#f4f1ea;
     --line:#dcd7cb;
+    --text-sec:#6b675e;
   }
-
   *{
     box-sizing:border-box;
     -webkit-print-color-adjust:exact;
     print-color-adjust:exact;
     color-adjust:exact;
   }
-  html,body{margin:0;padding:0;}
+  html,body{ margin:0; padding:0; }
   body{
-    font-family:Arial, Helvetica, sans-serif;
+    font-family:'Inter', Arial, Helvetica, sans-serif;
     background:#dcdcdc;
     color:var(--ink);
     -webkit-font-smoothing:antialiased;
-    text-rendering:optimizeLegibility;
   }
-
-  svg{ display:block; }
 
   .page{
     width:210mm;
-    min-height:297mm;
+    height:297mm;
     margin:10mm auto;
     background:var(--paper);
     box-shadow:0 10px 40px rgba(0,0,0,.25);
-    position:relative;
     display:flex;
     flex-direction:column;
+    overflow:hidden;
   }
 
-  /* ---------- HERO ---------- */
-  .hero{
+  .head{
     background:
-      radial-gradient(600px 400px at 82% 15%, rgba(239,45,86,.35), rgba(239,45,86,0) 60%),
-      linear-gradient(150deg,#141416 0%, #0c0c0e 60%, #050506 100%);
-    color:#f4f1ea;
-    padding:9mm 12mm 9mm 12mm;
-    position:relative;
+      radial-gradient(520px 340px at 88% 8%, rgba(239,45,86,.34), rgba(239,45,86,0) 62%),
+      linear-gradient(150deg,#141416 0%, #0c0c0e 55%, #050506 100%);
+    color:var(--paper);
+    padding:13mm 16mm 11mm 16mm;
     flex-shrink:0;
   }
-
-  .ticket-badge{
-    display:inline-flex;
-    align-items:center;
-    gap:6px;
-    border:1px solid rgba(244,241,234,.35);
-    border-radius:999px;
-    padding:4px 13px;
-    font-size:6.5pt;
-    letter-spacing:1.6pt;
-    font-weight:700;
-    color:#f4f1ea;
+  .name{
+    font-family:'Anton', sans-serif;
+    font-weight:400;
+    font-size:29pt;
+    line-height:0.92;
+    text-transform:uppercase;
+    letter-spacing:0.3pt;
   }
-  .ticket-badge .dot{
-    width:6px;height:6px;border-radius:50%;
-    background:var(--pink);
-    display:inline-block;
-    flex-shrink:0;
+  .name .last{ color:var(--pink); }
+  .role{
+    margin-top:7px;
+    font-size:10.5pt;
+    color:#c9c6bd;
+    font-weight:500;
   }
-
-  .hero-top{
+  .contact-row{
+    margin-top:9mm;
     display:flex;
-    justify-content:space-between;
-    align-items:center;
-    margin-bottom:7mm;
+    gap:18px;
+    flex-wrap:wrap;
+    font-size:8.3pt;
+    color:#c9c6bd;
   }
+  .contact-row span{ display:inline-flex; align-items:center; gap:6px; }
+  .dot{ width:5px; height:5px; border-radius:50%; background:var(--pink); display:inline-block; flex-shrink:0; }
 
-  .zone-info{ display:flex; gap:18px; }
-  .zone-info .label{
-    font-size:6pt;
-    letter-spacing:1.5pt;
-    color:var(--pink);
-    font-weight:800;
-    margin-bottom:2px;
+  .body{
+    padding:13mm 16mm 8mm 16mm;
+    flex:1;
+    display:flex;
+    flex-direction:column;
+    min-height:0;
   }
-  .zone-info .value{
-    font-size:8pt;
-    letter-spacing:1pt;
-    font-weight:700;
-    color:#f4f1ea;
-    white-space:nowrap;
-  }
-
-  .hero-main{
+  .meta-row{
     display:flex;
     justify-content:space-between;
     align-items:flex-start;
-    gap:9mm;
+    font-size:9pt;
+    color:var(--text-sec);
+    padding-bottom:9mm;
+    border-bottom:1px solid var(--line);
   }
-
-  .hero-text{ flex:1; min-width:0; }
-
-  .name{
-    font-family:'Arial Narrow','Liberation Sans Narrow','Helvetica Neue Condensed',Arial,sans-serif;
-    font-weight:900;
-    font-size:41pt;
-    line-height:.94;
-    letter-spacing:-.5pt;
-    margin:0;
-  }
-  .name .last{ color:var(--pink); }
-
-  .role-row{
-    display:flex;
-    align-items:center;
-    gap:10px;
-    margin:3.5mm 0 2.5mm 0;
-    flex-wrap:wrap;
-  }
-  .role{
-    font-size:10.5pt;
-    font-weight:400;
-    color:#e9e6de;
-    letter-spacing:.2pt;
-  }
-  .available{
-    display:inline-flex;
-    align-items:center;
-    gap:5px;
-    background:var(--lime);
-    color:#1a1a1a;
-    font-size:6.5pt;
-    font-weight:800;
-    letter-spacing:.3pt;
-    padding:3px 11px 3px 7px;
-    border-radius:999px;
-    white-space:nowrap;
-  }
-  .available .pip{
-    width:5px;height:5px;border-radius:50%;
-    background:#1a1a1a;
-    display:inline-block;
-    flex-shrink:0;
-  }
-
-  .rule{
-    width:32px;
-    height:3px;
-    background:var(--pink);
-    margin:2mm 0 2mm 0;
-    border-radius:2px;
-  }
-
-  .pitch{
-    font-size:7.5pt;
-    line-height:1.55;
-    color:#c9c6bd;
-    max-width:122mm;
-    margin:0 0 3.5mm 0;
-  }
-
-  .cta{
-    display:inline-flex;
-    align-items:center;
-    gap:7px;
-    font-size:8pt;
+  .meta-row .dest{ font-weight:700; color:var(--ink); text-align:right; }
+  .object{
+    margin-top:8mm;
+    margin-bottom:8mm;
+    font-size:9.5pt;
     font-weight:700;
-    color:#f4f1ea;
-  }
-  .cta .arrow{
-    width:20px;height:20px;
-    border-radius:50%;
-    border:1.4px solid var(--pink);
-    color:var(--pink);
-    display:inline-flex;
-    align-items:center;
-    justify-content:center;
-    font-size:9pt;
-    flex-shrink:0;
-  }
-
-  .photo-wrap{
-    position:relative;
-    width:132px;
-    height:132px;
-    flex-shrink:0;
-  }
-  .photo-ring{
-    position:absolute;
-    inset:-12px;
-    border-radius:50%;
-    background:conic-gradient(from 200deg, rgba(239,45,86,.55), rgba(239,45,86,0) 70%);
-  }
-  .photo{
-    width:132px;height:132px;
-    border-radius:50%;
-    border:3px solid #1c1c1e;
-    overflow:hidden;
-    position:relative;
-  }
-  .monogram{
-    width:100%;height:100%;
-    display:flex;align-items:center;justify-content:center;
-    font-family:'Arial Narrow','Liberation Sans Narrow','Helvetica Neue Condensed',Arial,sans-serif;
-    font-weight:900;
-    font-size:38pt;
-    letter-spacing:-1pt;
-    color:var(--pink);
-    background:radial-gradient(circle at 35% 28%, #2b2b2f 0%, #131315 75%);
-  }
-
-  /* decorative stamp: simple ring + star, no exotic SVG features so it
-     renders identically everywhere (browser print, PDF export, Word) */
-  .stamp{
-    position:absolute;
-    right:14mm;
-    bottom:20mm;
-    width:60px;
-    height:60px;
-    opacity:.8;
-  }
-
-  /* ---------- floating card strip (robust overlap technique) ---------- */
-  .cards-float{
-    position:relative;
-    z-index:4;
-    margin:-7mm 12mm 0 12mm;
-    flex-shrink:0;
-  }
-  .cards-row{ display:flex; gap:8px; }
-  .card{
-    flex:1;
-    background:#131316;
-    border:1px solid rgba(244,241,234,.14);
-    border-radius:9px;
-    padding:8px 11px 9px 11px;
-    color:#f4f1ea;
-    page-break-inside:avoid;
-  }
-  .card .card-label{
-    display:flex;
-    align-items:center;
-    gap:5px;
-    font-size:5.5pt;
-    letter-spacing:1.1pt;
-    font-weight:800;
-    color:#b9b6ad;
-    margin-bottom:6px;
-    text-transform:uppercase;
-  }
-  .card .card-label svg{ color:var(--lime); width:9px; height:9px; flex-shrink:0; }
-  .card .card-title{ font-size:10.5pt; font-weight:800; margin-bottom:1px; }
-  .card .card-sub{ font-size:6.3pt; color:#a9a6a0; }
-
-  /* ---------- BODY ---------- */
-  .body-wrap{
-    padding:13mm 12mm 6mm 12mm;
-    display:grid;
-    grid-template-columns:49mm 1fr 40mm;
-    gap:7mm;
-  }
-
-  .col-title{
-    display:flex;
-    align-items:center;
-    gap:6px;
-    font-size:7pt;
-    font-weight:800;
-    letter-spacing:1.3pt;
-    color:var(--pink);
-    text-transform:uppercase;
-    margin-bottom:5px;
-  }
-  .col-title .sq{
-    width:14px;height:14px;
-    border-radius:4px;
-    background:var(--pink);
-    color:#fff;
-    display:inline-flex;
-    align-items:center;justify-content:center;
-    flex-shrink:0;
-  }
-  .col-title .sq svg{ width:9px; height:9px; }
-  .divider{ height:1px; background:var(--line); margin-bottom:7px; }
-  .section{ margin-bottom:16px; }
-  .section:last-child{ margin-bottom:0; }
-
-  .profil-text{ font-size:6.6pt; line-height:1.62; color:#4a4a48; }
-
-  .tag-cloud{ display:flex; flex-wrap:wrap; gap:4px; }
-  .tag{
-    font-size:6pt;
-    padding:3px 8px;
-    border:1px solid var(--line);
-    border-radius:999px;
-    color:#333;
-    background:#fbfaf7;
-    white-space:nowrap;
-  }
-
-  .tools-grid{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:10px 6px;
-  }
-  .tool{ text-align:center; font-size:5.5pt; color:#555; }
-  .tool .tico{
-    width:26px;height:26px;
-    border-radius:7px;
-    margin:0 auto 3px auto;
-    display:flex;align-items:center;justify-content:center;
-    font-size:9pt;
-    font-weight:800;
-    color:#fff;
-  }
-
-  /* experience timeline */
-  .exp-company{
-    position:relative;
-    padding-left:14px;
-    margin-bottom:13px;
-    border-left:2px solid #e6c3cc;
-    page-break-inside:avoid;
-  }
-  .exp-company::before{
-    content:"";
-    position:absolute;
-    left:-5px; top:2px;
-    width:8px;height:8px;
-    border-radius:50%;
-    background:var(--pink);
-    border:2px solid var(--paper);
-  }
-  .exp-co-head{ display:flex; align-items:baseline; gap:6px; margin-bottom:1px; }
-  .exp-co-head .co-name{ font-size:8pt; font-weight:800; color:#111; }
-  .exp-co-head .co-loc{ font-size:6.3pt; color:#8a8a86; font-weight:400; }
-  .exp-co-span{ font-size:5.8pt; color:var(--pink); font-weight:700; letter-spacing:.2pt; margin-bottom:9px; }
-
-  .exp-role-block{ margin-bottom:10px; }
-  .exp-role-block:last-child{ margin-bottom:0; }
-  .exp-role-head{ display:flex; align-items:baseline; gap:5px; flex-wrap:wrap; margin-bottom:2px; }
-  .exp-role-date{ font-size:5.4pt; color:#c07a8c; font-weight:700; white-space:nowrap; }
-  .exp-role-title{ font-size:6.8pt; font-weight:700; color:var(--pink-dark); }
-
-  .exp-item{
-    position:relative;
-    padding-left:14px;
-    margin-bottom:9px;
-    border-left:2px solid #e6c3cc;
-    page-break-inside:avoid;
-  }
-  .exp-item:last-of-type{ border-left-color:transparent; }
-  .exp-item::before{
-    content:"";
-    position:absolute;
-    left:-5px; top:2px;
-    width:8px;height:8px;
-    border-radius:50%;
-    background:var(--pink);
-    border:2px solid var(--paper);
-  }
-  .exp-date{ font-size:5.7pt; color:var(--pink); font-weight:700; letter-spacing:.2pt; margin-bottom:2px; }
-  .exp-role{ font-size:8pt; font-weight:800; color:#111; }
-  .exp-role .type{ font-weight:400; color:#8a8a86; font-size:6.5pt; }
-  .exp-title{ font-size:7pt; font-weight:700; color:var(--pink-dark); margin:1px 0 4px 0; }
-
-  .exp-bullets{ list-style:none; margin:0 0 5px 0; padding:0; }
-  .exp-bullets li{
-    font-size:6.2pt;
-    line-height:1.45;
-    color:#4a4a48;
-    margin-bottom:3px;
-    padding-left:9px;
-    position:relative;
-  }
-  .exp-bullets li::before{
-    content:"–";
-    position:absolute; left:0; top:0;
     color:var(--pink-dark);
-    font-weight:700;
-  }
-  .exp-bullets li:last-child{ margin-bottom:0; }
-
-  .exp-tags{ display:flex; flex-wrap:wrap; gap:4px; }
-  .exp-tags .tag{ font-size:5.3pt; padding:2px 7px; }
-
-  .exp-more{
-    margin-top:12px;
-    padding-top:10px;
-    border-top:1px dashed var(--line);
-  }
-  .exp-more-label{
-    font-size:5.6pt;
-    font-weight:800;
-    letter-spacing:1pt;
-    color:#9a9a94;
     text-transform:uppercase;
-    margin-bottom:5px;
+    letter-spacing:0.4pt;
+    border-left:3px solid var(--pink);
+    padding-left:9px;
   }
-  .exp-more-item{ font-size:6.2pt; line-height:1.5; color:#4a4a48; margin-bottom:5px; }
-  .exp-more-item:last-child{ margin-bottom:0; }
-  .exp-more-item b{ color:#222; font-weight:700; }
-  .exp-more-item .em-date{ color:var(--pink); font-weight:700; font-size:5.5pt; }
-
-  .edu-item{ margin-bottom:11px; page-break-inside:avoid; }
-  .edu-item:last-child{ margin-bottom:0; }
-  .edu-item .yr{ font-size:5.9pt; color:var(--pink); font-weight:700; margin-bottom:2px; display:flex; align-items:center; gap:5px; flex-wrap:wrap; row-gap:2px; }
-  .edu-item .deg{ font-size:7pt; font-weight:800; color:#111; line-height:1.32; }
-  .edu-item .sch{ font-size:6.1pt; color:#7a7a76; }
-  .badge-active{
-    display:inline-block;
-    background:var(--pink);
-    color:#fff;
-    font-size:4.6pt;
-    font-weight:800;
-    letter-spacing:.4pt;
-    padding:1.5px 5px;
-    border-radius:999px;
-    text-transform:uppercase;
-    white-space:nowrap;
+  .content p{
+    font-size:10.2pt;
+    line-height:1.62;
+    margin:0 0 10.5pt 0;
+    color:#2b2a28;
   }
 
-  .portfolio-box{
-    text-align:center;
-    background:#fff;
-    border:1px solid var(--line);
-    border-radius:9px;
-    padding:12px;
-    page-break-inside:avoid;
-  }
-  .portfolio-box p{ font-size:6.1pt; color:#5a5a56; line-height:1.45; margin:0 0 8px 0; }
-  .qr{ width:76px; height:76px; margin:0 auto 8px auto; display:block; }
-  .scan-btn{
-    display:inline-flex;
-    align-items:center;
-    gap:4px;
-    background:var(--lime);
-    color:#1a1a1a;
-    font-size:5.8pt;
-    font-weight:800;
-    letter-spacing:.3pt;
-    padding:5px 11px;
-    border-radius:999px;
-  }
-  .portfolio-note{ font-size:5.3pt; color:#a8a5a0; margin-top:6px; font-style:italic; }
-
-  .interest-list{ font-size:6.4pt; color:#4a4a48; margin:0; padding:0; }
-  .interest-list li{
-    list-style:none;
-    display:flex;
-    align-items:center;
-    gap:7px;
-    margin-bottom:10px;
-  }
-  .interest-list li:last-child{ margin-bottom:0; }
-  .interest-list svg{ color:var(--pink); width:9px; height:9px; flex-shrink:0; }
-
-  /* footer */
-  .footer{
-    background:#111114;
-    color:#f4f1ea;
-    padding:6mm 12mm;
+  .sign{
     margin-top:auto;
-    display:grid;
-    grid-template-columns:1fr 1.3fr 1fr;
-    gap:8mm;
-    align-items:center;
-    flex-shrink:0;
-    page-break-inside:avoid;
+    padding-top:9mm;
+    text-align:right;
   }
-  .footer .f-label{ font-size:5.5pt; letter-spacing:1.3pt; color:var(--pink); font-weight:800; margin-bottom:5px; }
-  .footer .f-line{
-    font-size:6.8pt;
+  .sign .formule{ font-size:10.2pt; color:#2b2a28; margin-bottom:14mm; max-width:100%; text-align:left; line-height:1.6; }
+  .sign .name-sig{
+    font-family:'Anton', sans-serif;
+    font-size:13pt;
+    color:var(--ink);
+    letter-spacing:0.2pt;
+  }
+
+  .foot{
+    background:var(--ink);
+    color:#a9a69d;
+    padding:6.5mm 16mm;
     display:flex;
+    justify-content:space-between;
     align-items:center;
-    gap:7px;
-    margin-bottom:4px;
-    color:#e9e6de;
-    overflow-wrap:anywhere;
+    font-size:8pt;
+    flex-shrink:0;
   }
-  .footer .f-line:last-child{ margin-bottom:0; }
-  .footer .f-ic{ color:var(--lime); width:11px; flex-shrink:0; display:inline-flex; }
-  .footer .placeholder{ color:#8f8c85; font-style:italic; }
-  .footer-cta .big{ font-size:9.5pt; font-weight:800; margin-bottom:2px; }
-  .footer-cta p{ font-size:6pt; color:#b9b6ad; margin:0; }
+  .foot b{ color:var(--paper); }
 
   @media print{
-    body{ background:#fff; }
-    .page{ margin:0; box-shadow:none; min-height:297mm; }
-    @page{ size:A4; margin:0; }
+    body{ background:none; margin:0; }
+    .page{ box-shadow:none; margin:0; }
   }
+  @page{ size:A4; margin:0; }
 </style>
 </head>
 <body>
 <div class="page">
 
-  <!-- HERO -->
-  <div class="hero">
-    <div class="hero-top">
-      <span class="ticket-badge"><span class="dot"></span>ADMIT ONE — CREATIVE PROFILE</span>
-      <div class="zone-info">
-        <div><div class="label">ZONE</div><div class="value">CREATIVE</div></div>
-        <div><div class="label">SIÈGE</div><div class="value">A01</div></div>
-        <div><div class="label">ACCÈS</div><div class="value">ALL AREAS</div></div>
-      </div>
-    </div>
-
-    <div class="hero-main">
-      <div class="hero-text">
-        <h1 class="name">Antonin<br><span class="last">Cordeau</span></h1>
-
-        <div class="role-row">
-          <span class="role">Graphiste &amp; Webdesigner UX/UI</span>
-          <span class="available"><span class="pip"></span>Disponible en CDI — sept. 2026</span>
-        </div>
-
-        <div class="rule"></div>
-
-        <p class="pitch">
-          Je conçois des identités visuelles, interfaces et expériences digitales qui captent
-          l'attention et créent de la valeur durable. Depuis 2023 chez Bimier Solutions (Angers),
-          j'ai fait évoluer mes compétences du graphisme à la conduite de projets web complets,
-          de l'idée à la mise en ligne&nbsp;: refonte du site B2B ACEF, interfaces UX/UI, animations
-          interactives et supports qui allient créativité et performance.
-        </p>
-
-        <div class="cta"><span class="arrow">→</span> Parlons de votre projet.</div>
-      </div>
-
-      <div class="photo-wrap">
-        <div class="photo-ring"></div>
-        <div class="photo">
-          <!-- Remplace ce bloc par <img src="ta-photo.jpg" style="width:100%;height:100%;object-fit:cover;"> -->
-          <div class="monogram">AC</div>
-        </div>
-      </div>
-    </div>
-
-    <svg class="stamp" viewBox="0 0 100 100">
-      <circle cx="50" cy="50" r="46" fill="none" stroke="#ef2d56" stroke-width="1.2"/>
-      <circle cx="50" cy="50" r="37" fill="none" stroke="#ef2d56" stroke-width="0.6" stroke-dasharray="2 3"/>
-      <path d="M50 29 L55.7 44.3 L71 44.3 L58.6 53.4 L63.3 68.7 L50 59.5 L36.7 68.7 L41.4 53.4 L29 44.3 L44.3 44.3 Z" fill="#ef2d56"/>
-    </svg>
-  </div>
-
-  <!-- FLOATING CARD STRIP -->
-  <div class="cards-float">
-    <div class="cards-row">
-      <div class="card">
-        <div class="card-label">
-          <svg viewBox="0 0 16 16" fill="currentColor"><circle cx="8" cy="8" r="4"/></svg>
-          DISPONIBILITÉ
-        </div>
-        <div class="card-title">CDI — Sept. 2026</div>
-        <div class="card-sub">Graphiste &amp; Webdesigner · Angers (49)</div>
-      </div>
-      <div class="card">
-        <div class="card-label">
-          <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 0l1.8 5.6H16l-4.8 3.5L12.9 15 8 11.4 3.1 15l1.7-5.9L0 5.6h6.2z"/></svg>
-          EXPÉRIENCE
-        </div>
-        <div class="card-title">Depuis 2023</div>
-        <div class="card-sub">Bimier Solutions : stage → infographiste</div>
-      </div>
-      <div class="card">
-        <div class="card-label">
-          <svg viewBox="0 0 16 16" fill="currentColor"><rect x="0" y="0" width="7" height="7" rx="1.2"/><rect x="9" y="0" width="7" height="7" rx="1.2"/><rect x="0" y="9" width="7" height="7" rx="1.2"/><rect x="9" y="9" width="7" height="7" rx="1.2"/></svg>
-          DOUBLE EXPERTISE
-        </div>
-        <div class="card-title">Print + Digital</div>
-        <div class="card-sub">Identité visuelle, UX/UI &amp; motion design</div>
-      </div>
+  <div class="head">
+    <div class="name">Antonin<br><span class="last">Cordeau</span></div>
+    <div class="role">Candidature — Alternance Marketing Digital / Acquisition</div>
+    <div class="contact-row">
+      <span><span class="dot"></span>07 88 41 18 85</span>
+      <span><span class="dot"></span>antonin.crd49@gmail.com</span>
+      <span><span class="dot"></span>Angers (49)</span>
     </div>
   </div>
 
-  <!-- BODY -->
-  <div class="body-wrap">
-
-    <!-- LEFT COLUMN -->
-    <div class="col-left">
-      <div class="section">
-        <div class="col-title">
-          <span class="sq"><svg viewBox="0 0 16 16" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round"><path d="M2 8a6 6 0 0 1 10.2-4.3M14 8a6 6 0 0 1-10.2 4.3"/><path d="M11.3 2.6v3.1h-3.1M4.7 13.4v-3.1h3.1"/></svg></span>
-          PROFIL
-        </div>
-        <div class="divider"></div>
-        <p class="profil-text">
-          Designer digital passionné, je conçois des identités visuelles, supports et interfaces
-          qui allient esthétique et efficacité. Depuis 2023 chez Bimier Solutions (Angers),
-          j'ai fait évoluer mes compétences du graphisme à la conduite de projets complets,
-          de l'idée à la mise en ligne. Bachelor Webdesign &amp; Expérience Digitale en cours
-          de validation, je recherche un poste de Graphiste / Webdesigner en CDI à partir
-          de septembre 2026.
-        </p>
-      </div>
-
-      <div class="section">
-        <div class="col-title">
-          <span class="sq"><svg viewBox="0 0 16 16" fill="none" stroke="#fff" stroke-width="1.6"><circle cx="8" cy="8" r="6.2"/><circle cx="8" cy="8" r="3"/><circle cx="8" cy="8" r="0.6" fill="#fff"/></svg></span>
-          COMPÉTENCES CLÉS
-        </div>
-        <div class="divider"></div>
-        <div class="tag-cloud">
-          <span class="tag">Design UI/UX</span>
-          <span class="tag">Webdesign</span>
-          <span class="tag">Identité Visuelle</span>
-          <span class="tag">Direction Artistique</span>
-          <span class="tag">Print &amp; Édition</span>
-          <span class="tag">Motion Design</span>
-          <span class="tag">Intégration Front-End</span>
-          <span class="tag">Gestion de Projet</span>
-        </div>
-      </div>
-
-      <div class="section">
-        <div class="col-title">
-          <span class="sq"><svg viewBox="0 0 16 16" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9.5 6.5 13 3a1.4 1.4 0 0 1 2 2l-3.5 3.5"/><path d="M6.5 9.5 3 13a1.4 1.4 0 0 0 2 2l3.5-3.5"/><path d="M2 2l5 5M14 14l-5-5"/></svg></span>
-          OUTILS
-        </div>
-        <div class="divider"></div>
-        <div class="tools-grid">
-          <div class="tool"><div class="tico" style="background:#1e1e1e">F</div>Figma</div>
-          <div class="tool"><div class="tico" style="background:#001e36">Ps</div>Photoshop</div>
-          <div class="tool"><div class="tico" style="background:#330000">Ai</div>Illustrator</div>
-          <div class="tool"><div class="tico" style="background:#480021">Id</div>InDesign</div>
-          <div class="tool"><div class="tico" style="background:#4353ff">W</div>Webflow</div>
-          <div class="tool"><div class="tico" style="background:#21759b">Wp</div>WordPress</div>
-          <div class="tool"><div class="tico" style="background:#e34c26">5</div>HTML5</div>
-          <div class="tool"><div class="tico" style="background:#264de4">3</div>CSS3</div>
-          <div class="tool"><div class="tico" style="background:#cf649a">S</div>Sass</div>
-        </div>
-      </div>
+  <div class="body">
+    <div class="meta-row">
+      <div>Angers, le 6 juillet 2026</div>
+      <div class="dest">Scope Production<br><span style="font-weight:400;color:var(--text-sec)">Angers</span></div>
     </div>
 
-    <!-- MIDDLE COLUMN -->
-    <div class="col-mid">
-      <div class="col-title">
-        <span class="sq"><svg viewBox="0 0 16 16" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="1.5" y="5" width="13" height="9" rx="1.2"/><path d="M5.5 5V3.5A1.5 1.5 0 0 1 7 2h2a1.5 1.5 0 0 1 1.5 1.5V5"/><path d="M1.5 9h13"/></svg></span>
-        EXPÉRIENCES
-      </div>
-      <div class="divider"></div>
+    <div class="object">Objet : Candidature — Alternance Marketing Digital / Acquisition</div>
 
-      <div class="exp-company">
-        <div class="exp-co-head">
-          <span class="co-name">BIMIER SOLUTIONS</span>
-          <span class="co-loc">— Angers</span>
-        </div>
-        <div class="exp-co-span">2023 — Aujourd'hui · stage → infographiste → marketing &amp; communication</div>
-
-        <div class="exp-role-block">
-          <div class="exp-role-head">
-            <span class="exp-role-date">08.2025 — Aujourd'hui</span>
-            <span class="exp-role-title">Chargé de Marketing &amp; Communication</span>
-          </div>
-          <ul class="exp-bullets">
-            <li>Pilotage de la refonte du site B2B ACEF × Bimier (catalogue, filtres, recherche instantanée), projet retenu pour la certification RNCP Niveau 6.</li>
-            <li>Conception d'une page de connexion B2B et d'une animation interactive de présentation produit (structure 3D en couches, parallax).</li>
-          </ul>
-          <div class="exp-tags">
-            <span class="tag">Webdesign</span><span class="tag">UX/UI</span>
-            <span class="tag">Motion Design</span><span class="tag">Gestion de projet</span>
-          </div>
-        </div>
-
-        <div class="exp-role-block">
-          <div class="exp-role-head">
-            <span class="exp-role-date">08.2024 — 07.2025</span>
-            <span class="exp-role-title">Infographiste</span>
-          </div>
-          <ul class="exp-bullets">
-            <li>Création de supports print &amp; digitaux pour l'univers B2B : catalogues, visuels web, déclinaisons de charte graphique.</li>
-            <li>Conception d'une section interactive présentant l'anatomie des cartes (couches et finitions).</li>
-          </ul>
-        </div>
-
-        <div class="exp-role-block">
-          <div class="exp-role-head">
-            <span class="exp-role-date">11.2023 — 12.2023</span>
-            <span class="exp-role-title">Stagiaire Graphiste</span>
-          </div>
-          <ul class="exp-bullets">
-            <li>Premier poste chez Bimier, point de départ de cette progression continue vers l'Infographie puis le Marketing &amp; Communication.</li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="exp-more">
-        <div class="exp-more-label">Expériences complémentaires</div>
-        <div class="exp-more-item">
-          <span class="em-date">2022 – 2023</span> · <b>Stagiaire Graphiste</b> — Mairie des Ponts-de-Cé &amp; Idée Bloc (agence de communication, Beaucouzé) : supports institutionnels, conception graphique multi-clients, logos, chartes.
-        </div>
-      </div>
+    <div class="content">
+      <p>Madame, Monsieur,</p>
+      <p>Une alternance pensée pour construire une activité entière plutôt que rejoindre un service déjà en place, cela ne se présente pas si souvent. C'est précisément ce qui m'a donné envie de vous écrire en découvrant votre annonce pour l'alternance Marketing Digital / Acquisition.</p>
+      <p>Depuis 2023, j'évolue chez Bimier Solutions, à Angers, où je suis entré stagiaire graphiste avant de devenir aujourd'hui Chargé de Marketing &amp; Communication en alternance. J'y gère la relation client au quotidien, la communication digitale de l'entreprise, ainsi que plusieurs projets web B2B, dont la refonte complète du site e-commerce ACEF × Bimier. Cette progression construite pas à pas m'a appris à être autonome rapidement et à prendre des initiatives, deux qualités que je retrouve directement dans votre annonce.</p>
+      <p>Je termine actuellement mon Bachelor Webdesign &amp; Expérience Digitale à MyDigitalSchool Angers, et je rejoins à la rentrée le Mastère Management Commercial &amp; Stratégie d'Entreprise à Ecofac Angers. Mon objectif est clair : ajouter une vraie dimension de pilotage et de stratégie à une expérience jusqu'ici très orientée terrain, pour être capable, à terme, de faire grandir une activité et pas seulement de l'exécuter.</p>
+      <p>Je suis par ailleurs particulièrement curieux de tout ce qui touche à l'intelligence artificielle appliquée au ciblage et à la création publicitaire, un sujet que je suis de près et qui transforme déjà les métiers de l'acquisition digitale. Basé à Angers et disponible dès septembre 2026, je serais ravi d'échanger avec vous pour vous présenter plus en détail ma motivation et la façon dont je pourrais contribuer à la construction de cette nouvelle activité.</p>
     </div>
 
-    <!-- RIGHT COLUMN -->
-    <div class="col-right">
-      <div class="section">
-        <div class="col-title">
-          <span class="sq"><svg viewBox="0 0 16 16" fill="#fff"><path d="M8 2 15 5.2 8 8.4 1 5.2 8 2z"/><path d="M3.3 6.6v3.2c0 1 2.1 2 4.7 2s4.7-1 4.7-2V6.6L8 8.4 3.3 6.6z"/><rect x="13.5" y="5.6" width="1" height="4.6"/></svg></span>
-          FORMATION
-        </div>
-        <div class="divider"></div>
-
-        <div class="edu-item">
-          <div class="yr">2025 – 2026 <span class="badge-active">En validation</span></div>
-          <div class="deg">Bachelor Webdesign &amp; Expérience Digitale</div>
-          <div class="sch">My Digital School, Angers</div>
-        </div>
-        <div class="edu-item">
-          <div class="yr">2024 – 2025</div>
-          <div class="deg">BTS Infographie</div>
-          <div class="sch">Studio M, Angers</div>
-        </div>
-        <div class="edu-item">
-          <div class="yr">2024</div>
-          <div class="deg">Bac Pro Communication Visuelle</div>
-          <div class="sch">Saint Aubin La Salle, Angers</div>
-        </div>
-      </div>
-
-      <div class="section">
-        <div class="col-title">
-          <span class="sq"><svg viewBox="0 0 16 16" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 2h4v4H2zM10 2h4v4h-4zM2 10h4v4H2z"/><path d="M10 10h1.6M10 13.6h4M13.6 10v4"/></svg></span>
-          ACCÈS PORTFOLIO
-        </div>
-        <div class="divider"></div>
-        <div class="portfolio-box">
-          <p>Découvrez mon univers et mes réalisations.</p>
-          <svg class="qr" viewBox="0 0 100 100">
-            <rect width="100" height="100" fill="#fff"/>
-            <g fill="#111">
-              <rect x="6" y="6" width="24" height="24"/>
-              <rect x="12" y="12" width="12" height="12" fill="#fff"/>
-              <rect x="16" y="16" width="4" height="4"/>
-              <rect x="70" y="6" width="24" height="24"/>
-              <rect x="76" y="12" width="12" height="12" fill="#fff"/>
-              <rect x="80" y="16" width="4" height="4"/>
-              <rect x="6" y="70" width="24" height="24"/>
-              <rect x="12" y="76" width="12" height="12" fill="#fff"/>
-              <rect x="16" y="80" width="4" height="4"/>
-              <rect x="38" y="8" width="4" height="4"/><rect x="46" y="8" width="4" height="4"/>
-              <rect x="54" y="14" width="4" height="4"/><rect x="38" y="20" width="4" height="4"/>
-              <rect x="60" y="24" width="4" height="4"/><rect x="44" y="30" width="4" height="4"/>
-              <rect x="52" y="8" width="4" height="4"/><rect x="60" y="8" width="4" height="4"/>
-              <rect x="8" y="40" width="4" height="4"/><rect x="16" y="44" width="4" height="4"/>
-              <rect x="24" y="38" width="4" height="4"/><rect x="34" y="44" width="4" height="4"/>
-              <rect x="44" y="42" width="4" height="4"/><rect x="52" y="38" width="4" height="4"/>
-              <rect x="60" y="44" width="4" height="4"/><rect x="68" y="40" width="4" height="4"/>
-              <rect x="76" y="46" width="4" height="4"/><rect x="84" y="42" width="4" height="4"/>
-              <rect x="8" y="52" width="4" height="4"/><rect x="20" y="56" width="4" height="4"/>
-              <rect x="30" y="52" width="4" height="4"/><rect x="40" y="58" width="4" height="4"/>
-              <rect x="50" y="52" width="4" height="4"/><rect x="58" y="58" width="4" height="4"/>
-              <rect x="66" y="54" width="4" height="4"/><rect x="76" y="58" width="4" height="4"/>
-              <rect x="86" y="54" width="4" height="4"/><rect x="38" y="66" width="4" height="4"/>
-              <rect x="46" y="70" width="4" height="4"/><rect x="54" y="66" width="4" height="4"/>
-              <rect x="62" y="72" width="4" height="4"/><rect x="70" y="68" width="4" height="4"/>
-              <rect x="78" y="74" width="4" height="4"/><rect x="86" y="70" width="4" height="4"/>
-              <rect x="40" y="80" width="4" height="4"/><rect x="50" y="84" width="4" height="4"/>
-              <rect x="60" y="80" width="4" height="4"/><rect x="70" y="86" width="4" height="4"/>
-              <rect x="80" y="82" width="4" height="4"/><rect x="30" y="60" width="4" height="4"/>
-              <rect x="66" y="30" width="4" height="4"/>
-            </g>
-          </svg>
-          <span class="scan-btn">→ SCANNEZ-MOI</span>
-          <div class="portfolio-note">QR décoratif — à relier à ton vrai portfolio</div>
-        </div>
-      </div>
-
-      <div class="section">
-        <div class="col-title">
-          <span class="sq"><svg viewBox="0 0 16 16" fill="#fff"><path d="M8 14 2.3 8.6C.6 7 .9 4.2 3 3.1c1.5-.8 3.2-.4 4.3.8L8 4.6l.7-.7c1.1-1.2 2.8-1.6 4.3-.8 2.1 1.1 2.4 3.9.7 5.5L8 14z"/></svg></span>
-          INTÉRÊTS
-        </div>
-        <div class="divider"></div>
-        <ul class="interest-list">
-          <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M8 14s-5.5-3.4-5.5-7.3A3.2 3.2 0 0 1 8 4.8a3.2 3.2 0 0 1 5.5 1.9C13.5 10.6 8 14 8 14z"/></svg>Hyrox &amp; Performance Hybride</li>
-          <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="2" y="3" width="12" height="9" rx="1.5"/><path d="M2 5.5h12M5 12v1.5M11 12v1.5"/><circle cx="8" cy="8" r="1.8"/></svg>IA appliquée au Design &amp; au Contenu</li>
-          <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="1.5" y="5" width="13" height="8" rx="1.5"/><path d="M4 5V3.5A1.5 1.5 0 0 1 5.5 2h5A1.5 1.5 0 0 1 12 3.5V5"/></svg>Veille Design &amp; Tendances UI</li>
-        </ul>
-      </div>
+    <div class="sign">
+      <div class="formule">Dans l'attente de vous rencontrer, je vous prie d'agréer, Madame, Monsieur, l'expression de mes salutations distinguées.</div>
+      <div class="name-sig">Antonin Cordeau</div>
     </div>
-
   </div>
 
-  <!-- FOOTER -->
-  <div class="footer">
-    <div>
-      <div class="f-label">CONTACT DIRECT</div>
-      <div class="f-line"><span class="f-ic"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M3.6 1.4 1.5 3.5c-.5.5-.6 1.3-.2 2 1 1.9 2.5 3.9 4.4 5.8 1.9 1.9 3.9 3.4 5.8 4.4.7.4 1.5.3 2-.2l2.1-2.1c.5-.5.5-1.3-.1-1.7l-2.6-2c-.4-.3-1-.3-1.4.1l-.9.9c-1.2-.7-2.3-1.6-3.3-2.6S5.2 6 4.5 4.8l.9-.9c.4-.4.4-1 .1-1.4l-2-2.6c-.4-.6-1.2-.6-1.7-.1z"/></svg></span><span class="placeholder">[ton numéro de téléphone]</span></div>
-      <div class="f-line"><span class="f-ic"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3"><rect x="1" y="3" width="14" height="10" rx="1.4"/><path d="M1.5 3.8 8 9l6.5-5.2"/></svg></span><span class="placeholder">[ton.email@exemple.com]</span></div>
-      <div class="f-line"><span class="f-ic"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M8 15S2.5 9.6 2.5 6a5.5 5.5 0 0 1 11 0C13.5 9.6 8 15 8 15z"/><circle cx="8" cy="6" r="2"/></svg></span>Angers, France (49)</div>
-    </div>
-    <div class="footer-cta">
-      <div class="big">→ Parlons de votre projet.</div>
-      <p>Réactif et disponible, je réponds sous 24h à toute prise de contact.</p>
-    </div>
-    <div>
-      <div class="f-line"><span class="f-ic"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3"><circle cx="8" cy="8" r="6.3"/><path d="M1.7 8h12.6M8 1.7c2 2.3 2 10.3 0 12.6M8 1.7c-2 2.3-2 10.3 0 12.6"/></svg></span><span class="placeholder">[ton-portfolio.com]</span></div>
-      <div class="f-line"><span class="f-ic"><svg viewBox="0 0 16 16" fill="currentColor"><rect x="0.5" y="0.5" width="15" height="15" rx="2.5"/><rect x="2.6" y="6.2" width="2.4" height="7.4" fill="#111114"/><circle cx="3.8" cy="3.4" r="1.5" fill="#111114"/><path d="M7.4 6.2h2.3v1c.5-.8 1.3-1.2 2.3-1.2 1.8 0 2.8 1.2 2.8 3.3v4.3h-2.4V9.7c0-1-.4-1.6-1.2-1.6-.9 0-1.4.6-1.4 1.7v3.8H7.4z" fill="#111114"/></svg></span><span class="placeholder">[linkedin.com/in/ton-profil]</span></div>
-    </div>
+  <div class="foot">
+    <div><b>Antonin Cordeau</b> — Graphiste &amp; Webdesigner</div>
+    <div>antonin-cordeau.mds-angers.yt/portfolio</div>
   </div>
 
 </div>
